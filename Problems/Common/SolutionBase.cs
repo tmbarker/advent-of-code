@@ -2,27 +2,23 @@ using System.Diagnostics;
 
 namespace Problems.Common;
 
-public abstract class SolutionBase
+public abstract class SolutionBase 
 {
     private const string InputsDirectoryName = "Inputs";
-    private const string DayStringFormat = "{0:D2}";
     private const string InputFilenameFormat = "{0}_{1}.txt";
     
-    protected const string ProblemNotSolvedString = "Problem not solved!";
+    public const string DayStringFormat = "{0:D2}";
+    public const string ProblemNotSolvedString = "Problem not solved!";
 
     private string FormattedDayString => string.Format(DayStringFormat, Day);
     private string InputFilename => string.Format(InputFilenameFormat, Year, FormattedDayString);
 
-    protected abstract int Year { get; }
-    protected abstract int Day { get; }
+    public abstract int Year { get; }
+    public abstract int Day { get; }
+    public abstract int Parts { get; }
 
-    public abstract string Run(int part = 0);
-    
-    private bool InputFileExists()
-    {
-        return File.Exists(GetInputFilePath());
-    }
-    
+    public abstract string Run(int part);
+
     protected void AssertInputExists()
     {
         Debug.Assert(InputFileExists(), $"Input file does not exist: {Year}-{Day}");
@@ -34,5 +30,10 @@ public abstract class SolutionBase
             AppDomain.CurrentDomain.BaseDirectory,
             InputsDirectoryName, 
             InputFilename);
+    }
+    
+    private bool InputFileExists()
+    {
+        return File.Exists(GetInputFilePath());
     }
 }

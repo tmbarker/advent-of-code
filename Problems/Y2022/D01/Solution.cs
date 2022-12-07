@@ -1,12 +1,14 @@
+using Problems.Common;
 using Problems.Y2022.Common;
 
 namespace Problems.Y2022.D01;
 
 public class Solution : SolutionBase2022
 {
-    protected override int Day => 1;
-    
-    public override string Run(int part = 0)
+    public override int Day => 1;
+    public override int Parts => 2;
+
+    public override string Run(int part)
     {
         AssertInputExists();
         
