@@ -1,10 +1,14 @@
-using Problems.Common;
 using Problems.Y2022.Common;
 
 namespace Problems.Y2022.D01;
 
+/// <summary>
+/// Calorie Counting: https://adventofcode.com/2022/day/1
+/// </summary>
 public class Solution : SolutionBase2022
 {
+    private const int NumTopElvesToSum = 3;
+    
     public override int Day => 1;
     public override int Parts => 2;
 
@@ -14,13 +18,13 @@ public class Solution : SolutionBase2022
         
         return part switch
         {
-            0 => SolvePart1().ToString(),
-            1 => SolvePart2().ToString(),
+            0 => GetMaxCalories().ToString(),
+            1 => GetMaxCalories(NumTopElvesToSum).ToString(),
             _ => ProblemNotSolvedString,
         };
     }
 
-    private int SolvePart1()
+    private int GetMaxCalories()
     {
         var lines = File.ReadAllLines(GetInputFilePath());
         var maxCalories = 0;
@@ -42,10 +46,8 @@ public class Solution : SolutionBase2022
         return Math.Max(maxCalories, currentCalories);
     }
 
-    private int SolvePart2()
+    private int GetMaxCalories(int num)
     {
-        const int numElves = 3;
-        
         var lines = File.ReadAllLines(GetInputFilePath());
         var calories = new List<int>();
         var currentCalories = 0;
@@ -67,7 +69,7 @@ public class Solution : SolutionBase2022
 
         return calories
             .OrderByDescending(c => c)
-            .Take(numElves)
+            .Take(num)
             .Sum();
     }
 }

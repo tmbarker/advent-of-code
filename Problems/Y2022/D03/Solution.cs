@@ -2,12 +2,16 @@ using Problems.Y2022.Common;
 
 namespace Problems.Y2022.D03;
 
+/// <summary>
+/// Rucksack Reorganization: https://adventofcode.com/2022/day/3
+/// </summary>
 public class Solution : SolutionBase2022
 {
     private const int AlphabetLength = 26;
+    private const int GroupSize = 3;
     
     public override int Day => 3;
-    public override int Parts => 1;
+    public override int Parts => 2;
     
     public override string Run(int part)
     {
@@ -15,50 +19,74 @@ public class Solution : SolutionBase2022
 
         return part switch
         {
-            0 => SolvePart1().ToString(),
+            0 => GetDuplicateItemPrioritySum().ToString(),
+            1 => GetBadgeItemPrioritySum().ToString(),
             _ => ProblemNotSolvedString,
         };
     }
 
-    private int SolvePart1()
+    private int GetDuplicateItemPrioritySum()
     {
-        var lines = File.ReadAllLines(GetInputFilePath());
+        var rucksacks = File.ReadAllLines(GetInputFilePath());
         var set = new HashSet<char>();
-        
-        var sum = 0;
+        var prioritySum = 0;
 
-        foreach (var line in lines)
+        foreach (var rucksack in rucksacks)
         {
-            var totalNumItems = line.Length;
+            var totalNumItems = rucksack.Length;
             var numItemsPerCompartment = totalNumItems / 2;
             
             for (var i = 0; i < totalNumItems; i++)
             {
                 if (i < numItemsPerCompartment)
                 {
-                    if (!set.Contains(line[i]))
+                    if (!set.Contains(rucksack[i]))
                     {
-                        set.Add(line[i]);   
+                        set.Add(rucksack[i]);   
                     }
                     continue;
                 }
 
-                if (!set.Contains(line[i]))
+                if (!set.Contains(rucksack[i]))
                 {
                     continue;
                 }
                 
-                set.Remove(line[i]);
-                sum += GetPriority(line[i]);
+                set.Remove(rucksack[i]);
+                prioritySum += GetItemPriority(rucksack[i]);
             }
             
             set.Clear();
         }
 
-        return sum;
+        return prioritySum;
     }
 
-    private static int GetPriority(char item)
+    private int GetBadgeItemPrioritySum()
+    {
+        var rucksacks = File.ReadAllLines(GetInputFilePath());
+        var numGroups = rucksacks.Length / GroupSize;
+
+        var badgeItemPrioritySum = 0;
+
+        for (var i = 0; i < numGroups; i++)
+        {
+            var firstRucksackInGroup = rucksacks[i * GroupSize];
+            var possibleBadgeItemSet = firstRucksackInGroup.Distinct();
+
+            for (var k = 1; k < GroupSize; k++)
+            {
+                var groupMemberRucksack = rucksacks[i * GroupSize + k];
+                possibleBadgeItemSet = possibleBadgeItemSet.Intersect(groupMemberRucksack);
+            }
+
+            badgeItemPrioritySum += GetItemPriority(possibleBadgeItemSet.Single());
+        }
+
+        return badgeItemPrioritySum;
+    }
+    
+    private static int GetItemPriority(char item)
     {
         // The uppercase letters proceed the lowercase letters in the ASCII table
         return item < 'a' ? 

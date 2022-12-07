@@ -2,6 +2,9 @@ using Problems.Y2022.Common;
 
 namespace Problems.Y2022.D02;
 
+/// <summary>
+/// Rock Paper Scissors: https://adventofcode.com/2022/day/2
+/// </summary>
 public class Solution : SolutionBase2022
 {
     private static readonly Dictionary<char, RockPaperScissorsChoice> StrategyGuideChoiceMap = new()
@@ -30,13 +33,13 @@ public class Solution : SolutionBase2022
         
         return part switch
         {
-            0 => SolvePart1().ToString(),
-            1 => SolvePart2().ToString(),
+            0 => EvaluateStrategyGuide1().ToString(),
+            1 => EvaluateStrategyGuide2().ToString(),
             _ => ProblemNotSolvedString,
         };
     }
 
-    private int SolvePart1()
+    private int EvaluateStrategyGuide1()
     {
         var lines = File.ReadAllLines(GetInputFilePath());
         var score = 0;
@@ -54,7 +57,7 @@ public class Solution : SolutionBase2022
         return score;
     }
 
-    private int SolvePart2()
+    private int EvaluateStrategyGuide2()
     {
         var lines = File.ReadAllLines(GetInputFilePath());
         var score = 0;
