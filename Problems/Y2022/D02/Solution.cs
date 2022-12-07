@@ -26,6 +26,8 @@ public class Solution : SolutionBase2022
     
     public override string Run(int part)
     {
+        AssertInputExists();
+        
         return part switch
         {
             0 => SolvePart1().ToString(),
