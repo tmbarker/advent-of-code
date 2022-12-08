@@ -2,13 +2,13 @@ namespace Problems.Y2022.D05;
 
 public static class CraneOperator
 {
-    public static StacksState ExecutePlan(CranePlan plan, CranePickupCapabilities pickupCapabilities)
+    public static StacksState ExecutePlan(CranePlan plan, CranePickupMode pickupMode)
     {
-        return pickupCapabilities switch
+        return pickupMode switch
         {
-            CranePickupCapabilities.OneAtATime => ExecutePlanOneAtATime(plan),
-            CranePickupCapabilities.ManyAtATime => ExecutePlanManyAtATime(plan),
-            _ => throw new ArgumentOutOfRangeException(nameof(pickupCapabilities), pickupCapabilities, null)
+            CranePickupMode.OneAtATime => ExecutePlanOneAtATime(plan),
+            CranePickupMode.ManyAtATime => ExecutePlanManyAtATime(plan),
+            _ => throw new ArgumentOutOfRangeException(nameof(pickupMode), pickupMode, null)
         };
     }
 

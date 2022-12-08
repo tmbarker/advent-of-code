@@ -14,22 +14,25 @@ public class Solution : SolutionBase2022
     {
         AssertInputExists();
 
+        if (!CranePlan.TryParse(File.ReadAllLines(GetInputFilePath()), out var plan))
+        {
+            return ProblemNotSolvedString;
+        }
+
         return part switch
         {
-            0 => GetTopCratesAfterPlanExecution(CranePickupCapabilities.OneAtATime),
-            1 => GetTopCratesAfterPlanExecution(CranePickupCapabilities.ManyAtATime),
+            0 => GetTopCratesAfterPlan(plan!, CranePickupMode.OneAtATime),
+            1 => GetTopCratesAfterPlan(plan!, CranePickupMode.ManyAtATime),
             _ => ProblemNotSolvedString,
         };
     }
 
-    private string GetTopCratesAfterPlanExecution(CranePickupCapabilities pickupCapabilities)
+    private static string GetTopCratesAfterPlan(CranePlan plan, CranePickupMode mode)
     {
-        return CranePlan.TryParse(File.ReadLines(GetInputFilePath()), out var cranePlan)
-            ? FormTopCratesString(CraneOperator.ExecutePlan(cranePlan!, pickupCapabilities))
-            : ProblemNotSolvedString;
+        return GetTopCrates(CraneOperator.ExecutePlan(plan, mode));
     }
-
-    private static string FormTopCratesString(StacksState state)
+    
+    private static string GetTopCrates(StacksState state)
     {
         var sb = new StringBuilder();
         foreach (var stack in state.StackMap.Values)
