@@ -1,4 +1,5 @@
 using System.Text;
+using Problems.Common;
 using Problems.Y2022.Common;
 
 namespace Problems.Y2022.D05;
@@ -16,7 +17,7 @@ public class Solution : SolutionBase2022
 
         if (!CranePlan.TryParse(File.ReadAllLines(GetInputFilePath()), out var plan))
         {
-            return ProblemNotSolvedString;
+            throw new NoSolutionException();
         }
 
         return part switch
