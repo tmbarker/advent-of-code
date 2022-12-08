@@ -12,7 +12,6 @@ public class Solution : SolutionBase2022
     private const int MessageMarkerLength = 14;
     
     public override int Day => 6;
-    public override int Parts => 2;
     
     public override string Run(int part)
     {

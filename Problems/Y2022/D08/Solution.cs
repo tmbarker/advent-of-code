@@ -5,7 +5,6 @@ namespace Problems.Y2022.D08;
 public class Solution : SolutionBase2022
 {
     public override int Day => 8;
-    public override int Parts => 2;
     
     public override string Run(int part)
     {

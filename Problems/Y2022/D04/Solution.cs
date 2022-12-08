@@ -11,7 +11,6 @@ public class Solution : SolutionBase2022
     private const char SectionDelimiter = '-';
 
     public override int Day => 4;
-    public override int Parts => 2;
     
     public override string Run(int part)
     {

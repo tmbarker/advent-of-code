@@ -12,7 +12,6 @@ public class Solution : SolutionBase2022
     private const int RequiredSpace = 30000000;
     
     public override int Day => 7;
-    public override int Parts => 2;
     
     public override string Run(int part)
     {
