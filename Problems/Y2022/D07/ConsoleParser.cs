@@ -1,6 +1,6 @@
 namespace Problems.Y2022.D07;
 
-public static class FileSystemParser
+public static class ConsoleParser
 {
     private const char ConsoleDelimiter = ' ';
     private const char PathDelimiter = '/';

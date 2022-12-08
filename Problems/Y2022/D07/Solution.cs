@@ -19,7 +19,7 @@ public class Solution : SolutionBase2022
         AssertInputExists();
 
         var consoleOutput = File.ReadAllLines(GetInputFilePath());
-        var directorySizeIndex = FileSystemParser.ConstructDirectorySizeIndex(consoleOutput);
+        var directorySizeIndex = ConsoleParser.ConstructDirectorySizeIndex(consoleOutput);
 
         return part switch
         {
@@ -39,13 +39,11 @@ public class Solution : SolutionBase2022
 
     private static int FreeUpSpace(Dictionary<string, int> directorySizeIndex, int totalSystemSpace, int requiredSpace)
     {
-        var freeSpace = totalSystemSpace - directorySizeIndex[FileSystemParser.RootDirectoryPath];
+        var freeSpace = totalSystemSpace - directorySizeIndex[ConsoleParser.RootDirectoryPath];
         var needed = requiredSpace - freeSpace;
 
-        var freed = directorySizeIndex.Values
+        return directorySizeIndex.Values
             .Where(v => v >= needed)
             .Min();
-
-        return freed;
     }
 }
