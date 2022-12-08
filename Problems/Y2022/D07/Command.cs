@@ -1,6 +1,6 @@
 namespace Problems.Y2022.D07;
 
-public enum ElfCommand
+public enum Command
 {
     Cd,
     Ls,

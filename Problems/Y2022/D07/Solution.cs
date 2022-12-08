@@ -7,9 +7,9 @@ namespace Problems.Y2022.D07;
 /// </summary>
 public class Solution : SolutionBase2022
 {
-    private const int Part1DirectorySizeThreshold = 100000;
-    private const int Part2FileSystemSpace = 70000000;
-    private const int Part2RequiredSpace = 30000000;
+    private const int DirectorySizeThreshold = 100000;
+    private const int SystemVolume = 70000000;
+    private const int RequiredSpace = 30000000;
     
     public override int Day => 7;
     public override int Parts => 2;
@@ -19,34 +19,33 @@ public class Solution : SolutionBase2022
         AssertInputExists();
 
         var consoleOutput = File.ReadAllLines(GetInputFilePath());
-        var fileSystem = ElfFileSystem.Construct(consoleOutput);
+        var directorySizeIndex = FileSystemParser.ConstructDirectorySizeIndex(consoleOutput);
 
         return part switch
         {
-            0 => SumDirectoriesUnderSize(fileSystem, Part1DirectorySizeThreshold).ToString(),
-            1 => FreeUpSpace(fileSystem, Part2FileSystemSpace, Part2RequiredSpace).ToString(),
+            0 => SumDirectoriesUnderSize(directorySizeIndex, DirectorySizeThreshold).ToString(),
+            1 => FreeUpSpace(directorySizeIndex, SystemVolume, RequiredSpace).ToString(),
             _ => ProblemNotSolvedString,
         };
     }
 
-    private static int SumDirectoriesUnderSize(ElfFileSystem fileSystem, int thresholdSize)
+    private static int SumDirectoriesUnderSize(Dictionary<string, int> directorySizeIndex, int thresholdSize)
     {
-        return fileSystem.BuildDirectorySizeIndex()
+        return directorySizeIndex
             .Values
             .Where(v => v <= thresholdSize)
             .Sum();
     }
 
-    private static int FreeUpSpace(ElfFileSystem fileSystem, int totalSystemSpace, int requiredSpace)
+    private static int FreeUpSpace(Dictionary<string, int> directorySizeIndex, int totalSystemSpace, int requiredSpace)
     {
-        var sizeIndex = fileSystem.BuildDirectorySizeIndex();
-        var freeSpace = totalSystemSpace - sizeIndex[fileSystem.RootDirectory.GetPath()];
-        var additionalSpaceNeeded = requiredSpace - freeSpace;
+        var freeSpace = totalSystemSpace - directorySizeIndex[FileSystemParser.RootDirectoryPath];
+        var needed = requiredSpace - freeSpace;
 
-        var freedSpace = sizeIndex.Values
-            .Where(v => v >= additionalSpaceNeeded)
+        var freed = directorySizeIndex.Values
+            .Where(v => v >= needed)
             .Min();
 
-        return freedSpace;
+        return freed;
     }
 }
