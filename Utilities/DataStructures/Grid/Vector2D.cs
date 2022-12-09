@@ -1,9 +1,9 @@
 namespace Utilities.DataStructures.Grid;
 
 /// <summary>
-/// A positional value type which can be used to index <see cref="Grid2D{T}"/> instances
+/// A readonly Vector value type
 /// </summary>
-public readonly struct Vector2D : IPosition2D
+public readonly struct Vector2D : IPosition2D, IEquatable<Vector2D>
 {
     private const string StringFormat = "[{0},{1}]";
 
@@ -44,16 +44,31 @@ public readonly struct Vector2D : IPosition2D
         return new Vector2D(k * rhs.X, k * rhs.Y);
     }
 
-    public static bool operator == (Vector2D lhs, Vector2D rhs)
+    public static bool operator ==(Vector2D left, Vector2D right)
     {
-        return lhs.X == rhs.X && lhs.Y == rhs.Y;
+        return left.Equals(right);
     }
 
-    public static bool operator !=(Vector2D lhs, Vector2D rhs)
+    public static bool operator !=(Vector2D left, Vector2D right)
     {
-        return !(lhs == rhs);
+        return !(left == right);
+    }
+    
+    public bool Equals(Vector2D other)
+    {
+        return X == other.X && Y == other.Y;
     }
 
+    public override bool Equals(object? obj)
+    {
+        return obj is Vector2D other && Equals(other);
+    }
+
+    public override int GetHashCode()
+    {
+        return HashCode.Combine(X, Y);
+    }
+    
     public override string ToString()
     {
         return Id;

@@ -40,7 +40,7 @@ public class Solution : SolutionBase2022
     private static int CountDistinctKnotPositions(Queue<Vector2D> movements, int numKnots)
     {
         var knots = new Vector2D[numKnots];
-        var visited = new HashSet<string>();
+        var visited = new HashSet<Vector2D>();
 
         while (movements.Count > 0)
         {
@@ -50,19 +50,17 @@ public class Solution : SolutionBase2022
             {
                 if (!knots[i].IsAdjacent(knots[i - 1]))
                 {
-                    // Compute the vector from the following knot to the leading knot
+                    // Compute the vector from the following knot to the leading knot, clamp the |movement| in X and Y
                     var delta = knots[i - 1] - knots[i];
-                    
-                    // Clamp the incremental movement in X or Y at |1|
                     var dx = Math.Clamp(delta.X, -1, 1);
                     var dy = Math.Clamp(delta.Y, -1, 1);
                     
                     knots[i] += new Vector2D(dx, dy);
                 }
             
-                if (!visited.Contains(knots[numKnots - 1].Id))
+                if (!visited.Contains(knots[numKnots - 1]))
                 {
-                    visited.Add(knots[numKnots - 1].Id);
+                    visited.Add(knots[numKnots - 1]);
                 }   
             }
         }
