@@ -18,24 +18,14 @@ public static class RockPaperScissorsHelper
 
     public static RockPaperScissorsResult Evaluate(RockPaperScissorsChoice choice, RockPaperScissorsChoice against)
     {
-        if (choice == against)
+        if ((int)choice == ((int)against + 1) % 3)
         {
-            return RockPaperScissorsResult.Draw;
+            return RockPaperScissorsResult.Win;
         }
 
-        return choice switch
-        {
-            RockPaperScissorsChoice.Rock => against == RockPaperScissorsChoice.Scissors
-                ? RockPaperScissorsResult.Win
-                : RockPaperScissorsResult.Loss,
-            RockPaperScissorsChoice.Paper => against == RockPaperScissorsChoice.Rock
-                ? RockPaperScissorsResult.Win
-                : RockPaperScissorsResult.Loss,
-            RockPaperScissorsChoice.Scissors => against == RockPaperScissorsChoice.Paper
-                ? RockPaperScissorsResult.Win
-                : RockPaperScissorsResult.Loss,
-            _ => throw new ArgumentOutOfRangeException(nameof(choice), choice, null)
-        };
+        return choice == against ? 
+            RockPaperScissorsResult.Draw : 
+            RockPaperScissorsResult.Loss;
     }
 
     public static RockPaperScissorsChoice Evaluate(RockPaperScissorsChoice against, RockPaperScissorsResult result)
@@ -45,19 +35,9 @@ public static class RockPaperScissorsHelper
             return against;
         }
 
-        return against switch
-        {
-            RockPaperScissorsChoice.Rock => result == RockPaperScissorsResult.Win
-                ? RockPaperScissorsChoice.Paper
-                : RockPaperScissorsChoice.Scissors,
-            RockPaperScissorsChoice.Paper => result == RockPaperScissorsResult.Win
-                ? RockPaperScissorsChoice.Scissors
-                : RockPaperScissorsChoice.Rock,
-            RockPaperScissorsChoice.Scissors => result == RockPaperScissorsResult.Win
-                ? RockPaperScissorsChoice.Rock
-                : RockPaperScissorsChoice.Paper,
-            _ => throw new ArgumentOutOfRangeException(nameof(against), against, null)
-        };
+        return result == RockPaperScissorsResult.Win ? 
+            (RockPaperScissorsChoice)(((int)against + 1) % 3) :
+            (RockPaperScissorsChoice)(((int)against + 2) % 3);
     }
 
     public static int Score(RockPaperScissorsChoice choice)
