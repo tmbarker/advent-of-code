@@ -15,7 +15,7 @@ public abstract class SolutionBase
 
     public abstract int Year { get; }
     public abstract int Day { get; }
-    public abstract int Parts { get; }
+    public virtual int Parts => 2;
 
     public abstract string Run(int part);
 
