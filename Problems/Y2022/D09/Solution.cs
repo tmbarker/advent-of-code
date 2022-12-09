@@ -1,5 +1,6 @@
 using Problems.Y2022.Common;
 using Utilities.DataStructures.Grid;
+using Utilities.Extensions;
 
 namespace Problems.Y2022.D09;
 
@@ -48,20 +49,12 @@ public class Solution : SolutionBase2022
             
             for (var i = 1; i < numKnots; i++)
             {
-                if (!knots[i].IsAdjacent(knots[i - 1]))
+                if (!knots[i].IsAdjacentTo(knots[i - 1]))
                 {
-                    // Compute the vector from the following knot to the leading knot, clamp the |movement| in X and Y
-                    var delta = knots[i - 1] - knots[i];
-                    var dx = Math.Clamp(delta.X, -1, 1);
-                    var dy = Math.Clamp(delta.Y, -1, 1);
-                    
-                    knots[i] += new Vector2D(dx, dy);
+                    knots[i] += Vector2D.Normalize(knots[i - 1] - knots[i]);
                 }
-            
-                if (!visited.Contains(knots[numKnots - 1]))
-                {
-                    visited.Add(knots[numKnots - 1]);
-                }   
+                
+                visited.EnsureContains(knots[numKnots - 1]); 
             }
         }
 

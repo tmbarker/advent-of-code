@@ -29,19 +29,24 @@ public readonly struct Vector2D : IPosition2D, IEquatable<Vector2D>
     {
     }
 
-    public static Vector2D operator + (Vector2D lhs, Vector2D rhs)
+    public static Vector2D operator +(Vector2D lhs, Vector2D rhs)
     {
         return new Vector2D(lhs.X + rhs.X, lhs.Y + rhs.Y);
     }
-    
-    public static Vector2D operator - (Vector2D lhs, Vector2D rhs)
+
+    public static Vector2D operator -(Vector2D lhs, Vector2D rhs)
     {
         return new Vector2D(lhs.X - rhs.X, lhs.Y - rhs.Y);
     }
 
-    public static Vector2D operator * (int k, Vector2D rhs)
+    public static Vector2D operator *(int k, Vector2D rhs)
     {
         return new Vector2D(k * rhs.X, k * rhs.Y);
+    }
+
+    public static Vector2D Normalize(Vector2D vector)
+    {
+        return new Vector2D(Math.Sign(vector.X), Math.Sign(vector.Y));
     }
 
     public static bool operator ==(Vector2D left, Vector2D right)
