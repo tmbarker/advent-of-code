@@ -44,6 +44,16 @@ public readonly struct Vector2D : IPosition2D
         return new Vector2D(k * rhs.X, k * rhs.Y);
     }
 
+    public static bool operator == (Vector2D lhs, Vector2D rhs)
+    {
+        return lhs.X == rhs.X && lhs.Y == rhs.Y;
+    }
+
+    public static bool operator !=(Vector2D lhs, Vector2D rhs)
+    {
+        return !(lhs == rhs);
+    }
+
     public override string ToString()
     {
         return Id;

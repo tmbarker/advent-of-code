@@ -12,7 +12,7 @@ public class Solution : SolutionBase2022
     private const int NumKnotsPart1 = 2;
     private const int NumKnotsPart2 = 10;
     
-    private readonly Dictionary<string, Vector2D> _vectorMap = new()
+    private static readonly Dictionary<string, Vector2D> VectorMap = new()
     {
         { "U", Vector2D.Up },
         { "D", Vector2D.Down },
@@ -70,13 +70,13 @@ public class Solution : SolutionBase2022
         return visited.Count;
     }
     
-    private Queue<Vector2D> ParseHeadMovements(IEnumerable<string> lines)
+    private static Queue<Vector2D> ParseHeadMovements(IEnumerable<string> lines)
     {
         var queue = new Queue<Vector2D>();
         foreach (var line in lines)
         {
             var cmd = line.Split(Delimiter);
-            var vector = _vectorMap[cmd[0]];
+            var vector = VectorMap[cmd[0]];
             var numMotions = int.Parse(cmd[1]);
 
             for (var i = 0; i < numMotions; i++)
