@@ -1,3 +1,5 @@
+using Utilities.Extensions;
+
 namespace Problems.Y2022.D07;
 
 public static class ConsoleParser
@@ -12,12 +14,12 @@ public static class ConsoleParser
 
     public const string RootDirectoryPath = RootCmd;
     
-    private static string? CurrentDirectory { get; set; }
+    private static Stack<string> CurrentDirectory { get; } = new ();
     private static Dictionary<string, int>? DirectorySizeIndex { get; set; }
 
     public static Dictionary<string, int> ConstructDirectorySizeIndex(IEnumerable<string> consoleOutput)
     {
-        CurrentDirectory = null;
+        CurrentDirectory.Clear();
         DirectorySizeIndex = new Dictionary<string, int>();
         
         foreach (var line in consoleOutput)
@@ -39,15 +41,20 @@ public static class ConsoleParser
 
     private static void HandleCdCommand(string arg)
     {
-        CurrentDirectory = arg switch
+        switch (arg)
         {
-            RootCmd => RootDirectoryPath,
-            // NOTE: The below null suppression warning is incorrect, this bang is needed to compile
-            // ReSharper disable once RedundantSuppressNullableWarningExpression
-            ParentCmd => CurrentDirectory![..CurrentDirectory!.LastIndexOf(PathDelimiter)],
+            case RootCmd:
+                CurrentDirectory.Clear();
+                CurrentDirectory.Push(RootDirectoryPath);
+                break;
+            case ParentCmd:
+                CurrentDirectory.Pop();
+                break;
             // Only remaining uncovered case is navigating to a subdirectory
-            _ => string.Join(PathDelimiter, CurrentDirectory, arg)
-        };
+            default:
+                CurrentDirectory.Push(arg);
+                break;
+        }
     }
 
     private static void HandleLsItem(string line)
@@ -55,25 +62,32 @@ public static class ConsoleParser
         var elements = ParseLine(line);
         if (int.TryParse(elements[0], out var filesize))
         {
-            IncrementDirectorySizeRecursive(CurrentDirectory!, filesize);
+            IncrementContainingDirectories(filesize);
         }
     }
 
-    private static void IncrementDirectorySizeRecursive(string directoryPath, int increment)
+    private static void IncrementContainingDirectories(int increment)
     {
-        if (!DirectorySizeIndex!.ContainsKey(directoryPath))
+        var history = new Stack<string>();
+        while (CurrentDirectory.Count > 0)
         {
-            DirectorySizeIndex.Add(directoryPath, 0);
+            var directoryPath = FormDirectoryPath(CurrentDirectory);
+            
+            DirectorySizeIndex!.EnsureContainsKey(directoryPath);
+            DirectorySizeIndex![directoryPath] += increment;
+
+            history.Push(CurrentDirectory.Pop());
         }
 
-        DirectorySizeIndex[directoryPath] += increment;
-
-        var lastPathDelimiter = directoryPath.LastIndexOf(PathDelimiter);
-        if (lastPathDelimiter != 0)
+        while (history.Count > 0)
         {
-            // ReSharper disable once TailRecursiveCall
-            IncrementDirectorySizeRecursive(directoryPath[..lastPathDelimiter], increment);
+            CurrentDirectory.Push(history.Pop());
         }
+    }
+
+    private static string FormDirectoryPath(IEnumerable<string> directories)
+    {
+        return string.Join(PathDelimiter, directories);
     }
     
     private static bool TryParseCommand(string line, out Command? cmd, out string? arg)
@@ -92,7 +106,7 @@ public static class ConsoleParser
             cmd = Command.Ls;
             return true;
         }
-
+        
         cmd = Command.Cd;
         arg = elements[2];
         
