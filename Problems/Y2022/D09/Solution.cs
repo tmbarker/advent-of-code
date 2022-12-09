@@ -3,6 +3,9 @@ using Utilities.DataStructures.Grid;
 
 namespace Problems.Y2022.D09;
 
+/// <summary>
+/// Rope Bridge: https://adventofcode.com/2022/day/9
+/// </summary>
 public class Solution : SolutionBase2022
 {
     private const char Delimiter = ' ';
@@ -50,9 +53,9 @@ public class Solution : SolutionBase2022
                     // Compute the vector from the following knot to the leading knot
                     var delta = knots[i - 1] - knots[i];
                     
-                    // Clamp the incremental movement in X or Y at |1|, if delta.x | delta.y is 0 it will not be changed
-                    var dx = Math.Min(Math.Max(delta.X, -1), 1);
-                    var dy = Math.Min(Math.Max(delta.Y, -1), 1);
+                    // Clamp the incremental movement in X or Y at |1|
+                    var dx = Math.Clamp(delta.X, -1, 1);
+                    var dy = Math.Clamp(delta.Y, -1, 1);
                     
                     knots[i] += new Vector2D(dx, dy);
                 }
