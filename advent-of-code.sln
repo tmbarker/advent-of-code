@@ -4,6 +4,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SolutionRunner", "SolutionR
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Problems", "Problems\Problems.csproj", "{97C2B907-6862-423E-BA08-212837F48E42}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Utilities", "Utilities\Utilities.csproj", "{8D672C9B-5553-44A7-A94B-2261973AD3ED}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,5 +20,9 @@ Global
 		{97C2B907-6862-423E-BA08-212837F48E42}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{97C2B907-6862-423E-BA08-212837F48E42}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{97C2B907-6862-423E-BA08-212837F48E42}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8D672C9B-5553-44A7-A94B-2261973AD3ED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8D672C9B-5553-44A7-A94B-2261973AD3ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8D672C9B-5553-44A7-A94B-2261973AD3ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8D672C9B-5553-44A7-A94B-2261973AD3ED}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
