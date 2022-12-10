@@ -24,25 +24,15 @@ public class Solution : SolutionBase2021
 
     private static int GetFirstWinningCardScore(Queue<int> draw, IList<BingoCard> cards)
     {
-        var numDraws = 0;
         while (draw.Count > 0)
         {
-            numDraws++;
-
-            var next = draw.Dequeue();
-            // Console.WriteLine($"Draw #{numDraws}: number => {next}");
+            var nextNumber = draw.Dequeue();
             foreach (var card in cards)
             {
-                if (card.Evaluate(next, out var score))
+                if (card.Evaluate(nextNumber, out var score))
                 {
-                    // NOTE: Uncomment if you want to print each card and see the marked squares
-                    // card.Print();
-                    Console.WriteLine($"First Win: Score => {score} [On draw #{numDraws} with '{next}']");
                     return score;
                 }
-                
-                // NOTE: Uncomment if you want to print each card and see the marked squares
-                // card.Print();
             }
         }
 
@@ -52,24 +42,18 @@ public class Solution : SolutionBase2021
     private static int GetLastWinningCardScore(Queue<int> draw, ICollection<BingoCard> cards)
     {
         var numWins = 0;
-        var numDraws = 0;
-        
         while (draw.Count > 0)
         {
-            numDraws++;
-            var next = draw.Dequeue();
-            //Console.WriteLine($"Draw #{numDraws}: number => {next}");
-            
+            var nextNumber = draw.Dequeue();
             foreach (var card in cards)
             {
-                if (!card.Evaluate(next, out var score))
+                if (card.HasWon || !card.Evaluate(nextNumber, out var score))
                 {
                     continue;
                 }
                 
                 numWins++;
-                //Console.WriteLine($"Win #{numWins}: Score => {score} [On draw #{numDraws} with '{next}']");
-                
+
                 if (numWins >= cards.Count)
                 {
                     return score;

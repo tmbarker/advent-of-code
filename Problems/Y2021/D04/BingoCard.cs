@@ -8,6 +8,8 @@ public class BingoCard
     private readonly Dictionary<int, Vector2D> _numberMap = new();
     private readonly HashSet<int> _markedNumbers = new();
 
+    public bool HasWon { get; private set; }
+    
     public BingoCard(Grid2D<int> squares)
     {
         _squares = squares;
@@ -36,6 +38,7 @@ public class BingoCard
         }
         
         score = number * SumUnmarked();
+        HasWon = true;
         return true;
 
     }
