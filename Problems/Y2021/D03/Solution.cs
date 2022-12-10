@@ -39,11 +39,11 @@ public class Solution : SolutionBase2021
         {
             if (setBitsCountMap[i] > numbers.Count / 2)
             {
-                gamma += (long)Math.Pow(2, i);
+                gamma += SetBitToDecimal(i);
             }
             else
             {
-                epsilon += (long)Math.Pow(2, i);
+                epsilon += SetBitToDecimal(i);
             }
         }
 
@@ -106,11 +106,16 @@ public class Solution : SolutionBase2021
         {
             if (IsBitSet(number, bit))
             {
-                value += (long)Math.Pow(2, bit);
+                value += SetBitToDecimal(bit);
             }
         }
 
         return value;
+    }
+
+    private static long SetBitToDecimal(int bit)
+    {
+        return (long)Math.Pow(2, bit);
     }
     
     private static int ComputeBitFrequency(IEnumerable<string> numbers, int bit)
