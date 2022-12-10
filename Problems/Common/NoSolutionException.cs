@@ -7,4 +7,8 @@ public class NoSolutionException : Exception
     public NoSolutionException() : base(NoSolutionErrorText)
     {
     }
+
+    public NoSolutionException(Exception innerException) : base(NoSolutionErrorText, innerException)
+    {
+    }
 }
