@@ -15,9 +15,7 @@ public class Solution : SolutionBase2022
     
     public override string Run(int part)
     {
-        AssertInputExists();
-
-        var consoleOutput = File.ReadAllLines(GetInputFilePath());
+        var consoleOutput = GetInput();
         var directorySizeIndex = ConsoleParser.ConstructDirectorySizeIndex(consoleOutput);
 
         return part switch

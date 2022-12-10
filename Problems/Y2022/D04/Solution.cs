@@ -13,9 +13,7 @@ public class Solution : SolutionBase2022
     public override int Day => 4;
     
     public override string Run(int part)
-    {
-        AssertInputExists();
-
+    { 
         return part switch
         {
             0 => GetNumInclusivePairs().ToString(),
@@ -26,7 +24,7 @@ public class Solution : SolutionBase2022
 
     private int GetNumInclusivePairs()
     {
-        var assignmentPairs = File.ReadLines(GetInputFilePath());
+        var assignmentPairs = GetInput();
         return assignmentPairs
             .Select(ParseAssignmentPair)
             .Count(assignments => CheckSetsForContainment(assignments.Item1, assignments.Item2));
@@ -34,7 +32,7 @@ public class Solution : SolutionBase2022
     
     private int GetNumIntersectingPairs()
     {
-        var assignmentPairs = File.ReadLines(GetInputFilePath());
+        var assignmentPairs = GetInput();
         return assignmentPairs
             .Select(ParseAssignmentPair)
             .Count(assignments => CheckSetsForIntersection(assignments.Item1, assignments.Item2));

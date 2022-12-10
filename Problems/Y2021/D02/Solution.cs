@@ -17,9 +17,8 @@ public class Solution : SolutionBase2021
     
     public override string Run(int part)
     {
-        AssertInputExists();
-
-        var instructions = ParseInstructions();
+        var instructions = ParseInstructions(GetInput());
+        
         return part switch
         {
             0 => ComputeSimplePositionProduct(instructions).ToString(),
@@ -76,11 +75,10 @@ public class Solution : SolutionBase2021
         return Math.Abs(position.X * position.Y);
     }
 
-    private IEnumerable<(string Command, int Amount)> ParseInstructions()
+    private IEnumerable<(string Command, int Amount)> ParseInstructions(IEnumerable<string> input)
     {
-        var lines = File.ReadAllLines(GetInputFilePath());
-        
-        foreach (var line in lines)
+        // ReSharper disable once LoopCanBeConvertedToQuery
+        foreach (var line in input)
         {
             var elements = line.Split(Delimiter);
             var command = elements[0];

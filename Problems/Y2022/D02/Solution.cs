@@ -28,8 +28,6 @@ public class Solution : SolutionBase2022
     
     public override string Run(int part)
     {
-        AssertInputExists();
-        
         return part switch
         {
             0 => EvaluateStrategyGuide1().ToString(),
@@ -40,7 +38,7 @@ public class Solution : SolutionBase2022
 
     private int EvaluateStrategyGuide1()
     {
-        var lines = File.ReadAllLines(GetInputFilePath());
+        var lines = GetInput();
         var score = 0;
 
         foreach (var line in lines)
@@ -58,7 +56,7 @@ public class Solution : SolutionBase2022
 
     private int EvaluateStrategyGuide2()
     {
-        var lines = File.ReadAllLines(GetInputFilePath());
+        var lines = GetInput();
         var score = 0;
 
         foreach (var line in lines)

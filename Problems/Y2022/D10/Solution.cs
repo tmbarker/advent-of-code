@@ -18,12 +18,12 @@ public class Solution : SolutionBase2022
     
     public override string Run(int part)
     {
-        AssertInputExists();
+        var instructions = ParseInstructions(GetInput());
 
         return part switch
         {
-            0 => CalculateSignalStrength(ParseInstructions(GetInput())).ToString(),
-            1 => RenderCrt(ParseInstructions(GetInput())),
+            0 => CalculateSignalStrength(instructions).ToString(),
+            1 => RenderCrt(instructions),
             _ => ProblemNotSolvedString,
         };
     }
@@ -67,11 +67,6 @@ public class Solution : SolutionBase2022
         cpu.Run(instructions);
         
         return image;
-    }
-
-    private IEnumerable<string> GetInput()
-    {
-        return File.ReadAllLines(GetInputFilePath());
     }
 
     private static IEnumerable<(Opcode Opcode, int Arg)> ParseInstructions(IEnumerable<string> lines)

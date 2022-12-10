@@ -13,8 +13,6 @@ public class Solution : SolutionBase2022
 
     public override string Run(int part)
     {
-        AssertInputExists();
-        
         return part switch
         {
             0 => GetMaxCalories().ToString(),
@@ -25,7 +23,7 @@ public class Solution : SolutionBase2022
 
     private int GetMaxCalories()
     {
-        var lines = File.ReadAllLines(GetInputFilePath());
+        var lines = GetInput();
         var maxCalories = 0;
         var currentCalories = 0;
 
@@ -47,7 +45,7 @@ public class Solution : SolutionBase2022
 
     private int GetMaxCalories(int num)
     {
-        var lines = File.ReadAllLines(GetInputFilePath());
+        var lines = GetInput();
         var calories = new List<int>();
         var currentCalories = 0;
         

@@ -15,10 +15,7 @@ public class Solution : SolutionBase2022
     
     public override string Run(int part)
     {
-        AssertInputExists();
-
-        var data = File.ReadAllLines(GetInputFilePath());
-        var trees = ParseTrees(data);
+        var trees = ParseTrees(GetInput());
         
         return part switch
         {

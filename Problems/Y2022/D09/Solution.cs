@@ -25,10 +25,7 @@ public class Solution : SolutionBase2022
     
     public override string Run(int part)
     {
-        AssertInputExists();
-
-        var lines = File.ReadAllLines(GetInputFilePath());
-        var movements = ParseHeadMovements(lines);
+        var movements = ParseHeadMovements(GetInput());
         
         return part switch
         {

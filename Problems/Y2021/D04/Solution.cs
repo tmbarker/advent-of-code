@@ -12,7 +12,6 @@ public class Solution : SolutionBase2021
     
     public override string Run(int part)
     {
-        AssertInputExists();
         BingoData.Parse(GetInput(), out var draw, out var cards);
 
         return part switch
@@ -79,10 +78,5 @@ public class Solution : SolutionBase2021
         }
 
         throw new NoSolutionException();
-    }
-
-    private string[] GetInput()
-    {
-        return File.ReadAllLines(GetInputFilePath());
     }
 }

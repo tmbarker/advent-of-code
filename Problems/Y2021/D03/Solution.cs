@@ -12,12 +12,12 @@ public class Solution : SolutionBase2021
     
     public override string Run(int part)
     {
-        AssertInputExists();
-
+        var numberStrings = GetInput();
+        
         return part switch
         {
-            0 => ComputeConsumptionRate(GetInput()).ToString(),
-            1 => ComputeLifeSupportRating(GetInput()).ToString(),
+            0 => ComputeConsumptionRate(numberStrings).ToString(),
+            1 => ComputeLifeSupportRating(numberStrings).ToString(),
             _ => ProblemNotSolvedString,
         };
     }
@@ -126,10 +126,5 @@ public class Solution : SolutionBase2021
     private static bool IsBitSet(string number, int bit)
     {
         return number[number.Length - 1 - bit] - '0' > 0;
-    }
-
-    private string[] GetInput()
-    {
-        return File.ReadAllLines(GetInputFilePath());
     }
 }

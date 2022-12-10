@@ -23,6 +23,12 @@ public abstract class SolutionBase
     {
         Debug.Assert(InputFileExists(), $"Input file does not exist: {Year}-{Day}");
     }
+
+    protected string[] GetInput()
+    {
+        AssertInputExists();
+        return File.ReadAllLines(GetInputFilePath());
+    }
     
     protected string GetInputFilePath()
     {

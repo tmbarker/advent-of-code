@@ -13,9 +13,7 @@ public class Solution : SolutionBase2022
     
     public override string Run(int part)
     {
-        AssertInputExists();
-
-        if (!CranePlan.TryParse(File.ReadAllLines(GetInputFilePath()), out var plan))
+        if (!CranePlan.TryParse(GetInput(), out var plan))
         {
             throw new NoSolutionException();
         }

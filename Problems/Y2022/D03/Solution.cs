@@ -14,8 +14,6 @@ public class Solution : SolutionBase2022
     
     public override string Run(int part)
     {
-        AssertInputExists();
-
         return part switch
         {
             0 => GetDuplicateItemPrioritySum().ToString(),
@@ -26,7 +24,7 @@ public class Solution : SolutionBase2022
 
     private int GetDuplicateItemPrioritySum()
     {
-        var rucksacks = File.ReadAllLines(GetInputFilePath());
+        var rucksacks = GetInput();
         var set = new HashSet<char>();
         var prioritySum = 0;
 
@@ -63,7 +61,7 @@ public class Solution : SolutionBase2022
 
     private int GetBadgeItemPrioritySum()
     {
-        var rucksacks = File.ReadAllLines(GetInputFilePath());
+        var rucksacks = GetInput();
         var numGroups = rucksacks.Length / GroupSize;
 
         var badgeItemPrioritySum = 0;

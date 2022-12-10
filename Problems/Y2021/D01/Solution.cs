@@ -14,9 +14,7 @@ public class Solution : SolutionBase2021
     
     public override string Run(int part)
     {
-        AssertInputExists();
-        
-        return part switch
+       return part switch
         {
             0 => CountDepthIncreases(WindowSizePart1).ToString(),
             1 => CountDepthIncreases(WindowSizePart2).ToString(),
@@ -29,7 +27,7 @@ public class Solution : SolutionBase2021
         var numIncreases = 0;
         var window = new Queue<int>(windowSize);
         
-        var depths = File.ReadAllLines(GetInputFilePath())
+        var depths = GetInput()
             .Select(int.Parse)
             .ToList();
 
