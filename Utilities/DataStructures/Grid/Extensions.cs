@@ -3,6 +3,14 @@ namespace Utilities.DataStructures.Grid;
 public static class Extensions
 {
     /// <summary>
+    /// Determine if two positions are diagonal, where they do not share a common value for either dimension
+    /// </summary>
+    public static bool IsDiagonalTo(this IPosition2D lhs, IPosition2D rhs)
+    {
+        return lhs.X != rhs.X && lhs.Y != rhs.Y;
+    }
+    
+    /// <summary>
     /// Determine if two positions are adjacent, where adjacent means the Chebyshev distance is less than or equal to 1
     /// </summary>
     public static bool IsAdjacentTo(this IPosition2D lhs, IPosition2D rhs)
