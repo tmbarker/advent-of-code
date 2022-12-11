@@ -15,8 +15,8 @@ public class Solution : SolutionBase2021
     {
         return part switch
         {
-            0 => CalculateMinCumulativeCost(a => a).ToString(),
-            1 => CalculateMinCumulativeCost(SumFirstN).ToString(),
+            0 => CalculateMinCumulativeCost(n => n).ToString(),
+            1 => CalculateMinCumulativeCost(n => n * (n + 1)/2).ToString(),
             _ => ProblemNotSolvedString,
         };
     }
@@ -36,11 +36,6 @@ public class Solution : SolutionBase2021
         }
 
         return best;
-    }
-
-    private static int SumFirstN(int n)
-    {
-        return n * (n + 1) / 2;
     }
 
     private IList<int> GetPositions()
