@@ -101,7 +101,7 @@ public partial class Grid2D<T>
         _grid = resizedGrid;
         EvaluateDimensions();
     }
-    
+
     private T Get(int x, int y)
     {
         ValidateIndices(x, y);
