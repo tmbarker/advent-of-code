@@ -1,5 +1,6 @@
 using Problems.Y2022.Common;
 using Utilities.DataStructures.Grid;
+using Utilities.Extensions;
 
 namespace Problems.Y2022.D08;
 
@@ -82,22 +83,11 @@ public class Solution : SolutionBase2022
         var max = MinHeight - 1;
         foreach (var position in positions)
         {
-            if (visible.Contains(position.Id))
-            {
-                max = Math.Max(max, trees[position]);
-                if (max >= MaxHeight)
-                {
-                    break;
-                }
-
-                continue;
-            }
-                
             var height = trees[position];
             if (height > max)
             {
                 max = height;
-                visible.Add(position.Id);
+                visible.EnsureContains(position.Id);
             }
 
             if (height >= MaxHeight)
@@ -123,11 +113,10 @@ public class Solution : SolutionBase2022
     
     private static int GetScenicScore(Grid2D<int> trees, Vector2D position)
     {
-        return 1
-               * GetViewingDistance(trees, position, Vector2D.Up)
-               * GetViewingDistance(trees, position, Vector2D.Down)
-               * GetViewingDistance(trees, position, Vector2D.Left)
-               * GetViewingDistance(trees, position, Vector2D.Right);
+        return GetViewingDistance(trees, position, Vector2D.Up) *
+               GetViewingDistance(trees, position, Vector2D.Down) *
+               GetViewingDistance(trees, position, Vector2D.Left) *
+               GetViewingDistance(trees, position, Vector2D.Right);
     }
 
     private static int GetViewingDistance(Grid2D<int> trees, Vector2D position, Vector2D viewingVector)
