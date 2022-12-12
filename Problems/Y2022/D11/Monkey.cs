@@ -2,10 +2,10 @@ namespace Problems.Y2022.D11;
 
 public readonly struct Monkey
 {
+    // TODO: Inject this value
+    private const long TestDivisorProduct = 2 * 17 * 7 * 11 * 19 * 5 * 13 * 3;
     private const int BoredDivisor = 3;
     
-    // TODO: Inject this value
-    private readonly long _testDivisorProduct = 2 * 17 * 7 * 11 * 19 * 5 * 13 * 3;
     private readonly Queue<long> _items = new ();
 
     public Operator InspectionOperator { get; init; }
@@ -42,7 +42,7 @@ public readonly struct Monkey
         }
         else
         {
-            item %= _testDivisorProduct;
+            item %= TestDivisorProduct;
         }
 
         return (item % TestDivisor == 0 ? ThrowToOnSuccess : ThrowToOnFailure, item);

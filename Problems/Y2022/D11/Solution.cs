@@ -25,7 +25,7 @@ public class Solution : SolutionBase2022
     private long QuantifyMonkeyBusiness(int rounds, bool applyBoredDivisor)
     {
         var monkeyMap = MonkeyMap.Parse(GetInput(), applyBoredDivisor);
-        var activityMap = monkeyMap.ToDictionary(kvp => kvp.Key, _ => (long)0);
+        var activityCounts = new long[monkeyMap.Count];
         var round = 0;
 
         while (round < rounds)
@@ -35,7 +35,7 @@ public class Solution : SolutionBase2022
                 while (monkeyMap[i].IsHoldingItem)
                 {
                     var (throwTo, thrownItem) = monkeyMap[i].InspectNextItem();
-                    activityMap[i]++;
+                    activityCounts[i]++;
                     monkeyMap[throwTo].CatchItem(thrownItem);
                 }
             }
@@ -43,7 +43,7 @@ public class Solution : SolutionBase2022
             round++;
         }
 
-        return activityMap.Values
+        return activityCounts
             .OrderByDescending(n => n)
             .Take(2)
             .Aggregate((first, second) => first * second);
