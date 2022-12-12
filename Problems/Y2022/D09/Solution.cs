@@ -50,9 +50,9 @@ public class Solution : SolutionBase2022
                 {
                     knots[i] += Vector2D.Normalize(knots[i - 1] - knots[i]);
                 }
-                
-                visited.EnsureContains(knots[numKnots - 1]); 
             }
+            
+            visited.EnsureContains(knots[numKnots - 1]);
         }
 
         return visited.Count;
