@@ -36,15 +36,15 @@ public class Solution : SolutionBase2022
 
     private int GetFewestStepsFromStart()
     {
-        ParseGrid(out var grid, out var start, out var end);
-
+        ParseGrid(out var grid, out var start, out var bestSignalPos);
+        
         bool MoveAllowed(char from, char to) => !(to - from > 1);
-        return GetMinDistancesMap(grid, start, MoveAllowed)[end];
+        return GetMinDistancesMap(grid, start, MoveAllowed)[bestSignalPos];
     }
 
     private int GetFewestStepsFromMinHeight()
     {
-        ParseGrid(out var grid, out _, out var end);
+        ParseGrid(out var grid, out _, out var bestSignalPos);
 
         bool MoveAllowed(char from, char to)
         {
@@ -56,8 +56,7 @@ public class Solution : SolutionBase2022
             return from - to == 1;
         }
         
-        var minDistances = GetMinDistancesMap(grid, end, MoveAllowed);
-        
+        var minDistances = GetMinDistancesMap(grid, bestSignalPos, MoveAllowed);
         var allPositions = grid.EnumerateAllPositions();
         var min = int.MaxValue;
 
