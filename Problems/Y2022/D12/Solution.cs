@@ -45,17 +45,9 @@ public class Solution : SolutionBase2022
     private int GetFewestStepsFromMinHeight()
     {
         ParseGrid(out var grid, out _, out var bestSignalPos);
-
-        bool MoveAllowed(char from, char to)
-        {
-            if (to >= from)
-            {
-                return true;
-            }
-
-            return from - to == 1;
-        }
         
+        bool MoveAllowed(char from, char to) => to >= from || from - to == 1;
+
         var minDistances = GetMinDistancesMap(grid, bestSignalPos, MoveAllowed);
         var allPositions = grid.EnumerateAllPositions();
         var min = int.MaxValue;
@@ -84,27 +76,21 @@ public class Solution : SolutionBase2022
         {
             var current = GetClosestUnvisited(distances, unvisited);
             unvisited.Remove(current);
+            
+            // Unreachable position from start
+            if (distances[current] == int.MaxValue)
+            {
+                continue;
+            }
 
             foreach (var move in MovesSet)
             {
                 var next = current + move;
-                if (!grid.IsInDomain(next))
+                if (!grid.IsInDomain(next) || !moveAllowedFunc(grid[current], grid[next]))
                 {
                     continue;
                 }
 
-                // Illegal move
-                if (!moveAllowedFunc(grid[current], grid[next]))
-                {
-                    continue;
-                }
-                
-                // Unreachable position from start
-                if (distances[current] == int.MaxValue)
-                {
-                    continue;
-                }
-                
                 var distanceViaCurrent = distances[current] + 1; 
                 if (distanceViaCurrent < distances[next])
                 {
