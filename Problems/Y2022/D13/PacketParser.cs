@@ -71,8 +71,8 @@ public static class PacketParser
                 {
                     if (listCount == 1)
                     {
-                        // We are in the first level of a list, and have hit a list delimiter, parse from the previous
-                        // list delimiter to here
+                        // We are in the first level of a list, and have hit a list delimiter, parse from just after
+                        // the previous list delimiter to here
                         list.AddIfNotNull(ParseElement(elementString[(lastDelimiter + 1)..i]));
                         lastDelimiter = i;
                     }
@@ -83,6 +83,4 @@ public static class PacketParser
 
         return new ListPacketElement(list);
     }
-    
-    
 }
