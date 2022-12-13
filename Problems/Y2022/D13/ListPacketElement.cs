@@ -7,7 +7,7 @@ public class ListPacketElement : PacketElement
 {
     private readonly List<PacketElement> _elements = new ();
     
-    public ListPacketElement(IEnumerable<PacketElement?>? elements)
+    public ListPacketElement(IEnumerable<PacketElement>? elements)
     {
         if (elements == null)
         {
@@ -16,10 +16,7 @@ public class ListPacketElement : PacketElement
         
         foreach (var element in elements!)
         {
-            if (element != null)
-            {
-                _elements.Add(element);
-            }
+            _elements.Add(element);
         }
     }
 
