@@ -28,8 +28,7 @@ public class Solution : SolutionBase2022
             .Where(pair => pair.First.CompareTo(pair.Second) < 0)
             .Sum(pair => pair.Index);
     }
-
-    // TODO: This method does not work, there is a bug somewhere in the comparator most likely
+    
     private static int CalculateDecoderKey(IEnumerable<PacketElement> packets)
     {
         var list = packets.ToList();
@@ -39,11 +38,6 @@ public class Solution : SolutionBase2022
         list.Add(divisor1);
         list.Add(divisor2);
         list.Sort();
-
-        foreach (var element in list)
-        {
-            Console.WriteLine(element);
-        }
 
         var firstIndex = list.IndexOf(divisor1);
         var secondIndex = list.IndexOf(divisor2);
