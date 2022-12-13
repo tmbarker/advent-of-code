@@ -23,4 +23,23 @@ public static class CollectionExtensions
             set.Add(item);
         }
     }
+
+    /// <summary>
+    /// Check if an <see cref="IList{T}"/> has an element at <paramref name="index"/>
+    /// </summary>
+    public static bool HasElementAtIndex<T>(this IList<T> list, int index)
+    {
+        return index >= 0 && index < list.Count;
+    }
+    
+    /// <summary>
+    /// Add <see cref="item"/> if and only if it is not null
+    /// </summary>
+    public static void AddIfNotNull<T>(this IList<T> list, T? item)
+    {
+        if (item != null)
+        {
+            list.Add(item);
+        }
+    }
 }
