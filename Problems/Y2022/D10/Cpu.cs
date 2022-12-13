@@ -4,6 +4,18 @@ namespace Problems.Y2022.D10;
 
 public class Cpu
 {
+    public readonly struct State
+    {
+        public int Cycle { get; init; }
+        public int X { get; init; }
+    }
+    
+    public enum Opcode
+    {
+        Addx = 0,
+        Noop = 1,
+    }
+    
     public event Action<State>? Ticked;
     
     private int Cycle { get; set; } = 1;

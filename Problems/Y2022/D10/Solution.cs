@@ -28,12 +28,12 @@ public class Solution : SolutionBase2022
         };
     }
 
-    private static int CalculateSignalStrength(IEnumerable<(Opcode Opcode, int Arg)> instructions)
+    private static int CalculateSignalStrength(IEnumerable<(Cpu.Opcode Opcode, int Arg)> instructions)
     {
         var cpu = new Cpu();
         var signalStrength = 0;
 
-        void OnCpuTick(State state)
+        void OnCpuTick(Cpu.State state)
         {
             if (SampleCycles.Contains(state.Cycle))
             {
@@ -47,39 +47,39 @@ public class Solution : SolutionBase2022
         return signalStrength;
     }
 
-    private static string RenderCrt(IEnumerable<(Opcode Opcode, int Arg)> instructions)
+    private static string RenderCrt(IEnumerable<(Cpu.Opcode Opcode, int Arg)> instructions)
     {
         var cpu = new Cpu();
-        var image = "\n";
+        var crtScreen = "\n";
         
-        void OnCpuTick(State state)
+        void OnCpuTick(Cpu.State state)
         {
             var pixelCol = (state.Cycle - 1) % CrtWidth;
-            image += Math.Abs(state.X - pixelCol) <= 1 ? LitPixel : DarkPixel;
+            crtScreen += Math.Abs(state.X - pixelCol) <= 1 ? LitPixel : DarkPixel;
 
             if (pixelCol == CrtWidth - 1)
             {
-                image += "\n";
+                crtScreen += "\n";
             }
         }
 
         cpu.Ticked += OnCpuTick;
         cpu.Run(instructions);
         
-        return image;
+        return crtScreen;
     }
 
-    private static IEnumerable<(Opcode Opcode, int Arg)> ParseInstructions(IEnumerable<string> lines)
+    private static IEnumerable<(Cpu.Opcode Opcode, int Arg)> ParseInstructions(IEnumerable<string> lines)
     {
         return lines.Select(ParseLine);
     }
 
-    private static (Opcode Opcode, int Arg) ParseLine(string line)
+    private static (Cpu.Opcode Opcode, int Arg) ParseLine(string line)
     {
         var elements = line.Split(InstructionDelimiter);
         return elements.Length == 1 ? 
-            (Opcode.Noop, 0) : 
-            (Opcode.Addx, int.Parse(elements[1]));
+            (Cpu.Opcode.Noop, 0) : 
+            (Cpu.Opcode.Addx, int.Parse(elements[1]));
 
     }
 }
