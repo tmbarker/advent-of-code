@@ -144,12 +144,12 @@ public class Solution : SolutionBase2021
         
         for (var i = 0; i < outputDigitSegments.Count; i++)
         {
-            var digitSignals = outputDigitSegments[outputDigitSegments.Count - 1 - i];
-            var digitSegments = digitSignals.Select(c => map[c]).ToList();
+            var outputSegments = outputDigitSegments[outputDigitSegments.Count - 1 - i];
+            var decodedSegments = outputSegments.Select(c => map[c]).ToList();
 
             foreach (var (digit, segments) in RequiredSegmentsMap)
             {
-                if (!digitSegments.All(c => segments.Contains(c)) || digitSegments.Count != segments.Count)
+                if (!decodedSegments.All(c => segments.Contains(c)) || decodedSegments.Count != segments.Count)
                 {
                     continue;
                 }
