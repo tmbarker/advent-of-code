@@ -1,4 +1,3 @@
-using System.Diagnostics.CodeAnalysis;
 using Problems.Y2022.Common;
 using Utilities.DataStructures.Grid;
 using Utilities.Extensions;
@@ -15,7 +14,7 @@ public class Solution : SolutionBase2022
     private const int FloorDelta = 2;
 
     private static readonly Vector2D SandOrigin = new(500, 0);
-    private static readonly HashSet<Vector2D> SandMovementTendencies = new()
+    private static readonly HashSet<Vector2D> FallVectors = new()
     {
         new Vector2D(0, 1),
         new Vector2D(-1, 1),
@@ -72,7 +71,7 @@ public class Solution : SolutionBase2022
             var sandMoved = false;
             
             // ReSharper disable once ForeachCanBePartlyConvertedToQueryUsingAnotherGetEnumerator
-            foreach (var movement in SandMovementTendencies)
+            foreach (var movement in FallVectors)
             {
                 if (occupiedPositions.Contains(sandPos + movement))
                 {
@@ -105,7 +104,7 @@ public class Solution : SolutionBase2022
             var sandMoved = false;
             
             // ReSharper disable once ForeachCanBePartlyConvertedToQueryUsingAnotherGetEnumerator
-            foreach (var movement in SandMovementTendencies)
+            foreach (var movement in FallVectors)
             {
                 var targetPos = sandPos + movement;
                 if (occupiedPositions.Contains(targetPos) || targetPos.Y == floorHeight)
@@ -165,7 +164,7 @@ public class Solution : SolutionBase2022
         {
             var vertices = line.Split(VertexDelimiter, StringSplitOptions.TrimEntries);
             var vectors = vertices.Select(ParseVertex).ToList();
-
+            
             yield return vectors;
         }
     }
