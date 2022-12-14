@@ -14,6 +14,18 @@ public static class CollectionExtensions
     }
 
     /// <summary>
+    /// Filter the dictionary entries so only Key-Value pairs with distinct a Value are returned
+    /// </summary>
+    public static Dictionary<TKey, TValue> FilterByDistinctValues<TKey, TValue>(this IDictionary<TKey, TValue> dictionary) where TKey : notnull
+    {
+        return dictionary
+            .GroupBy(kvp => kvp.Value)
+            .Where(g => g.Count() == 1)
+            .Select(g => g.First())
+            .ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
+    }
+
+    /// <summary>
     /// Ensure the <paramref name="set"/> contains <paramref name="item"/>
     /// </summary>
     public static void EnsureContains<T>(this ISet<T> set, T item)
