@@ -28,6 +28,17 @@ public static class Extensions
 
         return Math.Max(dx, dy);
     }
+    
+    /// <summary>
+    /// Compute the Taxicab distance, which is also known as the Manhattan distance
+    /// </summary>
+    public static int TaxicabDistance(this IPosition2D lhs, IPosition2D rhs)
+    {
+        var dx = Math.Abs(lhs.X - rhs.X);
+        var dy = Math.Abs(lhs.Y - rhs.Y);
+
+        return dx + dy;
+    }
 
     /// <summary>
     /// Print Grid contents to the console
