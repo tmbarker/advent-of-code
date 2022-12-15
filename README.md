@@ -9,7 +9,7 @@ Puzzle | My Solution | Date | Topic(s) | Difficulty
 [Rope Bridge](https://adventofcode.com/2022/day/9) | [Solution](https://github.com/tmbarker/advent-of-code/blob/main/Problems/Y2022/D09/Solution.cs) | 2022-09 | Vectors :arrow_right::heavy_plus_sign::arrow_up: | :yellow_circle: Medium
 [Cathode-Ray Tube](https://adventofcode.com/2022/day/10) | [Solution](https://github.com/tmbarker/advent-of-code/blob/main/Problems/Y2022/D10/Solution.cs) | 2022-10 | Assembly Instructions :control_knobs: | :yellow_circle: Medium
 [Seven Segment Search](https://adventofcode.com/2021/day/8) | [Solution](https://github.com/tmbarker/advent-of-code/blob/main/Problems/Y2021/D08/Solution.cs) | 2021-08 | Set Theory :o::o: | :red_circle: Hard
-[Syntax Scoring](https://adventofcode.com/2021/day/10) | [Solution](https://github.com/tmbarker/advent-of-code/blob/main/Problems/Y2021/D10/Solution.cs) | 2021-18 | String Parsing :page_facing_up::mag:	| :green_circle: Easy
+[Syntax Scoring](https://adventofcode.com/2021/day/10) | [Solution](https://github.com/tmbarker/advent-of-code/blob/main/Problems/Y2021/D10/Solution.cs) | 2021-10 | String Parsing :page_facing_up::mag:	| :green_circle: Easy
 
 
 ## Running a Solution
