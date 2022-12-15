@@ -1,4 +1,4 @@
-namespace Utilities.DataStructures.Grid;
+namespace Utilities.DataStructures.Cartesian;
 
 /// <summary>
 /// A simple  interface which can be used to index <see cref="Grid2D{T}"/> instances

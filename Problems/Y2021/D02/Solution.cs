@@ -1,5 +1,5 @@
 using Problems.Y2021.Common;
-using Utilities.DataStructures.Grid;
+using Utilities.DataStructures.Cartesian;
 
 namespace Problems.Y2021.D02;
 

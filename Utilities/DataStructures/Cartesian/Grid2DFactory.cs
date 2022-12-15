@@ -1,8 +1,7 @@
-namespace Utilities.DataStructures.Grid;
+namespace Utilities.DataStructures.Cartesian;
 
 public partial class Grid2D<T>
 {
-    
     /// <summary>
     /// Generate a <see cref="Grid2D{T}"/> instance by specifying the dimensions
     /// </summary>

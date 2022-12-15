@@ -1,7 +1,7 @@
 using System.Text.RegularExpressions;
 using Problems.Common;
 using Problems.Y2022.Common;
-using Utilities.DataStructures.Grid;
+using Utilities.DataStructures.Cartesian;
 using Utilities.Extensions;
 
 namespace Problems.Y2022.D15;
@@ -44,7 +44,7 @@ public class Solution : SolutionBase2022
         {
             var beaconPos = reporting.BeaconPos;
             var sensorPos = reporting.SensorPos;
-            var sensorRange = sensorPos.TaxicabDistance(beaconPos);
+            var sensorRange = Vector2D.TaxicabDistance(sensorPos, beaconPos);
             
             if (Math.Abs(sensorPos.Y - Row) > sensorRange)
             {
@@ -77,12 +77,12 @@ public class Solution : SolutionBase2022
         return beaconPos.X * TuningFrequencyMultiplier + beaconPos.Y;
     }
     
-    private Vector2D FindDistressBeacon(IEnumerable<Reporting> reportings)
+    private static Vector2D FindDistressBeacon(IEnumerable<Reporting> reportings)
     {
         var sensorRangeTuples = reportings.Select(r => 
         {
             var sensorPos = r.SensorPos;
-            var range = sensorPos.TaxicabDistance(r.BeaconPos);
+            var range = Vector2D.TaxicabDistance(sensorPos, r.BeaconPos);
             return (sensorPos, range);
         }).ToList();
         
@@ -97,7 +97,7 @@ public class Solution : SolutionBase2022
                 var searchPosInRangeOfSensor = false;
                 for (var j = 0; j < sensorRangeTuples.Count; j++)
                 {
-                    if (sensorRangeTuples[j].sensorPos.TaxicabDistance(searchPos) > sensorRangeTuples[j].range)
+                    if (Vector2D.TaxicabDistance(sensorRangeTuples[j].sensorPos, searchPos) > sensorRangeTuples[j].range)
                     {
                         continue;
                     }

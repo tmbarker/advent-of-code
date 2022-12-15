@@ -1,4 +1,4 @@
-using Utilities.DataStructures.Grid;
+using Utilities.DataStructures.Cartesian;
 
 namespace Problems.Y2022.D15;
 

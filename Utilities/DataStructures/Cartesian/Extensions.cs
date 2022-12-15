@@ -1,4 +1,4 @@
-namespace Utilities.DataStructures.Grid;
+namespace Utilities.DataStructures.Cartesian;
 
 public static class Extensions
 {
@@ -15,29 +15,15 @@ public static class Extensions
     /// </summary>
     public static bool IsAdjacentTo(this IPosition2D lhs, IPosition2D rhs)
     {
-        return ChebyshevDistance(lhs, rhs) <= 1;
-    }
-
-    /// <summary>
-    /// Compute the Chebyshev distance, which is also known as the Chessboard distance
-    /// </summary>
-    public static int ChebyshevDistance(this IPosition2D lhs, IPosition2D rhs)
-    {
-        var dx = Math.Abs(lhs.X - rhs.X);
-        var dy = Math.Abs(lhs.Y - rhs.Y);
-
-        return Math.Max(dx, dy);
+        return Vector2D.ChebyshevDistance(lhs, rhs) <= 1;
     }
     
     /// <summary>
-    /// Compute the Taxicab distance, which is also known as the Manhattan distance
+    /// Determine if two positions are edge adjacent, where edge adjacent means the Taxicab distance is less than or equal to 1
     /// </summary>
-    public static int TaxicabDistance(this IPosition2D lhs, IPosition2D rhs)
+    public static bool IsEdgeAdjacentTo(this IPosition2D lhs, IPosition2D rhs)
     {
-        var dx = Math.Abs(lhs.X - rhs.X);
-        var dy = Math.Abs(lhs.Y - rhs.Y);
-
-        return dx + dy;
+        return Vector2D.TaxicabDistance(lhs, rhs) <= 1;
     }
 
     /// <summary>

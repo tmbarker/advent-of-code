@@ -1,4 +1,4 @@
-namespace Utilities.DataStructures.Grid;
+namespace Utilities.DataStructures.Cartesian;
 
 /// <summary>
 /// A readonly Vector value type
@@ -8,6 +8,7 @@ public readonly struct Vector2D : IPosition2D, IEquatable<Vector2D>
     private const string StringFormat = "[{0},{1}]";
 
     public static readonly Vector2D Zero = new(0, 0);
+    public static readonly Vector2D One = new (1, 1);
     public static readonly Vector2D Up = new(0, 1);
     public static readonly Vector2D Down = new(0, -1);
     public static readonly Vector2D Left = new(-1, 0);
@@ -29,6 +30,27 @@ public readonly struct Vector2D : IPosition2D, IEquatable<Vector2D>
     {
     }
 
+    public static Vector2D Normalize(Vector2D vector)
+    {
+        return new Vector2D(Math.Sign(vector.X), Math.Sign(vector.Y));
+    }
+    
+    public static int ChebyshevDistance(IPosition2D a, IPosition2D b)
+    {
+        var dx = Math.Abs(a.X - b.X);
+        var dy = Math.Abs(a.Y - b.Y);
+
+        return Math.Max(dx, dy);
+    }
+    
+    public static int TaxicabDistance(IPosition2D a, IPosition2D b)
+    {
+        var dx = Math.Abs(a.X - b.X);
+        var dy = Math.Abs(a.Y - b.Y);
+
+        return dx + dy;
+    }
+    
     public static Vector2D operator +(Vector2D lhs, Vector2D rhs)
     {
         return new Vector2D(lhs.X + rhs.X, lhs.Y + rhs.Y);
@@ -42,11 +64,6 @@ public readonly struct Vector2D : IPosition2D, IEquatable<Vector2D>
     public static Vector2D operator *(int k, Vector2D rhs)
     {
         return new Vector2D(k * rhs.X, k * rhs.Y);
-    }
-
-    public static Vector2D Normalize(Vector2D vector)
-    {
-        return new Vector2D(Math.Sign(vector.X), Math.Sign(vector.Y));
     }
 
     public static bool operator ==(Vector2D left, Vector2D right)
