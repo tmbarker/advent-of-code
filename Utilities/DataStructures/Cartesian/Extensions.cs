@@ -27,6 +27,33 @@ public static class Extensions
     }
 
     /// <summary>
+    /// Get a set of vectors adjacent to <paramref name="vector"/>, depending on the <paramref name="metric"/> diagonally
+    /// adjacent vectors may or may not be included in the returned set
+    /// </summary>
+    public static ISet<Vector2D> GetAdjacentSet(this Vector2D vector, DistanceMetric metric)
+    {
+        var set = new HashSet<Vector2D>
+        {
+            vector + Vector2D.Up,
+            vector + Vector2D.Down, 
+            vector + Vector2D.Left,
+            vector + Vector2D.Right
+        };
+
+        if (metric != DistanceMetric.Chebyshev)
+        {
+            return set;
+        }
+        
+        set.Add(vector + new Vector2D(1, 1));
+        set.Add(vector + new Vector2D(-1, 1));
+        set.Add(vector + new Vector2D(-1, -1));
+        set.Add(vector + new Vector2D(1, -1));
+
+        return set;
+    }
+
+    /// <summary>
     /// Print Grid contents to the console
     /// </summary>
     public static void Print<T>(this Grid2D<T> grid, string title = "GRID", Func<IPosition2D, T, string>? elementFormatter = null)
@@ -55,9 +82,9 @@ public static class Extensions
     }
 
     /// <summary>
-    /// Enumerate all positions in the Grid
+    /// Get all positions in the Grid
     /// </summary>
-    public static IEnumerable<Vector2D> EnumerateAllPositions<T>(this Grid2D<T> grid)
+    public static IEnumerable<Vector2D> GetAllPositions<T>(this Grid2D<T> grid)
     {
         for (var x = 0; x < grid.Width; x++)
         for (var y = 0; y < grid.Height; y++)

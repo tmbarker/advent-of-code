@@ -49,7 +49,7 @@ public class Solution : SolutionBase2022
         bool MoveAllowed(char from, char to) => to >= from || from - to == 1;
 
         var minDistances = GetMinDistancesMap(grid, bestSignalPos, MoveAllowed);
-        var allPositions = grid.EnumerateAllPositions();
+        var allPositions = grid.GetAllPositions();
         var min = int.MaxValue;
 
         // ReSharper disable once LoopCanBeConvertedToQuery
@@ -66,7 +66,7 @@ public class Solution : SolutionBase2022
 
     private static Dictionary<Vector2D, int> GetMinDistancesMap(Grid2D<char> grid, Vector2D start, Func<char, char, bool> moveAllowedFunc)
     {
-        var allPositions = grid.EnumerateAllPositions().ToList();
+        var allPositions = grid.GetAllPositions().ToList();
         var unvisited = new HashSet<Vector2D>(allPositions);
         var distances = allPositions.ToDictionary(n => n, _ => int.MaxValue);
 
