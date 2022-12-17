@@ -11,39 +11,43 @@ public class StrategyFinder
 
     public int Run(string start, int timeLimit)
     {
-        var initialState = new StrategyState(start, timeLimit, 0, Enumerable.Empty<string>());
-        return Search(0, initialState);
+        return FindMaxFlow(timeLimit, start, new HashSet<string>());
     }
 
-    private int Search(int max, StrategyState state)
+    private int FindMaxFlow(int time, string currentValve, HashSet<string> opened)
     {
-        foreach (var valve in GetUnopenedValves(state))
+        var max = 0;
+        foreach (var nextValve in GetUnopenedValves(opened))
         {
-            var timeRemaining = state.TimeRemaining - (GetTimeToValve(state.CurrentValve, valve) + 1);
-            if (timeRemaining <= 0)
+            var travelAndOpenCost = GetTravelTime(currentValve, nextValve) + 1;
+            if (travelAndOpenCost >= time)
             {
                 continue;
             }
 
-            var nextState = new StrategyState(
-                currentValve: valve,
-                timeRemaining: timeRemaining,
-                pressureRelieved: state.PressureRelieved + _valveMap.FlowRates[valve] * timeRemaining,
-                openedValves: new HashSet<string>(state.OpenedValves) { valve });
+            var timeAtNextValve = time - travelAndOpenCost;
+            var openedValves = new HashSet<string>(opened) { nextValve };
+            var relieved = GetFlowRate(nextValve) * timeAtNextValve +
+                           FindMaxFlow(timeAtNextValve, nextValve, openedValves);
 
-            max = Math.Max(max, Search(max, nextState));
+            max = Math.Max(max, relieved);
         }
-        
-        return Math.Max(max, state.PressureRelieved);
+
+        return max;
     }
 
-    private int GetTimeToValve(string from, string to)
+    private int GetTravelTime(string from, string to)
     {
         return _valveMap.TravelTimesLookup[from][to];
     }
 
-    private IEnumerable<string> GetUnopenedValves(StrategyState state)
+    private int GetFlowRate(string valve)
     {
-        return _valveMap.Valves.Where(v => !state.OpenedValves.Contains(v));
+        return _valveMap.FlowRates[valve];
+    }
+
+    private IEnumerable<string> GetUnopenedValves(HashSet<string> opened)
+    {
+        return _valveMap.Valves.Where(v => !opened.Contains(v));
     }
 }

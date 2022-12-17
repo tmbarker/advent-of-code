@@ -46,7 +46,7 @@ public class Solution : SolutionBase2022
 
         return new ValveMap(Start, flowRates, tunnelAdjacencies);
     }
-    
+
     private static (string id, int flowRate, string[] adjacent) ParseLine(string line)
     {
         var matches = Regex.Match(line, InputRegex);
