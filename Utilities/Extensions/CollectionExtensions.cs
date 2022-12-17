@@ -33,6 +33,15 @@ public static class CollectionExtensions
         return dictionary.Where(kvp => predicate(kvp.Value))
             .ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
     }
+    
+    /// <summary>
+    /// Filter the dictionary entries using a Key Predicate
+    /// </summary>
+    public static Dictionary<TKey, TValue> WhereKeys<TKey, TValue>(this IDictionary<TKey, TValue> dictionary, Predicate<TKey> predicate) where TKey : notnull
+    {
+        return dictionary.Where(kvp => predicate(kvp.Key))
+            .ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
+    }
 
     /// <summary>
     /// Ensure the <paramref name="set"/> contains <paramref name="item"/>

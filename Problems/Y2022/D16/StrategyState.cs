@@ -1,20 +1,23 @@
 namespace Problems.Y2022.D16;
 
-public struct StrategyState
+public readonly struct StrategyState
 {
-    public StrategyState()
+    public StrategyState(string currentValve, int timeRemaining, int pressureRelieved, IEnumerable<string> openedValves)
     {
-        CurrentTime = 1;
+        CurrentValve = currentValve;
+        TimeRemaining = timeRemaining;
+        PressureRelieved = pressureRelieved;
+        OpenedValves = new HashSet<string>(openedValves);
     }
+    
+    public string CurrentValve { get; }
+    public int TimeRemaining { get; }
+    public int PressureRelieved { get; }
+    public HashSet<string> OpenedValves { get; }
 
-    public int CurrentTime { get; set; }
-    public Stack<string> Path { get; } = new();
-    public Dictionary<string, int> OpenedValves { get; } = new ();
-
-    public string CurrentValve => Path.Peek();
-
-    public bool IsValveOpened(string valve)
+    public override string ToString()
     {
-        return OpenedValves.ContainsKey(valve);
+        var openedString = OpenedValves.Count == 0 ? "/" : string.Join(',', OpenedValves);
+        return $"[V={CurrentValve}  T={TimeRemaining}  P={PressureRelieved}  O={openedString}]";
     }
 }

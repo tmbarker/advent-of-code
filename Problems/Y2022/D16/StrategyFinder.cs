@@ -2,68 +2,70 @@ namespace Problems.Y2022.D16;
 
 public class StrategyFinder
 {
-    private readonly string _start;
-    private readonly int _timeLimit;
     private readonly ValveMap _valveMap;
 
-    public event Action<Strategy>? StrategyFound;
+    public event Action<StrategyState>? StrategyFound;
     
-    public StrategyFinder(string start, int timeLimit, ValveMap valveMap)
+    public StrategyFinder(ValveMap valveMap)
     {
-        _start = start;
-        _timeLimit = timeLimit;
         _valveMap = valveMap;
     }
 
-    public void Run()
+    public void Run(string start, int timeLimit)
     {
-        var state = new StrategyState();
-        state.Path.Push(_start);
-        
-        FindStrategies(state);
+        var initialState = new StrategyState(start, timeLimit, 0, Enumerable.Empty<string>());
+        var stack = new Stack<StrategyState>(Enumerable.Repeat(initialState, 1));
+
+        FindStrategies(stack);
     }
 
-    private void FindStrategies(StrategyState strategyState)
+    private void FindStrategies(Stack<StrategyState> stateStack)
     {
-        if (IsStrategyFinished(strategyState))
+        var currentState = stateStack.Peek();
+        if (IsStrategyFinished(currentState))
         {
-            RaiseStrategyFound(new Strategy(strategyState.OpenedValves));
+            RaiseStrategyFound(stateStack.Pop());
             return;
         }
-
-        var currentValve = strategyState.CurrentValve;
-        foreach (var nextValve in GetUnopenedNonZeroValves(strategyState))
-        {
-            var timeToValve = GetTimeToValve(currentValve, nextValve);
-            strategyState.CurrentTime += timeToValve;
-            strategyState.OpenedValves[nextValve] = strategyState.CurrentTime++;
-
-            strategyState.Path.Push(nextValve);
-            FindStrategies(strategyState);
             
-            strategyState.Path.Pop();
-            strategyState.OpenedValves.Remove(nextValve);
-            strategyState.CurrentTime -= timeToValve + 1;
+        var currentValve = currentState.CurrentValve;
+        foreach (var nextValve in GetUnopenedValves(currentState))
+        {
+            var timeRemaining = currentState.TimeRemaining - (GetTimeToValve(currentValve, nextValve) + 1);
+            if (timeRemaining <= 0)
+            {
+                continue;
+            }
+            
+            stateStack.Push(new StrategyState(
+                currentValve: nextValve, 
+                timeRemaining: timeRemaining, 
+                pressureRelieved: currentState.PressureRelieved + _valveMap.FlowRates[nextValve] * timeRemaining, 
+                openedValves:  new HashSet<string>(currentState.OpenedValves) { nextValve }));
+            
+            FindStrategies(stateStack);
         }
+        
+        RaiseStrategyFound(stateStack.Pop());
     }
 
     private bool IsStrategyFinished(StrategyState state)
     {
-        return state.CurrentTime >= _timeLimit || state.OpenedValves.Count == _valveMap.NonZeroFlowRates.Count;
+        return state.TimeRemaining <= 0 || state.OpenedValves.Count == _valveMap.Valves.Count;
     }
 
     private int GetTimeToValve(string from, string to)
     {
-        return _valveMap.ValveTravelTimesLookup[from][to];
-    } 
-    
-    private IEnumerable<string> GetUnopenedNonZeroValves(StrategyState state)
-    {
-        return _valveMap.NonZeroFlowRates.Keys.Where(v => !state.IsValveOpened(v));
+        return _valveMap.TravelTimesLookup[from][to];
     }
 
-    private void RaiseStrategyFound(Strategy strategy)
+    private IEnumerable<string> GetUnopenedValves(StrategyState state)
     {
-        StrategyFound?.Invoke(strategy);
+        return _valveMap.Valves.Where(v => !state.OpenedValves.Contains(v));
+    }
+
+    private void RaiseStrategyFound(StrategyState state)
+    {
+        StrategyFound?.Invoke(state);
     }
 }

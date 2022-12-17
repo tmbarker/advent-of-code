@@ -13,6 +13,7 @@ public class Solution : SolutionBase2022
     
     private const string Start = "AA";
     private const int TimeLimitAlone = 30;
+    private const int TimeLimitHelp = 26;
 
     public override int Day => 16;
     
@@ -27,37 +28,20 @@ public class Solution : SolutionBase2022
 
     private int ComputeMaxPressureRelievedAlone(int timeLimit)
     {
-        var valveMap = ParseValveMap(GetInput());
-        var strategyFinder = new StrategyFinder(Start, timeLimit, valveMap);
-        var maxFlowRelieved = 0;
+        var strategyFinder = new StrategyFinder(ParseValveMap(GetInput()));
+        var maxRelieved = 0;
         
-        void OnStrategyFound(Strategy strategy)
+        void OnStrategyFound(StrategyState strategy)
         {
-            var flowRelieved = EvaluateStrategy(strategy, timeLimit, valveMap.FlowRates);
-            maxFlowRelieved = Math.Max(maxFlowRelieved, flowRelieved);
+            maxRelieved = Math.Max(maxRelieved, strategy.PressureRelieved);
         }
 
         strategyFinder.StrategyFound += OnStrategyFound;
-        strategyFinder.Run();
+        strategyFinder.Run(Start, timeLimit);
 
-        return maxFlowRelieved;
+        return maxRelieved;
     }
 
-    private static int EvaluateStrategy(Strategy s, int timeLimit, IReadOnlyDictionary<string, int> flowRates)
-    {
-        var total = 0;
-        foreach (var (valve, openedAt) in s.ValveOpeningTimings)
-        {
-            total += GetValveContribution(flowRates[valve], openedAt, timeLimit);
-        }
-        return total;;
-    }
-
-    private static int GetValveContribution(int flowRate, int openedAt, int timeLimit)
-    {
-        return flowRate * (timeLimit - openedAt);
-    }
-    
     private static ValveMap ParseValveMap(IEnumerable<string> input)
     {
         var flowRates = new Dictionary<string, int>();
@@ -70,7 +54,7 @@ public class Solution : SolutionBase2022
             tunnelAdjacencies.Add(id, new HashSet<string>(adjacent));
         }
 
-        return new ValveMap(flowRates, tunnelAdjacencies);
+        return new ValveMap(Start, flowRates, tunnelAdjacencies);
     }
     
     private static (string id, int flowRate, string[] adjacent) ParseLine(string line)
