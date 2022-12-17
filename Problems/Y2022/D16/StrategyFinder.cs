@@ -4,54 +4,37 @@ public class StrategyFinder
 {
     private readonly ValveMap _valveMap;
 
-    public event Action<StrategyState>? StrategyFound;
-    
     public StrategyFinder(ValveMap valveMap)
     {
         _valveMap = valveMap;
     }
 
-    public void Run(string start, int timeLimit)
+    public int Run(string start, int timeLimit)
     {
         var initialState = new StrategyState(start, timeLimit, 0, Enumerable.Empty<string>());
-        var stack = new Stack<StrategyState>(Enumerable.Repeat(initialState, 1));
-
-        FindStrategies(stack);
+        return Search(0, initialState);
     }
 
-    private void FindStrategies(Stack<StrategyState> stateStack)
+    private int Search(int max, StrategyState state)
     {
-        var currentState = stateStack.Peek();
-        if (IsStrategyFinished(currentState))
+        foreach (var valve in GetUnopenedValves(state))
         {
-            RaiseStrategyFound(stateStack.Pop());
-            return;
-        }
-            
-        var currentValve = currentState.CurrentValve;
-        foreach (var nextValve in GetUnopenedValves(currentState))
-        {
-            var timeRemaining = currentState.TimeRemaining - (GetTimeToValve(currentValve, nextValve) + 1);
+            var timeRemaining = state.TimeRemaining - (GetTimeToValve(state.CurrentValve, valve) + 1);
             if (timeRemaining <= 0)
             {
                 continue;
             }
-            
-            stateStack.Push(new StrategyState(
-                currentValve: nextValve, 
-                timeRemaining: timeRemaining, 
-                pressureRelieved: currentState.PressureRelieved + _valveMap.FlowRates[nextValve] * timeRemaining, 
-                openedValves:  new HashSet<string>(currentState.OpenedValves) { nextValve }));
-            
-            FindStrategies(stateStack);
+
+            var nextState = new StrategyState(
+                currentValve: valve,
+                timeRemaining: timeRemaining,
+                pressureRelieved: state.PressureRelieved + _valveMap.FlowRates[valve] * timeRemaining,
+                openedValves: new HashSet<string>(state.OpenedValves) { valve });
+
+            max = Math.Max(max, Search(max, nextState));
         }
         
-        RaiseStrategyFound(stateStack.Pop());
-    }
-
-    private bool IsStrategyFinished(StrategyState state)
-    {
-        return state.TimeRemaining <= 0 || state.OpenedValves.Count == _valveMap.Valves.Count;
+        return Math.Max(max, state.PressureRelieved);
     }
 
     private int GetTimeToValve(string from, string to)
@@ -62,10 +45,5 @@ public class StrategyFinder
     private IEnumerable<string> GetUnopenedValves(StrategyState state)
     {
         return _valveMap.Valves.Where(v => !state.OpenedValves.Contains(v));
-    }
-
-    private void RaiseStrategyFound(StrategyState state)
-    {
-        StrategyFound?.Invoke(state);
     }
 }

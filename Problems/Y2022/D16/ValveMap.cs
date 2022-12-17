@@ -5,7 +5,7 @@ namespace Problems.Y2022.D16;
 
 public class ValveMap
 {
-    public ICollection<string> Valves => FlowRates.Keys;
+    public IEnumerable<string> Valves => FlowRates.Keys;
     public Dictionary<string, int> FlowRates { get; }
     public Dictionary<string, Dictionary<string, int>> TravelTimesLookup { get; }
 

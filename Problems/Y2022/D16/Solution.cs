@@ -29,17 +29,7 @@ public class Solution : SolutionBase2022
     private int ComputeMaxPressureRelievedAlone(int timeLimit)
     {
         var strategyFinder = new StrategyFinder(ParseValveMap(GetInput()));
-        var maxRelieved = 0;
-        
-        void OnStrategyFound(StrategyState strategy)
-        {
-            maxRelieved = Math.Max(maxRelieved, strategy.PressureRelieved);
-        }
-
-        strategyFinder.StrategyFound += OnStrategyFound;
-        strategyFinder.Run(Start, timeLimit);
-
-        return maxRelieved;
+        return strategyFinder.Run(Start, timeLimit);
     }
 
     private static ValveMap ParseValveMap(IEnumerable<string> input)
