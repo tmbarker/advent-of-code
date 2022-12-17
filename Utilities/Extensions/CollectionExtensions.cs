@@ -24,6 +24,15 @@ public static class CollectionExtensions
             .Select(g => g.First())
             .ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
     }
+    
+    /// <summary>
+    /// Filter the dictionary entries using a Value Predicate
+    /// </summary>
+    public static Dictionary<TKey, TValue> WhereValues<TKey, TValue>(this IDictionary<TKey, TValue> dictionary, Predicate<TValue> predicate) where TKey : notnull
+    {
+        return dictionary.Where(kvp => predicate(kvp.Value))
+            .ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
+    }
 
     /// <summary>
     /// Ensure the <paramref name="set"/> contains <paramref name="item"/>
