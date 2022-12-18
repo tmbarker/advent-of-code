@@ -10,11 +10,12 @@ namespace Problems.Y2022.D17;
 /// </summary>
 public class Solution : SolutionBase2022
 {
-    private const int ChamberWidth = 7;
     private const long NumRocksPart1 = 2022;
     private const long NumRocksPart2 = 1000000000000;
     private const long CycleFindSeed = 5000;
+    
     private const int WarmupDuration = 500;
+    private const int ChamberWidth = 7;
     private const int SpawnHeight = 3;
     private const int SpawnOffset = 2;
     
@@ -84,21 +85,20 @@ public class Solution : SolutionBase2022
 
         for (var i = 0; i < numRocks; i++)
         {
-            AddRock(
+            AddRockAndMeasure(
                 rock: RockSource.Get(i), 
                 pos: new Vector2D(SpawnOffset, rockPileHeight + SpawnHeight + 1), 
                 rockPile: rockPile, 
                 jetPattern: jetPattern);
-
-            var newHeight = rockPile.Max(r => r.Y);
-            heightDeltas.Add(newHeight - rockPileHeight);
-            rockPileHeight = newHeight;
+            
+            heightDeltas.Add(rockPile.Max(r => r.Y) - rockPileHeight);
+            rockPileHeight += heightDeltas.Last();
         }
 
-        return rockPile.Max(r => r.Y);
+        return rockPileHeight;
     }
 
-    private static void AddRock(Rock rock, Vector2D pos, HashSet<Vector2D> rockPile, JetPattern jetPattern)
+    private static void AddRockAndMeasure(Rock rock, Vector2D pos, HashSet<Vector2D> rockPile, JetPattern jetPattern)
     {
         while (true)
         {
