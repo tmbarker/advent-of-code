@@ -71,7 +71,7 @@ public class Solution : SolutionBase2022
         var calculateNaive = numRocks % cycleLength;
         var numCycles = (numRocks - calculateNaive) / cycleLength;
         
-        return numCycles * cycleHeight + GetHeightNaive(numRocks % cycleLength, out _);
+        return numCycles * cycleHeight + GetHeightNaive(calculateNaive, out _);
     }
     
     private long GetHeightNaive(long numRocks, out List<int> heightDeltas)
