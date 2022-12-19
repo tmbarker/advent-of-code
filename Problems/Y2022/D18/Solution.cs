@@ -58,9 +58,7 @@ public class Solution : SolutionBase2022
         
         while (queue.Count > 0)
         {
-            var pos = queue.Dequeue();
-
-            foreach (var adj in pos.GetAdjacentSet(DistanceMetric.Taxicab))
+            foreach (var adj in queue.Dequeue().GetAdjacentSet(DistanceMetric.Taxicab))
             {
                 if (elementsSet.Contains(adj) || boundingSet.Contains(adj) || !IsBoundedInclusive(adj, lBound, uBound))
                 {
