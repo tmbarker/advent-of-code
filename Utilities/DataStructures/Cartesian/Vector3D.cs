@@ -35,6 +35,11 @@ public readonly struct Vector3D : IEquatable<Vector3D>
         return new Vector3D(Math.Sign(vector.X), Math.Sign(vector.Y), Math.Sign(vector.Z));
     }
 
+    public int Dot(Vector3D other)
+    {
+        return X * other.X + Y * other.Y + Z * other.Z;
+    }
+    
     public static Vector3D operator +(Vector3D lhs, Vector3D rhs)
     {
         return new Vector3D(lhs.X + rhs.X, lhs.Y + rhs.Y, lhs.Z + rhs.Z);

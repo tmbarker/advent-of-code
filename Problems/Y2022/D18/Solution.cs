@@ -10,7 +10,7 @@ public class Solution : SolutionBase2022
 {
     private const char Delimiter = ',';
     private const int CubeFaces = 6;
-    
+
     public override int Day => 18;
     
     public override string Run(int part)
@@ -18,23 +18,82 @@ public class Solution : SolutionBase2022
         var surfaceVectors = ParseSurfaceVectors(GetInput());
         return part switch
         {
-            0 => ComputeSurfaceArea(surfaceVectors).ToString(),
+            0 => ComputeTotalSurfaceArea(surfaceVectors).ToString(),
+            1 => ComputeExteriorSurfaceArea(surfaceVectors).ToString(),
             _ => ProblemNotSolvedString,
         };
     }
 
-    private static int ComputeSurfaceArea(IEnumerable<Vector3D> surface)
+    private static int ComputeTotalSurfaceArea(IEnumerable<Vector3D> elements)
     {
-        var surfaceArea = 0;
-        var surfaceSet = new HashSet<Vector3D>(surface);
+        var totalSurfaceArea = 0;
+        var elementsSet = new HashSet<Vector3D>(elements);
         
-        foreach (var element in surfaceSet)
+        foreach (var element in elementsSet)
         {
             var faceAdjacentPositions = element.GetAdjacentSet(DistanceMetric.Taxicab);
-            surfaceArea += CubeFaces - faceAdjacentPositions.Count(p => surfaceSet.Contains(p));
+            totalSurfaceArea += CubeFaces - faceAdjacentPositions.Count(p => elementsSet.Contains(p));
         }
 
-        return surfaceArea;
+        return totalSurfaceArea;
+    }
+
+    private static int ComputeExteriorSurfaceArea(IEnumerable<Vector3D> elements)
+    {
+        var elementsSet = new HashSet<Vector3D>(elements);
+        var boundingSet = new HashSet<Vector3D>();
+        var queue = new Queue<Vector3D>();
+        
+        var lBound = new Vector3D(
+            x: elementsSet.Min(v => v.X) - 1,
+            y: elementsSet.Min(v => v.Y) - 1,
+            z: elementsSet.Min(v => v.Z) - 1);
+        var uBound = new Vector3D(
+            x: elementsSet.Max(v => v.X) + 1,
+            y: elementsSet.Max(v => v.Y) + 1,
+            z: elementsSet.Max(v => v.Z) + 1);
+
+        queue.Enqueue(uBound);
+        boundingSet.Add(uBound);
+        
+        while (queue.Count > 0)
+        {
+            var pos = queue.Dequeue();
+
+            foreach (var adj in pos.GetAdjacentSet(DistanceMetric.Taxicab))
+            {
+                if (elementsSet.Contains(adj) || boundingSet.Contains(adj) || !IsBoundedInclusive(adj, lBound, uBound))
+                {
+                    continue;
+                }
+                
+                boundingSet.Add(adj);
+                queue.Enqueue(adj);
+            }
+        }
+
+        var totalBoundingSurfaceArea = ComputeTotalSurfaceArea(boundingSet);
+        var exteriorBoundingSurfaceArea = GetRectPrismSurfaceArea(lBound, uBound);
+        var exteriorSurfaceArea = totalBoundingSurfaceArea - exteriorBoundingSurfaceArea;
+
+        return exteriorSurfaceArea;
+    }
+
+    private static int GetRectPrismSurfaceArea(Vector3D lBound, Vector3D uBound)
+    {
+        var l = Math.Abs(uBound.X - lBound.X) + 1;
+        var h = Math.Abs(uBound.Y - lBound.Y) + 1;
+        var w = Math.Abs(uBound.Z - lBound.Z) + 1;
+
+        return 2 * (w * l + h * l + h * w);
+    }
+
+    private static bool IsBoundedInclusive(Vector3D pos, Vector3D lBound, Vector3D uBound)
+    {
+        return
+            pos.X >= lBound.X && pos.X <= uBound.X &&
+            pos.Y >= lBound.Y && pos.Y <= uBound.Y &&
+            pos.Z >= lBound.Z && pos.Z <= uBound.Z;
     }
 
     private static IEnumerable<Vector3D> ParseSurfaceVectors(IEnumerable<string> lines)
