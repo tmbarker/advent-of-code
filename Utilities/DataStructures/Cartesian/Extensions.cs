@@ -30,8 +30,16 @@ public static class Extensions
     /// Get a set of vectors adjacent to <paramref name="vector"/>, depending on the <paramref name="metric"/> diagonally
     /// adjacent vectors may or may not be included in the returned set
     /// </summary>
+    /// <exception cref="ArgumentException">This method does not support the Euclidean distance metric</exception>
     public static ISet<Vector2D> GetAdjacentSet(this Vector2D vector, DistanceMetric metric)
     {
+        if (metric == DistanceMetric.Euclidean)
+        {
+            throw new ArgumentException(
+                $"The {DistanceMetric.Euclidean} distance metric is not well defined over integral vector space",
+                nameof(metric));
+        }
+        
         var set = new HashSet<Vector2D>
         {
             vector + Vector2D.Up,
@@ -45,10 +53,50 @@ public static class Extensions
             return set;
         }
         
-        set.Add(vector + new Vector2D(1, 1));
-        set.Add(vector + new Vector2D(-1, 1));
-        set.Add(vector + new Vector2D(-1, -1));
-        set.Add(vector + new Vector2D(1, -1));
+        for (var x = -1; x <= 1; x += 2)
+        for (var y = -1; y <= 1; y += 2)
+        {
+            set.Add(vector + new Vector2D(x, y));
+        }
+
+        return set;
+    }
+
+    /// <summary>
+    /// Get a set of vectors adjacent to <paramref name="vector"/>, depending on the <paramref name="metric"/> diagonally
+    /// adjacent vectors may or may not be included in the returned set
+    /// </summary>
+    /// <exception cref="ArgumentException">This method does not support the Euclidean distance metric</exception>
+    public static ISet<Vector3D> GetAdjacentSet(this Vector3D vector, DistanceMetric metric)
+    {
+        if (metric == DistanceMetric.Euclidean)
+        {
+            throw new ArgumentException(
+                $"The {DistanceMetric.Euclidean} distance metric is not well defined over integral vector space",
+                nameof(metric));
+        }
+        
+        var set = new HashSet<Vector3D>
+        {
+            vector + Vector3D.Up,
+            vector + Vector3D.Down, 
+            vector + Vector3D.Left,
+            vector + Vector3D.Right,
+            vector + Vector3D.Forward,
+            vector + Vector3D.Back,
+        };
+
+        if (metric != DistanceMetric.Chebyshev)
+        {
+            return set;
+        }
+        
+        for (var x = -1; x <= 1; x += 2)
+        for (var y = -1; y <= 1; y += 2)
+        for (var z = -1; z <= 1; z += 2)
+        {
+            set.Add(vector + new Vector3D(x, y, z));
+        }
 
         return set;
     }
