@@ -72,4 +72,12 @@ public static class CollectionExtensions
             list.Add(item);
         }
     }
+
+    /// <summary>
+    /// Initialize a <see cref="IReadOnlyCollection{T}"/> using the elements from <paramref name="collection"/>
+    /// </summary>
+    public static IReadOnlyCollection<T> Freeze<T>(this IEnumerable<T> collection)
+    {
+        return new List<T>(collection);
+    }
 }
