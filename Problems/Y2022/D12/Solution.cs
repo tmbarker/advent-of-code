@@ -24,12 +24,12 @@ public class Solution : SolutionBase2022
 
     public override int Day => 12;
     
-    public override string Run(int part)
+    public override object Run(int part)
     {
         return part switch
         {
-            0 => GetFewestStepsFromStart().ToString(),
-            1 => GetFewestStepsFromMinHeight().ToString(),
+            0 => GetFewestStepsFromStart(),
+            1 => GetFewestStepsFromMinHeight(),
             _ => ProblemNotSolvedString,
         };
     }

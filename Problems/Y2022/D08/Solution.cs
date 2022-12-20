@@ -14,14 +14,14 @@ public class Solution : SolutionBase2022
     
     public override int Day => 8;
     
-    public override string Run(int part)
+    public override object Run(int part)
     {
         var trees = ParseTrees(GetInput());
         
         return part switch
         {
-            0 => CountVisibleTrees(trees).ToString(),
-            1 => GetMaxScenicScore(trees).ToString(),
+            0 => CountVisibleTrees(trees),
+            1 => GetMaxScenicScore(trees),
             _ => ProblemNotSolvedString,
         };
     }

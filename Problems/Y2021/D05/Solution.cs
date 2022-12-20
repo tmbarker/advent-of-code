@@ -14,12 +14,12 @@ public class Solution : SolutionBase2021
 
     public override int Day => 5;
     
-    public override string Run(int part)
+    public override object Run(int part)
     { 
         return part switch
         {
-            0 => CountDangerousLocations(true).ToString(),
-            1 => CountDangerousLocations(false).ToString(),
+            0 => CountDangerousLocations(true),
+            1 => CountDangerousLocations(false),
             _ => ProblemNotSolvedString,
         };
     }

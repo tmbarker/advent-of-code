@@ -11,7 +11,7 @@ public class Solution : SolutionBase2022
 {
     public override int Day => 5;
     
-    public override string Run(int part)
+    public override object Run(int part)
     {
         if (!CranePlan.TryParse(GetInput(), out var plan))
         {

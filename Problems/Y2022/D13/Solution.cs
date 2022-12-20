@@ -12,12 +12,12 @@ public class Solution : SolutionBase2022
 
     public override int Day => 13;
     
-    public override string Run(int part)
+    public override object Run(int part)
     {
         return part switch
         {
-            0 => SumOrderedPacketIndices(PacketParser.ParsePairs(GetInput())).ToString(),
-            1 => CalculateDecoderKey(PacketParser.ParsePackets(GetInput())).ToString(),
+            0 => SumOrderedPacketIndices(PacketParser.ParsePairs(GetInput())),
+            1 => CalculateDecoderKey(PacketParser.ParsePackets(GetInput())),
             _ => ProblemNotSolvedString,
         };
     }

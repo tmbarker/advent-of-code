@@ -12,12 +12,12 @@ public class Solution : SolutionBase2022
 
     public override int Day => 4;
     
-    public override string Run(int part)
+    public override object Run(int part)
     { 
         return part switch
         {
-            0 => GetNumInclusivePairs().ToString(),
-            1 => GetNumIntersectingPairs().ToString(),
+            0 => GetNumInclusivePairs(),
+            1 => GetNumIntersectingPairs(),
             _ => ProblemNotSolvedString,
         };
     }

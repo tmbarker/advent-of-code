@@ -22,13 +22,13 @@ public class Solution : SolutionBase2022
 
     public override int Day => 20;
     
-    public override string Run(int part)
+    public override object Run(int part)
     {
         var encryptedNumbers = GetEncryptedNumbers();
         return part switch
         {
-            0 => DecodeCoordinates(encryptedNumbers, Key1, Mixes1, CoordinateOffsets).ToString(),
-            1 => DecodeCoordinates(encryptedNumbers, Key2, Mixes2, CoordinateOffsets).ToString(),
+            0 => DecodeCoordinates(encryptedNumbers, Key1, Mixes1, CoordinateOffsets),
+            1 => DecodeCoordinates(encryptedNumbers, Key2, Mixes2, CoordinateOffsets),
             _ => ProblemNotSolvedString,
         };
     }

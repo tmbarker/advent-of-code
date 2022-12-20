@@ -13,13 +13,13 @@ public class Solution : SolutionBase2022
 
     public override int Day => 18;
     
-    public override string Run(int part)
+    public override object Run(int part)
     {
         var surfaceVectors = ParseSurfaceVectors(GetInput());
         return part switch
         {
-            0 => ComputeTotalSurfaceArea(surfaceVectors).ToString(),
-            1 => ComputeExteriorSurfaceArea(surfaceVectors).ToString(),
+            0 => ComputeTotalSurfaceArea(surfaceVectors),
+            1 => ComputeExteriorSurfaceArea(surfaceVectors),
             _ => ProblemNotSolvedString,
         };
     }

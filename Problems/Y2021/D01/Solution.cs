@@ -12,12 +12,12 @@ public class Solution : SolutionBase2021
     
     public override int Day => 1;
     
-    public override string Run(int part)
+    public override object Run(int part)
     {
        return part switch
         {
-            0 => CountDepthIncreases(WindowSizePart1).ToString(),
-            1 => CountDepthIncreases(WindowSizePart2).ToString(),
+            0 => CountDepthIncreases(WindowSizePart1),
+            1 => CountDepthIncreases(WindowSizePart2),
             _ => ProblemNotSolvedString,
         };
     }

@@ -12,12 +12,12 @@ public class Solution : SolutionBase2022
 
     public override int Day => 11;
     
-    public override string Run(int part)
+    public override object Run(int part)
     {
         return part switch
         {
-            0 => QuantifyMonkeyBusiness(RoundsPart1, true).ToString(),
-            1 => QuantifyMonkeyBusiness(RoundsPart2, false).ToString(),
+            0 => QuantifyMonkeyBusiness(RoundsPart1, true),
+            1 => QuantifyMonkeyBusiness(RoundsPart2, false),
             _ => ProblemNotSolvedString,
         };
     }

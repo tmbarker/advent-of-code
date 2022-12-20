@@ -16,13 +16,13 @@ public class Solution : SolutionBase2022
     
     public override int Day => 10;
     
-    public override string Run(int part)
+    public override object Run(int part)
     {
         var instructions = ParseInstructions(GetInput());
 
         return part switch
         {
-            0 => CalculateSignalStrength(instructions).ToString(),
+            0 => CalculateSignalStrength(instructions),
             1 => RenderCrt(instructions),
             _ => ProblemNotSolvedString,
         };

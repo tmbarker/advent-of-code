@@ -12,12 +12,12 @@ public class Solution : SolutionBase2022
     
     public override int Day => 3;
     
-    public override string Run(int part)
+    public override object Run(int part)
     {
         return part switch
         {
-            0 => GetDuplicateItemPrioritySum().ToString(),
-            1 => GetBadgeItemPrioritySum().ToString(),
+            0 => GetDuplicateItemPrioritySum(),
+            1 => GetBadgeItemPrioritySum(),
             _ => ProblemNotSolvedString,
         };
     }

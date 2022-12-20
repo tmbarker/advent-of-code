@@ -17,7 +17,7 @@ public abstract class SolutionBase
     public abstract int Day { get; }
     public virtual int Parts => 2;
 
-    public abstract string Run(int part);
+    public abstract object Run(int part);
 
     protected void AssertInputExists()
     {

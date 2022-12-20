@@ -23,15 +23,15 @@ public class Solution : SolutionBase2022
 
     public override int Day => 14;
     
-    public override string Run(int part)
+    public override object Run(int part)
     {
         var rockPaths = ParseRockPathVertices(GetInput());
         var occupiedPositions = FormRockPositionsSet(rockPaths);
         
         return part switch
         {
-            0 => CountSandWithAbyss(occupiedPositions).ToString(),
-            1 => CountSandWithFloor(occupiedPositions).ToString(),
+            0 => CountSandWithAbyss(occupiedPositions),
+            1 => CountSandWithFloor(occupiedPositions),
             _ => ProblemNotSolvedString,
         };
     }

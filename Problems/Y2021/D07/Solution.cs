@@ -11,12 +11,12 @@ public class Solution : SolutionBase2021
     
     public override int Day => 7;
     
-    public override string Run(int part)
+    public override object Run(int part)
     {
         return part switch
         {
-            0 => CalculateMinCumulativeCost(n => n).ToString(),
-            1 => CalculateMinCumulativeCost(n => n * (n + 1)/2).ToString(),
+            0 => CalculateMinCumulativeCost(n => n),
+            1 => CalculateMinCumulativeCost(n => n * (n + 1)/2),
             _ => ProblemNotSolvedString,
         };
     }

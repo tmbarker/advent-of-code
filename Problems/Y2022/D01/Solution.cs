@@ -11,12 +11,12 @@ public class Solution : SolutionBase2022
     
     public override int Day => 1;
 
-    public override string Run(int part)
+    public override object Run(int part)
     {
         return part switch
         {
-            0 => GetMaxCalories().ToString(),
-            1 => GetMaxCalories(NumTopElvesToSum).ToString(),
+            0 => GetMaxCalories(),
+            1 => GetMaxCalories(NumTopElvesToSum),
             _ => ProblemNotSolvedString,
         };
     }

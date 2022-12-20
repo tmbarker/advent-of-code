@@ -23,14 +23,14 @@ public class Solution : SolutionBase2022
 
     public override int Day => 9;
     
-    public override string Run(int part)
+    public override object Run(int part)
     {
         var movements = ParseHeadMovements(GetInput());
         
         return part switch
         {
-            0 => CountDistinctKnotPositions(movements, NumKnotsPart1).ToString(),
-            1 => CountDistinctKnotPositions(movements, NumKnotsPart2).ToString(),
+            0 => CountDistinctKnotPositions(movements, NumKnotsPart1),
+            1 => CountDistinctKnotPositions(movements, NumKnotsPart2),
             _ => ProblemNotSolvedString,
         };
     }

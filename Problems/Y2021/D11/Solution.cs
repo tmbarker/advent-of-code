@@ -12,12 +12,12 @@ public class Solution : SolutionBase2021
     
     public override int Day => 11;
     
-    public override string Run(int part)
+    public override object Run(int part)
     {
         return part switch
         {
-            0 => CountFlashes(Steps).ToString(),
-            1 => WaitForAllFlashed().Result.ToString(), 
+            0 => CountFlashes(Steps),
+            1 => WaitForAllFlashed().Result, 
             _ => ProblemNotSolvedString,
         };
     }

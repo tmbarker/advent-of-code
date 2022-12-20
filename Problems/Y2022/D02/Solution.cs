@@ -26,12 +26,12 @@ public class Solution : SolutionBase2022
 
     public override int Day => 2;
     
-    public override string Run(int part)
+    public override object Run(int part)
     {
         return part switch
         {
-            0 => EvaluateStrategyGuide1().ToString(),
-            1 => EvaluateStrategyGuide2().ToString(),
+            0 => EvaluateStrategyGuide1(),
+            1 => EvaluateStrategyGuide2(),
             _ => ProblemNotSolvedString,
         };
     }

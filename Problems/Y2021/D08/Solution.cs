@@ -36,14 +36,14 @@ public class Solution : SolutionBase2021
 
     public override int Day => 8;
     
-    public override string Run(int part)
+    public override object Run(int part)
     {
         var notes = ParseSignalPatternNotes(GetInput()).ToList();
 
         return part switch
         {
-            0 => CountUniqueSegmentDigitOccurrences(notes).ToString(),
-            1 => SumDecodedOutputs(notes).ToString(),
+            0 => CountUniqueSegmentDigitOccurrences(notes),
+            1 => SumDecodedOutputs(notes),
             _ => ProblemNotSolvedString,
         };
     }

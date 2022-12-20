@@ -13,14 +13,14 @@ public class Solution : SolutionBase2022
     
     public override int Day => 6;
     
-    public override string Run(int part)
+    public override object Run(int part)
     {
         AssertInputExists();
 
         return part switch
         {
-            0 => ListenForStartMarker(PacketMarkerLength).ToString(),
-            1 => ListenForStartMarker(MessageMarkerLength).ToString(),
+            0 => ListenForStartMarker(PacketMarkerLength),
+            1 => ListenForStartMarker(MessageMarkerLength),
             _ => ProblemNotSolvedString,
         };
     }

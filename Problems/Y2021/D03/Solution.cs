@@ -10,14 +10,14 @@ public class Solution : SolutionBase2021
 {
     public override int Day => 3;
     
-    public override string Run(int part)
+    public override object Run(int part)
     {
         var numberStrings = GetInput();
         
         return part switch
         {
-            0 => ComputeConsumptionRate(numberStrings).ToString(),
-            1 => ComputeLifeSupportRating(numberStrings).ToString(),
+            0 => ComputeConsumptionRate(numberStrings),
+            1 => ComputeLifeSupportRating(numberStrings),
             _ => ProblemNotSolvedString,
         };
     }

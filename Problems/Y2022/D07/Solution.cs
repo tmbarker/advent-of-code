@@ -13,15 +13,15 @@ public class Solution : SolutionBase2022
     
     public override int Day => 7;
     
-    public override string Run(int part)
+    public override object Run(int part)
     {
         var consoleOutput = GetInput();
         var directorySizeIndex = ConsoleParser.ConstructDirectorySizeIndex(consoleOutput);
 
         return part switch
         {
-            0 => SumDirectoriesUnderSize(directorySizeIndex, DirectorySizeThreshold).ToString(),
-            1 => FreeUpSpace(directorySizeIndex, SystemVolume, RequiredSpace).ToString(),
+            0 => SumDirectoriesUnderSize(directorySizeIndex, DirectorySizeThreshold),
+            1 => FreeUpSpace(directorySizeIndex, SystemVolume, RequiredSpace),
             _ => ProblemNotSolvedString,
         };
     }

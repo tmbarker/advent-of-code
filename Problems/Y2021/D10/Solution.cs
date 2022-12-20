@@ -17,13 +17,13 @@ public class Solution : SolutionBase2021
 
     public override int Day => 10;
     
-    public override string Run(int part)
+    public override object Run(int part)
     {
         var lines = GetInput();
         return part switch
         {
-            0 => SumCorruptedLineSyntaxErrors(lines).ToString(),
-            1 => GetMedianCompletionStringScore(lines).ToString(),
+            0 => SumCorruptedLineSyntaxErrors(lines),
+            1 => GetMedianCompletionStringScore(lines),
             _ => ProblemNotSolvedString,
         };
     }

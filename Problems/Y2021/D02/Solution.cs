@@ -15,14 +15,14 @@ public class Solution : SolutionBase2021
 
     public override int Day => 2;
     
-    public override string Run(int part)
+    public override object Run(int part)
     {
         var instructions = ParseInstructions(GetInput());
         
         return part switch
         {
-            0 => ComputeSimplePositionProduct(instructions).ToString(),
-            1 => ComputeAimedPositionProduct(instructions).ToString(),
+            0 => ComputeSimplePositionProduct(instructions),
+            1 => ComputeAimedPositionProduct(instructions),
             _ => ProblemNotSolvedString,
         };
     }

@@ -18,13 +18,13 @@ public class Solution : SolutionBase2022
     
     public override int Day => 15;
     
-    public override string Run(int part)
+    public override object Run(int part)
     {
         var reportings = ParseReportings(GetInput());
         return part switch
         {
-            0 => CountBeaconExcludedPositions(reportings).ToString(),
-            1 => CalculateTuningFrequency(FindDistressBeacon(reportings)).ToString(),
+            0 => CountBeaconExcludedPositions(reportings),
+            1 => CalculateTuningFrequency(FindDistressBeacon(reportings)),
             _ => ProblemNotSolvedString,
         };
     }

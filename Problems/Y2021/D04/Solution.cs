@@ -10,14 +10,14 @@ public class Solution : SolutionBase2021
 {
     public override int Day => 4;
     
-    public override string Run(int part)
+    public override object Run(int part)
     {
         BingoData.Parse(GetInput(), out var draw, out var cards);
 
         return part switch
         {
-            0 => GetFirstWinningCardScore(draw!, cards!).ToString(),
-            1 => GetLastWinningCardScore(draw!, cards!).ToString(),
+            0 => GetFirstWinningCardScore(draw!, cards!),
+            1 => GetLastWinningCardScore(draw!, cards!),
             _ => ProblemNotSolvedString,
         };
     }

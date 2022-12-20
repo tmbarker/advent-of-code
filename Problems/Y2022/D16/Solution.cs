@@ -17,11 +17,11 @@ public class Solution : SolutionBase2022
 
     public override int Day => 16;
     
-    public override string Run(int part)
+    public override object Run(int part)
     {
         return part switch
         {
-            0 => ComputeMaxPressureRelievedAlone(TimeLimitAlone).ToString(),
+            0 => ComputeMaxPressureRelievedAlone(TimeLimitAlone),
             _ => ProblemNotSolvedString,
         };
     }

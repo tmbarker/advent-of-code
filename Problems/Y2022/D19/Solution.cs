@@ -23,13 +23,13 @@ public class Solution : SolutionBase2022
 
     public override int Day => 19;
     
-    public override string Run(int part)
+    public override object Run(int part)
     {
         var blueprints = ParseBlueprints(GetInput());
         return part switch
         {
-            0 => EvaluateQualityLevels(blueprints, TimeLimitPart1).ToString(),
-            1 => ComputeBlueprintProducts(blueprints.Take(NumBlueprintsPart2), TimeLimitPart2).ToString(),
+            0 => EvaluateQualityLevels(blueprints, TimeLimitPart1),
+            1 => ComputeBlueprintProducts(blueprints.Take(NumBlueprintsPart2), TimeLimitPart2),
             _ => ProblemNotSolvedString,
         };
     }

@@ -22,13 +22,13 @@ public class Solution : SolutionBase2021
 
     public override int Day => 9;
     
-    public override string Run(int part)
+    public override object Run(int part)
     {
         var grid = ParseGrid(GetInput());
         return part switch
         {
-            0 => SumRiskLevel(grid).ToString(),
-            1 => MeasureLargestBasins(grid).ToString(),
+            0 => SumRiskLevel(grid),
+            1 => MeasureLargestBasins(grid),
             _ => ProblemNotSolvedString,
         };
     }

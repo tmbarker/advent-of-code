@@ -16,12 +16,12 @@ public class Solution : SolutionBase2021
 
     public override int Day => 6;
     
-    public override string Run(int part)
+    public override object Run(int part)
     {
         return part switch
         {
-            0 => ModelLanternFish(GetInitialState(), DaysPart1).ToString(),
-            1 => ModelLanternFish(GetInitialState(), DaysPart2).ToString(),
+            0 => ModelLanternFish(GetInitialState(), DaysPart1),
+            1 => ModelLanternFish(GetInitialState(), DaysPart2),
             _ => ProblemNotSolvedString,
         };
     }

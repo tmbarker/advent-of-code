@@ -11,12 +11,12 @@ public class Solution : SolutionBase2021
 
     public override int Day => 12;
     
-    public override string Run(int part)
+    public override object Run(int part)
     {
         return part switch
         {
-            0 => CountPaths(false).ToString(),
-            1 => CountPaths(true).ToString(),
+            0 => CountPaths(false),
+            1 => CountPaths(true),
             _ => ProblemNotSolvedString,
         };
     }
