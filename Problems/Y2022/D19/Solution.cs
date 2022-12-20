@@ -83,7 +83,7 @@ public class Solution : SolutionBase2022
                 maxGeodes = Math.Max(maxGeodes, FindMaxGeodes(
                     t: t - 1,
                     bp: bp,
-                    inv.AfterBuilding(bp, material),
+                    inv: inv.AfterBuilding(bp, material),
                     allowedToBuild: Materials.All));
             }
         }
