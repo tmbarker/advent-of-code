@@ -93,7 +93,7 @@ public class Solution : SolutionBase2022
     
     private static Queue<AlgebraicOperation> GetOperations(string expressionId, string unknown, IDictionary<string, Expression> expressions, IDictionary<string, long> results)
     {
-        var solveActions = new Queue<AlgebraicOperation>();
+        var operations = new Queue<AlgebraicOperation>();
         var currentExpId = expressionId;
         
         while (true)
@@ -103,7 +103,7 @@ public class Solution : SolutionBase2022
             var rhs = exp.Rhs;
             var lhsSolved = results.ContainsKey(lhs);
 
-            solveActions.Enqueue(new AlgebraicOperation
+            operations.Enqueue(new AlgebraicOperation
             {
                 Operator = exp.Operator,
                 KnownOperand = results[lhsSolved ? lhs : rhs],
@@ -119,7 +119,7 @@ public class Solution : SolutionBase2022
             currentExpId = unsolvedExpr;
         }
 
-        return solveActions;
+        return operations;
     }
 
     private static void SimplifyExpressionTerms(string id, string unknown, IDictionary<string, Expression> expressions, IDictionary<string, long> results)
