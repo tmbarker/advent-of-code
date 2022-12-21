@@ -55,7 +55,7 @@ public class Solution : SolutionBase2022
         SimplifyExpressionTerms(rhs, unknown, expressions, results);
         
         var unsolved = !results.ContainsKey(lhs) ? lhs : rhs;
-        var solved = !results.ContainsKey(rhs) ? lhs : rhs;
+        var solved = results.ContainsKey(lhs) ? lhs : rhs;
         
         var algebra = GetOperations(unsolved, unknown, expressions, results);
         var result = ReverseOperations(algebra, results[solved]);
