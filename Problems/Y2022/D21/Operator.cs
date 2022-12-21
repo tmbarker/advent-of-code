@@ -7,5 +7,4 @@ public enum Operator
     Subtract,
     Multiply,
     Divide,
-    Equality,
 }
