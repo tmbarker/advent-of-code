@@ -51,8 +51,8 @@ public class Solution : SolutionBase2022
         var lhs = equation.Lhs;
         var rhs = equation.Rhs;
         
-        SimplifyExpressionTerms(equation.Lhs, unknown, expressions, results);
-        SimplifyExpressionTerms(equation.Rhs, unknown, expressions, results);
+        SimplifyExpressionTerms(lhs, unknown, expressions, results);
+        SimplifyExpressionTerms(rhs, unknown, expressions, results);
         
         var unsolved = !results.ContainsKey(lhs) ? lhs : rhs;
         var solved = !results.ContainsKey(rhs) ? lhs : rhs;
