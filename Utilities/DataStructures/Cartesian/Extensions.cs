@@ -104,12 +104,12 @@ public static class Extensions
     /// <summary>
     /// Print Grid contents to the console
     /// </summary>
-    public static void Print<T>(this Grid2D<T> grid, string title = "GRID", Func<IPosition2D, T, string>? elementFormatter = null)
+    public static void Print<T>(this Grid2D<T> grid, string title = "GRID", Func<IPosition2D, T, string>? elementFormatter = null, int padding = 4)
     {
-        const int defaultTabStopWidth = 8;
         const char headerChar = '-';
         
-        var headerAffix = new string(headerChar, defaultTabStopWidth * (grid.Width / 2));
+        var headerAffix = new string(headerChar, padding * (grid.Width / 2));
+        var paddingStr = padding > 0 ? new string(' ', 4) : string.Empty;
         
         Console.WriteLine();
         Console.WriteLine($"{headerAffix} {title} {headerAffix}");
@@ -123,7 +123,7 @@ public static class Extensions
                     ? elementFormatter(new Vector2D(x, y), element)
                     : element?.ToString();
                     
-                Console.Write($"{elementString}\t");
+                Console.Write($"{elementString}{paddingStr}");
             }
             Console.WriteLine();
         }
