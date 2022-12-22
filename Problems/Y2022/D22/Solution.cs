@@ -1,5 +1,5 @@
-using Problems.Y2022.Common;
 using Problems.Common;
+using Problems.Y2022.Common;
 using Utilities.DataStructures.Cartesian;
 
 namespace Problems.Y2022.D22;
@@ -82,25 +82,20 @@ public class Solution : SolutionBase2022
 
     private static bool TryFindWrapPos(Vector2D pos, Vector2D facing, Grid2D<Square> board, out Vector2D wrapPos)
     {
-        var wrapPosFound = false;
         wrapPos = pos - facing;
-        
-        while (true)
+        while (board.IsInDomain(wrapPos) && board[wrapPos] != Square.OutOfBounds)
         {
-            if (!board.IsInDomain(wrapPos) || board[wrapPos] == Square.OutOfBounds)
-            {
-                if (board[wrapPos + facing] == Square.Free)
-                {
-                    wrapPos += facing;
-                    wrapPosFound = true;
-                }
-                break;
-            }
-        
             wrapPos -= facing;
         }
+
+        if (board[wrapPos + facing] != Square.Free)
+        {
+            return false;
+        }
         
-        return wrapPosFound;
+        wrapPos += facing;
+        return true;
+
     }
 
     private static Vector2D FindStart(Grid2D<Square> board)
