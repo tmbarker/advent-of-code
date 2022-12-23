@@ -13,13 +13,14 @@ public class Solution : SolutionBase2022
     private const int NumRounds = 10;
 
     public override int Day => 23;
+    
     public override object Run(int part)
     {
-        var elfPositions = ParseElfPositions(GetInput());
+        var positions = ParsePositions(GetInput());
         return part switch
         {
-            0 => EmptyPositionsInBoundingRect(Simulate(elfPositions, NumRounds)),
-            1 => SimulateToSteadyState(elfPositions),
+            0 => EmptyPositionsInBoundingRect(Simulate(positions, NumRounds)),
+            1 => SimulateToSteadyState(positions),
             _ => ProblemNotSolvedString,
         };
     }
@@ -53,24 +54,24 @@ public class Solution : SolutionBase2022
         var targetsMap = new Dictionary<Vector2D, Vector2D>();
         var targetsCount = new Dictionary<Vector2D, int>();
 
-        foreach (var elf in positions)
+        foreach (var actor in positions)
         {
-            var allAdj = elf.GetAdjacentSet(DistanceMetric.Chebyshev);
+            var allAdj = actor.GetAdjacentSet(DistanceMetric.Chebyshev);
             if (allAdj.All(p => !positions.Contains(p)))
             {
                 continue;
             }
 
-            for (var i = roundIndex; i < roundIndex + MoveChoices.NumChoices; i++)
+            for (var i = roundIndex; i < roundIndex + MovePreferences.Count; i++)
             {
-                var (move, checkSet) = MoveChoices.Get(i);
-                if (checkSet.Any(check => positions.Contains(elf + check)))
+                var (move, checkSet) = MovePreferences.Get(i);
+                if (checkSet.Any(check => positions.Contains(actor + check)))
                 {
                     continue;
                 }
 
-                var target = elf + move;
-                targetsMap[elf] = target;
+                var target = actor + move;
+                targetsMap[actor] = target;
                 targetsCount.EnsureContainsKey(target);
                 targetsCount[target]++;
                 break;
@@ -78,7 +79,7 @@ public class Solution : SolutionBase2022
         }
 
         var numMoves = 0;
-        foreach (var (elf, target) in targetsMap)
+        foreach (var (actor, target) in targetsMap)
         {
             if (targetsCount[target] > 1)
             {
@@ -86,7 +87,7 @@ public class Solution : SolutionBase2022
             }
 
             numMoves++;
-            positions.Remove(elf);
+            positions.Remove(actor);
             positions.Add(target);
         }
 
@@ -113,7 +114,7 @@ public class Solution : SolutionBase2022
         return emptyCount;
     }
 
-    private static HashSet<Vector2D> ParseElfPositions(IList<string> input)
+    private static HashSet<Vector2D> ParsePositions(IList<string> input)
     {
         var set = new HashSet<Vector2D>();
         
