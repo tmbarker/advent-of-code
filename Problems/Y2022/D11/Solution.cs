@@ -24,7 +24,7 @@ public class Solution : SolutionBase2022
 
     private long QuantifyMonkeyBusiness(int rounds, bool applyBoredDivisor)
     {
-        var monkeyMap = MonkeyMap.Parse(GetInput(), applyBoredDivisor);
+        var monkeyMap = MonkeyData.Parse(GetInput(), applyBoredDivisor);
         var activityCounts = new long[monkeyMap.Count];
         var round = 0;
 
