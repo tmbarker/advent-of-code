@@ -12,6 +12,7 @@ public readonly struct Vector2D : IPosition2D, IEquatable<Vector2D>
     public static readonly Vector2D Down = new(0, -1);
     public static readonly Vector2D Left = new(-1, 0);
     public static readonly Vector2D Right = new(1, 0);
+    public static readonly Vector2D PositiveInfinity = new Vector2D(int.MaxValue, int.MaxValue);
 
     public string Id { get; }
     public int X { get; }

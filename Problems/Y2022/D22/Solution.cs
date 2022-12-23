@@ -9,96 +9,108 @@ namespace Problems.Y2022.D22;
 /// </summary>
 public class Solution : SolutionBase2022
 {
-    private const int RowScoreMultiplier = 1000;
-    private const int ColScoreMultiplier = 4;
-    
-    private static readonly Dictionary<Vector2D, int> FacingScores = new()
-    {
-        { Vector2D.Right, 0 },
-        { Vector2D.Down, 1 },
-        { Vector2D.Left, 2 },
-        { Vector2D.Up, 3 },
-    };
-
     public override int Day => 22;
     
     public override object Run(int part)
     {
-        Board.Parse(GetInput(), out var board, out var instructions);
+        MapData.Parse(GetInput(), out var board, out var instructions);
         return part switch
         {
-            0 => ComputePassword(board, instructions),
+            0 => ComputePassword(board, instructions, MoveMode.Planar),
+            1 => ComputePassword(board, instructions, MoveMode.Cubic),
             _ => ProblemNotSolvedString,
         };
     }
 
-    private static int ComputePassword(Grid2D<Square> board, IEnumerable<Instruction> instructions)
+    private static int ComputePassword(Grid2D<Square> board, IEnumerable<Instruction> instructions, MoveMode mode)
     {
-        var facing = Vector2D.Right;
-        var pos = FindStart(board);
-        
+        var pose = new Pose(FindStartPos(board), Vector2D.Right);
+
         foreach (var instruction in instructions)
         {
-            (pos, facing) = FollowInstruction(pos, facing, board, instruction);
+            pose = FollowInstruction(pose, board, instruction, mode);
         }
-        
-        var scoringRow = board.Height - pos.Y;
-        var scoringCol = pos.X + 1;
-        var score = RowScoreMultiplier * scoringRow + ColScoreMultiplier * scoringCol + FacingScores[facing];
 
-        return score;
+        return ComputePassword(pose, board);
     }
 
-    private static (Vector2D pos, Vector2D facing) FollowInstruction(Vector2D pos, Vector2D facing, Grid2D<Square> board, Instruction instr)
+    private static Pose FollowInstruction(Pose pose, Grid2D<Square> board, Instruction instr, MoveMode mode)
     {
-        for (var i = 0; i < instr.Steps; i++)
+        var moveSuccess = true;
+        for (var i = 0; i < instr.Steps && moveSuccess; i++)
         {
-            var desired = pos + facing;
-            var defined = board.IsInDomain(desired);
-            
-            if (defined && board[desired] == Square.Blocked)
-            {
-                break;
-            }
-
-            if (defined && board[desired] == Square.Free)
-            {
-                pos = desired;
-                continue;
-            }
-            
-            if (TryFindWrapPos(pos, facing, board, out var wrapPos))
-            {
-                pos = wrapPos;
-                continue;
-            }
-            
-            break;
+            moveSuccess = mode == MoveMode.Planar
+                ? TryMove2D(pose, board)
+                : TryMove3D(pose, board);
         }
 
-        facing = instr.Rotation * facing;
-        return (pos, facing);
+        pose.Facing = instr.Rotation * pose.Facing;
+        return pose;
     }
 
-    private static bool TryFindWrapPos(Vector2D pos, Vector2D facing, Grid2D<Square> board, out Vector2D wrapPos)
+    private static bool TryMove2D(Pose pose, Grid2D<Square> board)
     {
-        wrapPos = pos - facing;
-        while (board.IsInDomain(wrapPos) && board[wrapPos] != Square.OutOfBounds)
+        var desiredPos = pose.Pos + pose.Facing;
+        var defined = board.IsInDomain(desiredPos);
+            
+        if (defined && board[desiredPos] == Square.Blocked)
         {
-            wrapPos -= facing;
+            return false;
         }
 
-        if (board[wrapPos + facing] != Square.Free)
+        if (defined && board[desiredPos] == Square.Free)
+        {
+            pose.Pos = desiredPos;
+            return true;
+        }
+
+        return TryWrap2D(pose, board);
+    }
+    
+    private static bool TryWrap2D(Pose pose, Grid2D<Square> board)
+    {
+        var targetPos = pose.Pos - pose.Facing;
+        while (board.IsInDomain(targetPos) && board[targetPos] != Square.OutOfBounds)
+        {
+            targetPos -= pose.Facing;
+        }
+
+        if (board[targetPos + pose.Facing] != Square.Free)
         {
             return false;
         }
         
-        wrapPos += facing;
+        pose.Pos = targetPos + pose.Facing;
         return true;
+    }
+    
+    private static bool TryMove3D(Pose pose, Grid2D<Square> board)
+    {
+        var naivePos = pose.Pos + pose.Facing;
+        var defined = board.IsInDomain(naivePos);
 
+        if (!defined || board[naivePos] == Square.OutOfBounds)
+        {
+            return MapData.TryMoveBetweenFaces(pose, board);
+        }
+
+        if (board[naivePos] == Square.Blocked)
+        {
+            return false;
+        }
+
+        pose.Pos = naivePos;
+        return true;
     }
 
-    private static Vector2D FindStart(Grid2D<Square> board)
+    private static int ComputePassword(Pose pose, Grid2D<Square> board)
+    {
+        var row = board.Height - pose.Pos.Y;
+        var col = pose.Pos.X + 1;
+        return MapData.RowMultiplier * row + MapData.ColMultiplier * col + MapData.FacingValues[pose.Facing];
+    }
+    
+    private static Vector2D FindStartPos(Grid2D<Square> board)
     {
         for (var y = board.Height - 1; y >= 0; y--)
         for (var x = 0; x < board.Width; x++)

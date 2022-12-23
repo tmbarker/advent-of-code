@@ -4,13 +4,14 @@ namespace Utilities.DataStructures.Cartesian;
 
 public readonly struct Rotation2D : IEquatable<Rotation2D>
 {
-    private const int NinetyDegrees = 90;
     private const int DegreesPerRotation = 360;
+    private const int NinetyDegrees = DegreesPerRotation / 4;
     private const string ThetaOutOfRangeError = "Theta must be an integral multiple of 90 degrees";
     
     public static readonly Rotation2D Zero = new(0);
     public static readonly Rotation2D Cw90 = new(-NinetyDegrees);
     public static readonly Rotation2D Ccw90 = new(NinetyDegrees);
+    public static readonly Rotation2D Ccw180 = new(2 * NinetyDegrees);
 
     private int ThetaDeg { get; }
     private double ThetaRad { get; }
