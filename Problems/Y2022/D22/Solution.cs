@@ -14,6 +14,7 @@ public class Solution : SolutionBase2022
     public override object Run(int part)
     {
         MapData.Parse(GetInput(), out var board, out var instructions);
+        
         return part switch
         {
             0 => ComputePassword(board, instructions, MoveMode.Planar),

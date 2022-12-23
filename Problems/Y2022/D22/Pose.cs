@@ -12,4 +12,9 @@ public class Pose
     
     public Vector2D Pos { get; set; }
     public Vector2D Facing { get; set; }
+
+    public override string ToString()
+    {
+        return $"Pos={Pos}  Facing={Facing}";
+    }
 }

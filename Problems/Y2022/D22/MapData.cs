@@ -1,3 +1,4 @@
+using Problems.Common;
 using System.Text.RegularExpressions;
 using Utilities.DataStructures.Cartesian;
 
@@ -22,7 +23,7 @@ public static class MapData
         { Vector2D.Up, 3 },
     };
 
-    // TODO: WIP - Don't want to have to hardcode this
+    // TODO: Refactor - Currently all cube face adjacencies/mappings are handled by hardcoded conditionals
     public static bool TryMoveBetweenFaces(Pose pose, Grid2D<Square> board)
     {
         var targetPos = Vector2D.PositiveInfinity;
@@ -32,104 +33,104 @@ public static class MapData
         var y = pose.Pos.Y;
         var face = pose.Facing;
 
-        // 1 -> 2 // Done
-        if (y == 11 && face == Vector2D.Up)
+        // 1 -> 6
+        if (y == 199 && x is >= 50 and < 100 && face == Vector2D.Up)
         {
-            targetPos = new Vector2D(11 - x, 7);
+            targetPos = new Vector2D(0, 99 - x);
+            targetFacing = Vector2D.Right;
+        }
+        
+        // 6 -> 1
+        if (x == 0 && y is >= 0 and < 50 && face == Vector2D.Left)
+        {
+            targetPos = new Vector2D(99 - y, 199);
             targetFacing = Vector2D.Down;
         }
         
-        // 2 -> 1 // Done
-        if (y == 7 && face == Vector2D.Up)
+        // 2 -> 6
+        if (y == 199 && x is >= 100 and < 150 && face == Vector2D.Up)
         {
-            targetPos = new Vector2D(8 + (3 - x), 11);
+            targetPos = new Vector2D(x - 100, 0);
+            targetFacing = Vector2D.Up;
+        }
+        
+        // 6 -> 2
+        if (y == 0 && x is >= 0 and < 50 && face == Vector2D.Down)
+        {
+            targetPos = new Vector2D(100 + x, 199);
             targetFacing = Vector2D.Down;
         }
-
-        // 1 -> 3 // Done
-        if (x == 8 && face == Vector2D.Left)
+        
+        // 1 -> 4
+        if (x == 50 && y is >= 150 and < 200 && face == Vector2D.Left)
         {
-            pose.Pos = new Vector2D(4 + (11 - y), 7);
-            pose.Facing = Vector2D.Down;
+            targetPos = new Vector2D(0, 249 - y);
+            targetFacing = Vector2D.Right;
         }
         
-        // 3 -> 1 // Done
-        if (y == 7 && face == Vector2D.Up)
+        // 4 -> 1
+        if (x == 0 && y is >= 50 and < 100 && face == Vector2D.Left)
         {
-            pose.Pos = new Vector2D(8, 8 + (7 - x));
-            pose.Facing = Vector2D.Right;
-        }
-        
-        // 1 -> 6 // Done
-        if (x == 11 && face == Vector2D.Right)
-        {
-            pose.Pos = new Vector2D(12 + (11 - y), 3);
-            pose.Facing = Vector2D.Down;
-        }
-        
-        // 6 -> 1 // Done
-        if (y == 3 && face == Vector2D.Up)
-        {
-            pose.Pos = new Vector2D(8 + (x - 12), 3);
-            pose.Facing = Vector2D.Left;
+            targetPos = new Vector2D(50, 249 - y);
+            targetFacing = Vector2D.Right;
         }
 
-        // 2 -> 6 // Done
-        if (x == 0 && face == Vector2D.Left)
+        // 2 -> 5
+        if (x == 149 && y is >= 150 and < 200 && face == Vector2D.Right)
         {
-            pose.Pos = new Vector2D(12 + (y - 4) ,0);
-            pose.Facing = Vector2D.Up;
+            targetPos = new Vector2D(99, 249 - y);
+            targetFacing = Vector2D.Left;
         }
         
-        // 6 -> 2 // Done
-        if (y == 0 && face == Vector2D.Down)
+        // 5 -> 2
+        if (x == 99 && y is >= 50 and < 100 && face == Vector2D.Right)
         {
-            pose.Pos = new Vector2D(0, 4 + (12 - x));
-            pose.Facing = Vector2D.Right;
+            targetPos = new Vector2D(149, 249 - y);
+            targetFacing = Vector2D.Left;
         }
         
-        // 4 -> 6 // Done
-        if (x == 11 && face == Vector2D.Right)
+        // 4 -> 3
+        if (y == 99 && x is >= 0 and < 50 && face == Vector2D.Up)
         {
-            pose.Pos = new Vector2D(12 + (y - 4), 3);
-            pose.Facing = Vector2D.Down;
+            targetPos = new Vector2D(50, 149 - x);
+            targetFacing = Vector2D.Right;
         }
         
-        // 6 -> 4 // Done
-        if (y == 3 && face == Vector2D.Up)
+        // 3 -> 4
+        if (x == 50 && y is >= 100 and < 150 && face == Vector2D.Left)
         {
-            pose.Pos = new Vector2D(11, 4 + (x - 12));
-            pose.Facing = Vector2D.Left;
+            targetPos = new Vector2D(149 - y, 99);
+            targetFacing = Vector2D.Down;
         }
         
-        // 3 -> 5 // Done
-        if (y == 4 && face == Vector2D.Down)
+        // 3 -> 2
+        if (x == 99 && y is >= 100 and < 150 && face == Vector2D.Right)
         {
-            pose.Pos = new Vector2D(8, x - 4);
-            pose.Facing = Vector2D.Right;
+            targetPos = new Vector2D(249 - y, 150);
+            targetFacing = Vector2D.Up;
         }
         
-        // 5 -> 3 // Done
-        if (x == 8 && face == Vector2D.Left)
+        // 2 -> 3
+        if (y == 150 && x is >= 100 and < 150 && face == Vector2D.Down)
         {
-            pose.Pos = new Vector2D(4 + y, 4);
-            pose.Facing = Vector2D.Up;
+            targetPos = new Vector2D(99, 249 - x);
+            targetFacing = Vector2D.Left;
         }
         
-        // 2 -> 5 // Done <-- suspect
-        if (x == 4 && face == Vector2D.Down)
+        // 6 -> 5
+        if (x == 49 && y is >= 0 and < 50 && face == Vector2D.Right)
         {
-            pose.Pos = new Vector2D(11 - x, 0);
-            pose.Facing = Vector2D.Up;
+            targetPos = new Vector2D(99 - y, 50);
+            targetFacing = Vector2D.Up;
         }
         
-        // 5 -> 2 // Done <-- suspect
-        if (y == 0 && face == Vector2D.Down)
+        // 5 -> 6
+        if (y == 50 && x is >= 50 and < 100 && face == Vector2D.Down)
         {
-            pose.Pos = new Vector2D(11 - x, 4);
-            pose.Facing = Vector2D.Up;
+            targetPos = new Vector2D(49, 99 - x);
+            targetFacing = Vector2D.Left;
         }
-        
+
         if (!board.IsInDomain(targetPos) || board[targetPos] != Square.Free)
         {
             return false;
@@ -211,4 +212,86 @@ public static class MapData
 
         return instructions;
     }
+
+    // TODO: Remove after hardcoded cube mapping logic is refactored
+    #region TEST MEMBERS
+
+    private const int FaceSize = 50;
+    private static readonly HashSet<Vector2D> NetFaceCoords = new()
+    {
+        FaceSize * new Vector2D(0, 0),
+        FaceSize * new Vector2D(0, 1),
+        FaceSize * new Vector2D(1, 1),
+        FaceSize * new Vector2D(1, 2),
+        FaceSize * new Vector2D(1, 3),
+        FaceSize * new Vector2D(2, 3),
+    };
+    
+    public static void TestCubeFaceMappings(Grid2D<Square> board)
+    {
+        foreach (var facePos in NetFaceCoords)
+        {
+            TestCubeFaceMapping(facePos, board);
+        }
+    }
+
+    private static void TestCubeFaceMapping(Vector2D faceOrigin, Grid2D<Square> board)
+    {
+        var faceVertices = new List<Vector2D>
+        {
+            faceOrigin + (FaceSize - 1) * Vector2D.Zero,
+            faceOrigin + (FaceSize - 1) * Vector2D.Up,
+            faceOrigin + (FaceSize - 1) * Vector2D.One,
+            faceOrigin + (FaceSize - 1) * Vector2D.Right,
+        };
+
+        for (var i = 0; i < faceVertices.Count - 1; i++)
+        {
+            var fromVertex = faceVertices[i];
+            var toVertex = faceVertices[i + 1];
+            var step = Vector2D.Normalize(toVertex - fromVertex);
+            var fromFacing = Rotation2D.Ccw90 * step;
+            var current = fromVertex;
+
+            // Don't need to traverse edges which aren't on the perimeter of the net
+            var isInteriorEdge = board.IsInDomain(current + fromFacing) && board[current + fromFacing] != Square.OutOfBounds;
+            if (isInteriorEdge)
+            {
+                continue;
+            }
+             
+            // Iterate along the edge
+            while (current != toVertex + step)
+            {
+                // We don't need to verify cases where the edge position is unreachable due to being blocked, or the
+                // mapped to position is blocked, there is no symmetry to verify in these cases
+                var fromPose = new Pose(current, fromFacing);
+                if (board[fromPose.Pos] == Square.Blocked || !TryMoveBetweenFaces(fromPose, board))
+                {
+                    current += step;
+                    continue;
+                }
+
+                // If we can map to a position, we must be able to map back to it
+                var returnFacing = -1 * fromPose.Facing;
+                var returnPose = new Pose(fromPose.Pos, returnFacing);
+                if (!TryMoveBetweenFaces(returnPose, board))
+                {
+                    Console.WriteLine($"Cannot return to {current} from {returnPose.Pos}");
+                    throw new NoSolutionException();
+                }
+
+                // If we map to a position, we must map back to the same from position
+                if (returnPose.Pos != current)
+                {
+                    Console.WriteLine($"Asymmetry detected: From => {current}");
+                    throw new NoSolutionException();
+                }
+                
+                current += step;
+            }
+        }
+    }
+
+    #endregion
 }
