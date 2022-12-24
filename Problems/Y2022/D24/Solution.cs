@@ -29,12 +29,23 @@ public class Solution : SolutionBase2022
         
         return part switch
         {
-            0 => NavigateToEnd(field, start, end, blizzards),
+            0 => Traverse(field, start, end, blizzards),
+            1 => Navigate(field, start, end, blizzards),
             _ => ProblemNotSolvedString,
         };
     }
 
-    private static int NavigateToEnd(Grid2D<char> field, Vector2D start, Vector2D end, List<Blizzard> blizzards)
+    private static int Navigate(Grid2D<char> field, Vector2D start, Vector2D end, IList<Blizzard> blizzards)
+    {
+        var sum = 0;
+        sum += Traverse(field, start, end, blizzards);
+        sum += Traverse(field, end, start, blizzards);
+        sum += Traverse(field, start, end, blizzards);
+        
+        return sum;
+    }
+    
+    private static int Traverse(Grid2D<char> field, Vector2D start, Vector2D end, IList<Blizzard> blizzards)
     {
         var t = 1;
         var activePaths = new HashSet<Vector2D> { start };
@@ -68,11 +79,10 @@ public class Solution : SolutionBase2022
         throw new NoSolutionException();
     }
 
-    private static void AdvanceBlizzards(Grid2D<char> field, List<Blizzard> blizzards)
+    private static void AdvanceBlizzards(Grid2D<char> field, IEnumerable<Blizzard> blizzards)
     {
-        for (var i = 0; i < blizzards.Count; i++)
+        foreach (var blizzard in blizzards)
         {
-            var blizzard = blizzards[i];
             if (field[blizzard.Course] == Empty)
             {
                 blizzard.Pos = blizzard.Course;
