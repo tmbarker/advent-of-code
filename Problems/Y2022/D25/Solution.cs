@@ -4,12 +4,11 @@ using Problems.Y2022.Common;
 namespace Problems.Y2022.D25;
 
 /// <summary>
-/// FUll of Hot Air: https://adventofcode.com/2022/day/25
+/// Full of Hot Air: https://adventofcode.com/2022/day/25
 /// </summary>
 public class Solution : SolutionBase2022
 {
     private const int SnafuRadix = 5;
-    private const int MaxSnafuDigit = 2;
     private const char MinusOne = '-';
     private const char MinusTwo = '=';
 
