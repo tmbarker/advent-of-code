@@ -36,7 +36,7 @@ public class ValveData
     
     private static Dictionary<string, Dictionary<string, int>> FormTravelTimesLookup(Dictionary<string, HashSet<string>> adjacencies)
     {
-        return adjacencies.Keys.ToDictionary(valve => valve, valve => DjikstraHelper.Unweighted(valve, adjacencies));
+        return adjacencies.Keys.ToDictionary(valve => valve, valve => DjikstraHelper.UnweightedFast(valve, adjacencies));
     }
     
     private static (string id, int flowRate, string[] adjacent) ParseLine(string line)
