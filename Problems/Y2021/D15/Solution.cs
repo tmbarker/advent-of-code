@@ -30,7 +30,7 @@ public class Solution : SolutionBase2021
         ParseRiskMap(GetInput(), tilesPerSide, out var riskMap, out var start, out var end);
 
         var visited = new HashSet<Vector2D> { start };
-        var heap = new PriorityQueue<Vector2D, int>(Enumerable.Repeat((start, 0), 1));
+        var heap = new PriorityQueue<Vector2D, int>(new[] { (start, 0) });
         var risks = riskMap.GetAllPositions().ToDictionary(
             keySelector: p => p, 
             elementSelector: p => p == start ? 0 : int.MaxValue);

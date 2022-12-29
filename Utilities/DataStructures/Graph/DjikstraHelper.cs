@@ -6,7 +6,7 @@ public static class DjikstraHelper
         Dictionary<TNodeKey, HashSet<TNodeKey>> adjacencyList) where TNodeKey : notnull
     {
         var visited = new HashSet<TNodeKey>() { start };
-        var heap = new PriorityQueue<TNodeKey, int>(Enumerable.Repeat((start, 0), 1));
+        var heap = new PriorityQueue<TNodeKey, int>(new[] { (start, 0) });
         var costs = adjacencyList.Keys.ToDictionary(
             keySelector: n => n,
             elementSelector: n => EqualityComparer<TNodeKey>.Default.Equals(n, start) ? 0 : int.MaxValue);
