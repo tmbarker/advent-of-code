@@ -31,9 +31,9 @@ public class Solution : SolutionBase2021
 
         var visited = new HashSet<Vector2D> { start };
         var heap = new PriorityQueue<Vector2D, int>(Enumerable.Repeat((start, 0), 1));
-        var risks = riskMap
-            .GetAllPositions()
-            .ToDictionary(p => p, p => p == start ? 0 : int.MaxValue);
+        var risks = riskMap.GetAllPositions().ToDictionary(
+            keySelector: p => p, 
+            elementSelector: p => p == start ? 0 : int.MaxValue);
         
         while (heap.Count > 0)
         {
