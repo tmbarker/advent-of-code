@@ -8,7 +8,7 @@ namespace Problems.Y2021.D16;
 /// </summary>
 public class Solution : SolutionBase2021
 {
-    private static readonly Dictionary<char, string> HexCharToBinary = new() {
+    private static readonly Dictionary<char, string> HexToPaddedBinary = new() {
         { '0', "0000" },
         { '1', "0001" },
         { '2', "0010" },
@@ -42,8 +42,8 @@ public class Solution : SolutionBase2021
 
     private static Packet ParsePacket(Queue<char> buffer)
     {
-        var version = (int)BinToDec(ReadSection(buffer, Section.Version));
-        var @operator = (Operator)BinToDec(ReadSection(buffer, Section.TypeId));
+        var version = (int)ReadSectionToDecimal(buffer, Section.Version);
+        var @operator = (Operator)ReadSectionToDecimal(buffer, Section.TypeId);
 
         if (@operator == Operator.Identity)
         {
@@ -51,11 +51,11 @@ public class Solution : SolutionBase2021
         }
 
         var subPackets = new List<Packet>(); 
-        var lengthTypeId = (int)BinToDec(ReadSection(buffer, Section.LengthTypeId));
+        var lengthTypeId = (int)ReadSectionToDecimal(buffer, Section.LengthTypeId);
         
         if (lengthTypeId == 0)
         {
-            var numSubPacketBits = (int)BinToDec(Read(buffer, 15));
+            var numSubPacketBits = (int)ReadSectionToDecimal(buffer, Section.SubPacketBits);
             var bitsParsed = 0;
 
             while (bitsParsed < numSubPacketBits)
@@ -67,7 +67,7 @@ public class Solution : SolutionBase2021
         }
         else
         {
-            var numSubPackets = (int)BinToDec(Read(buffer, 11));
+            var numSubPackets = (int)ReadSectionToDecimal(buffer, Section.SubPacketCount);
             for (var n = 0; n < numSubPackets; n++)
             {
                 subPackets.Add(ParsePacket(buffer));
@@ -108,7 +108,7 @@ public class Solution : SolutionBase2021
 
         while (!end)
         {
-            var chunk = ReadSection(binaryBuffer, Section.LiteralChunk);
+            var chunk = Read(binaryBuffer, 5);
             end = chunk[0] == '0';
             sb.Append(chunk[1..]);
         }
@@ -116,18 +116,19 @@ public class Solution : SolutionBase2021
         return BinToDec(sb.ToString());
     }
 
-    private static string ReadSection(Queue<char> buffer, Section section)
+    private static long ReadSectionToDecimal(Queue<char> buffer, Section section)
     {
-        return section switch
+        var binary = section switch
         {
             Section.Version => Read(buffer, 3),
             Section.TypeId => Read(buffer, 3),
             Section.LengthTypeId => Read(buffer, 1),
-            Section.LiteralChunk => Read(buffer, 5),
             Section.SubPacketCount => Read(buffer, 11),
             Section.SubPacketBits => Read(buffer, 15),
             _ => throw new ArgumentOutOfRangeException(nameof(section), section.ToString()),
         };
+
+        return BinToDec(binary);
     }
 
     private static string Read(Queue<char> buffer, int n)
@@ -160,7 +161,7 @@ public class Solution : SolutionBase2021
         var sb = new StringBuilder();
         foreach (var c in hex.ToUpperInvariant())
         {
-            sb.Append(HexCharToBinary[c]);
+            sb.Append(HexToPaddedBinary[c]);
         }
         return sb.ToString();
     }
