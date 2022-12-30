@@ -4,7 +4,7 @@
 
 ### 2022
 Puzzle | My Solution | Date | Topic(s) | Difficulty
-:--- | :---: | :--- | :---: | :---
+:--- | :---: | :---: | :--- | :---
 [No Space Left On Device](https://adventofcode.com/2022/day/7) | [Solution](https://github.com/tmbarker/advent-of-code/blob/main/Problems/Y2022/D07/Solution.cs) | 2022-07 | Trees/Recursion :deciduous_tree: | :red_circle: Hard
 [Treetop Tree House](https://adventofcode.com/2022/day/8) | [Solution](https://github.com/tmbarker/advent-of-code/blob/main/Problems/Y2022/D08/Solution.cs) | 2022-08 | Vectors :arrow_right::heavy_plus_sign::arrow_up: | :green_circle: Easy
 [Rope Bridge](https://adventofcode.com/2022/day/9) | [Solution](https://github.com/tmbarker/advent-of-code/blob/main/Problems/Y2022/D09/Solution.cs) | 2022-09 | Vectors :arrow_right::heavy_plus_sign::arrow_up: | :yellow_circle: Medium
@@ -14,14 +14,15 @@ Puzzle | My Solution | Date | Topic(s) | Difficulty
 
 ### 2021
 Puzzle | My Solution | Date | Topic(s) | Difficulty
-:--- | :---: | :--- | :---: | :---
+:--- | :---: | :---: | :--- | :---
 [Syntax Scoring](https://adventofcode.com/2021/day/10) | [Solution](https://github.com/tmbarker/advent-of-code/blob/main/Problems/Y2021/D10/Solution.cs) | 2021-10 | String Parsing :page_facing_up::mag:	| :green_circle: Easy
 [Passage Pathing](https://adventofcode.com/2021/day/12) | [Solution](https://github.com/tmbarker/advent-of-code/blob/main/Problems/Y2021/D12/Solution.cs) | 2021-12 | Graphs/Recursion :arrows_counterclockwise:	| :yellow_circle: Medium
 [Transparent Origami](https://adventofcode.com/2021/day/13) | [Solution](https://github.com/tmbarker/advent-of-code/blob/main/Problems/Y2021/D13/Solution.cs) | 2021-13 | Vectors :arrow_right::heavy_plus_sign::arrow_up: | :green_circle: Easy
+[Packet Decoder](https://adventofcode.com/2021/day/16) | [Solution](https://github.com/tmbarker/advent-of-code/blob/main/Problems/Y2021/D16/Solution.cs) | 2021-16 | String Parsing :page_facing_up::mag: | :yellow_circle: Medium
 
 ## Running a Solution
 ```
 using SolutionRunner;
 
-RunSolution.Do(year, day);
+RunSolution.Do(<year>, <day>);
 ```
