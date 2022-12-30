@@ -38,7 +38,7 @@ public class Solution : SolutionBase2022
 
     private int EvaluateStrategyGuide1()
     {
-        var lines = GetInput();
+        var lines = GetInputLines();
         var score = 0;
 
         foreach (var line in lines)
@@ -56,7 +56,7 @@ public class Solution : SolutionBase2022
 
     private int EvaluateStrategyGuide2()
     {
-        var lines = GetInput();
+        var lines = GetInputLines();
         var score = 0;
 
         foreach (var line in lines)

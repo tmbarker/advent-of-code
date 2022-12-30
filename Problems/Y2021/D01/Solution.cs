@@ -27,7 +27,7 @@ public class Solution : SolutionBase2021
         var numIncreases = 0;
         var window = new Queue<int>(windowSize);
         
-        var depths = GetInput()
+        var depths = GetInputLines()
             .Select(int.Parse)
             .ToList();
 

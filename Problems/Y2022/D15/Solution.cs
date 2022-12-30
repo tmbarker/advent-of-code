@@ -20,7 +20,7 @@ public class Solution : SolutionBase2022
     
     public override object Run(int part)
     {
-        var reportings = ParseReportings(GetInput());
+        var reportings = ParseReportings(GetInputLines());
         return part switch
         {
             0 => CountBeaconExcludedPositions(reportings),

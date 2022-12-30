@@ -19,23 +19,29 @@ public abstract class SolutionBase
 
     public abstract object Run(int part);
 
-    protected void AssertInputExists()
-    {
-        Debug.Assert(InputFileExists(), $"Input file does not exist: {Year}-{Day}");
-    }
-
-    protected string[] GetInput()
+    protected string[] GetInputLines()
     {
         AssertInputExists();
         return File.ReadAllLines(GetInputFilePath());
     }
+
+    protected string GetInputText()
+    {
+        AssertInputExists();
+        return File.ReadAllText(GetInputFilePath());
+    }
     
-    protected string GetInputFilePath()
+    private string GetInputFilePath()
     {
         return Path.Combine(
             AppDomain.CurrentDomain.BaseDirectory,
             InputsDirectoryName, 
             InputFilename);
+    }
+    
+    private void AssertInputExists()
+    {
+        Debug.Assert(InputFileExists(), $"Input file does not exist: {Year}-{Day}");
     }
     
     private bool InputFileExists()

@@ -23,7 +23,7 @@ public class Solution : SolutionBase2022
     
     public override object Run(int part)
     {
-        var expressions = ParseExpressions(GetInput());
+        var expressions = ParseExpressions(GetInputLines());
         return part switch
         {
             0 => EvaluateExpression(Root, expressions),

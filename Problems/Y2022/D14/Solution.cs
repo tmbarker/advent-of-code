@@ -25,7 +25,7 @@ public class Solution : SolutionBase2022
     
     public override object Run(int part)
     {
-        var rockPaths = ParseRockPathVertices(GetInput());
+        var rockPaths = ParseRockPathVertices(GetInputLines());
         var occupiedPositions = FormRockPositionsSet(rockPaths);
         
         return part switch

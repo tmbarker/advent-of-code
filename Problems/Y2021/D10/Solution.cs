@@ -19,7 +19,7 @@ public class Solution : SolutionBase2021
     
     public override object Run(int part)
     {
-        var lines = GetInput();
+        var lines = GetInputLines();
         return part switch
         {
             0 => SumCorruptedLineSyntaxErrors(lines),

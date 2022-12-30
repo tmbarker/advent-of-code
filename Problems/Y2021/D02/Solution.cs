@@ -17,7 +17,7 @@ public class Solution : SolutionBase2021
     
     public override object Run(int part)
     {
-        var instructions = ParseInstructions(GetInput());
+        var instructions = ParseInstructions(GetInputLines());
         
         return part switch
         {

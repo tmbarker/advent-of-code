@@ -25,7 +25,7 @@ public class Solution : SolutionBase2022
     
     public override object Run(int part)
     {
-        var movements = ParseHeadMovements(GetInput());
+        var movements = ParseHeadMovements(GetInputLines());
         
         return part switch
         {

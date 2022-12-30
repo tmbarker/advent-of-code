@@ -25,7 +25,7 @@ public class Solution : SolutionBase2022
 
     private int ComputeMaxPressureRelieved(int timeLimit, bool withHelp)
     {
-        var valveData = ValveData.Parse(GetInput(), Start);
+        var valveData = ValveData.Parse(GetInputLines(), Start);
         var strategyFinder = new MaxFlowFinder(valveData);
         
         return strategyFinder.Run(Start, timeLimit, withHelp);

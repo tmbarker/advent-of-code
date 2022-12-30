@@ -40,8 +40,7 @@ public class Solution : SolutionBase2021
 
     private IList<int> GetPositions()
     {
-        AssertInputExists();
-        return File.ReadAllText(GetInputFilePath())
+        return GetInputText()
             .Split(Delimiter)
             .Select(int.Parse)
             .ToList();

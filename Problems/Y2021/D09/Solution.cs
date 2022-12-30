@@ -24,7 +24,7 @@ public class Solution : SolutionBase2021
     
     public override object Run(int part)
     {
-        var grid = ParseGrid(GetInput());
+        var grid = ParseGrid(GetInputLines());
         return part switch
         {
             0 => SumRiskLevel(grid),

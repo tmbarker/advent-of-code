@@ -25,7 +25,7 @@ public class Solution : SolutionBase2022
     
     public override object Run(int part)
     {
-        ParseInput(GetInput(), out var field, out var start, out var end, out var blizzards);
+        ParseInput(GetInputLines(), out var field, out var start, out var end, out var blizzards);
         
         return part switch
         {

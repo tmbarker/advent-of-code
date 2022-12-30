@@ -24,7 +24,7 @@ public class Solution : SolutionBase2022
 
     private int GetDuplicateItemPrioritySum()
     {
-        var rucksacks = GetInput();
+        var rucksacks = GetInputLines();
         var set = new HashSet<char>();
         var prioritySum = 0;
 
@@ -61,7 +61,7 @@ public class Solution : SolutionBase2022
 
     private int GetBadgeItemPrioritySum()
     {
-        var rucksacks = GetInput();
+        var rucksacks = GetInputLines();
         var numGroups = rucksacks.Length / GroupSize;
 
         var badgeItemPrioritySum = 0;

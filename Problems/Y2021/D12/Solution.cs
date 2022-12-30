@@ -23,7 +23,7 @@ public class Solution : SolutionBase2021
 
     private int CountPaths(bool bonusSmallCaveVisit)
     {
-        var adjacencyMap = ParseAdjacencyMap(GetInput());
+        var adjacencyMap = ParseAdjacencyMap(GetInputLines());
         var caveTraverser = new CaveTraverser(adjacencyMap, bonusSmallCaveVisit);
         var numPaths = 0;
 

@@ -15,7 +15,7 @@ public class Solution : SolutionBase2022
     
     public override object Run(int part)
     {
-        var surfaceVectors = ParseSurfaceVectors(GetInput());
+        var surfaceVectors = ParseSurfaceVectors(GetInputLines());
         return part switch
         {
             0 => ComputeTotalSurfaceArea(surfaceVectors),

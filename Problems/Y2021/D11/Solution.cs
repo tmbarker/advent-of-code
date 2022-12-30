@@ -58,7 +58,7 @@ public class Solution : SolutionBase2021
 
     private Grid2D<int> GetInitialState()
     {
-        var lines = GetInput();
+        var lines = GetInputLines();
         var width = lines[0].Length;
         var height = lines.Length;
         var grid = Grid2D<int>.WithDimensions(height, width);

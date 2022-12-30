@@ -12,7 +12,7 @@ public class Solution : SolutionBase2021
     
     public override object Run(int part)
     {
-        BingoData.Parse(GetInput(), out var draw, out var cards);
+        BingoData.Parse(GetInputLines(), out var draw, out var cards);
 
         return part switch
         {

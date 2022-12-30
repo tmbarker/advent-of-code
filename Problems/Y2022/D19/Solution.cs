@@ -25,7 +25,7 @@ public class Solution : SolutionBase2022
     
     public override object Run(int part)
     {
-        var blueprints = ParseBlueprints(GetInput());
+        var blueprints = ParseBlueprints(GetInputLines());
         return part switch
         {
             0 => EvaluateQualityLevels(blueprints, TimeLimitPart1),

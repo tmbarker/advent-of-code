@@ -12,7 +12,7 @@ public class Solution : SolutionBase2021
     
     public override object Run(int part)
     {
-        var numberStrings = GetInput();
+        var numberStrings = GetInputLines();
         
         return part switch
         {

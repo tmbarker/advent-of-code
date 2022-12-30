@@ -13,7 +13,7 @@ public class Solution : SolutionBase2022
     
     public override object Run(int part)
     {
-        if (!CranePlan.TryParse(GetInput(), out var plan))
+        if (!CranePlan.TryParse(GetInputLines(), out var plan))
         {
             throw new NoSolutionException();
         }

@@ -70,6 +70,6 @@ public class Solution : SolutionBase2022
 
     private IEnumerable<int> GetEncryptedNumbers()
     {
-        return GetInput().Select(int.Parse);
+        return GetInputLines().Select(int.Parse);
     }
 }

@@ -27,7 +27,7 @@ public class Solution : SolutionBase2021
 
     private int FindLeastRiskyPath(int tilesPerSide)
     {
-        ParseRiskMap(GetInput(), tilesPerSide, out var riskMap, out var start, out var end);
+        ParseRiskMap(GetInputLines(), tilesPerSide, out var riskMap, out var start, out var end);
 
         var visited = new HashSet<Vector2D> { start };
         var heap = new PriorityQueue<Vector2D, int>(new[] { (start, 0) });

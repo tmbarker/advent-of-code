@@ -51,9 +51,7 @@ public class Solution : SolutionBase2021
 
     private IEnumerable<int> GetInitialState()
     {
-        AssertInputExists();
-
-        return File.ReadAllText(GetInputFilePath())
+        return GetInputText()
             .Split(Delimiter)
             .Select(int.Parse);
     }

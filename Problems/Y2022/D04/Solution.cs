@@ -24,7 +24,7 @@ public class Solution : SolutionBase2022
 
     private int GetNumInclusivePairs()
     {
-        var assignmentPairs = GetInput();
+        var assignmentPairs = GetInputLines();
         return assignmentPairs
             .Select(ParseAssignmentPair)
             .Count(assignments => CheckSetsForContainment(assignments.Item1, assignments.Item2));
@@ -32,7 +32,7 @@ public class Solution : SolutionBase2022
     
     private int GetNumIntersectingPairs()
     {
-        var assignmentPairs = GetInput();
+        var assignmentPairs = GetInputLines();
         return assignmentPairs
             .Select(ParseAssignmentPair)
             .Count(assignments => CheckSetsForIntersection(assignments.Item1, assignments.Item2));

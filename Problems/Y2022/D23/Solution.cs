@@ -16,7 +16,7 @@ public class Solution : SolutionBase2022
     
     public override object Run(int part)
     {
-        var positions = ParsePositions(GetInput());
+        var positions = ParsePositions(GetInputLines());
         return part switch
         {
             0 => EmptyPositionsInBoundingRect(Simulate(positions, NumRounds)),

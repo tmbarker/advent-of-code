@@ -23,7 +23,7 @@ public class Solution : SolutionBase2022
 
     private int GetMaxCalories()
     {
-        var lines = GetInput();
+        var lines = GetInputLines();
         var maxCalories = 0;
         var currentCalories = 0;
 
@@ -45,7 +45,7 @@ public class Solution : SolutionBase2022
 
     private int GetMaxCalories(int num)
     {
-        var lines = GetInput();
+        var lines = GetInputLines();
         var calories = new List<int>();
         var currentCalories = 0;
         

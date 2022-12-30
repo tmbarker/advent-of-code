@@ -15,20 +15,17 @@ public class Solution : SolutionBase2022
     
     public override object Run(int part)
     {
-        AssertInputExists();
-
+        var datastream = GetInputText();
         return part switch
         {
-            0 => ListenForStartMarker(PacketMarkerLength),
-            1 => ListenForStartMarker(MessageMarkerLength),
+            0 => ListenForStartMarker(datastream, PacketMarkerLength),
+            1 => ListenForStartMarker(datastream, MessageMarkerLength),
             _ => ProblemNotSolvedString,
         };
     }
 
-    private int ListenForStartMarker(int markerLength)
+    private static int ListenForStartMarker(string datastream, int markerLength)
     {
-        var datastream = File.ReadAllText(GetInputFilePath());
-        
         var buffer = new Queue<char>(markerLength);
         var bufferContentMap = new Dictionary<char, int>(markerLength);
 

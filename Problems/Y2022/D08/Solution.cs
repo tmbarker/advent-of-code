@@ -16,7 +16,7 @@ public class Solution : SolutionBase2022
     
     public override object Run(int part)
     {
-        var trees = ParseTrees(GetInput());
+        var trees = ParseTrees(GetInputLines());
         
         return part switch
         {

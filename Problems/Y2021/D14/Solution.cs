@@ -17,7 +17,7 @@ public class Solution : SolutionBase2021
     
     public override object Run(int part)
     {
-        Parse(GetInput(), out var polymer, out var rules);
+        Parse(GetInputLines(), out var polymer, out var rules);
         return part switch
         {
             0 => GetMaxExtendedVariance(polymer, rules, Steps1),

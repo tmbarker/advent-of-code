@@ -38,7 +38,7 @@ public class Solution : SolutionBase2021
     
     public override object Run(int part)
     {
-        var notes = ParseSignalPatternNotes(GetInput()).ToList();
+        var notes = ParseSignalPatternNotes(GetInputLines()).ToList();
 
         return part switch
         {

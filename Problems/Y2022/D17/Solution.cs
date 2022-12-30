@@ -158,7 +158,6 @@ public class Solution : SolutionBase2022
     
     private JetPattern ParseJetPattern()
     {
-        AssertInputExists();
-        return JetPattern.Parse(File.ReadAllText(GetInputFilePath()));
+        return JetPattern.Parse(GetInputText());
     }
 }

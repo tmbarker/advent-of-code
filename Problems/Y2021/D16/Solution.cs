@@ -98,12 +98,7 @@ public class Solution : SolutionBase2021
     
     private Queue<char> ReadInputToBinaryBuffer()
     {
-        AssertInputExists();
-        
-        var hex = File.ReadAllText(GetInputFilePath());
-        var binary = HexToBin(hex);
-        
-        return new Queue<char>(binary);
+        return new Queue<char>(HexToBin(GetInputText()));
     }
     
     private static long ParseLiteralValue(Queue<char> binaryBuffer)

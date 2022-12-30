@@ -123,7 +123,7 @@ public class Solution : SolutionBase2022
 
     private void ParseGrid(out Grid2D<char> grid, out Vector2D start, out Vector2D end)
     {
-        var lines = GetInput();
+        var lines = GetInputLines();
         var rows = lines.Length;
         var cols = lines[0].Length;
         

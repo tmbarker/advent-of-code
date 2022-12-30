@@ -26,7 +26,7 @@ public class Solution : SolutionBase2021
 
     private int CountDangerousLocations(bool ignoreDiagonals)
     {
-        var lines = ParseVentLineVertices(GetInput());
+        var lines = ParseVentLineVertices(GetInputLines());
         var ventMap = BuildVentMap(lines, ignoreDiagonals);
 
         return ventMap.Values.Count(v => v > 1);

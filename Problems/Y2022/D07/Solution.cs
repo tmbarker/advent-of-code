@@ -15,7 +15,7 @@ public class Solution : SolutionBase2022
     
     public override object Run(int part)
     {
-        var consoleOutput = GetInput();
+        var consoleOutput = GetInputLines();
         var directorySizeIndex = ConsoleParser.ConstructDirectorySizeIndex(consoleOutput);
 
         return part switch
