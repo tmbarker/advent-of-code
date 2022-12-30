@@ -1,6 +1,5 @@
 ﻿using System.Text;
 using Problems.Y2021.Common;
-using Utilities.Numerics;
 
 namespace Problems.Y2021.D16;
 
@@ -9,6 +8,25 @@ namespace Problems.Y2021.D16;
 /// </summary>
 public class Solution : SolutionBase2021
 {
+    private static readonly Dictionary<char, string> HexCharToBinary = new() {
+        { '0', "0000" },
+        { '1', "0001" },
+        { '2', "0010" },
+        { '3', "0011" },
+        { '4', "0100" },
+        { '5', "0101" },
+        { '6', "0110" },
+        { '7', "0111" },
+        { '8', "1000" },
+        { '9', "1001" },
+        { 'A', "1010" },
+        { 'B', "1011" },
+        { 'C', "1100" },
+        { 'D', "1101" },
+        { 'E', "1110" },
+        { 'F', "1111" }
+    };
+    
     public override int Day => 16;
     
     public override object Run(int part)
@@ -24,8 +42,8 @@ public class Solution : SolutionBase2021
 
     private static Packet ParsePacket(Queue<char> buffer)
     {
-        var version = (int)BaseConvert.BinToDec(ReadSection(buffer, Section.Version));
-        var @operator = (Operator)BaseConvert.BinToDec(ReadSection(buffer, Section.TypeId));
+        var version = (int)BinToDec(ReadSection(buffer, Section.Version));
+        var @operator = (Operator)BinToDec(ReadSection(buffer, Section.TypeId));
 
         if (@operator == Operator.Identity)
         {
@@ -33,11 +51,11 @@ public class Solution : SolutionBase2021
         }
 
         var subPackets = new List<Packet>(); 
-        var lengthTypeId = (int)BaseConvert.BinToDec(ReadSection(buffer, Section.LengthTypeId));
+        var lengthTypeId = (int)BinToDec(ReadSection(buffer, Section.LengthTypeId));
         
         if (lengthTypeId == 0)
         {
-            var numSubPacketBits = (int)BaseConvert.BinToDec(Read(buffer, 15));
+            var numSubPacketBits = (int)BinToDec(Read(buffer, 15));
             var bitsParsed = 0;
 
             while (bitsParsed < numSubPacketBits)
@@ -49,7 +67,7 @@ public class Solution : SolutionBase2021
         }
         else
         {
-            var numSubPackets = (int)BaseConvert.BinToDec(Read(buffer, 11));
+            var numSubPackets = (int)BinToDec(Read(buffer, 11));
             for (var n = 0; n < numSubPackets; n++)
             {
                 subPackets.Add(ParsePacket(buffer));
@@ -83,7 +101,7 @@ public class Solution : SolutionBase2021
         AssertInputExists();
         
         var hex = File.ReadAllText(GetInputFilePath());
-        var binary = BaseConvert.HexToBin(hex);
+        var binary = HexToBin(hex);
         
         return new Queue<char>(binary);
     }
@@ -100,7 +118,7 @@ public class Solution : SolutionBase2021
             sb.Append(chunk[1..]);
         }
 
-        return BaseConvert.BinToDec(sb.ToString());
+        return BinToDec(sb.ToString());
     }
 
     private static string ReadSection(Queue<char> buffer, Section section)
@@ -123,6 +141,31 @@ public class Solution : SolutionBase2021
         while (n-- > 0)
         {
             sb.Append(buffer.Dequeue());
+        }
+        return sb.ToString();
+    }
+    
+    private static long BinToDec(string binary)
+    {
+        var value = 0L;
+        var digits = binary.Length;
+        
+        for (var i = 0; i < digits; i++)
+        {
+            var p = (long)Math.Pow(2, i);
+            var d = binary[digits - i - 1] - '0';
+            value += d * p;
+        }
+        
+        return value;
+    }
+    
+    private static string HexToBin(string hex)
+    {
+        var sb = new StringBuilder();
+        foreach (var c in hex.ToUpperInvariant())
+        {
+            sb.Append(HexCharToBinary[c]);
         }
         return sb.ToString();
     }
