@@ -1,5 +1,4 @@
 ﻿using System.Text;
-using Problems.Common;
 using Problems.Y2021.Common;
 using Utilities.Numerics;
 
@@ -14,13 +13,50 @@ public class Solution : SolutionBase2021
     
     public override object Run(int part)
     {
-        var packet = ParsePacket(ReadToPacketBinaryBuffer());
+        var packet = ParsePacket(ReadInputToBinaryBuffer());
         return part switch
         {
             0 => SumPacketVersionNumbers(packet),
             1 => packet.Evaluate(),
             _ => ProblemNotSolvedString,
         };
+    }
+
+    private static Packet ParsePacket(Queue<char> buffer)
+    {
+        var version = (int)BaseConvert.BinToDec(ReadSection(buffer, Section.Version));
+        var @operator = (Operator)BaseConvert.BinToDec(ReadSection(buffer, Section.TypeId));
+
+        if (@operator == Operator.Identity)
+        {
+            return new LiteralPacket(version, ParseLiteralValue(buffer));
+        }
+
+        var subPackets = new List<Packet>(); 
+        var lengthTypeId = (int)BaseConvert.BinToDec(ReadSection(buffer, Section.LengthTypeId));
+        
+        if (lengthTypeId == 0)
+        {
+            var numSubPacketBits = (int)BaseConvert.BinToDec(Read(buffer, 15));
+            var bitsParsed = 0;
+
+            while (bitsParsed < numSubPacketBits)
+            {
+                var before = buffer.Count;
+                subPackets.Add(ParsePacket(buffer));
+                bitsParsed += before - buffer.Count;
+            }
+        }
+        else
+        {
+            var numSubPackets = (int)BaseConvert.BinToDec(Read(buffer, 11));
+            for (var n = 0; n < numSubPackets; n++)
+            {
+                subPackets.Add(ParsePacket(buffer));
+            }
+        }
+
+        return new OperatorPacket(version, @operator, subPackets);
     }
 
     private static int SumPacketVersionNumbers(Packet root)
@@ -41,50 +77,13 @@ public class Solution : SolutionBase2021
 
         return sum;
     }
-
-    private static Packet ParsePacket(Queue<char> buffer)
-    {
-        var version = (int)BaseConversion.BinaryToDecimal(ReadSection(buffer, Section.Version));
-        var @operator = (Operator)BaseConversion.BinaryToDecimal(ReadSection(buffer, Section.TypeId));
-
-        if (@operator == Operator.Identity)
-        {
-            return new LiteralPacket(version, ParseLiteralValue(buffer));
-        }
-
-        var subPackets = new List<Packet>(); 
-        var lengthTypeId = (int)BaseConversion.BinaryToDecimal(ReadSection(buffer, Section.LengthTypeId));
-        
-        if (lengthTypeId == 0)
-        {
-            var numSubPacketBits = (int)BaseConversion.BinaryToDecimal(ReadMultiple(buffer, 15));
-            var bitsParsed = 0;
-
-            while (bitsParsed < numSubPacketBits)
-            {
-                var before = buffer.Count;
-                subPackets.Add(ParsePacket(buffer));
-                bitsParsed += before - buffer.Count;
-            }
-        }
-        else
-        {
-            var numSubPackets = (int)BaseConversion.BinaryToDecimal(ReadMultiple(buffer, 11));
-            for (var n = 0; n < numSubPackets; n++)
-            {
-                subPackets.Add(ParsePacket(buffer));
-            }
-        }
-
-        return new OperatorPacket(version, @operator, subPackets);
-    }
-
-    private Queue<char> ReadToPacketBinaryBuffer()
+    
+    private Queue<char> ReadInputToBinaryBuffer()
     {
         AssertInputExists();
         
         var hex = File.ReadAllText(GetInputFilePath());
-        var binary = BaseConversion.HexToBinary(hex);
+        var binary = BaseConvert.HexToBin(hex);
         
         return new Queue<char>(binary);
     }
@@ -101,22 +100,24 @@ public class Solution : SolutionBase2021
             sb.Append(chunk[1..]);
         }
 
-        return BaseConversion.BinaryToDecimal(sb.ToString());
+        return BaseConvert.BinToDec(sb.ToString());
     }
 
     private static string ReadSection(Queue<char> buffer, Section section)
     {
         return section switch
         {
-            Section.Version => ReadMultiple(buffer, 3),
-            Section.TypeId => ReadMultiple(buffer, 3),
-            Section.LengthTypeId => ReadMultiple(buffer, 1),
-            Section.LiteralChunk => ReadMultiple(buffer, 5),
-            _ => throw new NoSolutionException(),
+            Section.Version => Read(buffer, 3),
+            Section.TypeId => Read(buffer, 3),
+            Section.LengthTypeId => Read(buffer, 1),
+            Section.LiteralChunk => Read(buffer, 5),
+            Section.SubPacketCount => Read(buffer, 11),
+            Section.SubPacketBits => Read(buffer, 15),
+            _ => throw new ArgumentOutOfRangeException(nameof(section), section.ToString()),
         };
     }
 
-    private static string ReadMultiple(Queue<char> buffer, int n)
+    private static string Read(Queue<char> buffer, int n)
     {
         var sb = new StringBuilder();
         while (n-- > 0)

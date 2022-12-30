@@ -2,7 +2,7 @@
 
 namespace Utilities.Numerics;
 
-public static class BaseConversion
+public static class BaseConvert
 {
     private const int BinaryRadix = 2;
     
@@ -25,7 +25,7 @@ public static class BaseConversion
         { 'F', "1111" }
     };
     
-    public static long BinaryToDecimal(string binary)
+    public static long BinToDec(string binary)
     {
         var value = 0L;
         var digits = binary.Length;
@@ -40,7 +40,7 @@ public static class BaseConversion
         return value;
     }
     
-    public static string HexToBinary(string hex)
+    public static string HexToBin(string hex)
     {
         var sb = new StringBuilder();
         foreach (var c in hex.ToUpperInvariant())
