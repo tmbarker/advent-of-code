@@ -199,13 +199,13 @@ public static class MapData
             switch (match.Value)
             {
                 case Left:
-                    instructions.Add(new Instruction(0, Rotation2D.Ccw90));
+                    instructions.Add(new Instruction(0, Rotation3D.Positive90Z));
                     continue;
                 case Right:
-                    instructions.Add(new Instruction(0, Rotation2D.Cw90));
+                    instructions.Add(new Instruction(0, Rotation3D.Negative90Z));
                     continue;
                 default:
-                    instructions.Add(new Instruction(int.Parse(match.Value), Rotation2D.Zero));
+                    instructions.Add(new Instruction(int.Parse(match.Value), Rotation3D.Zero));
                     break;
             }
         }
@@ -250,7 +250,7 @@ public static class MapData
             var fromVertex = faceVertices[i];
             var toVertex = faceVertices[i + 1];
             var step = Vector2D.Normalize(toVertex - fromVertex);
-            var fromFacing = Rotation2D.Ccw90 * step;
+            var fromFacing = (Vector2D)(Rotation3D.Positive90Z * step);
             var current = fromVertex;
 
             // Don't need to traverse edges which aren't on the perimeter of the net

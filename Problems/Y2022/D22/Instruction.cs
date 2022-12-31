@@ -4,12 +4,12 @@ namespace Problems.Y2022.D22;
 
 public readonly struct Instruction
 {
-    public Instruction(int steps, Rotation2D rotation)
+    public Instruction(int steps, Rotation3D rotation)
     {
         Steps = steps;
         Rotation = rotation;
     }
 
     public int Steps { get; }
-    public Rotation2D Rotation { get; }
+    public Rotation3D Rotation { get; }
 }

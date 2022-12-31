@@ -1,5 +1,8 @@
 namespace Utilities.DataStructures.Cartesian;
 
+/// <summary>
+/// A readonly integral 3D Vector value type
+/// </summary>
 public readonly struct Vector3D : IEquatable<Vector3D>
 {
     private const string StringFormat = "[{0},{1},{2}]";
@@ -26,8 +29,11 @@ public readonly struct Vector3D : IEquatable<Vector3D>
         Id = string.Format(StringFormat, X, Y, Z);
     }
 
-    public Vector3D(Vector3D other) : this(other.X, other.Y, other.Z)
+    public void Deconstruct(out int x, out int y, out int z)
     {
+        x = X;
+        y = Y;
+        z = Z;
     }
 
     public static Vector3D Normalize(Vector3D vector)
@@ -39,6 +45,8 @@ public readonly struct Vector3D : IEquatable<Vector3D>
     {
         return X * other.X + Y * other.Y + Z * other.Z;
     }
+
+    public static implicit operator Vector3D(Vector2D v) => new(v.X, v.Y, 0);
     
     public static Vector3D operator +(Vector3D lhs, Vector3D rhs)
     {
