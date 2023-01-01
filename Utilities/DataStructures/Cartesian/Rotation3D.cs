@@ -51,23 +51,23 @@ public readonly struct Rotation3D : IEquatable<Rotation3D>
 
     private static Vector3D RotateAboutX(Rotation3D r, Vector3D v)
     {
-        var y = (int)(v.Y * Math.Cos(r.ThetaRad) - v.Z * Math.Sin(r.ThetaRad));
-        var z = (int)(v.Y * Math.Sin(r.ThetaRad) + v.Z * Math.Cos(r.ThetaRad));
-        return new Vector3D(v.X, y, z);
+        var y = v.Y * Math.Cos(r.ThetaRad) - v.Z * Math.Sin(r.ThetaRad);
+        var z = v.Y * Math.Sin(r.ThetaRad) + v.Z * Math.Cos(r.ThetaRad);
+        return new Vector3D(v.X, (int)Math.Round(y), (int)Math.Round(z));
     }
     
     private static Vector3D RotateAboutY(Rotation3D r, Vector3D v)
     {
-        var x = (int)(v.X * Math.Cos(r.ThetaRad) + v.Z * Math.Sin(r.ThetaRad));
-        var z = (int)(v.Z * Math.Cos(r.ThetaRad) - v.X * Math.Sin(r.ThetaRad));
-        return new Vector3D(x, v.Y, z);
+        var x = v.X * Math.Cos(r.ThetaRad) + v.Z * Math.Sin(r.ThetaRad);
+        var z = v.Z * Math.Cos(r.ThetaRad) - v.X * Math.Sin(r.ThetaRad);
+        return new Vector3D((int)Math.Round(x), v.Y, (int)Math.Round(z));
     }
     
     private static Vector3D RotateAboutZ(Rotation3D r, Vector3D v)
     {
-        var x = (int)(v.X * Math.Cos(r.ThetaRad) - v.Y * Math.Sin(r.ThetaRad));
-        var y = (int)(v.X * Math.Sin(r.ThetaRad) + v.Y * Math.Cos(r.ThetaRad));
-        return new Vector3D(x, y, v.Z);
+        var x = v.X * Math.Cos(r.ThetaRad) - v.Y * Math.Sin(r.ThetaRad);
+        var y = v.X * Math.Sin(r.ThetaRad) + v.Y * Math.Cos(r.ThetaRad);
+        return new Vector3D((int)Math.Round(x), (int)Math.Round(y), v.Z);
     }
     
 
