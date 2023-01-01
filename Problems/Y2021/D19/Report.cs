@@ -1,0 +1,51 @@
+using System.Text.RegularExpressions;
+using Utilities.DataStructures.Cartesian;
+
+namespace Problems.Y2021.D19;
+
+public static class Report
+{
+    private const string IntRegex = @"(-?\d+)";
+    
+    public static void Parse(IEnumerable<string> lines, out IList<Reporting> reportings)
+    {
+        reportings = new List<Reporting>();
+        var activeSensor = -1;
+        var activeBeacons = new List<Vector3D>();
+
+        foreach (var line in lines)
+        {
+            if (activeSensor < 0)
+            {
+                activeSensor = ParseSensorId(line);
+                continue;
+            }
+
+            if (string.IsNullOrWhiteSpace(line))
+            {
+                reportings.Add(new Reporting(activeSensor, activeBeacons));
+                activeSensor = -1;
+                activeBeacons = new List<Vector3D>();
+                continue;
+            }
+            
+            activeBeacons.Add(ParseVector(line));
+        }
+        
+        reportings.Add(new Reporting(activeSensor, activeBeacons));
+    }
+    
+    private static int ParseSensorId(string line)
+    {
+        return int.Parse(Regex.Match(line, IntRegex).Value);
+    }
+
+    private static Vector3D ParseVector(string line)
+    {
+        var matches = Regex.Matches(line, IntRegex);
+        return new Vector3D(
+            x: int.Parse(matches[0].Value),
+            y: int.Parse(matches[1].Value),
+            z: int.Parse(matches[2].Value));
+    }
+}
