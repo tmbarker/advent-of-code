@@ -28,7 +28,7 @@ public class Solution : SolutionBase2022
 
     private static int CountVisibleTrees(Grid2D<int> trees)
     {
-        var visibleSet = new HashSet<string>();
+        var visibleSet = new HashSet<Vector2D>();
         var linesOfSight = GetLinesOfSight(trees.Height, trees.Width);
 
         foreach (var lineOfSight in linesOfSight)
@@ -39,15 +39,15 @@ public class Solution : SolutionBase2022
         return visibleSet.Count;
     }
 
-    private static List<IEnumerable<IPosition2D>> GetLinesOfSight(int rows, int cols)
+    private static List<IEnumerable<Vector2D>> GetLinesOfSight(int rows, int cols)
     {
-        var los = new List<IEnumerable<IPosition2D>>();
+        var los = new List<IEnumerable<Vector2D>>();
         
         // Horizontal
         for (var y = 0; y < rows; y++)
         {
-            var left = new List<IPosition2D>();
-            var right = new List<IPosition2D>();
+            var left = new List<Vector2D>();
+            var right = new List<Vector2D>();
             
             for (var x = 0; x < cols; x++)
             {
@@ -62,8 +62,8 @@ public class Solution : SolutionBase2022
         // Vertical
         for (var x = 0; x < cols; x++)
         {
-            var up = new List<IPosition2D>();
-            var down = new List<IPosition2D>();
+            var up = new List<Vector2D>();
+            var down = new List<Vector2D>();
             
             for (var y = 0; y < rows; y++)
             {
@@ -78,7 +78,7 @@ public class Solution : SolutionBase2022
         return los;
     }
     
-    private static void EvaluateLineOfSight(Grid2D<int> trees, IEnumerable<IPosition2D> positions, ISet<string> visible)
+    private static void EvaluateLineOfSight(Grid2D<int> trees, IEnumerable<Vector2D> positions, ISet<Vector2D> visible)
     {
         var max = MinHeight - 1;
         foreach (var position in positions)
@@ -87,7 +87,7 @@ public class Solution : SolutionBase2022
             if (height > max)
             {
                 max = height;
-                visible.EnsureContains(position.Id);
+                visible.EnsureContains(position);
             }
 
             if (height >= MaxHeight)

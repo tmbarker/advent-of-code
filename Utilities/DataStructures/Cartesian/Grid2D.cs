@@ -41,7 +41,7 @@ public partial class Grid2D<T>
     /// Index the element at <paramref name="position"/>
     /// </summary>
     /// <param name="position">The position to index</param>
-    public T this[IPosition2D position]
+    public T this[Vector2D position]
     {
         get => Get(position);
         set => Set(position, value);
@@ -52,7 +52,7 @@ public partial class Grid2D<T>
     /// </summary>
     /// <param name="position">The position to index</param>
     /// <returns>The element at the specified position</returns>
-    public T Get(IPosition2D position)
+    public T Get(Vector2D position)
     {
         return Get(position.X, position.Y);
     }
@@ -62,7 +62,7 @@ public partial class Grid2D<T>
     /// </summary>
     /// <param name="position">The position to index</param>
     /// <param name="value">The element value to set</param>
-    public void Set(IPosition2D position, T value)
+    public void Set(Vector2D position, T value)
     {
         Set(position.X, position.Y, value);
     }
@@ -72,7 +72,7 @@ public partial class Grid2D<T>
     /// </summary>
     /// <param name="position">The position to check</param>
     /// <returns>A Boolean representing if the position is within the bounds of the <see cref="Grid2D{T}"/></returns>
-    public bool IsInDomain(IPosition2D position)
+    public bool IsInDomain(Vector2D position)
     {
         return
             position.X >= 0 && position.X < Width &&

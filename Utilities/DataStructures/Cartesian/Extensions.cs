@@ -5,25 +5,26 @@ public static class Extensions
     /// <summary>
     /// Determine if two positions are diagonal, where they do not share a common value for either dimension
     /// </summary>
-    public static bool IsDiagonalTo(this IPosition2D lhs, IPosition2D rhs)
+    public static bool IsDiagonalTo(this Vector2D lhs, Vector2D rhs)
     {
         return lhs.X != rhs.X && lhs.Y != rhs.Y;
     }
     
     /// <summary>
-    /// Determine if two positions are adjacent, where adjacent means the Chebyshev distance is less than or equal to 1
+    /// Determine if two positions are adjacent, where adjacent means the specified distance metric is less than or equal to 1
     /// </summary>
-    public static bool IsAdjacentTo(this IPosition2D lhs, IPosition2D rhs)
+    public static bool IsAdjacentTo(this Vector2D lhs, Vector2D rhs, DistanceMetric metric)
     {
-        return Vector2D.ChebyshevDistance(lhs, rhs) <= 1;
-    }
-    
-    /// <summary>
-    /// Determine if two positions are edge adjacent, where edge adjacent means the Taxicab distance is less than or equal to 1
-    /// </summary>
-    public static bool IsEdgeAdjacentTo(this IPosition2D lhs, IPosition2D rhs)
-    {
-        return Vector2D.TaxicabDistance(lhs, rhs) <= 1;
+        switch (metric)
+        {
+            case DistanceMetric.Chebyshev:
+                return Vector2D.ChebyshevDistance(lhs, rhs) <= 1;
+            case DistanceMetric.Taxicab:
+                return Vector2D.TaxicabDistance(lhs, rhs) <= 1;
+            case DistanceMetric.Euclidean:
+            default:
+                throw new ArgumentOutOfRangeException(nameof(metric), metric, null);
+        }
     }
 
     /// <summary>
@@ -104,7 +105,7 @@ public static class Extensions
     /// <summary>
     /// Print Grid contents to the console
     /// </summary>
-    public static void Print<T>(this Grid2D<T> grid, string title = "GRID", Func<IPosition2D, T, string>? elementFormatter = null, int padding = 4)
+    public static void Print<T>(this Grid2D<T> grid, string title = "GRID", Func<Vector2D, T, string>? elementFormatter = null, int padding = 4)
     {
         const char headerChar = '-';
         

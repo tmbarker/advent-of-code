@@ -1,9 +1,9 @@
 namespace Utilities.DataStructures.Cartesian;
 
 /// <summary>
-/// A readonly integral 3D Vector value type
+/// A readonly integral 2D Vector value type
 /// </summary>
-public readonly struct Vector2D : IPosition2D, IEquatable<Vector2D>
+public readonly struct Vector2D : IEquatable<Vector2D>
 {
     private const string StringFormat = "[{0},{1}]";
 
@@ -38,7 +38,7 @@ public readonly struct Vector2D : IPosition2D, IEquatable<Vector2D>
         return new Vector2D(Math.Sign(vector.X), Math.Sign(vector.Y));
     }
     
-    public static int ChebyshevDistance(IPosition2D a, IPosition2D b)
+    public static int ChebyshevDistance(Vector2D a, Vector2D b)
     {
         var dx = Math.Abs(a.X - b.X);
         var dy = Math.Abs(a.Y - b.Y);
@@ -46,7 +46,7 @@ public readonly struct Vector2D : IPosition2D, IEquatable<Vector2D>
         return Math.Max(dx, dy);
     }
     
-    public static int TaxicabDistance(IPosition2D a, IPosition2D b)
+    public static int TaxicabDistance(Vector2D a, Vector2D b)
     {
         var dx = Math.Abs(a.X - b.X);
         var dy = Math.Abs(a.Y - b.Y);
