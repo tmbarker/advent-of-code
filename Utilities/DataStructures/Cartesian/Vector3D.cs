@@ -15,7 +15,7 @@ public readonly struct Vector3D : IEquatable<Vector3D>
     public static readonly Vector3D Forward = new(0, 0, 1);
     public static readonly Vector3D Back = new(0, 0, -1);
 
-    public string Id { get; }
+    private string Id { get; }
     public int X { get; }
     public int Y { get; }
     public int Z { get; }
@@ -46,6 +46,24 @@ public readonly struct Vector3D : IEquatable<Vector3D>
         return X * other.X + Y * other.Y + Z * other.Z;
     }
 
+    public static int ChebyshevDistance(Vector3D a, Vector3D b)
+    {
+        var dx = Math.Abs(a.X - b.X);
+        var dy = Math.Abs(a.Y - b.Y);
+        var dz = Math.Abs(a.Z - b.Z);
+
+        return new[] { dx, dy, dz }.Max();
+    }
+    
+    public static int TaxicabDistance(Vector3D a, Vector3D b)
+    {
+        var dx = Math.Abs(a.X - b.X);
+        var dy = Math.Abs(a.Y - b.Y);
+        var dz = Math.Abs(a.Z - b.Z);
+
+        return dx + dy + dz;
+    }
+    
     public static implicit operator Vector3D(Vector2D v) => new(v.X, v.Y, 0);
     
     public static Vector3D operator +(Vector3D lhs, Vector3D rhs)

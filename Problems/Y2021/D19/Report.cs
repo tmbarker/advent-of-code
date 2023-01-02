@@ -7,9 +7,9 @@ public static class Report
 {
     private const string IntRegex = @"(-?\d+)";
     
-    public static void Parse(IEnumerable<string> lines, out IList<Reporting> reportings)
+    public static IList<Reporting> Parse(IEnumerable<string> lines)
     {
-        reportings = new List<Reporting>();
+        var reportings = new List<Reporting>();
         var activeSensor = -1;
         var activeBeacons = new List<Vector3D>();
 
@@ -33,6 +33,7 @@ public static class Report
         }
         
         reportings.Add(new Reporting(activeSensor, activeBeacons));
+        return reportings;
     }
     
     private static int ParseSensorId(string line)

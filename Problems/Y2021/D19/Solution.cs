@@ -1,5 +1,6 @@
 using Problems.Y2021.Common;
 using Utilities.DataStructures.Cartesian;
+using Utilities.Extensions;
 
 namespace Problems.Y2021.D19;
 
@@ -8,50 +9,108 @@ namespace Problems.Y2021.D19;
 /// </summary>
 public class Solution : SolutionBase2021
 {
-    // TODO: Are these constants needed
-    private const int SensorRange = 1000;
-    private const int BeaconUnionThreshold = 12;
-
-    // TODO: Need Camera View Transform Matrix/Perspective Projection Matrix/Perspective Matrix
-    private static readonly IReadOnlySet<Rotation3D> Transforms = new HashSet<Rotation3D>()
-    {
-        Rotation3D.Zero,            // +x -> +x
-        Rotation3D.Negative90Y,     // +x -> -z
-        Rotation3D.Positive90Y,     // +x -> +z
-        Rotation3D.Positive180Y,    // +x -> -x
-        Rotation3D.Negative90Z,     // +x -> -y
-        Rotation3D.Positive90Z,     // +x -> +y
-    };
+    private const int IntersectionThreshold = 12;
     
+    private static readonly IReadOnlySet<SensorTransform> SensorTransforms = new HashSet<SensorTransform>
+    {
+        new(Rotation3D.Zero,         Rotation3D.RotationsAroundAxis(Rotation3D.Axis.X)), // +x -> +x
+        new(Rotation3D.Positive180Y, Rotation3D.RotationsAroundAxis(Rotation3D.Axis.X)), // +x -> -x
+        new(Rotation3D.Positive90Y,  Rotation3D.RotationsAroundAxis(Rotation3D.Axis.Z)), // +x -> +z
+        new(Rotation3D.Negative90Y,  Rotation3D.RotationsAroundAxis(Rotation3D.Axis.Z)), // +x -> -z
+        new(Rotation3D.Positive90Z,  Rotation3D.RotationsAroundAxis(Rotation3D.Axis.Y)), // +x -> +y
+        new(Rotation3D.Negative90Z,  Rotation3D.RotationsAroundAxis(Rotation3D.Axis.Y)), // +x -> -y
+    };
+
     public override int Day => 19;
     
     public override object Run(int part)
     {
-        Report.Parse(GetInputLines(), out var reportings);
+        var reportings = Report.Parse(GetInputLines());
+        var (sensors, beacons) = CreateMap(reportings);
+
         return part switch
         {
-            0 => Scratch(reportings),
+            0 => beacons.Count,
+            1 => ComputeMaxTaxicabDistance(sensors),
             _ => ProblemNotSolvedString,
         };
     }
 
-    private string Scratch(IList<Reporting> reportings)
+    private static int ComputeMaxTaxicabDistance(ISet<Vector3D> sensors)
     {
-        var beacons = reportings[0].Beacons;
-        foreach (var rotation in Transforms)
+        return sensors
+            .Aggregate(0, (max, p1) => sensors.Select(p2 => Vector3D.TaxicabDistance(p1, p2))
+            .Prepend(max)
+            .Max());
+    }
+    
+    private static (ISet<Vector3D> sensors, ISet<Vector3D> beacons) CreateMap(IList<Reporting> reportings)
+    {
+        var knownSensors = new HashSet<Vector3D> { Vector3D.Zero };
+        var knownBeacons = new HashSet<Vector3D>(reportings[0].Beacons);
+        var unmatchedReportings = new List<Reporting>(reportings.Skip(1));
+        
+        var i = 0;
+        while (unmatchedReportings.Count > 0)
         {
-            Print(beacons, rotation);
+            if (TryMatchReporting(knownSensors, knownBeacons, unmatchedReportings[i]))
+            {
+                unmatchedReportings.RemoveAt(i);
+            }
+
+            if (unmatchedReportings.Any())
+            {
+                i = (i + 1) % unmatchedReportings.Count;
+            }
         }
 
-        return ProblemNotSolvedString;
+        return (knownSensors, knownBeacons);
     }
 
-    private static void Print(IEnumerable<Vector3D> positions, Rotation3D rot)
+    private static bool TryMatchReporting(ISet<Vector3D> knownSensors, ISet<Vector3D> knownBeacons, Reporting reporting)
     {
-        Console.WriteLine(rot);
-        foreach (var p in positions)
+        foreach (var transform in SensorTransforms)
         {
-            Console.WriteLine(rot * p);
+            foreach (var rot in transform.OrientationRotations)
+            {
+                var reported = reporting.Beacons
+                    .Select(p => rot * (transform.FacingRotation * p))
+                    .ToList();
+                
+                if (TryMatchPositions(knownSensors, knownBeacons, reported))
+                {
+                    return true;
+                }
+            }
         }
+        
+        return false;
+    }
+    
+    private static bool TryMatchPositions(ISet<Vector3D> knownSensors, ISet<Vector3D> knownBeacons, IList<Vector3D> reportedBeacons)
+    {
+        foreach (var knownPos in knownBeacons)
+        {
+            foreach (var reportedPos in reportedBeacons)
+            {
+                var offset = reportedPos - knownPos;
+                var shifted = reportedBeacons.Select(p => p - offset).ToList();
+
+                if (knownBeacons.Intersect(shifted).Count() < IntersectionThreshold)
+                {
+                    continue;
+                }
+                
+                foreach (var shiftedPos in shifted)
+                {
+                    knownBeacons.EnsureContains(shiftedPos);
+                }
+
+                knownSensors.EnsureContains(Vector3D.Zero - offset);
+                return true;
+            }
+        }
+
+        return false;
     }
 }
