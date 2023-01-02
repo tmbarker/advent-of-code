@@ -11,7 +11,7 @@ public class Solution : SolutionBase2021
 {
     private const int IntersectionThreshold = 12;
     
-    private static readonly IReadOnlySet<SensorTransform> SensorTransforms = new HashSet<SensorTransform>
+    private static readonly IReadOnlySet<ScannerTransform> ScannerTransforms = new HashSet<ScannerTransform>
     {
         new(Rotation3D.Zero,         Rotation3D.RotationsAroundAxis(Rotation3D.Axis.X)), // +x -> +x
         new(Rotation3D.Positive180Y, Rotation3D.RotationsAroundAxis(Rotation3D.Axis.X)), // +x -> -x
@@ -26,27 +26,27 @@ public class Solution : SolutionBase2021
     public override object Run(int part)
     {
         var reportings = Report.Parse(GetInputLines());
-        var (sensors, beacons) = CreateMap(reportings);
+        var (scanners, beacons) = CreateMap(reportings);
 
         return part switch
         {
             0 => beacons.Count,
-            1 => ComputeMaxTaxicabDistance(sensors),
+            1 => ComputeMaxTaxicabDistance(scanners),
             _ => ProblemNotSolvedString,
         };
     }
 
-    private static int ComputeMaxTaxicabDistance(ISet<Vector3D> sensors)
+    private static int ComputeMaxTaxicabDistance(ISet<Vector3D> scanners)
     {
-        return sensors
-            .Aggregate(0, (max, p1) => sensors.Select(p2 => Vector3D.TaxicabDistance(p1, p2))
+        return scanners
+            .Aggregate(0, (max, p1) => scanners.Select(p2 => Vector3D.TaxicabDistance(p1, p2))
             .Prepend(max)
             .Max());
     }
     
-    private static (ISet<Vector3D> sensors, ISet<Vector3D> beacons) CreateMap(IList<Reporting> reportings)
+    private static (ISet<Vector3D> scanners, ISet<Vector3D> beacons) CreateMap(IList<Reporting> reportings)
     {
-        var knownSensors = new HashSet<Vector3D> { Vector3D.Zero };
+        var knownScanners = new HashSet<Vector3D> { Vector3D.Zero };
         var knownBeacons = new HashSet<Vector3D>(reportings[0].Beacons);
         var unmatchedReportings = new List<Reporting>(reportings.Skip(1));
         
@@ -54,22 +54,22 @@ public class Solution : SolutionBase2021
         while (unmatchedReportings.Count > 0)
         {
             i = ++i % unmatchedReportings.Count;
-            if (TryMatchReporting(knownSensors, knownBeacons, unmatchedReportings[i]))
+            if (TryMatchReporting(knownScanners, knownBeacons, unmatchedReportings[i]))
             {
                 unmatchedReportings.RemoveAt(i);
             }
         }
 
-        return (knownSensors, knownBeacons);
+        return (knownScanners, knownBeacons);
     }
 
-    private static bool TryMatchReporting(ISet<Vector3D> knownSensors, ISet<Vector3D> knownBeacons, Reporting reporting)
+    private static bool TryMatchReporting(ISet<Vector3D> knownScanners, ISet<Vector3D> knownBeacons, Reporting reporting)
     {
-        foreach (var transform in SensorTransforms)
+        foreach (var transform in ScannerTransforms)
         {
             foreach (var (r1, r2) in transform.GetRotations())
             {
-                if (TryMatchPositions(knownSensors, knownBeacons, TransformPositions(reporting.Beacons, r1, r2)))
+                if (TryMatchPositions(knownScanners, knownBeacons, TransformPositions(reporting.Beacons, r1, r2)))
                 {
                     return true;
                 }
@@ -84,7 +84,7 @@ public class Solution : SolutionBase2021
         return pos.Select(p => r2 * (r1 * p)).ToList();
     }
     
-    private static bool TryMatchPositions(ISet<Vector3D> knownSensors, ISet<Vector3D> knownBeacons, IList<Vector3D> reportedBeacons)
+    private static bool TryMatchPositions(ISet<Vector3D> knownScanners, ISet<Vector3D> knownBeacons, IList<Vector3D> reportedBeacons)
     {
         foreach (var knownPos in knownBeacons)
         {
@@ -103,7 +103,7 @@ public class Solution : SolutionBase2021
                     knownBeacons.EnsureContains(shiftedPos);
                 }
 
-                knownSensors.EnsureContains(Vector3D.Zero - offset);
+                knownScanners.EnsureContains(Vector3D.Zero - offset);
                 return true;
             }
         }

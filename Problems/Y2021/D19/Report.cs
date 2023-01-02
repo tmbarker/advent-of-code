@@ -10,21 +10,21 @@ public static class Report
     public static IList<Reporting> Parse(IEnumerable<string> lines)
     {
         var reportings = new List<Reporting>();
-        var activeSensor = -1;
+        var activeScanner = -1;
         var activeBeacons = new List<Vector3D>();
 
         foreach (var line in lines)
         {
-            if (activeSensor < 0)
+            if (activeScanner < 0)
             {
-                activeSensor = ParseSensorId(line);
+                activeScanner = ParseScannerId(line);
                 continue;
             }
 
             if (string.IsNullOrWhiteSpace(line))
             {
-                reportings.Add(new Reporting(activeSensor, activeBeacons));
-                activeSensor = -1;
+                reportings.Add(new Reporting(activeScanner, activeBeacons));
+                activeScanner = -1;
                 activeBeacons = new List<Vector3D>();
                 continue;
             }
@@ -32,11 +32,11 @@ public static class Report
             activeBeacons.Add(ParseVector(line));
         }
         
-        reportings.Add(new Reporting(activeSensor, activeBeacons));
+        reportings.Add(new Reporting(activeScanner, activeBeacons));
         return reportings;
     }
     
-    private static int ParseSensorId(string line)
+    private static int ParseScannerId(string line)
     {
         return int.Parse(Regex.Match(line, IntRegex).Value);
     }
