@@ -53,14 +53,10 @@ public class Solution : SolutionBase2021
         var i = 0;
         while (unmatchedReportings.Count > 0)
         {
+            i = ++i % unmatchedReportings.Count;
             if (TryMatchReporting(knownSensors, knownBeacons, unmatchedReportings[i]))
             {
                 unmatchedReportings.RemoveAt(i);
-            }
-
-            if (unmatchedReportings.Any())
-            {
-                i = (i + 1) % unmatchedReportings.Count;
             }
         }
 
@@ -71,13 +67,9 @@ public class Solution : SolutionBase2021
     {
         foreach (var transform in SensorTransforms)
         {
-            foreach (var rot in transform.OrientationRotations)
+            foreach (var (r1, r2) in transform.GetRotations())
             {
-                var reported = reporting.Beacons
-                    .Select(p => rot * (transform.FacingRotation * p))
-                    .ToList();
-                
-                if (TryMatchPositions(knownSensors, knownBeacons, reported))
+                if (TryMatchPositions(knownSensors, knownBeacons, TransformPositions(reporting.Beacons, r1, r2)))
                 {
                     return true;
                 }
@@ -85,6 +77,11 @@ public class Solution : SolutionBase2021
         }
         
         return false;
+    }
+
+    private static IList<Vector3D> TransformPositions(IEnumerable<Vector3D> pos, Rotation3D r1, Rotation3D r2)
+    {
+        return pos.Select(p => r2 * (r1 * p)).ToList();
     }
     
     private static bool TryMatchPositions(ISet<Vector3D> knownSensors, ISet<Vector3D> knownBeacons, IList<Vector3D> reportedBeacons)

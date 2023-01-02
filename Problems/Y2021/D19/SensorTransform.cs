@@ -9,7 +9,15 @@ public readonly struct SensorTransform
         FacingRotation = facingRotation;
         OrientationRotations = new List<Rotation3D>(orientationRotations);
     }
-    
-    public Rotation3D FacingRotation { get; }
-    public IList<Rotation3D> OrientationRotations { get; }
+
+    private Rotation3D FacingRotation { get; }
+    private IList<Rotation3D> OrientationRotations { get; }
+
+    public IEnumerable<(Rotation3D r1, Rotation3D r2)> GetRotations()
+    {
+        foreach (var orientationRotation in OrientationRotations)
+        {
+            yield return (FacingRotation, orientationRotation);
+        }
+    }
 }
