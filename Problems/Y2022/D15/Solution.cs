@@ -44,7 +44,7 @@ public class Solution : SolutionBase2022
         {
             var beaconPos = reporting.BeaconPos;
             var sensorPos = reporting.SensorPos;
-            var sensorRange = Vector2D.TaxicabDistance(sensorPos, beaconPos);
+            var sensorRange = Vector2D.Distance(sensorPos, beaconPos, DistanceMetric.Taxicab);
             
             if (Math.Abs(sensorPos.Y - Row) > sensorRange)
             {
@@ -82,7 +82,7 @@ public class Solution : SolutionBase2022
         var sensorRangeTuples = reportings.Select(r => 
         {
             var sensorPos = r.SensorPos;
-            var range = Vector2D.TaxicabDistance(sensorPos, r.BeaconPos);
+            var range = Vector2D.Distance(sensorPos, r.BeaconPos, DistanceMetric.Taxicab);
             return (sensorPos, range);
         }).ToList();
         
@@ -97,7 +97,7 @@ public class Solution : SolutionBase2022
                 var searchPosInRangeOfSensor = false;
                 for (var j = 0; j < sensorRangeTuples.Count; j++)
                 {
-                    if (Vector2D.TaxicabDistance(sensorRangeTuples[j].sensorPos, searchPos) > sensorRangeTuples[j].range)
+                    if (Vector2D.Distance(sensorRangeTuples[j].sensorPos, searchPos, DistanceMetric.Taxicab) > sensorRangeTuples[j].range)
                     {
                         continue;
                     }

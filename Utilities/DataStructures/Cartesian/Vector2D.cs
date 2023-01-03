@@ -15,7 +15,7 @@ public readonly struct Vector2D : IEquatable<Vector2D>
     public static readonly Vector2D One = new(1, 1);
     public static readonly Vector2D PositiveInfinity = new (int.MaxValue, int.MaxValue);
 
-    public string Id { get; }
+    private string Id { get; }
     public int X { get; }
     public int Y { get; }
     
@@ -37,21 +37,19 @@ public readonly struct Vector2D : IEquatable<Vector2D>
     {
         return new Vector2D(Math.Sign(vector.X), Math.Sign(vector.Y));
     }
-    
-    public static int ChebyshevDistance(Vector2D a, Vector2D b)
-    {
-        var dx = Math.Abs(a.X - b.X);
-        var dy = Math.Abs(a.Y - b.Y);
 
-        return Math.Max(dx, dy);
-    }
-    
-    public static int TaxicabDistance(Vector2D a, Vector2D b)
+    public static int Distance(Vector2D a, Vector2D b, DistanceMetric metric)
     {
-        var dx = Math.Abs(a.X - b.X);
-        var dy = Math.Abs(a.Y - b.Y);
-
-        return dx + dy;
+        switch (metric)
+        {
+            case DistanceMetric.Chebyshev:
+                return ChebyshevDistance(a, b);
+            case DistanceMetric.Taxicab:
+                return TaxicabDistance(a, b);
+            case DistanceMetric.Euclidean:
+            default:
+                throw new ArgumentOutOfRangeException(nameof(metric), metric, null);
+        }
     }
 
     public static implicit operator Vector2D(Vector3D v) => new (v.X, v.Y);
@@ -99,5 +97,21 @@ public readonly struct Vector2D : IEquatable<Vector2D>
     public override string ToString()
     {
         return Id;
+    }
+    
+    private static int ChebyshevDistance(Vector2D a, Vector2D b)
+    {
+        var dx = Math.Abs(a.X - b.X);
+        var dy = Math.Abs(a.Y - b.Y);
+
+        return Math.Max(dx, dy);
+    }
+    
+    private static int TaxicabDistance(Vector2D a, Vector2D b)
+    {
+        var dx = Math.Abs(a.X - b.X);
+        var dy = Math.Abs(a.Y - b.Y);
+
+        return dx + dy;
     }
 }

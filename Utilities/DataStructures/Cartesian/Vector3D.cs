@@ -46,24 +46,20 @@ public readonly struct Vector3D : IEquatable<Vector3D>
         return X * other.X + Y * other.Y + Z * other.Z;
     }
 
-    public static int ChebyshevDistance(Vector3D a, Vector3D b)
+    public static int Distance(Vector3D a, Vector3D b, DistanceMetric metric)
     {
-        var dx = Math.Abs(a.X - b.X);
-        var dy = Math.Abs(a.Y - b.Y);
-        var dz = Math.Abs(a.Z - b.Z);
-
-        return new[] { dx, dy, dz }.Max();
+        switch (metric)
+        {
+            case DistanceMetric.Chebyshev:
+                return ChebyshevDistance(a, b);
+            case DistanceMetric.Taxicab:
+                return TaxicabDistance(a, b);
+            case DistanceMetric.Euclidean:
+            default:
+                throw new ArgumentOutOfRangeException(nameof(metric), metric, null);
+        }
     }
-    
-    public static int TaxicabDistance(Vector3D a, Vector3D b)
-    {
-        var dx = Math.Abs(a.X - b.X);
-        var dy = Math.Abs(a.Y - b.Y);
-        var dz = Math.Abs(a.Z - b.Z);
 
-        return dx + dy + dz;
-    }
-    
     public static implicit operator Vector3D(Vector2D v) => new(v.X, v.Y, 0);
     
     public static Vector3D operator +(Vector3D lhs, Vector3D rhs)
@@ -109,5 +105,23 @@ public readonly struct Vector3D : IEquatable<Vector3D>
     public override string ToString()
     {
         return Id;
+    }
+    
+    private static int ChebyshevDistance(Vector3D a, Vector3D b)
+    {
+        var dx = Math.Abs(a.X - b.X);
+        var dy = Math.Abs(a.Y - b.Y);
+        var dz = Math.Abs(a.Z - b.Z);
+
+        return new[] { dx, dy, dz }.Max();
+    }
+
+    private static int TaxicabDistance(Vector3D a, Vector3D b)
+    {
+        var dx = Math.Abs(a.X - b.X);
+        var dy = Math.Abs(a.Y - b.Y);
+        var dz = Math.Abs(a.Z - b.Z);
+
+        return dx + dy + dz;
     }
 }

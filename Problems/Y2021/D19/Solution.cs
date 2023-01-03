@@ -1,6 +1,5 @@
 using Problems.Y2021.Common;
 using Utilities.DataStructures.Cartesian;
-using Utilities.Extensions;
 
 namespace Problems.Y2021.D19;
 
@@ -26,88 +25,107 @@ public class Solution : SolutionBase2021
     public override object Run(int part)
     {
         var reportings = Report.Parse(GetInputLines());
-        var (scanners, beacons) = CreateMap(reportings);
+        var map = BuildMap(reportings);
 
         return part switch
         {
-            0 => beacons.Count,
-            1 => ComputeMaxTaxicabDistance(scanners),
+            0 => map.GetDistinctBeaconCount(),
+            1 => map.GetMaxScannerDistance(DistanceMetric.Taxicab),
             _ => ProblemNotSolvedString,
         };
     }
 
-    private static int ComputeMaxTaxicabDistance(ISet<Vector3D> scanners)
+    private static Map BuildMap(IList<Reporting> reportings)
     {
-        return scanners
-            .Aggregate(0, (max, p1) => scanners.Select(p2 => Vector3D.TaxicabDistance(p1, p2))
-            .Prepend(max)
-            .Max());
-    }
-    
-    private static (ISet<Vector3D> scanners, ISet<Vector3D> beacons) CreateMap(IList<Reporting> reportings)
-    {
-        var knownScanners = new HashSet<Vector3D> { Vector3D.Zero };
-        var knownBeacons = new HashSet<Vector3D>(reportings[0].Beacons);
+        var map = new Map(reportings[0]);
         var unmatchedReportings = new List<Reporting>(reportings.Skip(1));
-        
+        var incongruent = reportings.ToDictionary(
+            keySelector: r => r.ScannerId,
+            elementSelector: _ => new HashSet<int>());
+
         var i = 0;
         while (unmatchedReportings.Count > 0)
         {
-            i = ++i % unmatchedReportings.Count;
-            if (TryMatchReporting(knownScanners, knownBeacons, unmatchedReportings[i]))
+            if (TryMapReporting(unmatchedReportings[i], map, incongruent))
             {
                 unmatchedReportings.RemoveAt(i);
             }
+
+            if (unmatchedReportings.Any())
+            {
+                i = ++i % unmatchedReportings.Count;
+            }
         }
 
-        return (knownScanners, knownBeacons);
+        return map;
     }
 
-    private static bool TryMatchReporting(ISet<Vector3D> knownScanners, ISet<Vector3D> knownBeacons, Reporting reporting)
+    private static bool TryMapReporting(Reporting reporting, Map map, IDictionary<int, HashSet<int>> incongruent)
     {
-        foreach (var transform in ScannerTransforms)
+        foreach (var (knownScannerId, knownBeacons) in map.KnownBeacons)
         {
-            foreach (var (r1, r2) in transform.GetRotations())
+            if (incongruent[reporting.ScannerId].Contains(knownScannerId))
             {
-                if (TryMatchPositions(knownScanners, knownBeacons, TransformPositions(reporting.Beacons, r1, r2)))
+                continue;
+            }
+            
+            foreach (var (r1, r2) in GetTransformations())
+            {
+                var transformedPositions = TransformPositions(reporting.Beacons, r1, r2);
+                if (!TryFindOffset(knownBeacons, transformedPositions, out var offset))
+                {
+                    continue;
+                }
+
+                var absolutePositions = transformedPositions.Select(p => p + offset);
+                map.KnownScanners.Add(reporting.ScannerId, offset);
+                map.KnownBeacons.Add(reporting.ScannerId, new HashSet<Vector3D>(absolutePositions));
+
+                LogMatch(reporting.ScannerId, knownScannerId, offset);
+                return true;
+            }
+
+            incongruent[reporting.ScannerId].Add(knownScannerId);
+        }
+
+        return false;
+    }
+
+    private static bool TryFindOffset(ISet<Vector3D> known, IList<Vector3D> reported, out Vector3D offset)
+    {
+        foreach (var knownPos in known)
+        {
+            foreach (var reportedPos in reported)
+            {
+                offset = knownPos - reportedPos;
+
+                // NOTE: C# requires a local copy of out parameter 'offset' for use in a lambda
+                var localOffset = offset;
+                var shifted = reported.Select(p => p + localOffset).ToList();
+
+                if (known.Intersect(shifted).Count() >= IntersectionThreshold)
                 {
                     return true;
                 }
             }
         }
-        
+
+        offset = Vector3D.Zero;
         return false;
+    }
+
+    private static IEnumerable<(Rotation3D r1, Rotation3D r2)> GetTransformations()
+    {
+        return ScannerTransforms.SelectMany(transform => transform.GetRotations());
     }
 
     private static IList<Vector3D> TransformPositions(IEnumerable<Vector3D> pos, Rotation3D r1, Rotation3D r2)
     {
         return pos.Select(p => r2 * (r1 * p)).ToList();
     }
-    
-    private static bool TryMatchPositions(ISet<Vector3D> knownScanners, ISet<Vector3D> knownBeacons, IList<Vector3D> reportedBeacons)
+
+    private static void LogMatch(int found, int against, Vector3D pos)
     {
-        foreach (var knownPos in knownBeacons)
-        {
-            foreach (var reportedPos in reportedBeacons)
-            {
-                var offset = reportedPos - knownPos;
-                var shifted = reportedBeacons.Select(p => p - offset).ToList();
-
-                if (knownBeacons.Intersect(shifted).Count() < IntersectionThreshold)
-                {
-                    continue;
-                }
-                
-                foreach (var shiftedPos in shifted)
-                {
-                    knownBeacons.EnsureContains(shiftedPos);
-                }
-
-                knownScanners.EnsureContains(Vector3D.Zero - offset);
-                return true;
-            }
-        }
-
-        return false;
+        Console.WriteLine($"Matched scanner #{found:D2} to known beacons from scanner #{against:D2}, pos => {pos}");
     }
 }

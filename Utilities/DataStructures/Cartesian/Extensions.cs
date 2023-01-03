@@ -15,16 +15,15 @@ public static class Extensions
     /// </summary>
     public static bool IsAdjacentTo(this Vector2D lhs, Vector2D rhs, DistanceMetric metric)
     {
-        switch (metric)
-        {
-            case DistanceMetric.Chebyshev:
-                return Vector2D.ChebyshevDistance(lhs, rhs) <= 1;
-            case DistanceMetric.Taxicab:
-                return Vector2D.TaxicabDistance(lhs, rhs) <= 1;
-            case DistanceMetric.Euclidean:
-            default:
-                throw new ArgumentOutOfRangeException(nameof(metric), metric, null);
-        }
+        return Vector2D.Distance(lhs, rhs, metric) <= 1;
+    }
+    
+    /// <summary>
+    /// Determine if two positions are adjacent, where adjacent means the specified distance metric is less than or equal to 1
+    /// </summary>
+    public static bool IsAdjacentTo(this Vector3D lhs, Vector3D rhs, DistanceMetric metric)
+    {
+        return Vector3D.Distance(lhs, rhs, metric) <= 1;
     }
 
     /// <summary>
