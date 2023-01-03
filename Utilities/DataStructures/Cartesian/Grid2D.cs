@@ -7,13 +7,15 @@ namespace Utilities.DataStructures.Cartesian;
 public partial class Grid2D<T>
 {
     private const string OutOfRangeFormat = "Index out of range [{0}], must be in range [0-{1}]";
-    private const string InvalidDimensionString = "Dimensions must be a non-zero positive number";
 
-    private T[,]? _grid;
+    private readonly T[,]? _grid;
+    private readonly Origin _origin;
     
-    private Grid2D(T[,] grid)
+    private Grid2D(T[,] grid, Origin origin)
     {
         _grid = grid;
+        _origin = origin;
+        
         EvaluateDimensions();
     }
     
@@ -79,41 +81,23 @@ public partial class Grid2D<T>
             position.Y >= 0 && position.Y < Height;
     }
 
-    /// <summary>
-    /// Resize the <see cref="Grid2D{T}"/> instance, preserving elements within the resized bounds
-    /// </summary>
-    /// <param name="rows">The number of rows in the resized grid</param>
-    /// <param name="cols">The number of columns in the resized grid</param>
-    public void Resize(int rows, int cols)
-    {
-        ValidateDimensions(rows, cols);
-
-        var resizedGrid = new T[rows, cols];
-        var minRows = Math.Min(rows, Height);
-        var minCols = Math.Min(cols, Width);
-
-        for (var i = 0; i < minRows; i++)
-        for (var j = 0; j < minCols; j++)
-        {
-            resizedGrid[i, j] = _grid![i, j];
-        }
-        
-        _grid = resizedGrid;
-        EvaluateDimensions();
-    }
-
     private T Get(int x, int y)
     {
-        ValidateIndices(x, y);
+        ValidateIndices(x, TransformY(y));
         return _grid![y, x];
     }
     
     private void Set(int x, int y, T value)
     {
         ValidateIndices(x, y);
-        _grid![y, x] = value;
+        _grid![TransformY(y), x] = value;
     }
 
+    private int TransformY(int y)
+    {
+        return _origin == Origin.Xy ? y : Height - y - 1;
+    }
+    
     private void EvaluateDimensions()
     {
         Height = _grid!.GetLength(0);
@@ -130,19 +114,6 @@ public partial class Grid2D<T>
         if (y < 0 || y >= Height)
         {
             throw new ArgumentOutOfRangeException(nameof(y), y, string.Format(OutOfRangeFormat, y, Height - 1));
-        }
-    }
-    
-    private static void ValidateDimensions(int rows, int cols)
-    {
-        if (rows <= 0 )
-        {
-            throw new ArgumentOutOfRangeException(nameof(rows), rows, InvalidDimensionString);
-        }
-        
-        if (cols <= 0 )
-        {
-            throw new ArgumentOutOfRangeException(nameof(cols), cols, InvalidDimensionString);
         }
     }
 }

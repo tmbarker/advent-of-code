@@ -68,7 +68,7 @@ public class Solution : SolutionBase2021
     {
         return current
             .GetAdjacentSet(DistanceMetric.Taxicab)
-            .Where(adj => map.IsInDomain(adj));
+            .Where(map.IsInDomain);
     }
 
     private static void ParseRiskMap(IList<string> input, int tilesPerSide, out Grid2D<int> map, out Vector2D s, out Vector2D e)
