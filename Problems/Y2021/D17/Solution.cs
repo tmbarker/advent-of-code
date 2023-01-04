@@ -24,7 +24,7 @@ public class Solution : SolutionBase2021
         };
     }
 
-    private static int ComputeMaxProjectileHeight(Target target)
+    private static int ComputeMaxProjectileHeight(Rect2D target)
     {
         var vY = Math.Abs(target.YMin) - 1;
         var height = vY * (vY + 1) / 2;
@@ -32,7 +32,7 @@ public class Solution : SolutionBase2021
         return height;
     }
 
-    private static int ComputeNumTrajectories(Target target)
+    private static int ComputeNumTrajectories(Rect2D target)
     {
         var vMinX = (int)Math.Floor(Math.Sqrt(2 * target.XMin));
         var vMaxX = target.XMax;
@@ -53,7 +53,7 @@ public class Solution : SolutionBase2021
         return count;
     }
 
-    private static bool CheckTrajectory(Vector2D v, Target target)
+    private static bool CheckTrajectory(Vector2D v, Rect2D target)
     {
         var pos = Vector2D.Zero;
         while (pos.Y >= target.YMin && pos.X <= target.XMax)
@@ -61,7 +61,7 @@ public class Solution : SolutionBase2021
             pos += v;
             v = StepVelocity(v);
             
-            if (target.ContainsPos(pos))
+            if (target.ContainsInclusive(pos))
             {
                 return true;
             }
@@ -80,11 +80,11 @@ public class Solution : SolutionBase2021
         return new Vector2D(x, y);
     }
     
-    private Target ParseTarget()
+    private Rect2D ParseTarget()
     {
         var matches = Regex.Matches(GetInputText(), InputRegex);
         
-        return new Target(
+        return new Rect2D(
             xMin: int.Parse(matches[0].Value),
             xMax: int.Parse(matches[1].Value),
             yMin: int.Parse(matches[2].Value),
