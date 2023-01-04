@@ -12,6 +12,8 @@ public class Solution : SolutionBase2021
     private const char Lit = '#';
     private const int Steps1 = 2;
     private const int Steps2 = 50;
+    private const int WindowSize = 3;
+    private const int BinaryRadix = 2;
     
     public override int Day => 20;
     
@@ -63,8 +65,8 @@ public class Solution : SolutionBase2021
     {
         var index = 0;
         
-        for (var y = 0; y < 3; y++)
-        for (var x = 0; x < 3; x++)
+        for (var y = 0; y < WindowSize; y++)
+        for (var x = 0; x < WindowSize; x++)
         {
             var v = new Vector2D(pixel.X + x - 1, pixel.Y + y - 1);
             var bitSet = imageRect.ContainsExclusive(v)
@@ -76,8 +78,8 @@ public class Solution : SolutionBase2021
                 continue;
             }
 
-            var bitIndex = 8 - (x + 3 * y);
-            var bitValue = (int)Math.Pow(2, bitIndex);
+            var bitIndex = WindowSize * WindowSize - (x + WindowSize * y) - 1;
+            var bitValue = (int)Math.Pow(BinaryRadix, bitIndex);
 
             index += bitValue;
         }
