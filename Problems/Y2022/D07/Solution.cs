@@ -28,8 +28,7 @@ public class Solution : SolutionBase2022
 
     private static int SumDirectoriesUnderSize(Dictionary<string, int> directorySizeIndex, int thresholdSize)
     {
-        return directorySizeIndex
-            .Values
+        return directorySizeIndex.Values
             .Where(v => v <= thresholdSize)
             .Sum();
     }

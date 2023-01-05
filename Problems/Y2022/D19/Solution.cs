@@ -1,5 +1,5 @@
-using System.Text.RegularExpressions;
 using Problems.Y2022.Common;
+using System.Text.RegularExpressions;
 
 namespace Problems.Y2022.D19;
 
@@ -112,12 +112,7 @@ public class Solution : SolutionBase2022
             return false;
         }
         
-        if (!CanAffordToBuild(bp.RobotCosts[target], inv.Funds))
-        {
-            return false;
-        }
-
-        return true;
+        return CanAffordToBuild(bp.RobotCosts[target], inv.Funds);
     }
     
     private static bool IsWaitingReasonable(Blueprint bp, Inventory inv)

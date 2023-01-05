@@ -19,7 +19,6 @@ public class Solution : SolutionBase2022
     public override object Run(int part)
     {
         var instructions = ParseInstructions(GetInputLines());
-
         return part switch
         {
             0 => CalculateSignalStrength(instructions),
@@ -80,6 +79,5 @@ public class Solution : SolutionBase2022
         return elements.Length == 1 ? 
             (Cpu.Opcode.Noop, 0) : 
             (Cpu.Opcode.Addx, int.Parse(elements[1]));
-
     }
 }

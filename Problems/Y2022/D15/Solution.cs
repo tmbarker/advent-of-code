@@ -1,6 +1,6 @@
-using System.Text.RegularExpressions;
 using Problems.Common;
 using Problems.Y2022.Common;
+using System.Text.RegularExpressions;
 using Utilities.DataStructures.Cartesian;
 using Utilities.Extensions;
 
@@ -134,8 +134,8 @@ public class Solution : SolutionBase2022
             var fromVertex = vertices[i];
             var toVertex = vertices[i + 1];
             var step = Vector2D.Normalize(toVertex - fromVertex);
-
             var current = fromVertex;
+            
             while (current != toVertex + step)
             {
                 if (IsPositionInSearchArea(current))
@@ -162,7 +162,6 @@ public class Solution : SolutionBase2022
     private static Reporting ParseReporting(string reporting)
     {
         var matches = Regex.Match(reporting, SensorRegex);
-        
         var sensorX = int.Parse(matches.Groups[1].Value);
         var sensorY = int.Parse(matches.Groups[2].Value);
         var beaconX = int.Parse(matches.Groups[3].Value);
