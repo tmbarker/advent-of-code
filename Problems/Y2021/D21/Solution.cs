@@ -10,55 +10,107 @@ public class Solution : SolutionBase2021
 {
     private const string InputRegex = @": (\d+)";
     private const int BoardPlaces = 10;
-    private const int DiceSides = 100;
-    private const int WinningScore = 1000;
+    private const int QuantumDieSides = 3;
+    private const int WinningScoreDeterministic = 1000;
+    private const int WinningScoreQuantum = 21;
+
+    private static readonly IReadOnlyList<int> QuantumRollSums = new List<int>(GetQuantumRollSums());
     
     public override int Day => 21;
     
     public override object Run(int part)
     {
         var initialPositions = ParseInitialPositions(GetInputLines());
-        var die = new DeterministicDie(DiceSides);
-        var players = (new Player(initialPositions.P1), new Player(initialPositions.P2));
+        var initialState = new GameState(
+            P1: new Player(initialPositions.P1, 0),
+            P2: new Player(initialPositions.P2, 0));
         
         return part switch
         {
-            0 => SimulateGame(players, die),
+            0 => PlayDeterministicGame(initialState),
+            1 => PlayQuantumGame(initialState),
             _ => ProblemNotSolvedString,
         };
     }
     
-    private static int SimulateGame((Player P1, Player P2) players, DeterministicDie die)
+    private static long PlayDeterministicGame(GameState state)
     {
+        var die = new DeterministicDie();
+        
         while (true)
         {
-            if (TakeTurn(players.P1, die))
-            {
-                break;
-            }
+            state.P1 = TakeTurn(state.P1, die.Roll() + die.Roll() + die.Roll());
             
-            if (TakeTurn(players.P2, die))
+            if (state.P1.Score >= WinningScoreDeterministic)
             {
-                break;
+                return die.NumRolls * state.P2.Score;
             }
+
+            (state.P1, state.P2) = (state.P2, state.P1);
         }
-        
-        return die.NumRolls * Math.Min(players.P1.Score, players.P2.Score);
+    }
+
+    private static IEnumerable<int> GetQuantumRollSums()
+    {
+        for (var r1 = 1; r1 <= QuantumDieSides; r1++)
+        for (var r2 = 1; r2 <= QuantumDieSides; r2++)
+        for (var r3 = 1; r3 <= QuantumDieSides; r3++)
+        {
+            yield return r1 + r2 + r3;
+        }
     }
     
-    private static bool TakeTurn(Player player, DeterministicDie die)
+    private static long PlayQuantumGame(GameState state)
     {
-        player.Position = (player.Position + die.Roll() + die.Roll() + die.Roll() - 1) % BoardPlaces + 1;
+        var memo = new Dictionary<GameState, WinCounts>();
+        var winCounts = GetWinCounts(state, memo);
+
+        return Math.Max(winCounts.P1, winCounts.P2);
+    }
+
+    private static WinCounts GetWinCounts(GameState state, IDictionary<GameState, WinCounts> memo)
+    {
+        if (state.P1.Score >= WinningScoreQuantum)
+        {
+            return new WinCounts(1, 0);
+        }
+    
+        if (state.P2.Score >= WinningScoreQuantum)
+        {
+            return new WinCounts(0, 1);
+        }
+
+        if (memo.ContainsKey(state))
+        {
+            return memo[state];
+        }
+        
+        var winCounts = new WinCounts(0, 0);
+        foreach (var rollSum in QuantumRollSums)
+        {
+            var p1 = TakeTurn(state.P1, rollSum);
+            var branch = GetWinCounts(new GameState(state.P2, p1), memo);
+
+            winCounts = new WinCounts(winCounts.P1 + branch.P2, winCounts.P2 + branch.P1);
+        }
+
+        memo[state] = winCounts;
+        return winCounts;
+    }
+    
+    private static Player TakeTurn(Player player, int rollSum)
+    {
+        player.Position = (player.Position + rollSum - 1) % BoardPlaces + 1;
         player.Score += player.Position;
         
-        return player.Score >= WinningScore;
+        return player;
     }
 
     private static (int P1, int P2) ParseInitialPositions(IList<string> input)
     {
         var p1 = int.Parse(Regex.Match(input[0], InputRegex).Groups[1].Value);
         var p2 = int.Parse(Regex.Match(input[1], InputRegex).Groups[1].Value);
-
+        
         return (p1, p2);
     }
 }
