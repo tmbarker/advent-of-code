@@ -19,7 +19,7 @@ public class Solution : SolutionBase2022
         var positions = ParsePositions(GetInputLines());
         return part switch
         {
-            0 => EmptyPositionsInBoundingRect(Simulate(positions, NumRounds)),
+            0 => EmptyPositionsInBoundingBox(Simulate(positions, NumRounds)),
             1 => SimulateToSteadyState(positions),
             _ => ProblemNotSolvedString,
         };
@@ -94,7 +94,7 @@ public class Solution : SolutionBase2022
         return numMoves;
     }
 
-    private static int EmptyPositionsInBoundingRect(IReadOnlySet<Vector2D> positions)
+    private static int EmptyPositionsInBoundingBox(IReadOnlySet<Vector2D> positions)
     {
         var xMin = positions.Min(p => p.X);
         var xMax = positions.Max(p => p.X);

@@ -9,8 +9,6 @@ namespace Problems.Y2021.D17;
 /// </summary>
 public class Solution : SolutionBase2021
 {
-    private const string InputRegex = @"(-?\d+)";
-    
     public override int Day => 17;
     
     public override object Run(int part)
@@ -24,7 +22,7 @@ public class Solution : SolutionBase2021
         };
     }
 
-    private static int ComputeMaxProjectileHeight(Rect2D target)
+    private static int ComputeMaxProjectileHeight(Aabb2D target)
     {
         var vY = Math.Abs(target.YMin) - 1;
         var height = vY * (vY + 1) / 2;
@@ -32,7 +30,7 @@ public class Solution : SolutionBase2021
         return height;
     }
 
-    private static int ComputeNumTrajectories(Rect2D target)
+    private static int ComputeNumTrajectories(Aabb2D target)
     {
         var vMinX = (int)Math.Floor(Math.Sqrt(2 * target.XMin));
         var vMaxX = target.XMax;
@@ -53,7 +51,7 @@ public class Solution : SolutionBase2021
         return count;
     }
 
-    private static bool CheckTrajectory(Vector2D v, Rect2D target)
+    private static bool CheckTrajectory(Vector2D v, Aabb2D target)
     {
         var pos = Vector2D.Zero;
         while (pos.Y >= target.YMin && pos.X <= target.XMax)
@@ -61,7 +59,7 @@ public class Solution : SolutionBase2021
             pos += v;
             v = StepVelocity(v);
             
-            if (target.ContainsInclusive(pos))
+            if (target.Contains(pos, true))
             {
                 return true;
             }
@@ -80,11 +78,11 @@ public class Solution : SolutionBase2021
         return new Vector2D(x, y);
     }
     
-    private Rect2D ParseTarget()
+    private Aabb2D ParseTarget()
     {
-        var matches = Regex.Matches(GetInputText(), InputRegex);
+        var matches = Regex.Matches(GetInputText(), @"-?\d+");
         
-        return new Rect2D(
+        return new Aabb2D(
             xMin: int.Parse(matches[0].Value),
             xMax: int.Parse(matches[1].Value),
             yMin: int.Parse(matches[2].Value),

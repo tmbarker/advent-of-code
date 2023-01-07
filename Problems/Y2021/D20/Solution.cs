@@ -30,7 +30,7 @@ public class Solution : SolutionBase2021
 
     private static ISet<Vector2D> EnhanceImage(ISet<Vector2D> litInImage, IList<bool> algorithm, int numSteps)
     {
-        var imageRect = new Rect2D(litInImage, true);
+        var imageRect = new Aabb2D(litInImage, true);
         
         for (var n = 0; n < numSteps; n++)
         {
@@ -41,7 +41,7 @@ public class Solution : SolutionBase2021
         return litInImage;
     }
     
-    private static ISet<Vector2D> EnhanceImage(Rect2D imageRect, ICollection<Vector2D> litInImage, IList<bool> algorithm, bool backgroundLit)
+    private static ISet<Vector2D> EnhanceImage(Aabb2D imageRect, ICollection<Vector2D> litInImage, IList<bool> algorithm, bool backgroundLit)
     {
         var litInEnhanced = new HashSet<Vector2D>();
 
@@ -61,7 +61,7 @@ public class Solution : SolutionBase2021
         return litInEnhanced;
     }
 
-    private static int PixelToIndex(Vector2D pixel, Rect2D imageRect, ICollection<Vector2D> litInInput, bool backgroundLit)
+    private static int PixelToIndex(Vector2D pixel, Aabb2D imageRect, ICollection<Vector2D> litInInput, bool backgroundLit)
     {
         var index = 0;
         
@@ -69,7 +69,7 @@ public class Solution : SolutionBase2021
         for (var x = 0; x < WindowSize; x++)
         {
             var v = new Vector2D(pixel.X + x - 1, pixel.Y + y - 1);
-            var bitSet = imageRect.ContainsExclusive(v)
+            var bitSet = imageRect.Contains(v, false)
                 ? litInInput.Contains(v)
                 : backgroundLit;
 
