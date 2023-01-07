@@ -13,7 +13,6 @@ public class Solution : SolutionBase2021
     public override object Run(int part)
     {
         BingoData.Parse(GetInputLines(), out var draw, out var cards);
-
         return part switch
         {
             0 => GetFirstWinningCardScore(draw!, cards!),

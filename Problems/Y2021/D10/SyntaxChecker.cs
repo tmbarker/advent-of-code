@@ -1,9 +1,10 @@
+using Problems.Common;
+
 namespace Problems.Y2021.D10;
 
 public class SyntaxChecker
 {
     private const long CompletionCharacterMultiplier = 5;
-    private const string InvalidCharacterError = "Invalid character in input";
     
     private readonly Dictionary<char, Rule> _openWithRuleMap = new();
     private readonly Dictionary<char, Rule> _closeWithRuleMap = new();
@@ -57,7 +58,7 @@ public class SyntaxChecker
 
             if (!_closeWithRuleMap.TryGetValue(c, out rule))
             {
-                throw new ArgumentException(InvalidCharacterError);
+                throw new NoSolutionException();
             }
 
             if (stack.Count != 0 && stack.Pop() == c)

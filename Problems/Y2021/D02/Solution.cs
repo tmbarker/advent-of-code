@@ -8,7 +8,6 @@ namespace Problems.Y2021.D02;
 /// </summary>
 public class Solution : SolutionBase2021
 {
-    private const char Delimiter = ' ';
     private const string Forward = "forward";
     private const string Down = "down";
     private const string Up = "up";
@@ -30,7 +29,6 @@ public class Solution : SolutionBase2021
     private static int ComputeSimplePositionProduct(IEnumerable<(string Command, int Amount)> instructions)
     {
         var position = Vector2D.Zero;
-        
         foreach (var instruction in instructions)
         {
             switch (instruction.Command)
@@ -75,12 +73,12 @@ public class Solution : SolutionBase2021
         return Math.Abs(position.X * position.Y);
     }
 
-    private IEnumerable<(string Command, int Amount)> ParseInstructions(IEnumerable<string> input)
+    private static IEnumerable<(string Command, int Amount)> ParseInstructions(IEnumerable<string> input)
     {
         // ReSharper disable once LoopCanBeConvertedToQuery
         foreach (var line in input)
         {
-            var elements = line.Split(Delimiter);
+            var elements = line.Split(' ');
             var command = elements[0];
             var value = int.Parse(elements[1]);
 

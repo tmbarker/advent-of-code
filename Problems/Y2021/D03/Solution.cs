@@ -52,16 +52,9 @@ public class Solution : SolutionBase2021
 
     private static long ComputeLifeSupportRating(IList<string> numbers)
     {
-        try
-        {
-            return
-                ComputeDecimalValue(FindNumber(numbers, BitCriteria.MostCommon)) *
-                ComputeDecimalValue(FindNumber(numbers, BitCriteria.LeastCommon));
-        }
-        catch (Exception e)
-        {
-            throw new NoSolutionException(e);
-        }
+        return
+            ComputeDecimalValue(FindNumber(numbers, BitCriteria.MostCommon)) *
+            ComputeDecimalValue(FindNumber(numbers, BitCriteria.LeastCommon));
     }
     
     private static string FindNumber(IEnumerable<string> numbers, BitCriteria criteria)

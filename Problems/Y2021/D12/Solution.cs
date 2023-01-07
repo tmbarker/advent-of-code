@@ -7,8 +7,6 @@ namespace Problems.Y2021.D12;
 /// </summary>
 public class Solution : SolutionBase2021
 {
-    private const char Delimiter = '-';
-
     public override int Day => 12;
     
     public override object Run(int part)
@@ -43,7 +41,7 @@ public class Solution : SolutionBase2021
         var adjacencyMap = new Dictionary<string, HashSet<string>>();
         foreach (var line in lines)
         {
-            var vertices = line.Split(Delimiter);
+            var vertices = line.Split('-');
             var v1 = vertices[0];
             var v2 = vertices[1];
             

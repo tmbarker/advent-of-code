@@ -11,14 +11,6 @@ public class Solution : SolutionBase2021
 {
     private const int BasinBoundaryHeight = 9;
     private const int NumBasinsToMultiply = 3;
-    
-    private static readonly HashSet<Vector2D> AdjacentVectors = new()
-    {
-        Vector2D.Up,
-        Vector2D.Down,
-        Vector2D.Left,
-        Vector2D.Right,
-    };
 
     public override int Day => 9;
     
@@ -61,21 +53,20 @@ public class Solution : SolutionBase2021
             var height = grid[currentPos];
             visited.EnsureContains(currentPos);
 
-            foreach (var vector in AdjacentVectors)
+            foreach (var adj in currentPos.GetAdjacentSet(DistanceMetric.Taxicab))
             {
-                var neighbor = currentPos + vector;
-                if (!grid.IsInDomain(neighbor) || visited.Contains(neighbor))
+                if (!grid.IsInDomain(adj) || visited.Contains(adj))
                 {
                     continue;
                 }
 
-                var neighborHeight = grid[neighbor];
+                var neighborHeight = grid[adj];
                 if (neighborHeight >= BasinBoundaryHeight || neighborHeight <= height)
                 {
                     continue;
                 }
                     
-                queue.Enqueue(neighbor);
+                queue.Enqueue(adj);
                 visited.EnsureContains(currentPos);
             }
         }
@@ -94,10 +85,9 @@ public class Solution : SolutionBase2021
             var height = grid[pos];
             var lowerThanNeighbors = true;
             
-            foreach (var vector in AdjacentVectors)
+            foreach (var adj in pos.GetAdjacentSet(DistanceMetric.Taxicab))
             {
-                var neighbor = pos + vector;
-                if (!grid.IsInDomain(neighbor) || height < grid[neighbor])
+                if (!grid.IsInDomain(adj) || height < grid[adj])
                 {
                     continue;
                 }

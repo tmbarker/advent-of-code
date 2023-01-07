@@ -5,7 +5,7 @@ public static class DjikstraHelper
     public static Dictionary<TNodeKey, int> UnweightedFast<TNodeKey>(TNodeKey start,
         Dictionary<TNodeKey, HashSet<TNodeKey>> adjacencyList) where TNodeKey : notnull
     {
-        var visited = new HashSet<TNodeKey>() { start };
+        var visited = new HashSet<TNodeKey> { start };
         var heap = new PriorityQueue<TNodeKey, int>(new[] { (start, 0) });
         var costs = adjacencyList.Keys.ToDictionary(
             keySelector: n => n,

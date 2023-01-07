@@ -32,7 +32,7 @@ public class Map
         {
             if (i != j)
             {
-                max = Math.Max(max, Vector3D.Distance(scanners[i], scanners[j], DistanceMetric.Taxicab));
+                max = Math.Max(max, Vector3D.Distance(scanners[i], scanners[j], metric));
             }
         }
 
