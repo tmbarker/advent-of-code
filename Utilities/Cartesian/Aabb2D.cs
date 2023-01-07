@@ -1,4 +1,4 @@
-namespace Utilities.DataStructures.Cartesian;
+namespace Utilities.Cartesian;
 
 /// <summary>
 /// An axis aligned 2D Rect value type

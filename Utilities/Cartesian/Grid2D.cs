@@ -1,4 +1,4 @@
-namespace Utilities.DataStructures.Cartesian;
+namespace Utilities.Cartesian;
 
 /// <summary>
 /// 2D grid data structure providing (X,Y) style indexing

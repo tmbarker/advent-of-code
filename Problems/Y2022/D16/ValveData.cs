@@ -1,6 +1,6 @@
 using System.Text.RegularExpressions;
-using Utilities.DataStructures.Graph;
 using Utilities.Extensions;
+using Utilities.Graph;
 
 namespace Problems.Y2022.D16;
 

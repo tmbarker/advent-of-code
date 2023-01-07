@@ -1,4 +1,4 @@
-namespace Utilities.DataStructures.Graph;
+namespace Utilities.Graph;
 
 public static class DjikstraHelper
 {

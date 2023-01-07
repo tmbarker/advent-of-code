@@ -1,6 +1,6 @@
 using Utilities.Extensions;
 
-namespace Utilities.DataStructures.Cartesian;
+namespace Utilities.Cartesian;
 
 /// <summary>
 /// A readonly value type which provides integral 90 degree rotations over <see cref="Vector3D"/> instances 

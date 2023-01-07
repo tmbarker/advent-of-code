@@ -1,4 +1,4 @@
-namespace Utilities.DataStructures.Cartesian;
+namespace Utilities.Cartesian;
 
 public partial class Grid2D<T>
 {

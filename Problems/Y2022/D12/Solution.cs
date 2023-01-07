@@ -1,5 +1,5 @@
 using Problems.Y2022.Common;
-using Utilities.DataStructures.Cartesian;
+using Utilities.Cartesian;
 
 namespace Problems.Y2022.D12;
 

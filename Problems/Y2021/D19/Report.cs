@@ -1,5 +1,5 @@
 using System.Text.RegularExpressions;
-using Utilities.DataStructures.Cartesian;
+using Utilities.Cartesian;
 
 namespace Problems.Y2021.D19;
 

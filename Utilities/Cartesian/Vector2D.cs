@@ -1,4 +1,4 @@
-namespace Utilities.DataStructures.Cartesian;
+namespace Utilities.Cartesian;
 
 /// <summary>
 /// A readonly integral 2D Vector value type
