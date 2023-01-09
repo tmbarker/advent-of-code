@@ -8,8 +8,8 @@ namespace Problems.Y2022.D16;
 public class Solution : SolutionBase2022
 {
     private const string Start = "AA";
-    private const int TimeLimitAlone = 30;
-    private const int TimeLimitWithHelp = 26;
+    private const int TimeAlone = 30;
+    private const int TimeWithHelp = 26;
 
     public override int Day => 16;
     
@@ -17,16 +17,16 @@ public class Solution : SolutionBase2022
     {
         return part switch
         {
-            0 => ComputeMaxPressureRelieved(TimeLimitAlone, false),
-            1 => ComputeMaxPressureRelieved(TimeLimitWithHelp, true),
+            0 => ComputeMaxPressureRelieved(TimeAlone, false),
+            1 => ComputeMaxPressureRelieved(TimeWithHelp, true),
             _ => ProblemNotSolvedString,
         };
     }
 
     private int ComputeMaxPressureRelieved(int timeLimit, bool withHelp)
     {
-        var valveData = ValveData.Parse(GetInputLines(), Start);
-        var strategyFinder = new MaxFlowFinder(valveData);
+        var valveData = ValveData.Parse(GetInputLines());
+        var strategyFinder = new StrategyFinder(valveData);
         
         return strategyFinder.Run(Start, timeLimit, withHelp);
     }

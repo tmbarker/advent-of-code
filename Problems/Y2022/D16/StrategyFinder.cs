@@ -2,11 +2,11 @@ using Utilities.Extensions;
 
 namespace Problems.Y2022.D16;
 
-public class MaxFlowFinder
+public class StrategyFinder
 {
     private readonly ValveData _valveData;
 
-    public MaxFlowFinder(ValveData valveData)
+    public StrategyFinder(ValveData valveData)
     {
         _valveData = valveData;
     }
@@ -58,7 +58,7 @@ public class MaxFlowFinder
 
     private int GetTravelTime(string from, string to)
     {
-        return _valveData.TravelTimesLookup[from][to];
+        return _valveData.TravelTimesLookup[(from, to)];
     }
 
     private int GetFlowRate(string valve)
