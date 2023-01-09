@@ -46,7 +46,7 @@ public class Field
         }
 
         var destinations = new Dictionary<char, SideRoom>();
-        foreach (var (amphipod, abscissa) in SideRoomAbscissas)
+        foreach (var (actor, abscissa) in SideRoomAbscissas)
         {
             var positions = new List<Vector2D>();
             for (var y = 0; y < sideRoomDepth; y++)
@@ -55,7 +55,7 @@ public class Field
             }
 
             allPositions.AddRange(positions);
-            destinations.Add(amphipod, new SideRoom(abscissa, sideRoomDepth));
+            destinations.Add(actor, new SideRoom(abscissa, sideRoomDepth));
         }
 
         var adjacencyList = new Dictionary<Vector2D, HashSet<Vector2D>>();
@@ -74,12 +74,12 @@ public class Field
         WaitingPositions = hallwayPositions.Where(p => !SideRoomAbscissas.ContainsValue(p.X)).ToHashSet();
     }
     
-    public Move FormMove(char amphipod, Vector2D from, Vector2D to)
+    public Move FormMove(char actor, Vector2D from, Vector2D to)
     {
         return new Move(
             From: from,
             To: to,
-            Cost: StepCosts[amphipod] * _moveDistances[(from, to)],
+            Cost: StepCosts[actor] * _moveDistances[(from, to)],
             Type: WaitingPositions.Contains(to) ? MoveType.ToWaiting : MoveType.ToSideRoom);
     }
 }

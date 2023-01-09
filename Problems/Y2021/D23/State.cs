@@ -5,12 +5,12 @@ namespace Problems.Y2021.D23;
 public readonly struct State
 {
     public int Cost { get; }
-    public Dictionary<Vector2D, char> AmphipodsMap { get; }
+    public Dictionary<Vector2D, char> ActorsMap { get; }
 
     private State (int cost, IDictionary<Vector2D, char> positions)
     {
         Cost = cost;
-        AmphipodsMap = new Dictionary<Vector2D, char>(positions);
+        ActorsMap = new Dictionary<Vector2D, char>(positions);
     }
 
     public static State FromInitialPositions(IDictionary<Vector2D, char> positions)
@@ -21,9 +21,9 @@ public readonly struct State
     public State AfterMove(Move move)
     {
         var nextPositions = new Dictionary<Vector2D, char>();
-        foreach (var (pos, amphipod) in AmphipodsMap)
+        foreach (var (pos, actor) in ActorsMap)
         {
-            nextPositions.Add(pos == move.From ? move.To : pos, amphipod);
+            nextPositions.Add(pos == move.From ? move.To : pos, actor);
         }
 
         return new State(Cost + move.Cost, nextPositions);

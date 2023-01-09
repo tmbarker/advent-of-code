@@ -44,7 +44,7 @@ public class Solution : SolutionBase2021
     private static IEnumerable<Move> GetReasonableMoves(State state, Field field)
     {
         var movePool = new List<Move>();
-        foreach (var (fromPos, actor) in state.AmphipodsMap)
+        foreach (var (fromPos, actor) in state.ActorsMap)
         {
             if (IsActorFinished(actor, fromPos, state, field))
             {
@@ -68,7 +68,7 @@ public class Solution : SolutionBase2021
         var atWaitingPos = field.WaitingPositions.Contains(fromPos);
         var destination = field.SideRooms[actor];
         var freeAdjacent = field.AdjacencyList[fromPos]
-            .Where(p => !state.AmphipodsMap.ContainsKey(p))
+            .Where(p => !state.ActorsMap.ContainsKey(p))
             .ToList();
 
         var visited = new HashSet<Vector2D>(freeAdjacent) { fromPos };
@@ -90,7 +90,7 @@ public class Solution : SolutionBase2021
             
             foreach (var adj in field.AdjacencyList[toPos].Where(adj => !visited.Contains(adj)))
             {
-                if (state.AmphipodsMap.ContainsKey(adj))
+                if (state.ActorsMap.ContainsKey(adj))
                 {
                     continue;
                 }
@@ -110,7 +110,7 @@ public class Solution : SolutionBase2021
 
         while (sideRoom.Contains(current))
         {
-            if (!state.AmphipodsMap.TryGetValue(current, out var occupant))
+            if (!state.ActorsMap.TryGetValue(current, out var occupant))
             {
                 enterTo = current;
                 return true;
@@ -140,7 +140,7 @@ public class Solution : SolutionBase2021
         var current = sideRoom.Bottom;
         while (current != pos)
         {
-            if (!state.AmphipodsMap.TryGetValue(current, out var occupant) || occupant != actor)
+            if (!state.ActorsMap.TryGetValue(current, out var occupant) || occupant != actor)
             {
                 return false;
             }
@@ -152,7 +152,7 @@ public class Solution : SolutionBase2021
 
     private static bool AllActorsFinished(State state, Field field)
     {
-        foreach (var (position, actor) in state.AmphipodsMap)
+        foreach (var (position, actor) in state.ActorsMap)
         {
             if (!field.SideRooms[actor].Contains(position))
             {
