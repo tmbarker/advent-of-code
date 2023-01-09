@@ -80,4 +80,12 @@ public static class CollectionExtensions
     {
         return new List<T>(collection);
     }
+    
+    /// <summary>
+    /// Remove a single element from <paramref name="collection"/>, if it exists
+    /// </summary>
+    public static ICollection<T> Except<T>(this IEnumerable<T> collection, T single)
+    {
+        return new List<T>(collection.Except(new[] { single }));
+    }
 }

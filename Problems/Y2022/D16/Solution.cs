@@ -15,19 +15,52 @@ public class Solution : SolutionBase2022
     
     public override object Run(int part)
     {
+        var valveData = ValveData.Parse(GetInputLines());
+        var strategyFinder = new StrategyFinder(valveData);
+        
         return part switch
         {
-            0 => ComputeMaxPressureRelieved(TimeAlone, false),
-            1 => ComputeMaxPressureRelieved(TimeWithHelp, true),
+            0 => GetMaxFlowAlone(strategyFinder),
+            1 => GetMaxFlowWithHelp(strategyFinder),
             _ => ProblemNotSolvedString,
         };
     }
 
-    private int ComputeMaxPressureRelieved(int timeLimit, bool withHelp)
+    private static int GetMaxFlowAlone(StrategyFinder strategyFinder)
     {
-        var valveData = ValveData.Parse(GetInputLines());
-        var strategyFinder = new StrategyFinder(valveData);
+        var max = 0;
+        void OnStrategyFound(Strategy strategy)
+        {
+            max = Math.Max(max, strategy.Flow);
+        }
+
+        strategyFinder.StrategyFound += OnStrategyFound;
+        strategyFinder.Run(Start, TimeAlone);
+
+        return max;
+    }
+    
+    private static int GetMaxFlowWithHelp(StrategyFinder strategyFinder)
+    {
+        var max = 0;
+        var strategies = new List<Strategy>();
+        void OnStrategyFound(Strategy strategy)
+        {
+            strategies.Add(strategy);
+        }
+
+        strategyFinder.StrategyFound += OnStrategyFound;
+        strategyFinder.Run(Start, TimeWithHelp);
         
-        return strategyFinder.Run(Start, timeLimit, withHelp);
+        foreach (var s1 in strategies)
+        foreach (var s2 in strategies)
+        {
+            if (s1.Flow + s2.Flow > max && !s1.Opened.Intersect(s2.Opened).Any())
+            {
+                max = s1.Flow + s2.Flow;
+            }
+        }
+
+        return max;
     }
 }

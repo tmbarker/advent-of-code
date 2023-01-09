@@ -6,54 +6,42 @@ public class StrategyFinder
 {
     private readonly ValveData _valveData;
 
+    public event Action<Strategy>? StrategyFound; 
+
     public StrategyFinder(ValveData valveData)
     {
         _valveData = valveData;
     }
 
-    public int Run(string start, int timeLimit, bool withHelp)
+    public void Run(string start, int timeLimit)
     {
-        return FindMaxFlow(timeLimit, start, new HashSet<string>(_valveData.Valves), withHelp);
+        Search(
+            t: timeLimit, 
+            f: 0, 
+            pos: start, 
+            unopened: new HashSet<string>(_valveData.Valves));
     }
 
-    private int FindMaxFlow(int t, string pos, HashSet<string> unopened, bool helper = false)
+    private void Search(int t, int f, string pos, ICollection<string> unopened)
     {
-        var max = 0;
+        RaiseStrategyFound(f, unopened);
+        
         foreach (var valve in unopened.Freeze())
         {
-            var travelAndOpenCost = GetTravelTime(pos, valve) + 1;
-            if (travelAndOpenCost >= t)
+            var travelAndOpenTime = GetTravelTime(pos, valve) + 1;
+            var timeAtNextValve = t - travelAndOpenTime;
+            
+            if (travelAndOpenTime >= t)
             {
                 continue;
             }
 
-            var timeAtNextValve = t - travelAndOpenCost;
-            var flow = GetFlowRate(valve) * timeAtNextValve + FindMaxFlow(
+            Search(
                 t: timeAtNextValve,
+                f: f + GetFlowRate(valve) * timeAtNextValve,
                 pos: valve,
-                unopened: FormUnopenedSet(unopened, valve));
-            
-            if (helper)
-            {
-                flow += FindMaxFlow(
-                    t: t,
-                    pos: pos,
-                    // TODO: The unopened set passed here has to reflect the valves unopened after the above
-                    // FindMaxFlow(...) call
-                    unopened: unopened);
-            }
-            
-            max = Math.Max(max, flow);
+                unopened: unopened.Except(valve));
         }
-        
-        return max;
-    }
-
-    private static HashSet<string> FormUnopenedSet(IEnumerable<string> unopened, string next)
-    {
-        var set = new HashSet<string>(unopened);
-        set.Remove(next);
-        return set;
     }
 
     private int GetTravelTime(string from, string to)
@@ -64,5 +52,12 @@ public class StrategyFinder
     private int GetFlowRate(string valve)
     {
         return _valveData.FlowRates[valve];
+    }
+
+    private void RaiseStrategyFound(int flow, IEnumerable<string> unopened)
+    {
+        StrategyFound?.Invoke(new Strategy(
+            flow: flow,
+            opened: _valveData.Valves.Except(unopened)));
     }
 }
