@@ -1,6 +1,6 @@
 namespace Problems.Y2021.D12;
 
-public class CaveTraverser
+public class PathFinder
 {
     private const string StartId = "start";
     private const string EndId = "end";
@@ -10,13 +10,13 @@ public class CaveTraverser
 
     public event Action? PathFound;
     
-    public CaveTraverser(Dictionary<string, HashSet<string>> adjacencyMap, bool bonusSmallCaveVisit)
+    public PathFinder(Dictionary<string, HashSet<string>> adjacencyMap, bool bonusSmallCaveVisit)
     {
         _adjacencyMap = adjacencyMap;
         _bonusSmallCaveVisit = bonusSmallCaveVisit;
     }
 
-    public void FindPaths()
+    public void Run()
     {
         var visitedCounts = _adjacencyMap.Keys.ToDictionary(k => k, _ => 0);
         var pathStack = new Stack<string>();

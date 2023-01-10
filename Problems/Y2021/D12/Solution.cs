@@ -22,7 +22,7 @@ public class Solution : SolutionBase2021
     private int CountPaths(bool bonusSmallCaveVisit)
     {
         var adjacencyMap = ParseAdjacencyMap(GetInputLines());
-        var caveTraverser = new CaveTraverser(adjacencyMap, bonusSmallCaveVisit);
+        var caveTraverser = new PathFinder(adjacencyMap, bonusSmallCaveVisit);
         var numPaths = 0;
 
         void OnPathFound()
@@ -31,7 +31,7 @@ public class Solution : SolutionBase2021
         }
 
         caveTraverser.PathFound += OnPathFound;
-        caveTraverser.FindPaths();
+        caveTraverser.Run();
 
         return numPaths;
     }

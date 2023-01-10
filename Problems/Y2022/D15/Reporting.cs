@@ -8,8 +8,10 @@ public readonly struct Reporting
     {
         SensorPos = sensorPos;
         BeaconPos = beaconPos;
+        Range = Vector2D.Distance(sensorPos, beaconPos, DistanceMetric.Taxicab);
     }
     
     public Vector2D SensorPos { get; }
     public Vector2D BeaconPos { get; }
+    public int Range { get; }
 }

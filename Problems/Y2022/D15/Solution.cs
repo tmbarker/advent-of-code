@@ -11,7 +11,6 @@ namespace Problems.Y2022.D15;
 /// </summary>
 public class Solution : SolutionBase2022
 {
-    private const string SensorRegex = @".*x=(-?\d+).*y=(-?\d+).*x=(-?\d+).*y=(-?\d+)";
     private const int Row = 2000000;
     private const int SearchAreaDimension = 4000000;
     private const long TuningFrequencyMultiplier = SearchAreaDimension;
@@ -42,23 +41,18 @@ public class Solution : SolutionBase2022
         
         foreach (var reporting in reportings)
         {
-            var beaconPos = reporting.BeaconPos;
-            var sensorPos = reporting.SensorPos;
-            var sensorRange = Vector2D.Distance(sensorPos, beaconPos, DistanceMetric.Taxicab);
-            
-            if (Math.Abs(sensorPos.Y - Row) > sensorRange)
+            var dy = Math.Abs(reporting.SensorPos.Y - Row);   
+            if (dy > reporting.Range)
             {
                 continue;
             }
-
-            var dy = Math.Abs(sensorPos.Y - Row);
-            var maxDxInRange = sensorRange - dy;
-
+            
             // Only sweep the minimum number of positions
-            var sweepStart = new Vector2D(sensorPos.X - maxDxInRange, Row);
-            var sweepEnd = new Vector2D(sensorPos.X + maxDxInRange, Row);
+            var maxDxInRange = reporting.Range - dy;
+            var sweepStart = new Vector2D(reporting.SensorPos.X - maxDxInRange, Row);
+            var sweepEnd = new Vector2D(reporting.SensorPos.X + maxDxInRange, Row);
+            
             var sweepPos = sweepStart;
-
             while (sweepPos.X <= sweepEnd.X)
             {
                 if (!occupiedPositions.Contains(sweepPos))
@@ -77,38 +71,27 @@ public class Solution : SolutionBase2022
         return beaconPos.X * TuningFrequencyMultiplier + beaconPos.Y;
     }
     
-    private static Vector2D FindDistressBeacon(IEnumerable<Reporting> reportings)
+    private static Vector2D FindDistressBeacon(IList<Reporting> reportings)
     {
-        var sensorRangeTuples = reportings.Select(r => 
+        foreach (var r1 in reportings)
         {
-            var sensorPos = r.SensorPos;
-            var range = Vector2D.Distance(sensorPos, r.BeaconPos, DistanceMetric.Taxicab);
-            return (sensorPos, range);
-        }).ToList();
-        
-        for (var i = 0; i < sensorRangeTuples.Count; i++)
-        {
-            var sensorPos = sensorRangeTuples[i].sensorPos;
-            var sensorRange = sensorRangeTuples[i].range;
-            var outOfRangePerimeterPositions = GetPerimeterPositionsInSearchArea(sensorPos, sensorRange);
-            
-            foreach (var searchPos in outOfRangePerimeterPositions)
+            foreach (var pos in GetBoundaryPositionsInSearchArea(r1.SensorPos, r1.Range))
             {
-                var searchPosInRangeOfSensor = false;
-                for (var j = 0; j < sensorRangeTuples.Count; j++)
+                var posInRangeOfSensor = false;
+                foreach (var r2 in reportings)
                 {
-                    if (Vector2D.Distance(sensorRangeTuples[j].sensorPos, searchPos, DistanceMetric.Taxicab) > sensorRangeTuples[j].range)
+                    if (Vector2D.Distance(r2.SensorPos, pos, DistanceMetric.Taxicab) > r2.Range)
                     {
                         continue;
                     }
                     
-                    searchPosInRangeOfSensor = true;
+                    posInRangeOfSensor = true;
                     break;
                 }
 
-                if (!searchPosInRangeOfSensor)
+                if (!posInRangeOfSensor)
                 {
-                    return searchPos;
+                    return pos;
                 }
             }
         }
@@ -116,19 +99,19 @@ public class Solution : SolutionBase2022
         throw new NoSolutionException();
     }
 
-    private static HashSet<Vector2D> GetPerimeterPositionsInSearchArea(Vector2D sensorPos, int range)
+    private static HashSet<Vector2D> GetBoundaryPositionsInSearchArea(Vector2D sensorPos, int range)
     {
         var positionSet = new HashSet<Vector2D>();
-        var distance = range + 1;
-        
         var vertices = new List<Vector2D>
         {
-            sensorPos + distance * Vector2D.Up,
-            sensorPos + distance * Vector2D.Right,
-            sensorPos + distance * Vector2D.Down,
-            sensorPos + distance * Vector2D.Left,
+            sensorPos + (range + 1) * Vector2D.Up,
+            sensorPos + (range + 1) * Vector2D.Right,
+            sensorPos + (range + 1) * Vector2D.Down,
+            sensorPos + (range + 1) * Vector2D.Left,
         };
 
+        // Trace a square immediately outside of the sensor range by lerping between the vertices of the smallest
+        // bounding box (vertices at range + 1)
         for (var i = 0; i < vertices.Count - 1; i++)
         {
             var fromVertex = vertices[i];
@@ -161,11 +144,11 @@ public class Solution : SolutionBase2022
 
     private static Reporting ParseReporting(string reporting)
     {
-        var matches = Regex.Match(reporting, SensorRegex);
-        var sensorX = int.Parse(matches.Groups[1].Value);
-        var sensorY = int.Parse(matches.Groups[2].Value);
-        var beaconX = int.Parse(matches.Groups[3].Value);
-        var beaconY = int.Parse(matches.Groups[4].Value);
+        var matches = Regex.Matches(reporting, @"-?\d+");
+        var sensorX = int.Parse(matches[0].Value);
+        var sensorY = int.Parse(matches[1].Value);
+        var beaconX = int.Parse(matches[2].Value);
+        var beaconY = int.Parse(matches[3].Value);
 
         return new Reporting(new Vector2D(sensorX, sensorY), new Vector2D(beaconX, beaconY));
     }

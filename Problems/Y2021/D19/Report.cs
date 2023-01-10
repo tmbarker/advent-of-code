@@ -5,7 +5,7 @@ namespace Problems.Y2021.D19;
 
 public static class Report
 {
-    private const string IntRegex = @"(-?\d+)";
+    private const string IntRegex = @"-?\d+";
     
     public static IList<Reporting> Parse(IEnumerable<string> lines)
     {

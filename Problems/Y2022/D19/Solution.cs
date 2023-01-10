@@ -8,7 +8,6 @@ namespace Problems.Y2022.D19;
 /// </summary>
 public class Solution : SolutionBase2022
 {
-    private const string InputRegex = @"(\d+)";
     private const int TimeLimitPart1 = 24;
     private const int TimeLimitPart2 = 32;
     private const int NumBlueprintsPart2 = 3;
@@ -152,7 +151,7 @@ public class Solution : SolutionBase2022
 
     private static Blueprint ParseBlueprint(string input)
     {
-        var matches = Regex.Matches(input, InputRegex);
+        var matches = Regex.Matches(input, @"\d+");
         return new Blueprint
         {
             Id = int.Parse(matches[0].Value),
