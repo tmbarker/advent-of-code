@@ -6,7 +6,7 @@ public static class GraphHelper
     /// Execute Djikstra's algorithm to find the shortest path from the <paramref name="start"/> node to all other nodes
     /// </summary>
     public static Dictionary<TNodeKey, int> DjikstraUnweighted<TNodeKey>(TNodeKey start,
-        Dictionary<TNodeKey, HashSet<TNodeKey>> adjacencyList) where TNodeKey : notnull
+        IDictionary<TNodeKey, HashSet<TNodeKey>> adjacencyList) where TNodeKey : notnull
     {
         var visited = new HashSet<TNodeKey> { start };
         var heap = new PriorityQueue<TNodeKey, int>(new[] { (start, 0) });
@@ -42,7 +42,7 @@ public static class GraphHelper
     /// Execute the Floyd-Warshall algorithm to find the shortest path from each node to all other nodes
     /// </summary>
     public static Dictionary<(TNodeKey, TNodeKey), int> FloydWarshallUnweighted<TNodeKey>(
-        Dictionary<TNodeKey, HashSet<TNodeKey>> adjacencyList) where TNodeKey : notnull
+        IDictionary<TNodeKey, HashSet<TNodeKey>> adjacencyList) where TNodeKey : notnull
     {
         const int inf = int.MaxValue / 2 - 1;
         var nodes = adjacencyList.Keys;

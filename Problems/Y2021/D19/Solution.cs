@@ -101,7 +101,7 @@ public class Solution : SolutionBase2021
 
                 // NOTE: C# requires a local copy of out parameter 'offset' for use in a lambda
                 var localOffset = offset;
-                var shifted = reported.Select(p => p + localOffset).ToList();
+                var shifted = reported.Select(p => p + localOffset);
 
                 if (known.Intersect(shifted).Count() >= IntersectionThreshold)
                 {

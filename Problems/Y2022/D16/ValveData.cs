@@ -10,8 +10,8 @@ public class ValveData
     private const char Delimiter = ',';
     
     public IEnumerable<string> Valves => FlowRates.Keys;
-    public Dictionary<string, int> FlowRates { get; }
-    public Dictionary<(string, string), int> TravelTimesLookup { get; }
+    public IDictionary<string, int> FlowRates { get; }
+    public IDictionary<(string, string), int> TravelTimesLookup { get; }
 
     public static ValveData Parse(IEnumerable<string> input)
     {
@@ -28,7 +28,7 @@ public class ValveData
         return new ValveData(flowRates, tunnelAdjacencies);
     }
     
-    private ValveData(IDictionary<string, int> flowRates, Dictionary<string, HashSet<string>> adjacencies)
+    private ValveData(IDictionary<string, int> flowRates, IDictionary<string, HashSet<string>> adjacencies)
     {
         FlowRates = flowRates.WhereValues(r => r > 0);
         TravelTimesLookup = GraphHelper.FloydWarshallUnweighted(adjacencies);
