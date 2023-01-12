@@ -43,24 +43,16 @@ public class Solution : SolutionBase2022
         var elementsSet = new HashSet<Vector3D>(elements);
         var boundingSet = new HashSet<Vector3D>();
         var queue = new Queue<Vector3D>();
-        
-        var lBound = new Vector3D(
-            x: elementsSet.Min(v => v.X) - 1,
-            y: elementsSet.Min(v => v.Y) - 1,
-            z: elementsSet.Min(v => v.Z) - 1);
-        var uBound = new Vector3D(
-            x: elementsSet.Max(v => v.X) + 1,
-            y: elementsSet.Max(v => v.Y) + 1,
-            z: elementsSet.Max(v => v.Z) + 1);
+        var aabb = new Aabb3D(elementsSet, false);
 
-        queue.Enqueue(uBound);
-        boundingSet.Add(uBound);
+        queue.Enqueue(aabb.GetMinVertex());
+        boundingSet.Add(aabb.GetMinVertex());
         
         while (queue.Count > 0)
         {
             foreach (var adj in queue.Dequeue().GetAdjacentSet(DistanceMetric.Taxicab))
             {
-                if (elementsSet.Contains(adj) || boundingSet.Contains(adj) || !IsBoundedInclusive(adj, lBound, uBound))
+                if (elementsSet.Contains(adj) || boundingSet.Contains(adj) || !aabb.Contains(adj, true))
                 {
                     continue;
                 }
@@ -70,29 +62,9 @@ public class Solution : SolutionBase2022
             }
         }
 
-        var totalBoundingSurfaceArea = ComputeTotalSurfaceArea(boundingSet);
-        var exteriorBoundingSurfaceArea = GetRectPrismSurfaceArea(lBound, uBound);
-        var exteriorSurfaceArea = totalBoundingSurfaceArea - exteriorBoundingSurfaceArea;
-
-        return exteriorSurfaceArea;
+        return (int)(ComputeTotalSurfaceArea(boundingSet) - aabb.GetSurfaceArea());
     }
-
-    private static int GetRectPrismSurfaceArea(Vector3D lBound, Vector3D uBound)
-    {
-        var l = Math.Abs(uBound.X - lBound.X) + 1;
-        var h = Math.Abs(uBound.Y - lBound.Y) + 1;
-        var w = Math.Abs(uBound.Z - lBound.Z) + 1;
-
-        return 2 * (w * l + h * l + h * w);
-    }
-
-    private static bool IsBoundedInclusive(Vector3D pos, Vector3D lBound, Vector3D uBound)
-    {
-        return
-            pos.X >= lBound.X && pos.X <= uBound.X &&
-            pos.Y >= lBound.Y && pos.Y <= uBound.Y &&
-            pos.Z >= lBound.Z && pos.Z <= uBound.Z;
-    }
+    
 
     private static IEnumerable<Vector3D> ParseSurfaceVectors(IEnumerable<string> lines)
     {

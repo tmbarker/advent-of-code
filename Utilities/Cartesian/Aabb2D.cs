@@ -7,11 +7,11 @@ public readonly struct Aabb2D
 {
     public Aabb2D(ICollection<Vector2D> extents, bool inclusive)
     {
-        var add = inclusive ? 0 : 1;
-        XMin = extents.Min(p => p.X) + add;
-        XMax = extents.Max(p => p.X) + add;
-        YMin = extents.Min(p => p.Y) + add;
-        YMax = extents.Max(p => p.Y) + add;
+        var delta = inclusive ? 0 : 1;
+        XMin = extents.Min(p => p.X) - delta;
+        XMax = extents.Max(p => p.X) + delta;
+        YMin = extents.Min(p => p.Y) - delta;
+        YMax = extents.Max(p => p.Y) + delta;
     }
     
     public Aabb2D(int xMin, int xMax, int yMin, int yMax)

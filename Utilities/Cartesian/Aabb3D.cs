@@ -23,13 +23,13 @@ public readonly struct Aabb3D
     
     public Aabb3D(ICollection<Vector3D> extents, bool inclusive)
     {
-        var add = inclusive ? 0 : 1;
-        XMin = extents.Min(p => p.X) + add;
-        XMax = extents.Max(p => p.X) + add;
-        YMin = extents.Min(p => p.Y) + add;
-        YMax = extents.Max(p => p.Y) + add;
-        ZMin = extents.Min(p => p.Z) + add;
-        ZMax = extents.Max(p => p.Z) + add;
+        var delta = inclusive ? 0 : 1;
+        XMin = extents.Min(p => p.X) - delta;
+        XMax = extents.Max(p => p.X) + delta;
+        YMin = extents.Min(p => p.Y) - delta;
+        YMax = extents.Max(p => p.Y) + delta;
+        ZMin = extents.Min(p => p.Z) - delta;
+        ZMax = extents.Max(p => p.Z) + delta;
     }
 
     public Aabb3D(int xMin, int xMax, int yMin, int yMax, int zMin, int zMax)
@@ -49,6 +49,10 @@ public readonly struct Aabb3D
     public int ZMin { get; }
     public int ZMax { get; }
 
+    private int Length => XMax - XMin + 1;
+    private int Height => YMax - YMin + 1;
+    private int Width => ZMax - ZMin + 1;
+    
     public static bool FindOverlap(Aabb3D lhs, Aabb3D rhs, out  Aabb3D overlap)
     {
         var hasOverlap =
@@ -78,7 +82,22 @@ public readonly struct Aabb3D
 
     public long GetVolume()
     {
-        return (long)(XMax - XMin + 1) * (YMax - YMin + 1) * (ZMax - ZMin + 1);
+        return (long)Length * Height * Width;
+    }
+
+    public long GetSurfaceArea()
+    {
+        return 2L * (Width * Length + Height * Length + Height * Width);
+    }
+
+    public Vector3D GetMinVertex()
+    {
+        return new Vector3D(XMin, YMin, ZMin);
+    }
+    
+    public Vector3D GetMaxVertex()
+    {
+        return new Vector3D(XMax, YMax, ZMax);
     }
     
     public bool Contains(Vector3D pos, bool inclusive)

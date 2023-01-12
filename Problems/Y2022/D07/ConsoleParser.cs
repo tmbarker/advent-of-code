@@ -50,7 +50,6 @@ public static class ConsoleParser
             case ParentCmd:
                 CurrentDirectory.Pop();
                 break;
-            // Only remaining uncovered case is navigating to a subdirectory
             default:
                 CurrentDirectory.Push(arg);
                 break;
@@ -68,20 +67,15 @@ public static class ConsoleParser
 
     private static void IncrementContainingDirectories(int increment)
     {
-        var history = new Stack<string>();
-        while (CurrentDirectory.Count > 0)
+        var history = new Stack<string>(CurrentDirectory.Reverse());
+        while (history.Count > 0)
         {
-            var directoryPath = FormDirectoryPath(CurrentDirectory);
+            var directoryPath = FormDirectoryPath(history);
             
             DirectorySizeIndex!.EnsureContainsKey(directoryPath);
             DirectorySizeIndex![directoryPath] += increment;
 
-            history.Push(CurrentDirectory.Pop());
-        }
-
-        while (history.Count > 0)
-        {
-            CurrentDirectory.Push(history.Pop());
+            history.Pop();
         }
     }
 
