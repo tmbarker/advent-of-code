@@ -27,9 +27,12 @@ public readonly struct Aabb2D
     public int YMin { get; }
     public int YMax { get; }
 
+    public int Width => XMax - XMin + 1;
+    public int Height => YMax - YMin + 1;
+    
     public long GetArea()
     {
-        return (long)(XMax - XMin + 1) * (YMax - YMin + 1);
+        return (long)Width * Height;
     }
     
     public bool Contains(Vector2D pos, bool inclusive)
