@@ -15,6 +15,7 @@ Puzzle | My Solution | Date | Topic(s) | Difficulty
 ### 2021
 Puzzle | My Solution | Date | Topic(s) | Difficulty
 :--- | :---: | :---: | :--- | :---
+[Lantern Fish](https://adventofcode.com/2021/day/6) | [Solution](https://github.com/tmbarker/advent-of-code/blob/main/Problems/Y2021/D06/Solution.cs) | 2021-06 | Math/Modeling :chart_with_upwards_trend: | :yellow_circle: Medium
 [Syntax Scoring](https://adventofcode.com/2021/day/10) | [Solution](https://github.com/tmbarker/advent-of-code/blob/main/Problems/Y2021/D10/Solution.cs) | 2021-10 | String Parsing :page_facing_up::mag:	| :green_circle: Easy
 [Passage Pathing](https://adventofcode.com/2021/day/12) | [Solution](https://github.com/tmbarker/advent-of-code/blob/main/Problems/Y2021/D12/Solution.cs) | 2021-12 | Graphs/Recursion :arrows_counterclockwise: | :yellow_circle: Medium
 [Transparent Origami](https://adventofcode.com/2021/day/13) | [Solution](https://github.com/tmbarker/advent-of-code/blob/main/Problems/Y2021/D13/Solution.cs) | 2021-13 | Vectors :arrow_right::heavy_plus_sign::arrow_up: | :green_circle: Easy
