@@ -8,8 +8,6 @@ namespace Problems.Y2020.D01;
 /// </summary>
 public class Solution : SolutionBase2020
 {
-    private const int SumTarget = 2020;
-    
     public override int Day => 1;
     
     public override object Run(int part)
@@ -17,60 +15,43 @@ public class Solution : SolutionBase2020
         var numbers = ParseNumbers(GetInputLines());
         return part switch
         {
-            0 => GetSumPairProduct(SumTarget, numbers),
-            1 => GetSumTripletProduct(SumTarget, numbers),
+            0 => GetSumPairProduct(Year, numbers),
+            1 => GetSumTripletProduct(Year, numbers),
             _ => ProblemNotSolvedString,
         };
     }
 
-    private static int GetSumPairProduct(int targetSum, IList<int> numbers)
+    private static int GetSumPairProduct(int targetSum, IReadOnlySet<int> numbers)
     {
-        var indexMap = new Dictionary<int, int>();
-        for (var i = 0; i < numbers.Count; i++)
+        foreach (var n1 in numbers)
         {
-            var number = numbers[i];
-            var difference = targetSum - number;
-
-            if (indexMap.TryGetValue(difference, out var index))
+            var n2 = targetSum - n1;
+            if (numbers.Contains(n2))
             {
-                return number * numbers[index];
-            }
-
-            if (!indexMap.ContainsKey(number))
-            {
-                indexMap[number] = i;
+                return n1 * n2;
             }
         }
-
+        
         throw new NoSolutionException();
     }
     
-    private static int GetSumTripletProduct(int targetSum, IList<int> numbers)
+    private static int GetSumTripletProduct(int targetSum, IReadOnlySet<int> numbers)
     {
-        var indexMap = new Dictionary<int, int>();
-        for (var i = 0; i < numbers.Count; i++)
+        foreach (var n1 in numbers)
+        foreach (var n2 in numbers)
         {
-            var n1 = numbers[i];
-            foreach (var n2 in numbers)
+            var n3 = targetSum - n1 - n2;
+            if (numbers.Contains(n3))
             {
-                var n3 = targetSum - n2 - n1;
-                if (indexMap.TryGetValue(n3, out var index))
-                {
-                    return n1 * n2 * numbers[index];
-                }
-            }
-            
-            if (!indexMap.ContainsKey(n1))
-            {
-                indexMap[n1] = i;
+                return n1 * n2 * n3;
             }
         }
 
         throw new NoSolutionException();
     }
 
-    private static IList<int> ParseNumbers(IEnumerable<string> input)
+    private static IReadOnlySet<int> ParseNumbers(IEnumerable<string> input)
     {
-        return input.Select(int.Parse).ToList();
+        return input.Select(int.Parse).ToHashSet();
     }
 }
