@@ -9,16 +9,15 @@ namespace Problems.Y2020.D04;
 public class Solution : SolutionBase2020
 {
     private const RegexOptions Options = RegexOptions.Multiline;
-    private static readonly IReadOnlyDictionary<string, Predicate<string>> FieldValidators =
-        new Dictionary<string, Predicate<string>>
+    private static readonly IReadOnlyDictionary<string, string> FieldValidators = new Dictionary<string, string>
     {
-        {"byr", p => Regex.IsMatch(p,@"^(?=.*byr:((19[2-9][0-9])|(200[0-2]))\b).*", Options)},
-        {"iyr", p => Regex.IsMatch(p,@"^(?=.*iyr:20((1[0-9])|20)\b).*", Options)},
-        {"eyr", p => Regex.IsMatch(p,@"^(?=.*eyr:20((2[0-9])|30)\b).*", Options)},
-        {"hgt", p => Regex.IsMatch(p,@"^(?=.*hgt:(1([5-8][0-9]|9[0-3])cm|(59|6[0-9]|7[0-6])in)\b).*", Options)},
-        {"hcl", p => Regex.IsMatch(p,@"^(?=.*hcl:#[0-9a-f]{6}\b).*", Options)},
-        {"ecl", p => Regex.IsMatch(p,@"^(?=.*ecl:(amb|blu|brn|gry|grn|hzl|oth)\b).*", Options)},
-        {"pid", p => Regex.IsMatch(p,@"^(?=.*pid:\d{9}\b).*", Options)},
+        {"byr", @"^(?=.*byr:((19[2-9][0-9])|(200[0-2]))\b).*"},
+        {"iyr", @"^(?=.*iyr:20((1[0-9])|20)\b).*"},
+        {"eyr", @"^(?=.*eyr:20((2[0-9])|30)\b).*"},
+        {"hgt", @"^(?=.*hgt:(1([5-8][0-9]|9[0-3])cm|(59|6[0-9]|7[0-6])in)\b).*"},
+        {"hcl", @"^(?=.*hcl:#[0-9a-f]{6}\b).*"},
+        {"ecl", @"^(?=.*ecl:(amb|blu|brn|gry|grn|hzl|oth)\b).*"},
+        {"pid", @"^(?=.*pid:\d{9}\b).*"},
     };
 
     public override int Day => 4;
@@ -41,7 +40,7 @@ public class Solution : SolutionBase2020
     
     private static bool ValidatePassportFieldData(string passport)
     {
-        return FieldValidators.Values.All(isValidPredicate => isValidPredicate.Invoke(passport));
+        return FieldValidators.Values.All(regex => Regex.IsMatch(passport, regex, Options));
     }
     
     private static IEnumerable<string> ParsePassportData(string input)
