@@ -26,7 +26,7 @@ public readonly struct Rotation3D : IEquatable<Rotation3D>
     public static readonly Rotation3D Positive90Z = new(Axis.Z, NinetyDegrees);
     public static readonly Rotation3D Positive180Z = new(Axis.Z, 2 * NinetyDegrees);
 
-    private Rotation3D(Axis axis, int thetaDeg)
+    public Rotation3D(Axis axis, int thetaDeg)
     {
         if (thetaDeg.Modulo(NinetyDegrees) != 0)
         {
