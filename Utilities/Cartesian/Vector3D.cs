@@ -61,6 +61,7 @@ public readonly struct Vector3D : IEquatable<Vector3D>
     }
 
     public static implicit operator Vector3D(Vector2D v) => new(v.X, v.Y, 0);
+    public static implicit operator Vector3D(Vector4D v) => new(v.X, v.Y, v.Z);
     
     public static Vector3D operator +(Vector3D lhs, Vector3D rhs)
     {
@@ -123,5 +124,71 @@ public readonly struct Vector3D : IEquatable<Vector3D>
         var dz = Math.Abs(a.Z - b.Z);
 
         return dx + dy + dz;
+    }
+}
+
+/// <summary>
+/// Extension methods for <see cref="Vector3D"/> instances 
+/// </summary>
+public static class Vector3DExtensions
+{
+    /// <summary>
+    /// Determine if two positions are adjacent, where adjacent means the specified distance metric is less than or equal to 1
+    /// </summary>
+    public static bool IsAdjacentTo(this Vector3D lhs, Vector3D rhs, DistanceMetric metric)
+    {
+        return Vector3D.Distance(lhs, rhs, metric) <= 1;
+    }
+    
+    /// <summary>
+    /// Get a set of vectors adjacent to <paramref name="vector"/>, depending on the <paramref name="metric"/> diagonally
+    /// adjacent vectors may or may not be included in the returned set
+    /// </summary>
+    /// <exception cref="ArgumentException">This method does not support the Euclidean distance metric</exception>
+    public static ISet<Vector3D> GetAdjacentSet(this Vector3D vector, DistanceMetric metric)
+    {
+        switch (metric)
+        {
+            case DistanceMetric.Chebyshev:
+                return GetChebyshevAdjacentSet(vector);
+            case DistanceMetric.Taxicab:
+                return GetTaxicabAdjacentSet(vector);
+            case DistanceMetric.Euclidean:
+            default:
+                throw new ArgumentException(
+                    $"The {metric} distance metric is not well defined over integral vector space",
+                    nameof(metric));
+        }
+    }
+
+    private static ISet<Vector3D> GetTaxicabAdjacentSet(Vector3D vector)
+    {
+        return new HashSet<Vector3D>
+        {
+            vector + Vector3D.Up,
+            vector + Vector3D.Down, 
+            vector + Vector3D.Left,
+            vector + Vector3D.Right,
+            vector + Vector3D.Forward,
+            vector + Vector3D.Back,
+        };
+    }
+    
+    private static ISet<Vector3D> GetChebyshevAdjacentSet(Vector3D vector)
+    {
+        var set = new HashSet<Vector3D>();
+        
+        for (var x = -1; x <= 1; x++)
+        for (var y = -1; y <= 1; y++)
+        for (var z = -1; z <= 1; z++)
+        {
+            set.Add(new Vector3D(
+                x: vector.X + x,
+                y: vector.Y + y,
+                z: vector.Z + z));
+        }
+
+        set.Remove(vector);
+        return set;
     }
 }

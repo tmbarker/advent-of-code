@@ -115,3 +115,61 @@ public readonly struct Vector2D : IEquatable<Vector2D>
         return dx + dy;
     }
 }
+
+/// <summary>
+/// Extension methods for <see cref="Vector2D"/> instances 
+/// </summary>
+public static class Vector2DExtensions
+{
+    /// <summary>
+    /// Determine if two positions are diagonal, where they do not share a common value for either dimension
+    /// </summary>
+    public static bool IsDiagonalTo(this Vector2D lhs, Vector2D rhs)
+    {
+        return lhs.X != rhs.X && lhs.Y != rhs.Y;
+    }
+    
+    /// <summary>
+    /// Determine if two positions are adjacent, where adjacent means the specified distance metric is less than or equal to 1
+    /// </summary>
+    public static bool IsAdjacentTo(this Vector2D lhs, Vector2D rhs, DistanceMetric metric)
+    {
+        return Vector2D.Distance(lhs, rhs, metric) <= 1;
+    }
+
+    /// <summary>
+    /// Get a set of vectors adjacent to <paramref name="vector"/>, depending on the <paramref name="metric"/> diagonally
+    /// adjacent vectors may or may not be included in the returned set
+    /// </summary>
+    /// <exception cref="ArgumentException">This method does not support the Euclidean distance metric</exception>
+    public static ISet<Vector2D> GetAdjacentSet(this Vector2D vector, DistanceMetric metric)
+    {
+        if (metric == DistanceMetric.Euclidean)
+        {
+            throw new ArgumentException(
+                $"The {DistanceMetric.Euclidean} distance metric is not well defined over integral vector space",
+                nameof(metric));
+        }
+        
+        var set = new HashSet<Vector2D>
+        {
+            vector + Vector2D.Up,
+            vector + Vector2D.Down, 
+            vector + Vector2D.Left,
+            vector + Vector2D.Right
+        };
+
+        if (metric != DistanceMetric.Chebyshev)
+        {
+            return set;
+        }
+        
+        for (var x = -1; x <= 1; x += 2)
+        for (var y = -1; y <= 1; y += 2)
+        {
+            set.Add(vector + new Vector2D(x, y));
+        }
+
+        return set;
+    }
+}

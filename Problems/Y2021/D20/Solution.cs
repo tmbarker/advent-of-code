@@ -44,11 +44,9 @@ public class Solution : SolutionBase2021
     private static ISet<Vector2D> EnhanceImage(Aabb2D imageRect, ICollection<Vector2D> litInImage, IList<bool> algorithm, bool backgroundLit)
     {
         var litInEnhanced = new HashSet<Vector2D>();
-
-        for (var x = imageRect.XMin; x <= imageRect.XMax; x++)
-        for (var y = imageRect.YMin; y <= imageRect.YMax; y++)
+        
+        foreach (var pixel in imageRect)
         {
-            var pixel = new Vector2D(x, y);
             var index = PixelToIndex(pixel, imageRect, litInImage, backgroundLit);
             var lit = algorithm[index];
             

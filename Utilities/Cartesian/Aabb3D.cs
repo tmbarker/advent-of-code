@@ -1,9 +1,11 @@
+using System.Collections;
+
 namespace Utilities.Cartesian;
 
 /// <summary>
 /// A readonly axis aligned 3D Cuboid value type
 /// </summary>
-public readonly struct Aabb3D
+public readonly struct Aabb3D : IEnumerable<Vector3D>
 { 
     public static Aabb3D CubeCenteredAtOrigin(int extent)
     {
@@ -122,9 +124,24 @@ public readonly struct Aabb3D
             pos.Y > YMin && pos.Y < YMax &&
             pos.Z > ZMin && pos.Z < ZMax;
     }
-
+    
     public override string ToString()
     {
         return $"[X={XMin}..{XMax}, Y={YMin}..{YMax}, Z={ZMin}..{ZMax}]";
+    }
+
+    public IEnumerator<Vector3D> GetEnumerator()
+    {
+        for (var x = XMin; x <= XMax; x++)
+        for (var y = YMin; y <= YMax; y++)
+        for (var z = ZMin; z <= ZMax; z++)
+        {
+            yield return new Vector3D(x, y, z);
+        }
+    }
+
+    IEnumerator IEnumerable.GetEnumerator()
+    {
+        return GetEnumerator();
     }
 }

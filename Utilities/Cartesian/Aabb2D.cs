@@ -1,9 +1,11 @@
+using System.Collections;
+
 namespace Utilities.Cartesian;
 
 /// <summary>
 /// A readonly axis aligned 2D Rect value type
 /// </summary>
-public readonly struct Aabb2D
+public readonly struct Aabb2D : IEnumerable<Vector2D>
 {
     public Aabb2D(ICollection<Vector2D> extents, bool inclusive)
     {
@@ -104,5 +106,19 @@ public readonly struct Aabb2D
     public override string ToString()
     {
         return $"[X={XMin}..{XMax}, Y={YMin}..{YMax}]";
+    }
+
+    public IEnumerator<Vector2D> GetEnumerator()
+    {
+        for (var x = XMin; x <= XMax; x++)
+        for (var y = YMin; y <= YMax; y++)
+        {
+            yield return new Vector2D(x, y);
+        }
+    }
+
+    IEnumerator IEnumerable.GetEnumerator()
+    {
+        return GetEnumerator();
     }
 }
