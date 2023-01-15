@@ -4,6 +4,7 @@ using System.Text.RegularExpressions;
 namespace Problems.Y2020.D07;
 
 using ContentMap = IReadOnlyDictionary<string, IList<BagContent>>;
+using Memo = IDictionary<(string, string), bool>;
 
 /// <summary>
 /// Handy Haversacks: https://adventofcode.com/2020/day/7
@@ -27,7 +28,8 @@ public class Solution : SolutionBase2020
 
     private static int CountBagsThatCanContain(string targetColour, ContentMap map)
     {
-        return map.Keys.Count(bagColour => CheckBagCanContain(bagColour, targetColour, map));
+        var memo = new Dictionary<(string, string), bool>();
+        return map.Keys.Count(bagColour => CheckBagCanContain(bagColour, targetColour, map, memo));
     }
 
     private static int CountBagsInside(string targetColour, ContentMap map)
@@ -44,10 +46,19 @@ public class Solution : SolutionBase2020
         return containedCount;
     }
 
-    private static bool CheckBagCanContain(string bagColour, string targetColour, ContentMap map)
+    private static bool CheckBagCanContain(string bagColour, string targetColour, ContentMap map, Memo memo)
     {
-        var colours = map[bagColour].Select(c => c.Colour);
-        return colours.Any(c => c == targetColour || CheckBagCanContain(c, targetColour, map));
+        var key = (bagColour, targetColour);
+        if (memo.TryGetValue(key, out var result))
+        {
+            return result;
+        }
+
+        memo[key] = map[bagColour]
+            .Select(c => c.Colour)
+            .Any(c => c == targetColour || CheckBagCanContain(c, targetColour, map, memo));
+        
+        return memo[key];
     }
     
     private static ContentMap ParseCapacityMap(IEnumerable<string> input)
