@@ -29,9 +29,6 @@ public readonly struct MaskSimple
 
     public ulong Apply(ulong value)
     {
-        value &= _clearMask;
-        value |= _setMask;
-
-        return value;
+        return value | _setMask & _clearMask;
     }
 }
