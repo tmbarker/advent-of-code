@@ -1,7 +1,7 @@
 namespace Utilities.Cartesian;
 
 /// <summary>
-/// An axis aligned 3D Cuboid value type
+/// A readonly axis aligned 3D Cuboid value type
 /// </summary>
 public readonly struct Aabb3D
 { 

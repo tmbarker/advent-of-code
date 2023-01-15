@@ -14,10 +14,10 @@ public static class Machine
 
         foreach (var line in program)
         {
-            var maskMatch = Regex.Match(line, MskRegex);
-            if (maskMatch.Success)
+            var mskMatch = Regex.Match(line, MskRegex);
+            if (mskMatch.Success)
             {
-                msk = new MaskSimple(maskMatch.Groups[1].Value);
+                msk = new MaskSimple(mskMatch.Groups[1].Value);
                 continue;
             }
 
@@ -38,10 +38,10 @@ public static class Machine
 
         foreach (var line in program)
         {
-            var maskMatch = Regex.Match(line, MskRegex);
-            if (maskMatch.Success)
+            var mskMatch = Regex.Match(line, MskRegex);
+            if (mskMatch.Success)
             {
-                msk = new MaskFloating(maskMatch.Groups[1].Value);
+                msk = new MaskFloating(mskMatch.Groups[1].Value);
                 continue;
             }
 

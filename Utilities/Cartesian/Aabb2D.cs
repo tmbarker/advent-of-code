@@ -1,7 +1,7 @@
 namespace Utilities.Cartesian;
 
 /// <summary>
-/// An axis aligned 2D Rect value type
+/// A readonly axis aligned 2D Rect value type
 /// </summary>
 public readonly struct Aabb2D
 {
