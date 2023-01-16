@@ -7,8 +7,9 @@ namespace Utilities.Cartesian;
 public partial class Grid2D<T>
 {
     private const string OutOfRangeFormat = "Index out of range [{0}], must be in range [0-{1}]";
+    private const string InvalidAxisError = $"{nameof(Grid2D<T>)} can only be flipped about the X and Y axis";
 
-    private readonly T[,]? _grid;
+    private T[,] _grid;
     private readonly Origin _origin;
     
     private Grid2D(T[,] grid, Origin origin)
@@ -35,8 +36,8 @@ public partial class Grid2D<T>
     /// <param name="y">The row index</param>
     public T this[int x, int y]
     {
-        get => Get(x, y);
-        set => Set(x, y, value);
+        get => GetInternal(x, y);
+        set => SetInternal(x, y, value);
     }
 
     /// <summary>
@@ -47,26 +48,6 @@ public partial class Grid2D<T>
     {
         get => Get(position);
         set => Set(position, value);
-    }
-
-    /// <summary>
-    /// Get the element at position (x,y)
-    /// </summary>
-    /// <param name="position">The position to index</param>
-    /// <returns>The element at the specified position</returns>
-    public T Get(Vector2D position)
-    {
-        return Get(position.X, position.Y);
-    }
-
-    /// <summary>
-    /// Set the element at position (x,y)
-    /// </summary>
-    /// <param name="position">The position to index</param>
-    /// <param name="value">The element value to set</param>
-    public void Set(Vector2D position, T value)
-    {
-        Set(position.X, position.Y, value);
     }
 
     /// <summary>
@@ -81,16 +62,128 @@ public partial class Grid2D<T>
             position.Y >= 0 && position.Y < Height;
     }
 
-    private T Get(int x, int y)
+    public void Flip(Axis about)
     {
-        ValidateIndices(x, TransformY(y));
-        return _grid![y, x];
+        if (about == Axis.Z)
+        {
+            throw new ArgumentOutOfRangeException(nameof(about), about, InvalidAxisError);
+        }
+
+        var tmp = new T[Height, Width];
+        for (var x = 0; x < Width; x++)
+        for (var y = 0; y < Height; y++)
+        {
+            // ReSharper disable once SwitchStatementMissingSomeEnumCasesNoDefault
+            // ReSharper disable once ConvertSwitchStatementToSwitchExpression
+            switch (about)
+            {
+                case Axis.X:
+                    tmp[y, x] = _grid[Height - y - 1, x];
+                    break;
+                case Axis.Y:
+                    tmp[y, x] = _grid[y, Width - x - 1];
+                    break;
+            }
+        }
+
+        _grid = tmp;
+        EvaluateDimensions();
     }
     
-    private void Set(int x, int y, T value)
+    /// <summary>
+    /// Rotate the grid by the given argument
+    /// </summary>
+    /// <param name="thetaDeg">The number of degrees to rotate the grid</param>
+    /// <exception cref="ArgumentOutOfRangeException">Argument must be an integral multiple of 90 degrees</exception>
+    public void Rotate(int thetaDeg)
+    {
+        if (thetaDeg % 360 == 0)
+        {
+            return;
+        }
+        
+        var rot = new Rotation3D(Axis.Z, thetaDeg);
+        var map = new Dictionary<Vector2D, Vector2D>();
+
+        for (var y = 0; y < Height; y++)
+        for (var x = 0; x < Width; x++)
+        {
+            var from = new Vector2D(x, y);
+            var to = rot * from;
+            map[to] = from;
+        }
+
+        var xMin = map.Keys.Min(v => v.X);
+        var xMax = map.Keys.Max(v => v.X);
+        var yMin = map.Keys.Min(v => v.Y);
+        var yMax = map.Keys.Max(v => v.Y);
+
+        var tmp = new T[yMax - yMin + 1, xMax - xMin + 1];
+        foreach (var ((xTo, yTo), (xFrom, yFrom)) in map)
+        {
+            tmp[yTo - yMin, xTo - xMin] = _grid[yFrom, xFrom];
+        }
+
+        _grid = tmp;
+        EvaluateDimensions();
+    }
+    
+    /// <summary>
+    /// Extract a row from the grid
+    /// </summary>
+    /// <param name="rowIndex">The 0-based row index</param>
+    /// <returns>The elements of the row, starting with the 0-index column element</returns>
+    public IEnumerable<T> GetRow(int rowIndex)
+    {
+        for (var x = 0; x < Width; x++)
+        {
+            yield return GetInternal(x, rowIndex);
+        }
+    }
+    
+    /// <summary>
+    /// Extract a column from the grid
+    /// </summary>
+    /// <param name="colIndex">The 0-based column index</param>
+    /// <returns>The elements of the column, starting with the 0-index row element</returns>
+    public IEnumerable<T> GetCol(int colIndex)
+    {
+        for (var y = 0; y < Height; y++)
+        {
+            yield return GetInternal(colIndex, y);
+        }
+    }
+    
+    /// <summary>
+    /// Get the element at position (x,y)
+    /// </summary>
+    /// <param name="position">The position to index</param>
+    /// <returns>The element at the specified position</returns>
+    private T Get(Vector2D position)
+    {
+        return GetInternal(position.X, position.Y);
+    }
+
+    /// <summary>
+    /// Set the element at position (x,y)
+    /// </summary>
+    /// <param name="position">The position to index</param>
+    /// <param name="value">The element value to set</param>
+    private void Set(Vector2D position, T value)
+    {
+        SetInternal(position.X, position.Y, value);
+    }
+
+    private T GetInternal(int x, int y)
+    {
+        ValidateIndices(x, TransformY(y));
+        return _grid[y, x];
+    }
+    
+    private void SetInternal(int x, int y, T value)
     {
         ValidateIndices(x, y);
-        _grid![TransformY(y), x] = value;
+        _grid[TransformY(y), x] = value;
     }
 
     private int TransformY(int y)
@@ -100,8 +193,8 @@ public partial class Grid2D<T>
     
     private void EvaluateDimensions()
     {
-        Height = _grid!.GetLength(0);
-        Width = _grid!.GetLength(1);
+        Height = _grid.GetLength(0);
+        Width = _grid.GetLength(1);
     }
 
     private void ValidateIndices(int x, int y)

@@ -1,6 +1,5 @@
 using Problems.Y2020.Common;
 using Utilities.Cartesian;
-using Axis = Utilities.Cartesian.Rotation3D.Axis;
 
 namespace Problems.Y2020.D12;
 

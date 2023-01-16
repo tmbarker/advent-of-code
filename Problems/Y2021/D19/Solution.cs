@@ -12,12 +12,12 @@ public class Solution : SolutionBase2021
     
     private static readonly IReadOnlySet<ScannerTransform> ScannerTransforms = new HashSet<ScannerTransform>
     {
-        new(Rotation3D.Zero,         Rotation3D.RotationsAroundAxis(Rotation3D.Axis.X)), // +x -> +x
-        new(Rotation3D.Positive180Y, Rotation3D.RotationsAroundAxis(Rotation3D.Axis.X)), // +x -> -x
-        new(Rotation3D.Positive90Y,  Rotation3D.RotationsAroundAxis(Rotation3D.Axis.Z)), // +x -> +z
-        new(Rotation3D.Negative90Y,  Rotation3D.RotationsAroundAxis(Rotation3D.Axis.Z)), // +x -> -z
-        new(Rotation3D.Positive90Z,  Rotation3D.RotationsAroundAxis(Rotation3D.Axis.Y)), // +x -> +y
-        new(Rotation3D.Negative90Z,  Rotation3D.RotationsAroundAxis(Rotation3D.Axis.Y)), // +x -> -y
+        new(Rotation3D.Zero,         Rotation3D.RotationsAroundAxis(Axis.X)), // +x -> +x
+        new(Rotation3D.Positive180Y, Rotation3D.RotationsAroundAxis(Axis.X)), // +x -> -x
+        new(Rotation3D.Positive90Y,  Rotation3D.RotationsAroundAxis(Axis.Z)), // +x -> +z
+        new(Rotation3D.Negative90Y,  Rotation3D.RotationsAroundAxis(Axis.Z)), // +x -> -z
+        new(Rotation3D.Positive90Z,  Rotation3D.RotationsAroundAxis(Axis.Y)), // +x -> +y
+        new(Rotation3D.Negative90Z,  Rotation3D.RotationsAroundAxis(Axis.Y)), // +x -> -y
     };
 
     public override int Day => 19;

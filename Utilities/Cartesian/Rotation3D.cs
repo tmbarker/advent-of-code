@@ -117,11 +117,4 @@ public readonly struct Rotation3D : IEquatable<Rotation3D>
     {
         return $"R({_axis}): {_thetaDeg}°";
     }
-
-    public enum Axis
-    {
-        X,
-        Y,
-        Z,
-    }
 }
