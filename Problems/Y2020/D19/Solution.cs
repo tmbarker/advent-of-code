@@ -16,7 +16,7 @@ public class Solution : SolutionBase2020
     private const int Rule = 0;
 
     /*
-     For part 2 we are given two rules, 8 and 11, which are recursive. We can handle both as follows:
+     For part 2 we are given two rules, 8 and 11, which are recursive. We can handle both using custom Regexes as follows:
      
      Rule 8)  "42 | 42 8" Means that we want to have one or more instances of pattern 42, which is the
               definition of the + token. Therefore, we can implement 8') using:
@@ -31,6 +31,11 @@ public class Solution : SolutionBase2020
               can use Conditional Patterns, (?(CONDITION)TRUE|FALSE). We are allowed to use capture group names for the
               condition, which will fail if the group is non-empty. When only one condition is specified, that is the
               fail pattern, so we can simply specify an empty negative lookahead (?!) to ensure that our match fails.
+              
+              Therefore, we can implement 11') using:
+              "(?<Open> 42 )+(?<-Open> 31 )+(?(Open)(?!))"
+                     ^            ^               ^
+                   Push          Pop         Assert Empty
     */ 
     private static readonly Rules RuleOverrides = new()
     {
