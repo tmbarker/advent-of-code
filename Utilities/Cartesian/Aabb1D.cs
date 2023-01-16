@@ -1,9 +1,11 @@
+using System.Collections;
+
 namespace Utilities.Cartesian;
 
 /// <summary>
 /// A readonly interval value type
 /// </summary>
-public readonly struct Aabb1D
+public readonly struct Aabb1D : IEnumerable<int>
 {
     public Aabb1D(ICollection<int> extents, bool inclusive)
     {
@@ -17,9 +19,9 @@ public readonly struct Aabb1D
         Min = min;
         Max = max;
     }
-    
-    public int Min { get; }
-    public int Max { get; }
+
+    private int Min { get; }
+    private int Max { get; }
     
     public bool Contains(int value, bool inclusive)
     {
@@ -36,5 +38,23 @@ public readonly struct Aabb1D
     private bool ContainsExclusive(int value)
     {
         return value > Min && value < Max;
+    }
+
+    public override string ToString()
+    {
+        return $"[{Min}..{Max}]";
+    }
+
+    public IEnumerator<int> GetEnumerator()
+    {
+        for (var v = Min; v <= Max; v++)
+        {
+            yield return v;
+        }
+    }
+
+    IEnumerator IEnumerable.GetEnumerator()
+    {
+        return GetEnumerator();
     }
 }
