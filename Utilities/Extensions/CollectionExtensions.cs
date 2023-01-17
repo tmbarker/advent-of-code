@@ -1,3 +1,5 @@
+using Utilities.Cartesian;
+
 namespace Utilities.Extensions;
 
 public static class CollectionExtensions
@@ -87,5 +89,20 @@ public static class CollectionExtensions
     public static ICollection<T> Except<T>(this IEnumerable<T> collection, T single)
     {
         return new List<T>(collection.Except(new[] { single }));
+    }
+    
+    /// <summary>
+    /// Normalize the values of the dictionary such that the "smallest" value is <see cref="Vector2D.Zero"/>
+    /// </summary>
+    public static void NormalizeValues<TKey>(this IDictionary<TKey, Vector2D> dictionary)
+    {
+        var delta = new Vector2D(
+            x: dictionary.Values.Min(v => v.X),
+            y: dictionary.Values.Min(v => v.Y));
+        
+        foreach (var (key, _) in dictionary)
+        {
+            dictionary[key] -= delta;
+        }
     }
 }

@@ -7,7 +7,8 @@ namespace Utilities.Cartesian;
 public partial class Grid2D<T>
 {
     private const string OutOfRangeFormat = "Index out of range [{0}], must be in range [0-{1}]";
-    private const string InvalidAxisError = $"{nameof(Grid2D<T>)} can only be flipped about the X and Y axis";
+    private const string InvalidFlipAxisError = $"{nameof(Grid2D<T>)} can only be flipped about the X and Y axis";
+    private const string InvalidRotAxisError = $"{nameof(Grid2D<T>)} can only be rotated about the Z axis";
 
     private T[,] _grid;
     private readonly Origin _origin;
@@ -66,7 +67,7 @@ public partial class Grid2D<T>
     {
         if (about == Axis.Z)
         {
-            throw new ArgumentOutOfRangeException(nameof(about), about, InvalidAxisError);
+            throw new ArgumentOutOfRangeException(nameof(about), about, InvalidFlipAxisError);
         }
 
         var tmp = new T[Height, Width];
@@ -93,18 +94,16 @@ public partial class Grid2D<T>
     /// <summary>
     /// Rotate the grid by the given argument
     /// </summary>
-    /// <param name="thetaDeg">The number of degrees to rotate the grid</param>
-    /// <exception cref="ArgumentOutOfRangeException">Argument must be an integral multiple of 90 degrees</exception>
-    public void Rotate(int thetaDeg)
+    /// <param name="rot">The rotation to perform on the grid</param>
+    /// <exception cref="ArgumentOutOfRangeException">Argument must be a rotation around the <see cref="Axis.Z"/> axis</exception>
+    public void Rotate(Rotation3D rot)
     {
-        if (thetaDeg % 360 == 0)
+        if (rot.Axis != Axis.Z)
         {
-            return;
+            throw new ArgumentOutOfRangeException(nameof(rot), rot, InvalidRotAxisError);
         }
         
-        var rot = new Rotation3D(Axis.Z, thetaDeg);
         var map = new Dictionary<Vector2D, Vector2D>();
-
         for (var y = 0; y < Height; y++)
         for (var x = 0; x < Width; x++)
         {

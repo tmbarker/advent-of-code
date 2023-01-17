@@ -19,8 +19,8 @@ public class Solution : SolutionBase2020
     {
         ParseInput(
             input: GetInputLines(),
-            yourTicket: out var yours,
-            otherTickets: out var others,
+            yourTicket:      out var yours,
+            otherTickets:    out var others,
             fieldValidators: out var validators,
             departureFields: out var fields);
         

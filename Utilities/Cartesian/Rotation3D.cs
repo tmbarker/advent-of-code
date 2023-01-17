@@ -11,8 +11,6 @@ public readonly struct Rotation3D : IEquatable<Rotation3D>
     private const int DegreesPerRotation = 360;
     private const int NinetyDegrees = DegreesPerRotation / 4;
 
-    private readonly Axis _axis;
-    private readonly int _thetaDeg;
     private readonly double _thetaRad;
 
     public static readonly Rotation3D Zero = new(Axis.X, 0);
@@ -33,19 +31,22 @@ public readonly struct Rotation3D : IEquatable<Rotation3D>
             throw new ArgumentOutOfRangeException(nameof(thetaDeg), thetaDeg, ThetaOutOfRangeError);
         }
 
-        _axis = axis;
-        _thetaDeg = thetaDeg.Modulo(DegreesPerRotation);
+        Axis = axis;
+        ThetaDeg = thetaDeg.Modulo(DegreesPerRotation);
         _thetaRad = thetaDeg * Math.PI * 2 / DegreesPerRotation;
     }
 
+    private int ThetaDeg { get; }
+    public Axis Axis { get; }
+
     public static Vector3D operator *(Rotation3D r, Vector3D v)
     {
-        return r._axis switch
+        return r.Axis switch
         {
             Axis.X => RotateAboutX(r, v),
             Axis.Y => RotateAboutY(r, v),
             Axis.Z => RotateAboutZ(r, v),
-            _ => throw new InvalidOperationException($"Invalid axis of rotation [{r._axis}]"),
+            _ => throw new InvalidOperationException($"Invalid axis of rotation [{r.Axis}]"),
         };
     }
     
@@ -100,7 +101,7 @@ public readonly struct Rotation3D : IEquatable<Rotation3D>
 
     public bool Equals(Rotation3D other)
     {
-        return _thetaDeg == other._thetaDeg && _axis == other._axis;
+        return ThetaDeg == other.ThetaDeg && Axis == other.Axis;
     }
 
     public override bool Equals(object? obj)
@@ -110,11 +111,11 @@ public readonly struct Rotation3D : IEquatable<Rotation3D>
 
     public override int GetHashCode()
     {
-        return HashCode.Combine(_axis, _thetaDeg);
+        return HashCode.Combine(Axis, ThetaDeg);
     }
 
     public override string ToString()
     {
-        return $"R({_axis}): {_thetaDeg}°";
+        return $"R({Axis}): {ThetaDeg}°";
     }
 }
