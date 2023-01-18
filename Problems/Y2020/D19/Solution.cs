@@ -33,14 +33,14 @@ public class Solution : SolutionBase2020
               fail pattern, so we can simply specify an empty negative lookahead (?!) to ensure that our match fails.
               
               Therefore, we can implement 11') using:
-              "(?<Open> 42 )+(?<-Open> 31 )+(?(Open)(?!))"
+              "(?<Stack> 42 )+(?<-Stack> 31 )+(?(Stack)(?!))"
                      ^            ^               ^
                    Push          Pop         Assert Empty
     */ 
     private static readonly Rules RuleOverrides = new()
     {
         { 8,  "42 +" },
-        { 11, "(?<Open> 42 )+(?<-Open> 31 )+(?(Open)(?!))" }
+        { 11, "(?<Stack> 42 )+(?<-Stack> 31 )+(?(Stack)(?!))" }
     };
 
     public override int Day => 19;
