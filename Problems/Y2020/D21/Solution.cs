@@ -1,0 +1,103 @@
+using System.Text.RegularExpressions;
+using Problems.Y2020.Common;
+using Utilities.Extensions;
+
+namespace Problems.Y2020.D21;
+
+/// <summary>
+/// Allergen Assessment: https://adventofcode.com/2020/day/21
+/// </summary>
+public class Solution : SolutionBase2020
+{
+    public override int Day => 21;
+    
+    public override object Run(int part)
+    {
+        var foods = ParseFoods(GetInputLines());
+        var allergens = ResolveAllergens(foods);
+        
+        return part switch
+        {
+            0 => CountAllergenFreeIngredients(allergens, foods),
+            1 => FormAllergensList(allergens),
+            _ => ProblemNotSolvedString,
+        };
+    }
+
+    private static Dictionary<string, string> ResolveAllergens(IList<Food> foods)
+    {
+        var allergenCandidates = new Dictionary<string, HashSet<string>>();
+        var allergensMap = new Dictionary<string, string>();
+        var allergensSet = foods
+            .SelectMany(f => f.ListedAllergens)
+            .ToHashSet();
+        
+        foreach (var allergen in allergensSet)
+        {
+            var includingLists = foods
+                .Where(food => food.ListedAllergens.Contains(allergen))
+                .Select(food => food.Ingredients)
+                .ToList();
+
+            var presentInAll = includingLists
+                .Skip(1)
+                .Aggregate(
+                    new HashSet<string>(includingLists.First()),
+                    (inAll, ingredients) =>
+                    {
+                        inAll.IntersectWith(ingredients);
+                        return inAll;
+                    }
+                );
+            
+            allergenCandidates.Add(allergen, presentInAll);
+        }
+        
+        while (allergensMap.Count < allergensSet.Count)
+        {
+            var frozenCandidates = allergenCandidates.Freeze();
+            foreach (var (allergen, candidates) in frozenCandidates)
+            {
+                if (candidates.Count != 1)
+                {
+                    continue;
+                }
+                
+                allergensMap.Add(allergen, candidates.Single());
+                allergenCandidates.Remove(allergen);
+                
+                foreach (var (_, candidatesSet) in frozenCandidates)
+                {
+                    candidatesSet.Remove(allergensMap[allergen]);
+                }
+            }
+        }
+
+        return allergensMap;
+    }
+
+    private static int CountAllergenFreeIngredients(Dictionary<string, string> allergensMap, IEnumerable<Food> foods)
+    {
+        return foods
+            .SelectMany(food => food.Ingredients)
+            .Count(ingredient => !allergensMap.ContainsValue(ingredient));
+    }
+
+    private static string FormAllergensList(Dictionary<string, string> allergensMap)
+    {
+        return string.Join(',', allergensMap.Keys
+            .OrderBy(allergen => allergen)
+            .Select(allergen => allergensMap[allergen]));
+    }
+    
+    private static IList<Food> ParseFoods(IEnumerable<string> input)
+    {
+        var regex = new Regex(@"(?:([a-z]+)+\s)+\(contains(?: ([a-z]+)(?:,|\)))+");
+        return input
+            .Select(line => regex.Matches(line)[0])
+            .Select(match => new Food(
+                ingredients:     match.Groups[1].Captures.Select(c => c.Value), 
+                listedAllergens: match.Groups[2].Captures.Select(c => c.Value)))
+            .ToList();
+    }
+}
