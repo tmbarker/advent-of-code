@@ -1,3 +1,5 @@
+using System.Diagnostics;
+using System.Text;
 using Problems.Common;
 
 namespace SolutionRunner;
@@ -25,14 +27,31 @@ public static class RunSolution
     {
         var year = solutionInstance.Year;
         var day = solutionInstance.Day;
-        
+        var stopwatch = new Stopwatch();
+
         try
         {
-            Log(year, day, $"Solution part {part + 1} => {solutionInstance.Run(part)}");
+            stopwatch.Start();
+            var result = solutionInstance.Run(part);
+            var elapsed = FormElapsedString(stopwatch.Elapsed);
+
+            Log(
+                year: year,
+                day: day,
+                log: $"[Elapsed: {elapsed}] Solution part {part + 1} => {result}",
+                color: ConsoleColor.Green);
         }
         catch (Exception e)
         {
-            Log(year, day, $"Error running solution:\n{e}");
+            Log(
+                year: year,
+                day: day,
+                log: $"Error running solution:\n{e}",
+                color: ConsoleColor.Red);
+        }
+        finally
+        {
+            stopwatch.Stop();
         }
     }
     
@@ -68,8 +87,35 @@ public static class RunSolution
             SolutionTypeName);
     }
 
-    private static void Log(int year, int day, string log)
+    private static string FormElapsedString(TimeSpan elapsed)
     {
-        Console.WriteLine($"[Year={year}, Day={day}] {log}");
+        var sb = new StringBuilder();
+        var overASecond = false;
+        
+        if (elapsed.TotalSeconds >= 1f)
+        {
+            sb.Append($"{(int)elapsed.TotalSeconds}.");
+            overASecond = true;
+        }
+
+        if (overASecond)
+        {
+            sb.Append($"{elapsed.Milliseconds:D3}");
+        }
+        else
+        {
+            sb.Append($"{elapsed.Milliseconds}");    
+        }
+        
+        sb.Append(overASecond ? "s" : "ms");
+        
+        return sb.ToString();
+    }
+    
+    private static void Log(int year, int day, string log, ConsoleColor color = default)
+    {
+        Console.ForegroundColor = color;
+        Console.WriteLine($"[Year: {year}, Day: {day}] {log}");
+        Console.ResetColor();
     }
 }
