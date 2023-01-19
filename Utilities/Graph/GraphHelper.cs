@@ -3,9 +3,9 @@ namespace Utilities.Graph;
 public static class GraphHelper
 {
     /// <summary>
-    /// Execute Djikstra's algorithm to find the shortest path from the <paramref name="start"/> node to all other nodes
+    /// Execute Dijkstra's algorithm to find the shortest path from the <paramref name="start"/> node to all other nodes
     /// </summary>
-    public static Dictionary<TNodeKey, int> DjikstraUnweighted<TNodeKey>(TNodeKey start,
+    public static Dictionary<TNodeKey, int> DijkstraUnweighted<TNodeKey>(TNodeKey start,
         IDictionary<TNodeKey, HashSet<TNodeKey>> adjacencyList) where TNodeKey : notnull
     {
         var visited = new HashSet<TNodeKey> { start };
