@@ -35,7 +35,8 @@ public abstract class SolutionBase
     {
         return Path.Combine(
             AppDomain.CurrentDomain.BaseDirectory,
-            InputsDirectoryName, 
+            InputsDirectoryName,
+            Year.ToString(),
             InputFilename);
     }
     
