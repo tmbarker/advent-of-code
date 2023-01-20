@@ -5,8 +5,8 @@ using System.Text.RegularExpressions;
 namespace Problems.Y2020.D19;
 
 using Messages = IEnumerable<string>;
-using Rules = Dictionary<int, string>;
-using Memo = Dictionary<int, string>;
+using Rules = IDictionary<int, string>;
+using Memo = IDictionary<int, string>;
 
 /// <summary>
 /// Monster Messages: https://adventofcode.com/2020/day/19
@@ -20,7 +20,7 @@ public class Solution : SolutionBase2020
      
      Rule 8)  "42 | 42 8" Means that we want to have one or more instances of pattern 42, which is the
               definition of the + token. Therefore, we can implement 8') using:
-              "42 | 42 8" -> "42 +"
+              "42 +"
      
      Rule 11) "42 31 | 42 11 31" Means that we want to have an equal number of 42s and 31s (and at least one of each).
               .NET Regex gives us Balancing Groups, which allows us to 'pop' the values captured to a named capture
@@ -34,10 +34,10 @@ public class Solution : SolutionBase2020
               
               Therefore, we can implement 11') using:
               "(?<Stack> 42 )+(?<-Stack> 31 )+(?(Stack)(?!))"
-                     ^            ^               ^
-                   Push          Pop         Assert Empty
+                    ^               ^              ^
+                   Push            Pop        Assert Empty
     */ 
-    private static readonly Rules RuleOverrides = new()
+    private static readonly Rules RuleOverrides = new Dictionary<int, string>
     {
         { 8,  "42 +" },
         { 11, "(?<Stack> 42 )+(?<-Stack> 31 )+(?(Stack)(?!))" }
@@ -66,7 +66,9 @@ public class Solution : SolutionBase2020
             }
         }
         
-        var regex = new Regex($"^{BuildRegex(ruleId, rules, new Memo())}$");
+        var memo = new Dictionary<int, string>();
+        var regex = new Regex($"^{BuildRegex(ruleId, rules, memo)}$");
+        
         return messages.Count(m => regex.Match(m).Success);
     }
     

@@ -90,7 +90,24 @@ public static class CollectionExtensions
     {
         return new List<T>(collection.Except(new[] { single }));
     }
-    
+
+    public static ISet<T> IntersectAll<T>(this IEnumerable<IEnumerable<T>> collections)
+    {
+        var enumerable = collections.ToList();
+        var presentInAll = enumerable
+            .Skip(1)
+            .Aggregate(
+                new HashSet<T>(enumerable.First()),
+                (inAll, nextCollection) =>
+                {
+                    inAll.IntersectWith(nextCollection);
+                    return inAll;
+                }
+            );
+
+        return presentInAll;
+    } 
+
     /// <summary>
     /// Normalize the values of the dictionary such that the "smallest" value is <see cref="Vector2D.Zero"/>
     /// </summary>

@@ -89,6 +89,7 @@ public class Tile
         };
     }
     
+    public readonly record struct Congruence(EdgeId FromEdge, EdgeId ToEdge, int OnTile);
     public enum EdgeId
     {
         A,

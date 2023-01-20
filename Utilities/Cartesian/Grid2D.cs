@@ -1,10 +1,12 @@
+using System.Collections;
+
 namespace Utilities.Cartesian;
 
 /// <summary>
 /// 2D grid data structure providing (X,Y) style indexing
 /// </summary>
 /// <typeparam name="T">The type at each grid position</typeparam>
-public partial class Grid2D<T>
+public partial class Grid2D<T> : IEnumerable<KeyValuePair<Vector2D, T>>
 {
     private const string OutOfRangeFormat = "Index out of range [{0}], must be in range [0-{1}]";
     private const string InvalidFlipAxisError = $"{nameof(Grid2D<T>)} can only be flipped about the X and Y axis";
@@ -207,5 +209,19 @@ public partial class Grid2D<T>
         {
             throw new ArgumentOutOfRangeException(nameof(y), y, string.Format(OutOfRangeFormat, y, Height - 1));
         }
+    }
+
+    public IEnumerator<KeyValuePair<Vector2D, T>> GetEnumerator()
+    {
+        for (var y = 0; y < Height; y++)
+        for (var x = 0; x < Width; x++)
+        {
+            yield return new KeyValuePair<Vector2D, T>(new Vector2D(x, y), GetInternal(x, y));
+        }
+    }
+
+    IEnumerator IEnumerable.GetEnumerator()
+    {
+        return GetEnumerator();
     }
 }

@@ -68,7 +68,11 @@ public static class RunSolution
         }
         catch (Exception e)
         {
-            Log(year, day, $"Failed to create {SolutionTypeName} instance:\n{e}");
+            Log(
+                year: year,
+                day: day,
+                log: $"Failed to create {SolutionTypeName} instance:\n{e}",
+                color: ConsoleColor.Red);
         }
 
         instance = null;
@@ -98,15 +102,7 @@ public static class RunSolution
             overASecond = true;
         }
 
-        if (overASecond)
-        {
-            sb.Append($"{elapsed.Milliseconds:D3}");
-        }
-        else
-        {
-            sb.Append($"{elapsed.Milliseconds}");    
-        }
-        
+        sb.Append(overASecond ? $"{elapsed.Milliseconds:D3}" : $"{elapsed.Milliseconds}");
         sb.Append(overASecond ? "s" : "ms");
         
         return sb.ToString();

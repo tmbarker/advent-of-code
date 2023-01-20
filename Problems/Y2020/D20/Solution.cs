@@ -1,4 +1,5 @@
 using System.Text.RegularExpressions;
+using Problems.Common;
 using Problems.Y2020.Common;
 using Utilities.Cartesian;
 using Utilities.Extensions;
@@ -6,7 +7,7 @@ using Utilities.Extensions;
 namespace Problems.Y2020.D20;
 
 using TileMap = IDictionary<int, Tile>;
-using CongruenceMap = IDictionary<int, List<Congruence>>;
+using CongruenceMap = IDictionary<int, List<Tile.Congruence>>;
 using PositionsMap = IDictionary<int, Vector2D>;
 
 /// <summary>
@@ -23,6 +24,7 @@ public class Solution : SolutionBase2020
     {
         var tiles = ParseTiles(GetInputLines());
         var congruences = BuildCongruenceMap(tiles);
+        
         return part switch
         {
             0 => GetCornerTilesIdProduct(congruences),
@@ -35,25 +37,20 @@ public class Solution : SolutionBase2020
     {
         var congruences = tiles.ToDictionary(
             keySelector: kvp => kvp.Key,
-            elementSelector: _ => new List<Congruence>());
+            elementSelector: _ => new List<Tile.Congruence>());
 
         foreach (var (tileId1, tile1) in tiles)
-        foreach (var (tileId2, tile2) in tiles)
+        foreach (var (tileId2, tile2) in tiles.WhereKeys(id => id != tileId1))
         {
-            if (tileId1 == tileId2)
-            {
-                continue;
-            }
-            
             foreach (var (edgeId1, edge1) in tile1.EdgeFingerprints)
             foreach (var (edgeId2, edge2) in tile2.EdgeFingerprints)
             {
                 if (edge1.IsCongruentTo(edge2))
                 {
-                    congruences[tileId1].Add(new Congruence(
-                        toTile:   tileId2,
-                        fromEdge: edgeId1,
-                        toEdge:   edgeId2));
+                    congruences[tileId1].Add(new Tile.Congruence(
+                        FromEdge: edgeId1,
+                        ToEdge:   edgeId2,
+                        OnTile:   tileId2));
                 }
             }
         }
@@ -72,38 +69,39 @@ public class Solution : SolutionBase2020
     {
         var assembled = AssembleTiles(tiles, congruences);
         var composite = BuildCompositeImage(tiles, assembled);
-        
-        while (true)
+        var seaMonsterChrCount = composite.Count(kvp => kvp.Value == SeaMonster.Chr);
+
+        // We need to check 8 orientations: 0, 90, 180, and 270 deg on either side of the image
+        for (var i = 0; i < 2; i++)
         {
-            for (var r = 0; r < 360; r += 90)
+            if (CheckRotationsForSeaMonster(composite, out var numFound))
             {
-                composite.Rotate(new Rotation3D(Axis.Z, r));
-                
-                var seaMonsterChrCount = 0;
-                var numSeaMonstersFound = 0;
-
-                for (var y = 0; y < composite.Height; y++)
-                for (var x = 0; x < composite.Width;  x++)
-                {
-                    var pos = new Vector2D(x, y);
-                    if (composite[x, y] == SeaMonster.Chr)
-                    {
-                        seaMonsterChrCount++;
-                    }
-                    if (SeaMonster.Pattern.All(v => composite.IsInDomain(pos + v) && composite[pos + v] == SeaMonster.Chr))
-                    {
-                        numSeaMonstersFound++;
-                    }
-                }
-
-                if (numSeaMonstersFound > 0)
-                {
-                    return seaMonsterChrCount - numSeaMonstersFound * SeaMonster.Pattern.Count;
-                }
+                return seaMonsterChrCount - SeaMonster.Pattern.Count * numFound;
             }
-
+            
             composite.Flip(Axis.Y);
         }
+
+        throw new NoSolutionException();
+    }
+
+    private static bool CheckRotationsForSeaMonster(Grid2D<char> image, out int foundCount)
+    {
+        foundCount = 0;
+        foreach (var rot in Rotation3D.RotationsAroundAxis(Axis.Z))
+        {
+            image.Rotate(rot);
+            
+            for (var y = 0; y < image.Height - SeaMonster.Height; y++)
+            for (var x = 0; x < image.Width  - SeaMonster.Width;  x++)
+            {
+                if (SeaMonster.Pattern.All(v => image[new Vector2D(x, y) + v] == SeaMonster.Chr))
+                {
+                    foundCount++;
+                }
+            }
+        }
+        return foundCount > 0;
     }
 
     private static Grid2D<char> BuildCompositeImage(TileMap tiles, PositionsMap assembled)
@@ -132,37 +130,35 @@ public class Solution : SolutionBase2020
     private static PositionsMap AssembleTiles(TileMap tiles, CongruenceMap congruences)
     {
         var firstId = tiles.Keys.First();
-        var placed = new Dictionary<int, Vector2D> { { firstId, Vector2D.Zero } };
+        var positions = new Dictionary<int, Vector2D> { { firstId, Vector2D.Zero } };
         var queue = new Queue<int>(new[] { firstId });
 
+        // Place the first piece arbitrarily, then continuously match all pieces with known congruences to previously
+        // placed pieces. Afterwards, normalize the positions such that the lower left piece has position (0,0)
         while (queue.Any())
         {
             var placedTileId = queue.Dequeue();
-            var placedTilePos = placed[placedTileId];
             var placedTile = tiles[placedTileId];
             
-            foreach (var congruence in congruences[placedTileId])
+            foreach (var (fromEdge, toEdge, toTile) in congruences[placedTileId])
             {
-                var toTileId = congruence.ToTile;
-                var toTile = tiles[toTileId];
-
-                if (placed.ContainsKey(toTileId))
+                if (positions.ContainsKey(toTile))
                 {
                     continue;
                 }
 
-                toTile.OrientToMatch(
-                    matchEdge:   congruence.ToEdge,
-                    toOtherEdge: congruence.FromEdge,
+                tiles[toTile].OrientToMatch(
+                    matchEdge:   toEdge,
+                    toOtherEdge: fromEdge,
                     onOtherTile: placedTile);
                 
-                placed.Add(toTileId, placedTilePos + placedTile.EdgeDirections[congruence.FromEdge]);
-                queue.Enqueue(toTileId);
+                positions.Add(toTile, positions[placedTileId] + placedTile.EdgeDirections[fromEdge]);
+                queue.Enqueue(toTile);
             }
         }
 
-        placed.NormalizeValues();
-        return placed;
+        positions.NormalizeValues();
+        return positions;
     }
 
     private static TileMap ParseTiles(IEnumerable<string> input)

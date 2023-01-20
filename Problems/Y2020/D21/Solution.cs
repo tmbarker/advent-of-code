@@ -26,7 +26,7 @@ public class Solution : SolutionBase2020
 
     private static Dictionary<string, string> ResolveAllergens(IList<Food> foods)
     {
-        var allergenCandidates = new Dictionary<string, HashSet<string>>();
+        var allergenCandidates = new Dictionary<string, ISet<string>>();
         var allergensMap = new Dictionary<string, string>();
         var allergensSet = foods
             .SelectMany(f => f.ListedAllergens)
@@ -34,29 +34,17 @@ public class Solution : SolutionBase2020
         
         foreach (var allergen in allergensSet)
         {
-            var includingLists = foods
+            var possibleIngredients = foods
                 .Where(food => food.ListedAllergens.Contains(allergen))
                 .Select(food => food.Ingredients)
-                .ToList();
+                .IntersectAll();
 
-            var presentInAll = includingLists
-                .Skip(1)
-                .Aggregate(
-                    new HashSet<string>(includingLists.First()),
-                    (inAll, ingredients) =>
-                    {
-                        inAll.IntersectWith(ingredients);
-                        return inAll;
-                    }
-                );
-            
-            allergenCandidates.Add(allergen, presentInAll);
+            allergenCandidates.Add(allergen, possibleIngredients);
         }
         
         while (allergensMap.Count < allergensSet.Count)
         {
-            var frozenCandidates = allergenCandidates.Freeze();
-            foreach (var (allergen, candidates) in frozenCandidates)
+            foreach (var (allergen, candidates) in allergenCandidates.Freeze())
             {
                 if (candidates.Count != 1)
                 {
@@ -66,7 +54,7 @@ public class Solution : SolutionBase2020
                 allergensMap.Add(allergen, candidates.Single());
                 allergenCandidates.Remove(allergen);
                 
-                foreach (var (_, candidatesSet) in frozenCandidates)
+                foreach (var (_, candidatesSet) in allergenCandidates)
                 {
                     candidatesSet.Remove(allergensMap[allergen]);
                 }

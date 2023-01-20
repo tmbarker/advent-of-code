@@ -4,10 +4,10 @@ namespace Problems.Y2020.D20;
 
 public static class SeaMonster
 {
+    public const char Chr = '#';
     public static int Width => 20;
     public static int Height => 2;
-    public static char Chr = '#';
-    
+
     public static readonly HashSet<Vector2D> Pattern = new()
     {
         new Vector2D(0, 1),
