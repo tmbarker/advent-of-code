@@ -26,17 +26,20 @@ Puzzle | My Solution | Date | Topic(s) | Difficulty
 Puzzle | My Solution | Date | Topic(s) | Difficulty
 :--- | :---: | :---: | :--- | :---
 [Passport Processing](https://adventofcode.com/2020/day/4) | [Solution](https://github.com/tmbarker/advent-of-code/blob/main/Problems/Y2020/D04/Solution.cs) | 2020-04 | Regular Expressions :a::b::asterisk::question: | :yellow_circle: Medium
+[Handy Haversacks](https://adventofcode.com/2020/day/7) | [Solution](https://github.com/tmbarker/advent-of-code/blob/main/Problems/Y2020/D07/Solution.cs) | 2020-07 | Graphs/Recursion :arrows_counterclockwise: | :yellow_circle: Medium
 [Rain Risk](https://adventofcode.com/2020/day/12) | [Solution](https://github.com/tmbarker/advent-of-code/blob/main/Problems/Y2020/D12/Solution.cs) | 2020-12 | Vectors :arrow_right::heavy_plus_sign::arrow_up: | :green_circle: Easy
 [Operation Order](https://adventofcode.com/2020/day/18) | [Solution](https://github.com/tmbarker/advent-of-code/blob/main/Problems/Y2020/D18/Solution.cs) | 2020-18 | String Parsing/Logic :capital_abcd::brain: | :yellow_circle: Medium
+[Monster Messages](https://adventofcode.com/2020/day/19) | [Solution](https://github.com/tmbarker/advent-of-code/blob/main/Problems/Y2020/D19/Solution.cs) | 2020-19 | Regular Expressions :a::b::asterisk::question: | :red_circle: Hard
+[Jurassic Jigsaw](https://adventofcode.com/2020/day/20) | [Solution](https://github.com/tmbarker/advent-of-code/blob/main/Problems/Y2020/D20/Solution.cs) | 2020-20 | Vectors :arrow_right::heavy_plus_sign::arrow_up: | :red_circle: Hard
 
 ## Running a Solution
-Using reflective `SolutionRunner`:
+1. Using reflective `SolutionRunner`:
 ```
 using SolutionRunner;
 
 RunSolution.Do(<year>, <day>);
 ```
-Or, directly instantiating a given `Solution`:
+2. Directly instantiating a given `Solution`:
 ```
 using Problems.Y<year>.D<day>;
 
