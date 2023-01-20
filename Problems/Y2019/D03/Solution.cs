@@ -1,0 +1,88 @@
+using Problems.Y2019.Common;
+using Utilities.Cartesian;
+using Utilities.Extensions;
+
+namespace Problems.Y2019.D03;
+
+using Route = IEnumerable<string>;
+using PathCosts = IDictionary<Vector2D, int>;
+
+/// <summary>
+/// Crossed Wires: https://adventofcode.com/2019/day/3
+/// </summary>
+public class Solution : SolutionBase2019
+{
+    private static readonly Dictionary<char, Vector2D> Directions = new()
+    {
+        {'U', Vector2D.Up},
+        {'D', Vector2D.Down},
+        {'L', Vector2D.Left},
+        {'R', Vector2D.Right},
+    };
+
+    public override int Day => 3;
+    
+    public override object Run(int part)
+    {
+        var routes = ParseWireRoutes(GetInputLines());
+        var costs = GetPathCosts(routes);
+        
+        return part switch
+        {
+            0 => FindClosestWireIntersection(costs),
+            1 => FindCheapestIntersection(costs),
+            _ => ProblemNotSolvedString,
+        };
+    }
+
+    private static int FindClosestWireIntersection((PathCosts W1, PathCosts W2) costs)
+    {
+        return costs.W1.Keys
+            .Intersect(costs.W2.Keys)
+            .Select(i => Vector2D.Distance(Vector2D.Zero, i, DistanceMetric.Taxicab))
+            .Min();
+    }
+    
+    private static int FindCheapestIntersection((PathCosts W1, PathCosts W2) costs)
+    {
+        return costs.W1
+            .WhereKeys(p => costs.W2.ContainsKey(p))
+            .Select(kvp => kvp.Key)
+            .Min(p => costs.W1[p] + costs.W2[p]);
+    }
+
+    private static (PathCosts W1, PathCosts W2) GetPathCosts((Route W1, Route W2) routes)
+    {
+        return (GetPathCosts(routes.W1), GetPathCosts(routes.W2));
+    }
+    
+    private static PathCosts GetPathCosts(Route instructions)
+    {
+        var map = new Dictionary<Vector2D, int>();
+        var pos = Vector2D.Zero;
+        var cost = 0;
+        
+        foreach (var instr in instructions)
+        {
+            var dir = Directions[instr[0]];
+            var count = int.Parse(instr[1..]);
+
+            for (var i = 0; i < count; i++)
+            {
+                pos += dir;
+                cost++;
+
+                map.TryAdd(pos, cost);
+            }
+        }
+
+        return map;
+    }
+
+    private static (Route W1, Route W2) ParseWireRoutes(IList<string> input)
+    {
+        var w1 = input[0].Split(',');
+        var w2 = input[1].Split(',');
+        return (w1, w2);
+    }
+}

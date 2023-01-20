@@ -20,8 +20,9 @@ public readonly struct Aabb1D : IEnumerable<int>
         Max = max;
     }
 
-    private int Min { get; }
-    private int Max { get; }
+    public int Min { get; }
+    public int Max { get; }
+    public int Length => Max - Min + 1;
     
     public bool Contains(int value, bool inclusive)
     {
