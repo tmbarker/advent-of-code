@@ -1,4 +1,5 @@
 using Problems.Y2021.Common;
+using Utilities.Extensions;
 
 namespace Problems.Y2021.D12;
 
@@ -45,15 +46,9 @@ public class Solution : SolutionBase2021
             var v1 = vertices[0];
             var v2 = vertices[1];
             
-            if (!adjacencyMap.ContainsKey(v1))
-            {
-                adjacencyMap.Add(v1, new HashSet<string>());
-            }
-            if (!adjacencyMap.ContainsKey(v2))
-            {
-                adjacencyMap.Add(v2, new HashSet<string>());
-            }
-
+            adjacencyMap.EnsureContainsKey(v1, new HashSet<string>());
+            adjacencyMap.EnsureContainsKey(v2, new HashSet<string>());
+            
             adjacencyMap[v1].Add(v2);
             adjacencyMap[v2].Add(v1);
         }

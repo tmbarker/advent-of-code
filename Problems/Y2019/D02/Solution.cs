@@ -1,5 +1,6 @@
 using Problems.Common;
 using Problems.Y2019.Common;
+using Problems.Y2019.IntCode;
 
 namespace Problems.Y2019.D02;
 
@@ -15,45 +16,40 @@ public class Solution : SolutionBase2019
     
     public override object Run(int part)
     {
-        var memory = ParseMemory(GetInputText());
+        var program = LoadIntCodeProgram();
         return part switch
         {
-            0 => RunProgram(memory),
-            1 => FindPartsOfSpeech(memory),
+            0 => RunProgram(program),
+            1 => FindPartsOfSpeech(program),
             _ => ProblemNotSolvedString,
         };
     }
 
-    private static int RunProgram(IList<int> memory)
+    private static int RunProgram(IList<int> program)
     {
-        memory[1] = 12;
-        memory[2] = 2;
-
-        return Vm.Run(memory)[0];
+        program[1] = 12;
+        program[2] = 2;
+        return new Vm().Run(program);
     }
 
-    private static int FindPartsOfSpeech(IList<int> memory)
+    private static int FindPartsOfSpeech(IList<int> program)
     {
         for (var noun = 0; noun < MaxPartOfSpeech; noun++)
         for (var verb = 0; verb < MaxPartOfSpeech; verb++)
         {
-            var sandbox = new List<int>(memory)
+            var vm = new Vm();
+            var modified = new List<int>(program)
             {
                 [1] = noun,
                 [2] = verb
             };
 
-            if (Vm.Run(sandbox)[0] == Target)
+            if (vm.Run(modified) == Target)
             {
                 return 100 * noun + verb;
             }
         }
 
         throw new NoSolutionException();
-    }
-
-    private static IList<int> ParseMemory(string input)
-    {
-        return new List<int>(input.Split(',').Select(int.Parse));
     }
 }

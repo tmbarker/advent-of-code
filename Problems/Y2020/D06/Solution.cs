@@ -1,4 +1,5 @@
 using Problems.Y2020.Common;
+using Utilities.Extensions;
 
 namespace Problems.Y2020.D06;
 
@@ -27,16 +28,7 @@ public class Solution : SolutionBase2020
 
     private static int GetUnanimousGroupAnswers(IList<string> groupAnswers)
     {
-        return groupAnswers
-            .Skip(1)
-            .Aggregate(
-                new HashSet<char>(groupAnswers.First()),
-                (unanimous, member) =>
-                {
-                    unanimous.IntersectWith(member);
-                    return unanimous;
-                }
-            ).Count;
+        return groupAnswers.IntersectAll().Count;
     }
     
     private static IEnumerable<IList<string>> ParseGroupAnswers(IEnumerable<string> input)
