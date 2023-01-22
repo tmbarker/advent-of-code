@@ -69,7 +69,7 @@ public partial class IntCodeVm
         return _pc >= 0 && _pc < _program.Count;
     }
 
-    private int ResolveArg(ParameterMode mode, int arg)
+    private int GetParam(ParameterMode mode, int arg)
     {
         return mode switch
         {

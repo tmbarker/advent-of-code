@@ -8,8 +8,8 @@ public partial class IntCodeVm
         var arg2 = _program[_pc + 2];
         var dst  = _program[_pc + 3];
         
-        var lhs = ResolveArg(instr.GetParamMode(0), arg1);
-        var rhs = ResolveArg(instr.GetParamMode(1), arg2);
+        var lhs = GetParam(instr.GetParamMode(0), arg1);
+        var rhs = GetParam(instr.GetParamMode(1), arg2);
 
         _program[dst] = lhs + rhs;
         _pc += 4;
@@ -21,8 +21,8 @@ public partial class IntCodeVm
         var arg2 = _program[_pc + 2];
         var dst  = _program[_pc + 3];
         
-        var lhs = ResolveArg(instr.GetParamMode(0), arg1);
-        var rhs = ResolveArg(instr.GetParamMode(1), arg2);
+        var lhs = GetParam(instr.GetParamMode(0), arg1);
+        var rhs = GetParam(instr.GetParamMode(1), arg2);
 
         _program[dst] = lhs * rhs;
         _pc += 4;
@@ -40,7 +40,7 @@ public partial class IntCodeVm
     private void Out(Instruction instr)
     {
         var arg = _program[_pc + 1];
-        var val = ResolveArg(instr.GetParamMode(0), arg);
+        var val = GetParam(instr.GetParamMode(0), arg);
 
         OutputBuffer.Enqueue(val);
         _pc += 2;
@@ -51,8 +51,8 @@ public partial class IntCodeVm
         var arg1 = _program[_pc + 1];
         var arg2 = _program[_pc + 2];
         
-        var val = ResolveArg(instr.GetParamMode(0), arg1);
-        var jto = ResolveArg(instr.GetParamMode(1), arg2);
+        var val = GetParam(instr.GetParamMode(0), arg1);
+        var jto = GetParam(instr.GetParamMode(1), arg2);
 
         if (val != 0)
         {
@@ -69,8 +69,8 @@ public partial class IntCodeVm
         var arg1 = _program[_pc + 1];
         var arg2 = _program[_pc + 2];
         
-        var val = ResolveArg(instr.GetParamMode(0), arg1);
-        var jto = ResolveArg(instr.GetParamMode(1), arg2);
+        var val = GetParam(instr.GetParamMode(0), arg1);
+        var jto = GetParam(instr.GetParamMode(1), arg2);
 
         if (val == 0)
         {
@@ -88,8 +88,8 @@ public partial class IntCodeVm
         var arg2 = _program[_pc + 2];
         var dest = _program[_pc + 3];
         
-        var val1 = ResolveArg(instr.GetParamMode(0), arg1);
-        var val2 = ResolveArg(instr.GetParamMode(1), arg2);
+        var val1 = GetParam(instr.GetParamMode(0), arg1);
+        var val2 = GetParam(instr.GetParamMode(1), arg2);
 
         _program[dest] = val1 < val2 ? 1 : 0;
         _pc += 4;
@@ -101,8 +101,8 @@ public partial class IntCodeVm
         var arg2 = _program[_pc + 2];
         var dest = _program[_pc + 3];
         
-        var val1 = ResolveArg(instr.GetParamMode(0), arg1);
-        var val2 = ResolveArg(instr.GetParamMode(1), arg2);
+        var val1 = GetParam(instr.GetParamMode(0), arg1);
+        var val2 = GetParam(instr.GetParamMode(1), arg2);
 
         _program[dest] = val1 == val2 ? 1 : 0;
         _pc += 4;

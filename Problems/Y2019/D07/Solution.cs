@@ -14,12 +14,13 @@ public class Solution : SolutionBase2019
     {
         return part switch
         {
-            0 => FindMaxSignal(0, 4),
+            0 => FindMaxSignalLinear(0, 4),
+            1 => FindMaxSignalLooped(5, 9),
             _ => ProblemNotSolvedString,
         };
     }
 
-    private int FindMaxSignal(int minPhase, int maxPhase)
+    private int FindMaxSignalLinear(int minPhase, int maxPhase)
     {
         var max = 0;
         foreach (var permutation in GetPhasePermutations(minPhase, maxPhase))
@@ -33,6 +34,41 @@ public class Solution : SolutionBase2019
                 
                 amp.Run();
                 signal = amp.OutputBuffer.Dequeue();
+            }
+
+            max = Math.Max(max, signal);
+        }
+        
+        return max;
+    }
+
+    private int FindMaxSignalLooped(int minPhase, int maxPhase)
+    {
+        var max = 0;
+        var amps = new Queue<IntCodeVm>();
+        
+        foreach (var permutation in GetPhasePermutations(minPhase, maxPhase))
+        {
+            var signal = 0;
+            foreach (var phase in permutation)
+            {
+                amps.Enqueue(IntCodeVm.Create(
+                    program: LoadIntCodeProgram(),
+                    input: phase));
+            }
+
+            while (amps.Any())
+            {
+                var amp = amps.Dequeue();
+                amp.InputBuffer.Enqueue(signal);
+
+                var ec = amp.Run();
+                signal = amp.OutputBuffer.Dequeue();
+
+                if (ec != IntCodeVm.ExitCode.Halted)
+                {
+                    amps.Enqueue(amp);
+                }
             }
 
             max = Math.Max(max, signal);
