@@ -29,7 +29,9 @@ public class Solution : SolutionBase2019
     {
         program[1] = 12;
         program[2] = 2;
-        return new Vm().Run(program);
+        
+        IntCodeVm.Create(program).Run();
+        return program[0];
     }
 
     private static int FindPartsOfSpeech(IList<int> program)
@@ -37,14 +39,14 @@ public class Solution : SolutionBase2019
         for (var noun = 0; noun < MaxPartOfSpeech; noun++)
         for (var verb = 0; verb < MaxPartOfSpeech; verb++)
         {
-            var vm = new Vm();
             var modified = new List<int>(program)
             {
                 [1] = noun,
                 [2] = verb
             };
-
-            if (vm.Run(modified) == Target)
+            
+            IntCodeVm.Create(modified).Run();
+            if (modified[0] == Target)
             {
                 return 100 * noun + verb;
             }

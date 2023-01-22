@@ -1,6 +1,6 @@
 namespace Problems.Y2019.IntCode;
 
-public partial class Vm
+public partial class IntCodeVm
 {
     private void Add(Instruction instr)
     {
@@ -30,12 +30,7 @@ public partial class Vm
     
     private void Inp(Instruction instr)
     {
-        if (InputSource == null)
-        {
-            throw new MissingInputSourceException();
-        }
-
-        var inp = InputSource.Read();
+        var inp = InputBuffer.Dequeue();
         var dst = _program[_pc + 1];
 
         _program[dst] = inp;
@@ -44,15 +39,10 @@ public partial class Vm
     
     private void Out(Instruction instr)
     {
-        if (OutputSink == null)
-        {
-            throw new MissingOutputSinkException();
-        }
-        
         var arg = _program[_pc + 1];
         var val = ResolveArg(instr.GetParamMode(0), arg);
 
-        OutputSink.Write(val);
+        OutputBuffer.Enqueue(val);
         _pc += 2;
     }
     
@@ -116,20 +106,5 @@ public partial class Vm
 
         _program[dest] = val1 == val2 ? 1 : 0;
         _pc += 4;
-    }
-    
-    private Dictionary<OpCode, Operation> BuildOpCodeTable()
-    {
-        return new Dictionary<OpCode, Operation>
-        {
-            { OpCode.Add, Add },
-            { OpCode.Mul, Mul },
-            { OpCode.Inp, Inp },
-            { OpCode.Out, Out },
-            { OpCode.Jit, Jit },
-            { OpCode.Jif, Jif },
-            { OpCode.Lst, Lst },
-            { OpCode.Eql, Eql },
-        };
     }
 }

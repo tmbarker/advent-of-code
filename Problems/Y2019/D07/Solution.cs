@@ -8,8 +8,6 @@ namespace Problems.Y2019.D07;
 /// </summary>
 public class Solution : SolutionBase2019
 {
-    private const int Stages = 5;
-    
     public override int Day => 7;
     
     public override object Run(int part)
@@ -24,22 +22,20 @@ public class Solution : SolutionBase2019
     private int FindMaxSignal(int minPhase, int maxPhase)
     {
         var max = 0;
-        var amplifierCircuit = new AmplifierCircuit();
-        var vm = new Vm
-        {
-            InputSource = amplifierCircuit,
-            OutputSink = amplifierCircuit,
-        };
-
         foreach (var permutation in GetPhasePermutations(minPhase, maxPhase))
         {
-            amplifierCircuit.Reset(permutation);
-            for (var stage = 0; stage < Stages; stage++)
+            var signal = 0;
+            foreach (var phase in permutation)
             {
-                vm.Run(LoadIntCodeProgram());
+                var amp = IntCodeVm.Create(
+                    program: LoadIntCodeProgram(),
+                    inputs: new[] { phase, signal });
+                
+                amp.Run();
+                signal = amp.OutputBuffer.Dequeue();
             }
 
-            max = Math.Max(max, amplifierCircuit.Signal);
+            max = Math.Max(max, signal);
         }
         
         return max;

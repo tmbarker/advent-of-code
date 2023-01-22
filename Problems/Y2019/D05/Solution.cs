@@ -26,16 +26,9 @@ public class Solution : SolutionBase2019
 
     private static int RunTestProgram(IList<int> program, int systemId)
     {
-        var inputSource = new ConstantInputSource(systemId) { LogToConsole = false };
-        var outputSink = new OutputBuffer { LogToConsole = false };
-        
-        var vm = new Vm
-        {
-            InputSource = inputSource,
-            OutputSink = outputSink,
-        };
-
-        vm.Run(program);
-        return outputSink.Values.Last();
+        var vm = IntCodeVm.Create(program);
+        vm.InputBuffer.Enqueue(systemId);
+        vm.Run();
+        return vm.OutputBuffer.Last();
     }
 }
