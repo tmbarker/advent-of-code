@@ -10,5 +10,6 @@ internal enum OpCode
     Jif = 6,
     Lst = 7,
     Eql = 8,
+    Rbo = 9,
     Hlt = 99,
 }

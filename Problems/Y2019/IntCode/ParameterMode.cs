@@ -4,4 +4,5 @@ internal enum ParameterMode
 {
     Pos = 0,
     Imm = 1,
+    Rel = 2,
 }

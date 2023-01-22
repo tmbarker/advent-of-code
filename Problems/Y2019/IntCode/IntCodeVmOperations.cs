@@ -4,107 +4,113 @@ public partial class IntCodeVm
 {
     private void Add(Instruction instr)
     {
-        var arg1 = _program[_pc + 1];
-        var arg2 = _program[_pc + 2];
-        var dst  = _program[_pc + 3];
+        var pLhs = GetParamAdr(instr, 0);
+        var pRhs = GetParamAdr(instr, 1);
+        var pDst = GetParamAdr(instr, 2);
         
-        var lhs = GetParam(instr.GetParamMode(0), arg1);
-        var rhs = GetParam(instr.GetParamMode(1), arg2);
-
-        _program[dst] = lhs + rhs;
-        _pc += 4;
+        WriteMem(
+            adr: pDst, 
+            val: ReadMem(pLhs) + ReadMem(pRhs));
+        
+        _pc += 4L;
     }
     
     private void Mul(Instruction instr)
     {
-        var arg1 = _program[_pc + 1];
-        var arg2 = _program[_pc + 2];
-        var dst  = _program[_pc + 3];
-        
-        var lhs = GetParam(instr.GetParamMode(0), arg1);
-        var rhs = GetParam(instr.GetParamMode(1), arg2);
+        var pLhs = GetParamAdr(instr, 0);
+        var pRhs = GetParamAdr(instr, 1);
+        var pDst = GetParamAdr(instr, 2);
 
-        _program[dst] = lhs * rhs;
-        _pc += 4;
+        WriteMem(
+            adr: pDst,
+            val: ReadMem(pLhs) * ReadMem(pRhs));
+        
+        _pc += 4L;
     }
     
     private void Inp(Instruction instr)
     {
         var inp = InputBuffer.Dequeue();
-        var dst = _program[_pc + 1];
-
-        _program[dst] = inp;
-        _pc += 2;
+        var pDst = GetParamAdr(instr, 0);
+        
+        WriteMem(
+            adr: pDst,
+            val: inp);
+        
+        _pc += 2L;
     }
     
     private void Out(Instruction instr)
     {
-        var arg = _program[_pc + 1];
-        var val = GetParam(instr.GetParamMode(0), arg);
+        var pOut = GetParamAdr(instr, 0);
+        var vOut = ReadMem(pOut);
 
-        OutputBuffer.Enqueue(val);
-        _pc += 2;
+        OutputBuffer.Enqueue(vOut);
+        
+        _pc += 2L;
     }
     
     private void Jit(Instruction instr)
     {
-        var arg1 = _program[_pc + 1];
-        var arg2 = _program[_pc + 2];
-        
-        var val = GetParam(instr.GetParamMode(0), arg1);
-        var jto = GetParam(instr.GetParamMode(1), arg2);
+        var pVal = GetParamAdr(instr, 0);
+        var pJto = GetParamAdr(instr, 1);
 
-        if (val != 0)
+        if (ReadMem(pVal) != 0L)
         {
-            _pc = jto;
+            _pc = ReadMem(pJto);
         }
         else
         {
-            _pc += 3;
+            _pc += 3L;
         }
     }
     
     private void Jif(Instruction instr)
     {
-        var arg1 = _program[_pc + 1];
-        var arg2 = _program[_pc + 2];
-        
-        var val = GetParam(instr.GetParamMode(0), arg1);
-        var jto = GetParam(instr.GetParamMode(1), arg2);
+        var pVal = GetParamAdr(instr, 0);
+        var pJto = GetParamAdr(instr, 1);
 
-        if (val == 0)
+        if (ReadMem(pVal) == 0L)
         {
-            _pc = jto;
+            _pc = ReadMem(pJto);
         }
         else
         {
-            _pc += 3;
+            _pc += 3L;
         }
     }
     
     private void Lst(Instruction instr)
     {
-        var arg1 = _program[_pc + 1];
-        var arg2 = _program[_pc + 2];
-        var dest = _program[_pc + 3];
-        
-        var val1 = GetParam(instr.GetParamMode(0), arg1);
-        var val2 = GetParam(instr.GetParamMode(1), arg2);
+        var pLhs = GetParamAdr(instr, 0);
+        var pRhs = GetParamAdr(instr, 1);
+        var pDst = GetParamAdr(instr, 2);
 
-        _program[dest] = val1 < val2 ? 1 : 0;
-        _pc += 4;
+        WriteMem(
+            adr: pDst, 
+            val: ReadMem(pLhs) < ReadMem(pRhs) ? 1L : 0L);
+        
+        _pc += 4L;
     }
     
     private void Eql(Instruction instr)
     {
-        var arg1 = _program[_pc + 1];
-        var arg2 = _program[_pc + 2];
-        var dest = _program[_pc + 3];
-        
-        var val1 = GetParam(instr.GetParamMode(0), arg1);
-        var val2 = GetParam(instr.GetParamMode(1), arg2);
+        var pLhs = GetParamAdr(instr, 0);
+        var pRhs = GetParamAdr(instr, 1);
+        var pDst = GetParamAdr(instr, 2);
 
-        _program[dest] = val1 == val2 ? 1 : 0;
-        _pc += 4;
+        WriteMem(
+            adr: pDst, 
+            val: ReadMem(pLhs) == ReadMem(pRhs) ? 1L : 0L);
+        
+        _pc += 4L;
+    }
+    
+    private void Rbo(Instruction instr)
+    {
+        var pOff = GetParamAdr(instr, 0);
+
+        _rb += ReadMem(pOff);
+        _pc += 2L;
     }
 }

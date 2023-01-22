@@ -2,17 +2,17 @@ namespace Problems.Y2019.IntCode;
 
 public partial class IntCodeVm
 {
-    public static IntCodeVm Create(IList<int> program)
+    public static IntCodeVm Create(IList<long> program)
     {
-        return new IntCodeVm(program, Enumerable.Empty<int>());
+        return new IntCodeVm(program, Enumerable.Empty<long>());
     }
     
-    public static IntCodeVm Create(IList<int> program, IEnumerable<int> inputs)
+    public static IntCodeVm Create(IList<long> program, IEnumerable<long> inputs)
     {
         return new IntCodeVm(program, inputs);
     }
     
-    public static IntCodeVm Create(IList<int> program, int input)
+    public static IntCodeVm Create(IList<long> program, long input)
     {
         return new IntCodeVm(program, Enumerable.Repeat(input, 1));
     }

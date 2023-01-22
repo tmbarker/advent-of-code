@@ -16,20 +16,22 @@ public class Solution : SolutionBase2019
         {
             0 => FindMaxSignalLinear(0, 4),
             1 => FindMaxSignalLooped(5, 9),
-            _ => ProblemNotSolvedString,
+            _ => ProblemNotSolvedString
         };
     }
 
-    private int FindMaxSignalLinear(int minPhase, int maxPhase)
+    private long FindMaxSignalLinear(int minPhase, int maxPhase)
     {
-        var max = 0;
+        var max = 0L;
+        var program = LoadIntCodeProgram();
+        
         foreach (var permutation in GetPhasePermutations(minPhase, maxPhase))
         {
-            var signal = 0;
+            var signal = 0L;
             foreach (var phase in permutation)
             {
                 var amp = IntCodeVm.Create(
-                    program: LoadIntCodeProgram(),
+                    program: program,
                     inputs: new[] { phase, signal });
                 
                 amp.Run();
@@ -42,18 +44,20 @@ public class Solution : SolutionBase2019
         return max;
     }
 
-    private int FindMaxSignalLooped(int minPhase, int maxPhase)
+    private long FindMaxSignalLooped(int minPhase, int maxPhase)
     {
-        var max = 0;
+        var max = 0L;
         var amps = new Queue<IntCodeVm>();
         
         foreach (var permutation in GetPhasePermutations(minPhase, maxPhase))
         {
-            var signal = 0;
+            var signal = 0L;
+            var program = LoadIntCodeProgram();
+            
             foreach (var phase in permutation)
             {
                 amps.Enqueue(IntCodeVm.Create(
-                    program: LoadIntCodeProgram(),
+                    program: program,
                     input: phase));
             }
 

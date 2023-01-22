@@ -1,29 +1,30 @@
-using Problems.Common;
-
 namespace Problems.Y2019.IntCode;
 
 public partial class IntCodeVm
 {
-    private readonly IList<int> _program;
-    private int _pc;
+    private readonly Dictionary<long, long> _memory;
+    private long _pc;
+    private long _rb;
 
-    public Queue<int> InputBuffer { get; }
-    public Queue<int> OutputBuffer { get; }
+    public IReadOnlyDictionary<long, long> Memory => _memory;
+    public Queue<long> InputBuffer { get; }
+    public Queue<long> OutputBuffer { get; }
 
-    private IntCodeVm(IList<int> program, IEnumerable<int> inputs)
+    private IntCodeVm(IList<long> program, IEnumerable<long> inputs)
     {
-        _program = program;
+        _memory = InitMemoryFromProgram(program);
         _pc = 0;
+        _rb = 0;
         
-        InputBuffer = new Queue<int>(inputs);
-        OutputBuffer = new Queue<int>();
+        InputBuffer = new Queue<long>(inputs);
+        OutputBuffer = new Queue<long>();
     }
 
     public ExitCode Run()
     {
-        while (PcValid())
+        while (_pc >= 0)
         {
-            var instr = ParseInstr(_program[_pc]);
+            var instr = ParseInstr(ReadMem(_pc));
             switch (instr.OpCode)
             {
                 case OpCode.Add:
@@ -54,6 +55,9 @@ public partial class IntCodeVm
                 case OpCode.Eql:
                     Eql(instr);
                     break;
+                case OpCode.Rbo:
+                    Rbo(instr);
+                    break;
                 case OpCode.Hlt:
                     return ExitCode.Halted;
                 default:
@@ -61,49 +65,58 @@ public partial class IntCodeVm
             }
         }
 
-        throw new NoSolutionException();
+        throw new AccessViolationException();
     }
 
-    private bool PcValid()
+    private long GetParamAdr(Instruction instr, int paramIdx)
     {
-        return _pc >= 0 && _pc < _program.Count;
-    }
-
-    private int GetParam(ParameterMode mode, int arg)
-    {
+        var adr = _pc + paramIdx + 1;
+        var mode = instr.GetParamMode(paramIdx);
+        
         return mode switch
         {
-            ParameterMode.Pos => _program[arg],
-            ParameterMode.Imm => arg,
-            _ => throw new ArgumentOutOfRangeException(nameof(mode), mode, null)
+            ParameterMode.Imm => adr,
+            ParameterMode.Pos => ReadMem(adr),
+            ParameterMode.Rel => ReadMem(adr) + _rb,
+            _ => throw new ArgumentOutOfRangeException(nameof(instr.OpCode), instr.OpCode, "Invalid opcode")
         };
     }
-    
-    private static Instruction ParseInstr(int value)
-    {
-        var chars = new List<char>(value.ToString());
-        var length = chars.Count;
 
-        var opCodeValue = 0;
+    private long ReadMem(long adr)
+    {
+        return _memory.ContainsKey(adr) ? _memory[adr] : 0L;
+    }
+
+    private void WriteMem(long adr, long val)
+    {
+        _memory[adr] = val;
+    }
+    
+    private static Instruction ParseInstr(long value)
+    {
+        var opCode = (OpCode)(value % 100L);
         var paramModes = new List<ParameterMode>();
 
-        for (var i = 0; i < length; i++)
+        value /= 100L;
+        while (value > 0L)
         {
-            var digit = chars[length - i - 1] - '0';
-            switch (i)
-            {
-                case 0 or 1:
-                    opCodeValue += (int)Math.Pow(10, i) * digit;
-                    continue;
-                case > 1:
-                    paramModes.Add((ParameterMode)digit);
-                    continue;
-            }
+            paramModes.Add((ParameterMode)(value % 10L));
+            value /= 10L;
         }
-
+        
         return new Instruction(
-            opCode: (OpCode)opCodeValue,
+            opCode: opCode,
             paramModes: paramModes);
+    }
+
+    private static Dictionary<long, long> InitMemoryFromProgram(IList<long> program)
+    {
+        var memory = new Dictionary<long, long>();
+        for (var i = 0; i < program.Count; i++)
+        {
+            memory[i] = program[i];
+        }
+        return memory;
     }
 
     public enum ExitCode

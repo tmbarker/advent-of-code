@@ -24,7 +24,7 @@ public class Solution : SolutionBase2019
         };
     }
 
-    private static int RunTestProgram(IList<int> program, int systemId)
+    private static long RunTestProgram(IList<long> program, int systemId)
     {
         var vm = IntCodeVm.Create(program);
         vm.InputBuffer.Enqueue(systemId);

@@ -25,30 +25,36 @@ public class Solution : SolutionBase2019
         };
     }
 
-    private static int RunProgram(IList<int> program)
+    private static long RunProgram(IList<long> program)
     {
         program[1] = 12;
         program[2] = 2;
         
-        IntCodeVm.Create(program).Run();
-        return program[0];
+        var vm = IntCodeVm.Create(program); 
+        var ec = vm.Run();
+
+        return ec == IntCodeVm.ExitCode.Halted 
+            ? vm.Memory[0] 
+            : throw new NoSolutionException();
     }
 
-    private static int FindPartsOfSpeech(IList<int> program)
+    private static long FindPartsOfSpeech(IList<long> program)
     {
         for (var noun = 0; noun < MaxPartOfSpeech; noun++)
         for (var verb = 0; verb < MaxPartOfSpeech; verb++)
         {
-            var modified = new List<int>(program)
+            var modified = new List<long>(program)
             {
                 [1] = noun,
                 [2] = verb
             };
+
+            var vm = IntCodeVm.Create(modified);
+            var ec = vm.Run();
             
-            IntCodeVm.Create(modified).Run();
-            if (modified[0] == Target)
+            if (ec == IntCodeVm.ExitCode.Halted && vm.Memory[0] == Target)
             {
-                return 100 * noun + verb;
+                return 100L * noun + verb;
             }
         }
 

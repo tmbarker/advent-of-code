@@ -6,8 +6,8 @@ public abstract class SolutionBase2019 : SolutionBase
 {
     public override int Year => 2019;
     
-    protected IList<int> LoadIntCodeProgram()
+    protected IList<long> LoadIntCodeProgram()
     {
-        return new List<int>(GetInputText().Split(',').Select(int.Parse));
+        return new List<long>(GetInputText().Split(',').Select(long.Parse));
     }
 }
