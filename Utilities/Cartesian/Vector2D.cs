@@ -52,6 +52,29 @@ public readonly struct Vector2D : IEquatable<Vector2D>
         }
     }
 
+    public static Vector2D MinCollinear(Vector2D vector)
+    {
+        var maxDivisor = ChebyshevDistance(Zero, vector);
+        for (var k = maxDivisor; k > 1; k--)
+        {
+            var candidate = vector / k;
+            if (k * candidate == vector)
+            {
+                return candidate;
+            }
+        }
+
+        return vector;
+    }
+
+    public static double AngleBetweenDeg(Vector2D from, Vector2D to)
+    {
+        var sin = to.X * from.Y - from.X * to.Y;
+        var cos = to.X * from.X + from.Y * to.Y;
+
+        return Math.Atan2(sin, cos) * (180 / Math.PI);
+    }
+    
     public static implicit operator Vector2D(Vector3D v) => new (v.X, v.Y);
     
     public static Vector2D operator +(Vector2D lhs, Vector2D rhs)
@@ -67,6 +90,11 @@ public readonly struct Vector2D : IEquatable<Vector2D>
     public static Vector2D operator *(int k, Vector2D rhs)
     {
         return new Vector2D(k * rhs.X, k * rhs.Y);
+    }
+    
+    public static Vector2D operator /(Vector2D lhs, int k)
+    {
+        return new Vector2D(lhs.X / k, lhs.Y / k);
     }
 
     public static bool operator ==(Vector2D left, Vector2D right)

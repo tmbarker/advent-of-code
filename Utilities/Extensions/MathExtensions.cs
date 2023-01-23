@@ -11,4 +11,9 @@ public static class MathExtensions
     {
         return (a % modulus + modulus) % modulus;
     }
+
+    public static double Modulo(this double a, double modulus)
+    {
+        return (a % modulus + modulus) % modulus;
+    }
 }
