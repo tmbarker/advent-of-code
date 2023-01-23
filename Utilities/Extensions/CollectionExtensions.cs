@@ -123,4 +123,20 @@ public static class CollectionExtensions
             dictionary[key] -= delta;
         }
     }
+    
+    /// <summary>
+    /// Normalize the values of the collection such that the "smallest" becomes <see cref="Vector2D.Zero"/>
+    /// </summary>
+    public static IEnumerable<Vector2D> Normalize(this IEnumerable<Vector2D> collection)
+    {
+        var enumerated = collection.ToList();
+        var delta = new Vector2D(
+            x: enumerated.Min(v => v.X),
+            y: enumerated.Min(v => v.Y));
+
+        foreach (var vector in enumerated)
+        {
+            yield return vector - delta;
+        }
+    }
 }
