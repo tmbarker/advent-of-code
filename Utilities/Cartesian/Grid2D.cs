@@ -67,7 +67,7 @@ public partial class Grid2D<T> : IEnumerable<KeyValuePair<Vector2D, T>>
 
     public void Flip(Axis about)
     {
-        if (about == Axis.Z)
+        if (about is Axis.Z or Axis.W)
         {
             throw new ArgumentOutOfRangeException(nameof(about), about, InvalidFlipAxisError);
         }

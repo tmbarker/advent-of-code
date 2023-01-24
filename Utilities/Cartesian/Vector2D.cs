@@ -32,6 +32,21 @@ public readonly struct Vector2D : IEquatable<Vector2D>
         x = X;
         y = Y;
     }
+
+    public int GetComponent(Axis component)
+    {
+        switch (component)
+        {
+            case Axis.X:
+                return X;
+            case Axis.Y:
+                return Y;
+            case Axis.Z:
+            case Axis.W:
+            default:
+                throw new ArgumentOutOfRangeException(nameof(component), component, null);
+        }
+    }
     
     public static Vector2D Normalize(Vector2D vector)
     {

@@ -36,6 +36,22 @@ public readonly struct Vector3D : IEquatable<Vector3D>
         z = Z;
     }
 
+    public int GetComponent(Axis component)
+    {
+        switch (component)
+        {
+            case Axis.X:
+                return X;
+            case Axis.Y:
+                return Y;
+            case Axis.Z:
+                return Z;
+            case Axis.W:
+            default:
+                throw new ArgumentOutOfRangeException(nameof(component), component, null);
+        }
+    }
+    
     public static Vector3D Normalize(Vector3D vector)
     {
         return new Vector3D(Math.Sign(vector.X), Math.Sign(vector.Y), Math.Sign(vector.Z));

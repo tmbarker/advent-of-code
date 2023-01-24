@@ -8,6 +8,7 @@ namespace Utilities.Cartesian;
 public readonly struct Rotation3D : IEquatable<Rotation3D>
 {
     private const string ThetaOutOfRangeError = "Theta must be an integral multiple of 90 degrees";
+    private const string AxisOutOfRangeError = "Axis must be a 3D spatial axis (X, Y, or Z)";
     private const int DegreesPerRotation = 360;
     private const int NinetyDegrees = DegreesPerRotation / 4;
 
@@ -26,6 +27,11 @@ public readonly struct Rotation3D : IEquatable<Rotation3D>
 
     public Rotation3D(Axis axis, int thetaDeg)
     {
+        if (axis == Axis.W)
+        {
+            throw new ArgumentOutOfRangeException(nameof(axis), axis, AxisOutOfRangeError);
+        }
+        
         if (thetaDeg.Modulo(NinetyDegrees) != 0)
         {
             throw new ArgumentOutOfRangeException(nameof(thetaDeg), thetaDeg, ThetaOutOfRangeError);
@@ -41,13 +47,18 @@ public readonly struct Rotation3D : IEquatable<Rotation3D>
 
     public static Vector3D operator *(Rotation3D r, Vector3D v)
     {
-        return r.Axis switch
+        switch (r.Axis)
         {
-            Axis.X => RotateAboutX(r, v),
-            Axis.Y => RotateAboutY(r, v),
-            Axis.Z => RotateAboutZ(r, v),
-            _ => throw new InvalidOperationException($"Invalid axis of rotation [{r.Axis}]"),
-        };
+            case Axis.X:
+                return RotateAboutX(r, v);
+            case Axis.Y:
+                return RotateAboutY(r, v);
+            case Axis.Z:
+                return RotateAboutZ(r, v);
+            case Axis.W:
+            default:
+                throw new InvalidOperationException($"Invalid axis of rotation [{r.Axis}]");
+        }
     }
     
     public static Vector4D operator *(Rotation3D r, Vector4D v)
@@ -62,6 +73,12 @@ public readonly struct Rotation3D : IEquatable<Rotation3D>
 
     public static IEnumerable<Rotation3D> RotationsAroundAxis(Axis axis)
     {
+        if (axis == Axis.W)
+        {
+            throw new ArgumentOutOfRangeException(nameof(axis), axis,
+                "Axis must be a 3D spatial dimension (X, Y, or Z)");
+        }
+        
         for (var i = 0; i < DegreesPerRotation / NinetyDegrees; i++)
         {
             yield return new Rotation3D(axis, i * NinetyDegrees);

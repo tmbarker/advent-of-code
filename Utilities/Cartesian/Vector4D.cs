@@ -33,6 +33,18 @@ public readonly struct Vector4D : IEquatable<Vector4D>
         w = W;
     }
 
+    public int GetComponent(Axis component)
+    {
+        return component switch
+        {
+            Axis.X => X,
+            Axis.Y => Y,
+            Axis.Z => Z,
+            Axis.W => W,
+            _ => throw new ArgumentOutOfRangeException(nameof(component), component, null)
+        };
+    }
+    
     public static int Distance(Vector4D a, Vector4D b, DistanceMetric metric)
     {
         switch (metric)
