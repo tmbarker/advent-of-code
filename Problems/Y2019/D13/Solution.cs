@@ -1,5 +1,6 @@
 using Problems.Y2019.Common;
 using Problems.Y2019.IntCode;
+using Utilities.Cartesian;
 
 namespace Problems.Y2019.D13;
 
@@ -15,7 +16,7 @@ public class Solution : SolutionBase2019
         return part switch
         {
             0 => CountGameObjects(GameObject.Block),
-            1 => GetWinningScore(),
+            1 => GetWinningScore(false),
             _ => ProblemNotSolvedString
         };
     }
@@ -28,8 +29,13 @@ public class Solution : SolutionBase2019
         return new Screen(vm.OutputBuffer).GetCount(type);
     }
 
-    private long GetWinningScore()
+    private long GetWinningScore(bool print)
     {
+        if (print)
+        {
+            Console.Clear();
+        }
+        
         var program = LoadFreeToPlayProgram();
         var arcadeMachine = IntCodeVm.Create(program);
         
@@ -39,24 +45,29 @@ public class Solution : SolutionBase2019
         var screen = new Screen(arcadeMachine.OutputBuffer);
         while (screen.GetCount(GameObject.Block) > 0)
         {
-            if (screen.Ball.X == screen.Paddle.X)
-            {
-                arcadeMachine.InputBuffer.Enqueue(Joystick.Neutral);
-            }
-            else if (screen.Ball.X > screen.Paddle.X)
-            {
-                arcadeMachine.InputBuffer.Enqueue(Joystick.Right);
-            }
-            else if (screen.Ball.X < screen.Paddle.X)
-            {
-                arcadeMachine.InputBuffer.Enqueue(Joystick.Left);
-            }
-
+            arcadeMachine.InputBuffer.Enqueue(ComputeJoystickInput(screen.Ball, screen.Paddle));
             arcadeMachine.Run();
             screen.UpdatePixels(arcadeMachine.OutputBuffer);
+
+            if (print)
+            {
+                screen.Print();
+            }
         }
 
         return screen.Score;
+    }
+
+    private static long ComputeJoystickInput(Vector2D ball, Vector2D paddle)
+    {
+        if (ball.X == paddle.X)
+        {
+            return Joystick.Neutral;
+        }
+        
+        return ball.X > paddle.X 
+            ? Joystick.Right 
+            : Joystick.Left;
     }
 
     private IList<long> LoadFreeToPlayProgram()

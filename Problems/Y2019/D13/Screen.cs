@@ -65,8 +65,7 @@ public class Screen
                 break;
         }
     }
-
-    // ReSharper disable once UnusedMember.Global
+    
     public void Print()
     {
         var bounds = new Aabb2D(_pixels.Keys, true);
@@ -78,15 +77,16 @@ public class Screen
         {
             grid[pixel] = gobType;
         }
-        
-        grid.Print(title: nameof(Screen), padding:0, elementFormatter: (_, gobType) =>
+
+        Console.SetCursorPosition(0, 0);
+        grid.Print(title: string.Empty, padding:0, elementFormatter: (_, gobType) =>
         {
             return gobType switch
             {
-                GameObject.Wall => "#",
-                GameObject.Block => "x",
-                GameObject.Paddle => "-",
-                GameObject.Empty => ".",
+                GameObject.Wall => "▓",
+                GameObject.Block => "░",
+                GameObject.Paddle => "─",
+                GameObject.Empty => " ",
                 GameObject.Ball => "O",
                 _ => throw new ArgumentOutOfRangeException(nameof(gobType), gobType, null)
             };
