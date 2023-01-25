@@ -8,15 +8,6 @@ namespace Problems.Y2019.D13;
 /// </summary>
 public class Solution : SolutionBase2019
 {
-    private static readonly Dictionary<long, GameObject> GobCodes = new()
-    {
-        { 0L, GameObject.Empty },
-        { 1L, GameObject.Wall },
-        { 2L, GameObject.Block },
-        { 3L, GameObject.Paddle },
-        { 4L, GameObject.Ball }
-    };
-
     public override int Day => 13;
     
     public override object Run(int part)
@@ -24,6 +15,7 @@ public class Solution : SolutionBase2019
         return part switch
         {
             0 => CountGameObjects(GameObject.Block),
+            1 => GetWinningScore(),
             _ => ProblemNotSolvedString
         };
     }
@@ -31,18 +23,46 @@ public class Solution : SolutionBase2019
     private int CountGameObjects(GameObject type)
     {
         var vm = IntCodeVm.Create(LoadIntCodeProgram());
-        var gobCounts = Enum
-            .GetValues<GameObject>()
-            .ToDictionary(g => g, _ => 0);
-        
         vm.Run();
-        while (vm.OutputBuffer.Any())
+
+        return new Screen(vm.OutputBuffer).GetCount(type);
+    }
+
+    private long GetWinningScore()
+    {
+        var program = LoadFreeToPlayProgram();
+        var arcadeMachine = IntCodeVm.Create(program);
+        
+        arcadeMachine.InputBuffer.Enqueue(Joystick.Neutral);
+        arcadeMachine.Run();
+
+        var screen = new Screen(arcadeMachine.OutputBuffer);
+        while (screen.GetCount(GameObject.Block) > 0)
         {
-            vm.OutputBuffer.Dequeue();
-            vm.OutputBuffer.Dequeue();
-            gobCounts[GobCodes[vm.OutputBuffer.Dequeue()]]++;
+            if (screen.Ball.X == screen.Paddle.X)
+            {
+                arcadeMachine.InputBuffer.Enqueue(Joystick.Neutral);
+            }
+            else if (screen.Ball.X > screen.Paddle.X)
+            {
+                arcadeMachine.InputBuffer.Enqueue(Joystick.Right);
+            }
+            else if (screen.Ball.X < screen.Paddle.X)
+            {
+                arcadeMachine.InputBuffer.Enqueue(Joystick.Left);
+            }
+
+            arcadeMachine.Run();
+            screen.UpdatePixels(arcadeMachine.OutputBuffer);
         }
 
-        return gobCounts[type];
+        return screen.Score;
+    }
+
+    private IList<long> LoadFreeToPlayProgram()
+    {
+        var program = LoadIntCodeProgram();
+        program[0] = 2;
+        return program;
     }
 }
