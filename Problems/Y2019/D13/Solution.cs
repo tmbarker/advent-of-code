@@ -16,7 +16,7 @@ public class Solution : SolutionBase2019
         return part switch
         {
             0 => CountGameObjects(GameObject.Block),
-            1 => GetWinningScore(false),
+            1 => GetWinningScore(true),
             _ => ProblemNotSolvedString
         };
     }
@@ -33,6 +33,7 @@ public class Solution : SolutionBase2019
     {
         if (print)
         {
+            Console.CursorVisible = false;
             Console.Clear();
         }
         

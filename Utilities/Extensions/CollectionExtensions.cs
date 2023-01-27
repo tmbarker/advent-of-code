@@ -110,21 +110,6 @@ public static class CollectionExtensions
     } 
 
     /// <summary>
-    /// Normalize the values of the dictionary such that the "smallest" value is <see cref="Vector2D.Zero"/>
-    /// </summary>
-    public static void NormalizeValues<TKey>(this IDictionary<TKey, Vector2D> dictionary)
-    {
-        var delta = new Vector2D(
-            x: dictionary.Values.Min(v => v.X),
-            y: dictionary.Values.Min(v => v.Y));
-        
-        foreach (var (key, _) in dictionary)
-        {
-            dictionary[key] -= delta;
-        }
-    }
-    
-    /// <summary>
     /// Normalize the values of the collection such that the "smallest" becomes <see cref="Vector2D.Zero"/>
     /// </summary>
     public static IEnumerable<Vector2D> Normalize(this IEnumerable<Vector2D> collection)
@@ -137,6 +122,21 @@ public static class CollectionExtensions
         foreach (var vector in enumerated)
         {
             yield return vector - delta;
+        }
+    }
+
+    /// <summary>
+    /// Normalize the values of the dictionary such that the "smallest" value is <see cref="Vector2D.Zero"/>
+    /// </summary>
+    public static void NormalizeValues<TKey>(this IDictionary<TKey, Vector2D> dictionary)
+    {
+        var delta = new Vector2D(
+            x: dictionary.Values.Min(v => v.X),
+            y: dictionary.Values.Min(v => v.Y));
+        
+        foreach (var (key, _) in dictionary)
+        {
+            dictionary[key] -= delta;
         }
     }
 }
