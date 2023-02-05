@@ -2,4 +2,4 @@
 
 using SolutionRunner;
 
-RunSolution.Do(2019, 15);
+RunSolution.Do(2019, 16);
