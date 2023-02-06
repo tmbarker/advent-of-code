@@ -14,7 +14,7 @@ public class ListPacketElement : PacketElement
             return;
         }
         
-        foreach (var element in elements!)
+        foreach (var element in elements)
         {
             _elements.Add(element);
         }

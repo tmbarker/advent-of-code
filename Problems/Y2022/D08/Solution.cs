@@ -1,6 +1,5 @@
 using Problems.Y2022.Common;
 using Utilities.Cartesian;
-using Utilities.Extensions;
 
 namespace Problems.Y2022.D08;
 
@@ -87,7 +86,7 @@ public class Solution : SolutionBase2022
             if (height > max)
             {
                 max = height;
-                visible.EnsureContains(position);
+                visible.Add(position);
             }
 
             if (height >= MaxHeight)

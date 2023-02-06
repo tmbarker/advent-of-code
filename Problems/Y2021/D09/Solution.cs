@@ -1,6 +1,5 @@
 using Problems.Y2021.Common;
 using Utilities.Cartesian;
-using Utilities.Extensions;
 
 namespace Problems.Y2021.D09;
 
@@ -45,13 +44,13 @@ public class Solution : SolutionBase2021
         var visited = new HashSet<Vector2D>();
             
         queue.Enqueue(lowPoint);
-        visited.EnsureContains(lowPoint);
+        visited.Add(lowPoint);
 
         while (queue.Count > 0)
         {
             var currentPos = queue.Dequeue();
             var height = grid[currentPos];
-            visited.EnsureContains(currentPos);
+            visited.Add(currentPos);
 
             foreach (var adj in currentPos.GetAdjacentSet(DistanceMetric.Taxicab))
             {
@@ -67,7 +66,7 @@ public class Solution : SolutionBase2021
                 }
                     
                 queue.Enqueue(adj);
-                visited.EnsureContains(currentPos);
+                visited.Add(currentPos);
             }
         }
 

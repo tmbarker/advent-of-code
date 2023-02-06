@@ -47,17 +47,6 @@ public static class CollectionExtensions
     }
 
     /// <summary>
-    /// Ensure the <paramref name="set"/> contains <paramref name="item"/>
-    /// </summary>
-    public static void EnsureContains<T>(this ISet<T> set, T item)
-    {
-        if (!set.Contains(item))
-        {
-            set.Add(item);
-        }
-    }
-
-    /// <summary>
     /// Check if an <see cref="IList{T}"/> has an element at <paramref name="index"/>
     /// </summary>
     public static bool HasElementAtIndex<T>(this IList<T> list, int index)
@@ -92,6 +81,11 @@ public static class CollectionExtensions
         return new List<T>(collection.Except(new[] { single }));
     }
 
+    /// <summary>
+    /// Find the intersection of multiple collections
+    /// </summary>
+    /// <param name="collections">The collections to intersect</param>
+    /// <returns>A set containing the elements which are present in all provided collections</returns>
     public static ISet<T> IntersectAll<T>(this IEnumerable<IEnumerable<T>> collections)
     {
         var enumerable = collections.ToList();

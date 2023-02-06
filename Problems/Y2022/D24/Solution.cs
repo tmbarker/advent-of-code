@@ -69,7 +69,7 @@ public class Solution : SolutionBase2022
                     {
                         return t;
                     }
-                    activePaths.EnsureContains(move);
+                    activePaths.Add(move);
                 }
             }
             

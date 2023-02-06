@@ -1,7 +1,6 @@
 using Problems.Common;
 using Problems.Y2022.Common;
 using Utilities.Cartesian;
-using Utilities.Extensions;
 
 namespace Problems.Y2022.D17;
 
@@ -144,7 +143,7 @@ public class Solution : SolutionBase2022
 
         foreach (var occupiedPosition in occupiedPositions)
         {
-            rockPile.EnsureContains(occupiedPosition);
+            rockPile.Add(occupiedPosition);
         }
     }
 

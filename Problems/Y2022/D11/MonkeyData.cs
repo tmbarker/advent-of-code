@@ -1,5 +1,4 @@
 using System.Text.RegularExpressions;
-using Utilities.Extensions;
 
 namespace Problems.Y2022.D11;
 
@@ -39,7 +38,7 @@ public static class MonkeyData
         var op = !isMultiplicative ? Operator.Add : variableCount > 1 ? Operator.Square : Operator.Multiply;
         var arg = op == Operator.Square ? 0 : int.Parse(Regex.Match(chunk[2], NumberRegex).Value);
 
-        divisorsSet.EnsureContains(divisor);
+        divisorsSet.Add(divisor);
         return (index, new Monkey(items)
         {
             InspectionOperator = op,

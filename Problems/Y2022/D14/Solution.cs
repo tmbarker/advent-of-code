@@ -1,6 +1,5 @@
 using Problems.Y2022.Common;
 using Utilities.Cartesian;
-using Utilities.Extensions;
 
 namespace Problems.Y2022.D14;
 
@@ -88,7 +87,7 @@ public class Solution : SolutionBase2022
                 continue;
             }
             
-            occupiedPositions.EnsureContains(sandPos);
+            occupiedPositions.Add(sandPos);
             return true;
         }
 
@@ -122,7 +121,7 @@ public class Solution : SolutionBase2022
                 continue;
             }
 
-            occupiedPositions.EnsureContains(sandPos);
+            occupiedPositions.Add(sandPos);
             return true;
         }
 
@@ -145,13 +144,13 @@ public class Solution : SolutionBase2022
 
                 while (currentPos != nextVertex)
                 {
-                    set.EnsureContains(currentPos);
+                    set.Add(currentPos);
                     currentPos += pathSectionDelta;
                 }
             }
             
             // Need to include the final vertex
-            set.EnsureContains(rockStructurePath.Last());
+            set.Add(rockStructurePath.Last());
         }
         
         return set;

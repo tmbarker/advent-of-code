@@ -1,4 +1,3 @@
-using Problems.Common;
 using Problems.Y2021.Common;
 
 namespace Problems.Y2021.D03;

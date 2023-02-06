@@ -1,6 +1,5 @@
 using Problems.Y2022.Common;
 using Utilities.Cartesian;
-using Utilities.Extensions;
 
 namespace Problems.Y2022.D09;
 
@@ -51,7 +50,7 @@ public class Solution : SolutionBase2022
                 }
             }
             
-            visited.EnsureContains(knots[numKnots - 1]);
+            visited.Add(knots[numKnots - 1]);
         }
 
         return visited.Count;

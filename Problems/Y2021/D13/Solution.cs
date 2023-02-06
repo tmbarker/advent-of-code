@@ -56,7 +56,7 @@ public class Solution : SolutionBase2021
             }
 
             dots.Remove(point);
-            dots.EnsureContains(new Vector2D(point.X, 2 * foldAt - point.Y));
+            dots.Add(new Vector2D(point.X, 2 * foldAt - point.Y));
         }
 
         return dots;
@@ -72,7 +72,7 @@ public class Solution : SolutionBase2021
             }
 
             dots.Remove(point);
-            dots.EnsureContains(new Vector2D(2 * foldAt - point.X, point.Y));
+            dots.Add(new Vector2D(2 * foldAt - point.X, point.Y));
         }
 
         return dots;

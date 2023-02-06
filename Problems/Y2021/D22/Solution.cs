@@ -43,7 +43,7 @@ public class Solution : SolutionBase2021
             {
                 if (step.On)
                 {
-                    onSet.EnsureContains(new Vector3D(x, y, z));
+                    onSet.Add(new Vector3D(x, y, z));
                 }
                 else
                 {

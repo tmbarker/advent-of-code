@@ -2,7 +2,6 @@ using Problems.Common;
 using Problems.Y2022.Common;
 using System.Text.RegularExpressions;
 using Utilities.Cartesian;
-using Utilities.Extensions;
 
 namespace Problems.Y2022.D15;
 
@@ -35,8 +34,8 @@ public class Solution : SolutionBase2022
         
         foreach (var reporting in reportings)
         {
-            occupiedPositions.EnsureContains(reporting.SensorPos);
-            occupiedPositions.EnsureContains(reporting.BeaconPos);
+            occupiedPositions.Add(reporting.SensorPos);
+            occupiedPositions.Add(reporting.BeaconPos);
         }
         
         foreach (var reporting in reportings)
@@ -123,7 +122,7 @@ public class Solution : SolutionBase2022
             {
                 if (IsPositionInSearchArea(current))
                 {
-                    positionSet.EnsureContains(current);   
+                    positionSet.Add(current);   
                 }
                 current += step;
             }

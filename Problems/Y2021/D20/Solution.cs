@@ -1,6 +1,5 @@
 using Problems.Y2021.Common;
 using Utilities.Cartesian;
-using Utilities.Extensions;
 
 namespace Problems.Y2021.D20;
 
@@ -52,7 +51,7 @@ public class Solution : SolutionBase2021
             
             if (lit)
             {
-                litInEnhanced.EnsureContains(pixel);
+                litInEnhanced.Add(pixel);
             }
         }
 
