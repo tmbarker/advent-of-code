@@ -174,13 +174,7 @@ public class Solution : SolutionBase2020
         foreach (var (idLine, tileLines) in tileChunks)
         {
             var id = int.Parse(Regex.Match(idLine, @"(\d+)").Groups[1].Value);
-            var content = Grid2D<char>.WithDimensions(TileSize, TileSize);
-            
-            for (var y = 0; y < TileSize; y++)
-            for (var x = 0; x < TileSize; x++)
-            {
-                content[x, y] = tileLines[TileSize - y - 1][x];
-            }
+            var content = Grid2D<char>.MapChars(tileLines, c => c);
 
             tiles.Add(id, new Tile(content));
         }

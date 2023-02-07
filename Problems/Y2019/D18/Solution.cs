@@ -11,13 +11,18 @@ public class Solution : SolutionBase2019
     
     public override object Run(int part)
     {
-        var field = Field.Parse(GetInputLines());
-        var pathFinder = new PathFinder(field);
-        
         return part switch
         {
-            0 => pathFinder.Run(),
+            0 => FindShortestPath(false),
             _ => ProblemNotSolvedString
         };
+    }
+
+    private int FindShortestPath(bool applyInputOverrides)
+    {
+        var field = Field.Parse(GetInputLines(), applyInputOverrides);
+        var pathFinder = new PathFinder(field);
+
+        return pathFinder.Run();
     }
 }

@@ -48,24 +48,23 @@ public class Field
         return _entities.TryGetValue(pos, out key) && _keys.Contains(key);
     }
     
-    public static Field Parse(IList<string> input)
+    public static Field Parse(IList<string> input, bool applyInputOverrides)
     {
-        var rows = input.Count;
-        var cols = input[0].Length;
+        var grid = Grid2D<char>.MapChars(input, c => c);
+        var (startPos, _) = grid.Single(kvp => kvp.Value == Start);
+        
+        if (applyInputOverrides)
+        {
+            ApplyInputOverrides(grid, startPos);
+        }
 
         var adjacency = new AdjacencyList();
         var entities = new EntityMap();
-        var startPos = Vector2D.Zero;
 
-        bool Predicate(Vector2D p) =>
-            p.X >= 0 && p.X < cols && p.Y >= 0 && p.Y < rows && input[rows - p.Y - 1][p.X] != Wall;
-        
-        for (var y = 0; y < rows; y++)
-        for (var x = 0; x < cols; x++)
+        bool Predicate(Vector2D p) => grid.IsInDomain(p) && grid[p] != Wall;
+
+        foreach (var (pos, chr) in grid)
         {
-            var pos = new Vector2D(x, y);
-            var chr = input[rows - pos.Y - 1][pos.X];
-
             if (chr == Wall)
             {
                 continue;
@@ -73,11 +72,6 @@ public class Field
             
             adjacency.Add(pos, new HashSet<Vector2D>(pos.GetAdjacentSet(DistanceMetric.Taxicab).Where(Predicate)));
 
-            if (chr == Start)
-            {
-                startPos = pos;
-            }
-            
             if (chr != Empty)
             {
                 entities.Add(pos, chr);
@@ -88,5 +82,20 @@ public class Field
             adjacency: adjacency,
             entities: entities,
             startPos: startPos);
+    }
+
+    private static void ApplyInputOverrides(Grid2D<char> grid, Vector2D startPos)
+    {
+        foreach (var adj in startPos.GetAdjacentSet(DistanceMetric.Chebyshev))
+        {
+            grid[adj] = Start;
+        }
+        
+        foreach (var adj in startPos.GetAdjacentSet(DistanceMetric.Taxicab))
+        {
+            grid[adj] = Wall;
+        }
+        
+        grid[startPos] = Wall;
     }
 }

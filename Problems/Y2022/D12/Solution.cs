@@ -50,18 +50,11 @@ public class Solution : SolutionBase2022
 
         var minDistances = GetMinDistancesMap(grid, bestSignalPos, MoveAllowed);
         var allPositions = grid.GetAllPositions();
-        var min = int.MaxValue;
-
-        // ReSharper disable once LoopCanBeConvertedToQuery
-        foreach (var position in allPositions)
-        {
-            if (grid[position] == MinHeight)
-            {
-                min = Math.Min(min, minDistances[position]);
-            }
-        }
-
-        return min;
+        
+        return allPositions
+            .Where(p => grid[p] == MinHeight)
+            .Select(position => minDistances[position])
+            .Min();
     }
 
     private static Dictionary<Vector2D, int> GetMinDistancesMap(Grid2D<char> grid, Vector2D start, Func<char, char, bool> moveAllowedFunc)
@@ -123,31 +116,11 @@ public class Solution : SolutionBase2022
 
     private void ParseGrid(out Grid2D<char> grid, out Vector2D start, out Vector2D end)
     {
-        var lines = GetInputLines();
-        var rows = lines.Length;
-        var cols = lines[0].Length;
-        
-        grid = Grid2D<char>.WithDimensions(rows, cols);
-        start = Vector2D.Zero;
-        end = Vector2D.Zero;
-        
-        for (var x = 0; x < cols; x++)
-        for (var y = 0; y < rows; y++)
-        {
-            var height = lines[y][x];
-            if (height == StartMarker)
-            {
-                height = StartHeight;
-                start = new Vector2D(x, y);
-            }
-            
-            if (height == EndMarker)
-            {
-                height = EndHeight;
-                end = new Vector2D(x, y);
-            }
+        grid = Grid2D<char>.MapChars(GetInputLines(), c => c);
+        start = grid.Single(kvp => kvp.Value == StartMarker).Key;
+        end = grid.Single(kvp => kvp.Value == EndMarker).Key;
 
-            grid[x, y] = height;
-        }
+        grid[start] = StartHeight;
+        grid[end] = EndHeight;
     }
 }

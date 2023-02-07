@@ -82,18 +82,9 @@ public class Solution : SolutionBase2021
         {
             var pos = new Vector2D(x, y);
             var height = grid[pos];
-            var lowerThanNeighbors = true;
-            
-            foreach (var adj in pos.GetAdjacentSet(DistanceMetric.Taxicab))
-            {
-                if (!grid.IsInDomain(adj) || height < grid[adj])
-                {
-                    continue;
-                }
-                
-                lowerThanNeighbors = false;
-                break;
-            }
+            var lowerThanNeighbors = pos
+                .GetAdjacentSet(DistanceMetric.Taxicab)
+                .All(adj => !grid.IsInDomain(adj) || height < grid[adj]);
 
             if (lowerThanNeighbors)
             {
@@ -106,16 +97,6 @@ public class Solution : SolutionBase2021
 
     private static Grid2D<int> ParseGrid(IList<string> lines)
     {
-        var rows = lines.Count;
-        var cols = lines[0].Length;
-        var grid = Grid2D<int>.WithDimensions(rows, cols);
-        
-        for (var x = 0; x < cols; x++)
-        for (var y = 0; y < rows; y++)
-        {
-            grid[x, rows - 1 - y] = lines[y][x] - '0';
-        }
-        
-        return grid;
+        return Grid2D<int>.MapChars(lines, c => c - '0');
     }
 }

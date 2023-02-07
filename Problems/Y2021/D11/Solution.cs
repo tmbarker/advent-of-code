@@ -58,17 +58,6 @@ public class Solution : SolutionBase2021
 
     private Grid2D<int> GetInitialState()
     {
-        var lines = GetInputLines();
-        var width = lines[0].Length;
-        var height = lines.Length;
-        var grid = Grid2D<int>.WithDimensions(height, width);
-        
-        for (var x = 0; x < width; x++)
-        for (var y = 0; y < height; y++)
-        {
-            grid[x, y] = lines[height - 1 - y][x] - '0';
-        }
-        
-        return grid;
+        return Grid2D<int>.MapChars(GetInputLines(), c => c - '0');
     }
 }

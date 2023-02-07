@@ -16,7 +16,6 @@ public class Solution : SolutionBase2022
     public override object Run(int part)
     {
         var trees = ParseTrees(GetInputLines());
-        
         return part switch
         {
             0 => CountVisibleTrees(trees),
@@ -142,17 +141,6 @@ public class Solution : SolutionBase2022
     
     private static Grid2D<int> ParseTrees(IList<string> input)
     {
-        var rows = input.Count;
-        var cols = input[0].Length;
-
-        var trees = Grid2D<int>.WithDimensions(rows, cols);
-
-        for (var y = 0; y < rows; y++)
-        for (var x = 0; x < cols; x++)
-        {
-            trees[x, rows - y - 1] = input[y][x] - '0';
-        }
-
-        return trees;
+        return Grid2D<int>.MapChars(input, c => c - '0');
     }
 }
