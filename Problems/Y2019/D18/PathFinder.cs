@@ -11,7 +11,7 @@ public class PathFinder
         _field = field;
     }
 
-    public int Run()
+    public int Run(bool ignoreDoors)
     {
         var initialState = State.Initial(_field.StartPos);
         var queue = new Queue<State>(new[] { initialState });
@@ -27,7 +27,7 @@ public class PathFinder
             
             foreach (var adj in _field.GetAdj(state.Pos))
             {
-                if (_field.CheckForDoorAt(adj, out var door) && !state.HasKey(char.ToLower(door)))
+                if (!ignoreDoors && _field.CheckForDoorAt(adj, out var door) && !state.HasKey(char.ToLower(door)))
                 {
                     continue;
                 }

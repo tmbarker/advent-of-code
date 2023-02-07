@@ -13,16 +13,15 @@ public class Solution : SolutionBase2019
     {
         return part switch
         {
-            0 => FindShortestPath(false),
+            0 => FindShortestPath(false, false),
+            1 => FindShortestPath(true, true),
             _ => ProblemNotSolvedString
         };
     }
 
-    private int FindShortestPath(bool applyInputOverrides)
+    private int FindShortestPath(bool applyInputOverrides, bool ignoreDoors)
     {
-        var field = Field.Parse(GetInputLines(), applyInputOverrides);
-        var pathFinder = new PathFinder(field);
-
-        return pathFinder.Run();
+        var fields = Field.Parse(GetInputLines(), applyInputOverrides);
+        return fields.Sum(f => new PathFinder(f).Run(ignoreDoors));
     }
 }

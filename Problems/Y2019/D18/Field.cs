@@ -1,4 +1,5 @@
 using Utilities.Cartesian;
+using Utilities.Extensions;
 
 namespace Problems.Y2019.D18;
 
@@ -24,7 +25,7 @@ public class Field
         _entities = entities;
         _keys  = new HashSet<char>(entities.Values.Where(char.IsLower));
         _doors = new HashSet<char>(entities.Values.Where(char.IsUpper));
-        
+
         StartPos = startPos;
     }
 
@@ -48,39 +49,57 @@ public class Field
         return _entities.TryGetValue(pos, out key) && _keys.Contains(key);
     }
     
-    public static Field Parse(IList<string> input, bool applyInputOverrides)
+    public static IEnumerable<Field> Parse(IList<string> input, bool applyInputOverrides)
     {
         var grid = Grid2D<char>.MapChars(input, c => c);
-        var (startPos, _) = grid.Single(kvp => kvp.Value == Start);
+        var (nominalStartPos, _) = grid.Single(kvp => kvp.Value == Start);
         
         if (applyInputOverrides)
         {
-            ApplyInputOverrides(grid, startPos);
+            ApplyInputOverrides(grid, nominalStartPos);
         }
 
+        var startPositions = grid
+            .Where(kvp => kvp.Value == Start)
+            .Select(kvp => kvp.Key);
+
+        foreach (var startPos in startPositions)
+        {
+            yield return BuildField(grid, startPos);
+        }
+    }
+
+    private static Field BuildField(Grid2D<char> grid, Vector2D startPos)
+    {
         var adjacency = new AdjacencyList();
-        var entities = new EntityMap();
+        var reachable = new Dictionary<Vector2D, char> { { startPos, Start } };
+        var queue = new Queue<Vector2D>(new[] { startPos });
 
         bool Predicate(Vector2D p) => grid.IsInDomain(p) && grid[p] != Wall;
-
-        foreach (var (pos, chr) in grid)
+        
+        while (queue.Any())
         {
-            if (chr == Wall)
+            var current = queue.Dequeue();
+            foreach (var adj in current.GetAdjacentSet(DistanceMetric.Taxicab).Where(Predicate))
             {
-                continue;
-            }
-            
-            adjacency.Add(pos, new HashSet<Vector2D>(pos.GetAdjacentSet(DistanceMetric.Taxicab).Where(Predicate)));
+                if (reachable.ContainsKey(adj))
+                {
+                    continue;
+                }
 
-            if (chr != Empty)
-            {
-                entities.Add(pos, chr);
+                reachable.Add(adj, grid[adj]);
+                queue.Enqueue(adj);
             }
         }
-
+        
+        foreach (var (pos, _) in reachable.Where(kvp => kvp.Value != Wall))
+        {
+            adjacency.Add(pos, new HashSet<Vector2D>(pos.GetAdjacentSet(DistanceMetric.Taxicab).Where(Predicate)));
+        }
+        
         return new Field(
             adjacency: adjacency,
-            entities: entities,
+            entities: reachable.WhereValues(c => c != Wall && c != Empty),
             startPos: startPos);
     }
 
