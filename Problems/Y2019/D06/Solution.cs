@@ -47,7 +47,7 @@ public class Solution : SolutionBase2019
             adjacencyList[b].Add(a);
         }
 
-        return GraphHelper.DijkstraUnweighted(from, adjacencyList)[to];
+        return GraphHelper.DijkstraUnweighted(from, to, adjacencyList);
     }
     
     private static int CountOrbits(string body, OrbitMap map, Memo memo)

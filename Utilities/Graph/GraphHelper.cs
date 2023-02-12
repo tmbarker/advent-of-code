@@ -3,42 +3,6 @@ namespace Utilities.Graph;
 public static class GraphHelper
 {
     /// <summary>
-    /// Execute Dijkstra's algorithm to find the shortest path from the <paramref name="start"/> node to all other nodes
-    /// </summary>
-    public static Dictionary<TNodeKey, int> DijkstraUnweighted<TNodeKey>(TNodeKey start,
-        IDictionary<TNodeKey, HashSet<TNodeKey>> adjacencyList) where TNodeKey : notnull
-    {
-        var visited = new HashSet<TNodeKey> { start };
-        var heap = new PriorityQueue<TNodeKey, int>(new[] { (start, 0) });
-        var costs = adjacencyList.Keys.ToDictionary(
-            keySelector: n => n,
-            elementSelector: n => EqualityComparer<TNodeKey>.Default.Equals(n, start) ? 0 : int.MaxValue);
-
-        while (heap.Count > 0)
-        {
-            var current = heap.Dequeue();
-            foreach (var neighbor in adjacencyList[current])
-            {
-                if (visited.Contains(neighbor))
-                {
-                    continue;
-                }
-
-                var distanceViaCurrent = costs[current] + 1;
-                if (distanceViaCurrent < costs[neighbor])
-                {
-                    costs[neighbor] = distanceViaCurrent;
-                }
-
-                visited.Add(neighbor);
-                heap.Enqueue(neighbor, costs[neighbor]);
-            }
-        }
-
-        return costs;
-    }
-
-    /// <summary>
     /// Execute the Floyd-Warshall algorithm to find the shortest path from each node to all other nodes
     /// </summary>
     public static Dictionary<(TNodeKey, TNodeKey), int> FloydWarshallUnweighted<TNodeKey>(
@@ -64,6 +28,74 @@ public static class GraphHelper
             if (costs[(i, j)] > costs[(i, k)] + costs[(k, j)])
             {
                 costs[(i, j)] = costs[(i, k)] + costs[(k, j)];
+            }
+        }
+
+        return costs;
+    }
+    
+    /// <summary>
+    /// Execute Dijkstra's algorithm to find the shortest path from the <paramref name="start"/> node to all other nodes
+    /// </summary>
+    public static Dictionary<TNodeKey, int> DijkstraUnweighted<TNodeKey>(TNodeKey start,
+        IDictionary<TNodeKey, HashSet<TNodeKey>> adjacencyList) where TNodeKey : notnull
+    {
+        return DijkstraUnweighted(
+            start: start,
+            adjacencyList: adjacencyList,
+            stopPredicate: null);
+    }
+    
+    /// <summary>
+    /// Execute Dijkstra's algorithm to find the shortest path from the <paramref name="start"/> node to
+    /// the <paramref name="end"/> node
+    /// </summary>
+    public static int DijkstraUnweighted<TNodeKey>(TNodeKey start, TNodeKey end, 
+        IDictionary<TNodeKey, HashSet<TNodeKey>> adjacencyList) where TNodeKey : notnull
+    {
+        var costs = DijkstraUnweighted(
+            start: start,
+            adjacencyList: adjacencyList,
+            stopPredicate: key => EqualityComparer<TNodeKey>.Default.Equals(end, key));
+
+        return costs.ContainsKey(end)
+            ? costs[end]
+            : int.MaxValue;
+    }
+
+    private static Dictionary<TNodeKey, int> DijkstraUnweighted<TNodeKey>(TNodeKey start,
+        IDictionary<TNodeKey, HashSet<TNodeKey>> adjacencyList, Predicate<TNodeKey>? stopPredicate)
+        where TNodeKey : notnull
+    {
+        var visited = new HashSet<TNodeKey> { start };
+        var heap = new PriorityQueue<TNodeKey, int>(new[] { (start, 0) });
+        var costs = adjacencyList.Keys.ToDictionary(
+            keySelector: n => n,
+            elementSelector: n => EqualityComparer<TNodeKey>.Default.Equals(n, start) ? 0 : int.MaxValue);
+
+        while (heap.Count > 0)
+        {
+            var current = heap.Dequeue();
+            if (stopPredicate?.Invoke(current) ?? false)
+            {
+                break;
+            }
+            
+            foreach (var neighbor in adjacencyList[current])
+            {
+                if (visited.Contains(neighbor))
+                {
+                    continue;
+                }
+
+                var distanceViaCurrent = costs[current] + 1;
+                if (distanceViaCurrent < costs[neighbor])
+                {
+                    costs[neighbor] = distanceViaCurrent;
+                }
+
+                visited.Add(neighbor);
+                heap.Enqueue(neighbor, costs[neighbor]);
             }
         }
 

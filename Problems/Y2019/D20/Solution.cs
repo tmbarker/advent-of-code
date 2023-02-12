@@ -56,7 +56,7 @@ public class Solution : SolutionBase2019
             allAdjacencies[pair.Last()].Add(pair.First());
         }
 
-        return GraphHelper.DijkstraUnweighted(start, allAdjacencies)[end];
+        return GraphHelper.DijkstraUnweighted(start, end, allAdjacencies);
     }
 
     private static Dictionary<Portal, IList<Vector2D>> GetPortalAdjacencies(Maze maze)
