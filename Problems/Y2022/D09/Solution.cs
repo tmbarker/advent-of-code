@@ -8,10 +8,6 @@ namespace Problems.Y2022.D09;
 /// </summary>
 public class Solution : SolutionBase2022
 {
-    private const char Delimiter = ' ';
-    private const int NumKnotsPart1 = 2;
-    private const int NumKnotsPart2 = 10;
-    
     private static readonly Dictionary<string, Vector2D> VectorMap = new()
     {
         { "U", Vector2D.Up },
@@ -27,8 +23,8 @@ public class Solution : SolutionBase2022
         var movements = ParseHeadMovements(GetInputLines());
         return part switch
         {
-            0 => CountDistinctKnotPositions(movements, NumKnotsPart1),
-            1 => CountDistinctKnotPositions(movements, NumKnotsPart2),
+            0 => CountDistinctKnotPositions(movements, 2),
+            1 => CountDistinctKnotPositions(movements, 10),
             _ => ProblemNotSolvedString,
         };
     }
@@ -61,7 +57,7 @@ public class Solution : SolutionBase2022
         var queue = new Queue<Vector2D>();
         foreach (var line in lines)
         {
-            var cmd = line.Split(Delimiter);
+            var cmd = line.Split(' ');
             var vector = VectorMap[cmd[0]];
             var numMotions = int.Parse(cmd[1]);
 

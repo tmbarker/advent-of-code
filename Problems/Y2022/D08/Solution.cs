@@ -27,7 +27,7 @@ public class Solution : SolutionBase2022
     private static int CountVisibleTrees(Grid2D<int> trees)
     {
         var visibleSet = new HashSet<Vector2D>();
-        var linesOfSight = GetLinesOfSight(trees.Height, trees.Width);
+        var linesOfSight = GetLinesOfSight(trees);
 
         foreach (var lineOfSight in linesOfSight)
         {
@@ -37,40 +37,28 @@ public class Solution : SolutionBase2022
         return visibleSet.Count;
     }
 
-    private static List<IEnumerable<Vector2D>> GetLinesOfSight(int rows, int cols)
+    private static List<IEnumerable<Vector2D>> GetLinesOfSight(Grid2D<int> trees)
     {
         var los = new List<IEnumerable<Vector2D>>();
         
         // Horizontal
-        for (var y = 0; y < rows; y++)
+        for (var y = 0; y < trees.Height; y++)
         {
-            var left = new List<Vector2D>();
-            var right = new List<Vector2D>();
+            var row = trees.GetRowPositions(y);
+            var enumerated = row.ToArray();
             
-            for (var x = 0; x < cols; x++)
-            {
-                left.Add(new Vector2D(x, y));
-                right.Add(new Vector2D(cols - x - 1, y));
-            }
-            
-            los.Add(left);
-            los.Add(right);
+            los.Add(enumerated);
+            los.Add(enumerated.Reverse());
         }
         
         // Vertical
-        for (var x = 0; x < cols; x++)
+        for (var x = 0; x < trees.Width; x++)
         {
-            var up = new List<Vector2D>();
-            var down = new List<Vector2D>();
+            var col = trees.GetColPositions(x);
+            var enumerated = col.ToArray();
             
-            for (var y = 0; y < rows; y++)
-            {
-                up.Add(new Vector2D(x, y));
-                down.Add(new Vector2D(x, rows - y - 1));
-            }
-            
-            los.Add(up);
-            los.Add(down);
+            los.Add(enumerated);
+            los.Add(enumerated.Reverse());
         }
 
         return los;

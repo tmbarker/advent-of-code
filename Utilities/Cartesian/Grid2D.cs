@@ -49,8 +49,8 @@ public partial class Grid2D<T> : IEnumerable<KeyValuePair<Vector2D, T>>
     /// <param name="position">The position to index</param>
     public T this[Vector2D position]
     {
-        get => Get(position);
-        set => Set(position, value);
+        get => GetInternal(position.X, position.Y);
+        set => SetInternal(position.X, position.Y, value);
     }
 
     /// <summary>
@@ -156,23 +156,29 @@ public partial class Grid2D<T> : IEnumerable<KeyValuePair<Vector2D, T>>
     }
     
     /// <summary>
-    /// Get the element at position (x,y)
+    /// Extract the positions of a row from the grid
     /// </summary>
-    /// <param name="position">The position to index</param>
-    /// <returns>The element at the specified position</returns>
-    private T Get(Vector2D position)
+    /// <param name="rowIndex">The 0-based row index</param>
+    /// <returns>The position elements of the row, starting with the 0-index column element</returns>
+    public IEnumerable<Vector2D> GetRowPositions(int rowIndex)
     {
-        return GetInternal(position.X, position.Y);
+        for (var x = 0; x < Width; x++)
+        {
+            yield return new Vector2D(x, rowIndex);
+        }
     }
-
+    
     /// <summary>
-    /// Set the element at position (x,y)
+    /// Extract the positions of a column from the grid
     /// </summary>
-    /// <param name="position">The position to index</param>
-    /// <param name="value">The element value to set</param>
-    private void Set(Vector2D position, T value)
+    /// <param name="colIndex">The 0-based column index</param>
+    /// <returns>The position elements of the column, starting with the 0-index row element</returns>
+    public IEnumerable<Vector2D> GetColPositions(int colIndex)
     {
-        SetInternal(position.X, position.Y, value);
+        for (var y = 0; y < Height; y++)
+        {
+            yield return new Vector2D(colIndex, y);
+        }
     }
 
     private T GetInternal(int x, int y)
