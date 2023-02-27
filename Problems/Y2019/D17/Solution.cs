@@ -67,7 +67,7 @@ public class Solution : SolutionBase2019
             : throw new NoSolutionException();
     }
 
-    private static IList<string> ComputeCommands(IReadOnlySet<Vector2D> positions, Pose pose)
+    private static IEnumerable<string> ComputeCommands(IReadOnlySet<Vector2D> positions, Pose pose)
     {
         var commands = new List<string>();
         var visited = new HashSet<Vector2D> { pose.Position };
