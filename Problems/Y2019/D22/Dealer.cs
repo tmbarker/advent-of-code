@@ -1,3 +1,5 @@
+using Utilities.Extensions;
+
 namespace Problems.Y2019.D22;
 
 public class Dealer
@@ -16,11 +18,11 @@ public class Dealer
     
     public long CutDeck(long index, long amount)
     {
-        return (index - amount) % _deckSize;
+        return (index - amount).Modulo(_deckSize);
     }
     
     public long IncrementDeck(long index, long amount)
     {
-        return index * amount % _deckSize;
+        return (index * amount).Modulo(_deckSize);
     }
 }

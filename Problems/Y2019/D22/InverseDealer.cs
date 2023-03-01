@@ -1,4 +1,5 @@
 using Problems.Common;
+using Utilities.Extensions;
 
 namespace Problems.Y2019.D22;
 
@@ -13,24 +14,17 @@ public class InverseDealer
     
     public long UndoStack(long result)
     {
-        // This function/shuffle is it's own inverse, i.e. the forwards and inverse implementations are the same
         return _deckSize - 1 - result;
     }
     
     public long UndoCut(long result, long amount)
     {
-        // The forwards cut implementation is:
-        // result = (index - cutAmount) % _deckSize
-        // The inverse can be seen as doing the opposite cut, i.e. inverting cutAmount:
-        // result = (index - (-1 * cutAmount)) % _deckSize
-        return (result + amount) % _deckSize;
+        return (result + amount).Modulo(_deckSize);
     }
     
     public long UndoIncrement(long result, long amount)
     {
-        // We need to reverse the forwards operation:
-        // result = index * amount % _deckSize;
-        return result * ModularInverse(amount, _deckSize) % _deckSize;
+        return (result * ModularInverse(amount, _deckSize)).Modulo(_deckSize);
     }
 
     /// <summary>
