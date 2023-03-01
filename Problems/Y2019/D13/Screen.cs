@@ -79,7 +79,7 @@ public class Screen
         }
 
         Console.SetCursorPosition(0, 0);
-        grid.Print(title: string.Empty, padding:0, elementFormatter: (_, gobType) =>
+        grid.Print(padding:0, elementFormatter: (_, gobType) =>
         {
             return gobType switch
             {

@@ -43,15 +43,6 @@ public class BingoCard
 
     }
 
-    public void Print()
-    {
-        _squares.Print("CARD", (_, value) =>
-        {
-            var suffix = _markedNumbers.Contains(value) ? "*" : string.Empty;
-            return $"{value}{suffix}";
-        });
-    }
-    
     private bool CheckColumn(int col)
     {
         for (var y = 0; y < _squares.Height; y++)

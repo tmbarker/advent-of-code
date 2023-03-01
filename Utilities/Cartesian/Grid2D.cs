@@ -8,13 +8,18 @@ namespace Utilities.Cartesian;
 /// <typeparam name="T">The type at each grid position</typeparam>
 public partial class Grid2D<T> : IEnumerable<KeyValuePair<Vector2D, T>>
 {
-    private const string OutOfRangeFormat = "Index out of range [{0}], must be in range [0-{1}]";
     private const string InvalidFlipAxisError = $"{nameof(Grid2D<T>)} can only be flipped about the X and Y axis";
     private const string InvalidRotAxisError = $"{nameof(Grid2D<T>)} can only be rotated about the Z axis";
-
+    
     private T[,] _grid;
     private readonly Origin _origin;
     
+    /// <summary>
+    /// Internal constructor
+    /// </summary>
+    /// <param name="grid">The 2D array which will back the Grid instance, it should be populated such that the bottom
+    /// left element of the <see cref="Grid2D{T}"/> is indexed at [0,0] when using the <see cref="Origin.Xy"/> origin</param>
+    /// <param name="origin">Which origin to use</param>
     private Grid2D(T[,] grid, Origin origin)
     {
         _grid = grid;
@@ -64,29 +69,65 @@ public partial class Grid2D<T> : IEnumerable<KeyValuePair<Vector2D, T>>
             position.X >= 0 && position.X < Width &&
             position.Y >= 0 && position.Y < Height;
     }
+    
+    /// <summary>
+    /// Print the <see cref="Grid2D{T}"/> instance contents to the console
+    /// </summary>
+    public void Print(Func<Vector2D, T, string>? elementFormatter = null, int padding = 4)
+    {
+        var paddingStr = padding > 0 
+            ? new string(' ', padding) 
+            : string.Empty;
+        
+        for (var y = Height - 1; y >= 0; y--)
+        {
+            for (var x = 0; x < Width; x++)
+            {
+                var element = _grid[y, x];
+                var pos = new Vector2D(
+                    x: x,
+                    y: TransformY(y));
+                
+                var elementString = elementFormatter != null
+                    ? elementFormatter(pos, element)
+                    : element?.ToString();
+                    
+                Console.Write($"{elementString}{paddingStr}");
+            }
+            Console.WriteLine();
+        }
+    }
 
+    /// <summary>
+    /// Get all positions in the <see cref="Grid2D{T}"/> instance
+    /// </summary>
+    public IEnumerable<Vector2D> GetAllPositions()
+    {
+        for (var x = 0; x < Width; x++)
+        for (var y = 0; y < Height; y++)
+        {
+            yield return new Vector2D(x, y);
+        }
+    }
+
+    /// <summary>
+    /// Flip the grid about the specified axis
+    /// </summary>
+    /// <param name="about">The axis about which to flip the grid</param>
+    /// <exception cref="ArgumentOutOfRangeException"><see cref="Axis.X"/> and <see cref="Axis.Y"/> axes only</exception>
     public void Flip(Axis about)
     {
-        if (about is Axis.Z or Axis.W)
-        {
-            throw new ArgumentOutOfRangeException(nameof(about), about, InvalidFlipAxisError);
-        }
-
         var tmp = new T[Height, Width];
         for (var x = 0; x < Width; x++)
         for (var y = 0; y < Height; y++)
         {
-            // ReSharper disable once SwitchStatementMissingSomeEnumCasesNoDefault
-            // ReSharper disable once ConvertSwitchStatementToSwitchExpression
-            switch (about)
+            // ReSharper disable once SwitchExpressionHandlesSomeKnownEnumValuesWithExceptionInDefault
+            tmp[y, x] = about switch
             {
-                case Axis.X:
-                    tmp[y, x] = _grid[Height - y - 1, x];
-                    break;
-                case Axis.Y:
-                    tmp[y, x] = _grid[y, Width - x - 1];
-                    break;
-            }
+                Axis.X => _grid[Height - y - 1, x],
+                Axis.Y => _grid[y, Width - x - 1],
+                _ => throw new ArgumentOutOfRangeException(nameof(about), about, InvalidFlipAxisError)
+            };
         }
 
         _grid = tmp;
@@ -183,38 +224,23 @@ public partial class Grid2D<T> : IEnumerable<KeyValuePair<Vector2D, T>>
 
     private T GetInternal(int x, int y)
     {
-        ValidateIndices(x, TransformY(y));
-        return _grid[y, x];
+        return _grid[TransformY(y), x];
     }
     
     private void SetInternal(int x, int y, T value)
     {
-        ValidateIndices(x, y);
         _grid[TransformY(y), x] = value;
     }
 
-    private int TransformY(int y)
+    private int TransformY(int raw)
     {
-        return _origin == Origin.Xy ? y : Height - y - 1;
+        return _origin == Origin.Xy ? raw : Height - raw - 1;
     }
     
     private void EvaluateDimensions()
     {
         Height = _grid.GetLength(0);
         Width = _grid.GetLength(1);
-    }
-
-    private void ValidateIndices(int x, int y)
-    {
-        if (x < 0 || x >= Width)
-        {
-            throw new ArgumentOutOfRangeException(nameof(x), x, string.Format(OutOfRangeFormat, x, Width - 1));
-        }
-        
-        if (y < 0 || y >= Height)
-        {
-            throw new ArgumentOutOfRangeException(nameof(y), y, string.Format(OutOfRangeFormat, y, Height - 1));
-        }
     }
 
     public IEnumerator<KeyValuePair<Vector2D, T>> GetEnumerator()

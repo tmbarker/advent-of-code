@@ -6,6 +6,9 @@ public partial class IntCodeVm
     private long _pc;
     private long _rb;
 
+    public event EventHandler? AwaitingInput;
+    public event EventHandler? OutputEmitted;
+
     public IReadOnlyDictionary<long, long> Memory => _memory;
     public Queue<long> InputBuffer { get; }
     public Queue<long> OutputBuffer { get; }
@@ -36,6 +39,7 @@ public partial class IntCodeVm
                 case OpCode.Inp:
                     if (!InputBuffer.Any())
                     {
+                        AwaitingInput?.Invoke(this, EventArgs.Empty);
                         return ExitCode.AwaitingInput;
                     }
                     Inp(instr);

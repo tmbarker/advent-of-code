@@ -26,19 +26,17 @@ public partial class Grid2D<T>
     {
         var rows = strings.Count;
         var cols = strings[0].Length;
-        var grid = new Grid2D<T>(new T[rows, cols], origin);
+        var array = new T[rows, cols];
 
         for (var y = 0; y < rows; y++)
         for (var x = 0; x < cols; x++)
         {
-            var chr = origin == Origin.Xy
-                ? strings[rows - y - 1][x]
-                : strings[y][x];
+            var chr = strings[rows - y - 1][x];
             var element = elementFunc(chr);
-
-            grid[x, y] = element;
+            
+            array[y, x] = element;
         }
 
-        return grid;
+        return new Grid2D<T>(array, origin);
     }
 }

@@ -46,6 +46,7 @@ public partial class IntCodeVm
         var vOut = ReadMem(pOut);
 
         OutputBuffer.Enqueue(vOut);
+        OutputEmitted?.Invoke(this, EventArgs.Empty);
         
         _pc += 2L;
     }

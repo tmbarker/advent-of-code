@@ -28,6 +28,10 @@ public readonly struct Vector3D : IEquatable<Vector3D>
         
         Id = string.Format(StringFormat, X, Y, Z);
     }
+    
+    public Vector3D(Vector2D xy, int z) : this(xy.X, xy.Y, z)
+    {
+    }
 
     public void Deconstruct(out int x, out int y, out int z)
     {
