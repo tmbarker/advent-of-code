@@ -1,3 +1,4 @@
+using Problems.Attributes;
 using Problems.Y2022.Common;
 
 namespace Problems.Y2022.D16;
@@ -5,6 +6,7 @@ namespace Problems.Y2022.D16;
 /// <summary>
 /// Proboscidea Volcanium: https://adventofcode.com/2022/day/16
 /// </summary>
+[Favourite("Proboscidea Volcanium", Topics.Graphs|Topics.Recursion, Difficulty.Hard)]
 public class Solution : SolutionBase2022
 {
     private const string Start = "AA";

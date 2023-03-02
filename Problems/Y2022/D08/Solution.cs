@@ -1,3 +1,4 @@
+using Problems.Attributes;
 using Problems.Y2022.Common;
 using Utilities.Cartesian;
 
@@ -6,6 +7,7 @@ namespace Problems.Y2022.D08;
 /// <summary>
 /// Treetop Tree House: https://adventofcode.com/2022/day/8
 /// </summary>
+[Favourite("Treetop Tree House", Topics.Vectors, Difficulty.Easy)]
 public class Solution : SolutionBase2022
 {
     private const int MinHeight = 0;

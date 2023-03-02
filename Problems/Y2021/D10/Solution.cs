@@ -1,3 +1,4 @@
+using Problems.Attributes;
 using Problems.Y2021.Common;
 
 namespace Problems.Y2021.D10;
@@ -5,6 +6,7 @@ namespace Problems.Y2021.D10;
 /// <summary>
 /// Syntax Scoring: https://adventofcode.com/2021/day/10
 /// </summary>
+[Favourite("Syntax Scoring", Topics.StringParsing, Difficulty.Easy)]
 public class Solution : SolutionBase2021
 {
     private static readonly List<SyntaxChecker.Rule> SyntaxRules = new()

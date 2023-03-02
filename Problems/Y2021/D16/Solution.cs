@@ -1,4 +1,5 @@
 ﻿using System.Text;
+using Problems.Attributes;
 using Problems.Y2021.Common;
 
 namespace Problems.Y2021.D16;
@@ -6,6 +7,7 @@ namespace Problems.Y2021.D16;
 /// <summary>
 /// Packet Decoder: https://adventofcode.com/2021/day/16
 /// </summary>
+[Favourite("Packet Decoder", Topics.StringParsing, Difficulty.Medium)]
 public class Solution : SolutionBase2021
 {
     private static readonly Dictionary<char, string> HexToPaddedBinary = new() {

@@ -1,3 +1,4 @@
+using Problems.Attributes;
 using Problems.Y2022.Common;
 using System.Text.RegularExpressions;
 
@@ -6,6 +7,7 @@ namespace Problems.Y2022.D19;
 /// <summary>
 /// Not Enough Minerals: https://adventofcode.com/2022/day/19
 /// </summary>
+[Favourite("Not Enough Minerals", Topics.Graphs|Topics.Recursion, Difficulty.Hard)]
 public class Solution : SolutionBase2022
 {
     private const int TimeLimitPart1 = 24;

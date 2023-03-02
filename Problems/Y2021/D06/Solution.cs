@@ -1,3 +1,4 @@
+using Problems.Attributes;
 using Problems.Y2021.Common;
 
 namespace Problems.Y2021.D06;
@@ -5,6 +6,7 @@ namespace Problems.Y2021.D06;
 /// <summary>
 /// Lanternfish: https://adventofcode.com/2021/day/6
 /// </summary>
+[Favourite("Lanternfish", Topics.Math, Difficulty.Medium)]
 public class Solution : SolutionBase2021
 {
     private const char Delimiter = ',';

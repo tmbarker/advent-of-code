@@ -1,3 +1,4 @@
+using Problems.Attributes;
 using Problems.Common;
 using Problems.Y2022.Common;
 using System.Text.RegularExpressions;
@@ -8,6 +9,7 @@ namespace Problems.Y2022.D15;
 /// <summary>
 /// Beacon Exclusion Zone: https://adventofcode.com/2022/day/15
 /// </summary>
+[Favourite("Beacon Exclusion Zone", Topics.Vectors, Difficulty.Medium)]
 public class Solution : SolutionBase2022
 {
     private const int Row = 2000000;

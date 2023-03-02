@@ -1,3 +1,4 @@
+using Problems.Attributes;
 using Problems.Y2022.Common;
 
 namespace Problems.Y2022.D10;
@@ -5,6 +6,7 @@ namespace Problems.Y2022.D10;
 /// <summary>
 /// Cathode-Ray Tube: https://adventofcode.com/2022/day/10
 /// </summary>
+[Favourite("Cathode-Ray Tube", Topics.Assembly, Difficulty.Medium)]
 public class Solution : SolutionBase2022
 {
     private const char InstructionDelimiter = ' ';

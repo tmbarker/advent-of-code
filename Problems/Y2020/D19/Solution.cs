@@ -1,6 +1,7 @@
-using Problems.Y2020.Common;
 using System.Text;
 using System.Text.RegularExpressions;
+using Problems.Attributes;
+using Problems.Y2020.Common;
 
 namespace Problems.Y2020.D19;
 
@@ -11,6 +12,7 @@ using Memo = IDictionary<int, string>;
 /// <summary>
 /// Monster Messages: https://adventofcode.com/2020/day/19
 /// </summary>
+[Favourite("Monster Messages", Topics.RegularExpressions, Difficulty.Hard)]
 public class Solution : SolutionBase2020
 {
     private const int Rule = 0;

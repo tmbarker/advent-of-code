@@ -2,14 +2,14 @@ using System.Diagnostics;
 using System.Text;
 using Problems.Common;
 
-namespace SolutionRunner;
+namespace Automation.SolutionRunner;
 
-public static class RunSolution
+public static class SolutionRunner
 {
     private const string SolutionTypeName = "Solution";
     private const string QualifiedSolutionTypeNameFormat = "{0}.Y{1}.D{2}.{3}";
 
-    public static void Do(int year, int day)
+    public static void Run(int year, int day)
     {
         if (!TryCreateSolutionInstance(year, day, out var solution))
         {

@@ -1,3 +1,4 @@
+using Problems.Attributes;
 using Problems.Y2021.Common;
 using Utilities.Cartesian;
 using Utilities.Extensions;
@@ -7,6 +8,7 @@ namespace Problems.Y2021.D13;
 /// <summary>
 /// Transparent Origami: https://adventofcode.com/2021/day/13
 /// </summary>
+[Favourite("Transparent Origami", Topics.Vectors, Difficulty.Easy)]
 public class Solution : SolutionBase2021
 {
     private const int NumFoldsPart1 = 1;

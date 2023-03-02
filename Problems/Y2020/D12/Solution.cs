@@ -1,3 +1,4 @@
+using Problems.Attributes;
 using Problems.Y2020.Common;
 using Utilities.Cartesian;
 
@@ -6,6 +7,7 @@ namespace Problems.Y2020.D12;
 /// <summary>
 /// Rain Risk: https://adventofcode.com/2020/day/12
 /// </summary>
+[Favourite("Rain Risk", Topics.Vectors, Difficulty.Easy)]
 public class Solution : SolutionBase2020
 {
     private const char North = 'N';

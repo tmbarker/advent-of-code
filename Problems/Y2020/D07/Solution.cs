@@ -1,5 +1,6 @@
-using Problems.Y2020.Common;
 using System.Text.RegularExpressions;
+using Problems.Attributes;
+using Problems.Y2020.Common;
 
 namespace Problems.Y2020.D07;
 
@@ -9,6 +10,7 @@ using Memo = IDictionary<(string, string), bool>;
 /// <summary>
 /// Handy Haversacks: https://adventofcode.com/2020/day/7
 /// </summary>
+[Favourite("Handy Haversacks", Topics.Graphs|Topics.Recursion, Difficulty.Medium)]
 public class Solution : SolutionBase2020
 {
     private const string ShinyGold = "shiny gold";

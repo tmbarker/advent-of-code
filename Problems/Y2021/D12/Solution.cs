@@ -1,3 +1,4 @@
+using Problems.Attributes;
 using Problems.Y2021.Common;
 using Utilities.Extensions;
 
@@ -6,6 +7,7 @@ namespace Problems.Y2021.D12;
 /// <summary>
 /// Passage Pathing: https://adventofcode.com/2021/day/12
 /// </summary>
+[Favourite("Passage Pathing", Topics.Graphs|Topics.Recursion, Difficulty.Medium)]
 public class Solution : SolutionBase2021
 {
     public override int Day => 12;

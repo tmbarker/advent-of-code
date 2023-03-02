@@ -1,3 +1,4 @@
+using Problems.Attributes;
 using Problems.Y2022.Common;
 using Utilities.Cartesian;
 
@@ -6,6 +7,7 @@ namespace Problems.Y2022.D09;
 /// <summary>
 /// Rope Bridge: https://adventofcode.com/2022/day/9
 /// </summary>
+[Favourite("Rope Bridge", Topics.Vectors, Difficulty.Medium)]
 public class Solution : SolutionBase2022
 {
     private static readonly Dictionary<string, Vector2D> VectorMap = new()

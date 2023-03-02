@@ -1,11 +1,13 @@
-using Problems.Y2020.Common;
 using System.Text.RegularExpressions;
+using Problems.Attributes;
+using Problems.Y2020.Common;
 
 namespace Problems.Y2020.D04;
 
 /// <summary>
 /// Passport Processing: https://adventofcode.com/2020/day/4
 /// </summary>
+[Favourite("Passport Processing", Topics.RegularExpressions, Difficulty.Medium)]
 public class Solution : SolutionBase2020
 {
     private const RegexOptions Options = RegexOptions.Multiline;

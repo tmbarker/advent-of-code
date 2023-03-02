@@ -1,3 +1,4 @@
+using Problems.Attributes;
 using Problems.Y2021.Common;
 using Utilities.Cartesian;
 
@@ -6,6 +7,7 @@ namespace Problems.Y2021.D19;
 /// <summary>
 /// Beacon Scanner: https://adventofcode.com/2021/day/19
 /// </summary>
+[Favourite("Beacon Scanner", Topics.Vectors, Difficulty.Hard)]
 public class Solution : SolutionBase2021
 {
     private const int IntersectionThreshold = 12;
