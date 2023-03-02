@@ -15,9 +15,9 @@ public class Solution : SolutionBase2019
     {
         return part switch
         {
-            0 => RunBoostProgram(1L),
-            1 => RunBoostProgram(2L),
-            _ => ProblemNotSolvedString,
+            0 => RunBoostProgram(input: 1L),
+            1 => RunBoostProgram(input: 2L),
+            _ => ProblemNotSolvedString
         };
     }
 

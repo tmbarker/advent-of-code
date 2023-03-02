@@ -1,3 +1,4 @@
+using Problems.Attributes;
 using Problems.Y2019.Common;
 using Utilities.Cartesian;
 using Utilities.Extensions;
@@ -10,6 +11,7 @@ using PathCosts = IDictionary<Vector2D, int>;
 /// <summary>
 /// Crossed Wires: https://adventofcode.com/2019/day/3
 /// </summary>
+[Favourite("Crossed Wires", Topics.Vectors, Difficulty.Easy)]
 public class Solution : SolutionBase2019
 {
     private static readonly Dictionary<char, Vector2D> Directions = new()

@@ -11,4 +11,5 @@ public enum Topics
     RegularExpressions =  1 << 5,
     Assembly =            1 << 6,
     Math =                1 << 7,
+    IntCode =             1 << 8,
 }

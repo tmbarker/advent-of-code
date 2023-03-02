@@ -10,9 +10,6 @@ namespace Problems.Y2021.D06;
 public class Solution : SolutionBase2021
 {
     private const char Delimiter = ',';
-
-    private const int DaysPart1 = 80;
-    private const int DaysPart2 = 256;
     private const int ResetTo = 6;
     private const int SpawnAt = 8;
 
@@ -22,8 +19,8 @@ public class Solution : SolutionBase2021
     {
         return part switch
         {
-            0 => ModelLanternFish(GetInitialState(), DaysPart1),
-            1 => ModelLanternFish(GetInitialState(), DaysPart2),
+            0 => ModelLanternFish(GetInitialState(), days: 80),
+            1 => ModelLanternFish(GetInitialState(), days: 256),
             _ => ProblemNotSolvedString,
         };
     }

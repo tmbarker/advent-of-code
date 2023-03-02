@@ -84,7 +84,7 @@ public class Screen
             return gobType switch
             {
                 GameObject.Wall => "▓",
-                GameObject.Block => "░",
+                GameObject.Block => "#",
                 GameObject.Paddle => "─",
                 GameObject.Empty => " ",
                 GameObject.Ball => "O",

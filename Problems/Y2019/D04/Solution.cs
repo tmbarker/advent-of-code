@@ -15,8 +15,8 @@ public class Solution : SolutionBase2019
         var range = ParseValidRange(GetInputText());
         return part switch
         {
-            0 => CountValidPasswords(range, 2, 6),
-            1 => CountValidPasswords(range, 2, 2),
+            0 => CountValidPasswords(range, minRun: 2, maxRun: 6),
+            1 => CountValidPasswords(range, minRun: 2, maxRun: 2),
             _ => ProblemNotSolvedString,
         };
     }

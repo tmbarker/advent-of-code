@@ -1,3 +1,4 @@
+using Problems.Attributes;
 using Problems.Y2019.Common;
 using Utilities.Extensions;
 using Utilities.Graph;
@@ -10,6 +11,7 @@ using Memo = IDictionary<string, int>;
 /// <summary>
 /// Universal Orbit Map: https://adventofcode.com/2019/day/6
 /// </summary>
+[Favourite("Universal Orbit Map", Topics.Graphs|Topics.Recursion, Difficulty.Easy)]
 public class Solution : SolutionBase2019
 {
     private const string Com = "COM";

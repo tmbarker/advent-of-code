@@ -8,9 +8,6 @@ namespace Problems.Y2019.D05;
 /// </summary>
 public class Solution : SolutionBase2019
 {
-    private const int SystemId1 = 1;
-    private const int SystemId2 = 5;
-    
     public override int Day => 5;
     
     public override object Run(int part)
@@ -18,16 +15,15 @@ public class Solution : SolutionBase2019
         var program = LoadIntCodeProgram();
         return part switch
         {
-            0 => RunTestProgram(program, SystemId1),
-            1 => RunTestProgram(program, SystemId2),
+            0 => RunTestProgram(program, systemId: 1),
+            1 => RunTestProgram(program, systemId: 5),
             _ => ProblemNotSolvedString,
         };
     }
 
     private static long RunTestProgram(IList<long> program, int systemId)
     {
-        var vm = IntCodeVm.Create(program);
-        vm.InputBuffer.Enqueue(systemId);
+        var vm = IntCodeVm.Create(program, systemId);
         vm.Run();
         return vm.OutputBuffer.Last();
     }

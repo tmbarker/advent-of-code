@@ -1,4 +1,5 @@
 using System.Text.RegularExpressions;
+using Problems.Attributes;
 using Problems.Common;
 using Problems.Y2019.Common;
 using Utilities.Cartesian;
@@ -9,10 +10,9 @@ namespace Problems.Y2019.D12;
 /// <summary>
 /// The N-Body Problem: https://adventofcode.com/2019/day/12
 /// </summary>
+[Favourite("The N-Body Problem", Topics.Math, Difficulty.Medium)]
 public class Solution : SolutionBase2019
 {
-    private const int Steps = 1000;
-    
     public override int Day => 12;
     
     public override object Run(int part)
@@ -20,7 +20,7 @@ public class Solution : SolutionBase2019
         var bodies = ParseInitialStates(GetInputLines());
         return part switch
         {
-            0 => ComputeEnergyAfterSteps(bodies, Steps),
+            0 => ComputeEnergyAfterSteps(bodies, steps: 1000),
             1 => ComputeFirstSystemCycle(bodies),
             _ => ProblemNotSolvedString
         };

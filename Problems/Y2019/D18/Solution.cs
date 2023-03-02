@@ -13,8 +13,8 @@ public class Solution : SolutionBase2019
     {
         return part switch
         {
-            0 => FindShortestPath(false, false),
-            1 => FindShortestPath(true, true),
+            0 => FindShortestPath(applyInputOverrides: false, ignoreDoors: false),
+            1 => FindShortestPath(applyInputOverrides: true,  ignoreDoors: true),
             _ => ProblemNotSolvedString
         };
     }

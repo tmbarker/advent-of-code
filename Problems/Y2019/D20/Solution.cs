@@ -1,3 +1,4 @@
+using Problems.Attributes;
 using Problems.Common;
 using Problems.Y2019.Common;
 using Utilities.Cartesian;
@@ -11,6 +12,7 @@ using AdjacencyList = Dictionary<Vector2D, HashSet<Vector2D>>;
 /// <summary>
 /// Donut Maze: https://adventofcode.com/2019/day/20
 /// </summary>
+[Favourite("Donut Maze", Topics.Graphs, Difficulty.Hard)]
 public class Solution : SolutionBase2019
 { 
     private const char Traversable = '.';

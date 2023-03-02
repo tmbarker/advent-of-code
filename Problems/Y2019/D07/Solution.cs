@@ -14,8 +14,8 @@ public class Solution : SolutionBase2019
     {
         return part switch
         {
-            0 => FindMaxSignalLinear(0, 4),
-            1 => FindMaxSignalLooped(5, 9),
+            0 => FindMaxSignalLinear(minPhase: 0, maxPhase: 4),
+            1 => FindMaxSignalLooped(minPhase: 5, maxPhase: 9),
             _ => ProblemNotSolvedString
         };
     }

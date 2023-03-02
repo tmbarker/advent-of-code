@@ -1,3 +1,4 @@
+using Problems.Attributes;
 using Problems.Y2019.Common;
 using Problems.Y2019.IntCode;
 using Utilities.Cartesian;
@@ -7,6 +8,7 @@ namespace Problems.Y2019.D13;
 /// <summary>
 /// Care Package: https://adventofcode.com/2019/day/13
 /// </summary>
+[Favourite("Care Package", Topics.IntCode, Difficulty.Medium)]
 public class Solution : SolutionBase2019
 {
     public override int Day => 13;
