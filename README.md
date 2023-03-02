@@ -37,13 +37,14 @@ Puzzle | My Solution | Date | Topic(s) | Difficulty
 :--- | :---: | :---: | :--- | :---
 [Crossed Wires](https://adventofcode.com/2019/day/3) | [Solution](https://github.com/tmbarker/advent-of-code/blob/main/Problems/Y2019/D03/Solution.cs) | 2019-03 | Vectors | :green_circle: Easy
 [Universal Orbit Map](https://adventofcode.com/2019/day/6) | [Solution](https://github.com/tmbarker/advent-of-code/blob/main/Problems/Y2019/D06/Solution.cs) | 2019-06 | Graphs, Recursion | :green_circle: Easy
-[The N-Body Problem](https://adventofcode.com/2019/day/12) | [Solution](https://github.com/tmbarker/advent-of-code/blob/main/Problems/Y2019/D12/Solution.cs) | 2019-12 | Math | :yellow_circle: Medium
+[The N-Body Problem](https://adventofcode.com/2019/day/12) | [Solution](https://github.com/tmbarker/advent-of-code/blob/main/Problems/Y2019/D12/Solution.cs) | 2019-12 | Math | :red_circle: Hard
 [Care Package](https://adventofcode.com/2019/day/13) | [Solution](https://github.com/tmbarker/advent-of-code/blob/main/Problems/Y2019/D13/Solution.cs) | 2019-13 | Int Code | :yellow_circle: Medium
 [Donut Maze](https://adventofcode.com/2019/day/20) | [Solution](https://github.com/tmbarker/advent-of-code/blob/main/Problems/Y2019/D20/Solution.cs) | 2019-20 | Graphs | :red_circle: Hard
 
 ## Running a Solution
 1. From your terminal, using the .NET CLI
 ```
+cd aoc
 dotnet run <year> <day>
 ```
 

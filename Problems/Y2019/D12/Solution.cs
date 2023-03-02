@@ -10,7 +10,7 @@ namespace Problems.Y2019.D12;
 /// <summary>
 /// The N-Body Problem: https://adventofcode.com/2019/day/12
 /// </summary>
-[Favourite("The N-Body Problem", Topics.Math, Difficulty.Medium)]
+[Favourite("The N-Body Problem", Topics.Math, Difficulty.Hard)]
 public class Solution : SolutionBase2019
 {
     public override int Day => 12;
