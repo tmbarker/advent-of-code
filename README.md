@@ -45,7 +45,7 @@ Puzzle | My Solution | Date | Topic(s) | Difficulty
 1. From your terminal, using the .NET CLI
 ```
 cd aoc
-dotnet run <year> <day>
+dotnet run solve <year> <day>
 ```
 
 2. From a `.cs` file, using reflective `SolutionRunner`:

@@ -1,18 +1,37 @@
-﻿// See https://aka.ms/new-console-template for more information
-
+﻿using System.CommandLine;
+using Automation.Readme;
 using Automation.SolutionRunner;
 
-var year = 2022;
-var day = 1;
+namespace Aoc;
 
-if (args.Length >= 1 && int.TryParse(args[0], out var yearArg))
+internal static class Program
 {
-    year = yearArg;
-}
+    public static async Task<int> Main(string[] args)
+    {
+        var solveCommand = new Command(
+            name: "solve", 
+            description: "Run the specified problem solution, if it exists");
+        var yearArg = new Argument<int>(
+            name: "year", 
+            description: "The year the problem belongs to");
+        var dayArg = new Argument<int>(
+            name: "day", 
+            description: "The problem day");
+        
+        solveCommand.AddArgument(yearArg);
+        solveCommand.AddArgument(dayArg);
+        solveCommand.SetHandler(SolutionRunner.Run, yearArg, dayArg);
+        
+        var updateReadmeCommand = new Command(
+            name: "update-readme", 
+            description: "Generate the README.md favourite problem tables");
+        
+        updateReadmeCommand.SetHandler(ReadmeUtils.UpdateFavouritePuzzles);
 
-if (args.Length >= 2 && int.TryParse(args[1], out var dayArg))
-{
-    day = dayArg;
+        var rootCommand = new RootCommand(description: "CLI entry point for running AoC problem solutions");
+        rootCommand.AddCommand(solveCommand);
+        rootCommand.AddCommand(updateReadmeCommand);
+        
+        return await rootCommand.InvokeAsync(args);
+    }
 }
-
-SolutionRunner.Run(year, day);
