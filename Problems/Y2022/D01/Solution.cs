@@ -13,9 +13,9 @@ public class Solution : SolutionBase2022
     {
         return part switch
         {
-            0 => GetMaxCalories(1),
-            1 => GetMaxCalories(3),
-            _ => ProblemNotSolvedString,
+            1 =>  GetMaxCalories(1),
+            2 =>  GetMaxCalories(3),
+            _ => ProblemNotSolvedString
         };
     }
 

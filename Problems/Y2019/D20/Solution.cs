@@ -26,8 +26,8 @@ public class Solution : SolutionBase2019
         var maze = ParseMaze();
         return part switch
         {
-            0 => Traverse(maze, MazeType.Static),
-            1 => Traverse(maze, MazeType.Recursive),
+            1 =>  Traverse(maze, MazeType.Static),
+            2 =>  Traverse(maze, MazeType.Recursive),
             _ => ProblemNotSolvedString
         };
     }

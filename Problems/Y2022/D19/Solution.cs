@@ -29,9 +29,9 @@ public class Solution : SolutionBase2022
         var blueprints = ParseBlueprints(GetInputLines());
         return part switch
         {
-            0 => EvaluateQualityLevels(blueprints, TimeLimitPart1),
-            1 => ComputeBlueprintProducts(blueprints.Take(NumBlueprintsPart2), TimeLimitPart2),
-            _ => ProblemNotSolvedString,
+            1 =>  EvaluateQualityLevels(blueprints, TimeLimitPart1),
+            2 =>  ComputeBlueprintProducts(blueprints.Take(NumBlueprintsPart2), TimeLimitPart2),
+            _ => ProblemNotSolvedString
         };
     }
 

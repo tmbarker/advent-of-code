@@ -59,6 +59,6 @@ SolutionRunner.Run(year: <year>, day: <day>);
 using Problems.Y<year>.D<day>;
 
 var solution = new Solution();
-var p1 = solution.Run(part: 0);
-var p2 = solution.Run(part: 1);
+var p1 = solution.Run(part: 1);
+var p2 = solution.Run(part: 2);
 ```

@@ -13,9 +13,9 @@ public class Solution : SolutionBase2022
     { 
         return part switch
         {
-            0 => GetNumInclusivePairs(),
-            1 => GetNumIntersectingPairs(),
-            _ => ProblemNotSolvedString,
+            1 =>  GetNumInclusivePairs(),
+            2 =>  GetNumIntersectingPairs(),
+            _ => ProblemNotSolvedString
         };
     }
 

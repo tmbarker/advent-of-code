@@ -17,9 +17,9 @@ public class Solution : SolutionBase2020
         var numbers = GetNumbers(GetInputLines());
         return part switch
         {
-            0 => FindWeakness(numbers),
-            1 => ExploitWeakness(numbers),
-            _ => ProblemNotSolvedString,
+            1 =>  FindWeakness(numbers),
+            2 =>  ExploitWeakness(numbers),
+            _ => ProblemNotSolvedString
         };
     }
 

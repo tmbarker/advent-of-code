@@ -26,9 +26,9 @@ public class Solution : SolutionBase2020
         
         return part switch
         {
-            0 => SumCompletelyInvalidFields(validators, others),
-            1 => ComputeTicketFieldsProduct(yours, fields, BuildFieldMap(yours, others, validators)),
-            _ => ProblemNotSolvedString,
+            1 =>  SumCompletelyInvalidFields(validators, others),
+            2 =>  ComputeTicketFieldsProduct(yours, fields, BuildFieldMap(yours, others, validators)),
+            _ => ProblemNotSolvedString
         };
     }
 

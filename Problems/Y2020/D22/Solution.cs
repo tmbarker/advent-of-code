@@ -16,9 +16,9 @@ public class Solution : SolutionBase2020
         var decks = ParseDecks(GetInputLines());
         return part switch
         {
-            0 => PlaySimpleGame(decks.P1, decks.P2),
-            1 => PlayRecursiveGame(decks.P1, decks.P2).WinningScore,
-            _ => ProblemNotSolvedString,
+            1 =>  PlaySimpleGame(decks.P1, decks.P2),
+            2 =>  PlayRecursiveGame(decks.P1, decks.P2).WinningScore,
+            _ => ProblemNotSolvedString
         };
     }
 

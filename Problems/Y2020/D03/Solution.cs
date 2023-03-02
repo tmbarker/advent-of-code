@@ -29,9 +29,9 @@ public class Solution : SolutionBase2020
         var forest = GetInputLines();
         return part switch
         {
-            0 => GetTreesOnTrajectoryCount(InitialPos, Trajectory, forest),
-            1 => GetTreesOnTrajectoriesProduct(InitialPos, Trajectories, forest),
-            _ => ProblemNotSolvedString,
+            1 =>  GetTreesOnTrajectoryCount(InitialPos, Trajectory, forest),
+            2 =>  GetTreesOnTrajectoriesProduct(InitialPos, Trajectories, forest),
+            _ => ProblemNotSolvedString
         };
     }
 

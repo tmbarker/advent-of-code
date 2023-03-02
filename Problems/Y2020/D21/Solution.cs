@@ -18,9 +18,9 @@ public class Solution : SolutionBase2020
         
         return part switch
         {
-            0 => CountAllergenFreeIngredients(allergens, foods),
-            1 => FormAllergensList(allergens),
-            _ => ProblemNotSolvedString,
+            1 =>  CountAllergenFreeIngredients(allergens, foods),
+            2 =>  FormAllergensList(allergens),
+            _ => ProblemNotSolvedString
         };
     }
 

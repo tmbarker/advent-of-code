@@ -16,9 +16,9 @@ public class Solution : SolutionBase2021
         var target = ParseTarget();
         return part switch
         {
-            0 => ComputeMaxProjectileHeight(target),
-            1 => ComputeNumTrajectories(target),
-            _ => ProblemNotSolvedString,
+            1 =>  ComputeMaxProjectileHeight(target),
+            2 =>  ComputeNumTrajectories(target),
+            _ => ProblemNotSolvedString
         };
     }
 

@@ -52,9 +52,9 @@ public class Solution : SolutionBase2020
         ParseInput(GetInputLines(), out var rules, out var messages);
         return part switch
         {
-            0 => CountMatches(Rule, messages, rules, false),
-            1 => CountMatches(Rule, messages, rules, true),
-            _ => ProblemNotSolvedString,
+            1 =>  CountMatches(Rule, messages, rules, false),
+            2 =>  CountMatches(Rule, messages, rules, true),
+            _ => ProblemNotSolvedString
         };
     }
 

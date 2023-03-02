@@ -22,9 +22,9 @@ public class Solution : SolutionBase2022
         
         return part switch
         {
-            0 => GetMaxFlowAlone(strategyFinder),
-            1 => GetMaxFlowWithHelp(strategyFinder),
-            _ => ProblemNotSolvedString,
+            1 =>  GetMaxFlowAlone(strategyFinder),
+            2 =>  GetMaxFlowWithHelp(strategyFinder),
+            _ => ProblemNotSolvedString
         };
     }
 

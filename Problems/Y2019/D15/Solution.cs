@@ -38,8 +38,8 @@ public class Solution : SolutionBase2019
         
         return part switch
         {
-            0 => ComputeCostToTarget(map),
-            1 => ComputeMaxCostFromTarget(map),
+            1 =>  ComputeCostToTarget(map),
+            2 =>  ComputeMaxCostFromTarget(map),
             _ => ProblemNotSolvedString
         };
     }

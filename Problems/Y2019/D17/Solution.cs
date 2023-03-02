@@ -36,8 +36,8 @@ public class Solution : SolutionBase2019
         
         return part switch
         {
-            0 => SumAlignmentParams(state.Scaffolding),
-            1 => GetCollectedDust(state.Scaffolding, state.Robot),
+            1 =>  SumAlignmentParams(state.Scaffolding),
+            2 =>  GetCollectedDust(state.Scaffolding, state.Robot),
             _ => ProblemNotSolvedString
         };
     }

@@ -18,9 +18,9 @@ public class Solution : SolutionBase2021
         var grid = ParseGrid(GetInputLines());
         return part switch
         {
-            0 => SumRiskLevel(grid),
-            1 => MeasureLargestBasins(grid),
-            _ => ProblemNotSolvedString,
+            1 =>  SumRiskLevel(grid),
+            2 =>  MeasureLargestBasins(grid),
+            _ => ProblemNotSolvedString
         };
     }
 

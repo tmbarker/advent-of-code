@@ -17,8 +17,8 @@ public class Solution : SolutionBase2020
     {
         return part switch
         {
-            0 => CrackEncryption(ParsePublicKeys(GetInputLines())),
-            _ => ProblemNotSolvedString,
+            1 =>  CrackEncryption(ParsePublicKeys(GetInputLines())),
+            _ => ProblemNotSolvedString
         };
     }
 

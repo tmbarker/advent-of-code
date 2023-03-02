@@ -14,9 +14,9 @@ public class Solution : SolutionBase2020
         var program = GetInputLines();
         return part switch
         { 
-            0 => Machine.RunV1(program),
-            1 => Machine.RunV2(program),
-            _ => ProblemNotSolvedString,
+            1 =>  Machine.RunV1(program),
+            2 =>  Machine.RunV2(program),
+            _ => ProblemNotSolvedString
         };
     }
 }

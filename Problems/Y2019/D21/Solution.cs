@@ -52,8 +52,8 @@ public class Solution : SolutionBase2019
     {
         return part switch
         {
-            0 => RunSpringdroid(WalkScript),
-            1 => RunSpringdroid(RunScript),
+            1 =>  RunSpringdroid(WalkScript),
+            2 =>  RunSpringdroid(RunScript),
             _ => ProblemNotSolvedString
         };
     }

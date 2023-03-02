@@ -28,8 +28,8 @@ public class Solution : SolutionBase2022
     {
         return part switch
         {
-            0 => DecimalToSnafu(SumSnafuNumbers(GetInputLines())),
-            _ => ProblemNotSolvedString,
+            1 =>  DecimalToSnafu(SumSnafuNumbers(GetInputLines())),
+            _ => ProblemNotSolvedString
         };
     }
 

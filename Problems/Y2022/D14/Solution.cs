@@ -29,9 +29,9 @@ public class Solution : SolutionBase2022
         
         return part switch
         {
-            0 => CountSandWithAbyss(occupiedPositions),
-            1 => CountSandWithFloor(occupiedPositions),
-            _ => ProblemNotSolvedString,
+            1 =>  CountSandWithAbyss(occupiedPositions),
+            2 =>  CountSandWithFloor(occupiedPositions),
+            _ => ProblemNotSolvedString
         };
     }
     

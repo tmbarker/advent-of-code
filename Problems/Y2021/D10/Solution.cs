@@ -24,9 +24,9 @@ public class Solution : SolutionBase2021
         var lines = GetInputLines();
         return part switch
         {
-            0 => SumCorruptedLineSyntaxErrors(lines),
-            1 => GetMedianCompletionStringScore(lines),
-            _ => ProblemNotSolvedString,
+            1 =>  SumCorruptedLineSyntaxErrors(lines),
+            2 =>  GetMedianCompletionStringScore(lines),
+            _ => ProblemNotSolvedString
         };
     }
 

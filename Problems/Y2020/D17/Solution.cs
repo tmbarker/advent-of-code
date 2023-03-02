@@ -20,9 +20,9 @@ public class Solution : SolutionBase2020
     {
         return part switch
         {
-            0 => Cycle3D(GetInputLines(), Cycles),
-            1 => Cycle4D(GetInputLines(), Cycles),
-            _ => ProblemNotSolvedString,
+            1 =>  Cycle3D(GetInputLines(), Cycles),
+            2 =>  Cycle4D(GetInputLines(), Cycles),
+            _ => ProblemNotSolvedString
         };
     }
 

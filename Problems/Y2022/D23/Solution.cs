@@ -19,9 +19,9 @@ public class Solution : SolutionBase2022
         var positions = ParsePositions(GetInputLines());
         return part switch
         {
-            0 => EmptyPositionsInBoundingBox(Simulate(positions, NumRounds)),
-            1 => SimulateToSteadyState(positions),
-            _ => ProblemNotSolvedString,
+            1 =>  EmptyPositionsInBoundingBox(Simulate(positions, NumRounds)),
+            2 =>  SimulateToSteadyState(positions),
+            _ => ProblemNotSolvedString
         };
     }
     

@@ -16,9 +16,9 @@ public class Solution : SolutionBase2020
         var instructions = ParseInstructions(GetInputLines());
         return part switch
         {
-            0 => GetAccumulatorBeforeFirstLoop(instructions).Result,
-            1 => GetResultAfterInstructionFixup(instructions).Result,
-            _ => ProblemNotSolvedString,
+            1 =>  GetAccumulatorBeforeFirstLoop(instructions).Result,
+            2 =>  GetResultAfterInstructionFixup(instructions).Result,
+            _ => ProblemNotSolvedString
         };
     }
 

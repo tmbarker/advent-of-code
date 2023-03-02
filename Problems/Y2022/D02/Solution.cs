@@ -30,9 +30,9 @@ public class Solution : SolutionBase2022
     {
         return part switch
         {
-            0 => EvaluateStrategyGuide1(),
-            1 => EvaluateStrategyGuide2(),
-            _ => ProblemNotSolvedString,
+            1 =>  EvaluateStrategyGuide1(),
+            2 =>  EvaluateStrategyGuide2(),
+            _ => ProblemNotSolvedString
         };
     }
 

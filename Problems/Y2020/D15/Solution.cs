@@ -17,9 +17,9 @@ public class Solution : SolutionBase2020
         var initialNumbers = GetInitialNumbers(GetInputText());
         return part switch
         {
-            0 => GetNthSpokenNumber(initialNumbers, Turns1),
-            1 => GetNthSpokenNumber(initialNumbers, Turns2),
-            _ => ProblemNotSolvedString,
+            1 =>  GetNthSpokenNumber(initialNumbers, Turns1),
+            2 =>  GetNthSpokenNumber(initialNumbers, Turns2),
+            _ => ProblemNotSolvedString
         };
     }
 

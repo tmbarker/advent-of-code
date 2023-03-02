@@ -19,8 +19,8 @@ public class Solution : SolutionBase2019
         var data = ParseNumbers(GetInputText());
         return part switch
         {
-            0 => FormOutputString(Fft(data, Phases).Take(OutputStringLength)),
-            _ => ProblemNotSolvedString,
+            1 =>  FormOutputString(Fft(data, Phases).Take(OutputStringLength)),
+            _ => ProblemNotSolvedString
         };
     }
 

@@ -42,9 +42,9 @@ public class Solution : SolutionBase2021
 
         return part switch
         {
-            0 => CountUniqueSegmentDigitOccurrences(notes),
-            1 => SumDecodedOutputs(notes),
-            _ => ProblemNotSolvedString,
+            1 =>  CountUniqueSegmentDigitOccurrences(notes),
+            2 =>  SumDecodedOutputs(notes),
+            _ => ProblemNotSolvedString
         };
     }
 

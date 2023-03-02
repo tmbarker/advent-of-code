@@ -27,9 +27,9 @@ public class Solution : SolutionBase2022
         var encryptedNumbers = GetEncryptedNumbers();
         return part switch
         {
-            0 => DecodeCoordinates(encryptedNumbers, Key1, Mixes1, CoordinateOffsets),
-            1 => DecodeCoordinates(encryptedNumbers, Key2, Mixes2, CoordinateOffsets),
-            _ => ProblemNotSolvedString,
+            1 =>  DecodeCoordinates(encryptedNumbers, Key1, Mixes1, CoordinateOffsets),
+            2 =>  DecodeCoordinates(encryptedNumbers, Key2, Mixes2, CoordinateOffsets),
+            _ => ProblemNotSolvedString
         };
     }
 

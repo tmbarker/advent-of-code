@@ -45,7 +45,7 @@ public static class FavouriteTableFormatter
     {
         var topicStrings = 
             from topic in Enum.GetValues<Topics>() 
-            where topics.HasFlag(topic)
+            where (topics & topic) > 0
             select CamelCaseRegex.Replace(topic.ToString(), " $1");
 
         return string.Join(", ", topicStrings);

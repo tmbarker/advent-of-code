@@ -18,9 +18,9 @@ public class Solution : SolutionBase2022
         var datastream = GetInputText();
         return part switch
         {
-            0 => ListenForStartMarker(datastream, PacketMarkerLength),
-            1 => ListenForStartMarker(datastream, MessageMarkerLength),
-            _ => ProblemNotSolvedString,
+            1 =>  ListenForStartMarker(datastream, PacketMarkerLength),
+            2 =>  ListenForStartMarker(datastream, MessageMarkerLength),
+            _ => ProblemNotSolvedString
         };
     }
 

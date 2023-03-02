@@ -26,9 +26,9 @@ public class Solution : SolutionBase2022
     {
         return part switch
         {
-            0 => GetHeightNaive(NumRocksPart1, out _),
-            1 => GetHeightUsingCycle(NumRocksPart2),
-            _ => ProblemNotSolvedString,
+            1 =>  GetHeightNaive(NumRocksPart1, out _),
+            2 =>  GetHeightUsingCycle(NumRocksPart2),
+            _ => ProblemNotSolvedString
         };
     }
 

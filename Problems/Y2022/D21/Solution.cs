@@ -26,9 +26,9 @@ public class Solution : SolutionBase2022
         var expressions = ParseExpressions(GetInputLines());
         return part switch
         {
-            0 => EvaluateExpression(Root, expressions),
-            1 => SolveForUnknown(Root, Unknown, expressions),
-            _ => ProblemNotSolvedString,
+            1 =>  EvaluateExpression(Root, expressions),
+            2 =>  SolveForUnknown(Root, Unknown, expressions),
+            _ => ProblemNotSolvedString
         };
     }
 

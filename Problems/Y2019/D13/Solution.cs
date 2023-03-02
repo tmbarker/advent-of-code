@@ -17,8 +17,8 @@ public class Solution : SolutionBase2019
     {
         return part switch
         {
-            0 => CountGameObjects(GameObject.Block),
-            1 => GetWinningScore(true),
+            1 =>  CountGameObjects(GameObject.Block),
+            2 =>  GetWinningScore(true),
             _ => ProblemNotSolvedString
         };
     }

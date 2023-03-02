@@ -19,8 +19,8 @@ public class Solution : SolutionBase2019
         var reactions = ParseReactions(GetInputLines());
         return part switch
         {
-            0 => ComputeFuelCost(1, reactions),
-            1 => ComputeMaxFuelOutput(OreFunds, reactions),
+            1 =>  ComputeFuelCost(1, reactions),
+            2 =>  ComputeMaxFuelOutput(OreFunds, reactions),
             _ => ProblemNotSolvedString
         };
     }

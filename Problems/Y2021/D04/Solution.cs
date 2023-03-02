@@ -15,9 +15,9 @@ public class Solution : SolutionBase2021
         BingoData.Parse(GetInputLines(), out var draw, out var cards);
         return part switch
         {
-            0 => GetFirstWinningCardScore(draw!, cards!),
-            1 => GetLastWinningCardScore(draw!, cards!),
-            _ => ProblemNotSolvedString,
+            1 =>  GetFirstWinningCardScore(draw!, cards!),
+            2 =>  GetLastWinningCardScore(draw!, cards!),
+            _ => ProblemNotSolvedString
         };
     }
 

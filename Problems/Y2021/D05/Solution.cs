@@ -18,9 +18,9 @@ public class Solution : SolutionBase2021
     { 
         return part switch
         {
-            0 => CountDangerousLocations(true),
-            1 => CountDangerousLocations(false),
-            _ => ProblemNotSolvedString,
+            1 =>  CountDangerousLocations(true),
+            2 =>  CountDangerousLocations(false),
+            _ => ProblemNotSolvedString
         };
     }
 

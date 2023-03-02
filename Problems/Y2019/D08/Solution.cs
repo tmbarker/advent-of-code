@@ -25,9 +25,9 @@ public class Solution : SolutionBase2019
         var layers = ParseLayers(GetInputText());
         return part switch
         {
-            0 => ComputeMinLayerProduct(layers),
-            1 => BuildResultingImage(layers),
-            _ => ProblemNotSolvedString,
+            1 =>  ComputeMinLayerProduct(layers),
+            2 =>  BuildResultingImage(layers),
+            _ => ProblemNotSolvedString
         };
     }
 

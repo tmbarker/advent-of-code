@@ -29,9 +29,9 @@ public class Solution : SolutionBase2020
         var passports = ParsePassportData(GetInputText());
         return part switch
         {
-            0 => passports.Count(ValidatePassportFieldPresence),
-            1 => passports.Count(ValidatePassportFieldData),
-            _ => ProblemNotSolvedString,
+            1 =>  passports.Count(ValidatePassportFieldPresence),
+            2 =>  passports.Count(ValidatePassportFieldData),
+            _ => ProblemNotSolvedString
         };
     }
 

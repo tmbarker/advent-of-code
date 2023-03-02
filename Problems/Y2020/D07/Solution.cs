@@ -22,9 +22,9 @@ public class Solution : SolutionBase2020
         var map = ParseCapacityMap(GetInputLines());
         return part switch
         {
-            0 => CountBagsThatCanContain(ShinyGold, map),
-            1 => CountBagsInside(ShinyGold, map),
-            _ => ProblemNotSolvedString,
+            1 =>  CountBagsThatCanContain(ShinyGold, map),
+            2 =>  CountBagsInside(ShinyGold, map),
+            _ => ProblemNotSolvedString
         };
     }
 

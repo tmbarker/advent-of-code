@@ -21,9 +21,9 @@ public class Solution : SolutionBase2021
         ParseInput(GetInputLines(), out var litInImage, out var algorithm);
         return part switch
         {
-            0 => EnhanceImage(litInImage, algorithm, Steps1).Count,
-            1 => EnhanceImage(litInImage, algorithm, Steps2).Count,
-            _ => ProblemNotSolvedString,
+            1 =>  EnhanceImage(litInImage, algorithm, Steps1).Count,
+            2 =>  EnhanceImage(litInImage, algorithm, Steps2).Count,
+            _ => ProblemNotSolvedString
         };
     }
 

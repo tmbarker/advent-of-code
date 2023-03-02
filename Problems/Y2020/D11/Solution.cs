@@ -15,9 +15,9 @@ public class Solution : SolutionBase2020
         var seatMap = SeatMap.Parse(GetInputLines());
         return part switch
         {
-            0 => CountOccupiedSeatsAtSteadyState(seatMap, Concern.Adjacent, moveThreshold: 4),
-            1 => CountOccupiedSeatsAtSteadyState(seatMap, Concern.Visible, moveThreshold: 5),
-            _ => ProblemNotSolvedString,
+            1 =>  CountOccupiedSeatsAtSteadyState(seatMap, Concern.Adjacent, moveThreshold: 4),
+            2 =>  CountOccupiedSeatsAtSteadyState(seatMap, Concern.Visible, moveThreshold: 5),
+            _ => ProblemNotSolvedString
         };
     }
 

@@ -15,9 +15,9 @@ public class Solution : SolutionBase2020
         var boardingPasses = GetInputLines();
         return part switch
         {
-            0 => boardingPasses.Max(GetSeatId),
-            1 => FindMissingSeat(boardingPasses),
-            _ => ProblemNotSolvedString,
+            1 =>  boardingPasses.Max(GetSeatId),
+            2 =>  FindMissingSeat(boardingPasses),
+            _ => ProblemNotSolvedString
         };
     }
 

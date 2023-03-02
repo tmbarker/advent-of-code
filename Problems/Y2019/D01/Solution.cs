@@ -14,9 +14,9 @@ public class Solution : SolutionBase2019
         var masses = ParseMasses(GetInputLines());
         return part switch
         {
-            0 => masses.Sum(GetNaiveFuelRequirement),
-            1 => masses.Sum(GetIterativeFuelRequirement),
-            _ => ProblemNotSolvedString,
+            1 =>  masses.Sum(GetNaiveFuelRequirement),
+            2 =>  masses.Sum(GetIterativeFuelRequirement),
+            _ => ProblemNotSolvedString
         };
     }
 

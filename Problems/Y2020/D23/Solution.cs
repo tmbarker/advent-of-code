@@ -19,9 +19,9 @@ public class Solution : SolutionBase2020
         var numbers = ParseNumbers(GetInputText());
         return part switch
         {
-            0 => FormWrappingString(PlayGame(Moves1, numbers)),
-            1 => ComputeProduct(PlayGame(Moves2, PadNumbersTo(numbers, PadTo))),
-            _ => ProblemNotSolvedString,
+            1 =>  FormWrappingString(PlayGame(Moves1, numbers)),
+            2 =>  ComputeProduct(PlayGame(Moves2, PadNumbersTo(numbers, PadTo))),
+            _ => ProblemNotSolvedString
         };
     }
 

@@ -16,9 +16,9 @@ public class Solution : SolutionBase2021
     {
         return part switch
         {
-            0 => CountFlashes(Steps),
-            1 => WaitForAllFlashed().Result, 
-            _ => ProblemNotSolvedString,
+            1 =>  CountFlashes(Steps),
+            2 =>  WaitForAllFlashed().Result, 
+            _ => ProblemNotSolvedString
         };
     }
 

@@ -32,9 +32,9 @@ public class Solution : SolutionBase2020
         
         return part switch
         {
-            0 => floor.Count,
-            1 => Simulate(floor, Days).Count,
-            _ => ProblemNotSolvedString,
+            1 =>  floor.Count,
+            2 =>  Simulate(floor, Days).Count,
+            _ => ProblemNotSolvedString
         };
     }
 

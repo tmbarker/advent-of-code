@@ -19,7 +19,7 @@ public static class SolutionRunner
 
         for (var i = 0; i < solution!.Parts; i++)
         {
-            TryRunSolutionPart(solution, i);
+            TryRunSolutionPart(solution, part: i + 1);
         }
     }
 

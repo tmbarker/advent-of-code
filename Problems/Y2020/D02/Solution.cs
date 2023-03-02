@@ -15,9 +15,9 @@ public class Solution : SolutionBase2020
         var policies = ParsePolicies(GetInputLines());
         return part switch
         {
-            0 => CountValidPoliciesWithRange(policies),
-            1 => CountValidPoliciesWithIndices(policies),
-            _ => ProblemNotSolvedString,
+            1 =>  CountValidPoliciesWithRange(policies),
+            2 =>  CountValidPoliciesWithIndices(policies),
+            _ => ProblemNotSolvedString
         };
     }
 

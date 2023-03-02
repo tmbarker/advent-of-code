@@ -14,9 +14,9 @@ public class Solution : SolutionBase2020
         ParseInput(GetInputLines(), out var timestamp, out var busIds);
         return part switch
         {
-            0 => GetNextDeparture(timestamp, busIds),
-            1 => GetFirstIncrementalDeparture(busIds),
-            _ => ProblemNotSolvedString,
+            1 =>  GetNextDeparture(timestamp, busIds),
+            2 =>  GetFirstIncrementalDeparture(busIds),
+            _ => ProblemNotSolvedString
         };
     }
 

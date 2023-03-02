@@ -28,9 +28,9 @@ public class Solution : SolutionBase2022
     {
         return part switch
         {
-            0 => GetFewestStepsFromStart(),
-            1 => GetFewestStepsFromMinHeight(),
-            _ => ProblemNotSolvedString,
+            1 =>  GetFewestStepsFromStart(),
+            2 =>  GetFewestStepsFromMinHeight(),
+            _ => ProblemNotSolvedString
         };
     }
 

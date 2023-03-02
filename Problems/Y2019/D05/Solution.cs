@@ -15,9 +15,9 @@ public class Solution : SolutionBase2019
         var program = LoadIntCodeProgram();
         return part switch
         {
-            0 => RunTestProgram(program, systemId: 1),
-            1 => RunTestProgram(program, systemId: 5),
-            _ => ProblemNotSolvedString,
+            1 =>  RunTestProgram(program, systemId: 1),
+            2 =>  RunTestProgram(program, systemId: 5),
+            _ => ProblemNotSolvedString
         };
     }
 

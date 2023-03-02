@@ -29,9 +29,9 @@ public class Solution : SolutionBase2022
         
         return part switch
         {
-            0 => Traverse(field, start, end, blizzards),
-            1 => Navigate(field, start, end, blizzards),
-            _ => ProblemNotSolvedString,
+            1 =>  Traverse(field, start, end, blizzards),
+            2 =>  Navigate(field, start, end, blizzards),
+            _ => ProblemNotSolvedString
         };
     }
 

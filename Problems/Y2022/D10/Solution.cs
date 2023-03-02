@@ -23,9 +23,9 @@ public class Solution : SolutionBase2022
         var instructions = ParseInstructions(GetInputLines());
         return part switch
         {
-            0 => CalculateSignalStrength(instructions),
-            1 => RenderCrt(instructions),
-            _ => ProblemNotSolvedString,
+            1 =>  CalculateSignalStrength(instructions),
+            2 =>  RenderCrt(instructions),
+            _ => ProblemNotSolvedString
         };
     }
 

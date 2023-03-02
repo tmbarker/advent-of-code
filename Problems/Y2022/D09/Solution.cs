@@ -25,9 +25,9 @@ public class Solution : SolutionBase2022
         var movements = ParseHeadMovements(GetInputLines());
         return part switch
         {
-            0 => CountDistinctKnotPositions(movements, 2),
-            1 => CountDistinctKnotPositions(movements, 10),
-            _ => ProblemNotSolvedString,
+            1 =>  CountDistinctKnotPositions(movements, 2),
+            2 =>  CountDistinctKnotPositions(movements, 10),
+            _ => ProblemNotSolvedString
         };
     }
 

@@ -16,9 +16,9 @@ public class Solution : SolutionBase2021
     {
         return part switch
         {
-            0 => CountPaths(false),
-            1 => CountPaths(true),
-            _ => ProblemNotSolvedString,
+            1 =>  CountPaths(false),
+            2 =>  CountPaths(true),
+            _ => ProblemNotSolvedString
         };
     }
 
