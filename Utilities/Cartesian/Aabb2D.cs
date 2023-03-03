@@ -58,6 +58,13 @@ public readonly struct Aabb2D : IEnumerable<Vector2D>
             pos.Y > YMin && pos.Y < YMax;
     }
 
+    public bool Intersects(Aabb2D other)
+    {
+        return
+            XMin <= other.XMax && other.XMin <= XMax &&
+            YMin <= other.YMax && other.YMin <= YMax;
+    }
+
     public static Aabb2D operator +(Aabb2D lhs, int amount)
     {
         return amount switch
