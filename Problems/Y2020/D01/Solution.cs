@@ -12,7 +12,7 @@ public class Solution : SolutionBase2020
     
     public override object Run(int part)
     {
-        var numbers = ParseNumbers(GetInputLines());
+        var numbers = ParseInputLines(parseFunc: int.Parse).ToHashSet();
         return part switch
         {
             1 => GetSumPairProduct(Year, numbers),
@@ -48,10 +48,5 @@ public class Solution : SolutionBase2020
         }
 
         throw new NoSolutionException();
-    }
-
-    private static IReadOnlySet<int> ParseNumbers(IEnumerable<string> input)
-    {
-        return input.Select(int.Parse).ToHashSet();
     }
 }

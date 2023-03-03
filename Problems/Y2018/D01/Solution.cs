@@ -11,13 +11,13 @@ public class Solution : SolutionBase2018
     
     public override object Run(int part)
     {
-        var input = GetInputLines();
-        var numbers = ParseNumbers(input);
-            
+        var numbers = ParseInputLines(int.Parse);
+        var enumerated = numbers.ToList();
+        
         return part switch
         {
-            1 => numbers.Sum(),
-            2 => GetFirstRepeatedFrequency(numbers),
+            1 => enumerated.Sum(),
+            2 => GetFirstRepeatedFrequency(enumerated),
             _ => ProblemNotSolvedString
         };
     }
@@ -35,10 +35,5 @@ public class Solution : SolutionBase2018
         }
 
         return freq;
-    }
-
-    private static IList<int> ParseNumbers(IList<string> input)
-    {
-        return new List<int>(input.Select(int.Parse));
     }
 }

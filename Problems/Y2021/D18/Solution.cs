@@ -17,7 +17,7 @@ public class Solution : SolutionBase2021
     
     public override object Run(int part)
     {
-        var numbers = ParseNumbers(GetInputLines());
+        var numbers = ParseInputLines(parseFunc: SnailfishParser.Parse).ToList();
         return part switch
         {
             1 => ComputeMagnitude(SumSfNumbers(numbers)),
@@ -190,10 +190,5 @@ public class Solution : SolutionBase2021
         }
 
         return false;
-    }
-
-    private static IList<SfNumber> ParseNumbers(IEnumerable<string> input)
-    {
-        return input.Select(SnailfishParser.Parse).ToList();
     }
 }

@@ -11,7 +11,7 @@ public class Solution : SolutionBase2019
     
     public override object Run(int part)
     {
-        var masses = ParseMasses(GetInputLines());
+        var masses = ParseInputLines(parseFunc: int.Parse);
         return part switch
         {
             1 => masses.Sum(GetNaiveFuelRequirement),
@@ -37,10 +37,5 @@ public class Solution : SolutionBase2019
         }
 
         return total;
-    }
-
-    private static IEnumerable<int> ParseMasses(IEnumerable<string> input)
-    {
-        return input.Select(int.Parse);
     }
 }

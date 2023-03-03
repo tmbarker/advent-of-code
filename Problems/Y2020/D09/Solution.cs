@@ -14,7 +14,7 @@ public class Solution : SolutionBase2020
     
     public override object Run(int part)
     {
-        var numbers = GetNumbers(GetInputLines());
+        var numbers = ParseInputLines(parseFunc: long.Parse).ToList();
         return part switch
         {
             1 => FindWeakness(numbers),
@@ -69,10 +69,5 @@ public class Solution : SolutionBase2020
     private static bool TwoSumExists(long number, IReadOnlySet<long> window)
     {
         return window.Select(n1 => number - n1).Any(window.Contains);
-    }
-
-    private static IList<long> GetNumbers(IEnumerable<string> input)
-    {
-        return input.Select(long.Parse).ToList();
     }
 }

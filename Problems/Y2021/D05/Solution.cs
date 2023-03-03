@@ -9,24 +9,21 @@ namespace Problems.Y2021.D05;
 /// </summary>
 public class Solution : SolutionBase2021
 {
-    private const string VertexDelimiter = "->";
-    private const string CoordinateDelimiter = ",";
-
     public override int Day => 5;
     
     public override object Run(int part)
     { 
         return part switch
         {
-            1 => CountDangerousLocations(true),
-            2 => CountDangerousLocations(false),
+            1 => CountDangerousLocations(ignoreDiagonals: true),
+            2 => CountDangerousLocations(ignoreDiagonals: false),
             _ => ProblemNotSolvedString
         };
     }
 
     private int CountDangerousLocations(bool ignoreDiagonals)
     {
-        var lines = ParseVentLineVertices(GetInputLines());
+        var lines = ParseInputLines(parseFunc: ParseVentLineVertices);
         var ventMap = BuildVentMap(lines, ignoreDiagonals);
 
         return ventMap.Values.Count(v => v > 1);
@@ -61,20 +58,15 @@ public class Solution : SolutionBase2021
         return dictionary;
     }
 
-    private static IEnumerable<(Vector2D v1, Vector2D v2)> ParseVentLineVertices(IEnumerable<string> input)
-    {
-        return input.Select(ParseVentLineVertices);
-    }
-
     private static (Vector2D v1, Vector2D v2) ParseVentLineVertices(string line)
     {
-        var parts = line.Split(VertexDelimiter, StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries);
+        var parts = line.Split("->", StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries);
         return (ParseVertex(parts[0]), ParseVertex(parts[1]));
     }
 
     private static Vector2D ParseVertex(string coordinates)
     {
-        var parts = coordinates.Split(CoordinateDelimiter);
+        var parts = coordinates.Split(",");
         var x = int.Parse(parts[0]);
         var y = int.Parse(parts[1]);
 

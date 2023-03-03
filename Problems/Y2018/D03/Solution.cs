@@ -13,9 +13,7 @@ public class Solution : SolutionBase2018
     
     public override object Run(int part)
     {
-        var input = GetInputLines();
-        var claims = ParseClaims(input);
-        
+        var claims = ParseInputLines(parseFunc: ParseClaim);
         return part switch
         {
             1 => CountClaimOverlaps(claims.Select(c => c.Aabb)),
@@ -42,11 +40,6 @@ public class Solution : SolutionBase2018
     {
         return claims
             .Single(claim => claims.Count(other => claim.aabb2D.Intersects(other.aabb2D)) == 1).Id;
-    }
-    
-    private static IEnumerable<(int Id, Aabb2D Aabb)> ParseClaims(IEnumerable<string> input)
-    {
-        return input.Select(ParseClaim);
     }
 
     private static (int Id, Aabb2D Aabb) ParseClaim(string line)

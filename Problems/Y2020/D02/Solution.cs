@@ -12,7 +12,7 @@ public class Solution : SolutionBase2020
     
     public override object Run(int part)
     {
-        var policies = ParsePolicies(GetInputLines());
+        var policies = ParseInputLines(parseFunc: ParsePolicy);
         return part switch
         {
             1 => CountValidPoliciesWithRange(policies),
@@ -36,11 +36,6 @@ public class Solution : SolutionBase2020
             from policy in policies
             where policy.Password[policy.N1 - 1] == policy.Letter ^ policy.Password[policy.N2 - 1] == policy.Letter  
             select policy).Count();
-    }
-
-    private static IEnumerable<Policy> ParsePolicies(IEnumerable<string> input)
-    {
-        return input.Select(ParsePolicy);
     }
 
     private static Policy ParsePolicy(string line)

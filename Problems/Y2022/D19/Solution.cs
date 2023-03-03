@@ -1,6 +1,6 @@
 using Problems.Attributes;
 using Problems.Y2022.Common;
-using System.Text.RegularExpressions;
+using Utilities.Extensions;
 
 namespace Problems.Y2022.D19;
 
@@ -10,27 +10,23 @@ namespace Problems.Y2022.D19;
 [Favourite("Not Enough Minerals", Topics.Graphs|Topics.Recursion, Difficulty.Hard)]
 public class Solution : SolutionBase2022
 {
-    private const int TimeLimitPart1 = 24;
-    private const int TimeLimitPart2 = 32;
-    private const int NumBlueprintsPart2 = 3;
-
     private static readonly HashSet<Materials> MaterialTypes = new()
     {
         Materials.Ore,
         Materials.Clay,
         Materials.Obsidian,
-        Materials.Geode,
+        Materials.Geode
     };
 
     public override int Day => 19;
     
     public override object Run(int part)
     {
-        var blueprints = ParseBlueprints(GetInputLines());
+        var blueprints = ParseInputLines(parseFunc: ParseBlueprint);
         return part switch
         {
-            1 => EvaluateQualityLevels(blueprints, TimeLimitPart1),
-            2 => ComputeBlueprintProducts(blueprints.Take(NumBlueprintsPart2), TimeLimitPart2),
+            1 => EvaluateQualityLevels(blueprints, timeLimit: 24),
+            2 => ComputeBlueprintProducts(blueprints.Take(count: 3), timeLimit: 32),
             _ => ProblemNotSolvedString
         };
     }
@@ -145,37 +141,32 @@ public class Solution : SolutionBase2022
         }
         return true;
     }
-    
-    private static IEnumerable<Blueprint> ParseBlueprints(IEnumerable<string> input)
-    {
-        return input.Select(ParseBlueprint);
-    }
 
     private static Blueprint ParseBlueprint(string input)
     {
-        var matches = Regex.Matches(input, @"\d+");
+        var numbers = input.Numbers();
         return new Blueprint
         {
-            Id = int.Parse(matches[0].Value),
+            Id = numbers[0],
             RobotCosts = new Dictionary<Materials, Dictionary<Materials, int>>
             {
                 { Materials.Ore , new Dictionary<Materials, int>
                 {
-                    { Materials.Ore, int.Parse(matches[1].Value)}
+                    { Materials.Ore, numbers[1]}
                 }},
                 { Materials.Clay , new Dictionary<Materials, int>
                 {
-                    { Materials.Ore, int.Parse(matches[2].Value)}
+                    { Materials.Ore, numbers[2]}
                 }},
                 { Materials.Obsidian , new Dictionary<Materials, int>
                 {
-                    { Materials.Ore, int.Parse(matches[3].Value)},
-                    { Materials.Clay, int.Parse(matches[4].Value)}
+                    { Materials.Ore, numbers[3]},
+                    { Materials.Clay, numbers[4]}
                 }},
                 { Materials.Geode , new Dictionary<Materials, int>
                 {
-                    { Materials.Ore, int.Parse(matches[5].Value)},
-                    { Materials.Obsidian, int.Parse(matches[6].Value)}
+                    { Materials.Ore, numbers[5]},
+                    { Materials.Obsidian, numbers[6]}
                 }},
             }
         };

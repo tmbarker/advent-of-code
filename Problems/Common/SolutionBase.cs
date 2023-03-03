@@ -30,7 +30,12 @@ public abstract class SolutionBase
         AssertInputExists();
         return File.ReadAllText(GetInputFilePath());
     }
-    
+
+    protected IEnumerable<T> ParseInputLines<T>(Func<string, T> parseFunc)
+    {
+        return GetInputLines().Select(parseFunc);
+    }
+
     private string GetInputFilePath()
     {
         return Path.Combine(

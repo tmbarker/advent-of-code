@@ -133,4 +133,14 @@ public static class CollectionExtensions
             dictionary[key] -= delta;
         }
     }
+
+    /// <summary>
+    /// Return the mode of the collection, i.e. the element with the highest frequency, 
+    /// </summary>
+    public static T Mode<T>(this IEnumerable<T> collection) where T : notnull
+    {
+        return collection
+            .GroupBy(e => e)
+            .MaxBy(g => g.Count())!.Key;
+    }
 }

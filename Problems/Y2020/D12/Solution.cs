@@ -33,7 +33,7 @@ public class Solution : SolutionBase2020
     
     public override object Run(int part)
     {
-        var instructions = ParseInstructions(GetInputLines());
+        var instructions = ParseInputLines(parseFunc: ParseInstruction);
         return part switch
         {
             1 => NavigateSimple(instructions),
@@ -102,10 +102,10 @@ public class Solution : SolutionBase2020
         return Vector2D.Distance(InitialShipPos, shipPos, DistanceMetric.Taxicab);
     }
 
-    private static IEnumerable<Instruction> ParseInstructions(IEnumerable<string> input)
+    private static Instruction ParseInstruction(string line)
     {
-        return input.Select(line => new Instruction(
+        return new Instruction(
             command: line[0],
-            amount: int.Parse(line[1..])));
+            amount: int.Parse(line[1..]));
     }
 }

@@ -16,7 +16,7 @@ public class Solution : SolutionBase2021
     
     public override object Run(int part)
     {
-        var instructions = ParseInput(GetInputLines());
+        var instructions = ParseInputLines(parseFunc: ParseInstruction);
         return part switch
         {
             1 => Init(instructions),
@@ -83,13 +83,8 @@ public class Solution : SolutionBase2021
         }   
         return cubes;
     }
-    
-    private static IEnumerable<(bool on, Aabb3D aabb)> ParseInput(IEnumerable<string> input)
-    {
-        return input.Select(ParseLine);
-    }
 
-    private static (bool on, Aabb3D aabb) ParseLine(string line)
+    private static (bool on, Aabb3D aabb) ParseInstruction(string line)
     {
         var matches = Regex.Matches(line, @"-?\d+");
         var on = line.StartsWith("on");
