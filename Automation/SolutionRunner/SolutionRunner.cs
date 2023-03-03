@@ -38,7 +38,7 @@ public static class SolutionRunner
             Log(
                 year: year,
                 day: day,
-                log: $"[Elapsed: {elapsed}] Solution part {part + 1} => {result}",
+                log: $"[Elapsed: {elapsed}] Solution part {part} => {result}",
                 color: ConsoleColor.Green);
         }
         catch (Exception e)
