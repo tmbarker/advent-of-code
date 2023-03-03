@@ -1,3 +1,5 @@
+using System.Numerics;
+
 namespace Utilities.Extensions;
 
 public static class MathExtensions
@@ -13,6 +15,11 @@ public static class MathExtensions
     }
 
     public static double Modulo(this double a, double modulus)
+    {
+        return (a % modulus + modulus) % modulus;
+    }
+    
+    public static BigInteger Modulo(this BigInteger a, BigInteger modulus)
     {
         return (a % modulus + modulus) % modulus;
     }

@@ -40,6 +40,7 @@ Puzzle | My Solution | Date | Topic(s) | Difficulty
 [The N-Body Problem](https://adventofcode.com/2019/day/12) | [Solution](https://github.com/tmbarker/advent-of-code/blob/main/Problems/Y2019/D12/Solution.cs) | 2019-12 | Math | :red_circle: Hard
 [Care Package](https://adventofcode.com/2019/day/13) | [Solution](https://github.com/tmbarker/advent-of-code/blob/main/Problems/Y2019/D13/Solution.cs) | 2019-13 | Int Code | :yellow_circle: Medium
 [Donut Maze](https://adventofcode.com/2019/day/20) | [Solution](https://github.com/tmbarker/advent-of-code/blob/main/Problems/Y2019/D20/Solution.cs) | 2019-20 | Graphs | :red_circle: Hard
+[Slam Shuffle](https://adventofcode.com/2019/day/22) | [Solution](https://github.com/tmbarker/advent-of-code/blob/main/Problems/Y2019/D22/Solution.cs) | 2019-22 | Math | :red_circle: Hard
 
 ## Running a Solution
 1. From your terminal, using the .NET CLI
