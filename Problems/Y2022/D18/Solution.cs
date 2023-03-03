@@ -18,8 +18,8 @@ public class Solution : SolutionBase2022
         var surfaceVectors = ParseSurfaceVectors(GetInputLines());
         return part switch
         {
-            1 =>  ComputeTotalSurfaceArea(surfaceVectors),
-            2 =>  ComputeExteriorSurfaceArea(surfaceVectors),
+            1 => ComputeTotalSurfaceArea(surfaceVectors),
+            2 => ComputeExteriorSurfaceArea(surfaceVectors),
             _ => ProblemNotSolvedString
         };
     }

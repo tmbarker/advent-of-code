@@ -35,8 +35,8 @@ public class Solution : SolutionBase2019
         var program = LoadIntCodeProgram();
         return part switch
         {
-            1 =>  RunRobot(program, Black).Count,
-            2 =>  Draw(RunRobot(program, White)),
+            1 => RunRobot(program, Black).Count,
+            2 => Draw(RunRobot(program, White)),
             _ => ProblemNotSolvedString
         };
     }

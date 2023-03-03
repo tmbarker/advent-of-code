@@ -19,8 +19,8 @@ public class Solution : SolutionBase2021
     {
         return part switch
         {
-            1 =>  FindLeastRiskyPath(TilesPerSide1),
-            2 =>  FindLeastRiskyPath(TilesPerSide2),
+            1 => FindLeastRiskyPath(TilesPerSide1),
+            2 => FindLeastRiskyPath(TilesPerSide2),
             _ => ProblemNotSolvedString
         };
     }

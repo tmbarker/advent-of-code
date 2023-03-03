@@ -25,8 +25,8 @@ public class Solution : SolutionBase2019
         var map = ParseOrbitMap(GetInputLines());
         return part switch
         {
-            1 =>  CountOrbits(map),
-            2 =>  ComputeTransferCost(map, map[You], map[Santa]),
+            1 => CountOrbits(map),
+            2 => ComputeTransferCost(map, map[You], map[Santa]),
             _ => ProblemNotSolvedString
         };
     }

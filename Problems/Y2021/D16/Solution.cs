@@ -36,8 +36,8 @@ public class Solution : SolutionBase2021
         var packet = ParsePacket(ReadInputToBinaryBuffer());
         return part switch
         {
-            1 =>  SumPacketVersionNumbers(packet),
-            2 =>  packet.Evaluate(),
+            1 => SumPacketVersionNumbers(packet),
+            2 => packet.Evaluate(),
             _ => ProblemNotSolvedString
         };
     }

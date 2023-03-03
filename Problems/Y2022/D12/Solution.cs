@@ -28,8 +28,8 @@ public class Solution : SolutionBase2022
     {
         return part switch
         {
-            1 =>  GetFewestStepsFromStart(),
-            2 =>  GetFewestStepsFromMinHeight(),
+            1 => GetFewestStepsFromStart(),
+            2 => GetFewestStepsFromMinHeight(),
             _ => ProblemNotSolvedString
         };
     }

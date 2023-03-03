@@ -27,8 +27,8 @@ public class Solution : SolutionBase2021
         
         return part switch
         {
-            1 =>  PlayDeterministicGame(initialState),
-            2 =>  PlayQuantumGame(initialState),
+            1 => PlayDeterministicGame(initialState),
+            2 => PlayQuantumGame(initialState),
             _ => ProblemNotSolvedString
         };
     }

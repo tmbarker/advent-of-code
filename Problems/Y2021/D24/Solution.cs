@@ -120,8 +120,8 @@ public class Solution : SolutionBase2021
     {
         return part switch
         {
-            1 =>  TryModelNumber(GetInputLines(), LargestModelNumber),
-            2 =>  TryModelNumber(GetInputLines(), SmallestModelNumber),
+            1 => TryModelNumber(GetInputLines(), LargestModelNumber),
+            2 => TryModelNumber(GetInputLines(), SmallestModelNumber),
             _ => ProblemNotSolvedString
         };
     }

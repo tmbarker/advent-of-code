@@ -20,8 +20,8 @@ public class Solution : SolutionBase2021
         
         return part switch
         {
-            1 =>  ComputeSimplePositionProduct(instructions),
-            2 =>  ComputeAimedPositionProduct(instructions),
+            1 => ComputeSimplePositionProduct(instructions),
+            2 => ComputeAimedPositionProduct(instructions),
             _ => ProblemNotSolvedString
         };
     }

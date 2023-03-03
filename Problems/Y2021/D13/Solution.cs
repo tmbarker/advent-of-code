@@ -27,8 +27,8 @@ public class Solution : SolutionBase2021
         Origami.Parse(GetInputLines(), out var dots, out var folds);
         return part switch
         {
-            1 =>  PerformFolds(dots, folds.Take(NumFoldsPart1)).Count,
-            2 =>  GetOrigamiPrintout(dots, folds),
+            1 => PerformFolds(dots, folds.Take(NumFoldsPart1)).Count,
+            2 => GetOrigamiPrintout(dots, folds),
             _ => ProblemNotSolvedString
         };
     }

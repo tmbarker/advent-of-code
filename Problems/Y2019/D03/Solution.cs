@@ -31,8 +31,8 @@ public class Solution : SolutionBase2019
         
         return part switch
         {
-            1 =>  FindClosestWireIntersection(costs),
-            2 =>  FindCheapestIntersection(costs),
+            1 => FindClosestWireIntersection(costs),
+            2 => FindCheapestIntersection(costs),
             _ => ProblemNotSolvedString
         };
     }

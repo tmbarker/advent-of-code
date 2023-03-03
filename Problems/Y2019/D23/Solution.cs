@@ -16,8 +16,8 @@ public class Solution : SolutionBase2019
 
         return part switch
         {
-            1 =>  networkAwaiter.WaitForMessage(targetRecipient: 255).Result,
-            2 =>  networkAwaiter.WaitForRepeatedNatMessage().Result,
+            1 => networkAwaiter.WaitForMessage(targetRecipient: 255).Result,
+            2 => networkAwaiter.WaitForRepeatedNatMessage().Result,
             _ => ProblemNotSolvedString
         };
     }

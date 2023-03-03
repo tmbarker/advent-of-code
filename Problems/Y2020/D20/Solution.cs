@@ -29,8 +29,8 @@ public class Solution : SolutionBase2020
         
         return part switch
         {
-            1 =>  GetCornerTilesIdProduct(congruences),
-            2 =>  FindSeaMonsters(tiles, congruences),
+            1 => GetCornerTilesIdProduct(congruences),
+            2 => FindSeaMonsters(tiles, congruences),
             _ => ProblemNotSolvedString
         };
     }

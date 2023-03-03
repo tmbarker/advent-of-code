@@ -23,8 +23,8 @@ public class Solution : SolutionBase2022
         var reportings = ParseReportings(GetInputLines());
         return part switch
         {
-            1 =>  CountBeaconExcludedPositions(reportings),
-            2 =>  CalculateTuningFrequency(FindDistressBeacon(reportings)),
+            1 => CountBeaconExcludedPositions(reportings),
+            2 => CalculateTuningFrequency(FindDistressBeacon(reportings)),
             _ => ProblemNotSolvedString
         };
     }

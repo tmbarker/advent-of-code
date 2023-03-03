@@ -20,8 +20,8 @@ public class Solution : SolutionBase2022
 
         return part switch
         {
-            1 =>  SumDirectoriesUnderSize(directorySizeIndex, DirectorySizeThreshold),
-            2 =>  FreeUpSpace(directorySizeIndex, SystemVolume, RequiredSpace),
+            1 => SumDirectoriesUnderSize(directorySizeIndex, DirectorySizeThreshold),
+            2 => FreeUpSpace(directorySizeIndex, SystemVolume, RequiredSpace),
             _ => ProblemNotSolvedString
         };
     }

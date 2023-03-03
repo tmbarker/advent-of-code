@@ -19,8 +19,8 @@ public class Solution : SolutionBase2021
     {
         return part switch
         {
-            1 =>  ModelLanternFish(GetInitialState(), days: 80),
-            2 =>  ModelLanternFish(GetInitialState(), days: 256),
+            1 => ModelLanternFish(GetInitialState(), days: 80),
+            2 => ModelLanternFish(GetInitialState(), days: 256),
             _ => ProblemNotSolvedString
         };
     }

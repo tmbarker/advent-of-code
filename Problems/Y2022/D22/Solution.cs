@@ -17,8 +17,8 @@ public class Solution : SolutionBase2022
         
         return part switch
         {
-            1 =>  ComputePassword(board, instructions, MoveMode.Planar),
-            2 =>  ComputePassword(board, instructions, MoveMode.Cubic),
+            1 => ComputePassword(board, instructions, MoveMode.Planar),
+            2 => ComputePassword(board, instructions, MoveMode.Cubic),
             _ => ProblemNotSolvedString
         };
     }

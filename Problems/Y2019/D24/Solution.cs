@@ -25,8 +25,8 @@ public class Solution : SolutionBase2019
 
         return part switch
         {
-            1 =>  GetFirstRepeatedRating(initialBugs, GridType.Static),
-            2 =>  CountBugsAfterSteps(steps: 200, initialBugs, GridType.Recursive),
+            1 => GetFirstRepeatedRating(initialBugs, GridType.Static),
+            2 => CountBugsAfterSteps(steps: 200, initialBugs, GridType.Recursive),
             _ => ProblemNotSolvedString
         };
     }

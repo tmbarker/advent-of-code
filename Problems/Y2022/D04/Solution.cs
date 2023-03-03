@@ -13,8 +13,8 @@ public class Solution : SolutionBase2022
     { 
         return part switch
         {
-            1 =>  GetNumInclusivePairs(),
-            2 =>  GetNumIntersectingPairs(),
+            1 => GetNumInclusivePairs(),
+            2 => GetNumIntersectingPairs(),
             _ => ProblemNotSolvedString
         };
     }

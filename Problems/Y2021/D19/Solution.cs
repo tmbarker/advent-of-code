@@ -31,8 +31,8 @@ public class Solution : SolutionBase2021
 
         return part switch
         {
-            1 =>  map.GetDistinctBeaconCount(),
-            2 =>  map.GetMaxScannerDistance(DistanceMetric.Taxicab),
+            1 => map.GetDistinctBeaconCount(),
+            2 => map.GetMaxScannerDistance(DistanceMetric.Taxicab),
             _ => ProblemNotSolvedString
         };
     }

@@ -22,8 +22,8 @@ public class Solution : SolutionBase2020
         var map = ParseCapacityMap(GetInputLines());
         return part switch
         {
-            1 =>  CountBagsThatCanContain(ShinyGold, map),
-            2 =>  CountBagsInside(ShinyGold, map),
+            1 => CountBagsThatCanContain(ShinyGold, map),
+            2 => CountBagsInside(ShinyGold, map),
             _ => ProblemNotSolvedString
         };
     }

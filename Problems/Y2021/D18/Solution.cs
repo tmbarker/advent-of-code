@@ -20,8 +20,8 @@ public class Solution : SolutionBase2021
         var numbers = ParseNumbers(GetInputLines());
         return part switch
         {
-            1 =>  ComputeMagnitude(SumSfNumbers(numbers)),
-            2 =>  ComputeMaxPairSumMagnitude(numbers),
+            1 => ComputeMagnitude(SumSfNumbers(numbers)),
+            2 => ComputeMaxPairSumMagnitude(numbers),
             _ => ProblemNotSolvedString
         };
     }

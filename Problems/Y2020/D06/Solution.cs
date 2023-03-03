@@ -15,8 +15,8 @@ public class Solution : SolutionBase2020
         var groupAnswers = ParseGroupAnswers(GetInputLines());
         return part switch
         {
-            1 =>  groupAnswers.Sum(GetUniqueGroupAnswers),
-            2 =>  groupAnswers.Sum(GetUnanimousGroupAnswers),
+            1 => groupAnswers.Sum(GetUniqueGroupAnswers),
+            2 => groupAnswers.Sum(GetUnanimousGroupAnswers),
             _ => ProblemNotSolvedString
         };
     }

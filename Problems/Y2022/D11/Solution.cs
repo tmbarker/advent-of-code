@@ -16,8 +16,8 @@ public class Solution : SolutionBase2022
     {
         return part switch
         {
-            1 =>  QuantifyMonkeyBusiness(RoundsPart1, true),
-            2 =>  QuantifyMonkeyBusiness(RoundsPart2, false),
+            1 => QuantifyMonkeyBusiness(RoundsPart1, true),
+            2 => QuantifyMonkeyBusiness(RoundsPart2, false),
             _ => ProblemNotSolvedString
         };
     }

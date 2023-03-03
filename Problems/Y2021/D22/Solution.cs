@@ -19,8 +19,8 @@ public class Solution : SolutionBase2021
         var instructions = ParseInput(GetInputLines());
         return part switch
         {
-            1 =>  Init(instructions),
-            2 =>  Reboot(instructions),
+            1 => Init(instructions),
+            2 => Reboot(instructions),
             _ => ProblemNotSolvedString
         };
     }

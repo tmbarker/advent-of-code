@@ -16,8 +16,8 @@ public class Solution : SolutionBase2022
     {
         return part switch
         {
-            1 =>  GetDuplicateItemPrioritySum(),
-            2 =>  GetBadgeItemPrioritySum(),
+            1 => GetDuplicateItemPrioritySum(),
+            2 => GetBadgeItemPrioritySum(),
             _ => ProblemNotSolvedString
         };
     }

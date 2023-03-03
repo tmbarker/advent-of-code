@@ -21,8 +21,8 @@ public class Solution : SolutionBase2019
         
         return part switch
         {
-            1 =>  visible,
-            2 =>  FindNthDestroyed(asteroids, pos, transform),
+            1 => visible,
+            2 => FindNthDestroyed(asteroids, pos, transform),
             _ => ProblemNotSolvedString
         };
     }

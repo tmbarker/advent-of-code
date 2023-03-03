@@ -19,8 +19,8 @@ public class Solution : SolutionBase2019
         var program = LoadIntCodeProgram();
         return part switch
         {
-            1 =>  RunProgram(program),
-            2 =>  FindPartsOfSpeech(program),
+            1 => RunProgram(program),
+            2 => FindPartsOfSpeech(program),
             _ => ProblemNotSolvedString
         };
     }

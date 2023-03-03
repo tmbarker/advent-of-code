@@ -18,8 +18,8 @@ public class Solution : SolutionBase2019
     {
         return part switch
         {
-            1 =>  CountBeamPoints(SearchSize),
-            2 =>  FindShip(ShipSize),
+            1 => CountBeamPoints(SearchSize),
+            2 => FindShip(ShipSize),
             _ => ProblemNotSolvedString
         };
     }

@@ -20,8 +20,8 @@ public class Solution : SolutionBase2021
         Parse(GetInputLines(), out var polymer, out var rules);
         return part switch
         {
-            1 =>  GetMaxExtendedVariance(polymer, rules, Steps1),
-            2 =>  GetMaxExtendedVariance(polymer, rules, Steps2),
+            1 => GetMaxExtendedVariance(polymer, rules, Steps1),
+            2 => GetMaxExtendedVariance(polymer, rules, Steps2),
             _ => ProblemNotSolvedString
         };
     }

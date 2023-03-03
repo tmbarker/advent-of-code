@@ -22,8 +22,8 @@ public class Solution : SolutionBase2022
         
         return part switch
         {
-            1 =>  GetMaxFlowAlone(strategyFinder),
-            2 =>  GetMaxFlowWithHelp(strategyFinder),
+            1 => GetMaxFlowAlone(strategyFinder),
+            2 => GetMaxFlowWithHelp(strategyFinder),
             _ => ProblemNotSolvedString
         };
     }

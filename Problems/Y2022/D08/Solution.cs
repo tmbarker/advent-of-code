@@ -20,8 +20,8 @@ public class Solution : SolutionBase2022
         var trees = ParseTrees(GetInputLines());
         return part switch
         {
-            1 =>  CountVisibleTrees(trees),
-            2 =>  GetMaxScenicScore(trees),
+            1 => CountVisibleTrees(trees),
+            2 => GetMaxScenicScore(trees),
             _ => ProblemNotSolvedString
         };
     }

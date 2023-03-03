@@ -16,8 +16,8 @@ public class Solution : SolutionBase2021
     {
        return part switch
         {
-            1 =>  CountDepthIncreases(WindowSizePart1),
-            2 =>  CountDepthIncreases(WindowSizePart2),
+            1 => CountDepthIncreases(WindowSizePart1),
+            2 => CountDepthIncreases(WindowSizePart2),
             _ => ProblemNotSolvedString
         };
     }

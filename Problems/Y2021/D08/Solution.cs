@@ -42,8 +42,8 @@ public class Solution : SolutionBase2021
 
         return part switch
         {
-            1 =>  CountUniqueSegmentDigitOccurrences(notes),
-            2 =>  SumDecodedOutputs(notes),
+            1 => CountUniqueSegmentDigitOccurrences(notes),
+            2 => SumDecodedOutputs(notes),
             _ => ProblemNotSolvedString
         };
     }

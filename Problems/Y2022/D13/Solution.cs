@@ -16,8 +16,8 @@ public class Solution : SolutionBase2022
     {
         return part switch
         {
-            1 =>  SumOrderedPacketIndices(PacketParser.ParsePairs(GetInputLines())),
-            2 =>  CalculateDecoderKey(PacketParser.ParsePackets(GetInputLines())),
+            1 => SumOrderedPacketIndices(PacketParser.ParsePairs(GetInputLines())),
+            2 => CalculateDecoderKey(PacketParser.ParsePackets(GetInputLines())),
             _ => ProblemNotSolvedString
         };
     }

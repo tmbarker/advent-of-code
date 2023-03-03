@@ -17,8 +17,8 @@ public class Solution : SolutionBase2021
     {
         return part switch
         {
-            1 =>  FindMinCost(State.FromInitialPositions(Input.Part1), new Field(SideRoomDepth1)),
-            2 =>  FindMinCost(State.FromInitialPositions(Input.Part2), new Field(SideRoomDepth2)),
+            1 => FindMinCost(State.FromInitialPositions(Input.Part1), new Field(SideRoomDepth1)),
+            2 => FindMinCost(State.FromInitialPositions(Input.Part2), new Field(SideRoomDepth2)),
             _ => ProblemNotSolvedString
         };
     }

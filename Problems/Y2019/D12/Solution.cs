@@ -20,8 +20,8 @@ public class Solution : SolutionBase2019
         var bodies = ParseInitialStates(GetInputLines());
         return part switch
         {
-            1 =>  ComputeEnergyAfterSteps(bodies, steps: 1000),
-            2 =>  ComputeFirstSystemCycle(bodies),
+            1 => ComputeEnergyAfterSteps(bodies, steps: 1000),
+            2 => ComputeFirstSystemCycle(bodies),
             _ => ProblemNotSolvedString
         };
     }

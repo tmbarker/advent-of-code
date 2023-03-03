@@ -15,8 +15,8 @@ public class Solution : SolutionBase2020
         var numbers = ParseNumbers(GetInputLines());
         return part switch
         {
-            1 =>  GetSumPairProduct(Year, numbers),
-            2 =>  GetSumTripletProduct(Year, numbers),
+            1 => GetSumPairProduct(Year, numbers),
+            2 => GetSumTripletProduct(Year, numbers),
             _ => ProblemNotSolvedString
         };
     }

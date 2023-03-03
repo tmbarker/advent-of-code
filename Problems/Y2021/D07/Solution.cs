@@ -15,8 +15,8 @@ public class Solution : SolutionBase2021
     {
         return part switch
         {
-            1 =>  CalculateMinCumulativeCost(n => n),
-            2 =>  CalculateMinCumulativeCost(n => n * (n + 1)/2),
+            1 => CalculateMinCumulativeCost(n => n),
+            2 => CalculateMinCumulativeCost(n => n * (n + 1)/2),
             _ => ProblemNotSolvedString
         };
     }

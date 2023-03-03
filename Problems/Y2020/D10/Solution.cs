@@ -17,8 +17,8 @@ public class Solution : SolutionBase2020
         var sortedAdapters = GetSortedAdapters(GetInputLines());
         return part switch
         {
-            1 =>  ComputeAdapterDifferencesProduct(sortedAdapters),
-            2 =>  CountValidAdapterArrangements(sortedAdapters),
+            1 => ComputeAdapterDifferencesProduct(sortedAdapters),
+            2 => CountValidAdapterArrangements(sortedAdapters),
             _ => ProblemNotSolvedString
         };
     }

@@ -15,8 +15,8 @@ public class Solution : SolutionBase2021
         
         return part switch
         {
-            1 =>  ComputeConsumptionRate(numberStrings),
-            2 =>  ComputeLifeSupportRating(numberStrings),
+            1 => ComputeConsumptionRate(numberStrings),
+            2 => ComputeLifeSupportRating(numberStrings),
             _ => ProblemNotSolvedString
         };
     }

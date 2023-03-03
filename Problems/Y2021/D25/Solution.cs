@@ -25,7 +25,7 @@ public class Solution : SolutionBase2021
         ParseInput(GetInputLines(), out var herds, out var bounds);
         return part switch
         {
-            1 =>  CountStepsTillSteadyState(herds, bounds),
+            1 => CountStepsTillSteadyState(herds, bounds),
             _ => ProblemNotSolvedString
         };
     }

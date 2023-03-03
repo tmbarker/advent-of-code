@@ -36,8 +36,8 @@ public class Solution : SolutionBase2020
         var instructions = ParseInstructions(GetInputLines());
         return part switch
         {
-            1 =>  NavigateSimple(instructions),
-            2 =>  NavigateWaypoint(instructions),
+            1 => NavigateSimple(instructions),
+            2 => NavigateWaypoint(instructions),
             _ => ProblemNotSolvedString
         };
     }

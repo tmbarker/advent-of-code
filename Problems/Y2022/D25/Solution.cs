@@ -28,7 +28,7 @@ public class Solution : SolutionBase2022
     {
         return part switch
         {
-            1 =>  DecimalToSnafu(SumSnafuNumbers(GetInputLines())),
+            1 => DecimalToSnafu(SumSnafuNumbers(GetInputLines())),
             _ => ProblemNotSolvedString
         };
     }

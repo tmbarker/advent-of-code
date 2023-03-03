@@ -22,8 +22,8 @@ public class Solution : SolutionBase2020
         var expressions = ParseExpressions(GetInputLines());
         return part switch
         {
-            1 =>  expressions.Sum(tokens => Evaluate(tokens, Operators.EqualPrecedence)),
-            2 =>  expressions.Sum(tokens => Evaluate(tokens, Operators.AddPrecedence)),
+            1 => expressions.Sum(tokens => Evaluate(tokens, Operators.EqualPrecedence)),
+            2 => expressions.Sum(tokens => Evaluate(tokens, Operators.AddPrecedence)),
             _ => ProblemNotSolvedString
         };
     }

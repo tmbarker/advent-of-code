@@ -20,8 +20,8 @@ public class Solution : SolutionBase2022
 
         return part switch
         {
-            1 =>  GetTopCratesAfterPlan(plan!, CranePickupMode.OneAtATime),
-            2 =>  GetTopCratesAfterPlan(plan!, CranePickupMode.ManyAtATime),
+            1 => GetTopCratesAfterPlan(plan!, CranePickupMode.OneAtATime),
+            2 => GetTopCratesAfterPlan(plan!, CranePickupMode.ManyAtATime),
             _ => ProblemNotSolvedString
         };
     }
