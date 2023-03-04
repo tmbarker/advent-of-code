@@ -66,7 +66,7 @@ public class Screen
         }
     }
     
-    public void Print()
+    public void Print((int Left, int Top) drawAt)
     {
         var bounds = new Aabb2D(_pixels.Keys, true);
         var rows = bounds.Height;
@@ -78,7 +78,7 @@ public class Screen
             grid[pixel] = gobType;
         }
 
-        Console.SetCursorPosition(0, 0);
+        Console.SetCursorPosition(drawAt.Left, drawAt.Top);
         grid.Print(padding:0, elementFormatter: (_, gobType) =>
         {
             return gobType switch

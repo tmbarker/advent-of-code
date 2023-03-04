@@ -33,10 +33,11 @@ public class Solution : SolutionBase2019
 
     private long GetWinningScore(bool print)
     {
+        var drawAt = (0, 0);
         if (print)
         {
             Console.CursorVisible = false;
-            Console.Clear();
+            drawAt = Console.GetCursorPosition();
         }
         
         var program = LoadFreeToPlayProgram();
@@ -54,10 +55,11 @@ public class Solution : SolutionBase2019
 
             if (print)
             {
-                screen.Print();
+                screen.Print(drawAt);
             }
         }
 
+        Console.CursorVisible = true;
         return screen.Score;
     }
 
