@@ -19,7 +19,8 @@ public class Solution : SolutionBase2018
         
         return part switch
         {
-            1 => TopologicalSort(dag),
+            1 => TopologicalSort(graph: dag),
+            2 => TopologicalSortTimed(graph: dag, baseStepTime: 60, agents: 5),
             _ => ProblemNotSolvedString
         };
     }
@@ -52,6 +53,56 @@ public class Solution : SolutionBase2018
         return steps.ToString();
     }
 
+    private static int TopologicalSortTimed(DirectedGraph<char> graph, int baseStepTime, int agents)
+    {
+        var initialSteps = graph.GetVerticesNoIncoming();
+        var withPriority = initialSteps.Select(v => (v, v));
+
+        var time = 0;
+        var tasks = new PriorityQueue<char, int>(); 
+        var ready = new PriorityQueue<char, char>(items: withPriority);
+        var complete = new HashSet<char>();
+
+        while (ready.Count > 0 || tasks.Count > 0)
+        {
+            while (tasks.TryPeek(out var step, out var completeAt) && completeAt <= time)
+            {
+                tasks.Dequeue();
+                complete.Add(step);
+                
+                foreach (var adjacent in graph.Outgoing[step])
+                {
+                    if (graph.Incoming[adjacent].All(complete.Contains))
+                    {
+                        ready.Enqueue(
+                            element: adjacent,
+                            priority: adjacent);
+                    }
+                }
+            }
+
+            while (ready.Count > 0 && tasks.Count < agents)
+            {
+                var step = ready.Dequeue();
+                var completeAt = time + GetStepTime(step: step, baseStepTime: baseStepTime);
+
+                tasks.Enqueue(step, completeAt);
+            }
+
+            if (tasks.TryPeek(out _, out var fastForwardTo))
+            {
+                time = fastForwardTo;
+            }
+        }
+        
+        return time;
+    }
+
+    private static int GetStepTime(char step, int baseStepTime)
+    {
+        return baseStepTime + step + 1 - 'A';
+    }
+    
     private static DirectedGraph<char>.Edge ParseEdge(string line)
     {
         var matches = Regex.Matches(line, @"\b([A-Z])\b");
