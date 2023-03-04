@@ -3,27 +3,27 @@ namespace Utilities.Graph;
 public static class GraphHelper
 {
     /// <summary>
-    /// Execute the Floyd-Warshall algorithm to find the shortest path from each node to all other nodes
+    /// Execute the Floyd-Warshall algorithm to find the shortest path from each vertex to all other vertices
     /// </summary>
-    public static Dictionary<(TNodeKey, TNodeKey), int> FloydWarshallUnweighted<TNodeKey>(
-        IDictionary<TNodeKey, HashSet<TNodeKey>> adjacencyList) where TNodeKey : notnull
+    public static Dictionary<(T, T), int> FloydWarshallUnweighted<T>(
+        IDictionary<T, HashSet<T>> adjacencyList) where T : notnull
     {
         const int inf = int.MaxValue / 2 - 1;
-        var nodes = adjacencyList.Keys;
-        var costs = nodes.ToDictionary(node => (node, node), _ => 0);
+        var vertices = adjacencyList.Keys;
+        var costs = vertices.ToDictionary(vertex => (vertex, vertex), _ => 0);
         
-        foreach (var i in nodes)
+        foreach (var i in vertices)
         {
             var adjacencies = adjacencyList[i];
-            foreach (var j in nodes.Where(j => !EqualityComparer<TNodeKey>.Default.Equals(i, j)))
+            foreach (var j in vertices.Where(j => !EqualityComparer<T>.Default.Equals(i, j)))
             {
                 costs.Add((i, j), adjacencies.Contains(j) ? 1 : inf);
             }
         }
         
-        foreach (var k in nodes)
-        foreach (var i in nodes)
-        foreach (var j in nodes)
+        foreach (var k in vertices)
+        foreach (var i in vertices)
+        foreach (var j in vertices)
         {
             if (costs[(i, j)] > costs[(i, k)] + costs[(k, j)])
             {
@@ -35,10 +35,11 @@ public static class GraphHelper
     }
     
     /// <summary>
-    /// Execute Dijkstra's algorithm to find the shortest path from the <paramref name="start"/> node to all other nodes
+    /// Execute Dijkstra's algorithm to find the shortest path from the <paramref name="start"/> vertex to all
+    /// other vertices
     /// </summary>
-    public static Dictionary<TNodeKey, int> DijkstraUnweighted<TNodeKey>(TNodeKey start,
-        IDictionary<TNodeKey, HashSet<TNodeKey>> adjacencyList) where TNodeKey : notnull
+    public static Dictionary<T, int> DijkstraUnweighted<T>(T start,
+        IDictionary<T, HashSet<T>> adjacencyList) where T : notnull
     {
         return DijkstraUnweighted(
             start: start,
@@ -47,31 +48,31 @@ public static class GraphHelper
     }
     
     /// <summary>
-    /// Execute Dijkstra's algorithm to find the shortest path from the <paramref name="start"/> node to
-    /// the <paramref name="end"/> node
+    /// Execute Dijkstra's algorithm to find the shortest path from the <paramref name="start"/> vertex to
+    /// the <paramref name="end"/> vertex
     /// </summary>
-    public static int DijkstraUnweighted<TNodeKey>(TNodeKey start, TNodeKey end, 
-        IDictionary<TNodeKey, HashSet<TNodeKey>> adjacencyList) where TNodeKey : notnull
+    public static int DijkstraUnweighted<T>(T start, T end, 
+        IDictionary<T, HashSet<T>> adjacencyList) where T : notnull
     {
         var costs = DijkstraUnweighted(
             start: start,
             adjacencyList: adjacencyList,
-            stopPredicate: key => EqualityComparer<TNodeKey>.Default.Equals(end, key));
+            stopPredicate: key => EqualityComparer<T>.Default.Equals(end, key));
 
         return costs.ContainsKey(end)
             ? costs[end]
             : int.MaxValue;
     }
 
-    private static Dictionary<TNodeKey, int> DijkstraUnweighted<TNodeKey>(TNodeKey start,
-        IDictionary<TNodeKey, HashSet<TNodeKey>> adjacencyList, Predicate<TNodeKey>? stopPredicate)
-        where TNodeKey : notnull
+    private static Dictionary<T, int> DijkstraUnweighted<T>(T start,
+        IDictionary<T, HashSet<T>> adjacencyList, Predicate<T>? stopPredicate)
+        where T : notnull
     {
-        var visited = new HashSet<TNodeKey> { start };
-        var heap = new PriorityQueue<TNodeKey, int>(new[] { (start, 0) });
+        var visited = new HashSet<T> { start };
+        var heap = new PriorityQueue<T, int>(new[] { (start, 0) });
         var costs = adjacencyList.Keys.ToDictionary(
             keySelector: n => n,
-            elementSelector: n => EqualityComparer<TNodeKey>.Default.Equals(n, start) ? 0 : int.MaxValue);
+            elementSelector: n => EqualityComparer<T>.Default.Equals(n, start) ? 0 : int.MaxValue);
 
         while (heap.Count > 0)
         {
