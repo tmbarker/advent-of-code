@@ -144,7 +144,7 @@ public class Solution : SolutionBase2022
 
     private static Blueprint ParseBlueprint(string input)
     {
-        var numbers = input.Numbers();
+        var numbers = input.ParseInts();
         return new Blueprint
         {
             Id = numbers[0],

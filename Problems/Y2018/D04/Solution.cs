@@ -46,7 +46,7 @@ public class Solution : SolutionBase2018
             switch (observation)
             {
                 case {} when observation.StartsWith(Guard):
-                    onDutyId = observation.Numbers().Single();
+                    onDutyId = observation.ParseInts().Single();
                     break;
                 case {} when observation.StartsWith(Falls):
                     asleepAt = dateTime.Minute;

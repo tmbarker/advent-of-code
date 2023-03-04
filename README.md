@@ -47,6 +47,7 @@ Puzzle | My Solution | Date | Topic(s) | Difficulty
 :--- | :---: | :---: | :--- | :---
 [Alchemical Reduction](https://adventofcode.com/2018/day/5) | [Solution](https://github.com/tmbarker/advent-of-code/blob/main/Problems/Y2018/D05/Solution.cs) | 2018-05 | String Parsing | :green_circle: Easy
 [Chronal Coordinates](https://adventofcode.com/2018/day/6) | [Solution](https://github.com/tmbarker/advent-of-code/blob/main/Problems/Y2018/D06/Solution.cs) | 2018-06 | Vectors | :yellow_circle: Medium
+[The Stars Align](https://adventofcode.com/2018/day/10) | [Solution](https://github.com/tmbarker/advent-of-code/blob/main/Problems/Y2018/D10/Solution.cs) | 2018-10 | Vectors | :green_circle: Easy
 
 ## Running a Solution
 1. From your terminal, using the .NET CLI

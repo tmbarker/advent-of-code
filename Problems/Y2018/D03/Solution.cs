@@ -44,7 +44,7 @@ public class Solution : SolutionBase2018
 
     private static (int Id, Aabb2D Aabb) ParseClaim(string line)
     {
-        var numbers = line.Numbers();
+        var numbers = line.ParseInts();
         var id = numbers[0];
         var aabb = new Aabb2D(
             xMin: numbers[1],

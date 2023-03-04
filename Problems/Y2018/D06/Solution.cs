@@ -69,7 +69,7 @@ public class Solution : SolutionBase2018
     
     private static Vector2D ParsePointOfInterest(string line)
     {
-        var numbers = line.Numbers();
+        var numbers = line.ParseInts();
         return new Vector2D(
             x: numbers[0],
             y: numbers[1]);
