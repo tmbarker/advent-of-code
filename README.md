@@ -49,11 +49,13 @@ Puzzle | My Solution | Date | Topic(s) | Difficulty
 [Chronal Coordinates](https://adventofcode.com/2018/day/6) | [Solution](https://github.com/tmbarker/advent-of-code/blob/main/Problems/Y2018/D06/Solution.cs) | 2018-06 | Vectors | :yellow_circle: Medium
 [The Stars Align](https://adventofcode.com/2018/day/10) | [Solution](https://github.com/tmbarker/advent-of-code/blob/main/Problems/Y2018/D10/Solution.cs) | 2018-10 | Vectors | :green_circle: Easy
 [Chronal Charge](https://adventofcode.com/2018/day/11) | [Solution](https://github.com/tmbarker/advent-of-code/blob/main/Problems/Y2018/D11/Solution.cs) | 2018-11 | Vectors | :red_circle: Hard
+[Chronal Classification](https://adventofcode.com/2018/day/16) | [Solution](https://github.com/tmbarker/advent-of-code/blob/main/Problems/Y2018/D16/Solution.cs) | 2018-16 | Assembly | :yellow_circle: Medium
 
 ## Running a Solution
 1. From your terminal, using the .NET CLI
 ```
-dotnet run Aoc solve <year> <day>
+cd Aoc
+dotnet run solve <year> <day>
 ```
 
 2. From a `.cs` file, using reflective `SolutionRunner`:
