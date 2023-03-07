@@ -37,7 +37,7 @@ public class Solution : SolutionBase2021
         };
     }
 
-    private static Map BuildMap(IList<Reporting> reportings)
+    private Map BuildMap(IList<Reporting> reportings)
     {
         var map = new Map(reportings[0]);
         var unmatchedReportings = new List<Reporting>(reportings.Skip(1));
@@ -62,7 +62,7 @@ public class Solution : SolutionBase2021
         return map;
     }
 
-    private static bool TryMapReporting(Reporting reporting, Map map, IDictionary<int, HashSet<int>> incongruent)
+    private bool TryMapReporting(Reporting reporting, Map map, IDictionary<int, HashSet<int>> incongruent)
     {
         foreach (var (knownScannerId, knownBeacons) in map.KnownBeacons)
         {
@@ -100,10 +100,9 @@ public class Solution : SolutionBase2021
             foreach (var reportedPos in reported)
             {
                 offset = knownPos - reportedPos;
-
-                // NOTE: C# requires a local copy of out parameter 'offset' for use in a lambda
-                var localOffset = offset;
-                var shifted = reported.Select(p => p + localOffset);
+                
+                var offsetNoClosure = offset;
+                var shifted = reported.Select(p => p + offsetNoClosure);
 
                 if (known.Intersect(shifted).Count() >= IntersectionThreshold)
                 {
@@ -126,8 +125,11 @@ public class Solution : SolutionBase2021
         return pos.Select(p => r2 * (r1 * p)).ToList();
     }
 
-    private static void LogMatch(int found, int against, Vector3D pos)
+    private void LogMatch(int found, int against, Vector3D pos)
     {
-        Console.WriteLine($"Matched scanner #{found:D2} to known beacons from scanner #{against:D2}, pos => {pos}");
+        if (LogsEnabled)
+        {
+            Console.WriteLine($"Matched scanner #{found:D2} to known beacons from scanner #{against:D2}, pos => {pos}");   
+        }
     }
 }

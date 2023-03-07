@@ -8,14 +8,15 @@ namespace Problems.Y2018.D15;
 public class Solution : SolutionBase2018
 {
     public override int Day => 15;
+    
 
     public override object Run(int part)
     {
         var input = GetInputLines();
         return part switch
         {
-            1 => PlayDefaultGame(input, print: false),
-            2 => PlayBuffedGame(input, print: false),
+            1 => PlayDefaultGame(input, print: LogsEnabled),
+            2 => PlayBuffedGame(input, print: LogsEnabled),
             _ => ProblemNotSolvedString
         };
     }

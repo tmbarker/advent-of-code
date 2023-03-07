@@ -17,10 +17,19 @@ internal static class Program
         var dayArg = new Argument<int>(
             name: "day", 
             description: "The problem day");
+        var logsOption = new Option<bool>(
+            aliases: new[] { "-l", "--logs" },
+            description: "Some problems emit logs as they run, print any such logs to the console",
+            getDefaultValue: () => false);
         
         solveCommand.AddArgument(yearArg);
         solveCommand.AddArgument(dayArg);
-        solveCommand.SetHandler(SolutionRunner.Run, yearArg, dayArg);
+        solveCommand.AddOption(logsOption);
+        solveCommand.SetHandler(
+            handle: SolutionRunner.Run, 
+            symbol1: yearArg, 
+            symbol2: dayArg, 
+            symbol3: logsOption);
         
         var updateReadmeCommand = new Command(
             name: "update-readme", 

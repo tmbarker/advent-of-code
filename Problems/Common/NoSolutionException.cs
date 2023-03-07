@@ -8,6 +8,10 @@ public class NoSolutionException : Exception
     {
     }
 
+    public NoSolutionException(string message) : base(message)
+    {
+    }
+    
     public NoSolutionException(Exception innerException) : base(NoSolutionErrorText, innerException)
     {
     }

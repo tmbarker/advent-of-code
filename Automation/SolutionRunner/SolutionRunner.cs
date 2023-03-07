@@ -9,12 +9,17 @@ public static class SolutionRunner
     private const string SolutionTypeName = "Solution";
     private const string QualifiedSolutionTypeNameFormat = "{0}.Y{1}.D{2}.{3}";
 
-    public static void Run(int year, int day)
+    public static void Run(int year, int day, bool showLogs = false)
     {
         if (!TryCreateSolutionInstance(year, day, out var solution))
         {
             Log(year, day, SolutionBase.ProblemNotSolvedString);
             return;
+        }
+
+        if (showLogs)
+        {
+            solution!.LogsEnabled = true;
         }
 
         for (var i = 0; i < solution!.Parts; i++)

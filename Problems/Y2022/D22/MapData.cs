@@ -277,15 +277,13 @@ public static class MapData
                 var returnPose = new Pose(fromPose.Pos, returnFacing);
                 if (!TryMoveBetweenFaces(returnPose, board))
                 {
-                    Console.WriteLine($"Cannot return to {current} from {returnPose.Pos}");
-                    throw new NoSolutionException();
+                    throw new NoSolutionException($"Cannot return to {current} from {returnPose.Pos}");
                 }
 
                 // If we map to a position, we must map back to the same from position
                 if (returnPose.Pos != current)
                 {
-                    Console.WriteLine($"Asymmetry detected: From => {current}");
-                    throw new NoSolutionException();
+                    throw new NoSolutionException($"Asymmetry detected: From => {current}");
                 }
                 
                 current += step;

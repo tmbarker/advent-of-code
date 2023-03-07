@@ -16,6 +16,8 @@ public abstract class SolutionBase
     public abstract int Year { get; }
     public abstract int Day { get; }
     public virtual int Parts => 2;
+    
+    public bool LogsEnabled { get; set; }
 
     public abstract object Run(int part);
 

@@ -30,11 +30,15 @@ public class Solution : SolutionBase2021
         };
     }
 
-    private static int CountStepsTillSteadyState(Herds herds, Aabb2D bounds)
+    private int CountStepsTillSteadyState(Herds herds, Aabb2D bounds)
     {
         for (var i = 0;; i++)
         {
-            Console.WriteLine($"Step: {i}");
+            if (LogsEnabled)
+            {
+                Console.WriteLine($"Stepped herds: #{i}");   
+            }
+            
             if (!TryStepHerds(herds, bounds))
             {
                 return i + 1;

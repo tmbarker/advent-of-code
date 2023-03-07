@@ -53,8 +53,7 @@ Puzzle | My Solution | Date | Topic(s) | Difficulty
 ## Running a Solution
 1. From your terminal, using the .NET CLI
 ```
-cd aoc
-dotnet run solve <year> <day>
+dotnet run Aoc solve <year> <day>
 ```
 
 2. From a `.cs` file, using reflective `SolutionRunner`:

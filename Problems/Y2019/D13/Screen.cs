@@ -50,19 +50,16 @@ public class Screen
             Score = machineOutput.Dequeue();
             return;
         }
-
-        var gobType = GobCodes[machineOutput.Dequeue()];
-        _pixels[pos] = gobType;
-
-        // ReSharper disable once SwitchStatementMissingSomeEnumCasesNoDefault
-        switch (gobType)
+        
+        _pixels[pos] = GobCodes[machineOutput.Dequeue()];
+        
+        if (_pixels[pos] == GameObject.Ball)
         {
-            case GameObject.Ball:
-                Ball = pos;
-                break;
-            case GameObject.Paddle:
-                Paddle = pos;
-                break;
+            Ball = pos;
+        }
+        if (_pixels[pos] == GameObject.Paddle)
+        {
+            Paddle = pos;
         }
     }
     
@@ -79,16 +76,16 @@ public class Screen
         }
 
         Console.SetCursorPosition(drawAt.Left, drawAt.Top);
-        grid.Print(padding:0, elementFormatter: (_, gobType) =>
+        grid.Print(padding: 0, elementFormatter: (_, gameObject) =>
         {
-            return gobType switch
+            return gameObject switch
             {
                 GameObject.Wall => "▓",
                 GameObject.Block => "#",
                 GameObject.Paddle => "─",
                 GameObject.Empty => " ",
                 GameObject.Ball => "O",
-                _ => throw new ArgumentOutOfRangeException(nameof(gobType), gobType, null)
+                _ => throw new ArgumentOutOfRangeException(nameof(gameObject))
             };
         });
     }

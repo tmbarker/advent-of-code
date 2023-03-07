@@ -17,8 +17,8 @@ public class Solution : SolutionBase2019
     {
         return part switch
         {
-            1 => CountGameObjects(GameObject.Block),
-            2 => GetWinningScore(true),
+            1 => CountGameObjects(type: GameObject.Block),
+            2 => GetWinningScore(print: LogsEnabled),
             _ => ProblemNotSolvedString
         };
     }
@@ -36,8 +36,8 @@ public class Solution : SolutionBase2019
         var drawAt = (0, 0);
         if (print)
         {
-            Console.CursorVisible = false;
             drawAt = Console.GetCursorPosition();
+            Console.CursorVisible = false;
         }
         
         var program = LoadFreeToPlayProgram();

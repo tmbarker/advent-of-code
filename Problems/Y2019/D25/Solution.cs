@@ -26,14 +26,14 @@ public class Solution : SolutionBase2019
         var game = IntCodeVm.Create(program);
 
         game.Run();
-        PrintGameOutput(game);
+        PrintOutput(game);
 
         while (Cheats.AutomationCommands.Any())
         {
             EnterGameCommand(
                 game: game,
                 command: Cheats.AutomationCommands.Dequeue());
-            PrintGameOutput(game);
+            PrintOutput(game);
         }
 
         var numInventoryItems = Cheats.InventoryItems.Count;
@@ -50,12 +50,16 @@ public class Solution : SolutionBase2019
                     : $"drop {itemName}";
                 
                 EnterGameCommand(game, itemCommand);
-                PrintGameOutput(game);
+                PrintOutput(game);
                 EnterGameCommand(game, Cheats.TestInventoryCommand);
                 
                 var output = ReadAsciiOutput(game);
                 var match = Cheats.PasscodeRegex.Match(output);
-                Console.WriteLine(output);
+
+                if (LogsEnabled)
+                {
+                    Console.WriteLine(output);   
+                }
 
                 if (match.Success)
                 {
@@ -67,11 +71,17 @@ public class Solution : SolutionBase2019
         throw new NoSolutionException();
     }
 
-    private static void PrintGameOutput(IntCodeVm game)
+    private void PrintOutput(IntCodeVm game)
     {
-        if (game.OutputBuffer.Any())
+        if (!game.OutputBuffer.Any())
         {
-            Console.WriteLine(ReadAsciiOutput(game));
+            return;
+        }
+        
+        var output = ReadAsciiOutput(game);
+        if (LogsEnabled)
+        {
+            Console.WriteLine(output);   
         }
     }
 

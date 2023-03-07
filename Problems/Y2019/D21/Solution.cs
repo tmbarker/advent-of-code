@@ -68,9 +68,12 @@ public class Solution : SolutionBase2019
             return output;
         }
 
-        Console.Write(output);
-        Console.WriteLine();
-        
+        if (LogsEnabled)
+        {
+            Console.Write(output);
+            Console.WriteLine();   
+        }
+
         return ProblemNotSolvedString;
     }
 }
