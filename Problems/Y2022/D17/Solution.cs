@@ -9,15 +9,10 @@ namespace Problems.Y2022.D17;
 /// </summary>
 public class Solution : SolutionBase2022
 {
-    private const long NumRocksPart1 = 2022;
-    private const long NumRocksPart2 = 1000000000000;
-    private const long CycleFindSeed = 5000;
-    
-    private const int WarmupDuration = 500;
     private const int ChamberWidth = 7;
     private const int SpawnHeight = 3;
     private const int SpawnOffset = 2;
-    
+
     private static readonly Vector2D Gravity = Vector2D.Down;
 
     public override int Day => 17;
@@ -26,17 +21,42 @@ public class Solution : SolutionBase2022
     {
         return part switch
         {
-            1 => GetHeightNaive(NumRocksPart1, out _),
-            2 => GetHeightUsingCycle(NumRocksPart2),
+            1 => GetHeightNaive(numRocks: 2022L, out _),
+            2 => GetHeightCycle(numRocks: 1000000000000L),
             _ => ProblemNotSolvedString
         };
     }
 
-    private long GetHeightUsingCycle(long numRocks)
+    private long GetHeightNaive(long numRocks, out List<int> heightDeltas)
     {
-        GetHeightNaive(CycleFindSeed, out var heightDeltas);
+        heightDeltas = new List<int>();
+        
+        var jetPattern = ParseJetPattern();
+        var rockPile = new HashSet<Vector2D>(GetFloorPositions());
+        var rockPileHeight = 0;
 
-        heightDeltas = heightDeltas.Skip(WarmupDuration).ToList();
+        for (var i = 0; i < numRocks; i++)
+        {
+            AddRockToPile(
+                rock: RockSource.Get(i), 
+                pos: new Vector2D(SpawnOffset, SpawnHeight + rockPileHeight + 1), 
+                rockPile: rockPile, 
+                jetPattern: jetPattern);
+            
+            heightDeltas.Add(rockPile.Max(r => r.Y) - rockPileHeight);
+            rockPileHeight += heightDeltas.Last();
+        }
+
+        return rockPileHeight;
+    }
+
+    private long GetHeightCycle(long numRocks)
+    {
+        const int warmupDuration = 500;
+        const int cycleFindSeed = 5000;
+        
+        GetHeightNaive(cycleFindSeed, out var heightDeltas);
+        heightDeltas = heightDeltas.Skip(warmupDuration).ToList();
 
         var cycleFound = false;
         var cycleLength = 0;
@@ -74,30 +94,7 @@ public class Solution : SolutionBase2022
         return numCycles * cycleHeight + GetHeightNaive(calculateNaive, out _);
     }
     
-    private long GetHeightNaive(long numRocks, out List<int> heightDeltas)
-    {
-        heightDeltas = new List<int>();
-        
-        var jetPattern = ParseJetPattern();
-        var rockPile = new HashSet<Vector2D>(GetFloorPositions());
-        var rockPileHeight = 0;
-
-        for (var i = 0; i < numRocks; i++)
-        {
-            AddRockAndMeasure(
-                rock: RockSource.Get(i), 
-                pos: new Vector2D(SpawnOffset, rockPileHeight + SpawnHeight + 1), 
-                rockPile: rockPile, 
-                jetPattern: jetPattern);
-            
-            heightDeltas.Add(rockPile.Max(r => r.Y) - rockPileHeight);
-            rockPileHeight += heightDeltas.Last();
-        }
-
-        return rockPileHeight;
-    }
-
-    private static void AddRockAndMeasure(Rock rock, Vector2D pos, HashSet<Vector2D> rockPile, JetPattern jetPattern)
+    private static void AddRockToPile(Rock rock, Vector2D pos, HashSet<Vector2D> rockPile, JetPattern jetPattern)
     {
         while (true)
         {
@@ -120,30 +117,21 @@ public class Solution : SolutionBase2022
     
     private static bool CanMove(Rock rock, Vector2D pos, Vector2D desiredMove, IReadOnlySet<Vector2D> rockPile)
     {
-        var resultingPositions = rock.Shape
-            .GetAllPositions()
-            .Where(p => rock.Shape[p])
-            .Select(p => pos + desiredMove + p);
-
-        return resultingPositions.All(resultingPosition => PositionAvailable(resultingPosition, rockPile));
+        return rock.Shape
+            .Select(p => pos + desiredMove + p)
+            .All(p => PositionAvailable(p, rockPile));
     }
 
     private static bool PositionAvailable(Vector2D targetPos, IReadOnlySet<Vector2D> rockPile)
     {
-        if (targetPos.Y < 0 || targetPos.X is < 0 or >= ChamberWidth) return false;
-        return !rockPile.Contains(targetPos);
+        return targetPos.X is >= 0 and < ChamberWidth && !rockPile.Contains(targetPos);
     }
 
     private static void MarkPositions(Rock rock, Vector2D pos, ISet<Vector2D> rockPile)
     {
-        var occupiedPositions = rock.Shape
-            .GetAllPositions()
-            .Where(p => rock.Shape[p])
-            .Select(p => pos + p);
-
-        foreach (var occupiedPosition in occupiedPositions)
+        foreach (var position in rock.Shape.Select(p => pos + p))
         {
-            rockPile.Add(occupiedPosition);
+            rockPile.Add(position);
         }
     }
 
@@ -151,7 +139,7 @@ public class Solution : SolutionBase2022
     {
         for (var x = 0; x < ChamberWidth; x++)
         {
-            yield return new Vector2D(x, 0);
+            yield return new Vector2D(x, y: 0);
         }
     }
     

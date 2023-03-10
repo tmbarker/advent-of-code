@@ -4,77 +4,87 @@ namespace Problems.Y2022.D17;
 
 public abstract class Rock
 {
-    public abstract Grid2D<bool> Shape { get; }
+    public abstract HashSet<Vector2D> Shape { get; }
 }
 
 public sealed class HorizontalLine : Rock
 {
     public HorizontalLine()
     {
-        Shape = Grid2D<bool>.WithDimensions(1, 4);
-        Shape[0, 0] = true;
-        Shape[1, 0] = true;
-        Shape[2, 0] = true;
-        Shape[3, 0] = true;
+        Shape = new HashSet<Vector2D>
+        {
+            new(x: 0, y: 0),
+            new(x: 1, y: 0),
+            new(x: 2, y: 0),
+            new(x: 3, y: 0)
+        };
     }
     
-    public override Grid2D<bool> Shape { get; }
+    public override HashSet<Vector2D> Shape { get; }
 }
 
 public sealed class Plus : Rock
 {
     public Plus()
     {
-        Shape = Grid2D<bool>.WithDimensions(3, 3);
-        Shape[1, 0] = true;
-        Shape[1, 1] = true;
-        Shape[1, 2] = true;
-        Shape[0, 1] = true;
-        Shape[2, 1] = true;
+        Shape = new HashSet<Vector2D>
+        {
+            new(x: 1, y: 0),
+            new(x: 1, y: 1),
+            new(x: 1, y: 2),
+            new(x: 0, y: 1),
+            new(x: 2, y: 1)
+        };
     }
     
-    public override Grid2D<bool> Shape { get; }
+    public override HashSet<Vector2D> Shape { get; }
 }
 
 public sealed class L : Rock
 {
     public L()
     {
-        Shape = Grid2D<bool>.WithDimensions(3, 3);
-        Shape[0, 0] = true;
-        Shape[1, 0] = true;
-        Shape[2, 0] = true;
-        Shape[2, 1] = true;
-        Shape[2, 2] = true;
+        Shape = new HashSet<Vector2D>
+        {
+            new(x: 0, y: 0),
+            new(x: 1, y: 0),
+            new(x: 2, y: 0),
+            new(x: 2, y: 1),
+            new(x: 2, y: 2)
+        };
     }
     
-    public override Grid2D<bool> Shape { get; }
+    public override HashSet<Vector2D> Shape { get; }
 }
 
 public sealed class VerticalLine : Rock
 {
     public VerticalLine()
     {
-        Shape = Grid2D<bool>.WithDimensions(4, 1);
-        Shape[0, 0] = true;
-        Shape[0, 1] = true;
-        Shape[0, 2] = true;
-        Shape[0, 3] = true;
+        Shape = new HashSet<Vector2D>
+        {
+            new(x: 0, y: 0),
+            new(x: 0, y: 1),
+            new(x: 0, y: 2),
+            new(x: 0, y: 3),
+        };
     }
     
-    public override Grid2D<bool> Shape { get; }
+    public override HashSet<Vector2D> Shape { get; }
 }
 
 public sealed class Square : Rock
 {
     public Square()
     {
-        Shape = Grid2D<bool>.WithDimensions(2, 2);
-        Shape[0, 0] = true;
-        Shape[0, 1] = true;
-        Shape[1, 0] = true;
-        Shape[1, 1] = true;
+        Shape = new HashSet<Vector2D>
+        {
+            new(x: 0, y: 0),
+            new(x: 0, y: 1),
+            new(x: 1, y: 0),
+            new(x: 1, y: 1),
+        };
     }
     
-    public override Grid2D<bool> Shape { get; }
+    public override HashSet<Vector2D> Shape { get; }
 }

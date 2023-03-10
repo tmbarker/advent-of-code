@@ -4,7 +4,7 @@ public static class RockSource
 {
     private static readonly List<Rock> List = new();
 
-    public static int CycleLength => List.Count; 
+    private static int CycleLength => List.Count; 
     
     static RockSource()
     {
