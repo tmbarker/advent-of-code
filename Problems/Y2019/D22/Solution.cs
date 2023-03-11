@@ -115,7 +115,7 @@ public class Solution : SolutionBase2019
 
         if (r > 1)
         {
-            throw new NoSolutionException();
+            throw new NoSolutionException(message: $"{a} is not invertible mod {modulus}");
         }
 
         if (t < 0)

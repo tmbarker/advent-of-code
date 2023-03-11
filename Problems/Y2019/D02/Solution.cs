@@ -33,9 +33,9 @@ public class Solution : SolutionBase2019
         var vm = IntCodeVm.Create(program); 
         var ec = vm.Run();
 
-        return ec == IntCodeVm.ExitCode.Halted 
-            ? vm.Memory[0] 
-            : throw new NoSolutionException();
+        return ec == IntCodeVm.ExitCode.Halted
+            ? vm.Memory[0]
+            : throw new NoSolutionException(message: $"Invalid VM exit code [{ec}]");
     }
 
     private static long FindPartsOfSpeech(IList<long> program)

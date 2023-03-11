@@ -15,7 +15,7 @@ public class Solution : SolutionBase2022
     {
         if (!CranePlan.TryParse(GetInputLines(), out var plan))
         {
-            throw new NoSolutionException();
+            throw new NoSolutionException(message: "Failed to parse input");
         }
 
         return part switch

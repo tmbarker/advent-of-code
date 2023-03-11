@@ -15,9 +15,11 @@ public class Solution : SolutionBase2019
     
     public override object Run(int part)
     {
-        return part == 0 
-            ? PlayGame() 
-            : throw new NoSolutionException();
+        return part switch
+        {
+            1 => PlayGame(),
+            _ => ProblemNotSolvedString
+        };
     }
 
     private string PlayGame()

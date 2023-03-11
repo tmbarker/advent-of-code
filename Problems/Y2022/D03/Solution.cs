@@ -37,10 +37,7 @@ public class Solution : SolutionBase2022
             {
                 if (i < numItemsPerCompartment)
                 {
-                    if (!set.Contains(rucksack[i]))
-                    {
-                        set.Add(rucksack[i]);   
-                    }
+                    set.Add(rucksack[i]);
                     continue;
                 }
 
@@ -86,6 +83,7 @@ public class Solution : SolutionBase2022
     private static int GetItemPriority(char item)
     {
         // The uppercase letters proceed the lowercase letters in the ASCII table
+        //
         return item < 'a' ? 
             item - 'A' + 1 + AlphabetLength : 
             item - 'a' + 1;

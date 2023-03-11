@@ -9,7 +9,6 @@ public class Solution : SolutionBase2018
 {
     public override int Day => 15;
     
-
     public override object Run(int part)
     {
         var input = GetInputLines();

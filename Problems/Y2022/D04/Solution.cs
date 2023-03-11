@@ -10,29 +10,24 @@ public class Solution : SolutionBase2022
     public override int Day => 4;
     
     public override object Run(int part)
-    { 
+    {
+        var pairs = ParseInputLines(parseFunc: ParseAssignmentPair);
         return part switch
         {
-            1 => GetNumInclusivePairs(),
-            2 => GetNumIntersectingPairs(),
+            1 => GetNumInclusivePairs(pairs),
+            2 => GetNumIntersectingPairs(pairs),
             _ => ProblemNotSolvedString
         };
     }
 
-    private int GetNumInclusivePairs()
+    private static int GetNumInclusivePairs(IEnumerable<(Pair P1, Pair P2)> pairs)
     {
-        var assignmentPairs = GetInputLines();
-        return assignmentPairs
-            .Select(ParseAssignmentPair)
-            .Count(assignments => CheckSetsForContainment(assignments.P1, assignments.P2));
+        return pairs.Count(assignments => CheckSetsForContainment(assignments.P1, assignments.P2));
     }
     
-    private int GetNumIntersectingPairs()
+    private static int GetNumIntersectingPairs(IEnumerable<(Pair P1, Pair P2)> pairs)
     {
-        var assignmentPairs = GetInputLines();
-        return assignmentPairs
-            .Select(ParseAssignmentPair)
-            .Count(assignments => CheckSetsForIntersection(assignments.P1, assignments.P2));
+        return pairs.Count(assignments => CheckSetsForIntersection(assignments.P1, assignments.P2));
     }
 
     private static bool CheckSetsForContainment(Pair a, Pair b)

@@ -44,6 +44,7 @@ public class Solution : SolutionBase2022
         var los = new List<IEnumerable<Vector2D>>();
         
         // Horizontal
+        //
         for (var y = 0; y < trees.Height; y++)
         {
             var row = trees.GetRowPositions(y);
@@ -54,6 +55,7 @@ public class Solution : SolutionBase2022
         }
         
         // Vertical
+        //
         for (var x = 0; x < trees.Width; x++)
         {
             var col = trees.GetColPositions(x);
@@ -89,7 +91,8 @@ public class Solution : SolutionBase2022
     {
         var maxScore = 0;
 
-        // NOTE: The scenic score of edge trees will always be 0 and do not need to be evaluated
+        // NOTE: The scenic score of edge trees will always be 0 and does not need to be evaluated
+        //
         for (var j = 1; j < trees.Height - 1; j++)
         for (var i = 1; i < trees.Width - 1; i++)
         {

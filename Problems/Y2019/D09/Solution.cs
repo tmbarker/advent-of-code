@@ -28,6 +28,6 @@ public class Solution : SolutionBase2019
         
         return ec == IntCodeVm.ExitCode.Halted
             ? vm.OutputBuffer.Dequeue()
-            : throw new NoSolutionException();
+            : throw new NoSolutionException(message: $"Invalid VM exit code [{ec}]");
     }
 }

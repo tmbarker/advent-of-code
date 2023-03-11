@@ -1,14 +1,12 @@
+using Utilities.Extensions;
+
 namespace Problems.Y2022.D05;
 
 public class CranePlan
 {
     private const char DataElementDelimiter = ' ';
     
-    private const int InstructionNumMovesElementIndex = 1;
-    private const int InstructionSourceElementIndex = 3;
-    private const int InstructionDestinationElementIndex = 5;
     private const int NumStackAndInstructionSeparatorLines = 1;
-
     private const int StackItemCharacterOffset = 1;
     private const int StackItemCharacterFrequency = 4;
 
@@ -51,6 +49,7 @@ public class CranePlan
     private static StacksState ParseStacksState(IEnumerable<string> lines)
     {
         // Let's reverse the list before enumerating, this means the first element will contain our stack IDs
+        //
         var enumeratedLines = lines
             .Reverse()
             .ToList();
@@ -73,6 +72,7 @@ public class CranePlan
                 if (char.IsLetter(enumeratedLines[i][targetCharIndex]))
                 {
                     // Stack indexing is 1-based
+                    //
                     stacksMap[s + 1].Push(enumeratedLines[i][targetCharIndex]);   
                 }
             }
@@ -88,12 +88,12 @@ public class CranePlan
 
     private static CraneInstruction ParseCraneInstruction(string line)
     {
-        var elements = line.Split(DataElementDelimiter);
+        var numbers = line.ParseInts();
         return new CraneInstruction
         {
-            NumMoves = int.Parse(elements[InstructionNumMovesElementIndex]),
-            SourceStack = int.Parse(elements[InstructionSourceElementIndex]),
-            DestinationStack = int.Parse(elements[InstructionDestinationElementIndex]),
+            NumMoves = numbers[0],
+            SourceStack = numbers[1],
+            DestinationStack = numbers[2]
         };
     }
 }

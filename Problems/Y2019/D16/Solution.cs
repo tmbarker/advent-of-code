@@ -49,7 +49,7 @@ public class Solution : SolutionBase2019
         //
         if (digitsToSkip < inputLength / 2)
         {
-            throw new NoSolutionException();
+            throw new NoSolutionException(message: "Solution not valid for provided input");
         }
 
         var outputLength = inputLength - digitsToSkip;

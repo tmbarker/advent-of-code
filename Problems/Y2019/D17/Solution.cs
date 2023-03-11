@@ -61,10 +61,11 @@ public class Solution : SolutionBase2019
                 robot.InputBuffer.Enqueue(chr);
             }
         }
-        
-        return robot.Run() == IntCodeVm.ExitCode.Halted
+
+        var ec = robot.Run(); 
+        return ec == IntCodeVm.ExitCode.Halted
             ? robot.OutputBuffer.Last()
-            : throw new NoSolutionException();
+            : throw new NoSolutionException(message: $"Invalid VM exit code [{ec}]");
     }
 
     private static IEnumerable<string> ComputeCommands(IReadOnlySet<Vector2D> positions, Pose pose)
