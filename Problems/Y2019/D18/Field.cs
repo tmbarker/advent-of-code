@@ -75,26 +75,33 @@ public class Field
         var reachable = new Dictionary<Vector2D, char> { { startPos, Start } };
         var queue = new Queue<Vector2D>(new[] { startPos });
 
-        bool Predicate(Vector2D p) => grid.IsInDomain(p) && grid[p] != Wall;
-        
         while (queue.Any())
         {
             var current = queue.Dequeue();
-            foreach (var adj in current.GetAdjacentSet(DistanceMetric.Taxicab).Where(Predicate))
+            var candidates = current
+                .GetAdjacentSet(DistanceMetric.Taxicab)
+                .Where(p => IsTraversable(p, grid));
+            
+            foreach (var pos in candidates)
             {
-                if (reachable.ContainsKey(adj))
+                if (reachable.ContainsKey(pos))
                 {
                     continue;
                 }
 
-                reachable.Add(adj, grid[adj]);
-                queue.Enqueue(adj);
+                reachable.Add(pos, grid[pos]);
+                queue.Enqueue(pos);
             }
         }
         
         foreach (var (pos, _) in reachable.Where(kvp => kvp.Value != Wall))
         {
-            adjacency.Add(pos, new HashSet<Vector2D>(pos.GetAdjacentSet(DistanceMetric.Taxicab).Where(Predicate)));
+            var traversable = pos
+                .GetAdjacentSet(DistanceMetric.Taxicab)
+                .Where(p => IsTraversable(p, grid))
+                .ToHashSet();
+            
+            adjacency.Add(pos, traversable);
         }
         
         return new Field(
@@ -103,6 +110,11 @@ public class Field
             startPos: startPos);
     }
 
+    private static bool IsTraversable(Vector2D pos, Grid2D<char> grid)
+    {
+        return grid.IsInDomain(pos) && grid[pos] != Wall;
+    }
+    
     private static void ApplyInputOverrides(Grid2D<char> grid, Vector2D startPos)
     {
         foreach (var adj in startPos.GetAdjacentSet(DistanceMetric.Chebyshev))

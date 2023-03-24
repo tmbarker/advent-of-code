@@ -70,7 +70,6 @@ public class Solution : SolutionBase2022
             var current = GetClosestUnvisited(distances, unvisited);
             unvisited.Remove(current);
             
-            // Unreachable position from start
             if (distances[current] == int.MaxValue)
             {
                 continue;

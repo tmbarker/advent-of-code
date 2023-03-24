@@ -52,7 +52,7 @@ public class Solution : SolutionBase2020
                     congruences[tileId1].Add(new Tile.Congruence(
                         FromEdge: edgeId1,
                         ToEdge:   edgeId2,
-                        OnTile:   tileId2));
+                        ToTile:   tileId2));
                 }
             }
         }
