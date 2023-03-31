@@ -68,7 +68,6 @@ public static class GraphHelper
         IDictionary<T, HashSet<T>> adjacencyList, Predicate<T>? stopPredicate)
         where T : notnull
     {
-        var visited = new HashSet<T> { start };
         var heap = new PriorityQueue<T, int>(new[] { (start, 0) });
         var costs = adjacencyList.Keys.ToDictionary(
             keySelector: n => n,
@@ -84,19 +83,11 @@ public static class GraphHelper
             
             foreach (var neighbor in adjacencyList[current])
             {
-                if (visited.Contains(neighbor))
+                if (costs[current] + 1 < costs[neighbor])
                 {
-                    continue;
+                    costs[neighbor] = costs[current] + 1;
+                    heap.Enqueue(neighbor, costs[neighbor]);
                 }
-
-                var distanceViaCurrent = costs[current] + 1;
-                if (distanceViaCurrent < costs[neighbor])
-                {
-                    costs[neighbor] = distanceViaCurrent;
-                }
-
-                visited.Add(neighbor);
-                heap.Enqueue(neighbor, costs[neighbor]);
             }
         }
 
