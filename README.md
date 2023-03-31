@@ -47,10 +47,10 @@ Puzzle | My Solution | Date | Topic(s) | Difficulty
 :--- | :---: | :---: | :--- | :---
 [Alchemical Reduction](https://adventofcode.com/2018/day/5) | [Solution](https://github.com/tmbarker/advent-of-code/blob/main/Problems/Y2018/D05/Solution.cs) | 2018-05 | String Parsing | :green_circle: Easy
 [Chronal Coordinates](https://adventofcode.com/2018/day/6) | [Solution](https://github.com/tmbarker/advent-of-code/blob/main/Problems/Y2018/D06/Solution.cs) | 2018-06 | Vectors | :yellow_circle: Medium
-[The Stars Align](https://adventofcode.com/2018/day/10) | [Solution](https://github.com/tmbarker/advent-of-code/blob/main/Problems/Y2018/D10/Solution.cs) | 2018-10 | Vectors | :green_circle: Easy
 [Chronal Charge](https://adventofcode.com/2018/day/11) | [Solution](https://github.com/tmbarker/advent-of-code/blob/main/Problems/Y2018/D11/Solution.cs) | 2018-11 | Vectors | :red_circle: Hard
 [Chronal Classification](https://adventofcode.com/2018/day/16) | [Solution](https://github.com/tmbarker/advent-of-code/blob/main/Problems/Y2018/D16/Solution.cs) | 2018-16 | Assembly | :yellow_circle: Medium
 [Reservoir Research](https://adventofcode.com/2018/day/17) | [Solution](https://github.com/tmbarker/advent-of-code/blob/main/Problems/Y2018/D17/Solution.cs) | 2018-17 | Vectors | :yellow_circle: Medium
+[Mode Maze](https://adventofcode.com/2018/day/22) | [Solution](https://github.com/tmbarker/advent-of-code/blob/main/Problems/Y2018/D22/Solution.cs) | 2018-22 | Graphs | :red_circle: Hard
 
 ## Running a Solution
 1. From your terminal, using the .NET CLI

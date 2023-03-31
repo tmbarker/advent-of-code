@@ -1,5 +1,4 @@
 using System.Text;
-using Problems.Attributes;
 using Problems.Y2018.Common;
 using Utilities.Cartesian;
 using Utilities.Extensions;
@@ -9,7 +8,6 @@ namespace Problems.Y2018.D10;
 /// <summary>
 /// The Stars Align: https://adventofcode.com/2018/day/10
 /// </summary>
-[Favourite("The Stars Align", Topics.Vectors, Difficulty.Easy)]
 public class Solution : SolutionBase2018
 {
     public override int Day => 10;
