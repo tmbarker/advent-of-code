@@ -55,16 +55,12 @@ public readonly struct Vector2D : IEquatable<Vector2D>
 
     public static int Distance(Vector2D a, Vector2D b, DistanceMetric metric)
     {
-        switch (metric)
+        return metric switch
         {
-            case DistanceMetric.Chebyshev:
-                return ChebyshevDistance(a, b);
-            case DistanceMetric.Taxicab:
-                return TaxicabDistance(a, b);
-            case DistanceMetric.Euclidean:
-            default:
-                throw new ArgumentOutOfRangeException(nameof(metric), metric, null);
-        }
+            DistanceMetric.Chebyshev => ChebyshevDistance(a, b),
+            DistanceMetric.Taxicab => TaxicabDistance(a, b),
+            _ => throw new ArgumentOutOfRangeException(nameof(metric), metric, null)
+        };
     }
 
     public static Vector2D MinCollinear(Vector2D vector)
@@ -187,13 +183,6 @@ public static class Vector2DExtensions
     /// <exception cref="ArgumentException">This method does not support the Euclidean distance metric</exception>
     public static ISet<Vector2D> GetAdjacentSet(this Vector2D vector, DistanceMetric metric)
     {
-        if (metric == DistanceMetric.Euclidean)
-        {
-            throw new ArgumentException(
-                $"The {DistanceMetric.Euclidean} distance metric is not well defined over integral vector space",
-                nameof(metric));
-        }
-        
         var set = new HashSet<Vector2D>
         {
             vector + Vector2D.Up,

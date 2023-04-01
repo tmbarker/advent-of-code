@@ -47,16 +47,12 @@ public readonly struct Vector4D : IEquatable<Vector4D>
     
     public static int Distance(Vector4D a, Vector4D b, DistanceMetric metric)
     {
-        switch (metric)
+        return metric switch
         {
-            case DistanceMetric.Chebyshev:
-                return ChebyshevDistance(a, b);
-            case DistanceMetric.Taxicab:
-                return TaxicabDistance(a, b);
-            case DistanceMetric.Euclidean:
-            default:
-                throw new ArgumentOutOfRangeException(nameof(metric), metric, null);
-        }
+            DistanceMetric.Chebyshev => ChebyshevDistance(a, b),
+            DistanceMetric.Taxicab => TaxicabDistance(a, b),
+            _ => throw new ArgumentOutOfRangeException(nameof(metric), metric, null)
+        };
     }
 
     public static implicit operator Vector4D(Vector3D v) => new(v.X, v.Y, v.Z, 0);
@@ -136,18 +132,13 @@ public static class Vector4DExtensions
     /// <exception cref="ArgumentException">This method does not support the Euclidean distance metric</exception>
     public static ISet<Vector4D> GetAdjacentSet(this Vector4D vector, DistanceMetric metric)
     {
-        switch (metric)
+        return metric switch
         {
-            case DistanceMetric.Chebyshev:
-                return GetChebyshevAdjacentSet(vector);
-            case DistanceMetric.Taxicab:
-                return GetTaxicabAdjacentSet(vector);
-            case DistanceMetric.Euclidean:
-            default:
-                throw new ArgumentException(
-                    $"The {metric} distance metric is not well defined over integral vector space",
-                    nameof(metric));
-        }
+            DistanceMetric.Chebyshev => GetChebyshevAdjacentSet(vector),
+            DistanceMetric.Taxicab => GetTaxicabAdjacentSet(vector),
+            _ => throw new ArgumentException(
+                $"The {metric} distance metric is not well defined over integral vector space", nameof(metric))
+        };
     }
 
     private static ISet<Vector4D> GetTaxicabAdjacentSet(Vector4D vector)

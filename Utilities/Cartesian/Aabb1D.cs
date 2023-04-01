@@ -5,7 +5,7 @@ namespace Utilities.Cartesian;
 /// <summary>
 /// A readonly interval value type
 /// </summary>
-public readonly struct Aabb1D : IEnumerable<int>
+public readonly struct Aabb1D : IEnumerable<int>, IEquatable<Aabb1D>
 {
     public Aabb1D(ICollection<int> extents, bool inclusive)
     {
@@ -57,5 +57,30 @@ public readonly struct Aabb1D : IEnumerable<int>
     IEnumerator IEnumerable.GetEnumerator()
     {
         return GetEnumerator();
+    }
+
+    public bool Equals(Aabb1D other)
+    {
+        return Min == other.Min && Max == other.Max;
+    }
+
+    public override bool Equals(object? obj)
+    {
+        return obj is Aabb1D other && Equals(other);
+    }
+
+    public override int GetHashCode()
+    {
+        return HashCode.Combine(Min, Max);
+    }
+
+    public static bool operator ==(Aabb1D left, Aabb1D right)
+    {
+        return left.Equals(right);
+    }
+
+    public static bool operator !=(Aabb1D left, Aabb1D right)
+    {
+        return !left.Equals(right);
     }
 }

@@ -5,7 +5,7 @@ namespace Utilities.Cartesian;
 /// <summary>
 /// A readonly axis aligned 2D Rect value type
 /// </summary>
-public readonly struct Aabb2D : IEnumerable<Vector2D>
+public readonly struct Aabb2D : IEnumerable<Vector2D>, IEquatable<Aabb2D>
 {
     public Aabb2D(ICollection<Vector2D> extents, bool inclusive)
     {
@@ -127,5 +127,30 @@ public readonly struct Aabb2D : IEnumerable<Vector2D>
     IEnumerator IEnumerable.GetEnumerator()
     {
         return GetEnumerator();
+    }
+
+    public bool Equals(Aabb2D other)
+    {
+        return XMin == other.XMin && XMax == other.XMax && YMin == other.YMin && YMax == other.YMax;
+    }
+
+    public override bool Equals(object? obj)
+    {
+        return obj is Aabb2D other && Equals(other);
+    }
+
+    public override int GetHashCode()
+    {
+        return HashCode.Combine(XMin, XMax, YMin, YMax);
+    }
+
+    public static bool operator ==(Aabb2D left, Aabb2D right)
+    {
+        return left.Equals(right);
+    }
+
+    public static bool operator !=(Aabb2D left, Aabb2D right)
+    {
+        return !left.Equals(right);
     }
 }

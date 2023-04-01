@@ -68,16 +68,12 @@ public readonly struct Vector3D : IEquatable<Vector3D>
 
     public static int Distance(Vector3D a, Vector3D b, DistanceMetric metric)
     {
-        switch (metric)
+        return metric switch
         {
-            case DistanceMetric.Chebyshev:
-                return ChebyshevDistance(a, b);
-            case DistanceMetric.Taxicab:
-                return TaxicabDistance(a, b);
-            case DistanceMetric.Euclidean:
-            default:
-                throw new ArgumentOutOfRangeException(nameof(metric), metric, null);
-        }
+            DistanceMetric.Chebyshev => ChebyshevDistance(a, b),
+            DistanceMetric.Taxicab => TaxicabDistance(a, b),
+            _ => throw new ArgumentOutOfRangeException(nameof(metric), metric, null)
+        };
     }
 
     public static implicit operator Vector3D(Vector2D v) => new(v.X, v.Y, 0);
@@ -167,18 +163,13 @@ public static class Vector3DExtensions
     /// <exception cref="ArgumentException">This method does not support the Euclidean distance metric</exception>
     public static ISet<Vector3D> GetAdjacentSet(this Vector3D vector, DistanceMetric metric)
     {
-        switch (metric)
+        return metric switch
         {
-            case DistanceMetric.Chebyshev:
-                return GetChebyshevAdjacentSet(vector);
-            case DistanceMetric.Taxicab:
-                return GetTaxicabAdjacentSet(vector);
-            case DistanceMetric.Euclidean:
-            default:
-                throw new ArgumentException(
-                    $"The {metric} distance metric is not well defined over integral vector space",
-                    nameof(metric));
-        }
+            DistanceMetric.Chebyshev => GetChebyshevAdjacentSet(vector),
+            DistanceMetric.Taxicab => GetTaxicabAdjacentSet(vector),
+            _ => throw new ArgumentException(
+                $"The {metric} distance metric is not well defined over integral vector space", nameof(metric))
+        };
     }
 
     private static ISet<Vector3D> GetTaxicabAdjacentSet(Vector3D vector)

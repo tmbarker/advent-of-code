@@ -5,7 +5,7 @@ namespace Utilities.Cartesian;
 /// <summary>
 /// A readonly axis aligned 3D Cuboid value type
 /// </summary>
-public readonly struct Aabb3D : IEnumerable<Vector3D>
+public readonly struct Aabb3D : IEnumerable<Vector3D>, IEquatable<Aabb3D>
 { 
     public static Aabb3D CubeCenteredAtOrigin(int extent)
     {
@@ -51,9 +51,9 @@ public readonly struct Aabb3D : IEnumerable<Vector3D>
     public int ZMin { get; }
     public int ZMax { get; }
 
-    private int Length => XMax - XMin + 1;
-    private int Height => YMax - YMin + 1;
-    private int Width => ZMax - ZMin + 1;
+    public int XLength => XMax - XMin + 1;
+    public int YLength => YMax - YMin + 1;
+    public int ZLength => ZMax - ZMin + 1;
     
     public static bool FindOverlap(Aabb3D lhs, Aabb3D rhs, out  Aabb3D overlap)
     {
@@ -82,14 +82,22 @@ public readonly struct Aabb3D : IEnumerable<Vector3D>
         return true;
     }
 
+    public Vector3D GetCenter()
+    {
+        return new Vector3D(
+            x: (XMin + XMax) / 2,
+            y: (YMin + YMax) / 2,
+            z: (ZMin + ZMax) / 2);
+    }
+    
     public long GetVolume()
     {
-        return (long)Length * Height * Width;
+        return (long)XLength * YLength * ZLength;
     }
 
     public long GetSurfaceArea()
     {
-        return 2L * (Width * Length + Height * Length + Height * Width);
+        return 2L * (ZLength * XLength + YLength * XLength + YLength * ZLength);
     }
 
     public Vector3D GetMinVertex()
@@ -143,5 +151,31 @@ public readonly struct Aabb3D : IEnumerable<Vector3D>
     IEnumerator IEnumerable.GetEnumerator()
     {
         return GetEnumerator();
+    }
+
+    public bool Equals(Aabb3D other)
+    {
+        return XMin == other.XMin && XMax == other.XMax && YMin == other.YMin && YMax == other.YMax &&
+               ZMin == other.ZMin && ZMax == other.ZMax;
+    }
+
+    public override bool Equals(object? obj)
+    {
+        return obj is Aabb3D other && Equals(other);
+    }
+
+    public override int GetHashCode()
+    {
+        return HashCode.Combine(XMin, XMax, YMin, YMax, ZMin, ZMax);
+    }
+
+    public static bool operator ==(Aabb3D left, Aabb3D right)
+    {
+        return left.Equals(right);
+    }
+
+    public static bool operator !=(Aabb3D left, Aabb3D right)
+    {
+        return !left.Equals(right);
     }
 }

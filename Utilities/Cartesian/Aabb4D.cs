@@ -3,9 +3,9 @@ using System.Collections;
 namespace Utilities.Cartesian;
 
 /// <summary>
-/// A readonly axis aligned 4D AABB value type
+/// A readonly 4D AABB value type
 /// </summary>
-public readonly struct Aabb4D : IEnumerable<Vector4D>
+public readonly struct Aabb4D : IEnumerable<Vector4D>, IEquatable<Aabb4D>
 {
     public Aabb4D(ICollection<Vector4D> extents, bool inclusive)
     {
@@ -85,5 +85,31 @@ public readonly struct Aabb4D : IEnumerable<Vector4D>
     IEnumerator IEnumerable.GetEnumerator()
     {
         return GetEnumerator();
+    }
+
+    public bool Equals(Aabb4D other)
+    {
+        return XMin == other.XMin && XMax == other.XMax && YMin == other.YMin && YMax == other.YMax &&
+               ZMin == other.ZMin && ZMax == other.ZMax && WMin == other.WMin && WMax == other.WMax;
+    }
+
+    public override bool Equals(object? obj)
+    {
+        return obj is Aabb4D other && Equals(other);
+    }
+
+    public override int GetHashCode()
+    {
+        return HashCode.Combine(XMin, XMax, YMin, YMax, ZMin, ZMax, WMin, WMax);
+    }
+
+    public static bool operator ==(Aabb4D left, Aabb4D right)
+    {
+        return left.Equals(right);
+    }
+
+    public static bool operator !=(Aabb4D left, Aabb4D right)
+    {
+        return !left.Equals(right);
     }
 }
