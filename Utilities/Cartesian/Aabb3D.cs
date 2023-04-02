@@ -7,20 +7,20 @@ namespace Utilities.Cartesian;
 /// </summary>
 public readonly struct Aabb3D : IEnumerable<Vector3D>, IEquatable<Aabb3D>
 { 
-    public static Aabb3D CubeCenteredAtOrigin(int extent)
+    public static Aabb3D CubeCenteredAt(Vector3D center, int extent)
     {
         if (extent < 0)
         {
             throw new ArgumentOutOfRangeException(nameof(extent), extent, $"{nameof(extent)} must be positive");
         }
-        
+
         return new Aabb3D(
-            xMin: -extent,
-            xMax:  extent,
-            yMin: -extent,
-            yMax:  extent,
-            zMin: -extent,
-            zMax:  extent);
+            xMin: center.X - extent,
+            xMax: center.X + extent,
+            yMin: center.Y - extent,
+            yMax: center.Y + extent,
+            zMin: center.Z - extent,
+            zMax: center.Z + extent);
     } 
     
     public Aabb3D(ICollection<Vector3D> extents, bool inclusive)
@@ -54,6 +54,7 @@ public readonly struct Aabb3D : IEnumerable<Vector3D>, IEquatable<Aabb3D>
     public int XLength => XMax - XMin + 1;
     public int YLength => YMax - YMin + 1;
     public int ZLength => ZMax - ZMin + 1;
+    public long Volume => (long)XLength * YLength * ZLength;
     
     public static bool FindOverlap(Aabb3D lhs, Aabb3D rhs, out  Aabb3D overlap)
     {
@@ -89,11 +90,6 @@ public readonly struct Aabb3D : IEnumerable<Vector3D>, IEquatable<Aabb3D>
             y: (YMin + YMax) / 2,
             z: (ZMin + ZMax) / 2);
     }
-    
-    public long GetVolume()
-    {
-        return (long)XLength * YLength * ZLength;
-    }
 
     public long GetSurfaceArea()
     {
@@ -109,7 +105,24 @@ public readonly struct Aabb3D : IEnumerable<Vector3D>, IEquatable<Aabb3D>
     {
         return new Vector3D(XMax, YMax, ZMax);
     }
-    
+
+    public IEnumerable<Vector3D> GetVertices()
+    {
+        var set = new HashSet<Vector3D>
+        {
+            new(XMin, YMin, ZMin),
+            new(XMax, YMin, ZMin),
+            new(XMax, YMax, ZMin),
+            new(XMin, YMax, ZMin),
+            new(XMin, YMin, ZMax),
+            new(XMax, YMin, ZMax),
+            new(XMax, YMax, ZMax),
+            new(XMin, YMax, ZMax)
+        };
+        
+        return set;
+    }
+
     public bool Contains(Vector3D pos, bool inclusive)
     {
         return inclusive

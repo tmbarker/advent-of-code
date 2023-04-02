@@ -27,7 +27,7 @@ public class Solution : SolutionBase2021
 
     private static int Init(IEnumerable<(bool On, Aabb3D Aabb)> instructions)
     {
-        var initRegion = Aabb3D.CubeCenteredAtOrigin(InitRegionHalfWidth);
+        var initRegion = Aabb3D.CubeCenteredAt(center: Vector3D.Zero, extent: InitRegionHalfWidth);
         var onSet = new HashSet<Vector3D>();
 
         foreach (var step in instructions)
@@ -79,7 +79,7 @@ public class Solution : SolutionBase2021
         var cubes = 0L;
         foreach (var (aabb, weight) in signedAabbs)
         {
-            cubes += weight * aabb.GetVolume();
+            cubes += weight * aabb.Volume;
         }   
         return cubes;
     }

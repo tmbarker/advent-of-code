@@ -31,12 +31,8 @@ public readonly struct Aabb2D : IEnumerable<Vector2D>, IEquatable<Aabb2D>
 
     public int Width => XMax - XMin + 1;
     public int Height => YMax - YMin + 1;
-    
-    public long GetArea()
-    {
-        return (long)Width * Height;
-    }
-    
+    public long Area => (long)Width * Height;
+
     public bool Contains(Vector2D pos, bool inclusive)
     {
         return inclusive 

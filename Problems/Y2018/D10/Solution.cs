@@ -26,7 +26,7 @@ public class Solution : SolutionBase2018
     {
         var (pos, vel) = GetInitialPoses();
         var aabb = new Aabb2D(pos, inclusive: true);
-        var area = aabb.GetArea();
+        var area = aabb.Area;
         var prevArea = long.MaxValue;
         var time = 0;
 
@@ -37,7 +37,7 @@ public class Solution : SolutionBase2018
             StepForwards(pos, vel);
             
             aabb = new Aabb2D(pos, inclusive: true);
-            area = aabb.GetArea();
+            area = aabb.Area;
         }
 
         time--;
