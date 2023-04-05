@@ -106,23 +106,6 @@ public readonly struct Aabb3D : IEnumerable<Vector3D>, IEquatable<Aabb3D>
         return new Vector3D(XMax, YMax, ZMax);
     }
 
-    public IEnumerable<Vector3D> GetVertices()
-    {
-        var set = new HashSet<Vector3D>
-        {
-            new(XMin, YMin, ZMin),
-            new(XMax, YMin, ZMin),
-            new(XMax, YMax, ZMin),
-            new(XMin, YMax, ZMin),
-            new(XMin, YMin, ZMax),
-            new(XMax, YMin, ZMax),
-            new(XMax, YMax, ZMax),
-            new(XMin, YMax, ZMax)
-        };
-        
-        return set;
-    }
-
     public bool Contains(Vector3D pos, bool inclusive)
     {
         return inclusive
