@@ -45,13 +45,13 @@ public class Solution : SolutionBase2018
         {
             switch (observation)
             {
-                case {} when observation.StartsWith(Guard):
+                case not null when observation.StartsWith(Guard):
                     onDutyId = observation.ParseInts().Single();
                     break;
-                case {} when observation.StartsWith(Falls):
+                case not null when observation.StartsWith(Falls):
                     asleepAt = dateTime.Minute;
                     break;
-                case {} when observation.StartsWith(Wakes):
+                case not null when observation.StartsWith(Wakes):
                     sleepMap.EnsureContainsKey(onDutyId, new List<int>());
                     sleepMap[onDutyId].AddRange(Enumerable.Range(
                         start: asleepAt,

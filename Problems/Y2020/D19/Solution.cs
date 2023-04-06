@@ -76,9 +76,9 @@ public class Solution : SolutionBase2020
     
     private static string BuildRegex(int ruleId, Rules rules, Memo memo)
     {
-        if (memo.ContainsKey(ruleId))
+        if (memo.TryGetValue(ruleId, out var builtRegex))
         {
-            return memo[ruleId];
+            return builtRegex;
         }
         
         var rule = rules[ruleId];

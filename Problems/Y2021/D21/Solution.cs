@@ -80,9 +80,9 @@ public class Solution : SolutionBase2021
             return new WinCounts(0, 1);
         }
 
-        if (memo.ContainsKey(state))
+        if (memo.TryGetValue(state, out var counts))
         {
-            return memo[state];
+            return counts;
         }
         
         var winCounts = new WinCounts(0, 0);

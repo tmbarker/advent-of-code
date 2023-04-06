@@ -59,8 +59,8 @@ public static class GraphHelper
             adjacencyList: adjacencyList,
             stopPredicate: key => EqualityComparer<T>.Default.Equals(end, key));
 
-        return costs.ContainsKey(end)
-            ? costs[end]
+        return costs.TryGetValue(end, out var cost)
+            ? cost
             : int.MaxValue;
     }
 

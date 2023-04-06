@@ -62,9 +62,9 @@ public class Solution : SolutionBase2019
                 new StateComp(component, bodies[Moon.Ganymede]),
                 new StateComp(component, bodies[Moon.Callisto]));
 
-            if (states.ContainsKey(key))
+            if (states.TryGetValue(key, out var state))
             {
-                return step - states[key];
+                return step - state;
             }
 
             states[key] = step;

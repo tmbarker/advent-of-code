@@ -42,12 +42,8 @@ public class Solution : SolutionBase2022
                     bufferContentMap.Remove(outshifted);
                 }
             }
-            
-            if (!bufferContentMap.ContainsKey(received))
-            {
-                bufferContentMap.Add(received, 0);
-            }
 
+            bufferContentMap.TryAdd(received, 0);
             bufferContentMap[received]++;
             buffer.Enqueue(received);
 

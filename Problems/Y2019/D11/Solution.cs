@@ -51,10 +51,7 @@ public class Solution : SolutionBase2019
 
         while (true)
         {
-            robot.InputBuffer.Enqueue(painted.ContainsKey(pos)
-                ? painted[pos]
-                : Black);
-            
+            robot.InputBuffer.Enqueue(painted.TryGetValue(pos, out var value) ? value : Black);
             if (robot.Run() == IntCodeVm.ExitCode.Halted)
             {
                 break;

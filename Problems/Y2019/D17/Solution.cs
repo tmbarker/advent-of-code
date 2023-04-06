@@ -115,10 +115,10 @@ public class Solution : SolutionBase2019
             var chr = rows[y][x];
             var pos = new Vector2D(x, y);
 
-            if (Directions.ContainsKey(chr))
+            if (Directions.TryGetValue(chr, out var direction))
             {
                 scaffolding.Add(pos);
-                robotPose = new Pose(pos, Directions[chr]);
+                robotPose = new Pose(pos, direction);
             }
             
             if (chr == Scaffold)

@@ -62,7 +62,7 @@ public class Solution : SolutionBase2018
         }
     }
 
-    private static void TickRecipes(List<int> recipes, List<int> elves)
+    private static void TickRecipes(List<int> recipes, IList<int> elves)
     {
         var sum = elves.Sum(e => recipes[e]);
         var newRecipes = GetDigits(sum);
@@ -78,17 +78,9 @@ public class Solution : SolutionBase2018
         }
     }
     
-    private static bool TryMatchSequence(List<int> recipes, List<int> sequence, int start)
+    private static bool TryMatchSequence(IReadOnlyList<int> recipes, IEnumerable<int> sequence, int start)
     {
-        for (var i = 0; i < sequence.Count; i++)
-        {
-            if (recipes[start + i] != sequence[i])
-            {
-                return false;
-            }
-        }
-
-        return true;
+        return !sequence.Where((t, i) => recipes[start + i] != t).Any();
     }
     
     private static IEnumerable<int> GetDigits(int number)

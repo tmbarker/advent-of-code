@@ -57,12 +57,9 @@ public class Solution : SolutionBase2018
             map = Evolve(map);
 
             var key = BuildKey(map);
-            if (stateTimestamps.ContainsKey(key))
+            if (stateTimestamps.TryGetValue(key, out var start))
             {
-                var start = stateTimestamps[key];
-                var length = time - start;
-
-                return (start, length);
+                return (start, time - start);
             }
 
             stateTimestamps[key] = time++;

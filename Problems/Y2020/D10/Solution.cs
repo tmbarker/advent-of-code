@@ -62,8 +62,8 @@ public class Solution : SolutionBase2020
             var next = from + i;
             if (nodes.Contains(next))
             {
-                count += memo.ContainsKey(next) 
-                    ? memo[next] 
+                count += memo.TryGetValue(next, out var value) 
+                    ? value 
                     : CountPaths(next, to, nodes, memo);
             }
         }

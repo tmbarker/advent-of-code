@@ -136,9 +136,9 @@ public class Solution : SolutionBase2022
                 ? Empty 
                 : Wall;
             
-            if (VectorMap.ContainsKey(value))
+            if (VectorMap.TryGetValue(value, out var heading))
             {
-                blizzards.Add(new Blizzard(pos, VectorMap[value]));
+                blizzards.Add(new Blizzard(pos, heading));
             }
         }
     }

@@ -71,9 +71,9 @@ public static class Alu
         {
             value = 0L;
         }
-        else if (Registers.ContainsKey(strVal))
+        else if (Registers.TryGetValue(strVal, out var register))
         {
-            value = Registers[strVal];
+            value = register;
         }
         else
         {

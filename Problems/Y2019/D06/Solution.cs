@@ -54,9 +54,9 @@ public class Solution : SolutionBase2019
     
     private static int CountOrbits(string body, OrbitMap map, Memo memo)
     {
-        if (memo.ContainsKey(body))
+        if (memo.TryGetValue(body, out var orbits))
         {
-            return memo[body];
+            return orbits;
         }
         
         memo[body] = 1 + CountOrbits(map[body], map, memo);
