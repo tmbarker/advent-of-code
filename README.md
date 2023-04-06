@@ -52,6 +52,11 @@ Puzzle | My Solution | Date | Topic(s) | Difficulty
 [Reservoir Research](https://adventofcode.com/2018/day/17) | [Solution](https://github.com/tmbarker/advent-of-code/blob/main/Problems/Y2018/D17/Solution.cs) | 2018-17 | Vectors | :yellow_circle: Medium
 [Mode Maze](https://adventofcode.com/2018/day/22) | [Solution](https://github.com/tmbarker/advent-of-code/blob/main/Problems/Y2018/D22/Solution.cs) | 2018-22 | Graphs | :red_circle: Hard
 
+### 2017
+Puzzle | My Solution | Date | Topic(s) | Difficulty
+:--- | :---: | :---: | :--- | :---
+[Spiral Memory](https://adventofcode.com/2017/day/3) | [Solution](https://github.com/tmbarker/advent-of-code/blob/main/Problems/Y2017/D03/Solution.cs) | 2017-03 | Vectors, Math | :yellow_circle: Medium
+
 ## Running a Solution
 1. From your terminal, using the .NET CLI
 ```
