@@ -12,4 +12,5 @@ public enum Topics
     Assembly =            1 << 5,
     Math =                1 << 6,
     IntCode =             1 << 7,
+    BitwiseOperations =   1 << 8
 }
