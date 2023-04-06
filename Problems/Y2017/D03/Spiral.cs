@@ -2,7 +2,7 @@ using Utilities.Cartesian;
 
 namespace Problems.Y2017.D03;
 
-public class SpiralMemory
+public class Spiral
 {
     private readonly Dictionary<Vector2D, int> _grid = new();
     private Vector2D _dir = Vector2D.Right;
@@ -17,12 +17,12 @@ public class SpiralMemory
         private set => StoreValue(pos, value);
     }
     
-    public SpiralMemory()
+    public Spiral()
     {
         StoreValue(pos: Vector2D.Zero, value: 1);
     }
 
-    public void Run(Func<SpiralMemory, int> valueFunc, Predicate<SpiralMemory> stopPredicate)
+    public void Build(Func<Spiral, int> valueFunc, Predicate<Spiral> stopPredicate)
     {
         var stepsBeforeTurn = 1;
         var stepsSinceLastTurn = 0;
@@ -51,7 +51,6 @@ public class SpiralMemory
     private void StoreValue(Vector2D pos, int value)
     {
         _grid[pos] = value;
-
         LastVal = value;
         LastPos = pos;
     }

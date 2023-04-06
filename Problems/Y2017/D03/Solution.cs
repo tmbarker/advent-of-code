@@ -27,12 +27,12 @@ public class Solution : SolutionBase2017
 
     private static int GetDistanceToOrigin(int square)
     {
-        var memory = new SpiralMemory();
+        var memory = new Spiral();
         
-        int ValueFunc(SpiralMemory mem) => mem.LastVal + 1;
-        bool StopPredicate(SpiralMemory mem) => mem.LastVal == square;
+        int ValueFunc(Spiral spiral) => spiral.LastVal + 1;
+        bool StopPredicate(Spiral spiral) => spiral.LastVal == square;
 
-        memory.Run(ValueFunc, StopPredicate);
+        memory.Build(ValueFunc, StopPredicate);
         return Vector2D.Distance(
             a: memory.LastPos,
             b: Vector2D.Zero,
@@ -41,12 +41,12 @@ public class Solution : SolutionBase2017
     
     private static int GetFirstLargerValue(int threshold)
     {
-        var memory = new SpiralMemory();
+        var memory = new Spiral();
         
-        int ValueFunc(SpiralMemory mem) => mem.NextPos.GetAdjacentSet(DistanceMetric.Chebyshev).Sum(pos => mem[pos]);
-        bool StopPredicate(SpiralMemory mem) => mem.LastVal > threshold;
+        int ValueFunc(Spiral spiral) => spiral.NextPos.GetAdjacentSet(DistanceMetric.Chebyshev).Sum(pos => spiral[pos]);
+        bool StopPredicate(Spiral spiral) => spiral.LastVal > threshold;
 
-        memory.Run(ValueFunc, StopPredicate);
+        memory.Build(ValueFunc, StopPredicate);
         return memory.LastVal;
     }
 }
