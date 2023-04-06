@@ -41,9 +41,9 @@ public class Solution : SolutionBase2019
             var amount = ParseArg(step);
             index = step switch
             {
-                { } when step.Contains(Stack) => deckSize - index - 1,
-                { } when step.Contains(Cut) => index - amount,
-                { } when step.Contains(Increment) => index * amount,
+                not null when step.Contains(Stack) => deckSize - index - 1,
+                not null when step.Contains(Cut) => index - amount,
+                not null when step.Contains(Increment) => index * amount,
                 _ => throw new NoSolutionException()
             };
 
@@ -69,14 +69,14 @@ public class Solution : SolutionBase2019
             
             switch (step)
             {
-                case {} when step.Contains(Stack):
+                case not null when step.Contains(Stack):
                     m = -m;
                     b = -b - 1;
                     break;
-                case {} when step.Contains(Cut):
+                case not null when step.Contains(Cut):
                     b += amount;
                     break;
-                case {} when step.Contains(Increment):
+                case not null when step.Contains(Increment):
                     var inv = ModInverse(a: amount, modulus: d);
                     m *= inv;
                     b *= inv;
@@ -132,11 +132,12 @@ public class Solution : SolutionBase2019
         // Under modulo m, this becomes: s = a * (1 - r^n) * ModInv(1 - r) mod m
         //
         var numerator = a * (1 - BigInteger.ModPow(value: r, exponent: exponent, modulus: modulus));
-        var denominator = ModInverse(a: 1 - r, modulus: modulus);
+        var invDenominator = ModInverse(a: 1 - r, modulus: modulus);
         
-        // Note, using the modular multiplicative inverse, we now multiply the numerator and the "denominator"
+        // Note, using the modular multiplicative inverse, we now multiply the numerator and the
+        // inverted denominator
         //
-        var partialSum = numerator * denominator;
+        var partialSum = numerator * invDenominator;
         var inRange = partialSum.Modulo(modulus);
 
         return inRange;
