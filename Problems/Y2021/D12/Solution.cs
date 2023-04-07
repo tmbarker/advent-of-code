@@ -1,6 +1,5 @@
 using Problems.Attributes;
 using Problems.Y2021.Common;
-using Utilities.Extensions;
 
 namespace Problems.Y2021.D12;
 
@@ -48,8 +47,8 @@ public class Solution : SolutionBase2021
             var v1 = vertices[0];
             var v2 = vertices[1];
             
-            adjacencyMap.EnsureContainsKey(v1, new HashSet<string>());
-            adjacencyMap.EnsureContainsKey(v2, new HashSet<string>());
+            adjacencyMap.TryAdd(v1, new HashSet<string>());
+            adjacencyMap.TryAdd(v2, new HashSet<string>());
             
             adjacencyMap[v1].Add(v2);
             adjacencyMap[v2].Add(v1);

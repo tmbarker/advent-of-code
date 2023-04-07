@@ -7,12 +7,12 @@ public static class CollectionExtensions
     /// <summary>
     /// Ensure the <paramref name="dictionary"/> contains <paramref name="key"/>, add the default value of <typeparamref name="TValue"/> if it doesn't
     /// </summary>
-    public static void EnsureContainsKey<TKey, TValue>(this IDictionary<TKey, TValue> dictionary, TKey key,
-        TValue value = default!) where TKey : notnull where TValue : notnull
+    public static void EnsureContainsKey<TKey, TValue>(this IDictionary<TKey, TValue> dictionary, TKey key)
+        where TKey : notnull where TValue : notnull
     {
         if (!dictionary.ContainsKey(key))
         {
-            dictionary.Add(key, value);
+            dictionary.Add(key, default!);
         }
     }
 

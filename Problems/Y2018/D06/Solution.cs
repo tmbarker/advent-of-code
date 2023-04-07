@@ -41,7 +41,7 @@ public class Solution : SolutionBase2018
                     b: poi,
                     metric: DistanceMetric.Taxicab);
                 
-                distances.EnsureContainsKey(distance, new List<Vector2D>());
+                distances.TryAdd(distance, new List<Vector2D>());
                 distances[distance].Add(poi);
             }
 

@@ -1,6 +1,5 @@
 using Problems.Attributes;
 using Problems.Y2019.Common;
-using Utilities.Extensions;
 using Utilities.Graph;
 
 namespace Problems.Y2019.D06;
@@ -42,8 +41,8 @@ public class Solution : SolutionBase2019
         var adjacencyList = new Dictionary<string, HashSet<string>>();
         foreach (var (a, b) in map)
         {
-            adjacencyList.EnsureContainsKey(a, new HashSet<string>());
-            adjacencyList.EnsureContainsKey(b, new HashSet<string>());
+            adjacencyList.TryAdd(a, new HashSet<string>());
+            adjacencyList.TryAdd(b, new HashSet<string>());
 
             adjacencyList[a].Add(b);
             adjacencyList[b].Add(a);

@@ -60,7 +60,7 @@ public class Solution : SolutionBase2018
             var opcode = observation.Instr[0];
             var congruentSet = GetCongruentOpcodes(cpu, observation);
 
-            congruences.EnsureContainsKey(opcode, new HashSet<Cpu.Opcode>());
+            congruences.TryAdd(opcode, new HashSet<Cpu.Opcode>());
             foreach (var congruent in congruentSet)
             {
                 congruences[opcode].Add(congruent);

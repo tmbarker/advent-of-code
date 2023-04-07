@@ -57,7 +57,7 @@ public class Solution : SolutionBase2018
             
             foreach (var (state, cost) in GetPossibleTransitions(current, cave))
             {
-                costs.EnsureContainsKey(state, int.MaxValue);
+                costs.TryAdd(state, int.MaxValue);
                 if (costs[current] + cost < costs[state])
                 {
                     costs[state] = costs[current] + cost;

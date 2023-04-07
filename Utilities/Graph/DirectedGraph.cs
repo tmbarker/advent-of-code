@@ -1,5 +1,3 @@
-using Utilities.Extensions;
-
 namespace Utilities.Graph;
 
 /// <summary>
@@ -31,12 +29,12 @@ public class DirectedGraph<T> where T : IEquatable<T>
 
     public void AddEdge(T from, T to)
     {
-        Incoming.EnsureContainsKey(to,   new HashSet<T>());
-        Incoming.EnsureContainsKey(from, new HashSet<T>());
+        Incoming.TryAdd(to,   new HashSet<T>());
+        Incoming.TryAdd(from, new HashSet<T>());
         Incoming[to].Add(from);
         
-        Outgoing.EnsureContainsKey(to,   new HashSet<T>());
-        Outgoing.EnsureContainsKey(from, new HashSet<T>());
+        Outgoing.TryAdd(to,   new HashSet<T>());
+        Outgoing.TryAdd(from, new HashSet<T>());
         Outgoing[from].Add(to);
     }
 

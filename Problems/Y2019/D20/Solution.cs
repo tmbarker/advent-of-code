@@ -2,7 +2,6 @@ using Problems.Attributes;
 using Problems.Common;
 using Problems.Y2019.Common;
 using Utilities.Cartesian;
-using Utilities.Extensions;
 
 namespace Problems.Y2019.D20;
 
@@ -69,7 +68,7 @@ public class Solution : SolutionBase2019
                     continue;
                 }
 
-                costs.EnsureContainsKey(state, int.MaxValue);
+                costs.TryAdd(state, int.MaxValue);
                 
                 var distanceViaCurrent = costs[current] + 1;
                 if (distanceViaCurrent < costs[state])
@@ -159,7 +158,7 @@ public class Solution : SolutionBase2019
                     ? pos - dir 
                     : pos + dir + dir;
                 
-                entrances.EnsureContainsKey(portal, new List<PortalEntrance>());
+                entrances.TryAdd(portal, new List<PortalEntrance>());
                 entrances[portal].Add(new PortalEntrance(
                     Pos: entrancePos,
                     Type: entranceType));

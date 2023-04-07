@@ -52,7 +52,7 @@ public class Solution : SolutionBase2018
                     asleepAt = dateTime.Minute;
                     break;
                 case not null when observation.StartsWith(Wakes):
-                    sleepMap.EnsureContainsKey(onDutyId, new List<int>());
+                    sleepMap.TryAdd(onDutyId, new List<int>());
                     sleepMap[onDutyId].AddRange(Enumerable.Range(
                         start: asleepAt,
                         count: dateTime.Minute - asleepAt));
