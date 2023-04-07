@@ -57,6 +57,8 @@ Puzzle | My Solution | Date | Topic(s) | Difficulty
 :--- | :---: | :---: | :--- | :---
 [Spiral Memory](https://adventofcode.com/2017/day/3) | [Solution](https://github.com/tmbarker/advent-of-code/blob/main/Problems/Y2017/D03/Solution.cs) | 2017-03 | Vectors, Math | :yellow_circle: Medium
 [Memory Reallocation](https://adventofcode.com/2017/day/6) | [Solution](https://github.com/tmbarker/advent-of-code/blob/main/Problems/Y2017/D06/Solution.cs) | 2017-06 | Bitwise Operations | :green_circle: Easy
+[Recursive Circus](https://adventofcode.com/2017/day/7) | [Solution](https://github.com/tmbarker/advent-of-code/blob/main/Problems/Y2017/D07/Solution.cs) | 2017-07 | Graphs | :yellow_circle: Medium
+[Stream Processing](https://adventofcode.com/2017/day/9) | [Solution](https://github.com/tmbarker/advent-of-code/blob/main/Problems/Y2017/D09/Solution.cs) | 2017-09 | String Parsing | :green_circle: Easy
 
 ## Running a Solution
 1. From your terminal, using the .NET CLI
