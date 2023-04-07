@@ -13,6 +13,9 @@ public class DirectedGraph<T> where T : IEquatable<T>
     public Dictionary<T, HashSet<T>> Incoming { get; } = new();
     public Dictionary<T, HashSet<T>> Outgoing { get; } = new();
 
+    public IEnumerable<T> Sources => Outgoing.Keys.Where(v => !Incoming.ContainsKey(v) || !Incoming[v].Any());
+    public IEnumerable<T> Sinks => Incoming.Keys.Where(v => !Outgoing.ContainsKey(v) || !Outgoing[v].Any());
+
     public DirectedGraph(IEnumerable<Edge> edges)
     {
         foreach (var edge in edges)
@@ -46,10 +49,5 @@ public class DirectedGraph<T> where T : IEquatable<T>
     {
         Incoming[to].Remove(from);
         Outgoing[from].Remove(to);
-    }
-    
-    public IEnumerable<T> GetVerticesNoIncoming()
-    {
-        return Outgoing.Keys.Where(v => !Incoming.ContainsKey(v) || !Incoming[v].Any());
     }
 }

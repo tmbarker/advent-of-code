@@ -27,7 +27,7 @@ public class Solution : SolutionBase2018
 
     private static string TopologicalSort(DirectedGraph<char> graph)
     {
-        var initialSteps = graph.GetVerticesNoIncoming();
+        var initialSteps = graph.Sources;
         var withPriority = initialSteps.Select(v => (v, v));
         
         var steps = new StringBuilder();
@@ -55,7 +55,7 @@ public class Solution : SolutionBase2018
 
     private static int TopologicalSortTimed(DirectedGraph<char> graph, int baseStepTime, int agents)
     {
-        var initialSteps = graph.GetVerticesNoIncoming();
+        var initialSteps = graph.Sources;
         var withPriority = initialSteps.Select(v => (v, v));
 
         var time = 0;
