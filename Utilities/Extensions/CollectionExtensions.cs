@@ -17,7 +17,7 @@ public static class CollectionExtensions
     }
 
     /// <summary>
-    /// Filter the dictionary entries so only Key-Value pairs with distinct a Value are returned
+    /// Filter the dictionary entries so only Key-Value pairs with a distinct Value are returned
     /// </summary>
     public static Dictionary<TKey, TValue> FilterByDistinctValues<TKey, TValue>(this IDictionary<TKey, TValue> dictionary) where TKey : notnull
     {
@@ -46,14 +46,6 @@ public static class CollectionExtensions
             .ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
     }
 
-    /// <summary>
-    /// Check if an <see cref="IList{T}"/> has an element at <paramref name="index"/>
-    /// </summary>
-    public static bool HasElementAtIndex<T>(this IList<T> list, int index)
-    {
-        return index >= 0 && index < list.Count;
-    }
-    
     /// <summary>
     /// Add <see cref="item"/> if and only if it is not null
     /// </summary>

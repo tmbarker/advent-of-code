@@ -1,5 +1,4 @@
 using System.Text;
-using Utilities.Extensions;
 
 namespace Problems.Y2022.D13;
 
@@ -25,7 +24,7 @@ public class ListPacketElement : PacketElement
 
     public bool HasElementAtIndex(int i)
     {
-        return _elements.HasElementAtIndex(i);
+        return i >= 0 && i < _elements.Count;
     }
     
     public override string ToString()
