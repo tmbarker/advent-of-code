@@ -3,6 +3,7 @@ using Problems.Common;
 using Problems.Y2022.Common;
 using System.Text.RegularExpressions;
 using Utilities.Cartesian;
+using Utilities.Extensions;
 
 namespace Problems.Y2022.D15;
 
@@ -146,10 +147,10 @@ public class Solution : SolutionBase2022
     private static Reporting ParseReporting(string reporting)
     {
         var matches = Regex.Matches(reporting, @"-?\d+");
-        var sensorX = int.Parse(matches[0].Value);
-        var sensorY = int.Parse(matches[1].Value);
-        var beaconX = int.Parse(matches[2].Value);
-        var beaconY = int.Parse(matches[3].Value);
+        var sensorX = matches[0].ParseInt();
+        var sensorY = matches[1].ParseInt();
+        var beaconX = matches[2].ParseInt();
+        var beaconY = matches[3].ParseInt();
 
         return new Reporting(new Vector2D(sensorX, sensorY), new Vector2D(beaconX, beaconY));
     }

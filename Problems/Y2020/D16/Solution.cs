@@ -1,6 +1,7 @@
 using Problems.Y2020.Common;
 using System.Text.RegularExpressions;
 using Utilities.Cartesian;
+using Utilities.Extensions;
 
 namespace Problems.Y2020.D16;
 
@@ -107,11 +108,11 @@ public class Solution : SolutionBase2020
             var match = Regex.Match(input[i], @"([a-z ]+): (\d+)-(\d+) or (\d+)-(\d+)");
             var field = match.Groups[1].Value;
             var r1 = new Aabb1D(
-                min: int.Parse(match.Groups[2].Value),
-                max: int.Parse(match.Groups[3].Value));
+                min: match.Groups[2].ParseInt(),
+                max: match.Groups[3].ParseInt());
             var r2 = new Aabb1D(
-                min: int.Parse(match.Groups[4].Value),
-                max: int.Parse(match.Groups[5].Value));
+                min: match.Groups[4].ParseInt(),
+                max: match.Groups[5].ParseInt());
 
             fieldValidators.Add(
                 key: field,

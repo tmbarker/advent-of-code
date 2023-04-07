@@ -106,7 +106,7 @@ public class Solution : SolutionBase2018
             y: coords[1]);
 
         return new Scan(
-            Depth: input[0].ParseInts()[0],
+            Depth: input[0].ParseInt(),
             Mouth: Vector2D.Zero,
             Target: target);
     }

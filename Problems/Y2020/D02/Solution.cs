@@ -1,5 +1,6 @@
 using System.Text.RegularExpressions;
 using Problems.Y2020.Common;
+using Utilities.Extensions;
 
 namespace Problems.Y2020.D02;
 
@@ -42,8 +43,8 @@ public class Solution : SolutionBase2020
     {
         var matches = Regex.Match(line, @"(\d+)-(\d+) ([a-z]): (.*)");
         return new Policy(
-            N1: int.Parse(matches.Groups[1].Value),
-            N2: int.Parse(matches.Groups[2].Value),
+            N1: matches.Groups[1].ParseInt(),
+            N2: matches.Groups[2].ParseInt(),
             Letter: matches.Groups[3].Value[0],
             Password: matches.Groups[4].Value);
     }

@@ -1,6 +1,7 @@
 using Problems.Y2021.Common;
 using System.Text.RegularExpressions;
 using Utilities.Cartesian;
+using Utilities.Extensions;
 
 namespace Problems.Y2021.D17;
 
@@ -83,9 +84,9 @@ public class Solution : SolutionBase2021
         var matches = Regex.Matches(GetInputText(), @"-?\d+");
         
         return new Aabb2D(
-            xMin: int.Parse(matches[0].Value),
-            xMax: int.Parse(matches[1].Value),
-            yMin: int.Parse(matches[2].Value),
-            yMax: int.Parse(matches[3].Value));
+            xMin: matches[0].ParseInt(),
+            xMax: matches[1].ParseInt(),
+            yMin: matches[2].ParseInt(),
+            yMax: matches[3].ParseInt());
     }
 }

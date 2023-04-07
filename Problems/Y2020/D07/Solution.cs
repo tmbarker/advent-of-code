@@ -1,6 +1,7 @@
 using System.Text.RegularExpressions;
 using Problems.Attributes;
 using Problems.Y2020.Common;
+using Utilities.Extensions;
 
 namespace Problems.Y2020.D07;
 
@@ -75,7 +76,7 @@ public class Solution : SolutionBase2020
             foreach (Match match in contents)
             {
                 capacityMap[colour].Add(new BagContent(
-                    count: int.Parse(match.Groups[1].Value), 
+                    count: match.Groups[1].ParseInt(), 
                     colour: match.Groups[2].Value));
             }
         }

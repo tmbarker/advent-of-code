@@ -14,6 +14,11 @@ public static class StringExtensions
         return numbers;
     }
 
+    public static int ParseInt(this string str)
+    {
+        return ParseInts(str)[0];
+    }
+
     public static IList<long> ParseLongs(this string str)
     {
         var matches = NumberRegex.Matches(str);

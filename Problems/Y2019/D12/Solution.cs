@@ -3,6 +3,7 @@ using Problems.Attributes;
 using Problems.Common;
 using Problems.Y2019.Common;
 using Utilities.Cartesian;
+using Utilities.Extensions;
 using Utilities.Numerics;
 
 namespace Problems.Y2019.D12;
@@ -140,8 +141,8 @@ public class Solution : SolutionBase2019
     {
         var match = Regex.Match(line, @"<x=(-?\d+), y=(-?\d+), z=(-?\d+)>");
         return new Vector3D(
-            x: int.Parse(match.Groups[1].Value),
-            y: int.Parse(match.Groups[2].Value),
-            z: int.Parse(match.Groups[3].Value));
+            x: match.Groups[1].ParseInt(),
+            y: match.Groups[2].ParseInt(),
+            z: match.Groups[3].ParseInt());
     }
 }

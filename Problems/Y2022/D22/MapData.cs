@@ -1,6 +1,7 @@
 using Problems.Common;
 using System.Text.RegularExpressions;
 using Utilities.Cartesian;
+using Utilities.Extensions;
 
 namespace Problems.Y2022.D22;
 
@@ -205,7 +206,7 @@ public static class MapData
                     instructions.Add(new Instruction(0, Rotation3D.Negative90Z));
                     continue;
                 default:
-                    instructions.Add(new Instruction(int.Parse(match.Value), Rotation3D.Zero));
+                    instructions.Add(new Instruction(match.ParseInt(), Rotation3D.Zero));
                     break;
             }
         }

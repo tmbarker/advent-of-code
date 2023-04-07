@@ -1,6 +1,7 @@
 using System.Text.RegularExpressions;
 using Problems.Attributes;
 using Problems.Y2017.Common;
+using Utilities.Extensions;
 using Utilities.Graph;
 
 namespace Problems.Y2017.D07;
@@ -37,7 +38,7 @@ public class Solution : SolutionBase2017
         {
             var match = regex.Match(line);
             var id = match.Groups["Id"].Value;
-            var weight = int.Parse(match.Groups["Weight"].Value);
+            var weight = match.Groups["Weight"].ParseInt();
             var adjacencies = match.Groups["Edges"].Captures.Select(c => c.Value);
             
             weights.Add(id, weight);

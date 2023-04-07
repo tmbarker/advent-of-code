@@ -1,5 +1,5 @@
 using Problems.Y2021.Common;
-using System.Text.RegularExpressions;
+using Utilities.Extensions;
 
 namespace Problems.Y2021.D21;
 
@@ -8,7 +8,6 @@ namespace Problems.Y2021.D21;
 /// </summary>
 public class Solution : SolutionBase2021
 {
-    private const string InputRegex = @": (\d+)";
     private const int BoardPlaces = 10;
     private const int QuantumDieSides = 3;
     private const int WinningScoreDeterministic = 1000;
@@ -108,8 +107,8 @@ public class Solution : SolutionBase2021
 
     private static (int P1, int P2) ParseInitialPositions(IList<string> input)
     {
-        var p1 = int.Parse(Regex.Match(input[0], InputRegex).Groups[1].Value);
-        var p2 = int.Parse(Regex.Match(input[1], InputRegex).Groups[1].Value);
+        var p1 = input[0].ParseInts()[1];
+        var p2 = input[1].ParseInts()[1];
         
         return (p1, p2);
     }

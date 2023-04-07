@@ -1,6 +1,7 @@
 ﻿using System.Reflection;
 using System.Text.RegularExpressions;
 using Problems.Attributes;
+using Utilities.Extensions;
 
 namespace Automation.Readme;
 
@@ -62,8 +63,8 @@ public static class FavouriteTableBuilder
         {
             var attributeInstance = (FavouriteAttribute)favourite.GetCustomAttribute(favouriteAttributeType)!;
             var match = ProblemRegex.Match(favourite.FullName!);
-            var year = int.Parse(match.Groups["Year"].Value);
-            var day = int.Parse(match.Groups["Day"].Value);
+            var year = match.Groups["Year"].ParseInt();
+            var day = match.Groups["Day"].ParseInt();
 
             yield return new FavouriteEntry(
                 title: attributeInstance.Title,

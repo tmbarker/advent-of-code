@@ -89,12 +89,12 @@ public class Solution : SolutionBase2021
         var matches = Regex.Matches(line, @"-?\d+");
         var on = line.StartsWith("on");
         var cuboid = new Aabb3D(
-            xMin: int.Parse(matches[0].Value),
-            xMax: int.Parse(matches[1].Value),
-            yMin: int.Parse(matches[2].Value),
-            yMax: int.Parse(matches[3].Value),
-            zMin: int.Parse(matches[4].Value),
-            zMax: int.Parse(matches[5].Value));
+            xMin: matches[0].ParseInt(),
+            xMax: matches[1].ParseInt(),
+            yMin: matches[2].ParseInt(),
+            yMax: matches[3].ParseInt(),
+            zMin: matches[4].ParseInt(),
+            zMax: matches[5].ParseInt());
 
         return (on, cuboid);
     }

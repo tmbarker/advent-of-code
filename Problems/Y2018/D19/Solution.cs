@@ -13,7 +13,7 @@ public class Solution : SolutionBase2018
     public override object Run(int part)
     {
         var input = GetInputLines();
-        var ipAdr = ParseIpAdr(input[0]);
+        var ipAdr = input[0].ParseInt();
         var program = ParseInstructions(input[1..]);
 
         return part switch
@@ -30,11 +30,6 @@ public class Solution : SolutionBase2018
         var ec = cpu.Run(program, enableOptimizations);
 
         return ec;
-    }
-
-    private static int ParseIpAdr(string line)
-    {
-        return line.ParseInts()[0];
     }
 
     private static IList<Cpu.Instruction> ParseInstructions(IEnumerable<string> lines)

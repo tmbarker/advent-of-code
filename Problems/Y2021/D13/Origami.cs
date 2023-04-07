@@ -1,6 +1,7 @@
 using System.Text;
 using System.Text.RegularExpressions;
 using Utilities.Cartesian;
+using Utilities.Extensions;
 
 namespace Problems.Y2021.D13;
 
@@ -37,7 +38,7 @@ public static class Origami
             {
                 var match = Regex.Match(line, FoldRegex);
                 var fold = match.Groups[1].Value.Contains(HorizontalSignifier) ? FoldType.Horizontal : FoldType.Vertical;
-                var foldAt = int.Parse(match.Groups[2].Value);
+                var foldAt = match.Groups[2].ParseInt();
                 folds.Add((fold, foldAt));
             }
         }
