@@ -5,7 +5,7 @@ namespace Utilities.Extensions;
 public static class StringExtensions
 {
     private static readonly Regex NumberRegex = new(@"(-?\d+)");
-    
+
     public static IList<int> ParseInts(this string str)
     {
         var matches = NumberRegex.Matches(str);
