@@ -13,4 +13,9 @@ public static class RegexExtensions
     {
         return int.Parse(group.Value);
     }
+    
+    public static int ParseInt(this Capture capture)
+    {
+        return int.Parse(capture.Value);
+    }
 }
