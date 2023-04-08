@@ -1,26 +1,26 @@
 using System.Text.RegularExpressions;
 using Problems.Y2020.Common;
-using Utilities.Cartesian;
+using Utilities.Hexagonal;
 
 namespace Problems.Y2020.D24;
 
 using Instructions = IList<string>;
-using Floor = HashSet<Vector2D>;
+using Floor = HashSet<Hex>;
 
 /// <summary>
 /// Lobby Layout: https://adventofcode.com/2020/day/24
 /// </summary>
 public class Solution : SolutionBase2020
 {
-    private const int Days = 100; 
-    private static readonly Dictionary<string, Vector2D> TileAdjacencies = new()
+    private const int Days = 100;
+    private static readonly Dictionary<string, Hex> Adjacencies = new()
     {
-        { "e",  Vector2D.Right + Vector2D.Right },
-        { "w",  Vector2D.Left + Vector2D.Left },
-        { "ne", Vector2D.Up + Vector2D.Right },
-        { "nw", Vector2D.Up + Vector2D.Left },
-        { "se", Vector2D.Down + Vector2D.Right },
-        { "sw", Vector2D.Down + Vector2D.Left },
+        { "e",  Hex.Directions[Pointy.E]  },
+        { "w",  Hex.Directions[Pointy.W]  },
+        { "ne", Hex.Directions[Pointy.Ne] },
+        { "nw", Hex.Directions[Pointy.Nw] },
+        { "se", Hex.Directions[Pointy.Se] },
+        { "sw", Hex.Directions[Pointy.Sw] }
     };
 
     public override int Day => 24;
@@ -42,13 +42,13 @@ public class Solution : SolutionBase2020
     {
         for (var d = 0; d < days; d++)
         {
-            var consider = new HashSet<Vector2D>();
+            var consider = new HashSet<Hex>();
             var next = new Floor();
             
             foreach (var blackTile in floor)
             {
                 consider.Add(blackTile);
-                foreach (var adj in GetAdjSet(blackTile))
+                foreach (var adj in blackTile.GetAdjacentSet())
                 {
                     consider.Add(adj);
                 }
@@ -56,7 +56,10 @@ public class Solution : SolutionBase2020
 
             foreach (var tile in consider)
             {
-                var adjBlackTiles = GetAdjSet(tile).Count(floor.Contains);
+                var adjBlackTiles = tile
+                    .GetAdjacentSet()
+                    .Count(floor.Contains);
+                
                 if (floor.Contains(tile) && adjBlackTiles is 1 or 2)
                 {
                     next.Add(tile);
@@ -79,8 +82,8 @@ public class Solution : SolutionBase2020
         foreach (var instructionSet in instructions)
         {
             var tile = instructionSet.Aggregate(
-                seed: Vector2D.Zero,
-                func: (current, instr) => current + TileAdjacencies[instr]);
+                seed: Hex.Zero,
+                func: (current, instr) => current + Adjacencies[instr]);
 
             if (!floor.Add(tile))
             {
@@ -90,11 +93,6 @@ public class Solution : SolutionBase2020
         return floor;
     }
 
-    private static IEnumerable<Vector2D> GetAdjSet(Vector2D tile)
-    {
-        return TileAdjacencies.Values.Select(v => tile + v).ToHashSet();
-    }
-    
     private static IEnumerable<Instructions> ParseInstructions(IEnumerable<string> input)
     {
         var regex = new Regex(@"(e|se|sw|w|nw|ne)+");
