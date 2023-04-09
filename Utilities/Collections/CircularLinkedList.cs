@@ -18,7 +18,8 @@ public class CircularLinkedList<T>
 
    public int Count { get; private set; }
    public CircularLinkedListNode<T>? Head { get; private set; }
-
+   public CircularLinkedListNode<T>? Tail => Head?.Prev;
+   
    public void MarkHead(CircularLinkedListNode<T> newHead)
    {
       Head = newHead;
@@ -161,7 +162,7 @@ public class CircularLinkedList<T>
       Head = cachedHead;
    }
 
-   public void Print()
+   public void Print(string separator = ", ")
    {
       var elements = new List<T>();
       var current = Head;
@@ -172,9 +173,9 @@ public class CircularLinkedList<T>
          current = current.Next;
       }
 
-      Console.WriteLine(string.Join(", ", elements));
+      Console.WriteLine(string.Join(separator, elements));
    }
-   
+
    private void InternalInsertNodeToEmptyList(CircularLinkedListNode<T> newNode)
    {
       newNode.Next = newNode;
