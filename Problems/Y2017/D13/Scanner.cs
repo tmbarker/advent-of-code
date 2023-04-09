@@ -5,7 +5,7 @@ public readonly struct Scanner
     public int Depth { get; }
     public int Range { get; }
 
-    public int Severtiy => Depth * Range;
+    public int Severity => Depth * Range;
 
     public Scanner(int depth, int range)
     {

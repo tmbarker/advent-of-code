@@ -12,7 +12,7 @@ public class Solution : SolutionBase2018
 {
     private const char Ground = '.';
     private const char Trees = '|';
-    private const char Lumbaryard = '#';
+    private const char Lumberyard = '#';
     
     public override int Day => 18;
     
@@ -78,14 +78,14 @@ public class Solution : SolutionBase2018
             {
                 [Ground]     = adjPositions.Count(p => map.ContainsKey(p) && map[p] == Ground),
                 [Trees]      = adjPositions.Count(p => map.ContainsKey(p) && map[p] == Trees),
-                [Lumbaryard] = adjPositions.Count(p => map.ContainsKey(p) && map[p] == Lumbaryard)
+                [Lumberyard] = adjPositions.Count(p => map.ContainsKey(p) && map[p] == Lumberyard)
             };
 
             next[pos] = map[pos] switch
             {
                 Ground     => adjCounts[Trees] >= 3 ? Trees : Ground,
-                Trees      => adjCounts[Lumbaryard] >= 3 ? Lumbaryard : Trees,
-                Lumbaryard => adjCounts[Lumbaryard] >= 1 && adjCounts[Trees] >= 1 ? Lumbaryard : Ground,
+                Trees      => adjCounts[Lumberyard] >= 3 ? Lumberyard : Trees,
+                Lumberyard => adjCounts[Lumberyard] >= 1 && adjCounts[Trees] >= 1 ? Lumberyard : Ground,
                 _ => throw new NoSolutionException()
             };
         }
@@ -96,7 +96,7 @@ public class Solution : SolutionBase2018
     private static int ComputeResourceValue(Dictionary<Vector2D, char> map)
     {
         var trees = map.Keys.Count(p => map[p] == Trees);
-        var lumberyards = map.Keys.Count(p => map[p] == Lumbaryard);
+        var lumberyards = map.Keys.Count(p => map[p] == Lumberyard);
 
         return trees * lumberyards;
     }

@@ -34,12 +34,12 @@ public class Solution : SolutionBase2022
             var received = datastream[i];
             if (buffer.Count >= markerLength)
             {
-                var outshifted = buffer.Dequeue();
+                var token = buffer.Dequeue();
 
-                bufferContentMap[outshifted]--;
-                if (bufferContentMap[outshifted] <= 0)
+                bufferContentMap[token]--;
+                if (bufferContentMap[token] <= 0)
                 {
-                    bufferContentMap.Remove(outshifted);
+                    bufferContentMap.Remove(token);
                 }
             }
 

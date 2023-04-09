@@ -37,7 +37,7 @@ public class Solution : SolutionBase2017
     {
         return scanners
             .Where(s => IsCaught(scanner: s, time: s.Depth + delay))
-            .Sum(s => s.Severtiy);
+            .Sum(s => s.Severity);
     }
 
     private static bool IsCaught(Scanner scanner, int time)

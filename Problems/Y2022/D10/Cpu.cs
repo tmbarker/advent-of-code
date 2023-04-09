@@ -12,8 +12,10 @@ public class Cpu
     
     public enum Opcode
     {
+        // ReSharper disable IdentifierTypo
         Addx = 0,
-        Noop = 1,
+        Noop = 1
+        // ReSharper restore IdentifierTypo
     }
     
     public event Action<State>? Ticked;
