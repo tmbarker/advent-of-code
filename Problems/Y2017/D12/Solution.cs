@@ -1,5 +1,6 @@
 using System.Text.RegularExpressions;
 using Problems.Y2017.Common;
+using Utilities.Collections;
 using Utilities.Extensions;
 
 namespace Problems.Y2017.D12;
@@ -18,37 +19,13 @@ public class Solution : SolutionBase2017
         
         return part switch
         {
-            1 => CountNodes(adjacency, id: 0),
-            2 => CountGraphs(adjacency),
+            1 => CountElements(adjacency, id: 0),
+            2 => CountSetPartitions(adjacency),
             _ => ProblemNotSolvedString
         };
     }
 
-    private static int CountNodes(IDictionary<int, HashSet<int>> adjacency, int id)
-    {
-        return GetConnectedNodes(adjacency, id).Count;
-    }
-
-    private static int CountGraphs(IDictionary<int, HashSet<int>> adjacency)
-    {
-        var count = 0;
-        while (adjacency.Any())
-        {
-            var node = adjacency.Keys.First();
-            var nodes = GetConnectedNodes(adjacency, node);
-
-            foreach (var id in nodes)
-            {
-                adjacency.Remove(id);
-            }
-            
-            count++;
-        }
-
-        return count;
-    }
-
-    private static HashSet<int> GetConnectedNodes(IDictionary<int, HashSet<int>> adjacency, int id)
+    private static int CountElements(IDictionary<int, HashSet<int>> adjacency, int id)
     {
         var visited = new HashSet<int> { id };
         var queue = new Queue<int>(new[] { id });
@@ -65,7 +42,24 @@ public class Solution : SolutionBase2017
             }
         }
 
-        return visited;
+        return visited.Count;
+    }
+
+    private static int CountSetPartitions(IDictionary<int, HashSet<int>> adjacency)
+    {
+        var disjointSet = new DisjointSet<int>();
+
+        foreach (var (element, adjacencies) in adjacency)
+        {
+            disjointSet.MakeSet(element);
+            foreach (var adjacent in adjacencies)
+            {
+                disjointSet.MakeSet(adjacent);
+                disjointSet.Union(element, adjacent);
+            }
+        }
+
+        return disjointSet.SetsCount;
     }
 
     private static IDictionary<int, HashSet<int>> ParseAdjacency(IEnumerable<string> input)
