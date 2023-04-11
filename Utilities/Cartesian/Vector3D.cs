@@ -149,6 +149,14 @@ public readonly struct Vector3D : IEquatable<Vector3D>
 public static class Vector3DExtensions
 {
     /// <summary>
+    /// Get the magnitude of the vector according to the specified distance metric
+    /// </summary>
+    public static int Magnitude(this Vector3D v, DistanceMetric metric)
+    {
+        return Vector3D.Distance(a: v, b: Vector3D.Zero, metric: metric);
+    }
+    
+    /// <summary>
     /// Determine if two positions are adjacent, where adjacent means the specified distance metric is less than or equal to 1
     /// </summary>
     public static bool IsAdjacentTo(this Vector3D lhs, Vector3D rhs, DistanceMetric metric)

@@ -60,6 +60,7 @@ Puzzle | My Solution | Date | Topic(s) | Difficulty
 [Recursive Circus](https://adventofcode.com/2017/day/7) | [Solution](https://github.com/tmbarker/advent-of-code/blob/main/Problems/Y2017/D07/Solution.cs) | 2017-07 | Graphs | :yellow_circle: Medium
 [Stream Processing](https://adventofcode.com/2017/day/9) | [Solution](https://github.com/tmbarker/advent-of-code/blob/main/Problems/Y2017/D09/Solution.cs) | 2017-09 | String Parsing | :green_circle: Easy
 [Hex Ed](https://adventofcode.com/2017/day/11) | [Solution](https://github.com/tmbarker/advent-of-code/blob/main/Problems/Y2017/D11/Solution.cs) | 2017-11 | Math | :green_circle: Easy
+[Particle Swarm](https://adventofcode.com/2017/day/20) | [Solution](https://github.com/tmbarker/advent-of-code/blob/main/Problems/Y2017/D20/Solution.cs) | 2017-20 | Vectors, Math | :red_circle: Hard
 
 ## Running a Solution
 1. From your terminal, using the .NET CLI
