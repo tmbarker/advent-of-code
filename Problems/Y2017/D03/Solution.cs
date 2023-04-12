@@ -1,4 +1,3 @@
-using Problems.Attributes;
 using Problems.Y2017.Common;
 using Utilities.Cartesian;
 
@@ -7,7 +6,6 @@ namespace Problems.Y2017.D03;
 /// <summary>
 /// Spiral Memory: https://adventofcode.com/2017/day/3
 /// </summary>
-[Favourite("Spiral Memory", Topics.Math|Topics.Vectors, Difficulty.Medium)]
 public class Solution : SolutionBase2017
 {
     public override int Day => 3;
