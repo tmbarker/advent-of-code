@@ -24,7 +24,7 @@ public class Solution : SolutionBase2017
         var transmitted = 0L;
         var cts = new CancellationTokenSource();
         var buffer = new Queue<long>();
-        var cpu = new Cpu(program: GetInputLines())
+        var vm = new Vm(program: GetInputLines())
         {
             InputBuffer = buffer,
             OutputBuffer = buffer
@@ -40,9 +40,9 @@ public class Solution : SolutionBase2017
             cts.Cancel();
         }
 
-        cpu.DataTransmitted += OnDataTransmitted;
-        cpu.DataReceived += OnDataReceived;
-        cpu.Run(cts.Token);
+        vm.DataTransmitted += OnDataTransmitted;
+        vm.DataReceived += OnDataReceived;
+        vm.Run(cts.Token);
 
         return transmitted;
     }
@@ -52,21 +52,21 @@ public class Solution : SolutionBase2017
         var program = GetInputLines();
         var buffer0 = new Queue<long>();
         var buffer1 = new Queue<long>();
-        var cpu0 = new Cpu(program) { ["p"] = 0L, InputBuffer = buffer0, OutputBuffer = buffer1 };
-        var cpu1 = new Cpu(program) { ["p"] = 1L, InputBuffer = buffer1, OutputBuffer = buffer0 };
+        var vm0 = new Vm(program) { ["p"] = 0L, InputBuffer = buffer0, OutputBuffer = buffer1 };
+        var vm1 = new Vm(program) { ["p"] = 1L, InputBuffer = buffer1, OutputBuffer = buffer0 };
         var transmissions1 = 0;
 
-        cpu1.DataTransmitted += _ => transmissions1++;
+        vm1.DataTransmitted += _ => transmissions1++;
 
         var done = false;
         while (!done)
         {
-            var ec0 = cpu0.Run(token: default);
-            var ec1 = cpu1.Run(token: default);
-            var halted = ec0 == Cpu.ExitCode.Halted && ec1 == Cpu.ExitCode.Halted;
+            var ec0 = vm0.Run(token: default);
+            var ec1 = vm1.Run(token: default);
+            var halted = ec0 == Vm.ExitCode.Halted && ec1 == Vm.ExitCode.Halted;
             var inputs =
-                ec0 == Cpu.ExitCode.AwaitingInput && buffer0.Any() ||
-                ec1 == Cpu.ExitCode.AwaitingInput && buffer1.Any();
+                ec0 == Vm.ExitCode.AwaitingInput && buffer0.Any() ||
+                ec1 == Vm.ExitCode.AwaitingInput && buffer1.Any();
 
             done = halted || !inputs;
         }

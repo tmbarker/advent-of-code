@@ -1,16 +1,17 @@
-namespace Problems.Y2017.D18;
+namespace Problems.Y2017.Common;
 
-public class Cpu
+public class Vm
 {
     private readonly Dictionary<string, long> _registers;
+    private readonly Dictionary<string, Action> _listeners;
     private readonly IList<string[]> _instructions;
     private long _ip;
 
     public event Action<long>? DataTransmitted; 
     public event Action<long>? DataReceived;
 
-    public Queue<long>? InputBuffer { get; set; }
-    public Queue<long>? OutputBuffer { get; set; }
+    public Queue<long>? InputBuffer { get; init; }
+    public Queue<long>? OutputBuffer { get; init; }
 
     public long this[string reg]
     {
@@ -18,12 +19,18 @@ public class Cpu
         set => _registers[reg] = value;
     }
 
-    public Cpu(IEnumerable<string> program)
+    public Vm(IEnumerable<string> program)
     {
         _registers = new Dictionary<string, long>();
+        _listeners = new Dictionary<string, Action>();
         _instructions = program
             .Select(line => line.Split(' '))
             .ToList();
+    }
+
+    public void RegisterListener(string op, Action listener)
+    {
+        _listeners[op] = listener;
     }
     
     public ExitCode Run(CancellationToken token)
@@ -34,6 +41,11 @@ public class Cpu
             var args = tokens[1..];
             var op = tokens[0];
 
+            if (_listeners.TryGetValue(op, out var listener))
+            {
+                listener.Invoke();
+            }
+            
             switch (op)
             {
                 case "snd":
@@ -46,6 +58,9 @@ public class Cpu
                     break;
                 case "add":
                     this[args[0]] += GetValue(args[1]);
+                    break;
+                case "sub":
+                    this[args[0]] -= GetValue(args[1]);
                     break;
                 case "mul":
                     this[args[0]] *= GetValue(args[1]);
@@ -64,6 +79,13 @@ public class Cpu
                     break;
                 case "jgz":
                     if (GetValue(args[0]) > 0)
+                    {
+                        _ip += GetValue(args[1]);
+                        continue;
+                    }
+                    break;
+                case "jnz":
+                    if (GetValue(args[0]) != 0)
                     {
                         _ip += GetValue(args[1]);
                         continue;
