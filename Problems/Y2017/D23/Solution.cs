@@ -14,6 +14,7 @@ public class Solution : SolutionBase2017
         return part switch
         {
             1 => CountExecutions(),
+            2 => RunDisassembled(),
             _ => ProblemNotSolvedString
         };
     }
@@ -32,5 +33,40 @@ public class Solution : SolutionBase2017
         vm.Run(token: default);
 
         return count;
+    }
+
+    private static long RunDisassembled()
+    {
+        //  This method was written by disassembling the input.
+        //  See the adjacent asm.txt for reference.
+        //
+        var count = 0L;
+        for (var n = 106700L; n <= 123700L; n += 17)
+        {
+            if (!IsPrime(n))
+            {
+                count++;
+            }
+        }
+        return count;
+    }
+
+    private static bool IsPrime(long n)
+    {
+        if (n % 2 == 0)
+        {
+            return false;
+        }
+        
+        var boundary = (long)Math.Floor(Math.Sqrt(n));
+        for (var i = 3L; i <= boundary; i += 2L)
+        {
+            if (n % i == 0)
+            {
+                return false;
+            }   
+        }
+
+        return true;  
     }
 }
