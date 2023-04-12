@@ -1,5 +1,4 @@
 using System.Text.RegularExpressions;
-using Problems.Attributes;
 using Problems.Y2017.Common;
 using Utilities.Extensions;
 using Utilities.Graph;
@@ -9,7 +8,6 @@ namespace Problems.Y2017.D07;
 /// <summary>
 /// Recursive Circus: https://adventofcode.com/2017/day/7
 /// </summary>
-[Favourite("Recursive Circus", Topics.Graphs, Difficulty.Medium)]
 public class Solution : SolutionBase2017
 {
     public override int Day => 7;
