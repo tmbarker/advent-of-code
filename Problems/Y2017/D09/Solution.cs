@@ -1,4 +1,3 @@
-using Problems.Attributes;
 using Problems.Y2017.Common;
 
 namespace Problems.Y2017.D09;
@@ -6,7 +5,6 @@ namespace Problems.Y2017.D09;
 /// <summary>
 /// Stream Processing: https://adventofcode.com/2017/day/9
 /// </summary>
-[Favourite("Stream Processing", Topics.StringParsing, Difficulty.Easy)]
 public class Solution : SolutionBase2017
 {
     public override int Day => 9;

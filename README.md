@@ -56,11 +56,11 @@ Puzzle | My Solution | Date | Topic(s) | Difficulty
 Puzzle | My Solution | Date | Topic(s) | Difficulty
 :--- | :---: | :---: | :--- | :---
 [Memory Reallocation](https://adventofcode.com/2017/day/6) | [Solution](https://github.com/tmbarker/advent-of-code/blob/main/Problems/Y2017/D06/Solution.cs) | 2017-06 | Bitwise Operations | :green_circle: Easy
-[Stream Processing](https://adventofcode.com/2017/day/9) | [Solution](https://github.com/tmbarker/advent-of-code/blob/main/Problems/Y2017/D09/Solution.cs) | 2017-09 | String Parsing | :green_circle: Easy
 [Hex Ed](https://adventofcode.com/2017/day/11) | [Solution](https://github.com/tmbarker/advent-of-code/blob/main/Problems/Y2017/D11/Solution.cs) | 2017-11 | Math | :green_circle: Easy
 [Particle Swarm](https://adventofcode.com/2017/day/20) | [Solution](https://github.com/tmbarker/advent-of-code/blob/main/Problems/Y2017/D20/Solution.cs) | 2017-20 | Vectors, Math | :red_circle: Hard
 [Fractal Art](https://adventofcode.com/2017/day/21) | [Solution](https://github.com/tmbarker/advent-of-code/blob/main/Problems/Y2017/D21/Solution.cs) | 2017-21 | Vectors | :yellow_circle: Medium
 [Sporifica Virus](https://adventofcode.com/2017/day/22) | [Solution](https://github.com/tmbarker/advent-of-code/blob/main/Problems/Y2017/D22/Solution.cs) | 2017-22 | Vectors | :yellow_circle: Medium
+[Electromagnetic Moat](https://adventofcode.com/2017/day/24) | [Solution](https://github.com/tmbarker/advent-of-code/blob/main/Problems/Y2017/D24/Solution.cs) | 2017-24 | Graphs | :yellow_circle: Medium
 
 ## Running a Solution
 1. From your terminal, using the .NET CLI
