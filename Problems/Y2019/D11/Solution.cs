@@ -2,6 +2,7 @@ using System.Text;
 using Problems.Y2019.Common;
 using Problems.Y2019.IntCode;
 using Utilities.Cartesian;
+using Utilities.Collections;
 using Utilities.Extensions;
 
 namespace Problems.Y2019.D11;
@@ -41,17 +42,18 @@ public class Solution : SolutionBase2019
         };
     }
 
-    private static Dictionary<Vector2D, long> RunRobot(IList<long> intCodeProgram, long startColour)
+    private static DefaultDictionary<Vector2D, long> RunRobot(IList<long> intCodeProgram, long startColour)
     {
         var robot = IntCodeVm.Create(intCodeProgram);
-        var painted = new Dictionary<Vector2D, long> { { InitialRobotPos, startColour } };
+        var painted = new DefaultDictionary<Vector2D, long>(defaultValue: Black) 
+            { { InitialRobotPos, startColour } };
         
         var pos = InitialRobotPos;
         var facing = InitialRobotFacing;
 
         while (true)
         {
-            robot.InputBuffer.Enqueue(painted.TryGetValue(pos, out var value) ? value : Black);
+            robot.InputBuffer.Enqueue(painted[pos]);
             if (robot.Run() == IntCodeVm.ExitCode.Halted)
             {
                 break;

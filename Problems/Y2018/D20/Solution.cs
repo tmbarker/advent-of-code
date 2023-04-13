@@ -102,7 +102,6 @@ public class Solution : SolutionBase2018
                 var doorValid = map.ContainsKey(targetDoor) && MapChars.DoorChars.ContainsValue(map[targetDoor]);
                 var roomValid = map.ContainsKey(targetRoom) && map[targetRoom] == MapChars.Empty;
                 
-                
                 if (!doorValid || !roomValid || visited.Contains(targetRoom))
                 {
                     continue;

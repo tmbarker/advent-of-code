@@ -1,8 +1,10 @@
+using Utilities.Collections;
+
 namespace Problems.Y2017.Common;
 
 public class Vm
 {
-    private readonly Dictionary<string, long> _registers;
+    private readonly DefaultDictionary<string, long> _registers;
     private readonly Dictionary<string, Action> _listeners;
     private readonly IList<string[]> _instructions;
     private long _ip;
@@ -15,13 +17,13 @@ public class Vm
 
     public long this[string reg]
     {
-        get => _registers.TryGetValue(reg, out var value) ? value : 0L;
+        get => _registers[reg];
         set => _registers[reg] = value;
     }
 
     public Vm(IEnumerable<string> program)
     {
-        _registers = new Dictionary<string, long>();
+        _registers = new DefaultDictionary<string, long>(defaultValue: 0L);
         _listeners = new Dictionary<string, Action>();
         _instructions = program
             .Select(line => line.Split(' '))

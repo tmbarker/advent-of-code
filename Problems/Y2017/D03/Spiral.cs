@@ -1,10 +1,11 @@
 using Utilities.Cartesian;
+using Utilities.Collections;
 
 namespace Problems.Y2017.D03;
 
 public class Spiral
 {
-    private readonly Dictionary<Vector2D, int> _grid = new();
+    private readonly DefaultDictionary<Vector2D, int> _memory;
     private Vector2D _dir = Vector2D.Right;
 
     public int LastVal { get; private set; }
@@ -13,12 +14,13 @@ public class Spiral
 
     public int this[Vector2D pos]
     {
-        get => _grid.TryGetValue(pos, out var value) ? value : 0;
+        get => _memory[pos];
         private set => StoreValue(pos, value);
     }
     
     public Spiral()
     {
+        _memory = new DefaultDictionary<Vector2D, int>(defaultValue: 0);
         StoreValue(pos: Vector2D.Zero, value: 1);
     }
 
@@ -50,7 +52,7 @@ public class Spiral
 
     private void StoreValue(Vector2D pos, int value)
     {
-        _grid[pos] = value;
+        _memory[pos] = value;
         LastVal = value;
         LastPos = pos;
     }
