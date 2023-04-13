@@ -161,6 +161,14 @@ public readonly struct Vector2D : IEquatable<Vector2D>
 public static class Vector2DExtensions
 {
     /// <summary>
+    /// Get the magnitude of the vector according to the specified distance metric
+    /// </summary>
+    public static int Magnitude(this Vector2D v, DistanceMetric metric)
+    {
+        return Vector2D.Distance(a: v, b: Vector2D.Zero, metric: metric);
+    }
+    
+    /// <summary>
     /// Determine if two positions are diagonal, where they do not share a common value for either dimension
     /// </summary>
     public static bool IsDiagonalTo(this Vector2D lhs, Vector2D rhs)
