@@ -82,7 +82,7 @@ public class Solution : SolutionBase2022
     
     private static int GetItemPriority(char item)
     {
-        // The uppercase letters proceed the lowercase letters in the ASCII table
+        //  The uppercase letters proceed the lowercase letters in the ASCII table
         //
         return item < 'a' ? 
             item - 'A' + 1 + AlphabetLength : 

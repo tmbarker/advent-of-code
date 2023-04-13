@@ -7,7 +7,7 @@ public class JetPattern
     private static readonly Dictionary<char, Vector2D> JetVectorMap = new()
     {
         { '>', Vector2D.Right },
-        { '<', Vector2D.Left },
+        { '<', Vector2D.Left }
     };
 
     private readonly Queue<Vector2D> _queue;

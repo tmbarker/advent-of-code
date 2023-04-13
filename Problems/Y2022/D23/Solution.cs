@@ -9,9 +9,6 @@ namespace Problems.Y2022.D23;
 /// </summary>
 public class Solution : SolutionBase2022
 {
-    private const char Elf = '#';
-    private const int NumRounds = 10;
-
     public override int Day => 23;
     
     public override object Run(int part)
@@ -19,15 +16,15 @@ public class Solution : SolutionBase2022
         var positions = ParsePositions(GetInputLines());
         return part switch
         {
-            1 => EmptyPositionsInBoundingBox(Simulate(positions, NumRounds)),
+            1 => EmptyPositionsInBoundingBox(Simulate(positions, rounds: 10)),
             2 => SimulateToSteadyState(positions),
             _ => ProblemNotSolvedString
         };
     }
     
-    private static HashSet<Vector2D> Simulate(HashSet<Vector2D> positions, int numRounds)
+    private static HashSet<Vector2D> Simulate(HashSet<Vector2D> positions, int rounds)
     {
-        for (var i = 0; i < numRounds; i++)
+        for (var i = 0; i < rounds; i++)
         {
             Diffuse(positions, i);
         }
@@ -94,24 +91,12 @@ public class Solution : SolutionBase2022
         return numMoves;
     }
 
-    private static int EmptyPositionsInBoundingBox(IReadOnlySet<Vector2D> positions)
+    private static int EmptyPositionsInBoundingBox(ICollection<Vector2D> positions)
     {
-        var xMin = positions.Min(p => p.X);
-        var xMax = positions.Max(p => p.X);
-        var yMin = positions.Min(p => p.Y);
-        var yMax = positions.Max(p => p.Y);
-        var emptyCount = 0;
-        
-        for (var y = yMin; y <= yMax; y++)
-        for (var x = xMin; x <= xMax; x++)
-        {
-            if (!positions.Contains(new Vector2D(x, y)))
-            {
-                emptyCount++;
-            }
-        }
+        var aabb = new Aabb2D(extents: positions, inclusive: true);
+        var emptyCount = aabb.Area - positions.Count;
 
-        return emptyCount;
+        return (int)emptyCount;
     }
 
     private static HashSet<Vector2D> ParsePositions(IList<string> input)
@@ -121,7 +106,7 @@ public class Solution : SolutionBase2022
         for (var y = 0; y < input.Count; y++)
         for (var x = 0; x < input[y].Length; x++)
         {
-            if (input[input.Count - y - 1][x] == Elf)
+            if (input[input.Count - y - 1][x] == '#')
             {
                 set.Add(new Vector2D(x, y));
             }

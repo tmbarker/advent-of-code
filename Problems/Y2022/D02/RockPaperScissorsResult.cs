@@ -4,5 +4,5 @@ public enum RockPaperScissorsResult
 {
     Loss = 0,
     Draw,
-    Win,
+    Win
 }

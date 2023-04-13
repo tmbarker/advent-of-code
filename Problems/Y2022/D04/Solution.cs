@@ -22,20 +22,20 @@ public class Solution : SolutionBase2022
 
     private static int GetNumInclusivePairs(IEnumerable<(Pair P1, Pair P2)> pairs)
     {
-        return pairs.Count(assignments => CheckSetsForContainment(assignments.P1, assignments.P2));
+        return pairs.Count(assignments => CheckContains(assignments.P1, assignments.P2));
     }
     
     private static int GetNumIntersectingPairs(IEnumerable<(Pair P1, Pair P2)> pairs)
     {
-        return pairs.Count(assignments => CheckSetsForIntersection(assignments.P1, assignments.P2));
+        return pairs.Count(assignments => CheckIntersects(assignments.P1, assignments.P2));
     }
 
-    private static bool CheckSetsForContainment(Pair a, Pair b)
+    private static bool CheckContains(Pair a, Pair b)
     {
         return (a.N1 <= b.N1 && a.N2 >= b.N2) || (b.N1 <= a.N1 && b.N2 >= a.N2);
     }
     
-    private static bool CheckSetsForIntersection(Pair a, Pair b)
+    private static bool CheckIntersects(Pair a, Pair b)
     {
         return a.N1 <= b.N2 && b.N1 <= a.N2;
     }

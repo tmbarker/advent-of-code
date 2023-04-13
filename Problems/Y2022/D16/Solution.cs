@@ -9,10 +9,6 @@ namespace Problems.Y2022.D16;
 [Favourite("Proboscidea Volcanium", Topics.Graphs|Topics.Recursion, Difficulty.Hard)]
 public class Solution : SolutionBase2022
 {
-    private const string Start = "AA";
-    private const int TimeAlone = 30;
-    private const int TimeWithHelp = 26;
-
     public override int Day => 16;
     
     public override object Run(int part)
@@ -37,7 +33,7 @@ public class Solution : SolutionBase2022
         }
 
         strategyFinder.StrategyFound += OnStrategyFound;
-        strategyFinder.Run(Start, TimeAlone);
+        strategyFinder.Run(start: "AA", timeLimit: 30);
 
         return max;
     }
@@ -52,7 +48,7 @@ public class Solution : SolutionBase2022
         }
 
         strategyFinder.StrategyFound += OnStrategyFound;
-        strategyFinder.Run(Start, TimeWithHelp);
+        strategyFinder.Run(start: "AA", timeLimit: 26);
         
         foreach (var s1 in strategies)
         foreach (var s2 in strategies)

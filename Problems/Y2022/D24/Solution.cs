@@ -18,7 +18,7 @@ public class Solution : SolutionBase2022
         {'^', Vector2D.Up},
         {'v', Vector2D.Down},
         {'<', Vector2D.Left},
-        {'>', Vector2D.Right},
+        {'>', Vector2D.Right}
     };
 
     public override int Day => 24;

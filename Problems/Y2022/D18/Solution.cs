@@ -1,5 +1,6 @@
 using Problems.Y2022.Common;
 using Utilities.Cartesian;
+using Utilities.Extensions;
 
 namespace Problems.Y2022.D18;
 
@@ -8,9 +9,6 @@ namespace Problems.Y2022.D18;
 /// </summary>
 public class Solution : SolutionBase2022
 {
-    private const char Delimiter = ',';
-    private const int CubeFaces = 6;
-
     public override int Day => 18;
     
     public override object Run(int part)
@@ -32,7 +30,7 @@ public class Solution : SolutionBase2022
         foreach (var element in elementsSet)
         {
             var faceAdjacentPositions = element.GetAdjacentSet(Metric.Taxicab);
-            totalSurfaceArea += CubeFaces - faceAdjacentPositions.Count(p => elementsSet.Contains(p));
+            totalSurfaceArea += 6 - faceAdjacentPositions.Count(p => elementsSet.Contains(p));
         }
 
         return totalSurfaceArea;
@@ -65,17 +63,12 @@ public class Solution : SolutionBase2022
         return (int)(ComputeTotalSurfaceArea(boundingSet) - aabb.GetSurfaceArea());
     }
     
-
     private static IEnumerable<Vector3D> ParseSurfaceVectors(IEnumerable<string> lines)
     {
-        foreach (var line in lines)
-        {
-            var elements = line.Split(Delimiter);
-            var x = int.Parse(elements[0]);
-            var y = int.Parse(elements[1]);
-            var z = int.Parse(elements[2]);
-            
-            yield return new Vector3D(x, y, z);
-        }
+        return 
+            from line in lines 
+            select line.ParseInts() into numbers 
+            let x = numbers[0] let y = numbers[1] let z = numbers[2] 
+            select new Vector3D(x, y, z);
     }
 }

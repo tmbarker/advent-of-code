@@ -1,5 +1,6 @@
 using Problems.Y2022.Common;
 using Utilities.Cartesian;
+using Utilities.Extensions;
 
 namespace Problems.Y2022.D14;
 
@@ -8,16 +9,13 @@ namespace Problems.Y2022.D14;
 /// </summary>
 public class Solution : SolutionBase2022
 {
-    private const string VertexDelimiter = "->";
-    private const char CoordinateDelimiter = ',';
     private const int FloorDelta = 2;
-
-    private static readonly Vector2D SandOrigin = new(500, 0);
+    private static readonly Vector2D SandOrigin = new(x: 500, y: 0);
     private static readonly HashSet<Vector2D> FallVectors = new()
     {
-        new Vector2D(0, 1),
-        new Vector2D(-1, 1),
-        new Vector2D(1, 1),
+        new Vector2D(x:  0, y: 1),
+        new Vector2D(x: -1, y: 1),
+        new Vector2D(x:  1, y: 1)
     };
 
     public override int Day => 14;
@@ -149,7 +147,8 @@ public class Solution : SolutionBase2022
                 }
             }
             
-            // Need to include the final vertex
+            //  Need to include the final vertex
+            //
             set.Add(rockStructurePath.Last());
         }
         
@@ -161,7 +160,7 @@ public class Solution : SolutionBase2022
         // ReSharper disable once LoopCanBeConvertedToQuery
         foreach (var line in input)
         {
-            var vertices = line.Split(VertexDelimiter, StringSplitOptions.TrimEntries);
+            var vertices = line.Split(separator: "->", StringSplitOptions.TrimEntries);
             var vectors = vertices.Select(ParseVertex).ToList();
             
             yield return vectors;
@@ -170,7 +169,7 @@ public class Solution : SolutionBase2022
 
     private static Vector2D ParseVertex(string vertex)
     {
-        var parts = vertex.Split(CoordinateDelimiter);
-        return new Vector2D(int.Parse(parts[0]), int.Parse(parts[1]));
+        var numbers = vertex.ParseInts();
+        return new Vector2D(x: numbers[0], y: numbers[1]);
     }
 }

@@ -7,17 +7,14 @@ namespace Problems.Y2022.D11;
 /// </summary>
 public class Solution : SolutionBase2022
 {
-    private const int RoundsPart1 = 20;
-    private const int RoundsPart2 = 10000;
-
     public override int Day => 11;
     
     public override object Run(int part)
     {
         return part switch
         {
-            1 => QuantifyMonkeyBusiness(RoundsPart1, true),
-            2 => QuantifyMonkeyBusiness(RoundsPart2, false),
+            1 => QuantifyMonkeyBusiness(rounds: 20,    applyBoredDivisor: true),
+            2 => QuantifyMonkeyBusiness(rounds: 10000, applyBoredDivisor: false),
             _ => ProblemNotSolvedString
         };
     }

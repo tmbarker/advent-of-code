@@ -6,14 +6,14 @@ public static class RockPaperScissorsHelper
     {
         { RockPaperScissorsChoice.Rock, 1 },
         { RockPaperScissorsChoice.Paper, 2 },
-        { RockPaperScissorsChoice.Scissors, 3 },
+        { RockPaperScissorsChoice.Scissors, 3 }
     };
     
     private static readonly Dictionary<RockPaperScissorsResult, int> ResultScoreMap = new()
     {
         { RockPaperScissorsResult.Loss, 0 },
         { RockPaperScissorsResult.Draw, 3 },
-        { RockPaperScissorsResult.Win, 6 },
+        { RockPaperScissorsResult.Win, 6 }
     };
 
     public static RockPaperScissorsResult Evaluate(RockPaperScissorsChoice choice, RockPaperScissorsChoice against)

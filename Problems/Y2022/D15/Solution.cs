@@ -1,7 +1,6 @@
 using Problems.Attributes;
 using Problems.Common;
 using Problems.Y2022.Common;
-using System.Text.RegularExpressions;
 using Utilities.Cartesian;
 using Utilities.Extensions;
 
@@ -21,7 +20,9 @@ public class Solution : SolutionBase2022
     
     public override object Run(int part)
     {
-        var reportings = ParseReportings(GetInputLines());
+        var input = GetInputLines();
+        var reportings = ParseReportings(input);
+        
         return part switch
         {
             1 => CountBeaconExcludedPositions(reportings),
@@ -49,10 +50,11 @@ public class Solution : SolutionBase2022
                 continue;
             }
             
-            // Only sweep the minimum number of positions
+            //  Only sweep the minimum number of positions
+            //
             var maxDxInRange = reporting.Range - dy;
-            var sweepStart = new Vector2D(reporting.SensorPos.X - maxDxInRange, Row);
-            var sweepEnd = new Vector2D(reporting.SensorPos.X + maxDxInRange, Row);
+            var sweepStart = new Vector2D(x: reporting.SensorPos.X - maxDxInRange, y: Row);
+            var sweepEnd = new Vector2D(x: reporting.SensorPos.X + maxDxInRange, y: Row);
             
             var sweepPos = sweepStart;
             while (sweepPos.X <= sweepEnd.X)
@@ -112,8 +114,9 @@ public class Solution : SolutionBase2022
             sensorPos + (range + 1) * Vector2D.Left,
         };
 
-        // Trace a square immediately outside of the sensor range by lerping between the vertices of the smallest
-        // bounding box (vertices at range + 1)
+        //  Trace a square immediately outside of the sensor range by lerping between the vertices of the smallest
+        //  bounding box (vertices at range + 1)
+        //
         for (var i = 0; i < vertices.Count - 1; i++)
         {
             var fromVertex = vertices[i];
@@ -146,12 +149,14 @@ public class Solution : SolutionBase2022
 
     private static Reporting ParseReporting(string reporting)
     {
-        var matches = Regex.Matches(reporting, @"-?\d+");
-        var sensorX = matches[0].ParseInt();
-        var sensorY = matches[1].ParseInt();
-        var beaconX = matches[2].ParseInt();
-        var beaconY = matches[3].ParseInt();
+        var numbers = reporting.ParseInts();
+        var sensorX = numbers[0];
+        var sensorY = numbers[1];
+        var beaconX = numbers[2];
+        var beaconY = numbers[3];
 
-        return new Reporting(new Vector2D(sensorX, sensorY), new Vector2D(beaconX, beaconY));
+        return new Reporting(
+            sensorPos: new Vector2D(sensorX, sensorY),
+            beaconPos: new Vector2D(beaconX, beaconY));
     }
 }

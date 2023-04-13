@@ -7,35 +7,31 @@ namespace Problems.Y2022.D07;
 /// </summary>
 public class Solution : SolutionBase2022
 {
-    private const int DirectorySizeThreshold = 100000;
-    private const int SystemVolume = 70000000;
-    private const int RequiredSpace = 30000000;
-    
     public override int Day => 7;
     
     public override object Run(int part)
     {
         var consoleOutput = GetInputLines();
-        var directorySizeIndex = ConsoleParser.ConstructDirectorySizeIndex(consoleOutput);
+        var sizeIndex = ConsoleParser.ConstructDirectorySizeIndex(consoleOutput);
 
         return part switch
         {
-            1 => SumDirectoriesUnderSize(directorySizeIndex, DirectorySizeThreshold),
-            2 => FreeUpSpace(directorySizeIndex, SystemVolume, RequiredSpace),
+            1 => SumDirectoriesUnderSize(sizeIndex, thresholdSize: 100000),
+            2 => FreeUpSpace(sizeIndex, systemVolume: 70000000, requiredSpace: 30000000),
             _ => ProblemNotSolvedString
         };
     }
 
-    private static int SumDirectoriesUnderSize(Dictionary<string, int> directorySizeIndex, int thresholdSize)
+    private static int SumDirectoriesUnderSize(Dictionary<string, int> sizeIndex, int thresholdSize)
     {
-        return directorySizeIndex.Values
+        return sizeIndex.Values
             .Where(v => v <= thresholdSize)
             .Sum();
     }
 
-    private static int FreeUpSpace(Dictionary<string, int> directorySizeIndex, int totalSystemSpace, int requiredSpace)
+    private static int FreeUpSpace(Dictionary<string, int> directorySizeIndex, int systemVolume, int requiredSpace)
     {
-        var freeSpace = totalSystemSpace - directorySizeIndex[ConsoleParser.RootDirectoryPath];
+        var freeSpace = systemVolume - directorySizeIndex[ConsoleParser.RootDirectoryPath];
         var needed = requiredSpace - freeSpace;
 
         return directorySizeIndex.Values

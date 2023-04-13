@@ -8,9 +8,6 @@ namespace Problems.Y2022.D06;
 /// </summary>
 public class Solution : SolutionBase2022
 {
-    private const int PacketMarkerLength = 4;
-    private const int MessageMarkerLength = 14;
-    
     public override int Day => 6;
     
     public override object Run(int part)
@@ -18,8 +15,8 @@ public class Solution : SolutionBase2022
         var datastream = GetInputText();
         return part switch
         {
-            1 => ListenForStartMarker(datastream, PacketMarkerLength),
-            2 => ListenForStartMarker(datastream, MessageMarkerLength),
+            1 => ListenForStartMarker(datastream, markerLength: 4),
+            2 => ListenForStartMarker(datastream, markerLength: 14),
             _ => ProblemNotSolvedString
         };
     }

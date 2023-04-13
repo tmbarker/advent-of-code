@@ -4,5 +4,5 @@ public enum RockPaperScissorsChoice
 {
     Rock = 0,
     Paper,
-    Scissors,
+    Scissors
 }

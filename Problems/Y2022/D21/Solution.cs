@@ -16,7 +16,7 @@ public class Solution : SolutionBase2022
         { Operator.Add, Operator.Subtract },
         { Operator.Subtract, Operator.Add },
         { Operator.Multiply, Operator.Divide },
-        { Operator.Divide, Operator.Multiply },
+        { Operator.Divide, Operator.Multiply }
     };
 
     public override int Day => 21;
@@ -26,8 +26,8 @@ public class Solution : SolutionBase2022
         var expressions = ParseExpressions(GetInputLines());
         return part switch
         {
-            1 => EvaluateExpression(Root, expressions),
-            2 => SolveForUnknown(Root, Unknown, expressions),
+            1 => EvaluateExpression(id: Root, expressions),
+            2 => SolveForUnknown(equationId: Root, Unknown, expressions),
             _ => ProblemNotSolvedString
         };
     }
@@ -82,13 +82,14 @@ public class Solution : SolutionBase2022
         
         if (CommutativeOperators.Contains(operation.Operator))
         {
-            return EvaluateArithmeticOperation(InverseOperators[op], equals, known);
+            return EvaluateArithmeticOperation(InverseOperators[op], lhs: equals, rhs: known);
         }
         
-        // NOTE: The order of operands in non-commutative operators (e.g. division, subtraction) must be respected
+        //  NOTE: The order of operands in non-commutative operators (e.g. division, subtraction) must be respected
+        //
         return knownOnLhs
-            ? EvaluateArithmeticOperation(op, known, equals)
-            : EvaluateArithmeticOperation(InverseOperators[op], equals, known);
+            ? EvaluateArithmeticOperation(op, lhs: known, rhs: equals)
+            : EvaluateArithmeticOperation(InverseOperators[op], lhs: equals, rhs: known);
     }
     
     private static Queue<AlgebraicOperation> GetOperations(string expressionId, string unknown, IDictionary<string, Expression> expressions, IDictionary<string, long> results)

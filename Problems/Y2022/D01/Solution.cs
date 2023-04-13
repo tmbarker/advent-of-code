@@ -13,8 +13,8 @@ public class Solution : SolutionBase2022
     {
         return part switch
         {
-            1 => GetMaxCalories(1),
-            2 => GetMaxCalories(3),
+            1 => GetMaxCalories(num: 1),
+            2 => GetMaxCalories(num: 3),
             _ => ProblemNotSolvedString
         };
     }
@@ -37,7 +37,8 @@ public class Solution : SolutionBase2022
             currentCalories += int.Parse(line);
         }
         
-        // Handle the case where the last line in the input isn't empty
+        //  Handle the case where the last line in the input isn't empty
+        //
         calories.Add(currentCalories);
 
         return calories

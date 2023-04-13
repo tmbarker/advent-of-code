@@ -9,11 +9,7 @@ namespace Problems.Y2022.D10;
 [Favourite("Cathode-Ray Tube", Topics.Assembly, Difficulty.Medium)]
 public class Solution : SolutionBase2022
 {
-    private const char InstructionDelimiter = ' ';
-    private const char DarkPixel = '.';
-    private const char LitPixel = '#';
     private const int CrtWidth = 40;
-
     private static readonly HashSet<int> SampleCycles = new() { 20, 60, 100, 140, 180, 220, };
     
     public override int Day => 10;
@@ -56,7 +52,7 @@ public class Solution : SolutionBase2022
         void OnCpuTick(Cpu.State state)
         {
             var pixelCol = (state.Cycle - 1) % CrtWidth;
-            crtScreen += Math.Abs(state.X - pixelCol) <= 1 ? LitPixel : DarkPixel;
+            crtScreen += Math.Abs(state.X - pixelCol) <= 1 ? '#' : '.';
 
             if (pixelCol == CrtWidth - 1)
             {
@@ -77,7 +73,7 @@ public class Solution : SolutionBase2022
 
     private static (Cpu.Opcode Opcode, int Arg) ParseLine(string line)
     {
-        var elements = line.Split(InstructionDelimiter);
+        var elements = line.Split(' ');
         return elements.Length == 1 ? 
             (Cpu.Opcode.Noop, 0) : 
             (Cpu.Opcode.Addx, int.Parse(elements[1]));

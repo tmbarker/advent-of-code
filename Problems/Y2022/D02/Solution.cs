@@ -14,14 +14,14 @@ public class Solution : SolutionBase2022
         {'C', RockPaperScissorsChoice.Scissors},
         {'X', RockPaperScissorsChoice.Rock},
         {'Y', RockPaperScissorsChoice.Paper},
-        {'Z', RockPaperScissorsChoice.Scissors},
+        {'Z', RockPaperScissorsChoice.Scissors}
     };
 
     private static readonly Dictionary<char, RockPaperScissorsResult> StrategyGuideResultMap = new()
     {
         {'X', RockPaperScissorsResult.Loss},
         {'Y', RockPaperScissorsResult.Draw},
-        {'Z', RockPaperScissorsResult.Win},
+        {'Z', RockPaperScissorsResult.Win}
     };
 
     public override int Day => 2;
