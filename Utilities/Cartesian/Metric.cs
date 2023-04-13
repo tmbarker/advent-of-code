@@ -1,6 +1,6 @@
 namespace Utilities.Cartesian;
 
-public enum DistanceMetric
+public enum Metric
 {
     /// <summary>
     /// Also known as the chessboard metric, equivalent to the max of the individual component magnitudes

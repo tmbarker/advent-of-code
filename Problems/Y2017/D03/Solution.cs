@@ -31,17 +31,14 @@ public class Solution : SolutionBase2017
         bool StopPredicate(Spiral spiral) => spiral.LastVal == square;
 
         memory.Build(ValueFunc, StopPredicate);
-        return Vector2D.Distance(
-            a: memory.LastPos,
-            b: Vector2D.Zero,
-            metric: DistanceMetric.Taxicab);
+        return memory.LastPos.Magnitude(Metric.Taxicab);
     }
     
     private static int GetFirstLargerValue(int threshold)
     {
         var memory = new Spiral();
         
-        int ValueFunc(Spiral spiral) => spiral.NextPos.GetAdjacentSet(DistanceMetric.Chebyshev).Sum(pos => spiral[pos]);
+        int ValueFunc(Spiral spiral) => spiral.NextPos.GetAdjacentSet(Metric.Chebyshev).Sum(pos => spiral[pos]);
         bool StopPredicate(Spiral spiral) => spiral.LastVal > threshold;
 
         memory.Build(ValueFunc, StopPredicate);

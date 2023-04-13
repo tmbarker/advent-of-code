@@ -39,7 +39,7 @@ public class Solution : SolutionBase2018
                 var distance = Vector2D.Distance(
                     a: coord,
                     b: poi,
-                    metric: DistanceMetric.Taxicab);
+                    metric: Metric.Taxicab);
                 
                 distances.TryAdd(distance, new List<Vector2D>());
                 distances[distance].Add(poi);
@@ -64,7 +64,7 @@ public class Solution : SolutionBase2018
         return aabb.Count(pos => pois.Sum(poi => Vector2D.Distance(
             a: pos,
             b: poi,
-            metric: DistanceMetric.Taxicab)) < maxDistance);
+            metric: Metric.Taxicab)) < maxDistance);
     }
     
     private static Vector2D ParsePointOfInterest(string line)

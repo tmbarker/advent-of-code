@@ -102,7 +102,7 @@ public class Solution : SolutionBase2022
     private static List<Vector2D> GetLegalMoves(Vector2D pathHead, Vector2D start, Grid2D<char> field, IEnumerable<Blizzard> blizzards)
     {
         return pathHead
-            .GetAdjacentSet(DistanceMetric.Taxicab)
+            .GetAdjacentSet(Metric.Taxicab)
             .Where(move => IsMoveAllowed(move, start, field, blizzards))
             .ToList();
     }

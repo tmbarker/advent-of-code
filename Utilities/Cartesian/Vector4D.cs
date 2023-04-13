@@ -45,12 +45,12 @@ public readonly struct Vector4D : IEquatable<Vector4D>
         };
     }
     
-    public static int Distance(Vector4D a, Vector4D b, DistanceMetric metric)
+    public static int Distance(Vector4D a, Vector4D b, Metric metric)
     {
         return metric switch
         {
-            DistanceMetric.Chebyshev => ChebyshevDistance(a, b),
-            DistanceMetric.Taxicab => TaxicabDistance(a, b),
+            Metric.Chebyshev => ChebyshevDistance(a, b),
+            Metric.Taxicab => TaxicabDistance(a, b),
             _ => throw new ArgumentOutOfRangeException(nameof(metric), metric, null)
         };
     }
@@ -130,12 +130,12 @@ public static class Vector4DExtensions
     /// adjacent vectors may or may not be included in the returned set
     /// </summary>
     /// <exception cref="ArgumentException">This method does not support the Euclidean distance metric</exception>
-    public static ISet<Vector4D> GetAdjacentSet(this Vector4D vector, DistanceMetric metric)
+    public static ISet<Vector4D> GetAdjacentSet(this Vector4D vector, Metric metric)
     {
         return metric switch
         {
-            DistanceMetric.Chebyshev => GetChebyshevAdjacentSet(vector),
-            DistanceMetric.Taxicab => GetTaxicabAdjacentSet(vector),
+            Metric.Chebyshev => GetChebyshevAdjacentSet(vector),
+            Metric.Taxicab => GetTaxicabAdjacentSet(vector),
             _ => throw new ArgumentException(
                 $"The {metric} distance metric is not well defined over integral vector space", nameof(metric))
         };

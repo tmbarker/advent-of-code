@@ -44,11 +44,11 @@ public class Solution : SolutionBase2016
                 pos += face;
                 if (haltOnRepeat && !visited.Add(pos))
                 {
-                    return pos.Magnitude(metric: DistanceMetric.Taxicab);
+                    return pos.Magnitude(metric: Metric.Taxicab);
                 }
             }
         }
 
-        return pos.Magnitude(metric: DistanceMetric.Taxicab);
+        return pos.Magnitude(metric: Metric.Taxicab);
     }
 }

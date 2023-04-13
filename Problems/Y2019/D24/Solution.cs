@@ -117,7 +117,7 @@ public class Solution : SolutionBase2019
         var depth = tile.Z;
         var xy = (Vector2D)tile;
         
-        foreach (var direction in Vector2D.Zero.GetAdjacentSet(DistanceMetric.Taxicab))
+        foreach (var direction in Vector2D.Zero.GetAdjacentSet(Metric.Taxicab))
         {
             // "Regular" (same depth) adjacencies
             //

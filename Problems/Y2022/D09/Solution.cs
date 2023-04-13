@@ -42,7 +42,7 @@ public class Solution : SolutionBase2022
             
             for (var i = 1; i < numKnots; i++)
             {
-                if (!knots[i].IsAdjacentTo(knots[i - 1], DistanceMetric.Chebyshev))
+                if (!knots[i].IsAdjacentTo(knots[i - 1], Metric.Chebyshev))
                 {
                     knots[i] += Vector2D.Normalize(knots[i - 1] - knots[i]);
                 }

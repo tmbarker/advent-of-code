@@ -29,7 +29,7 @@ public class Solution : SolutionBase2018
         return bots.Count(bot => Vector3D.Distance(
             a: strongest.Pos,
             b: bot.Pos,
-            metric: DistanceMetric.Taxicab) <= strongest.Range);
+            metric: Metric.Taxicab) <= strongest.Range);
     }
 
     private static int MaximizeBotsInRange(IList<Nanobot> bots)
@@ -46,10 +46,7 @@ public class Solution : SolutionBase2018
         var area = new Aabb3D(extents: extrema.ToArray(), inclusive: true);
         var max = Search(bots, area);
 
-        return Vector3D.Distance(
-            a: Vector3D.Zero, 
-            b: max, 
-            metric: DistanceMetric.Taxicab);
+        return max.Magnitude(Metric.Taxicab);
     }
 
     private static Vector3D Search(IList<Nanobot> bots, Aabb3D area)
@@ -95,10 +92,7 @@ public class Solution : SolutionBase2018
         }
         
         var volume = region.Volume;
-        var distance = Vector3D.Distance(
-            a: Vector3D.Zero, 
-            b: region.GetCenter(), 
-            metric: DistanceMetric.Taxicab);
+        var distance = region.Center.Magnitude(Metric.Taxicab);
 
         return new SearchRanking(inRange, distance, volume);
     }

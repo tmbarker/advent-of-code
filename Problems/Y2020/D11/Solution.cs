@@ -67,14 +67,14 @@ public class Solution : SolutionBase2020
     private static int CountOccupiedAdjacent(Vector2D seat, SeatMap map)
     {
         return seat
-            .GetAdjacentSet(DistanceMetric.Chebyshev)
+            .GetAdjacentSet(Metric.Chebyshev)
             .Count(adj => map.SeatExistsAt(adj) && map[adj]);
     }
     
     private static int CountOccupiedFirstVisible(Vector2D seat, SeatMap map)
     {
         var count = 0;
-        var directions = Vector2D.Zero.GetAdjacentSet(DistanceMetric.Chebyshev);
+        var directions = Vector2D.Zero.GetAdjacentSet(Metric.Chebyshev);
         
         foreach (var direction in directions)
         {

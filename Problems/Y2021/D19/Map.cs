@@ -21,7 +21,7 @@ public class Map
             .Count();
     }
 
-    public int GetMaxScannerDistance(DistanceMetric metric)
+    public int GetMaxScannerDistance(Metric metric)
     {
         var max = 0;
         var scanners = KnownScanners.Values.ToList();

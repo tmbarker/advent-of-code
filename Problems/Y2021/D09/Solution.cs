@@ -52,7 +52,7 @@ public class Solution : SolutionBase2021
             var height = grid[currentPos];
             visited.Add(currentPos);
 
-            foreach (var adj in currentPos.GetAdjacentSet(DistanceMetric.Taxicab))
+            foreach (var adj in currentPos.GetAdjacentSet(Metric.Taxicab))
             {
                 if (!grid.IsInDomain(adj) || visited.Contains(adj))
                 {
@@ -83,7 +83,7 @@ public class Solution : SolutionBase2021
             var pos = new Vector2D(x, y);
             var height = grid[pos];
             var lowerThanNeighbors = pos
-                .GetAdjacentSet(DistanceMetric.Taxicab)
+                .GetAdjacentSet(Metric.Taxicab)
                 .All(adj => !grid.IsInDomain(adj) || height < grid[adj]);
 
             if (lowerThanNeighbors)

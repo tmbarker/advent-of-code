@@ -34,9 +34,9 @@ public class Solution : SolutionBase2017
     private static int GetLongTermClosest(IDictionary<int, Particle> particles)
     {
         return particles.Keys
-            .GroupBy(id => particles[id].Acc.Magnitude(metric: DistanceMetric.Taxicab))
+            .GroupBy(id => particles[id].Acc.Magnitude(metric: Metric.Taxicab))
             .MinBy(group => group.Key)!
-            .MinBy(id => particles[id].Vel.Magnitude(metric: DistanceMetric.Taxicab));
+            .MinBy(id => particles[id].Vel.Magnitude(metric: Metric.Taxicab));
     }
 
     private int CountCollisions(IDictionary<int, Particle> particles)

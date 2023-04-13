@@ -79,7 +79,7 @@ public class Field
         {
             var current = queue.Dequeue();
             var candidates = current
-                .GetAdjacentSet(DistanceMetric.Taxicab)
+                .GetAdjacentSet(Metric.Taxicab)
                 .Where(p => IsTraversable(p, grid));
             
             foreach (var pos in candidates)
@@ -97,7 +97,7 @@ public class Field
         foreach (var (pos, _) in reachable.Where(kvp => kvp.Value != Wall))
         {
             var traversable = pos
-                .GetAdjacentSet(DistanceMetric.Taxicab)
+                .GetAdjacentSet(Metric.Taxicab)
                 .Where(p => IsTraversable(p, grid))
                 .ToHashSet();
             
@@ -117,12 +117,12 @@ public class Field
     
     private static void ApplyInputOverrides(Grid2D<char> grid, Vector2D startPos)
     {
-        foreach (var adj in startPos.GetAdjacentSet(DistanceMetric.Chebyshev))
+        foreach (var adj in startPos.GetAdjacentSet(Metric.Chebyshev))
         {
             grid[adj] = Start;
         }
         
-        foreach (var adj in startPos.GetAdjacentSet(DistanceMetric.Taxicab))
+        foreach (var adj in startPos.GetAdjacentSet(Metric.Taxicab))
         {
             grid[adj] = Wall;
         }

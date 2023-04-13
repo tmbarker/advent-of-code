@@ -66,12 +66,12 @@ public readonly struct Vector3D : IEquatable<Vector3D>
         return X * other.X + Y * other.Y + Z * other.Z;
     }
 
-    public static int Distance(Vector3D a, Vector3D b, DistanceMetric metric)
+    public static int Distance(Vector3D a, Vector3D b, Metric metric)
     {
         return metric switch
         {
-            DistanceMetric.Chebyshev => ChebyshevDistance(a, b),
-            DistanceMetric.Taxicab => TaxicabDistance(a, b),
+            Metric.Chebyshev => ChebyshevDistance(a, b),
+            Metric.Taxicab => TaxicabDistance(a, b),
             _ => throw new ArgumentOutOfRangeException(nameof(metric), metric, null)
         };
     }
@@ -151,7 +151,7 @@ public static class Vector3DExtensions
     /// <summary>
     /// Get the magnitude of the vector according to the specified distance metric
     /// </summary>
-    public static int Magnitude(this Vector3D v, DistanceMetric metric)
+    public static int Magnitude(this Vector3D v, Metric metric)
     {
         return Vector3D.Distance(a: v, b: Vector3D.Zero, metric: metric);
     }
@@ -159,7 +159,7 @@ public static class Vector3DExtensions
     /// <summary>
     /// Determine if two positions are adjacent, where adjacent means the specified distance metric is less than or equal to 1
     /// </summary>
-    public static bool IsAdjacentTo(this Vector3D lhs, Vector3D rhs, DistanceMetric metric)
+    public static bool IsAdjacentTo(this Vector3D lhs, Vector3D rhs, Metric metric)
     {
         return Vector3D.Distance(lhs, rhs, metric) <= 1;
     }
@@ -169,12 +169,12 @@ public static class Vector3DExtensions
     /// adjacent vectors may or may not be included in the returned set
     /// </summary>
     /// <exception cref="ArgumentException">This method does not support the Euclidean distance metric</exception>
-    public static ISet<Vector3D> GetAdjacentSet(this Vector3D vector, DistanceMetric metric)
+    public static ISet<Vector3D> GetAdjacentSet(this Vector3D vector, Metric metric)
     {
         return metric switch
         {
-            DistanceMetric.Chebyshev => GetChebyshevAdjacentSet(vector),
-            DistanceMetric.Taxicab => GetTaxicabAdjacentSet(vector),
+            Metric.Chebyshev => GetChebyshevAdjacentSet(vector),
+            Metric.Taxicab => GetTaxicabAdjacentSet(vector),
             _ => throw new ArgumentException(
                 $"The {metric} distance metric is not well defined over integral vector space", nameof(metric))
         };

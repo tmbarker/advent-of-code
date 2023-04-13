@@ -69,7 +69,7 @@ public class Solution : SolutionBase2020
             }
         }
 
-        return Vector2D.Distance(InitialShipPos, pos, DistanceMetric.Taxicab);
+        return Vector2D.Distance(InitialShipPos, pos, Metric.Taxicab);
     }
     
     private static int NavigateWaypoint(IEnumerable<Instruction> instructions)
@@ -99,7 +99,7 @@ public class Solution : SolutionBase2020
             }
         }
 
-        return Vector2D.Distance(InitialShipPos, shipPos, DistanceMetric.Taxicab);
+        return Vector2D.Distance(InitialShipPos, shipPos, Metric.Taxicab);
     }
 
     private static Instruction ParseInstruction(string line)

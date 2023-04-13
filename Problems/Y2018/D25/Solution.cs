@@ -33,7 +33,7 @@ public class Solution : SolutionBase2018
             adjacency[point] = points.Where(p => Vector4D.Distance(
                 a: p, 
                 b: point, 
-                metric: DistanceMetric.Taxicab) <= 3);
+                metric: Metric.Taxicab) <= 3);
         }
         
         foreach (var (point, adjacencies) in adjacency)

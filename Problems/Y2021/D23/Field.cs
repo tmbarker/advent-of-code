@@ -62,7 +62,7 @@ public class Field
         foreach (var position in allPositions)
         {
             var adjacencies = position
-                .GetAdjacentSet(DistanceMetric.Taxicab)
+                .GetAdjacentSet(Metric.Taxicab)
                 .Where(allPositions.Contains)
                 .ToHashSet();
             adjacencyList.Add(position, adjacencies);

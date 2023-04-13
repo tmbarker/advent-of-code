@@ -56,7 +56,7 @@ public class Solution : SolutionBase2022
 
         foreach (var actor in positions)
         {
-            var allAdj = actor.GetAdjacentSet(DistanceMetric.Chebyshev);
+            var allAdj = actor.GetAdjacentSet(Metric.Chebyshev);
             if (allAdj.All(p => !positions.Contains(p)))
             {
                 continue;

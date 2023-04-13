@@ -67,7 +67,7 @@ public class Solution : SolutionBase2021
     private static IEnumerable<Vector2D> GetMoves(Vector2D current, Grid2D<int> map)
     {
         return current
-            .GetAdjacentSet(DistanceMetric.Taxicab)
+            .GetAdjacentSet(Metric.Taxicab)
             .Where(map.IsInDomain);
     }
 

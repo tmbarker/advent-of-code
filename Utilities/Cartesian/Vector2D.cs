@@ -53,12 +53,12 @@ public readonly struct Vector2D : IEquatable<Vector2D>
         return new Vector2D(Math.Sign(vector.X), Math.Sign(vector.Y));
     }
 
-    public static int Distance(Vector2D a, Vector2D b, DistanceMetric metric)
+    public static int Distance(Vector2D a, Vector2D b, Metric metric)
     {
         return metric switch
         {
-            DistanceMetric.Chebyshev => ChebyshevDistance(a, b),
-            DistanceMetric.Taxicab => TaxicabDistance(a, b),
+            Metric.Chebyshev => ChebyshevDistance(a, b),
+            Metric.Taxicab => TaxicabDistance(a, b),
             _ => throw new ArgumentOutOfRangeException(nameof(metric), metric, null)
         };
     }
@@ -163,7 +163,7 @@ public static class Vector2DExtensions
     /// <summary>
     /// Get the magnitude of the vector according to the specified distance metric
     /// </summary>
-    public static int Magnitude(this Vector2D v, DistanceMetric metric)
+    public static int Magnitude(this Vector2D v, Metric metric)
     {
         return Vector2D.Distance(a: v, b: Vector2D.Zero, metric: metric);
     }
@@ -179,7 +179,7 @@ public static class Vector2DExtensions
     /// <summary>
     /// Determine if two positions are adjacent, where adjacent means the specified distance metric is less than or equal to 1
     /// </summary>
-    public static bool IsAdjacentTo(this Vector2D lhs, Vector2D rhs, DistanceMetric metric)
+    public static bool IsAdjacentTo(this Vector2D lhs, Vector2D rhs, Metric metric)
     {
         return Vector2D.Distance(lhs, rhs, metric) <= 1;
     }
@@ -189,7 +189,7 @@ public static class Vector2DExtensions
     /// adjacent vectors may or may not be included in the returned set
     /// </summary>
     /// <exception cref="ArgumentException">This method does not support the Euclidean distance metric</exception>
-    public static ISet<Vector2D> GetAdjacentSet(this Vector2D vector, DistanceMetric metric)
+    public static ISet<Vector2D> GetAdjacentSet(this Vector2D vector, Metric metric)
     {
         var set = new HashSet<Vector2D>
         {
@@ -199,7 +199,7 @@ public static class Vector2DExtensions
             vector + Vector2D.Right
         };
 
-        if (metric != DistanceMetric.Chebyshev)
+        if (metric != Metric.Chebyshev)
         {
             return set;
         }

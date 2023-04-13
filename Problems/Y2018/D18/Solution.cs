@@ -73,7 +73,7 @@ public class Solution : SolutionBase2018
         
         foreach (var pos in aabb)
         {
-            var adjPositions = pos.GetAdjacentSet(DistanceMetric.Chebyshev);
+            var adjPositions = pos.GetAdjacentSet(Metric.Chebyshev);
             var adjCounts = new Dictionary<char, int>
             {
                 [Ground]     = adjPositions.Count(p => map.ContainsKey(p) && map[p] == Ground),

@@ -61,7 +61,7 @@ public class OctopusGrid
             flashedSet.Add(flashedPos);
             RaiseSingleFlashed(flashedPos);
             
-            foreach (var adjacent in flashedPos.GetAdjacentSet(DistanceMetric.Chebyshev))
+            foreach (var adjacent in flashedPos.GetAdjacentSet(Metric.Chebyshev))
             {
                 if (_octopusStates.IsInDomain(adjacent))
                 {

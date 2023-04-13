@@ -92,7 +92,7 @@ public class Solution : SolutionBase2019
 
     private static Queue<Vector2D> BuildDistanceQueue(Vector2D from, IEnumerable<Vector2D> to)
     {
-        return new Queue<Vector2D>(to.OrderBy(v => Vector2D.Distance(v, from, DistanceMetric.Taxicab)));
+        return new Queue<Vector2D>(to.OrderBy(v => Vector2D.Distance(v, from, Metric.Taxicab)));
     }
     
     private static HashSet<Vector2D> ParseAsteroids(IList<string> input, out Func<Vector2D, Vector2D> transform)

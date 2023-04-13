@@ -1,6 +1,4 @@
-using Utilities.Cartesian;
-
-namespace Problems.Y2018.D23;
+namespace Utilities.Cartesian;
 
 public static class Octree
 {

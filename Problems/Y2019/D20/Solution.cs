@@ -122,7 +122,7 @@ public class Solution : SolutionBase2019
                 continue;
             }
 
-            var adj = pos.GetAdjacentSet(DistanceMetric.Taxicab)
+            var adj = pos.GetAdjacentSet(Metric.Taxicab)
                 .Where(p => PositionValid(maze, p))
                 .ToHashSet();
             adjacencyList.Add(pos, adj);

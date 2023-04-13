@@ -41,7 +41,7 @@ public class Solution : SolutionBase2019
     {
         return costs.W1.Keys
             .Intersect(costs.W2.Keys)
-            .Select(i => Vector2D.Distance(Vector2D.Zero, i, DistanceMetric.Taxicab))
+            .Select(i => i.Magnitude(Metric.Taxicab))
             .Min();
     }
     

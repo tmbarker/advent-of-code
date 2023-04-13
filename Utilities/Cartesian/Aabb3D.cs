@@ -55,6 +55,7 @@ public readonly struct Aabb3D : IEnumerable<Vector3D>, IEquatable<Aabb3D>
     public int YLength => YMax - YMin + 1;
     public int ZLength => ZMax - ZMin + 1;
     public long Volume => (long)XLength * YLength * ZLength;
+    public Vector3D Center => new(x: (XMin + XMax) / 2, y: (YMin + YMax) / 2, z: (ZMin + ZMax) / 2);
     
     public static bool FindOverlap(Aabb3D lhs, Aabb3D rhs, out  Aabb3D overlap)
     {
@@ -81,14 +82,6 @@ public readonly struct Aabb3D : IEnumerable<Vector3D>, IEquatable<Aabb3D>
             zMin: zLimits[1],
             zMax: zLimits[2]);
         return true;
-    }
-
-    public Vector3D GetCenter()
-    {
-        return new Vector3D(
-            x: (XMin + XMax) / 2,
-            y: (YMin + YMax) / 2,
-            z: (ZMin + ZMax) / 2);
     }
 
     public long GetSurfaceArea()

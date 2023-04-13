@@ -82,7 +82,7 @@ public class Solution : SolutionBase2022
                 var posInRangeOfSensor = false;
                 foreach (var r2 in reportings)
                 {
-                    if (Vector2D.Distance(r2.SensorPos, pos, DistanceMetric.Taxicab) > r2.Range)
+                    if (Vector2D.Distance(r2.SensorPos, pos, Metric.Taxicab) > r2.Range)
                     {
                         continue;
                     }

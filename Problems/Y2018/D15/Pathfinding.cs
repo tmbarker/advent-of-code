@@ -30,7 +30,7 @@ public static class Pathfinding
                 }
 
                 var adjacencies = pos
-                    .GetAdjacentSet(DistanceMetric.Taxicab)
+                    .GetAdjacentSet(Metric.Taxicab)
                     .Where(p => field.IsInDomain(p) && !visited.Contains(p));
 
                 foreach (var adj in adjacencies)
@@ -63,14 +63,14 @@ public static class Pathfinding
             while (nodesAtDepth-- > 0)
             {
                 var pos = queue.Dequeue();
-                if (pos.IsAdjacentTo(start, DistanceMetric.Taxicab))
+                if (pos.IsAdjacentTo(start, Metric.Taxicab))
                 {
                     candidates.Add(pos);
                     continue;
                 }
 
                 var freeAdjacent = pos
-                    .GetAdjacentSet(DistanceMetric.Taxicab)
+                    .GetAdjacentSet(Metric.Taxicab)
                     .Where(p => field.IsInDomain(p) && field[p] == GameData.Empty)
                     .Where(p => !visited.Contains(p));
                     

@@ -120,8 +120,8 @@ public class Solution : SolutionBase2019
 
     private static int ComputeEnergy(State state)
     {
-        var potential = Vector3D.Distance(Vector3D.Zero, state.Pos, DistanceMetric.Taxicab);
-        var kinematic = Vector3D.Distance(Vector3D.Zero, state.Vel, DistanceMetric.Taxicab);
+        var potential = state.Pos.Magnitude(Metric.Taxicab);
+        var kinematic = state.Vel.Magnitude(Metric.Taxicab);
 
         return potential * kinematic;
     }

@@ -81,7 +81,7 @@ public class Solution : SolutionBase2018
             Cost: SwapCost);
 
         var adjacencies = state.Pos
-            .GetAdjacentSet(DistanceMetric.Taxicab)
+            .GetAdjacentSet(Metric.Taxicab)
             .Where(pos => pos is { X: >= 0, Y: >= 0 });
 
         foreach (var adjacent in adjacencies)

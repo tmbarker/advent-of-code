@@ -31,7 +31,7 @@ public class Solution : SolutionBase2022
         
         foreach (var element in elementsSet)
         {
-            var faceAdjacentPositions = element.GetAdjacentSet(DistanceMetric.Taxicab);
+            var faceAdjacentPositions = element.GetAdjacentSet(Metric.Taxicab);
             totalSurfaceArea += CubeFaces - faceAdjacentPositions.Count(p => elementsSet.Contains(p));
         }
 
@@ -50,7 +50,7 @@ public class Solution : SolutionBase2022
         
         while (queue.Count > 0)
         {
-            foreach (var adj in queue.Dequeue().GetAdjacentSet(DistanceMetric.Taxicab))
+            foreach (var adj in queue.Dequeue().GetAdjacentSet(Metric.Taxicab))
             {
                 if (elementsSet.Contains(adj) || boundingSet.Contains(adj) || !aabb.Contains(adj, true))
                 {

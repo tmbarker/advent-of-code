@@ -83,7 +83,7 @@ public class Solution : SolutionBase2019
             .WhereValues(t => t != Tile.Wall)
             .ToDictionary(kvp => kvp.Key, kvp =>
             {
-                return new HashSet<Vector2D>(kvp.Key.GetAdjacentSet(DistanceMetric.Taxicab)
+                return new HashSet<Vector2D>(kvp.Key.GetAdjacentSet(Metric.Taxicab)
                     .Where(p => fieldMap.ContainsKey(p) && fieldMap[p] != Tile.Wall));
             });
 
@@ -92,7 +92,7 @@ public class Solution : SolutionBase2019
 
     private static void Traverse(IntCodeVm droid, Vector2D pos, Stack<Vector2D> moveHistory, FieldMap map)
     {
-        var moves = Vector2D.Zero.GetAdjacentSet(DistanceMetric.Taxicab);
+        var moves = Vector2D.Zero.GetAdjacentSet(Metric.Taxicab);
         foreach (var move in moves)
         {
             if (map.ContainsKey(pos + move))

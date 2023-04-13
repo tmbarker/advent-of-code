@@ -54,7 +54,7 @@ public class Solution : SolutionBase2020
         foreach (var pos in new Aabb3D(active, false))
         {
             var activeAdjCount = pos
-                .GetAdjacentSet(DistanceMetric.Chebyshev)
+                .GetAdjacentSet(Metric.Chebyshev)
                 .Count(active.Contains);
 
             AddIfShouldBeActive(pos, nextActive, active, activeAdjCount);
@@ -68,7 +68,7 @@ public class Solution : SolutionBase2020
         foreach (var pos in new Aabb4D(active, false))
         {
             var activeAdjCount = pos
-                .GetAdjacentSet(DistanceMetric.Chebyshev)
+                .GetAdjacentSet(Metric.Chebyshev)
                 .Count(active.Contains);
 
             AddIfShouldBeActive(pos, nextActive, active, activeAdjCount);

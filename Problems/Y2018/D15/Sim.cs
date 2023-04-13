@@ -90,14 +90,14 @@ public static class Sim
     
     private static bool IsAdjacentToAny(GameState state, int unitId, IEnumerable<Vector2D> targetPositions)
     {
-        return targetPositions.Any(p => p.IsAdjacentTo(state.Units[unitId].Pos, DistanceMetric.Taxicab));
+        return targetPositions.Any(p => p.IsAdjacentTo(state.Units[unitId].Pos, Metric.Taxicab));
     }
     
     private static bool FindOpenInRange(GameState state, IEnumerable<Vector2D> targetPositions, out HashSet<Vector2D> inRangePositions)
     {
         var field = state.Field;
         inRangePositions = targetPositions
-            .SelectMany(p => p.GetAdjacentSet(DistanceMetric.Taxicab))
+            .SelectMany(p => p.GetAdjacentSet(Metric.Taxicab))
             .Where(p => field.IsInDomain(p) && field[p] == GameData.Empty)
             .ToHashSet();
 
@@ -133,7 +133,7 @@ public static class Sim
     private static bool GetAdjacentTarget(GameState state, int attackerId, out int targetId)
     {
         var attacker = state.Units[attackerId];
-        var adjacentPositions = attacker.Pos.GetAdjacentSet(DistanceMetric.Taxicab);
+        var adjacentPositions = attacker.Pos.GetAdjacentSet(Metric.Taxicab);
         var candidates = state.Units.Values
             .Where(unit => adjacentPositions.Contains(unit.Pos))
             .Where(unit => !unit.Dead && unit.Team == GameData.EnemyMap[attacker.Team])

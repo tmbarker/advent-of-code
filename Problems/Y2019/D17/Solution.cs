@@ -45,7 +45,7 @@ public class Solution : SolutionBase2019
     private static int SumAlignmentParams(IReadOnlySet<Vector2D> positions)
     {
         return positions
-            .Where(p => p.GetAdjacentSet(DistanceMetric.Taxicab).Count(positions.Contains) == 4)
+            .Where(p => p.GetAdjacentSet(Metric.Taxicab).Count(positions.Contains) == 4)
             .Aggregate(0, (sum, pos) => sum + pos.X * pos.Y);
     }
 
