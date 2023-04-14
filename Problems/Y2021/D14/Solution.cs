@@ -1,5 +1,5 @@
 ﻿using System.Text.RegularExpressions;
-using Problems.Y2021.Common;
+using Problems.Common;
 using Utilities.Extensions;
 
 namespace Problems.Y2021.D14;
@@ -7,14 +7,12 @@ namespace Problems.Y2021.D14;
 /// <summary>
 /// Extended Polymerization: https://adventofcode.com/2021/day/14/input
 /// </summary>
-public class Solution : SolutionBase2021
+public class Solution : SolutionBase
 {
     private const string RuleRegex = @"(.)(.) -> (.)";
     private const int Steps1 = 10;
     private const int Steps2 = 40;
-    
-    public override int Day => 14;
-    
+
     public override object Run(int part)
     {
         Parse(GetInputLines(), out var polymer, out var rules);

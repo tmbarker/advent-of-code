@@ -1,17 +1,15 @@
-using Problems.Y2020.Common;
+using Problems.Common;
 
 namespace Problems.Y2020.D10;
 
 /// <summary>
 /// Adapter Array: https://adventofcode.com/2020/day/10
 /// </summary>
-public class Solution : SolutionBase2020
+public class Solution : SolutionBase
 {
     private const int Range = 3;
     private static readonly IReadOnlySet<int> DifferencesOfInterest = new HashSet<int> { 1, 3 };
 
-    public override int Day => 10;
-    
     public override object Run(int part)
     {
         var sortedAdapters = GetSortedAdapters(GetInputLines());

@@ -6,13 +6,13 @@ namespace Problems.Y2019.D04;
 /// <summary>
 /// Secure Container: https://adventofcode.com/2019/day/4
 /// </summary>
-public class Solution : SolutionBase2019
+public class Solution : IntCodeSolution
 {
-    public override int Day => 4;
-
     public override object Run(int part)
     {
-        var range = ParseValidRange(GetInputText());
+        var input = GetInputText();
+        var range = ParseValidRange(input);
+        
         return part switch
         {
             1 => CountValidPasswords(range, minRun: 2, maxRun: 6),

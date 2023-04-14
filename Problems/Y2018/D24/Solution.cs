@@ -1,14 +1,12 @@
-using Problems.Y2018.Common;
+using Problems.Common;
 
 namespace Problems.Y2018.D24;
 
 /// <summary>
 /// Immune System Simulator 20XX: https://adventofcode.com/2018/day/24
 /// </summary>
-public class Solution : SolutionBase2018
+public class Solution : SolutionBase
 {
-    public override int Day => 24;
-    
     public override object Run(int part)
     {
         var lines = GetInputLines();

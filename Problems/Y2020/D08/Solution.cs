@@ -1,4 +1,4 @@
-using Problems.Y2020.Common;
+using Problems.Common;
 
 namespace Problems.Y2020.D08;
 
@@ -7,10 +7,8 @@ using Instructions = IList<(string Op, int Arg)>;
 /// <summary>
 /// Handheld Halting: https://adventofcode.com/2020/day/8
 /// </summary>
-public class Solution : SolutionBase2020
+public class Solution : SolutionBase
 {
-    public override int Day => 8;
-    
     public override object Run(int part)
     {
         var instructions = ParseInstructions(GetInputLines());

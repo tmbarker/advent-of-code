@@ -1,4 +1,4 @@
-using Problems.Y2018.Common;
+using Problems.Common;
 using Utilities.Collections;
 using Utilities.Extensions;
 
@@ -7,10 +7,8 @@ namespace Problems.Y2018.D09;
 /// <summary>
 /// Marble Mania: https://adventofcode.com/2018/day/9
 /// </summary>
-public class Solution : SolutionBase2018
+public class Solution : SolutionBase
 {
-    public override int Day => 9;
-    
     public override object Run(int part)
     {
         var input = GetInputText();

@@ -1,11 +1,11 @@
-using Problems.Y2021.Common;
+using Problems.Common;
 
 namespace Problems.Y2021.D24;
 
 /// <summary>
 /// Arithmetic Logic Unit: https://adventofcode.com/2021/day/24
 /// </summary>
-public class Solution : SolutionBase2021
+public class Solution : SolutionBase
 {
     /*
     The MONAD program repeats the following block for each of the 14 input digits. The only differences between
@@ -113,8 +113,6 @@ public class Solution : SolutionBase2021
     
     private const string LargestModelNumber  = "12996997829399";
     private const string SmallestModelNumber = "11841231117189";
-    
-    public override int Day => 24;
 
     public override object Run(int part)
     {

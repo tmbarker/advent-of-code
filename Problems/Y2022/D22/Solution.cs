@@ -1,5 +1,4 @@
 using Problems.Common;
-using Problems.Y2022.Common;
 using Utilities.Cartesian;
 
 namespace Problems.Y2022.D22;
@@ -7,10 +6,8 @@ namespace Problems.Y2022.D22;
 /// <summary>
 /// Monkey Map: https://adventofcode.com/2022/day/22
 /// </summary>
-public class Solution : SolutionBase2022
+public class Solution : SolutionBase
 {
-    public override int Day => 22;
-    
     public override object Run(int part)
     {
         MapData.Parse(GetInputLines(), out var board, out var instructions);

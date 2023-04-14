@@ -1,17 +1,15 @@
-using Problems.Y2022.Common;
+using Problems.Common;
 
 namespace Problems.Y2022.D13;
 
 /// <summary>
 /// Distress Signal: https://adventofcode.com/2022/day/13
 /// </summary>
-public class Solution : SolutionBase2022
+public class Solution : SolutionBase
 {
     private const string DivisorPacket1 = "[[2]]";
     private const string DivisorPacket2 = "[[6]]";
 
-    public override int Day => 13;
-    
     public override object Run(int part)
     {
         return part switch

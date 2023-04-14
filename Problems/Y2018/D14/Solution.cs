@@ -1,17 +1,15 @@
-using Problems.Y2018.Common;
+using Problems.Common;
 
 namespace Problems.Y2018.D14;
 
 /// <summary>
 /// Chocolate Charts: https://adventofcode.com/2018/day/14
 /// </summary>
-public class Solution : SolutionBase2018
+public class Solution : SolutionBase
 {
     private static readonly List<int> InitialRecipes = new() { 3, 7 };
     private static readonly List<int> InitialElves =   new() { 0, 1 };
-    
-    public override int Day => 14;
-    
+
     public override object Run(int part)
     {
         var input = GetInputText();

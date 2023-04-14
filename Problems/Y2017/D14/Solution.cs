@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Globalization;
+using Problems.Common;
 using Problems.Y2017.Common;
 using Utilities.Collections;
 
@@ -8,10 +9,8 @@ namespace Problems.Y2017.D14;
 /// <summary>
 /// Disk Defragmentation: https://adventofcode.com/2017/day/14
 /// </summary>
-public class Solution : SolutionBase2017
+public class Solution : SolutionBase
 {
-    public override int Day => 14;
-    
     public override object Run(int part)
     {
         var hashPrefix = GetInputText();

@@ -1,5 +1,5 @@
 using Problems.Attributes;
-using Problems.Y2019.Common;
+using Problems.Common;
 using Utilities.Graph;
 
 namespace Problems.Y2019.D06;
@@ -11,14 +11,12 @@ using Memo = IDictionary<string, int>;
 /// Universal Orbit Map: https://adventofcode.com/2019/day/6
 /// </summary>
 [Favourite("Universal Orbit Map", Topics.Graphs|Topics.Recursion, Difficulty.Easy)]
-public class Solution : SolutionBase2019
+public class Solution : SolutionBase
 {
     private const string Com = "COM";
     private const string You = "YOU";
     private const string Santa = "SAN";
-    
-    public override int Day => 6;
-    
+
     public override object Run(int part)
     {
         var map = ParseOrbitMap(GetInputLines());

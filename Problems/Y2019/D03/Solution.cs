@@ -1,5 +1,5 @@
 using Problems.Attributes;
-using Problems.Y2019.Common;
+using Problems.Common;
 using Utilities.Cartesian;
 using Utilities.Extensions;
 
@@ -12,7 +12,7 @@ using PathCosts = IDictionary<Vector2D, int>;
 /// Crossed Wires: https://adventofcode.com/2019/day/3
 /// </summary>
 [Favourite("Crossed Wires", Topics.Vectors, Difficulty.Easy)]
-public class Solution : SolutionBase2019
+public class Solution : SolutionBase
 {
     private static readonly Dictionary<char, Vector2D> Directions = new()
     {
@@ -22,11 +22,10 @@ public class Solution : SolutionBase2019
         {'R', Vector2D.Right},
     };
 
-    public override int Day => 3;
-    
     public override object Run(int part)
     {
-        var routes = ParseWireRoutes(GetInputLines());
+        var input = GetInputLines();
+        var routes = ParseWireRoutes(input);
         var costs = GetPathCosts(routes);
         
         return part switch

@@ -1,4 +1,4 @@
-using Problems.Y2022.Common;
+using Problems.Common;
 using Utilities.Cartesian;
 using Utilities.Extensions;
 
@@ -7,7 +7,7 @@ namespace Problems.Y2022.D14;
 /// <summary>
 /// Regolith Reservoir: https://adventofcode.com/2022/day/14
 /// </summary>
-public class Solution : SolutionBase2022
+public class Solution : SolutionBase
 {
     private const int FloorDelta = 2;
     private static readonly Vector2D SandOrigin = new(x: 500, y: 0);
@@ -18,8 +18,6 @@ public class Solution : SolutionBase2022
         new Vector2D(x:  1, y: 1)
     };
 
-    public override int Day => 14;
-    
     public override object Run(int part)
     {
         var rockPaths = ParseRockPathVertices(GetInputLines());

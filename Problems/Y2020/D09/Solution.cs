@@ -1,16 +1,13 @@
 using Problems.Common;
-using Problems.Y2020.Common;
 
 namespace Problems.Y2020.D09;
 
 /// <summary>
 /// Encoding Error: https://adventofcode.com/2020/day/9
 /// </summary>
-public class Solution : SolutionBase2020
+public class Solution : SolutionBase
 {
     private const int PreambleLength = 25;
-    
-    public override int Day => 9;
     
     public override object Run(int part)
     {

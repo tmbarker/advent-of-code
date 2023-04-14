@@ -1,16 +1,12 @@
-using Problems.Y2021.Common;
+using Problems.Common;
 
 namespace Problems.Y2021.D07;
 
 /// <summary>
 /// The Treachery of Whales: https://adventofcode.com/2021/day/7
 /// </summary>
-public class Solution : SolutionBase2021
+public class Solution : SolutionBase
 {
-    private const char Delimiter = ',';
-    
-    public override int Day => 7;
-    
     public override object Run(int part)
     {
         return part switch
@@ -41,7 +37,7 @@ public class Solution : SolutionBase2021
     private IList<int> GetPositions()
     {
         return GetInputText()
-            .Split(Delimiter)
+            .Split(',')
             .Select(int.Parse)
             .ToList();
     }

@@ -1,6 +1,5 @@
 using Problems.Attributes;
 using Problems.Common;
-using Problems.Y2019.Common;
 using Utilities.Cartesian;
 
 namespace Problems.Y2019.D20;
@@ -12,14 +11,12 @@ using AdjacencyList = Dictionary<Vector2D, HashSet<Vector2D>>;
 /// Donut Maze: https://adventofcode.com/2019/day/20
 /// </summary>
 [Favourite("Donut Maze", Topics.Graphs, Difficulty.Hard)]
-public class Solution : SolutionBase2019
+public class Solution : SolutionBase
 { 
     private const char Traversable = '.';
     private static readonly PortalKey Entrance = new('A', 'A');
     private static readonly PortalKey Exit = new('Z', 'Z');
 
-    public override int Day => 20;
-    
     public override object Run(int part)
     {
         var maze = ParseMaze();

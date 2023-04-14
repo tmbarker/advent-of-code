@@ -1,6 +1,6 @@
 ﻿using System.Text;
 using Problems.Attributes;
-using Problems.Y2021.Common;
+using Problems.Common;
 
 namespace Problems.Y2021.D16;
 
@@ -8,7 +8,7 @@ namespace Problems.Y2021.D16;
 /// Packet Decoder: https://adventofcode.com/2021/day/16
 /// </summary>
 [Favourite("Packet Decoder", Topics.StringParsing, Difficulty.Medium)]
-public class Solution : SolutionBase2021
+public class Solution : SolutionBase
 {
     private static readonly Dictionary<char, string> HexToPaddedBinary = new() {
         { '0', "0000" },
@@ -28,9 +28,7 @@ public class Solution : SolutionBase2021
         { 'E', "1110" },
         { 'F', "1111" }
     };
-    
-    public override int Day => 16;
-    
+
     public override object Run(int part)
     {
         var packet = ParsePacket(ReadInputToBinaryBuffer());

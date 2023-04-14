@@ -1,5 +1,5 @@
 using System.Text;
-using Problems.Y2017.Common;
+using Problems.Common;
 using Utilities.Cartesian;
 
 namespace Problems.Y2017.D19;
@@ -7,13 +7,11 @@ namespace Problems.Y2017.D19;
 /// <summary>
 /// A Series of Tubes: https://adventofcode.com/2017/day/19
 /// </summary>
-public class Solution : SolutionBase2017
+public class Solution : SolutionBase
 {
     private const char Junction = '+';
     private static readonly HashSet<char> Traversable = new() { '|', '-', '+' };
 
-    public override int Day => 19;
-    
     public override object Run(int part)
     {
         var input = GetInputLines();

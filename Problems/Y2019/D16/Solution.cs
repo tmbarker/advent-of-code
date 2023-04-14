@@ -1,20 +1,17 @@
 using Problems.Common;
-using Problems.Y2019.Common;
 
 namespace Problems.Y2019.D16;
 
 /// <summary>
 /// Flawed Frequency Transmission: https://adventofcode.com/2019/day/16
 /// </summary>
-public class Solution : SolutionBase2019
+public class Solution : SolutionBase
 {
     private const int Phases = 100;
     private const int MessageLength = 8;
     
     private static readonly int[] BasePattern = { 0, 1, 0, -1 };
 
-    public override int Day => 16;
-    
     public override object Run(int part)
     {
         var input = GetInputText();

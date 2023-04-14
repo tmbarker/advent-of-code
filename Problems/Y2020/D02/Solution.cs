@@ -1,5 +1,5 @@
 using System.Text.RegularExpressions;
-using Problems.Y2020.Common;
+using Problems.Common;
 using Utilities.Extensions;
 
 namespace Problems.Y2020.D02;
@@ -7,10 +7,8 @@ namespace Problems.Y2020.D02;
 /// <summary>
 /// Password Philosophy: https://adventofcode.com/2020/day/2
 /// </summary>
-public class Solution : SolutionBase2020
+public class Solution : SolutionBase
 {
-    public override int Day => 2;
-    
     public override object Run(int part)
     {
         var policies = ParseInputLines(parseFunc: ParsePolicy);

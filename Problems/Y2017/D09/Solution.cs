@@ -1,14 +1,12 @@
-using Problems.Y2017.Common;
+using Problems.Common;
 
 namespace Problems.Y2017.D09;
 
 /// <summary>
 /// Stream Processing: https://adventofcode.com/2017/day/9
 /// </summary>
-public class Solution : SolutionBase2017
+public class Solution : SolutionBase
 {
-    public override int Day => 9;
-    
     public override object Run(int part)
     {
         var input = GetInputText();

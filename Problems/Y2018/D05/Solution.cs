@@ -1,5 +1,5 @@
 using Problems.Attributes;
-using Problems.Y2018.Common;
+using Problems.Common;
 
 namespace Problems.Y2018.D05;
 
@@ -7,10 +7,8 @@ namespace Problems.Y2018.D05;
 /// Alchemical Reduction: https://adventofcode.com/2018/day/5
 /// </summary>
 [Favourite("Alchemical Reduction", Topics.StringParsing, Difficulty.Easy)]
-public class Solution : SolutionBase2018
+public class Solution : SolutionBase
 {
-    public override int Day => 5;
-    
     public override object Run(int part)
     {
         return part switch

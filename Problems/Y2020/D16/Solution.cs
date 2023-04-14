@@ -1,5 +1,5 @@
-using Problems.Y2020.Common;
 using System.Text.RegularExpressions;
+using Problems.Common;
 using Utilities.Cartesian;
 using Utilities.Extensions;
 
@@ -12,10 +12,8 @@ using FieldValidators = IDictionary<string, Predicate<int>>;
 /// <summary>
 /// Ticket Translation: https://adventofcode.com/2020/day/16
 /// </summary>
-public class Solution : SolutionBase2020
+public class Solution : SolutionBase
 {
-    public override int Day => 16;
-    
     public override object Run(int part)
     {
         ParseInput(

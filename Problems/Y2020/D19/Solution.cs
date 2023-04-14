@@ -1,7 +1,7 @@
 using System.Text;
 using System.Text.RegularExpressions;
 using Problems.Attributes;
-using Problems.Y2020.Common;
+using Problems.Common;
 
 namespace Problems.Y2020.D19;
 
@@ -13,7 +13,7 @@ using Memo = IDictionary<int, string>;
 /// Monster Messages: https://adventofcode.com/2020/day/19
 /// </summary>
 [Favourite("Monster Messages", Topics.RegularExpressions, Difficulty.Hard)]
-public class Solution : SolutionBase2020
+public class Solution : SolutionBase
 {
     private const int Rule = 0;
 
@@ -45,15 +45,13 @@ public class Solution : SolutionBase2020
         { 11, "(?<Stack> 42 )+(?<-Stack> 31 )+(?(Stack)(?!))" }
     };
 
-    public override int Day => 19;
-
     public override object Run(int part)
     {
         ParseInput(GetInputLines(), out var rules, out var messages);
         return part switch
         {
-            1 => CountMatches(Rule, messages, rules, false),
-            2 => CountMatches(Rule, messages, rules, true),
+            1 => CountMatches(Rule, messages, rules, useRuleOverrides: false),
+            2 => CountMatches(Rule, messages, rules, useRuleOverrides: true),
             _ => ProblemNotSolvedString
         };
     }

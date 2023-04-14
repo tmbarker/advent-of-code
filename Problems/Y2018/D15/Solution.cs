@@ -1,14 +1,12 @@
-using Problems.Y2018.Common;
+using Problems.Common;
 
 namespace Problems.Y2018.D15;
 
 /// <summary>
 /// Beverage Bandits: https://adventofcode.com/2018/day/15
 /// </summary>
-public class Solution : SolutionBase2018
+public class Solution : SolutionBase
 {
-    public override int Day => 15;
-    
     public override object Run(int part)
     {
         var input = GetInputLines();

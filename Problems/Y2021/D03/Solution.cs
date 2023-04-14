@@ -1,14 +1,12 @@
-using Problems.Y2021.Common;
+using Problems.Common;
 
 namespace Problems.Y2021.D03;
 
 /// <summary>
-/// Binary Diagnostic: https://adventofcode.com/2021/day/3#part2
+/// Binary Diagnostic: https://adventofcode.com/2021/day/3
 /// </summary>
-public class Solution : SolutionBase2021
+public class Solution : SolutionBase
 {
-    public override int Day => 3;
-    
     public override object Run(int part)
     {
         var numberStrings = GetInputLines();

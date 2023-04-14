@@ -1,15 +1,12 @@
 using Problems.Common;
-using Problems.Y2017.Common;
 
 namespace Problems.Y2017.D08;
 
 /// <summary>
 /// I Heard You Like Registers: https://adventofcode.com/2017/day/8
 /// </summary>
-public class Solution : SolutionBase2017
+public class Solution : SolutionBase
 {
-    public override int Day => 8;
-    
     public override object Run(int part)
     {
         var input = GetInputLines();

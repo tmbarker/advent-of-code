@@ -1,4 +1,4 @@
-using Problems.Y2021.Common;
+using Problems.Common;
 using Utilities.Cartesian;
 
 namespace Problems.Y2021.D23;
@@ -6,19 +6,14 @@ namespace Problems.Y2021.D23;
 /// <summary>
 /// Amphipod: https://adventofcode.com/2021/day/23
 /// </summary>
-public class Solution : SolutionBase2021
+public class Solution : SolutionBase
 {
-    private const int SideRoomDepth1 = 2;
-    private const int SideRoomDepth2 = 4;
-
-    public override int Day => 23;
-    
     public override object Run(int part)
     {
         return part switch
         {
-            1 => FindMinCost(State.FromInitialPositions(Input.Part1), new Field(SideRoomDepth1)),
-            2 => FindMinCost(State.FromInitialPositions(Input.Part2), new Field(SideRoomDepth2)),
+            1 => FindMinCost(State.FromInitialPositions(Input.Part1), new Field(sideRoomDepth: 2)),
+            2 => FindMinCost(State.FromInitialPositions(Input.Part2), new Field(sideRoomDepth: 4)),
             _ => ProblemNotSolvedString
         };
     }

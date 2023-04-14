@@ -1,6 +1,6 @@
 using System.Text.RegularExpressions;
 using Problems.Attributes;
-using Problems.Y2017.Common;
+using Problems.Common;
 using Utilities.Extensions;
 
 namespace Problems.Y2017.D21;
@@ -12,7 +12,7 @@ using Rules = IReadOnlyDictionary<string, string>;
 /// Fractal Art: https://adventofcode.com/2017/day/21
 /// </summary>
 [Favourite("Fractal Art", Topics.Vectors, Difficulty.Medium)]
-public class Solution : SolutionBase2017
+public class Solution : SolutionBase
 {
     private static readonly Pattern Initial = new(size: 3, buffer: @".#./..#/###");
     private static readonly IReadOnlyList<Transform> Transforms = new List<Transform>
@@ -26,8 +26,6 @@ public class Solution : SolutionBase2017
         p => p.Rotate()
     };
 
-    public override int Day => 21;
-    
     public override object Run(int part)
     {
         var input = GetInputLines();

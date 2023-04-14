@@ -1,6 +1,5 @@
 using Problems.Attributes;
 using Problems.Common;
-using Problems.Y2022.Common;
 using Utilities.Cartesian;
 using Utilities.Extensions;
 
@@ -10,14 +9,12 @@ namespace Problems.Y2022.D15;
 /// Beacon Exclusion Zone: https://adventofcode.com/2022/day/15
 /// </summary>
 [Favourite("Beacon Exclusion Zone", Topics.Vectors, Difficulty.Medium)]
-public class Solution : SolutionBase2022
+public class Solution : SolutionBase
 {
     private const int Row = 2000000;
     private const int SearchAreaDimension = 4000000;
     private const long TuningFrequencyMultiplier = SearchAreaDimension;
-    
-    public override int Day => 15;
-    
+
     public override object Run(int part)
     {
         var input = GetInputLines();

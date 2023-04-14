@@ -1,5 +1,5 @@
 using Problems.Attributes;
-using Problems.Y2022.Common;
+using Problems.Common;
 using Utilities.Extensions;
 
 namespace Problems.Y2022.D19;
@@ -8,7 +8,7 @@ namespace Problems.Y2022.D19;
 /// Not Enough Minerals: https://adventofcode.com/2022/day/19
 /// </summary>
 [Favourite("Not Enough Minerals", Topics.Graphs|Topics.Recursion, Difficulty.Hard)]
-public class Solution : SolutionBase2022
+public class Solution : SolutionBase
 {
     private static readonly HashSet<Materials> MaterialTypes = new()
     {
@@ -18,8 +18,6 @@ public class Solution : SolutionBase2022
         Materials.Geode
     };
 
-    public override int Day => 19;
-    
     public override object Run(int part)
     {
         var blueprints = ParseInputLines(parseFunc: ParseBlueprint);

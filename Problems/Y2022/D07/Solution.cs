@@ -1,14 +1,12 @@
-using Problems.Y2022.Common;
+using Problems.Common;
 
 namespace Problems.Y2022.D07;
 
 /// <summary>
 /// No Space Left On Device: https://adventofcode.com/2022/day/7
 /// </summary>
-public class Solution : SolutionBase2022
+public class Solution : SolutionBase
 {
-    public override int Day => 7;
-    
     public override object Run(int part)
     {
         var consoleOutput = GetInputLines();

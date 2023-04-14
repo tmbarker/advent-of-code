@@ -1,5 +1,5 @@
 using Problems.Attributes;
-using Problems.Y2018.Common;
+using Problems.Common;
 using Utilities.Cartesian;
 
 namespace Problems.Y2018.D17;
@@ -8,12 +8,10 @@ namespace Problems.Y2018.D17;
 /// Reservoir Research: https://adventofcode.com/2018/day/17
 /// </summary>
 [Favourite("Reservoir Research", Topics.Vectors, Difficulty.Medium)]
-public class Solution : SolutionBase2018
+public class Solution : SolutionBase
 {
     private static readonly Vector2D Gravity = new(x: 0, y: 1);
-    
-    public override int Day => 17;
-    
+
     public override object Run(int part)
     {
         var lines = GetInputLines();

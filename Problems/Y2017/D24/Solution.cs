@@ -1,5 +1,5 @@
 using Problems.Attributes;
-using Problems.Y2017.Common;
+using Problems.Common;
 using Utilities.Extensions;
 
 namespace Problems.Y2017.D24;
@@ -8,10 +8,8 @@ namespace Problems.Y2017.D24;
 /// Electromagnetic Moat: https://adventofcode.com/2017/day/24
 /// </summary>
 [Favourite("Electromagnetic Moat", Topics.Graphs, Difficulty.Medium)]
-public class Solution : SolutionBase2017
+public class Solution : SolutionBase
 {
-    public override int Day => 24;
-    
     public override object Run(int part)
     {
         return part switch

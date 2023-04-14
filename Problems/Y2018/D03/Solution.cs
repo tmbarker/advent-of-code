@@ -1,4 +1,4 @@
-﻿using Problems.Y2018.Common;
+﻿using Problems.Common;
 using Utilities.Cartesian;
 using Utilities.Extensions;
 
@@ -7,10 +7,8 @@ namespace Problems.Y2018.D03;
 /// <summary>
 /// No Matter How You Slice It: https://adventofcode.com/2018/day/3
 /// </summary>
-public class Solution : SolutionBase2018
+public class Solution : SolutionBase
 {
-    public override int Day => 3;
-    
     public override object Run(int part)
     {
         var claims = ParseInputLines(parseFunc: ParseClaim);

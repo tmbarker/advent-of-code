@@ -1,4 +1,4 @@
-using Problems.Y2021.Common;
+using Problems.Common;
 using Utilities.Cartesian;
 
 namespace Problems.Y2021.D02;
@@ -6,14 +6,12 @@ namespace Problems.Y2021.D02;
 /// <summary>
 /// Dive: https://adventofcode.com/2021/day/2
 /// </summary>
-public class Solution : SolutionBase2021
+public class Solution : SolutionBase
 {
     private const string Forward = "forward";
     private const string Down = "down";
     private const string Up = "up";
 
-    public override int Day => 2;
-    
     public override object Run(int part)
     {
         var instructions = ParseInstructions(GetInputLines());

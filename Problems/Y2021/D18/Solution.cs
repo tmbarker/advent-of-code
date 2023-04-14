@@ -1,4 +1,4 @@
-using Problems.Y2021.Common;
+using Problems.Common;
 using Utilities.Extensions;
 
 namespace Problems.Y2021.D18;
@@ -8,13 +8,11 @@ using SfNumber = List<Element>;
 /// <summary>
 /// Snailfish: https://adventofcode.com/2021/day/18
 /// </summary>
-public class Solution : SolutionBase2021
+public class Solution : SolutionBase
 {
     private const int ExplodeThreshold = 5;
     private const int SplitThreshold = 10;
 
-    public override int Day => 18;
-    
     public override object Run(int part)
     {
         var numbers = ParseInputLines(parseFunc: SnailfishParser.Parse).ToList();

@@ -1,17 +1,15 @@
-using Problems.Y2022.Common;
+using Problems.Common;
 
 namespace Problems.Y2022.D03;
 
 /// <summary>
 /// Rucksack Reorganization: https://adventofcode.com/2022/day/3
 /// </summary>
-public class Solution : SolutionBase2022
+public class Solution : SolutionBase
 {
     private const int AlphabetLength = 26;
     private const int GroupSize = 3;
-    
-    public override int Day => 3;
-    
+
     public override object Run(int part)
     {
         return part switch

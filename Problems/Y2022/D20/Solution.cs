@@ -1,4 +1,4 @@
-using Problems.Y2022.Common;
+using Problems.Common;
 using Utilities.Extensions;
 
 namespace Problems.Y2022.D20;
@@ -6,7 +6,7 @@ namespace Problems.Y2022.D20;
 /// <summary>
 /// Grove Positioning System: https://adventofcode.com/2022/day/20
 /// </summary>
-public class Solution : SolutionBase2022
+public class Solution : SolutionBase
 {
     private const int Key1 = 1;
     private const int Key2 = 811589153;
@@ -20,8 +20,6 @@ public class Solution : SolutionBase2022
         3000,
     };
 
-    public override int Day => 20;
-    
     public override object Run(int part)
     {
         var encryptedNumbers = GetEncryptedNumbers();

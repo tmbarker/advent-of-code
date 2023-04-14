@@ -1,3 +1,4 @@
+using Problems.Common;
 using Problems.Y2017.Common;
 
 namespace Problems.Y2017.D18;
@@ -5,10 +6,8 @@ namespace Problems.Y2017.D18;
 /// <summary>
 /// Duet: https://adventofcode.com/2017/day/18
 /// </summary>
-public class Solution : SolutionBase2017
+public class Solution : SolutionBase
 {
-    public override int Day => 18;
-    
     public override object Run(int part)
     {
         return part switch

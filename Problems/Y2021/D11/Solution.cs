@@ -1,4 +1,4 @@
-using Problems.Y2021.Common;
+using Problems.Common;
 using Utilities.Cartesian;
 
 namespace Problems.Y2021.D11;
@@ -6,17 +6,13 @@ namespace Problems.Y2021.D11;
 /// <summary>
 /// Dumbo Octopus: https://adventofcode.com/2021/day/11
 /// </summary>
-public class Solution : SolutionBase2021
+public class Solution : SolutionBase
 {
-    private const int Steps = 100;
-    
-    public override int Day => 11;
-    
     public override object Run(int part)
     {
         return part switch
         {
-            1 => CountFlashes(Steps),
+            1 => CountFlashes(steps: 100),
             2 => WaitForAllFlashed().Result, 
             _ => ProblemNotSolvedString
         };

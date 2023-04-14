@@ -1,4 +1,4 @@
-using Problems.Y2021.Common;
+using Problems.Common;
 using Utilities.Cartesian;
 using Utilities.Extensions;
 
@@ -9,15 +9,14 @@ using Herds = Dictionary<Vector2D, ISet<Vector2D>>;
 /// <summary>
 /// Sea Cucumber: https://adventofcode.com/2021/day/25
 /// </summary>
-public class Solution : SolutionBase2021
+public class Solution : SolutionBase
 {
     private static readonly Dictionary<char, Vector2D> HerdDirections = new()
     {
         { '>', Vector2D.Right },
         { 'v', Vector2D.Down },
     };
-
-    public override int Day => 25;
+    
     public override int Parts => 1;
 
     public override object Run(int part)

@@ -5,10 +5,8 @@ namespace Problems.Y2019.D23;
 /// <summary>
 /// Category Six: https://adventofcode.com/2019/day/23
 /// </summary>
-public class Solution : SolutionBase2019
+public class Solution : IntCodeSolution
 {
-    public override int Day => 23;
-    
     public override object Run(int part)
     {
         var firmware = LoadIntCodeProgram();

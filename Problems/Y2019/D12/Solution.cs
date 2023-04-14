@@ -1,7 +1,6 @@
 using System.Text.RegularExpressions;
 using Problems.Attributes;
 using Problems.Common;
-using Problems.Y2019.Common;
 using Utilities.Cartesian;
 using Utilities.Extensions;
 using Utilities.Numerics;
@@ -12,10 +11,8 @@ namespace Problems.Y2019.D12;
 /// The N-Body Problem: https://adventofcode.com/2019/day/12
 /// </summary>
 [Favourite("The N-Body Problem", Topics.Math, Difficulty.Hard)]
-public class Solution : SolutionBase2019
+public class Solution : SolutionBase
 {
-    public override int Day => 12;
-    
     public override object Run(int part)
     {
         var bodies = ParseInitialStates(GetInputLines());

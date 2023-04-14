@@ -1,4 +1,4 @@
-using Problems.Y2018.Common;
+using Problems.Common;
 using Utilities.Extensions;
 
 namespace Problems.Y2018.D21;
@@ -6,10 +6,8 @@ namespace Problems.Y2018.D21;
 /// <summary>
 /// Chronal Conversion: https://adventofcode.com/2018/day/21
 /// </summary>
-public class Solution : SolutionBase2018
+public class Solution : SolutionBase
 {
-    public override int Day => 21;
-    
     public override object Run(int part)
     {
         var input = GetInputLines();

@@ -1,4 +1,4 @@
-using Problems.Y2020.Common;
+using Problems.Common;
 
 namespace Problems.Y2020.D22;
 
@@ -7,10 +7,8 @@ using Memo = HashSet<(string P1State, string P2State)>;
 /// <summary>
 /// Crab Combat: https://adventofcode.com/2020/day/22
 /// </summary>
-public class Solution : SolutionBase2020
+public class Solution : SolutionBase
 {
-    public override int Day => 22;
-    
     public override object Run(int part)
     {
         var decks = ParseDecks(GetInputLines());

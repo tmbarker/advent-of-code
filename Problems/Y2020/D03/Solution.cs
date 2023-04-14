@@ -1,4 +1,4 @@
-using Problems.Y2020.Common;
+using Problems.Common;
 using Utilities.Cartesian;
 using Utilities.Extensions;
 
@@ -7,7 +7,7 @@ namespace Problems.Y2020.D03;
 /// <summary>
 /// Toboggan Trajectory: https://adventofcode.com/2020/day/3
 /// </summary>
-public class Solution : SolutionBase2020
+public class Solution : SolutionBase
 {
     private const char Tree = '#';
 
@@ -21,8 +21,6 @@ public class Solution : SolutionBase2020
         new (7, 1),
         new (1, 2),
     };
-
-    public override int Day => 3;
 
     public override object Run(int part)
     {

@@ -1,5 +1,4 @@
 using Problems.Common;
-using Problems.Y2018.Common;
 using Utilities.Cartesian;
 using Utilities.Extensions;
 
@@ -8,10 +7,8 @@ namespace Problems.Y2018.D23;
 /// <summary>
 /// Experimental Emergency Teleportation: https://adventofcode.com/2018/day/23
 /// </summary>
-public class Solution : SolutionBase2018
+public class Solution : SolutionBase
 {
-    public override int Day => 23;
-    
     public override object Run(int part)
     {
         var nanobots = ParseInputLines(parseFunc: ParseNanobot).ToList();

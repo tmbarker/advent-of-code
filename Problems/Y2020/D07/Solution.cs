@@ -1,6 +1,6 @@
 using System.Text.RegularExpressions;
 using Problems.Attributes;
-using Problems.Y2020.Common;
+using Problems.Common;
 using Utilities.Extensions;
 
 namespace Problems.Y2020.D07;
@@ -12,19 +12,17 @@ using Memo = IDictionary<(string, string), bool>;
 /// Handy Haversacks: https://adventofcode.com/2020/day/7
 /// </summary>
 [Favourite("Handy Haversacks", Topics.Graphs|Topics.Recursion, Difficulty.Medium)]
-public class Solution : SolutionBase2020
+public class Solution : SolutionBase
 {
     private const string ShinyGold = "shiny gold";
-    
-    public override int Day => 7;
     
     public override object Run(int part)
     {
         var map = ParseCapacityMap(GetInputLines());
         return part switch
         {
-            1 => CountBagsThatCanContain(ShinyGold, map),
-            2 => CountBagsInside(ShinyGold, map),
+            1 => CountBagsThatCanContain(targetColour: ShinyGold, map),
+            2 => CountBagsInside(targetColour: ShinyGold, map),
             _ => ProblemNotSolvedString
         };
     }

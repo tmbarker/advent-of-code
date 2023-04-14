@@ -1,5 +1,5 @@
 using System.Text;
-using Problems.Y2018.Common;
+using Problems.Common;
 using Utilities.Cartesian;
 using Utilities.Extensions;
 
@@ -8,10 +8,8 @@ namespace Problems.Y2018.D10;
 /// <summary>
 /// The Stars Align: https://adventofcode.com/2018/day/10
 /// </summary>
-public class Solution : SolutionBase2018
+public class Solution : SolutionBase
 {
-    public override int Day => 10;
-    
     public override object Run(int part)
     {
         return part switch

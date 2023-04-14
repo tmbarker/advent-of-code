@@ -1,12 +1,12 @@
 using System.Text;
-using Problems.Y2019.Common;
+using Problems.Common;
 
 namespace Problems.Y2019.D08;
 
 /// <summary>
 /// Space Image Format: https://adventofcode.com/2019/day/8
 /// </summary>
-public class Solution : SolutionBase2019
+public class Solution : SolutionBase
 {
     private const int Cols = 25;
     private const int Rows = 6;
@@ -18,8 +18,6 @@ public class Solution : SolutionBase2019
         { 1, '#' },
     };
 
-    public override int Day => 8;
-    
     public override object Run(int part)
     {
         var layers = ParseLayers(GetInputText());

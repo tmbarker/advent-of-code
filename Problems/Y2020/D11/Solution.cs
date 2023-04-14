@@ -1,4 +1,4 @@
-using Problems.Y2020.Common;
+using Problems.Common;
 using Utilities.Cartesian;
 
 namespace Problems.Y2020.D11;
@@ -6,10 +6,8 @@ namespace Problems.Y2020.D11;
 /// <summary>
 /// Seating System: https://adventofcode.com/2020/day/11
 /// </summary>
-public class Solution : SolutionBase2020
+public class Solution : SolutionBase
 { 
-    public override int Day => 11;
-    
     public override object Run(int part)
     {
         var seatMap = SeatMap.Parse(GetInputLines());

@@ -1,19 +1,17 @@
 using System.Text;
-using Problems.Y2020.Common;
+using Problems.Common;
 
 namespace Problems.Y2020.D23;
 
 /// <summary>
 /// Crab Cups: https://adventofcode.com/2020/day/23
 /// </summary>
-public class Solution : SolutionBase2020
+public class Solution : SolutionBase
 {
     private const int Moves1 = 100;
     private const int Moves2 = 10000000;
     private const int PadTo = 1000000;
-    
-    public override int Day => 23;
-    
+
     public override object Run(int part)
     {
         var numbers = ParseNumbers(GetInputText());

@@ -1,15 +1,12 @@
 using Problems.Common;
-using Problems.Y2021.Common;
 
 namespace Problems.Y2021.D04;
 
 /// <summary>
 /// Giant Squid: https://adventofcode.com/2021/day/4
 /// </summary>
-public class Solution : SolutionBase2021
+public class Solution : SolutionBase
 {
-    public override int Day => 4;
-    
     public override object Run(int part)
     {
         BingoData.Parse(GetInputLines(), out var draw, out var cards);

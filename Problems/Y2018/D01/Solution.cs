@@ -1,14 +1,12 @@
-using Problems.Y2018.Common;
+using Problems.Common;
 
 namespace Problems.Y2018.D01;
 
 /// <summary>
 /// Chronal Calibration: https://adventofcode.com/2018/day/1
 /// </summary>
-public class Solution : SolutionBase2018
+public class Solution : SolutionBase
 {
-    public override int Day => 1;
-    
     public override object Run(int part)
     {
         var numbers = ParseInputLines(int.Parse);

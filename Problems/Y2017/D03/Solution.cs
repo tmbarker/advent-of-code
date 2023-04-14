@@ -1,4 +1,4 @@
-using Problems.Y2017.Common;
+using Problems.Common;
 using Utilities.Cartesian;
 
 namespace Problems.Y2017.D03;
@@ -6,10 +6,8 @@ namespace Problems.Y2017.D03;
 /// <summary>
 /// Spiral Memory: https://adventofcode.com/2017/day/3
 /// </summary>
-public class Solution : SolutionBase2017
+public class Solution : SolutionBase
 {
-    public override int Day => 3;
-    
     public override object Run(int part)
     {
         var input = GetInputText();

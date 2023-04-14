@@ -1,4 +1,4 @@
-using Problems.Y2021.Common;
+using Problems.Common;
 using Utilities.Cartesian;
 
 namespace Problems.Y2021.D20;
@@ -6,16 +6,14 @@ namespace Problems.Y2021.D20;
 /// <summary>
 /// Trench Map: https://adventofcode.com/2021/day/20
 /// </summary>
-public class Solution : SolutionBase2021
+public class Solution : SolutionBase
 {
     private const char Lit = '#';
     private const int Steps1 = 2;
     private const int Steps2 = 50;
     private const int WindowSize = 3;
     private const int BinaryRadix = 2;
-    
-    public override int Day => 20;
-    
+
     public override object Run(int part)
     {
         ParseInput(GetInputLines(), out var litInImage, out var algorithm);

@@ -1,14 +1,12 @@
-using Problems.Y2017.Common;
+using Problems.Common;
 
 namespace Problems.Y2017.D05;
 
 /// <summary>
 /// A Maze of Twisty Trampolines, All Alike: https://adventofcode.com/2017/day/5
 /// </summary>
-public class Solution : SolutionBase2017
+public class Solution : SolutionBase
 {
-    public override int Day => 5;
-
     public override object Run(int part)
     {
         var offsets = ParseInputLines(parseFunc: int.Parse).ToList();

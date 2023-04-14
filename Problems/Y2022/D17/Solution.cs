@@ -1,5 +1,4 @@
 using Problems.Common;
-using Problems.Y2022.Common;
 using Utilities.Cartesian;
 
 namespace Problems.Y2022.D17;
@@ -7,7 +6,7 @@ namespace Problems.Y2022.D17;
 /// <summary>
 /// Pyroclastic Flow: https://adventofcode.com/2022/day/17
 /// </summary>
-public class Solution : SolutionBase2022
+public class Solution : SolutionBase
 {
     private const int ChamberWidth = 7;
     private const int SpawnHeight = 3;
@@ -15,8 +14,6 @@ public class Solution : SolutionBase2022
 
     private static readonly Vector2D Gravity = Vector2D.Down;
 
-    public override int Day => 17;
-    
     public override object Run(int part)
     {
         return part switch

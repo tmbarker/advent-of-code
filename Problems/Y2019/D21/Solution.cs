@@ -5,7 +5,7 @@ namespace Problems.Y2019.D21;
 /// <summary>
 /// Springdroid Adventure: https://adventofcode.com/2019/day/21
 /// </summary>
-public class Solution : SolutionBase2019
+public class Solution : IntCodeSolution
 {
     // The springdroid jumps 4 steps, in WALK mode it's sensors can see 4 steps ahead. The best strategy we can employ
     // is as follows:
@@ -46,8 +46,6 @@ public class Solution : SolutionBase2019
         "RUN"
     };
 
-    public override int Day => 21;
-    
     public override object Run(int part)
     {
         return part switch

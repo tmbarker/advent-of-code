@@ -8,9 +8,8 @@ namespace Problems.Y2019.D25;
 /// <summary>
 /// Cryostasis: https://adventofcode.com/2019/day/25
 /// </summary>
-public class Solution : SolutionBase2019
-{ 
-    public override int Day => 25;
+public class Solution : IntCodeSolution
+{
     public override int Parts => 1;
     
     public override object Run(int part)

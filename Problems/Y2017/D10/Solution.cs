@@ -1,3 +1,4 @@
+using Problems.Common;
 using Problems.Y2017.Common;
 using Utilities.Extensions;
 
@@ -6,10 +7,8 @@ namespace Problems.Y2017.D10;
 /// <summary>
 /// Knot Hash: https://adventofcode.com/2017/day/10
 /// </summary>
-public class Solution : SolutionBase2017
+public class Solution : SolutionBase
 {
-    public override int Day => 10;
-    
     public override object Run(int part)
     {
         var input = GetInputText();

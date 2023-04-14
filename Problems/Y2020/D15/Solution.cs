@@ -1,24 +1,19 @@
-using Problems.Y2020.Common;
+using Problems.Common;
 
 namespace Problems.Y2020.D15;
 
 /// <summary>
 /// Rambunctious Recitation: https://adventofcode.com/2020/day/15
 /// </summary>
-public class Solution : SolutionBase2020
+public class Solution : SolutionBase
 {
-    private const int Turns1 = 2020;
-    private const int Turns2 = 30000000;
-    
-    public override int Day => 15;
-    
     public override object Run(int part)
     {
         var initialNumbers = GetInitialNumbers(GetInputText());
         return part switch
         {
-            1 => GetNthSpokenNumber(initialNumbers, Turns1),
-            2 => GetNthSpokenNumber(initialNumbers, Turns2),
+            1 => GetNthSpokenNumber(initialNumbers, n: 2020),
+            2 => GetNthSpokenNumber(initialNumbers, n: 30000000),
             _ => ProblemNotSolvedString
         };
     }

@@ -1,13 +1,12 @@
-using Problems.Y2017.Common;
+using Problems.Common;
 
 namespace Problems.Y2017.D01;
 
 /// <summary>
 /// Inverse Captcha: https://adventofcode.com/2017/day/1
 /// </summary>
-public class Solution : SolutionBase2017
+public class Solution : SolutionBase
 {
-    public override int Day => 1;
     
     public override object Run(int part)
     {

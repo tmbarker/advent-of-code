@@ -1,5 +1,4 @@
 ﻿using Problems.Common;
-using Problems.Y2022.Common;
 using Utilities.Cartesian;
 using Utilities.Extensions;
 
@@ -8,7 +7,7 @@ namespace Problems.Y2022.D24;
 /// <summary>
 /// Blizzard Basin: https://adventofcode.com/2022/day/24
 /// </summary>
-public class Solution : SolutionBase2022
+public class Solution : SolutionBase
 {
     private const char Empty = '.';
     private const char Wall = '#';
@@ -21,8 +20,6 @@ public class Solution : SolutionBase2022
         {'>', Vector2D.Right}
     };
 
-    public override int Day => 24;
-    
     public override object Run(int part)
     {
         ParseInput(GetInputLines(), out var field, out var start, out var end, out var blizzards);

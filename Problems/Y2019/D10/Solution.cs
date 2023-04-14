@@ -1,4 +1,4 @@
-using Problems.Y2019.Common;
+using Problems.Common;
 using Utilities.Cartesian;
 using Utilities.Extensions;
 
@@ -7,16 +7,15 @@ namespace Problems.Y2019.D10;
 /// <summary>
 /// Monitoring Station: https://adventofcode.com/2019/day/10
 /// </summary>
-public class Solution : SolutionBase2019
+public class Solution : SolutionBase
 {
     private const char Asteroid = '#';
     private const int TargetCount = 200;
-    
-    public override int Day => 10;
-    
+
     public override object Run(int part)
     {
-        var asteroids = ParseAsteroids(GetInputLines(), out var transform);
+        var input = GetInputLines();
+        var asteroids = ParseAsteroids(input, out var transform);
         var visible = FindMaxDetectable(asteroids, out var pos);
         
         return part switch

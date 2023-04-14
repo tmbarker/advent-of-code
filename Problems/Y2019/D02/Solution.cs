@@ -7,13 +7,11 @@ namespace Problems.Y2019.D02;
 /// <summary>
 /// 1202 Program Alarm: https://adventofcode.com/2019/day/2
 /// </summary>
-public class Solution : SolutionBase2019
+public class Solution : IntCodeSolution
 {
     private const int Target = 19690720;
     private const int MaxPartOfSpeech = 99;
 
-    public override int Day => 2;
-    
     public override object Run(int part)
     {
         var program = LoadIntCodeProgram();

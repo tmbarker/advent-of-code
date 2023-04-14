@@ -1,4 +1,4 @@
-using Problems.Y2018.Common;
+using Problems.Common;
 using Utilities.Cartesian;
 using Utilities.Collections;
 using Utilities.Extensions;
@@ -8,9 +8,8 @@ namespace Problems.Y2018.D25;
 /// <summary>
 /// Four-Dimensional Adventure: https://adventofcode.com/2018/day/25
 /// </summary>
-public class Solution : SolutionBase2018
+public class Solution : SolutionBase
 {
-    public override int Day => 25;
     public override int Parts => 1;
     
     public override object Run(int part)

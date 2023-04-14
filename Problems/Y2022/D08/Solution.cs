@@ -1,5 +1,5 @@
 using Problems.Attributes;
-using Problems.Y2022.Common;
+using Problems.Common;
 using Utilities.Cartesian;
 
 namespace Problems.Y2022.D08;
@@ -8,13 +8,11 @@ namespace Problems.Y2022.D08;
 /// Treetop Tree House: https://adventofcode.com/2022/day/8
 /// </summary>
 [Favourite("Treetop Tree House", Topics.Vectors, Difficulty.Easy)]
-public class Solution : SolutionBase2022
+public class Solution : SolutionBase
 {
     private const int MinHeight = 0;
     private const int MaxHeight = 9;
-    
-    public override int Day => 8;
-    
+
     public override object Run(int part)
     {
         var trees = ParseTrees(GetInputLines());

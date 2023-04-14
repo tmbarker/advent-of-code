@@ -1,16 +1,15 @@
-using Problems.Y2020.Common;
+using Problems.Common;
 
 namespace Problems.Y2020.D25;
 
 /// <summary>
 /// Combo Breaker: https://adventofcode.com/2020/day/25
 /// </summary>
-public class Solution : SolutionBase2020
+public class Solution : SolutionBase
 {
     private const long DeviceSubject = 7L;
     private const long Mod = 20201227L;
     
-    public override int Day => 25;
     public override int Parts => 1;
 
     public override object Run(int part)

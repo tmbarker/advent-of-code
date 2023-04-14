@@ -1,6 +1,5 @@
 using System.Text;
 using Problems.Common;
-using Problems.Y2018.Common;
 using Utilities.Cartesian;
 
 namespace Problems.Y2018.D18;
@@ -8,14 +7,12 @@ namespace Problems.Y2018.D18;
 /// <summary>
 /// Settlers of The North Pole: https://adventofcode.com/2018/day/18
 /// </summary>
-public class Solution : SolutionBase2018
+public class Solution : SolutionBase
 {
     private const char Ground = '.';
     private const char Trees = '|';
     private const char Lumberyard = '#';
-    
-    public override int Day => 18;
-    
+
     public override object Run(int part)
     {
         var input = GetInputLines();

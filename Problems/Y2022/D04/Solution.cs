@@ -1,14 +1,12 @@
-using Problems.Y2022.Common;
+using Problems.Common;
 
 namespace Problems.Y2022.D04;
 
 /// <summary>
 /// Camp Cleanup: https://adventofcode.com/2022/day/4
 /// </summary>
-public class Solution : SolutionBase2022
+public class Solution : SolutionBase
 {
-    public override int Day => 4;
-    
     public override object Run(int part)
     {
         var pairs = ParseInputLines(parseFunc: ParseAssignmentPair);

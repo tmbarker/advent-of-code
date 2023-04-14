@@ -1,4 +1,4 @@
-using Problems.Y2022.Common;
+using Problems.Common;
 using Utilities.Cartesian;
 
 namespace Problems.Y2022.D12;
@@ -6,7 +6,7 @@ namespace Problems.Y2022.D12;
 /// <summary>
 /// Hill Climbing Algorithm: https://adventofcode.com/2022/day/12
 /// </summary>
-public class Solution : SolutionBase2022
+public class Solution : SolutionBase
 {
     private const char MinHeight = 'a';
     private const char StartHeight = MinHeight;
@@ -21,8 +21,6 @@ public class Solution : SolutionBase2022
         Vector2D.Left,
         Vector2D.Right,
     };
-
-    public override int Day => 12;
     
     public override object Run(int part)
     {

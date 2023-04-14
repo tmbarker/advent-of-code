@@ -4,33 +4,26 @@ namespace Problems.Common;
 
 public abstract class SolutionBase 
 {
-    private const string InputsDirectoryName = "Inputs";
-    private const string InputFilenameFormat = "{0}_{1}.txt";
-    
     public const string DayStringFormat = "{0:D2}";
     public const string ProblemNotSolvedString = "Problem not solved!";
-
-    private string FormattedDayString => string.Format(DayStringFormat, Day);
-    private string InputFilename => string.Format(InputFilenameFormat, Year, FormattedDayString);
-
-    public abstract int Year { get; }
-    public abstract int Day { get; }
+    
     public virtual int Parts => 2;
     
     public bool LogsEnabled { get; set; }
+    public string InputFilePath { get; set; } = string.Empty;
 
     public abstract object Run(int part);
 
     protected string[] GetInputLines()
     {
         AssertInputExists();
-        return File.ReadAllLines(GetInputFilePath());
+        return File.ReadAllLines(InputFilePath);
     }
 
     protected string GetInputText()
     {
         AssertInputExists();
-        return File.ReadAllText(GetInputFilePath());
+        return File.ReadAllText(InputFilePath);
     }
 
     protected IEnumerable<T> ParseInputLines<T>(Func<string, T> parseFunc)
@@ -38,22 +31,13 @@ public abstract class SolutionBase
         return GetInputLines().Select(parseFunc);
     }
 
-    private string GetInputFilePath()
-    {
-        return Path.Combine(
-            AppDomain.CurrentDomain.BaseDirectory,
-            InputsDirectoryName,
-            Year.ToString(),
-            InputFilename);
-    }
-    
     private void AssertInputExists()
     {
-        Debug.Assert(InputFileExists(), $"Input file does not exist: {Year}-{Day}");
+        Debug.Assert(InputFileExists(), $"Input file does not exist [{InputFilePath}]");
     }
     
     private bool InputFileExists()
     {
-        return File.Exists(GetInputFilePath());
+        return File.Exists(InputFilePath);
     }
 }

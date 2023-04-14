@@ -1,5 +1,4 @@
 ﻿using Problems.Common;
-using Problems.Y2021.Common;
 using Utilities.Cartesian;
 
 namespace Problems.Y2021.D15;
@@ -7,20 +6,16 @@ namespace Problems.Y2021.D15;
 /// <summary>
 /// Chiton: https://adventofcode.com/2021/day/15
 /// </summary>
-public class Solution : SolutionBase2021
+public class Solution : SolutionBase
 {
     private const int MaxRisk = 9;
-    private const int TilesPerSide1 = 1;
-    private const int TilesPerSide2 = 5;
 
-    public override int Day => 15;
-    
     public override object Run(int part)
     {
         return part switch
         {
-            1 => FindLeastRiskyPath(TilesPerSide1),
-            2 => FindLeastRiskyPath(TilesPerSide2),
+            1 => FindLeastRiskyPath(tilesPerSide: 1),
+            2 => FindLeastRiskyPath(tilesPerSide: 5),
             _ => ProblemNotSolvedString
         };
     }

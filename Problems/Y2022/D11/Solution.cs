@@ -1,14 +1,12 @@
-using Problems.Y2022.Common;
+using Problems.Common;
 
 namespace Problems.Y2022.D11;
 
 /// <summary>
 /// Monkey in the Middle: https://adventofcode.com/2022/day/11
 /// </summary>
-public class Solution : SolutionBase2022
+public class Solution : SolutionBase
 {
-    public override int Day => 11;
-    
     public override object Run(int part)
     {
         return part switch

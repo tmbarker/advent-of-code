@@ -1,14 +1,12 @@
-using Problems.Y2018.Common;
+using Problems.Common;
 
 namespace Problems.Y2018.D12;
 
 /// <summary>
 /// Subterranean Sustainability: https://adventofcode.com/2018/day/12
 /// </summary>
-public class Solution : SolutionBase2018
+public class Solution : SolutionBase
 {
-    public override int Day => 12;
-    
     public override object Run(int part)
     {
         Input.Parse(

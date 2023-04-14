@@ -1,5 +1,5 @@
 using System.Text.RegularExpressions;
-using Problems.Y2020.Common;
+using Problems.Common;
 using Utilities.Hexagonal;
 
 namespace Problems.Y2020.D24;
@@ -10,7 +10,7 @@ using Floor = HashSet<Hex>;
 /// <summary>
 /// Lobby Layout: https://adventofcode.com/2020/day/24
 /// </summary>
-public class Solution : SolutionBase2020
+public class Solution : SolutionBase
 {
     private const int Days = 100;
     private static readonly Dictionary<string, Hex> Adjacencies = new()
@@ -23,8 +23,6 @@ public class Solution : SolutionBase2020
         { "sw", Hex.Directions[Pointy.Sw] }
     };
 
-    public override int Day => 24;
-    
     public override object Run(int part)
     {
         var instructions = ParseInstructions(GetInputLines());

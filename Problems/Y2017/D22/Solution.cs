@@ -1,5 +1,5 @@
 using Problems.Attributes;
-using Problems.Y2017.Common;
+using Problems.Common;
 using Utilities.Cartesian;
 using Utilities.Collections;
 
@@ -9,7 +9,7 @@ namespace Problems.Y2017.D22;
 /// Sporifica Virus: https://adventofcode.com/2017/day/22
 /// </summary>
 [Favourite("Sporifica Virus", Topics.Vectors, Difficulty.Medium)]
-public class Solution : SolutionBase2017
+public class Solution : SolutionBase
 {
     private static readonly Dictionary<State, Func<Pose, Pose>> Behaviors = new()
     {
@@ -19,8 +19,6 @@ public class Solution : SolutionBase2017
         { State.Flagged,  pose => pose.Reverse() }
     };
 
-    public override int Day => 22;
-    
     public override object Run(int part)
     {
         var input = GetInputLines();

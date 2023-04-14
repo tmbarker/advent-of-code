@@ -9,7 +9,7 @@ namespace Problems.Y2019.D17;
 /// <summary>
 /// Set and Forget: https://adventofcode.com/2019/day/17
 /// </summary>
-public class Solution : SolutionBase2019
+public class Solution : IntCodeSolution
 {
     private const char Scaffold = '#';
     
@@ -27,8 +27,6 @@ public class Solution : SolutionBase2019
         { 'R', Rotation3D.Positive90Z }
     };
 
-    public override int Day => 17;
-    
     public override object Run(int part)
     {
         var ascii = GetCameraOutput();

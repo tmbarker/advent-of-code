@@ -1,5 +1,5 @@
 using Problems.Attributes;
-using Problems.Y2018.Common;
+using Problems.Common;
 using Utilities.Cartesian;
 using Utilities.Extensions;
 
@@ -9,10 +9,8 @@ namespace Problems.Y2018.D06;
 /// Chronal Coordinates: https://adventofcode.com/2018/day/6
 /// </summary>
 [Favourite("Chronal Coordinates", Topics.Vectors, Difficulty.Medium)]
-public class Solution : SolutionBase2018
+public class Solution : SolutionBase
 {
-    public override int Day => 6;
-    
     public override object Run(int part)
     {
         var pois = ParseInputLines(parseFunc: ParsePointOfInterest).ToList();

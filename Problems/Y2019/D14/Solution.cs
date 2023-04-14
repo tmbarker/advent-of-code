@@ -1,19 +1,17 @@
 using System.Text.RegularExpressions;
-using Problems.Y2019.Common;
+using Problems.Common;
 
 namespace Problems.Y2019.D14;
 
 /// <summary>
 /// Space Stoichiometry: https://adventofcode.com/2019/day/14
 /// </summary>
-public class Solution : SolutionBase2019
+public class Solution : SolutionBase
 {
     private const string Fuel = "FUEL";
     private const string Ore = "ORE";
     private const long OreFunds = 1000000000000L;
-    
-    public override int Day => 14;
-    
+
     public override object Run(int part)
     {
         var reactions = ParseReactions(GetInputLines());

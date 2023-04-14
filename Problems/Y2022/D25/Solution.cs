@@ -1,12 +1,12 @@
 ﻿using System.Text;
-using Problems.Y2022.Common;
+using Problems.Common;
 
 namespace Problems.Y2022.D25;
 
 /// <summary>
 /// Full of Hot Air: https://adventofcode.com/2022/day/25
 /// </summary>
-public class Solution : SolutionBase2022
+public class Solution : SolutionBase
 {
     private const int SnafuRadix = 5;
     private const char MinusOne = '-';
@@ -20,8 +20,7 @@ public class Solution : SolutionBase2022
         { -1, MinusOne },
         { -2, MinusTwo },
     };
-
-    public override int Day => 25;
+    
     public override int Parts => 1;
 
     public override object Run(int part)

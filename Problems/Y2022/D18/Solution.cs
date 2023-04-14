@@ -1,4 +1,4 @@
-using Problems.Y2022.Common;
+using Problems.Common;
 using Utilities.Cartesian;
 using Utilities.Extensions;
 
@@ -7,10 +7,8 @@ namespace Problems.Y2022.D18;
 /// <summary>
 /// Boiling Boulders: https://adventofcode.com/2022/day/18
 /// </summary>
-public class Solution : SolutionBase2022
+public class Solution : SolutionBase
 {
-    public override int Day => 18;
-    
     public override object Run(int part)
     {
         var surfaceVectors = ParseSurfaceVectors(GetInputLines());

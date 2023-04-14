@@ -1,4 +1,4 @@
-using Problems.Y2019.Common;
+using Problems.Common;
 using Utilities.Cartesian;
 using Utilities.Extensions;
 
@@ -7,7 +7,7 @@ namespace Problems.Y2019.D24;
 /// <summary>
 /// Planet of Discord: https://adventofcode.com/2019/day/24
 /// </summary>
-public class Solution : SolutionBase2019
+public class Solution : SolutionBase
 {
     private const int Size = 5;
     
@@ -15,9 +15,7 @@ public class Solution : SolutionBase2019
     private static readonly Aabb2D TileAabb = new(
         extents: new[] { Vector2D.Zero, new(Size - 1, Size - 1) },
         inclusive: true);
-    
-    public override int Day => 24;
-    
+
     public override object Run(int part)
     {
         var input = GetInputLines();

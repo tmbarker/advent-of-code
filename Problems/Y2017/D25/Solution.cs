@@ -1,4 +1,4 @@
-using Problems.Y2017.Common;
+using Problems.Common;
 using Utilities.Extensions;
 
 namespace Problems.Y2017.D25;
@@ -6,9 +6,8 @@ namespace Problems.Y2017.D25;
 /// <summary>
 /// The Halting Problem: https://adventofcode.com/2017/day/25
 /// </summary>
-public class Solution : SolutionBase2017
+public class Solution : SolutionBase
 {
-    public override int Day => 25;
     public override int Parts => 1;
 
     public override object Run(int part)

@@ -1,4 +1,4 @@
-using Problems.Y2020.Common;
+using Problems.Common;
 using Utilities.Extensions;
 
 namespace Problems.Y2020.D06;
@@ -6,10 +6,8 @@ namespace Problems.Y2020.D06;
 /// <summary>
 /// Custom Customs: https://adventofcode.com/2020/day/6
 /// </summary>
-public class Solution : SolutionBase2020
+public class Solution : SolutionBase
 {
-    public override int Day => 6;
-    
     public override object Run(int part)
     {
         var groupAnswers = ParseGroupAnswers(GetInputLines());

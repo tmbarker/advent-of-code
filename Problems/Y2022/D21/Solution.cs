@@ -1,11 +1,11 @@
-using Problems.Y2022.Common;
+using Problems.Common;
 
 namespace Problems.Y2022.D21;
 
 /// <summary>
 /// Monkey Math: https://adventofcode.com/2022/day/21
 /// </summary>
-public class Solution : SolutionBase2022
+public class Solution : SolutionBase
 {
     private const string Root = "root";
     private const string Unknown = "humn";
@@ -19,8 +19,6 @@ public class Solution : SolutionBase2022
         { Operator.Divide, Operator.Multiply }
     };
 
-    public override int Day => 21;
-    
     public override object Run(int part)
     {
         var expressions = ParseExpressions(GetInputLines());

@@ -1,6 +1,6 @@
 using System.Text.RegularExpressions;
 using Problems.Attributes;
-using Problems.Y2020.Common;
+using Problems.Common;
 
 namespace Problems.Y2020.D18;
 
@@ -11,12 +11,10 @@ using Precedences = IReadOnlyDictionary<char, int>;
 /// Operation Order: https://adventofcode.com/2020/day/18
 /// </summary>
 [Favourite("Operation Order", Topics.StringParsing|Topics.Math, Difficulty.Medium)]
-public class Solution : SolutionBase2020
+public class Solution : SolutionBase
 {
     private static readonly Regex WhitespaceRegex = new(@"\s+");
 
-    public override int Day => 18;
-    
     public override object Run(int part)
     {
         var expressions = ParseExpressions(GetInputLines());

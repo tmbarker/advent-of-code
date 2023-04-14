@@ -7,13 +7,11 @@ namespace Problems.Y2019.D19;
 /// <summary>
 /// Tractor Beam: https://adventofcode.com/2019/day/19
 /// </summary>
-public class Solution : SolutionBase2019
+public class Solution : IntCodeSolution
 {
     private const int SearchSize = 50;
     private const int ShipSize = 100;
 
-    public override int Day => 19;
-    
     public override object Run(int part)
     {
         return part switch

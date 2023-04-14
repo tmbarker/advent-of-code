@@ -1,11 +1,11 @@
-using Problems.Y2022.Common;
+using Problems.Common;
 
 namespace Problems.Y2022.D02;
 
 /// <summary>
 /// Rock Paper Scissors: https://adventofcode.com/2022/day/2
 /// </summary>
-public class Solution : SolutionBase2022
+public class Solution : SolutionBase
 {
     private static readonly Dictionary<char, RockPaperScissorsChoice> StrategyGuideChoiceMap = new()
     {
@@ -24,8 +24,6 @@ public class Solution : SolutionBase2022
         {'Z', RockPaperScissorsResult.Win}
     };
 
-    public override int Day => 2;
-    
     public override object Run(int part)
     {
         return part switch

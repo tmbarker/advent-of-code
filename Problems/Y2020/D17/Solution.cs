@@ -1,4 +1,4 @@
-using Problems.Y2020.Common;
+using Problems.Common;
 using Utilities.Cartesian;
 
 namespace Problems.Y2020.D17;
@@ -6,7 +6,7 @@ namespace Problems.Y2020.D17;
 /// <summary>
 /// Conway Cubes: https://adventofcode.com/2020/day/17
 /// </summary>
-public class Solution : SolutionBase2020
+public class Solution : SolutionBase
 {
     private const char On = '#';
     private const int Cycles = 6;
@@ -14,8 +14,6 @@ public class Solution : SolutionBase2020
     private static readonly IReadOnlySet<int> StayOnSet = new HashSet<int> { 2, 3 };
     private static readonly IReadOnlySet<int> TurnOnSet = new HashSet<int> { 3 };
 
-    public override int Day => 17;
-    
     public override object Run(int part)
     {
         return part switch

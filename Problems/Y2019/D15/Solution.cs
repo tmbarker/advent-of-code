@@ -12,7 +12,7 @@ using CostsMap = IDictionary<Vector2D, int>;
 /// <summary>
 /// Oxygen System: https://adventofcode.com/2019/day/15
 /// </summary>
-public class Solution : SolutionBase2019
+public class Solution : IntCodeSolution
 {
     private static readonly Dictionary<Vector2D, long> Commands = new()
     {
@@ -29,8 +29,6 @@ public class Solution : SolutionBase2019
         { 2L, Tile.Target }
     };
 
-    public override int Day => 15;
-    
     public override object Run(int part)
     {
         var droid = IntCodeVm.Create(LoadIntCodeProgram());

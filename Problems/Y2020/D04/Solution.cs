@@ -1,6 +1,6 @@
 using System.Text.RegularExpressions;
 using Problems.Attributes;
-using Problems.Y2020.Common;
+using Problems.Common;
 
 namespace Problems.Y2020.D04;
 
@@ -8,7 +8,7 @@ namespace Problems.Y2020.D04;
 /// Passport Processing: https://adventofcode.com/2020/day/4
 /// </summary>
 [Favourite("Passport Processing", Topics.RegularExpressions, Difficulty.Medium)]
-public class Solution : SolutionBase2020
+public class Solution : SolutionBase
 {
     private const RegexOptions Options = RegexOptions.Multiline;
     private static readonly IReadOnlyDictionary<string, string> FieldValidators = new Dictionary<string, string>
@@ -22,8 +22,6 @@ public class Solution : SolutionBase2020
         {"pid", @"^(?=.*pid:\d{9}\b).*"},
     };
 
-    public override int Day => 4;
-    
     public override object Run(int part)
     {
         var passports = ParsePassportData(GetInputText());

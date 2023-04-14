@@ -1,5 +1,5 @@
-using Problems.Y2021.Common;
 using System.Text.RegularExpressions;
+using Problems.Common;
 using Utilities.Cartesian;
 using Utilities.Extensions;
 
@@ -8,10 +8,8 @@ namespace Problems.Y2021.D17;
 /// <summary>
 /// Trick Shot: https://adventofcode.com/2021/day/17
 /// </summary>
-public class Solution : SolutionBase2021
+public class Solution : SolutionBase
 {
-    public override int Day => 17;
-    
     public override object Run(int part)
     {
         var target = ParseTarget();

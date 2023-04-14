@@ -1,5 +1,5 @@
 using Problems.Attributes;
-using Problems.Y2021.Common;
+using Problems.Common;
 
 namespace Problems.Y2021.D12;
 
@@ -7,16 +7,14 @@ namespace Problems.Y2021.D12;
 /// Passage Pathing: https://adventofcode.com/2021/day/12
 /// </summary>
 [Favourite("Passage Pathing", Topics.Graphs|Topics.Recursion, Difficulty.Medium)]
-public class Solution : SolutionBase2021
+public class Solution : SolutionBase
 {
-    public override int Day => 12;
-    
     public override object Run(int part)
     {
         return part switch
         {
-            1 => CountPaths(false),
-            2 => CountPaths(true),
+            1 => CountPaths(bonusSmallCaveVisit: false),
+            2 => CountPaths(bonusSmallCaveVisit: true),
             _ => ProblemNotSolvedString
         };
     }

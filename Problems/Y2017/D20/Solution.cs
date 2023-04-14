@@ -1,5 +1,5 @@
 using Problems.Attributes;
-using Problems.Y2017.Common;
+using Problems.Common;
 using Utilities.Cartesian;
 using Utilities.Extensions;
 
@@ -9,10 +9,8 @@ namespace Problems.Y2017.D20;
 /// Particle Swarm: https://adventofcode.com/2017/day/20
 /// </summary>
 [Favourite("Particle Swarm", Topics.Math|Topics.Vectors, Difficulty.Hard)]
-public class Solution : SolutionBase2017
+public class Solution : SolutionBase
 {
-    public override int Day => 20;
-    
     public override object Run(int part)
     {
         var input = GetInputLines();

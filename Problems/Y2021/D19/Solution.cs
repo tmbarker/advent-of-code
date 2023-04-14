@@ -1,5 +1,5 @@
 using Problems.Attributes;
-using Problems.Y2021.Common;
+using Problems.Common;
 using Utilities.Cartesian;
 
 namespace Problems.Y2021.D19;
@@ -8,7 +8,7 @@ namespace Problems.Y2021.D19;
 /// Beacon Scanner: https://adventofcode.com/2021/day/19
 /// </summary>
 [Favourite("Beacon Scanner", Topics.Vectors, Difficulty.Hard)]
-public class Solution : SolutionBase2021
+public class Solution : SolutionBase
 {
     private const int IntersectionThreshold = 12;
     
@@ -22,8 +22,6 @@ public class Solution : SolutionBase2021
         new(Rotation3D.Negative90Z,  Rotation3D.RotationsAroundAxis(Axis.Y)), // +x -> -y
     };
 
-    public override int Day => 19;
-    
     public override object Run(int part)
     {
         var reportings = Report.Parse(GetInputLines());

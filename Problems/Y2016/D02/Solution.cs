@@ -1,6 +1,5 @@
 using System.Text;
 using Problems.Common;
-using Problems.Y2016.Common;
 using Utilities.Cartesian;
 
 namespace Problems.Y2016.D02;
@@ -8,7 +7,7 @@ namespace Problems.Y2016.D02;
 /// <summary>
 /// Bathroom Security: https://adventofcode.com/2016/day/2
 /// </summary>
-public class Solution : SolutionBase2016
+public class Solution : SolutionBase
 {
     private static readonly Dictionary<Vector2D, char> Square = new()
     {
@@ -39,8 +38,7 @@ public class Solution : SolutionBase2016
         { new Vector2D(x:  1, y: -1), 'C' },
         { new Vector2D(x:  0, y: -2), 'D' }
     };
-
-    public override int Day => 2;
+    
     
     public override object Run(int part)
     {

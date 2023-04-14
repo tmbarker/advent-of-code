@@ -1,14 +1,12 @@
-using Problems.Y2020.Common;
+using Problems.Common;
 
 namespace Problems.Y2020.D13;
 
 /// <summary>
 /// Shuttle Search: https://adventofcode.com/2020/day/13
 /// </summary>
-public class Solution : SolutionBase2020
+public class Solution : SolutionBase
 {
-    public override int Day => 13;
-    
     public override object Run(int part)
     {
         ParseInput(GetInputLines(), out var timestamp, out var busIds);

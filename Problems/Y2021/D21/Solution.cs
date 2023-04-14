@@ -1,4 +1,4 @@
-using Problems.Y2021.Common;
+using Problems.Common;
 using Utilities.Extensions;
 
 namespace Problems.Y2021.D21;
@@ -6,7 +6,7 @@ namespace Problems.Y2021.D21;
 /// <summary>
 /// Dirac Dice: https://adventofcode.com/2021/day/21
 /// </summary>
-public class Solution : SolutionBase2021
+public class Solution : SolutionBase
 {
     private const int BoardPlaces = 10;
     private const int QuantumDieSides = 3;
@@ -14,9 +14,7 @@ public class Solution : SolutionBase2021
     private const int WinningScoreQuantum = 21;
 
     private static readonly IReadOnlyList<int> QuantumRollSums = new List<int>(GetQuantumRollSums());
-    
-    public override int Day => 21;
-    
+
     public override object Run(int part)
     {
         var initialPositions = ParseInitialPositions(GetInputLines());

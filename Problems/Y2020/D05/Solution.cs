@@ -1,15 +1,12 @@
 using Problems.Common;
-using Problems.Y2020.Common;
 
 namespace Problems.Y2020.D05;
 
 /// <summary>
 /// Binary Boarding: https://adventofcode.com/2020/day/5
 /// </summary>
-public class Solution : SolutionBase2020
+public class Solution : SolutionBase
 {
-    public override int Day => 5;
-    
     public override object Run(int part)
     {
         var boardingPasses = GetInputLines();

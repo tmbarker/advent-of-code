@@ -1,5 +1,5 @@
 using Problems.Attributes;
-using Problems.Y2018.Common;
+using Problems.Common;
 
 namespace Problems.Y2018.D11;
 
@@ -7,10 +7,8 @@ namespace Problems.Y2018.D11;
 /// Chronal Charge: https://adventofcode.com/2018/day/11
 /// </summary>
 [Favourite("Chronal Charge", Topics.Vectors, Difficulty.Hard)]
-public class Solution : SolutionBase2018
+public class Solution : SolutionBase
 {
-    public override int Day => 11;
-    
     public override object Run(int part)
     {
         var input = GetInputText();

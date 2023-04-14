@@ -6,10 +6,8 @@ namespace Problems.Y2019.D07;
 /// <summary>
 /// Amplification Circuit: https://adventofcode.com/2019/day/7
 /// </summary>
-public class Solution : SolutionBase2019
+public class Solution : IntCodeSolution
 {
-    public override int Day => 7;
-    
     public override object Run(int part)
     {
         return part switch

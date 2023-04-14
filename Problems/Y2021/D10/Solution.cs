@@ -1,5 +1,5 @@
 using Problems.Attributes;
-using Problems.Y2021.Common;
+using Problems.Common;
 
 namespace Problems.Y2021.D10;
 
@@ -7,7 +7,7 @@ namespace Problems.Y2021.D10;
 /// Syntax Scoring: https://adventofcode.com/2021/day/10
 /// </summary>
 [Favourite("Syntax Scoring", Topics.StringParsing, Difficulty.Easy)]
-public class Solution : SolutionBase2021
+public class Solution : SolutionBase
 {
     private static readonly List<SyntaxChecker.Rule> SyntaxRules = new()
     {
@@ -16,8 +16,6 @@ public class Solution : SolutionBase2021
         new SyntaxChecker.Rule('{', '}', 1197, 3),
         new SyntaxChecker.Rule('<', '>', 25137, 4),
     };
-
-    public override int Day => 10;
     
     public override object Run(int part)
     {

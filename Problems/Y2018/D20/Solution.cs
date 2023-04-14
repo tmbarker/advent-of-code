@@ -1,4 +1,4 @@
-using Problems.Y2018.Common;
+using Problems.Common;
 using Utilities.Cartesian;
 using Utilities.Extensions;
 
@@ -7,7 +7,7 @@ namespace Problems.Y2018.D20;
 /// <summary>
 /// A Regular Map: https://adventofcode.com/2018/day/20
 /// </summary>
-public class Solution : SolutionBase2018
+public class Solution : SolutionBase
 {
     private static readonly Vector2D Start = Vector2D.Zero;
     private static readonly Dictionary<char, Vector2D> Directions = new()
@@ -18,8 +18,6 @@ public class Solution : SolutionBase2018
         { 'E', Vector2D.Right }
     };
 
-    public override int Day => 20;
-    
     public override object Run(int part)
     {
         var regex = GetInputText();

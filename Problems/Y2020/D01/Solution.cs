@@ -1,22 +1,19 @@
 using Problems.Common;
-using Problems.Y2020.Common;
 
 namespace Problems.Y2020.D01;
 
 /// <summary>
 /// Report Repair: https://adventofcode.com/2020/day/1
 /// </summary>
-public class Solution : SolutionBase2020
+public class Solution : SolutionBase
 {
-    public override int Day => 1;
-    
     public override object Run(int part)
     {
         var numbers = ParseInputLines(parseFunc: int.Parse).ToHashSet();
         return part switch
         {
-            1 => GetSumPairProduct(Year, numbers),
-            2 => GetSumTripletProduct(Year, numbers),
+            1 => GetSumPairProduct(targetSum: 2020, numbers),
+            2 => GetSumTripletProduct(targetSum: 2020, numbers),
             _ => ProblemNotSolvedString
         };
     }

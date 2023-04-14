@@ -1,4 +1,4 @@
-using Problems.Y2021.Common;
+using Problems.Common;
 using Utilities.Extensions;
 
 namespace Problems.Y2021.D08;
@@ -6,7 +6,7 @@ namespace Problems.Y2021.D08;
 /// <summary>
 /// Seven Segment Search: https://adventofcode.com/2021/day/8
 /// </summary>
-public class Solution : SolutionBase2021
+public class Solution : SolutionBase
 {
     private const char PartsDelimiter = '|';
     private const char ElementsDelimiter = ' ';
@@ -34,8 +34,6 @@ public class Solution : SolutionBase2021
         {9, new HashSet<char>{'a', 'b', 'c', 'd', 'f', 'g'}},
     };
 
-    public override int Day => 8;
-    
     public override object Run(int part)
     {
         var notes = ParseSignalPatternNotes(GetInputLines()).ToList();

@@ -1,14 +1,12 @@
-using Problems.Y2022.Common;
+using Problems.Common;
 
 namespace Problems.Y2022.D01;
 
 /// <summary>
 /// Calorie Counting: https://adventofcode.com/2022/day/1
 /// </summary>
-public class Solution : SolutionBase2022
+public class Solution : SolutionBase
 {
-    public override int Day => 1;
-
     public override object Run(int part)
     {
         return part switch

@@ -1,15 +1,12 @@
 using Problems.Common;
-using Problems.Y2022.Common;
 
 namespace Problems.Y2022.D06;
 
 /// <summary>
 /// Tuning Trouble: https://adventofcode.com/2022/day/6
 /// </summary>
-public class Solution : SolutionBase2022
+public class Solution : SolutionBase
 {
-    public override int Day => 6;
-    
     public override object Run(int part)
     {
         var datastream = GetInputText();

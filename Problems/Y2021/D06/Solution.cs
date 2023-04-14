@@ -1,5 +1,5 @@
 using Problems.Attributes;
-using Problems.Y2021.Common;
+using Problems.Common;
 
 namespace Problems.Y2021.D06;
 
@@ -7,14 +7,12 @@ namespace Problems.Y2021.D06;
 /// Lanternfish: https://adventofcode.com/2021/day/6
 /// </summary>
 [Favourite("Lanternfish", Topics.Math, Difficulty.Medium)]
-public class Solution : SolutionBase2021
+public class Solution : SolutionBase
 {
     private const char Delimiter = ',';
     private const int ResetTo = 6;
     private const int SpawnAt = 8;
 
-    public override int Day => 6;
-    
     public override object Run(int part)
     {
         return part switch

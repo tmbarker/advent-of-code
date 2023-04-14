@@ -1,4 +1,4 @@
-using Problems.Y2018.Common;
+using Problems.Common;
 using Utilities.Cartesian;
 
 namespace Problems.Y2018.D13;
@@ -6,10 +6,8 @@ namespace Problems.Y2018.D13;
 /// <summary>
 /// Mine Cart Madness: https://adventofcode.com/2018/day/13
 /// </summary>
-public class Solution : SolutionBase2018
+public class Solution : SolutionBase
 {
-    public override int Day => 13;
-    
     public override object Run(int part)
     {
         var track = GetInputLines();

@@ -1,5 +1,5 @@
 using System.Text.RegularExpressions;
-using Problems.Y2018.Common;
+using Problems.Common;
 using Utilities.Extensions;
 
 namespace Problems.Y2018.D04;
@@ -7,7 +7,7 @@ namespace Problems.Y2018.D04;
 /// <summary>
 /// Repose Record: https://adventofcode.com/2018/day/4
 /// </summary>
-public class Solution : SolutionBase2018
+public class Solution : SolutionBase
 {
     private const string DateTimeFormat = "yyyy-MM-dd HH:mm";
     private const string Guard = "Guard";
@@ -15,9 +15,7 @@ public class Solution : SolutionBase2018
     private const string Wakes = "wakes";
         
     private static readonly Regex LogRegex = new(@"^\[(.+)\] (.+)$");
-    
-    public override int Day => 4;
-    
+
     public override object Run(int part)
     {
         var logs = ParseInputLines(parseFunc: ParseLog);

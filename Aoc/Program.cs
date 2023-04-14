@@ -1,4 +1,5 @@
 ﻿using System.CommandLine;
+using Automation.AocClient;
 using Automation.Readme;
 using Automation.SolutionRunner;
 
@@ -26,9 +27,9 @@ internal static class Program
         solveCommand.AddArgument(dayArg);
         solveCommand.AddOption(logsOption);
         solveCommand.SetHandler(
-            handle: SolutionRunner.Run, 
-            symbol1: yearArg, 
-            symbol2: dayArg, 
+            handle: async (year, day, showLogs) => await SolutionRunner.Run(year, day, showLogs),
+            symbol1: yearArg,
+            symbol2: dayArg,
             symbol3: logsOption);
         
         var updateReadmeCommand = new Command(
@@ -37,9 +38,22 @@ internal static class Program
         
         updateReadmeCommand.SetHandler(ReadmeUtils.UpdateFavouritePuzzles);
 
+        var setUserSessionCommand = new Command(
+            name: "set-session",
+            description: $"Set the user session cookie, used by {nameof(AocHttpClient)} when making HTTPS requests");
+        var sessionArg = new Argument<string>(
+            name: "user-session-cookie", 
+            description: "The user session cookie string");
+        
+        setUserSessionCommand.AddArgument(sessionArg);
+        setUserSessionCommand.SetHandler(
+            handle: AocHttpClient.SetSessionCookie,
+            symbol: sessionArg);
+
         var rootCommand = new RootCommand(description: "CLI entry point for running AoC problem solutions");
         rootCommand.AddCommand(solveCommand);
         rootCommand.AddCommand(updateReadmeCommand);
+        rootCommand.AddCommand(setUserSessionCommand);
         
         return await rootCommand.InvokeAsync(args);
     }

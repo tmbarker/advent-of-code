@@ -1,5 +1,5 @@
 using System.Text.RegularExpressions;
-using Problems.Y2017.Common;
+using Problems.Common;
 using Utilities.Collections;
 using Utilities.Extensions;
 
@@ -8,10 +8,8 @@ namespace Problems.Y2017.D12;
 /// <summary>
 /// Digital Plumber: https://adventofcode.com/2017/day/12
 /// </summary>
-public class Solution : SolutionBase2017
+public class Solution : SolutionBase
 {
-    public override int Day => 12;
-    
     public override object Run(int part)
     {
         var input = GetInputLines();

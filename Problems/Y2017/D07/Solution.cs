@@ -1,5 +1,5 @@
 using System.Text.RegularExpressions;
-using Problems.Y2017.Common;
+using Problems.Common;
 using Utilities.Extensions;
 using Utilities.Graph;
 
@@ -8,10 +8,8 @@ namespace Problems.Y2017.D07;
 /// <summary>
 /// Recursive Circus: https://adventofcode.com/2017/day/7
 /// </summary>
-public class Solution : SolutionBase2017
+public class Solution : SolutionBase
 {
-    public override int Day => 7;
-    
     public override object Run(int part)
     {
         var input = GetInputLines();

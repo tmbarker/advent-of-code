@@ -10,7 +10,7 @@ namespace Problems.Y2019.D11;
 /// <summary>
 /// Space Police: https://adventofcode.com/2019/day/11
 /// </summary>
-public class Solution : SolutionBase2019
+public class Solution : IntCodeSolution
 {
     private const long Black = 0L;
     private const long White = 1L;
@@ -29,8 +29,6 @@ public class Solution : SolutionBase2019
         { White, '#' }
     };
 
-    public override int Day => 11;
-    
     public override object Run(int part)
     {
         var program = LoadIntCodeProgram();

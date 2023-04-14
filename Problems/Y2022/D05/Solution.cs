@@ -1,16 +1,13 @@
 using System.Text;
 using Problems.Common;
-using Problems.Y2022.Common;
 
 namespace Problems.Y2022.D05;
 
 /// <summary>
 /// Supply Stacks: https://adventofcode.com/2022/day/5
 /// </summary>
-public class Solution : SolutionBase2022
+public class Solution : SolutionBase
 {
-    public override int Day => 5;
-    
     public override object Run(int part)
     {
         if (!CranePlan.TryParse(GetInputLines(), out var plan))

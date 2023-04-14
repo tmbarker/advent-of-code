@@ -1,5 +1,5 @@
 using Problems.Attributes;
-using Problems.Y2020.Common;
+using Problems.Common;
 using Utilities.Cartesian;
 
 namespace Problems.Y2020.D12;
@@ -8,7 +8,7 @@ namespace Problems.Y2020.D12;
 /// Rain Risk: https://adventofcode.com/2020/day/12
 /// </summary>
 [Favourite("Rain Risk", Topics.Vectors, Difficulty.Easy)]
-public class Solution : SolutionBase2020
+public class Solution : SolutionBase
 {
     private const char North = 'N';
     private const char South = 'S';
@@ -29,8 +29,6 @@ public class Solution : SolutionBase2020
         { West, Vector2D.Left },
     };
 
-    public override int Day => 12;
-    
     public override object Run(int part)
     {
         var instructions = ParseInputLines(parseFunc: ParseInstruction);

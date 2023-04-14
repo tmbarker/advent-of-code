@@ -1,23 +1,18 @@
-using Problems.Y2021.Common;
+using Problems.Common;
 
 namespace Problems.Y2021.D01;
 
 /// <summary>
 /// Sonar Sweep: https://adventofcode.com/2021/day/1
 /// </summary>
-public class Solution : SolutionBase2021
+public class Solution : SolutionBase
 {
-    private const int WindowSizePart1 = 1;
-    private const int WindowSizePart2 = 3;
-    
-    public override int Day => 1;
-    
     public override object Run(int part)
     {
        return part switch
         {
-            1 => CountDepthIncreases(WindowSizePart1),
-            2 => CountDepthIncreases(WindowSizePart2),
+            1 => CountDepthIncreases(windowSize: 1),
+            2 => CountDepthIncreases(windowSize: 3),
             _ => ProblemNotSolvedString
         };
     }

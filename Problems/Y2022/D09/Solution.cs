@@ -1,5 +1,5 @@
 using Problems.Attributes;
-using Problems.Y2022.Common;
+using Problems.Common;
 using Utilities.Cartesian;
 
 namespace Problems.Y2022.D09;
@@ -8,7 +8,7 @@ namespace Problems.Y2022.D09;
 /// Rope Bridge: https://adventofcode.com/2022/day/9
 /// </summary>
 [Favourite("Rope Bridge", Topics.Vectors, Difficulty.Medium)]
-public class Solution : SolutionBase2022
+public class Solution : SolutionBase
 {
     private static readonly Dictionary<string, Vector2D> VectorMap = new()
     {
@@ -18,8 +18,6 @@ public class Solution : SolutionBase2022
         { "R", Vector2D.Right },
     };
 
-    public override int Day => 9;
-    
     public override object Run(int part)
     {
         var movements = ParseHeadMovements(GetInputLines());

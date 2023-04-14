@@ -1,5 +1,5 @@
 using Problems.Attributes;
-using Problems.Y2017.Common;
+using Problems.Common;
 using Utilities.Hexagonal;
 
 namespace Problems.Y2017.D11;
@@ -8,7 +8,7 @@ namespace Problems.Y2017.D11;
 /// Hex Ed: https://adventofcode.com/2017/day/11
 /// </summary>
 [Favourite("Hex Ed", Topics.Math, Difficulty.Easy)]
-public class Solution : SolutionBase2017
+public class Solution : SolutionBase
 {
     private static readonly Dictionary<string, Hex> Directions = new()
     {
@@ -20,8 +20,6 @@ public class Solution : SolutionBase2017
         { "nw", Hex.Directions[Flat.Nw] }
     };
 
-    public override int Day => 11;
-    
     public override object Run(int part)
     {
         var input = GetInputText();

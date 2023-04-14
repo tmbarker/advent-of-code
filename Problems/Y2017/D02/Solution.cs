@@ -1,5 +1,4 @@
 using Problems.Common;
-using Problems.Y2017.Common;
 using Utilities.Extensions;
 
 namespace Problems.Y2017.D02;
@@ -7,10 +6,8 @@ namespace Problems.Y2017.D02;
 /// <summary>
 /// Corruption Checksum
 /// </summary>
-public class Solution : SolutionBase2017
+public class Solution : SolutionBase
 {
-    public override int Day => 2;
-    
     public override object Run(int part)
     {
         var table = ParseInputLines(parseFunc: StringExtensions.ParseInts);

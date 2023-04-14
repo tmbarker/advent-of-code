@@ -1,5 +1,5 @@
 using System.Text;
-using Problems.Y2017.Common;
+using Problems.Common;
 using Utilities.Collections;
 using Utilities.Extensions;
 
@@ -11,10 +11,8 @@ using NodeMap = IDictionary<char, CircularLinkedListNode<char>>;
 /// <summary>
 /// Permutation Promenade: https://adventofcode.com/2017/day/16
 /// </summary>
-public class Solution : SolutionBase2017
+public class Solution : SolutionBase
 {
-    public override int Day => 16;
-    
     public override object Run(int part)
     {
         var input = GetInputText();

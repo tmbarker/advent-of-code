@@ -5,10 +5,8 @@ namespace Problems.Y2019.D01;
 /// <summary>
 /// The Tyranny of the Rocket Equation: https://adventofcode.com/2019/day/1
 /// </summary>
-public class Solution : SolutionBase2019
+public class Solution : IntCodeSolution
 {
-    public override int Day => 1;
-    
     public override object Run(int part)
     {
         var masses = ParseInputLines(parseFunc: int.Parse);

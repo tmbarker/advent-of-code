@@ -2,7 +2,6 @@ using System.Numerics;
 using System.Text.RegularExpressions;
 using Problems.Attributes;
 using Problems.Common;
-using Problems.Y2019.Common;
 using Utilities.Extensions;
 
 namespace Problems.Y2019.D22;
@@ -11,16 +10,14 @@ namespace Problems.Y2019.D22;
 /// Slam Shuffle: https://adventofcode.com/2019/day/22
 /// </summary>
 [Favourite("Slam Shuffle", Topics.Math, Difficulty.Hard)]
-public class Solution : SolutionBase2019
+public class Solution : SolutionBase
 {
     private const string Stack = "stack";
     private const string Cut = "cut";
     private const string Increment = "increment";
 
     private static readonly Regex NumberRegex = new(@"(-?\d+)");
-    
-    public override int Day => 22;
-    
+
     public override object Run(int part)
     {
         return part switch

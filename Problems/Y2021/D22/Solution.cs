@@ -1,5 +1,5 @@
-using Problems.Y2021.Common;
 using System.Text.RegularExpressions;
+using Problems.Common;
 using Utilities.Cartesian;
 using Utilities.Extensions;
 
@@ -8,12 +8,10 @@ namespace Problems.Y2021.D22;
 /// <summary>
 /// Reactor Reboot: https://adventofcode.com/2021/day/22
 /// </summary>
-public class Solution : SolutionBase2021
+public class Solution : SolutionBase
 {
     private const int InitRegionHalfWidth = 50;
-    
-    public override int Day => 22;
-    
+
     public override object Run(int part)
     {
         var instructions = ParseInputLines(parseFunc: ParseInstruction);

@@ -1,4 +1,4 @@
-using Problems.Y2017.Common;
+using Problems.Common;
 using Utilities.Extensions;
 
 namespace Problems.Y2017.D15;
@@ -6,7 +6,7 @@ namespace Problems.Y2017.D15;
 /// <summary>
 /// Dueling Generators: https://adventofcode.com/2017/day/15
 /// </summary>
-public class Solution : SolutionBase2017
+public class Solution : SolutionBase
 {
     private const ulong FactorA = 16807UL;
     private const ulong FactorB = 48271UL;
@@ -17,8 +17,6 @@ public class Solution : SolutionBase2017
     private static readonly Predicate<ulong> Div4 = n => n % 4UL == 0;
     private static readonly Predicate<ulong> Div8 = n => n % 8UL == 0;
 
-    public override int Day => 15;
-    
     public override object Run(int part)
     {
         var input = GetInputLines();

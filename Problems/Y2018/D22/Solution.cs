@@ -1,6 +1,5 @@
 using Problems.Attributes;
 using Problems.Common;
-using Problems.Y2018.Common;
 using Utilities.Cartesian;
 using Utilities.Extensions;
 
@@ -10,13 +9,11 @@ namespace Problems.Y2018.D22;
 /// Mode Maze: https://adventofcode.com/2018/day/22
 /// </summary>
 [Favourite("Mode Maze", Topics.Graphs, Difficulty.Hard)]
-public class Solution : SolutionBase2018
+public class Solution : SolutionBase
 {
     private const int MoveCost = 1;
     private const int SwapCost = 7;
-    
-    public override int Day => 22;
-    
+
     public override object Run(int part)
     {
         var input = GetInputLines();

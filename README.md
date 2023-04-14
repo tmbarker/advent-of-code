@@ -66,20 +66,23 @@ Puzzle | My Solution | Date | Topic(s) | Difficulty
 1. From your terminal, using the .NET CLI
 ```
 cd Aoc
+dotnet run set-session <session cookie>
 dotnet run solve <year> <day>
 ```
 
 2. From a `.cs` file, using reflective `SolutionRunner`:
 ```
+using Automation.AocClient;
 using Automation.SolutionRunner;
 
+AocHttpClient.SetSessionCookie(sessionCookie: <session cookie>);
 SolutionRunner.Run(year: <year>, day: <day>);
 ```
 3. From a `.cs` file, directly instantiating a given `Solution`:
 ```
 using Problems.Y<year>.D<day>;
 
-var solution = new Solution();
+var solution = new Solution() { InputFilePath = <input file path> };
 var p1 = solution.Run(part: 1);
 var p2 = solution.Run(part: 2);
 ```

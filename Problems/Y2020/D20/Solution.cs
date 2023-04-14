@@ -1,7 +1,6 @@
 using System.Text.RegularExpressions;
 using Problems.Attributes;
 using Problems.Common;
-using Problems.Y2020.Common;
 using Utilities.Cartesian;
 using Utilities.Extensions;
 
@@ -15,13 +14,11 @@ using PositionsMap = IDictionary<int, Vector2D>;
 /// Jurassic Jigsaw: https://adventofcode.com/2020/day/20
 /// </summary>
 [Favourite("Jurassic Jigsaw", Topics.Vectors, Difficulty.Hard)]
-public class Solution : SolutionBase2020
+public class Solution : SolutionBase
 {
     private const int TileSize = 10;
     private const int ContentSize = 8;
 
-    public override int Day => 20;
-    
     public override object Run(int part)
     {
         var tiles = ParseTiles(GetInputLines());
