@@ -1,3 +1,4 @@
+using Problems.Attributes;
 using Problems.Common;
 using Utilities.Cartesian;
 using Utilities.Extensions;
@@ -7,6 +8,7 @@ namespace Problems.Y2018.D23;
 /// <summary>
 /// Experimental Emergency Teleportation: https://adventofcode.com/2018/day/23
 /// </summary>
+[Favourite("Experimental Emergency Teleportation", Topics.Vectors, Difficulty.Hard)]
 public class Solution : SolutionBase
 {
     public override object Run(int part)
