@@ -1,5 +1,4 @@
 using System.Text;
-using Problems.Y2019.Common;
 using Problems.Y2019.IntCode;
 using Utilities.Cartesian;
 using Utilities.Collections;

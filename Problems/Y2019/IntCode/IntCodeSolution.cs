@@ -1,6 +1,6 @@
 using Problems.Common;
 
-namespace Problems.Y2019.Common;
+namespace Problems.Y2019.IntCode;
 
 public abstract class IntCodeSolution : SolutionBase
 {

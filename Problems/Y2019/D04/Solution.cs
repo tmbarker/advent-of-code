@@ -1,4 +1,4 @@
-using Problems.Y2019.Common;
+using Problems.Common;
 using Utilities.Cartesian;
 
 namespace Problems.Y2019.D04;
@@ -6,7 +6,7 @@ namespace Problems.Y2019.D04;
 /// <summary>
 /// Secure Container: https://adventofcode.com/2019/day/4
 /// </summary>
-public class Solution : IntCodeSolution
+public class Solution : SolutionBase
 {
     public override object Run(int part)
     {
