@@ -1,4 +1,3 @@
-using System.Text.RegularExpressions;
 using Problems.Attributes;
 using Problems.Common;
 using Utilities.Cartesian;
@@ -172,7 +171,7 @@ public class Solution : SolutionBase
 
         foreach (var (idLine, tileLines) in tileChunks)
         {
-            var id = int.Parse(Regex.Match(idLine, @"(\d+)").Groups[1].Value);
+            var id = idLine.ParseInt();
             var content = Grid2D<char>.MapChars(tileLines, c => c);
 
             tiles.Add(id, new Tile(content));

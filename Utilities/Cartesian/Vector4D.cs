@@ -7,7 +7,7 @@ public readonly struct Vector4D : IEquatable<Vector4D>
 {
     private const string StringFormat = "[{0},{1},{2},{3}]";
 
-    public static readonly Vector4D Zero = new(0, 0, 0, 0);
+    public static readonly Vector4D Zero = new(x:0, y:0, z:0, w:0);
 
     private string Id { get; }
     public int X { get; }
@@ -145,14 +145,14 @@ public static class Vector4DExtensions
     {
         return new HashSet<Vector4D>
         {
-            vector + new Vector4D(1,0,0,0),
-            vector + new Vector4D(-1,0,0,0),
-            vector + new Vector4D(0,1,0,0),
-            vector + new Vector4D(0,-1,0,0),
-            vector + new Vector4D(0,0,1,0),
-            vector + new Vector4D(0,0,-1,0),
-            vector + new Vector4D(0,0,0,1),
-            vector + new Vector4D(0,0,0,-1),
+            vector + new Vector4D(x:  1, y:  0, z:  0, w:  0),
+            vector + new Vector4D(x: -1, y:  0, z:  0, w:  0),
+            vector + new Vector4D(x:  0, y:  1, z:  0, w:  0),
+            vector + new Vector4D(x:  0, y: -1, z:  0, w:  0),
+            vector + new Vector4D(x:  0, y:  0, z:  1, w:  0),
+            vector + new Vector4D(x:  0, y:  0, z: -1, w:  0),
+            vector + new Vector4D(x:  0, y:  0, z:  0, w:  1),
+            vector + new Vector4D(x:  0, y:  0, z:  0, w: -1)
         };
     }
     

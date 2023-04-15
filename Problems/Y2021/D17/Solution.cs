@@ -1,4 +1,3 @@
-using System.Text.RegularExpressions;
 using Problems.Common;
 using Utilities.Cartesian;
 using Utilities.Extensions;
@@ -79,12 +78,13 @@ public class Solution : SolutionBase
     
     private Aabb2D ParseTarget()
     {
-        var matches = Regex.Matches(GetInputText(), @"-?\d+");
+        var input = GetInputText();
+        var numbers = input.ParseInts();
         
         return new Aabb2D(
-            xMin: matches[0].ParseInt(),
-            xMax: matches[1].ParseInt(),
-            yMin: matches[2].ParseInt(),
-            yMax: matches[3].ParseInt());
+            xMin: numbers[0],
+            xMax: numbers[1],
+            yMin: numbers[2],
+            yMax: numbers[3]);
     }
 }

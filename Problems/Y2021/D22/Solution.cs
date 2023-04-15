@@ -1,4 +1,3 @@
-using System.Text.RegularExpressions;
 using Problems.Common;
 using Utilities.Cartesian;
 using Utilities.Extensions;
@@ -10,8 +9,6 @@ namespace Problems.Y2021.D22;
 /// </summary>
 public class Solution : SolutionBase
 {
-    private const int InitRegionHalfWidth = 50;
-
     public override object Run(int part)
     {
         var instructions = ParseInputLines(parseFunc: ParseInstruction);
@@ -25,7 +22,7 @@ public class Solution : SolutionBase
 
     private static int Init(IEnumerable<(bool On, Aabb3D Aabb)> instructions)
     {
-        var initRegion = Aabb3D.CubeCenteredAt(center: Vector3D.Zero, extent: InitRegionHalfWidth);
+        var initRegion = Aabb3D.CubeCenteredAt(center: Vector3D.Zero, extent: 50);
         var onSet = new HashSet<Vector3D>();
 
         foreach (var step in instructions)
@@ -34,19 +31,17 @@ public class Solution : SolutionBase
             {
                 continue;
             }
-            
-            for (var x = overlap.XMin; x <= overlap.XMax; x++)
-            for (var y = overlap.YMin; y <= overlap.YMax; y++)
-            for (var z = overlap.ZMin; z <= overlap.ZMax; z++)
+
+            foreach (var pos in overlap)
             {
                 if (step.On)
                 {
-                    onSet.Add(new Vector3D(x, y, z));
+                    onSet.Add(pos);
                 }
                 else
                 {
-                    onSet.Remove(new Vector3D(x, y, z));
-                }
+                    onSet.Remove(pos);
+                }   
             }
         }
 
@@ -84,15 +79,15 @@ public class Solution : SolutionBase
 
     private static (bool on, Aabb3D aabb) ParseInstruction(string line)
     {
-        var matches = Regex.Matches(line, @"-?\d+");
+        var numbers = line.ParseInts();
         var on = line.StartsWith("on");
         var cuboid = new Aabb3D(
-            xMin: matches[0].ParseInt(),
-            xMax: matches[1].ParseInt(),
-            yMin: matches[2].ParseInt(),
-            yMax: matches[3].ParseInt(),
-            zMin: matches[4].ParseInt(),
-            zMax: matches[5].ParseInt());
+            xMin: numbers[0],
+            xMax: numbers[1],
+            yMin: numbers[2],
+            yMax: numbers[3],
+            zMin: numbers[4],
+            zMax: numbers[5]);
 
         return (on, cuboid);
     }

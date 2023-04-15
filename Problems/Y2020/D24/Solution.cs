@@ -12,7 +12,6 @@ using Floor = HashSet<Hex>;
 /// </summary>
 public class Solution : SolutionBase
 {
-    private const int Days = 100;
     private static readonly Dictionary<string, Hex> Adjacencies = new()
     {
         { "e",  Hex.Directions[Pointy.E]  },
@@ -25,13 +24,14 @@ public class Solution : SolutionBase
 
     public override object Run(int part)
     {
-        var instructions = ParseInstructions(GetInputLines());
+        var input = GetInputLines();
+        var instructions = ParseInstructions(input);
         var floor = AssembleFloor(instructions);
         
         return part switch
         {
             1 => floor.Count,
-            2 => Simulate(floor, Days).Count,
+            2 => Simulate(floor, days: 100).Count,
             _ => ProblemNotSolvedString
         };
     }
@@ -43,10 +43,10 @@ public class Solution : SolutionBase
             var consider = new HashSet<Hex>();
             var next = new Floor();
             
-            foreach (var blackTile in floor)
+            foreach (var tile in floor)
             {
-                consider.Add(blackTile);
-                foreach (var adj in blackTile.GetAdjacentSet())
+                consider.Add(tile);
+                foreach (var adj in tile.GetAdjacentSet())
                 {
                     consider.Add(adj);
                 }
@@ -62,7 +62,7 @@ public class Solution : SolutionBase
                 {
                     next.Add(tile);
                 }
-                else if (!floor.Contains(tile) && adjBlackTiles is 2)
+                if (!floor.Contains(tile) && adjBlackTiles is 2)
                 {
                     next.Add(tile);
                 }
@@ -77,11 +77,11 @@ public class Solution : SolutionBase
     private static Floor AssembleFloor(IEnumerable<Instructions> instructions)
     {
         var floor = new Floor();
-        foreach (var instructionSet in instructions)
+        foreach (var sequence in instructions)
         {
-            var tile = instructionSet.Aggregate(
+            var tile = sequence.Aggregate(
                 seed: Hex.Zero,
-                func: (current, instr) => current + Adjacencies[instr]);
+                func: (current, step) => current + Adjacencies[step]);
 
             if (!floor.Add(tile))
             {

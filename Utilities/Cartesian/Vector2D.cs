@@ -7,13 +7,13 @@ public readonly struct Vector2D : IEquatable<Vector2D>
 {
     private const string StringFormat = "[{0},{1}]";
 
-    public static readonly Vector2D Zero = new(0, 0);
-    public static readonly Vector2D Up = new(0, 1);
-    public static readonly Vector2D Down = new(0, -1);
-    public static readonly Vector2D Left = new(-1, 0);
-    public static readonly Vector2D Right = new(1, 0);
-    public static readonly Vector2D One = new(1, 1);
-    public static readonly Vector2D PositiveInfinity = new (int.MaxValue, int.MaxValue);
+    public static readonly Vector2D Zero  = new(x:  0, y:  0);
+    public static readonly Vector2D Up    = new(x:  0, y:  1);
+    public static readonly Vector2D Down  = new(x:  0, y: -1);
+    public static readonly Vector2D Left  = new(x: -1, y:  0);
+    public static readonly Vector2D Right = new(x:  1, y:  0);
+    public static readonly Vector2D One   = new(x:  1, y:  1);
+    public static readonly Vector2D PositiveInfinity = new (x: int.MaxValue, y:int.MaxValue);
 
     private string Id { get; }
     public int X { get; }

@@ -7,13 +7,13 @@ public readonly struct Vector3D : IEquatable<Vector3D>
 {
     private const string StringFormat = "[{0},{1},{2}]";
 
-    public static readonly Vector3D Zero = new(0, 0, 0);
-    public static readonly Vector3D Up = new(0, 1, 0);
-    public static readonly Vector3D Down = new(0, -1, 0);
-    public static readonly Vector3D Left = new(-1, 0, 0);
-    public static readonly Vector3D Right = new(1, 0, 0);
-    public static readonly Vector3D Forward = new(0, 0, 1);
-    public static readonly Vector3D Back = new(0, 0, -1);
+    public static readonly Vector3D Zero    = new(x:  0, y:  0, z:  0);
+    public static readonly Vector3D Up      = new(x:  0, y:  1, z:  0);
+    public static readonly Vector3D Down    = new(x:  0, y: -1, z:  0);
+    public static readonly Vector3D Left    = new(x: -1, y:  0, z:  0);
+    public static readonly Vector3D Right   = new(x:  1, y:  0, z:  0);
+    public static readonly Vector3D Forward = new(x:  0, y:  0, z:  1);
+    public static readonly Vector3D Back    = new(x:  0, y:  0, z: -1);
 
     private string Id { get; }
     public int X { get; }

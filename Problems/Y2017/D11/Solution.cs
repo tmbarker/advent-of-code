@@ -39,7 +39,7 @@ public class Solution : SolutionBase
             seed: Hex.Zero,
             func: (current, step) => current + Directions[step]);
 
-        return Hex.Distance(a: Hex.Zero, b: pos);
+        return pos.Magnitude;
     }
     
     private static int GetMaxDistance(IEnumerable<string> steps)
@@ -53,6 +53,6 @@ public class Solution : SolutionBase
             set.Add(pos);
         }
 
-        return set.Max(p => Hex.Distance(a: Hex.Zero, b: p));
+        return set.Max(p => p.Magnitude);
     }
 }

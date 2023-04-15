@@ -1,4 +1,3 @@
-using System.Text.RegularExpressions;
 using Problems.Attributes;
 using Problems.Common;
 using Utilities.Cartesian;
@@ -136,10 +135,10 @@ public class Solution : SolutionBase
 
     private static Vector3D ParsePosition(string line)
     {
-        var match = Regex.Match(line, @"<x=(-?\d+), y=(-?\d+), z=(-?\d+)>");
+        var numbers = line.ParseInts();
         return new Vector3D(
-            x: match.Groups[1].ParseInt(),
-            y: match.Groups[2].ParseInt(),
-            z: match.Groups[3].ParseInt());
+            x: numbers[0],
+            y: numbers[1],
+            z: numbers[2]);
     }
 }

@@ -6,8 +6,8 @@ namespace Utilities.Hexagonal;
 public readonly struct Hex : IEquatable<Hex>
 {
     private const string DescFormat = "[q={0},r={1},s={2}]";
-    
-    public static readonly Hex Zero = new (0, 0, 0);
+
+    public static readonly Hex Zero = new(q: 0, r: 0, s: 0);
     public static readonly IReadOnlyDictionary<Enum, Hex> Directions = new Dictionary<Enum, Hex>
     {
         { Flat.N,  new(q:  0, r: -1, s:  1) },
@@ -29,6 +29,8 @@ public readonly struct Hex : IEquatable<Hex>
     public int Q { get; }
     public int R { get; }
     public int S { get; }
+
+    public int Magnitude => Distance(a: this, b: Zero);
 
     public Hex(int q, int r, int s)
     {
