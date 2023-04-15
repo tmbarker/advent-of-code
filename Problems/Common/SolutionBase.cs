@@ -23,7 +23,7 @@ public abstract class SolutionBase
     protected string GetInputText()
     {
         AssertInputExists();
-        return File.ReadAllText(InputFilePath);
+        return File.ReadAllText(InputFilePath).TrimEnd();
     }
 
     protected IEnumerable<T> ParseInputLines<T>(Func<string, T> parseFunc)
