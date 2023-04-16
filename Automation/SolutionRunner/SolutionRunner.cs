@@ -16,7 +16,7 @@ public static class SolutionRunner
     {
         if (!TryCreateSolutionInstance(year, day, out var solution))
         {
-            Log(year, day, log: SolutionBase.ProblemNotSolvedString);
+            Log(year, day, log: SolutionBase.ProblemNotSolvedString, ConsoleColor.Red);
             return;
         }
 
