@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Text;
 
 namespace Utilities.Cartesian;
 
@@ -73,11 +74,26 @@ public partial class Grid2D<T> : IEnumerable<KeyValuePair<Vector2D, T>>
     /// <summary>
     /// Print the <see cref="Grid2D{T}"/> instance contents to the console
     /// </summary>
-    public void Print(Func<Vector2D, T, string>? elementFormatter = null, int padding = 4)
+    public void Print(Func<Vector2D, T, string>? elementFormatter = null, int padding = 0)
     {
+        Console.Write(BuildRepresentativeString(elementFormatter, padding));
+    }
+
+    /// <summary>
+    /// Generate a representative string of the <see cref="Grid2D{T}"/> instance based on its current contents
+    /// </summary>
+    public string BuildRepresentativeString(Func<Vector2D, T, string>? elementFormatter = null, int padding = 0,
+        string? prepend = null)
+    {
+        var sb = new StringBuilder();
         var paddingStr = padding > 0 
             ? new string(' ', padding) 
             : string.Empty;
+
+        if (!string.IsNullOrEmpty(prepend))
+        {
+            sb.Append(prepend);
+        }
         
         for (var y = Height - 1; y >= 0; y--)
         {
@@ -92,12 +108,14 @@ public partial class Grid2D<T> : IEnumerable<KeyValuePair<Vector2D, T>>
                     ? elementFormatter(pos, element)
                     : element?.ToString();
                     
-                Console.Write($"{elementString}{paddingStr}");
+                sb.Append($"{elementString}{paddingStr}");
             }
-            Console.WriteLine();
+            sb.Append('\n');
         }
-    }
 
+        return sb.ToString();
+    }
+    
     /// <summary>
     /// Get all positions in the <see cref="Grid2D{T}"/> instance
     /// </summary>
