@@ -1,5 +1,5 @@
 ﻿using System.CommandLine;
-using Automation.AocClient;
+using Automation.Input;
 using Automation.Readme;
 using Automation.SolutionRunner;
 
@@ -40,20 +40,33 @@ internal static class Program
 
         var setUserSessionCommand = new Command(
             name: "set-session",
-            description: $"Set the user session cookie, used by {nameof(AocHttpClient)} when making HTTPS requests");
+            description: "Set the user session cookie, needed to fetch inputs");
         var sessionArg = new Argument<string>(
             name: "user-session-cookie", 
             description: "The user session cookie string");
         
         setUserSessionCommand.AddArgument(sessionArg);
         setUserSessionCommand.SetHandler(
-            handle: AocHttpClient.SetSessionCookie,
+            handle: InputProvider.SetUserSession,
             symbol: sessionArg);
+        
+        var setInputCacheCommand = new Command(
+            name: "set-cache",
+            description: "Set the input files cache directory, where downloaded inputs will be cached");
+        var cacheArg = new Argument<string>(
+            name: "inputs-cache-path",
+            description: "The directory path to store input files");
+        
+        setInputCacheCommand.AddArgument(cacheArg);
+        setInputCacheCommand.SetHandler(
+            handle: InputProvider.SetCachePath,
+            symbol: cacheArg);
 
         var rootCommand = new RootCommand(description: "CLI entry point for running AoC problem solutions");
         rootCommand.AddCommand(solveCommand);
         rootCommand.AddCommand(updateReadmeCommand);
         rootCommand.AddCommand(setUserSessionCommand);
+        rootCommand.AddCommand(setInputCacheCommand);
         
         return await rootCommand.InvokeAsync(args);
     }

@@ -77,10 +77,10 @@ dotnet run solve <year> <day>
 
 2. From a `.cs` file, using reflective `SolutionRunner`:
 ```
-using Automation.AocClient;
+using Automation.Input;
 using Automation.SolutionRunner;
 
-AocHttpClient.SetSessionCookie(sessionCookie: <session cookie>);
+InputProvider.SetUserSession(sessionCookie: <session cookie>);
 SolutionRunner.Run(year: <year>, day: <day>);
 ```
 3. From a `.cs` file, directly instantiating a given `Solution`:

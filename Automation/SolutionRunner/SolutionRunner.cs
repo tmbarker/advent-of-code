@@ -1,6 +1,6 @@
 using System.Diagnostics;
 using System.Text;
-using Automation.Inputs;
+using Automation.Input;
 using Problems.Common;
 
 namespace Automation.SolutionRunner;
@@ -9,8 +9,6 @@ public static class SolutionRunner
 {
     private const string QualifiedSolutionTypeNameFormat = "{0}.Y{1}.D{2}.{3}";
     private const string SolutionTypeName = "Solution";
-    private const string InputsDirectoryName = "Inputs";
-    private const string InputFilenameFormat = "{0}_{1:D2}.txt";
 
     public static async Task Run(int year, int day, bool showLogs = false)
     {
@@ -20,10 +18,8 @@ public static class SolutionRunner
             return;
         }
 
-        var inputPath = FormInputFilePath(year, day);
-        var inputExists = await EnsureInputExists(year, day, inputPath);
-        
-        if (!inputExists)
+        var inputPath = await InputProvider.GetInputFilePath(year, day);
+        if (!File.Exists(inputPath))
         {
             Log(year, day, log: "Unable to load or fetch input", ConsoleColor.Red);
             return;
@@ -40,23 +36,6 @@ public static class SolutionRunner
         {
             TryRunSolutionPart(solution, year, day, part: i + 1);
         }
-    }
-
-    private static string FormInputFilePath(int year, int day)
-    {
-        var fileName = string.Format(InputFilenameFormat, year, day);
-        return Path.Combine(
-            AppDomain.CurrentDomain.BaseDirectory,
-            InputsDirectoryName,
-            year.ToString(),
-            fileName);
-    }
-    
-    private static Task<bool> EnsureInputExists(int year, int day, string filePath)
-    {
-        return File.Exists(filePath)
-            ? Task.FromResult(true)
-            : InputClient.TryDownloadInput(year, day, filePath);
     }
 
     private static void TryRunSolutionPart(SolutionBase solutionInstance, int year, int day, int part)

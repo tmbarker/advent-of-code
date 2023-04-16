@@ -7,10 +7,6 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <None Update="Inputs\**" CopyToOutputDirectory="Always" />
-    </ItemGroup>
-
-    <ItemGroup>
       <ProjectReference Include="..\Utilities\Utilities.csproj" />
     </ItemGroup>
     
