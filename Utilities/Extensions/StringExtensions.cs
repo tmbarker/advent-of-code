@@ -5,6 +5,7 @@ namespace Utilities.Extensions;
 public static class StringExtensions
 {
     private static readonly Regex NumberRegex = new(@"(-?\d+)");
+    private static readonly Regex WhitespaceRegex = new(@"\s+");
 
     public static IList<int> ParseInts(this string str)
     {
@@ -25,5 +26,10 @@ public static class StringExtensions
         var numbers = new List<long>(matches.Select(m => long.Parse(m.Value)));
 
         return numbers;
+    }
+
+    public static string TrimWhitespace(this string str)
+    {
+        return WhitespaceRegex.Replace(input: str, replacement: string.Empty);
     }
 }
