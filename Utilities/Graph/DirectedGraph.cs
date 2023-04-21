@@ -14,6 +14,10 @@ public class DirectedGraph<T> where T : IEquatable<T>
     public IEnumerable<T> Sources => Outgoing.Keys.Where(v => !Incoming.ContainsKey(v) || !Incoming[v].Any());
     public IEnumerable<T> Sinks => Incoming.Keys.Where(v => !Outgoing.ContainsKey(v) || !Outgoing[v].Any());
 
+    public DirectedGraph()
+    {
+    }
+    
     public DirectedGraph(IEnumerable<Edge> edges)
     {
         foreach (var edge in edges)
