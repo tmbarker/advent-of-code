@@ -1,3 +1,4 @@
+using System.Text;
 using Problems.Attributes;
 using Problems.Common;
 
@@ -14,7 +15,7 @@ public class Solution : SolutionBase
 
     public override object Run(int part)
     {
-        var instructions = ParseInstructions(GetInputLines());
+        var instructions = ParseInputLines(parseFunc: ParseInstruction);
         return part switch
         {
             1 => CalculateSignalStrength(instructions),
@@ -45,31 +46,28 @@ public class Solution : SolutionBase
     private static string RenderCrt(IEnumerable<(Cpu.Opcode Opcode, int Arg)> instructions)
     {
         var cpu = new Cpu();
-        var crtScreen = "\n";
+        var crtScreen = new StringBuilder("\n");
         
         void OnCpuTick(Cpu.State state)
         {
             var pixelCol = (state.Cycle - 1) % CrtWidth;
-            crtScreen += Math.Abs(state.X - pixelCol) <= 1 ? '#' : '.';
-
+            var on = Math.Abs(state.X - pixelCol) <= 1;
+            
+            crtScreen.Append(on ? '#' : '.');
+            
             if (pixelCol == CrtWidth - 1)
             {
-                crtScreen += "\n";
+                crtScreen.Append('\n');
             }
         }
 
         cpu.Ticked += OnCpuTick;
         cpu.Run(instructions);
         
-        return crtScreen;
+        return crtScreen.ToString();
     }
 
-    private static IEnumerable<(Cpu.Opcode Opcode, int Arg)> ParseInstructions(IEnumerable<string> lines)
-    {
-        return lines.Select(ParseLine);
-    }
-
-    private static (Cpu.Opcode Opcode, int Arg) ParseLine(string line)
+    private static (Cpu.Opcode Opcode, int Arg) ParseInstruction(string line)
     {
         var elements = line.Split(' ');
         return elements.Length == 1 ? 
