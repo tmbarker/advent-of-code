@@ -3,7 +3,7 @@ using System.Text;
 using Automation.Input;
 using Problems.Common;
 
-namespace Automation.SolutionRunner;
+namespace Automation.Runner;
 
 public static class SolutionRunner
 {

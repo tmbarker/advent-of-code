@@ -1,7 +1,7 @@
 using System.Globalization;
 using System.Net;
 
-namespace Automation.AocClient;
+namespace Automation.Client;
 
 public static class AocHttpClient
 {

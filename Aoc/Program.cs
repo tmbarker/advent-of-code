@@ -1,7 +1,7 @@
 ﻿using System.CommandLine;
 using Automation.Input;
 using Automation.Readme;
-using Automation.SolutionRunner;
+using Automation.Runner;
 
 namespace Aoc;
 
