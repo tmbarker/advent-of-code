@@ -44,7 +44,8 @@ public static class CollectionExtensions
     /// </summary>
     public static Dictionary<TKey, TValue> WhereValues<TKey, TValue>(this IDictionary<TKey, TValue> dictionary, Predicate<TValue> predicate) where TKey : notnull
     {
-        return dictionary.Where(kvp => predicate(kvp.Value))
+        return dictionary
+            .Where(kvp => predicate(kvp.Value))
             .ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
     }
     
@@ -53,7 +54,8 @@ public static class CollectionExtensions
     /// </summary>
     public static Dictionary<TKey, TValue> WhereKeys<TKey, TValue>(this IDictionary<TKey, TValue> dictionary, Predicate<TKey> predicate) where TKey : notnull
     {
-        return dictionary.Where(kvp => predicate(kvp.Key))
+        return dictionary
+            .Where(kvp => predicate(kvp.Key))
             .ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
     }
 

@@ -89,8 +89,11 @@ public readonly struct Aabb4D : IEnumerable<Vector4D>, IEquatable<Aabb4D>
 
     public bool Equals(Aabb4D other)
     {
-        return XMin == other.XMin && XMax == other.XMax && YMin == other.YMin && YMax == other.YMax &&
-               ZMin == other.ZMin && ZMax == other.ZMax && WMin == other.WMin && WMax == other.WMax;
+        return
+            XMin == other.XMin && XMax == other.XMax &&
+            YMin == other.YMin && YMax == other.YMax &&
+            ZMin == other.ZMin && ZMax == other.ZMax &&
+            WMin == other.WMin && WMax == other.WMax;
     }
 
     public override bool Equals(object? obj)

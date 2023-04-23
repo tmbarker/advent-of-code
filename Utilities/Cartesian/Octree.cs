@@ -2,6 +2,9 @@ namespace Utilities.Cartesian;
 
 public static class Octree
 {
+    /// <summary>
+    /// Subdivide the provided <see cref="Aabb3D"/> into octants
+    /// </summary>
     public static IEnumerable<Aabb3D> Subdivide(Aabb3D aabb)
     { 
         // TOP: C D

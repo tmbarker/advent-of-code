@@ -27,19 +27,19 @@ public class Solution : SolutionBase
         
         return part switch
         {
-            1 => GetMinDistance(steps),
+            1 => GetEndDistance(steps),
             2 => GetMaxDistance(steps),
             _ => ProblemNotSolvedString
         };
     }
 
-    private static int GetMinDistance(IEnumerable<string> steps)
+    private static int GetEndDistance(IEnumerable<string> steps)
     {
-        var pos = steps.Aggregate(
+        var end = steps.Aggregate(
             seed: Hex.Zero,
-            func: (current, step) => current + Directions[step]);
+            func: (pos, step) => pos + Directions[step]);
 
-        return pos.Magnitude;
+        return end.Magnitude;
     }
     
     private static int GetMaxDistance(IEnumerable<string> steps)

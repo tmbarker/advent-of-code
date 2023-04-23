@@ -144,8 +144,10 @@ public readonly struct Aabb3D : IEnumerable<Vector3D>, IEquatable<Aabb3D>
 
     public bool Equals(Aabb3D other)
     {
-        return XMin == other.XMin && XMax == other.XMax && YMin == other.YMin && YMax == other.YMax &&
-               ZMin == other.ZMin && ZMax == other.ZMax;
+        return 
+            XMin == other.XMin && XMax == other.XMax && 
+            YMin == other.YMin && YMax == other.YMax &&
+            ZMin == other.ZMin && ZMax == other.ZMax;
     }
 
     public override bool Equals(object? obj)

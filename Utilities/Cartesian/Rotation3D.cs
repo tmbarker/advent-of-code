@@ -14,16 +14,16 @@ public readonly struct Rotation3D : IEquatable<Rotation3D>
 
     private readonly double _thetaRad;
 
-    public static readonly Rotation3D Zero = new(Axis.X, 0);
-    public static readonly Rotation3D Negative90X = new(Axis.X, -NinetyDegrees);
-    public static readonly Rotation3D Positive90X = new(Axis.X, NinetyDegrees);
-    public static readonly Rotation3D Positive180X = new(Axis.X, 2 * NinetyDegrees);
-    public static readonly Rotation3D Negative90Y = new(Axis.Y, -NinetyDegrees);
-    public static readonly Rotation3D Positive90Y = new(Axis.Y, NinetyDegrees);
-    public static readonly Rotation3D Positive180Y = new(Axis.Y, 2 * NinetyDegrees);
-    public static readonly Rotation3D Negative90Z = new(Axis.Z, -NinetyDegrees);
-    public static readonly Rotation3D Positive90Z = new(Axis.Z, NinetyDegrees);
-    public static readonly Rotation3D Positive180Z = new(Axis.Z, 2 * NinetyDegrees);
+    public static readonly Rotation3D Zero         = new(axis: Axis.X, thetaDeg: 0);
+    public static readonly Rotation3D Negative90X  = new(axis: Axis.X, thetaDeg: -NinetyDegrees);
+    public static readonly Rotation3D Positive90X  = new(axis: Axis.X, thetaDeg: NinetyDegrees);
+    public static readonly Rotation3D Positive180X = new(axis: Axis.X, thetaDeg: 2 * NinetyDegrees);
+    public static readonly Rotation3D Negative90Y  = new(axis: Axis.Y, thetaDeg: -NinetyDegrees);
+    public static readonly Rotation3D Positive90Y  = new(axis: Axis.Y, thetaDeg: NinetyDegrees);
+    public static readonly Rotation3D Positive180Y = new(axis: Axis.Y, thetaDeg: 2 * NinetyDegrees);
+    public static readonly Rotation3D Negative90Z  = new(axis: Axis.Z, thetaDeg: -NinetyDegrees);
+    public static readonly Rotation3D Positive90Z  = new(axis: Axis.Z, thetaDeg: NinetyDegrees);
+    public static readonly Rotation3D Positive180Z = new(axis: Axis.Z, thetaDeg: 2 * NinetyDegrees);
 
     public Rotation3D(Axis axis, int thetaDeg)
     {

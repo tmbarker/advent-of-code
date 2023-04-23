@@ -4,13 +4,13 @@ namespace Utilities.Collections;
 /// A primitive Disjoint Set Forest exposing the regular Union Find operations. <see cref="FindSet"/> uses Path
 /// Compression, and <see cref="Union"/> is by Rank
 /// </summary>
-/// <typeparam name="T">The type of value associated with each element in the set partition</typeparam>
+/// <typeparam name="T">The type of value associated with each element in the set</typeparam>
 public class DisjointSet<T> where T : IEquatable<T>
 {
     private readonly Dictionary<T, DisjointSetNode<T>> _nodes = new();
 
     public int ElementsCount => _nodes.Count;
-    public int SetsCount { get; private set; }
+    public int PartitionsCount { get; private set; }
 
     public bool ContainsElement(T element)
     {
@@ -25,7 +25,7 @@ public class DisjointSet<T> where T : IEquatable<T>
         }
         
         _nodes[element] = new DisjointSetNode<T>(element);
-        SetsCount++;
+        PartitionsCount++;
         return true;
     }
 
@@ -53,7 +53,7 @@ public class DisjointSet<T> where T : IEquatable<T>
             parentA.Parent = parentB;
         }
 
-        SetsCount--;
+        PartitionsCount--;
         return true;
     }
     
@@ -65,7 +65,7 @@ public class DisjointSet<T> where T : IEquatable<T>
     public void Clear()
     {
         _nodes.Clear();
-        SetsCount = 0;
+        PartitionsCount = 0;
     }
     
     private static DisjointSetNode<T> FindSet(DisjointSetNode<T> node)

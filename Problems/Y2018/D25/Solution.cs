@@ -45,7 +45,7 @@ public class Solution : SolutionBase
             }
         }
         
-        return disjointSet.SetsCount;
+        return disjointSet.PartitionsCount;
     }
 
     private static Vector4D ParsePoint(string line)

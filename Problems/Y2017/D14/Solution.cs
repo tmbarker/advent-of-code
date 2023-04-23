@@ -57,7 +57,7 @@ public class Solution : SolutionBase
             }
         }
 
-        return disjointSet.SetsCount;
+        return disjointSet.PartitionsCount;
     }
     
     private static bool[,] BuildMemoryMap(string prefix)
