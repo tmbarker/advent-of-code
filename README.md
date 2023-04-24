@@ -79,7 +79,7 @@ dotnet run solve <year> <day>
 2. From a `.cs` file, using reflective `SolutionRunner`:
 ```
 using Automation.Input;
-using Automation.SolutionRunner;
+using Automation.Runner;
 
 InputProvider.SetUserSession(sessionCookie: <session cookie>);
 SolutionRunner.Run(year: <year>, day: <day>);
