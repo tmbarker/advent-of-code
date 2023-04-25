@@ -1,7 +1,7 @@
 using System.Security.Cryptography;
 using System.Text;
 
-namespace Problems.Y2016.D05;
+namespace Problems.Y2016.Common;
 
 public class Md5Provider
 {

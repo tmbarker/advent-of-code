@@ -1,5 +1,6 @@
 using System.Text;
 using Problems.Common;
+using Problems.Y2016.Common;
 
 namespace Problems.Y2016.D05;
 
