@@ -18,4 +18,24 @@ public static class RegexExtensions
     {
         return int.Parse(capture.Value);
     }
+
+    public static IEnumerable<string> SelectCaptures(this Match match, string group)
+    {
+        return match.Groups[group].Captures.Select(c => c.Value);
+    }
+    
+    public static IEnumerable<string> SelectCaptures(this Match match, int group)
+    {
+        return match.Groups[group].Captures.Select(c => c.Value);
+    }
+    
+    public static IEnumerable<string> SelectCaptures(this MatchCollection matches, string group)
+    {
+        return matches.SelectMany(match => match.Groups[group].Captures.Select(capture => capture.Value));
+    }
+
+    public static IEnumerable<string> SelectCaptures(this MatchCollection matches, int group)
+    {
+        return matches.SelectMany(match => match.Groups[group].Captures.Select(capture => capture.Value));
+    }
 }
