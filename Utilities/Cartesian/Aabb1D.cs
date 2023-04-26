@@ -24,6 +24,22 @@ public readonly struct Aabb1D : IEnumerable<int>, IEquatable<Aabb1D>
     public int Max { get; }
     public int Length => Max - Min + 1;
     
+    public static bool FindOverlap(Aabb1D lhs, Aabb1D rhs, out  Aabb1D overlap)
+    {
+        var hasOverlap = lhs.Max >= rhs.Min && lhs.Min <= rhs.Max;
+        if (!hasOverlap)
+        {
+            overlap = default;
+            return false;
+        }
+
+        var limits = new[] { lhs.Min, lhs.Max, rhs.Min, rhs.Max }.OrderBy(n =>n).ToList();
+        overlap = new Aabb1D(
+            min: limits[1],
+            max: limits[2]);
+        return true;
+    }
+    
     public bool Contains(int value, bool inclusive)
     {
         return inclusive 

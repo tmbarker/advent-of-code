@@ -33,6 +33,29 @@ public readonly struct Aabb2D : IEnumerable<Vector2D>, IEquatable<Aabb2D>
     public int Height => YMax - YMin + 1;
     public long Area => (long)Width * Height;
 
+    public static bool FindOverlap(Aabb2D lhs, Aabb2D rhs, out  Aabb2D overlap)
+    {
+        var hasOverlap =
+            lhs.XMax >= rhs.XMin && lhs.XMin <= rhs.XMax &&
+            lhs.YMax >= rhs.YMin && lhs.YMin <= rhs.YMax;
+
+        if (!hasOverlap)
+        {
+            overlap = default;
+            return false;
+        }
+
+        var xLimits = new[] { lhs.XMin, lhs.XMax, rhs.XMin, rhs.XMax }.OrderBy(n =>n).ToList();
+        var yLimits = new[] { lhs.YMin, lhs.YMax, rhs.YMin, rhs.YMax }.OrderBy(n =>n).ToList();
+
+        overlap = new Aabb2D(
+            xMin: xLimits[1],
+            xMax: xLimits[2],
+            yMin: yLimits[1],
+            yMax: yLimits[2]);
+        return true;
+    }
+    
     public bool Contains(Vector2D pos, bool inclusive)
     {
         return inclusive 
