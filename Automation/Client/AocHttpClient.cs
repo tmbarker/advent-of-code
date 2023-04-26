@@ -28,7 +28,7 @@ public static class AocHttpClient
 
         SetLastRequestTime(now);
         
-        //  We do not need to worry about session exhaustion for this low rate HttpClient usage
+        //  We do not need to worry about socket exhaustion for this low rate HttpClient usage
         //
         using var handler = new HttpClientHandler { CookieContainer = cookieContainer };
         using var client = new HttpClient(handler) { BaseAddress = baseUri };
