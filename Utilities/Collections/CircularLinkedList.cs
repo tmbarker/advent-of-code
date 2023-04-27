@@ -30,6 +30,10 @@ public class CircularLinkedList<T>
       AddLast(value);
    }
 
+   /// <summary>
+   /// Add each element in the <see cref="collection"/> one by one in front of the <see cref="Head"/>  
+   /// </summary>
+   /// <param name="collection"></param>
    public void AddRange(IEnumerable<T> collection)
    {
       foreach (var value in collection)
@@ -52,6 +56,9 @@ public class CircularLinkedList<T>
       return newNode;
    }
 
+   /// <summary>
+   /// Add the value to the <see cref="CircularLinkedList{T}"/>, it will become the <see cref="Head"/>
+   /// </summary>
    public CircularLinkedListNode<T> AddFirst(T value)
    {
       var node = new CircularLinkedListNode<T>(value);
@@ -67,6 +74,9 @@ public class CircularLinkedList<T>
       return node;
    }
 
+   /// <summary>
+   /// Add the value to the <see cref="CircularLinkedList{T}"/>, it will become the <see cref="Tail"/>
+   /// </summary>
    public CircularLinkedListNode<T> AddLast(T value)
    {
       var node = new CircularLinkedListNode<T>(value);
@@ -79,6 +89,46 @@ public class CircularLinkedList<T>
          InternalInsertNodeBefore(Head, node);
       }
       return node;
+   }
+
+   /// <summary>
+   /// Linearly traverse from the <see cref="Head"/> node
+   /// </summary>
+   public CircularLinkedListNode<T> GetNode(int index)
+   {
+      if (index < 0 || index >= Count)
+      {
+         throw new ArgumentOutOfRangeException(nameof(index));
+      }
+      
+      var current = Head!;
+      for (var i = 0; i < index; i++)
+      {
+         current = current.Next!;
+      }
+
+      return current;
+   }
+
+   /// <summary>
+   /// Linearly search from the <see cref="Head"/> node
+   /// </summary>
+   public CircularLinkedListNode<T>? FindNode(T value, out int index)
+   {
+      var current = Head;
+      for (var i = 0; i < Count && current != null; i++)
+      {
+         if (EqualityComparer<T>.Default.Equals(x: current.Value, y: value))
+         {
+            index = i;
+            return current;
+         }
+
+         current = current.Next;
+      }
+
+      index = -1;
+      return null;
    }
 
    public void Remove(CircularLinkedListNode<T> node)
@@ -110,7 +160,7 @@ public class CircularLinkedList<T>
       Count = 0;
    }
 
-   public void Reverse()
+   public void Reverse(bool preserveHead)
    {
       var temp = default(CircularLinkedListNode<T>?);
       var current = Head;
@@ -123,7 +173,7 @@ public class CircularLinkedList<T>
          current = current.Prev!;
       }
 
-      if (temp != null)
+      if (temp != null && !preserveHead)
       {
          Head = temp.Prev;  
       }
@@ -134,9 +184,10 @@ public class CircularLinkedList<T>
    /// </summary>
    /// <param name="start">The first node in the reversed segment of the list</param>
    /// <param name="count">The number of nodes to be reversed</param>
+   /// <param name="preserveHead">Do not modify the <see cref="Head"/> reference</param>
    /// <exception cref="ArgumentOutOfRangeException"><paramref name="count"></paramref> is negative</exception>
    /// <exception cref="ArgumentException"><paramref name="count"/> is greater than the length of the list</exception>
-   public void ReverseRange(CircularLinkedListNode<T> start, int count)
+   public void ReverseRange(CircularLinkedListNode<T> start, int count, bool preserveHead)
    {
       if (count < 0)
       {
@@ -153,27 +204,40 @@ public class CircularLinkedList<T>
       var cachedHead = Head;
       if (count == Count)
       {
-         Reverse();
+         Reverse(preserveHead);
       }
       else
       {
          InternalReverseRange(start, count);
       }
-      Head = cachedHead;
+
+      if (preserveHead)
+      {
+         Head = cachedHead;  
+      }
    }
 
-   public void Print(string separator = ", ")
+   public void Print(string separator = ", ", Func<T, string>? nodeFormatter = null)
    {
-      var elements = new List<T>();
+      Console.WriteLine(BuildRepresentativeString(separator, nodeFormatter));
+   }
+   
+   public string BuildRepresentativeString(string separator = ", ", Func<T, string>? nodeFormatter = null)
+   {
+      var elements = new List<string>();
       var current = Head;
 
       for (var i = 0; i < Count && current != null; i++)
       {
-         elements.Add(current.Value);
+         var elementString = nodeFormatter != null
+            ? nodeFormatter(current.Value)
+            : current.Value!.ToString();
+
+         elements.Add(elementString!);
          current = current.Next;
       }
 
-      Console.WriteLine(string.Join(separator, elements));
+      return string.Join(separator, elements);
    }
 
    private void InternalInsertNodeToEmptyList(CircularLinkedListNode<T> newNode)
@@ -216,7 +280,7 @@ public class CircularLinkedList<T>
 
    private void InternalReverseRange(CircularLinkedListNode<T> start, int count)
    {
-      var cutFrom = start.Prev!;
+      var removeAfter = start.Prev!;
       var current = start;
       var queue = new Queue<CircularLinkedListNode<T>>();
 
@@ -230,7 +294,7 @@ public class CircularLinkedList<T>
       
       while (queue.Any())
       {
-         var insertBefore = cutFrom.Next!;
+         var insertBefore = removeAfter.Next!;
          var insertNode = queue.Dequeue();
          InternalInsertNodeBefore(insertBefore, insertNode);
       }
