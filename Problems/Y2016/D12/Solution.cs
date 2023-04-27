@@ -1,4 +1,5 @@
 using Problems.Common;
+using Problems.Y2016.Common;
 
 namespace Problems.Y2016.D12;
 
@@ -9,8 +10,8 @@ public class Solution : SolutionBase
 {
     public override object Run(int part)
     {
-        var program = GetInputLines();
-        var tokens = program.Select(line => line.Split(' ')).ToList();
+        var input = GetInputLines();
+        var tokens = input.Select(line => line.Split(' ')).ToList();
 
         return part switch
         {
