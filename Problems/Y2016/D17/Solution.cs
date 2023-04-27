@@ -1,4 +1,3 @@
-using Problems.Attributes;
 using Problems.Common;
 using Problems.Y2016.Common;
 using Utilities.Cartesian;
@@ -8,7 +7,6 @@ namespace Problems.Y2016.D17;
 /// <summary>
 /// Two Steps Forward: https://adventofcode.com/2016/day/17
 /// </summary>
-[Favourite("Two Steps Forward", Topics.Graphs, Difficulty.Medium)]
 public class Solution : SolutionBase
 {
     private static readonly Vector2D Start  = new(x: 0, y: 3);

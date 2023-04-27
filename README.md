@@ -68,9 +68,9 @@ Puzzle | My Solution | Date | Topic(s) | Difficulty
 [Internet Protocol Version 7](https://adventofcode.com/2016/day/7) | [Solution](https://github.com/tmbarker/advent-of-code/blob/main/Problems/Y2016/D07/Solution.cs) | 2016-07 | Regular Expressions | :yellow_circle: Medium
 [Explosives in Cyberspace](https://adventofcode.com/2016/day/9) | [Solution](https://github.com/tmbarker/advent-of-code/blob/main/Problems/Y2016/D09/Solution.cs) | 2016-09 | String Parsing | :yellow_circle: Medium
 [Timing is Everything](https://adventofcode.com/2016/day/15) | [Solution](https://github.com/tmbarker/advent-of-code/blob/main/Problems/Y2016/D15/Solution.cs) | 2016-15 | Math | :green_circle: Easy
-[Two Steps Forward](https://adventofcode.com/2016/day/17) | [Solution](https://github.com/tmbarker/advent-of-code/blob/main/Problems/Y2016/D17/Solution.cs) | 2016-17 | Graphs | :yellow_circle: Medium
 [An Elephant Named Joseph](https://adventofcode.com/2016/day/19) | [Solution](https://github.com/tmbarker/advent-of-code/blob/main/Problems/Y2016/D19/Solution.cs) | 2016-19 | Math | :red_circle: Hard
 [Grid Computing](https://adventofcode.com/2016/day/22) | [Solution](https://github.com/tmbarker/advent-of-code/blob/main/Problems/Y2016/D22/Solution.cs) | 2016-22 | Graphs | :red_circle: Hard
+[Air Duct Spelunking](https://adventofcode.com/2016/day/24) | [Solution](https://github.com/tmbarker/advent-of-code/blob/main/Problems/Y2016/D24/Solution.cs) | 2016-24 | Graphs, Recursion | :yellow_circle: Medium
 
 ## Running a Solution
 1. From your terminal, using the .NET CLI
