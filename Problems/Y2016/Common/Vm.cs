@@ -63,6 +63,9 @@ public class Vm
                         };
                     }
                     break;
+                case "out":
+                    Console.WriteLine($"out => {GetValue(args[0])}");
+                    break;
             }
             
             _ip++;
