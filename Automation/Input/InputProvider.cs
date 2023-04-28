@@ -14,17 +14,21 @@ public static class InputProvider
     {
         //  Inputs are stored under the cache directory based on year: <cache directory>/<year>/<day>.txt
         //
-        var directory = GetCachePath();
+        var cachePath = GetCachePath();
         var fileName = FormInputFileName(day);
-        var filePath = Path.Combine(
-            directory,
-            year.ToString(),
-            fileName);
-        
+        var directory = Path.Combine(cachePath, year.ToString());
+        var filePath = Path.Combine(directory, fileName);
+
         if (File.Exists(filePath))
         {
             Log($"Input found in cache [{filePath}]", ConsoleColor.Gray);
             return filePath;
+        }
+        
+        if (!Directory.Exists(directory))
+        {
+            Directory.CreateDirectory(directory);
+            Log($"Creating cache directory [{directory}]", ConsoleColor.Gray);
         }
         
         var success = await TryDownloadInput(year, day, filePath);
