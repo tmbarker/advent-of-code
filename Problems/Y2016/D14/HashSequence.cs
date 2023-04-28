@@ -1,4 +1,4 @@
-using Problems.Y2016.Common;
+using Utilities.Hashing;
 
 namespace Problems.Y2016.D14;
 
@@ -29,11 +29,11 @@ public class HashSequence
         while(_hashes.Count < count)
         {
             var input = $"{_salt}{_hashes.Count}";
-            var hash = _md5Provider.GetHashHexString(input);
+            var hash = _md5Provider.GetHashHex(input);
 
             for (var i = 0; i < _stretches; i++)
             {
-                hash = _md5Provider.GetHashHexString(hash);
+                hash = _md5Provider.GetHashHex(hash);
             }
             
             _hashes.Add(hash);

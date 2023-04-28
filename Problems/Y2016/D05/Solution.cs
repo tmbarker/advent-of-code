@@ -1,6 +1,6 @@
 using System.Text;
 using Problems.Common;
-using Problems.Y2016.Common;
+using Utilities.Hashing;
 
 namespace Problems.Y2016.D05;
 
@@ -27,7 +27,7 @@ public class Solution : SolutionBase
 
         for (var i = 0; pass.Length < 8; i++)
         {
-            var hash = hashProvider.GetHashHexString($"{input}{i}");
+            var hash = hashProvider.GetHashHex($"{input}{i}");
             var found = hash.StartsWith("00000");
 
             if (!found)
@@ -51,7 +51,7 @@ public class Solution : SolutionBase
 
         for (var i = 0; unset.Count > 0; i++)
         {
-            var hash = hashProvider.GetHashHexString($"{input}{i}");
+            var hash = hashProvider.GetHashHex($"{input}{i}");
             var found = hash.StartsWith("00000");
             var pos = hash[5] - '0';
 

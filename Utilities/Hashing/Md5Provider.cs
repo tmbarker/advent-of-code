@@ -1,7 +1,7 @@
 using System.Security.Cryptography;
 using System.Text;
 
-namespace Problems.Y2016.Common;
+namespace Utilities.Hashing;
 
 public class Md5Provider
 {
@@ -17,7 +17,7 @@ public class Md5Provider
         _hashProvider.Dispose();
     }
 
-    public string GetHashHexString(string input)
+    public string GetHashHex(string input)
     {
         var bytes = Encoding.UTF8.GetBytes(input);
         var hash = _hashProvider.ComputeHash(bytes);

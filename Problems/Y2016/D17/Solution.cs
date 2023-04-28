@@ -1,6 +1,6 @@
 using Problems.Common;
-using Problems.Y2016.Common;
 using Utilities.Cartesian;
+using Utilities.Hashing;
 
 namespace Problems.Y2016.D17;
 
@@ -64,7 +64,7 @@ public class Solution : SolutionBase
             }
 
             var input = string.Concat(passcode, state.Path);
-            var hash = hashProvider.GetHashHexString(input);
+            var hash = hashProvider.GetHashHex(input);
             
             foreach (var (index, dir) in IndicesMap)
             {
