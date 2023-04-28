@@ -72,6 +72,11 @@ Puzzle | My Solution | Date | Topic(s) | Difficulty
 [Grid Computing](https://adventofcode.com/2016/day/22) | [Solution](https://github.com/tmbarker/advent-of-code/blob/main/Problems/Y2016/D22/Solution.cs) | 2016-22 | Graphs | :red_circle: Hard
 [Air Duct Spelunking](https://adventofcode.com/2016/day/24) | [Solution](https://github.com/tmbarker/advent-of-code/blob/main/Problems/Y2016/D24/Solution.cs) | 2016-24 | Graphs, Recursion | :yellow_circle: Medium
 
+### 2015
+Puzzle | My Solution | Date | Topic(s) | Difficulty
+:--- | :---: | :---: | :--- | :---
+[Doesn't He Have Intern-Elves For This?](https://adventofcode.com/2015/day/5) | [Solution](https://github.com/tmbarker/advent-of-code/blob/main/Problems/Y2015/D05/Solution.cs) | 2015-05 | Regular Expressions | :yellow_circle: Medium
+
 ## Running a Solution
 1. From your terminal, using the .NET CLI
 ```
