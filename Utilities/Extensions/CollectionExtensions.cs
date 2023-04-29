@@ -148,4 +148,31 @@ public static class CollectionExtensions
             .GroupBy(e => e)
             .MaxBy(g => g.Count())!.Key;
     }
+
+    /// <summary>
+    /// Returns all permutations of the source sequence elements
+    /// </summary>
+    public static IEnumerable<IEnumerable<T>> Permute<T>(this IEnumerable<T> elements)
+    {
+        var enumerated = elements.ToArray();
+        if (enumerated.Length == 0)
+        {
+            yield return Enumerable.Empty<T>();
+            yield break;
+        }
+
+        var startingElementIndex = 0;
+        foreach (var startingElement in enumerated)
+        {
+            var index = startingElementIndex;
+            var remainingItems = enumerated.Where((_, i) => i != index);
+
+            foreach (var permutationOfRemainder in remainingItems.Permute())
+            {
+                yield return permutationOfRemainder.Prepend(startingElement);
+            }
+
+            startingElementIndex++;
+        }
+    }
 }

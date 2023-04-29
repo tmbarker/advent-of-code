@@ -1,4 +1,5 @@
 using Problems.Y2019.IntCode;
+using Utilities.Extensions;
 
 namespace Problems.Y2019.D07;
 
@@ -78,38 +79,8 @@ public class Solution : IntCodeSolution
         return max;
     }
 
-    private static IEnumerable<IList<int>> GetPhasePermutations(int minPhase, int maxPhase)
+    private static IEnumerable<IEnumerable<int>> GetPhasePermutations(int minPhase, int maxPhase)
     {
-        var permutations = new List<IList<int>>();
-        var phases = new List<int>(Enumerable.Range(minPhase, maxPhase - minPhase + 1));
-
-        return PermuteMembers(phases, 0, phases.Count - 1, permutations);
-    }
-
-    private static IList<IList<int>> PermuteMembers(IList<int> members, int start, int end, IList<IList<int>> permutations)
-    {
-        if (start == end)
-        {
-            permutations.Add(new List<int>(members));
-        }
-        else
-        {
-            for (var i = start; i <= end; i++)
-            {
-                SwapMembers(members, start, i);
-                PermuteMembers(members, start + 1, end, permutations);
-                SwapMembers(members, start, i);
-            }
-        }
-
-        return permutations;
-    }
-    
-    private static void SwapMembers(IList<int> members, int idx1, int idx2)
-    {
-        if (idx1 != idx2)
-        {
-            (members[idx1], members[idx2]) = (members[idx2], members[idx1]);
-        }
+        return Enumerable.Range(minPhase, maxPhase - minPhase + 1).Permute();
     }
 }
