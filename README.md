@@ -78,6 +78,7 @@ Puzzle | My Solution | Date | Topic(s) | Difficulty
 [Doesn't He Have Intern-Elves For This?](https://adventofcode.com/2015/day/5) | [Solution](https://github.com/tmbarker/advent-of-code/blob/main/Problems/Y2015/D05/Solution.cs) | 2015-05 | Regular Expressions | :yellow_circle: Medium
 [Some Assembly Required](https://adventofcode.com/2015/day/7) | [Solution](https://github.com/tmbarker/advent-of-code/blob/main/Problems/Y2015/D07/Solution.cs) | 2015-07 | Graphs, Bitwise Operations | :red_circle: Hard
 [Matchsticks](https://adventofcode.com/2015/day/8) | [Solution](https://github.com/tmbarker/advent-of-code/blob/main/Problems/Y2015/D08/Solution.cs) | 2015-08 | Regular Expressions | :yellow_circle: Medium
+[Knights of the Dinner Table](https://adventofcode.com/2015/day/13) | [Solution](https://github.com/tmbarker/advent-of-code/blob/main/Problems/Y2015/D13/Solution.cs) | 2015-13 | Graphs | :green_circle: Easy
 
 ## Running a Solution
 1. From your terminal, using the .NET CLI

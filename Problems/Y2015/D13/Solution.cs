@@ -1,3 +1,4 @@
+using Problems.Attributes;
 using Problems.Common;
 using Utilities.Collections;
 using Utilities.Extensions;
@@ -7,6 +8,7 @@ namespace Problems.Y2015.D13;
 /// <summary>
 /// Knights of the Dinner Table: https://adventofcode.com/2015/day/13
 /// </summary>
+[Favourite("Knights of the Dinner Table", Topics.Graphs, Difficulty.Easy)]
 public class Solution : SolutionBase
 {
     private const string Gain = "gain";
