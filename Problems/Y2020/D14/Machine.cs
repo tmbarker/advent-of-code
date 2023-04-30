@@ -4,8 +4,8 @@ namespace Problems.Y2020.D14;
 
 public static class Machine
 {
-    private const string MskRegex = @"mask = ([X01]+)";
-    private const string MemRegex = @"mem\[(\d+)\] = (\d+)";
+    private static readonly Regex MskRegex = new(@"mask = (?<msk>[01X]+)");
+    private static readonly Regex MemRegex = new(@"mem\[(?<adr>\d+)\] = (?<val>\d+)");
     
     public static ulong RunV1(IEnumerable<string> program)
     {
@@ -14,17 +14,17 @@ public static class Machine
 
         foreach (var line in program)
         {
-            var mskMatch = Regex.Match(line, MskRegex);
+            var mskMatch = MskRegex.Match(line);
             if (mskMatch.Success)
             {
-                msk = new MaskSimple(mskMatch.Groups[1].Value);
+                msk = new MaskSimple(mskMatch.Groups["msk"].Value);
                 continue;
             }
 
-            var memMatch = Regex.Match(line, MemRegex);
-            var adr = ulong.Parse(memMatch.Groups[1].Value);
-            var val = ulong.Parse(memMatch.Groups[2].Value);
-            
+            var memMatch = MemRegex.Match(line);
+            var adr = ulong.Parse(memMatch.Groups["adr"].Value);
+            var val = ulong.Parse(memMatch.Groups["val"].Value);
+
             mem[adr] = msk.Apply(val);
         }
 
@@ -38,16 +38,16 @@ public static class Machine
 
         foreach (var line in program)
         {
-            var mskMatch = Regex.Match(line, MskRegex);
+            var mskMatch = MskRegex.Match(line);
             if (mskMatch.Success)
             {
-                msk = new MaskFloating(mskMatch.Groups[1].Value);
+                msk = new MaskFloating(mskMatch.Groups["msk"].Value);
                 continue;
             }
 
-            var memMatch = Regex.Match(line, MemRegex);
-            var adr = ulong.Parse(memMatch.Groups[1].Value);
-            var val = ulong.Parse(memMatch.Groups[2].Value);
+            var memMatch = MemRegex.Match(line);
+            var adr = ulong.Parse(memMatch.Groups["adr"].Value);
+            var val = ulong.Parse(memMatch.Groups["val"].Value);
 
             foreach (var mod in msk.Apply(adr))
             {
@@ -60,6 +60,6 @@ public static class Machine
 
     private static ulong SumMemorySpace(Dictionary<ulong, ulong> mem)
     {
-        return mem.Values.Aggregate(0UL, (sum, next) => sum + next);
+        return mem.Values.Aggregate(seed: 0UL, (sum, value) => sum + value);
     }
 }

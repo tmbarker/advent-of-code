@@ -60,17 +60,6 @@ public static class CollectionExtensions
     }
 
     /// <summary>
-    /// Add <see cref="item"/> if and only if it is not null
-    /// </summary>
-    public static void AddIfNotNull<T>(this IList<T> list, T? item)
-    {
-        if (item != null)
-        {
-            list.Add(item);
-        }
-    }
-
-    /// <summary>
     /// Initialize a <see cref="IReadOnlyCollection{T}"/> using the elements from <paramref name="collection"/>
     /// </summary>
     public static IReadOnlyCollection<T> Freeze<T>(this IEnumerable<T> collection)

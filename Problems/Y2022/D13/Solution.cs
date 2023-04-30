@@ -30,8 +30,8 @@ public class Solution : SolutionBase
     private static int CalculateDecoderKey(IEnumerable<PacketElement> packets)
     {
         var list = packets.ToList();
-        var divisor1 = PacketParser.ParseElement(DivisorPacket1)!;
-        var divisor2 = PacketParser.ParseElement(DivisorPacket2)!;
+        var divisor1 = PacketParser.ParseElement(DivisorPacket1);
+        var divisor2 = PacketParser.ParseElement(DivisorPacket2);
         
         list.Add(divisor1);
         list.Add(divisor2);

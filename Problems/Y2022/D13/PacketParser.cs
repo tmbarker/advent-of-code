@@ -1,5 +1,3 @@
-using Utilities.Extensions;
-
 namespace Problems.Y2022.D13;
 
 public static class PacketParser
@@ -13,8 +11,8 @@ public static class PacketParser
 
         for (var i = 0; i < trimmedLines.Count; i += 2)
         {
-            var first = ParseElement(trimmedLines[i])!;
-            var second = ParseElement(trimmedLines[i + 1])!;
+            var first = ParseElement(trimmedLines[i]);
+            var second = ParseElement(trimmedLines[i + 1]);
 
             pairs.Add(new PacketPair((i + 2) / 2, first, second));
         }
@@ -26,17 +24,11 @@ public static class PacketParser
     {
         return input
             .Where(l => !string.IsNullOrWhiteSpace(l))
-            .Select(l => ParseElement(l)!);
+            .Select(ParseElement);
     }
 
-    public static PacketElement? ParseElement(string? elementString)
+    public static PacketElement ParseElement(string elementString)
     {
-        if (string.IsNullOrEmpty(elementString))
-        {
-            return null;
-        }
-        
-        // As long as we do not pass NumberStyles.AllowThousands strings like "1,000" will not be parsed
         if (int.TryParse(elementString, out var value))
         {
             return new IntegerPacketElement(value);
@@ -48,38 +40,30 @@ public static class PacketParser
         
         for (var i = 0; i < elementString.Length; i++)
         {
-            var curChar = elementString[i];
-
-            switch (curChar)
+            switch (elementString[i])
             {
                 case PacketElement.ListStart:
-                {
                     listCount++;
                     break;
-                }
                 case PacketElement.ListEnd:
-                {
                     listCount--;
-                    if (listCount == 0)
+                    if (listCount == 0 && lastDelimiter + 1 < i)
                     {
-                        // We have hit the end of a List, parse from (just after) the previous list delimiter to here
+                        //  We have hit the end of a List, parse from (just after) the previous list delimiter to here
                         //
-                        list.AddIfNotNull(ParseElement(elementString[(lastDelimiter + 1)..i]));
+                        list.Add(ParseElement(elementString[(lastDelimiter + 1)..i]));
                     }
                     break;
-                }
                 case PacketElement.ElementDelimiter:
-                {
-                    if (listCount == 1)
+                    if (listCount == 1 && lastDelimiter + 1 < i)
                     {
-                        // We are in the first level of a list, and have hit a list delimiter, parse from just after
-                        // the previous list delimiter to here
+                        //  We are in the first level of a list, and have hit a list delimiter, parse from just after
+                        //  the previous list delimiter to here
                         //
-                        list.AddIfNotNull(ParseElement(elementString[(lastDelimiter + 1)..i]));
+                        list.Add(ParseElement(elementString[(lastDelimiter + 1)..i]));
                         lastDelimiter = i;
                     }
                     break;
-                }
             }
         }
 

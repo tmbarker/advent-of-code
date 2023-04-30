@@ -1,5 +1,3 @@
-using Utilities.Numerics;
-
 namespace Problems.Y2020.D14;
 
 public readonly struct MaskFloating
@@ -43,13 +41,37 @@ public readonly struct MaskFloating
         for (var i = 0UL; i < numBitVariations; i++)
         {
             var floatingValue = value |= _setMask;
-            var bitsLsbFirst = BitHelper.GetBitsLsbFirst(i, numFloatingBits);
+            var bitsLsbFirst = GetBitsLsbFirst(
+                value: i,
+                padToLength: numFloatingBits);
             
             for (var b = 0; b < numFloatingBits; b++)
             {
-                floatingValue = BitHelper.ForceBit(floatingValue, _floatingBitIndices[b], bitsLsbFirst[b]);
+                floatingValue = ForceBit(
+                    value: floatingValue,
+                    bit: _floatingBitIndices[b],
+                    set: bitsLsbFirst[b]);
             }
+            
             yield return floatingValue;
         }
+    }
+    
+    private static IList<bool> GetBitsLsbFirst(ulong value, int padToLength)
+    {
+        var bits = new List<bool>();
+        while (value > 0 || bits.Count < padToLength)
+        {
+            bits.Add(value % 2 > 0);
+            value /= 2;
+        }
+        return bits;
+    }
+    
+    private static ulong ForceBit(ulong value, int bit, bool set)
+    {
+        return set
+            ? value | (1UL << bit)
+            : value & ~(1UL << bit);
     }
 }
