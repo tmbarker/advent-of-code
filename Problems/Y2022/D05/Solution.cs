@@ -17,21 +17,21 @@ public class Solution : SolutionBase
 
         return part switch
         {
-            1 => GetTopCratesAfterPlan(plan!, CranePickupMode.OneAtATime),
-            2 => GetTopCratesAfterPlan(plan!, CranePickupMode.ManyAtATime),
+            1 => GetTopCratesAfterPlan(plan!, PickupMode.OneAtATime),
+            2 => GetTopCratesAfterPlan(plan!, PickupMode.ManyAtATime),
             _ => ProblemNotSolvedString
         };
     }
 
-    private static string GetTopCratesAfterPlan(CranePlan plan, CranePickupMode mode)
+    private static string GetTopCratesAfterPlan(CranePlan plan, PickupMode mode)
     {
         return GetTopCrates(CraneOperator.ExecutePlan(plan, mode));
     }
     
-    private static string GetTopCrates(StacksState state)
+    private static string GetTopCrates(Dictionary<int, Stack<char>> state)
     {
         var sb = new StringBuilder();
-        foreach (var stack in state.StackMap.Values)
+        foreach (var stack in state.Values)
         {
             sb.Append(stack.Peek());
         }

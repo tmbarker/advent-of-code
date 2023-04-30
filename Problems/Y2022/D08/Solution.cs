@@ -15,7 +15,9 @@ public class Solution : SolutionBase
 
     public override object Run(int part)
     {
-        var trees = ParseTrees(GetInputLines());
+        var input = GetInputLines();
+        var trees = Grid2D<int>.MapChars(input, c => c - '0');
+        
         return part switch
         {
             1 => CountVisibleTrees(trees),
@@ -102,10 +104,11 @@ public class Solution : SolutionBase
     
     private static int GetScenicScore(Grid2D<int> trees, Vector2D position)
     {
-        return GetViewingDistance(trees, position, Vector2D.Up) *
-               GetViewingDistance(trees, position, Vector2D.Down) *
-               GetViewingDistance(trees, position, Vector2D.Left) *
-               GetViewingDistance(trees, position, Vector2D.Right);
+        return 
+            GetViewingDistance(trees, position, Vector2D.Up) *
+            GetViewingDistance(trees, position, Vector2D.Down) *
+            GetViewingDistance(trees, position, Vector2D.Left) *
+            GetViewingDistance(trees, position, Vector2D.Right);
     }
 
     private static int GetViewingDistance(Grid2D<int> trees, Vector2D position, Vector2D viewingVector)
@@ -128,10 +131,5 @@ public class Solution : SolutionBase
         }
 
         return viewingDistance;
-    }
-    
-    private static Grid2D<int> ParseTrees(IList<string> input)
-    {
-        return Grid2D<int>.MapChars(input, c => c - '0');
     }
 }

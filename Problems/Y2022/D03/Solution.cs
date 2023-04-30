@@ -28,24 +28,19 @@ public class Solution : SolutionBase
 
         foreach (var rucksack in rucksacks)
         {
-            var totalNumItems = rucksack.Length;
-            var numItemsPerCompartment = totalNumItems / 2;
-            
-            for (var i = 0; i < totalNumItems; i++)
+            for (var i = 0; i < rucksack.Length; i++)
             {
-                if (i < numItemsPerCompartment)
+                if (i < rucksack.Length / 2)
                 {
                     set.Add(rucksack[i]);
                     continue;
                 }
 
-                if (!set.Contains(rucksack[i]))
+                if (set.Contains(rucksack[i]))
                 {
-                    continue;
+                    set.Remove(rucksack[i]);
+                    prioritySum += GetItemPriority(rucksack[i]);
                 }
-                
-                set.Remove(rucksack[i]);
-                prioritySum += GetItemPriority(rucksack[i]);
             }
             
             set.Clear();

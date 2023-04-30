@@ -10,13 +10,13 @@ public class CranePlan
     private const int StackItemCharacterOffset = 1;
     private const int StackItemCharacterFrequency = 4;
 
-    private CranePlan(StacksState initialStacksState, IEnumerable<CraneInstruction> instructions)
+    private CranePlan(Dictionary<int, Stack<char>> initialStacksState, IEnumerable<CraneInstruction> instructions)
     {
         InitialStacksState = initialStacksState;
         Instructions = instructions;
     }
     
-    public StacksState InitialStacksState { get; }
+    public Dictionary<int, Stack<char>> InitialStacksState { get; }
     public IEnumerable<CraneInstruction> Instructions { get; }
 
     public static bool TryParse(IEnumerable<string> lines, out CranePlan? cranePlan)
@@ -27,6 +27,7 @@ public class CranePlan
         for (var i = 0; i < numLines; i++)
         {
             // The last line of stack state data will be the first line which contains a decimal/numerical character
+            //
             if (!enumeratedLines[i].Any(char.IsDigit))
             {
                 continue;
@@ -46,7 +47,7 @@ public class CranePlan
         return false;
     }
 
-    private static StacksState ParseStacksState(IEnumerable<string> lines)
+    private static Dictionary<int, Stack<char>> ParseStacksState(IEnumerable<string> lines)
     {
         // Let's reverse the list before enumerating, this means the first element will contain our stack IDs
         //
@@ -78,7 +79,7 @@ public class CranePlan
             }
         }
 
-        return new StacksState(stacksMap);
+        return stacksMap;
     }
 
     private static IEnumerable<CraneInstruction> ParseCraneInstructions(IEnumerable<string> lines)

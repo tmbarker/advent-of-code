@@ -4,5 +4,5 @@ public enum ComparisonResult
 {
     Ordered = -1,
     Indeterminate,
-    Scrambled,
+    Scrambled
 }

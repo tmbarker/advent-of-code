@@ -15,30 +15,31 @@ public class Solution : SolutionBase
         { "U", Vector2D.Up },
         { "D", Vector2D.Down },
         { "L", Vector2D.Left },
-        { "R", Vector2D.Right },
+        { "R", Vector2D.Right }
     };
 
     public override object Run(int part)
     {
-        var movements = ParseHeadMovements(GetInputLines());
+        var input = GetInputLines();
+        var steps = ParseHeadMovements(input);
+        
         return part switch
         {
-            1 => CountDistinctKnotPositions(movements, numKnots: 2),
-            2 => CountDistinctKnotPositions(movements, numKnots: 10),
+            1 => CountKnotPositions(steps, count: 2),
+            2 => CountKnotPositions(steps, count: 10),
             _ => ProblemNotSolvedString
         };
     }
 
-    private static int CountDistinctKnotPositions(Queue<Vector2D> movements, int numKnots)
+    private static int CountKnotPositions(IEnumerable<Vector2D> steps, int count)
     {
-        var knots = new Vector2D[numKnots];
-        var visited = new HashSet<Vector2D>();
+        var knots = new Vector2D[count];
+        var visited = new HashSet<Vector2D> { Vector2D.Zero };
 
-        while (movements.Count > 0)
+        foreach (var step in steps)
         {
-            knots[0] += movements.Dequeue();
-            
-            for (var i = 1; i < numKnots; i++)
+            knots[0] += step;
+            for (var i = 1; i < count; i++)
             {
                 if (!knots[i].IsAdjacentTo(knots[i - 1], Metric.Chebyshev))
                 {
@@ -46,27 +47,24 @@ public class Solution : SolutionBase
                 }
             }
             
-            visited.Add(knots[numKnots - 1]);
+            visited.Add(knots[count - 1]);
         }
 
         return visited.Count;
     }
     
-    private static Queue<Vector2D> ParseHeadMovements(IEnumerable<string> lines)
+    private static IEnumerable<Vector2D> ParseHeadMovements(IEnumerable<string> lines)
     {
-        var queue = new Queue<Vector2D>();
         foreach (var line in lines)
         {
-            var cmd = line.Split(' ');
-            var vector = VectorMap[cmd[0]];
-            var numMotions = int.Parse(cmd[1]);
+            var tokens = line.Split(' ');
+            var vector = VectorMap[tokens[0]];
+            var numMotions = int.Parse(tokens[1]);
 
             for (var i = 0; i < numMotions; i++)
             {
-                queue.Enqueue(vector);
+                yield return vector;
             }
         }
-
-        return queue;
     }
 }

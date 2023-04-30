@@ -1,7 +1,7 @@
 namespace Problems.Y2022.D05;
 
-public enum CranePickupMode
+public enum PickupMode
 {
     OneAtATime,
-    ManyAtATime,
+    ManyAtATime
 }

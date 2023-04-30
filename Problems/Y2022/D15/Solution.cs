@@ -18,7 +18,7 @@ public class Solution : SolutionBase
     public override object Run(int part)
     {
         var input = GetInputLines();
-        var reportings = ParseReportings(input);
+        var reportings = input.Select(ParseReporting).ToList();
         
         return part switch
         {
@@ -75,25 +75,21 @@ public class Solution : SolutionBase
     private static Vector2D FindDistressBeacon(IList<Reporting> reportings)
     {
         foreach (var r1 in reportings)
+        foreach (var pos in GetBoundaryPositionsInSearchArea(r1.SensorPos, r1.Range))
         {
-            foreach (var pos in GetBoundaryPositionsInSearchArea(r1.SensorPos, r1.Range))
+            var posInRangeOfSensor = false;
+            foreach (var r2 in reportings)
             {
-                var posInRangeOfSensor = false;
-                foreach (var r2 in reportings)
+                if (Vector2D.Distance(r2.SensorPos, pos, Metric.Taxicab) <= r2.Range)
                 {
-                    if (Vector2D.Distance(r2.SensorPos, pos, Metric.Taxicab) > r2.Range)
-                    {
-                        continue;
-                    }
-                    
                     posInRangeOfSensor = true;
                     break;
                 }
+            }
 
-                if (!posInRangeOfSensor)
-                {
-                    return pos;
-                }
+            if (!posInRangeOfSensor)
+            {
+                return pos;
             }
         }
 
@@ -137,11 +133,6 @@ public class Solution : SolutionBase
     private static bool IsPositionInSearchArea(Vector2D pos)
     {
         return pos is { X: >= 0, Y: >= 0 } and { X: <= SearchAreaDimension, Y: <= SearchAreaDimension };
-    }
-
-    private static IList<Reporting> ParseReportings(IEnumerable<string> lines)
-    {
-        return lines.Select(ParseReporting).ToList();
     }
 
     private static Reporting ParseReporting(string reporting)

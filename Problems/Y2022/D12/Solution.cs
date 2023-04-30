@@ -13,104 +13,63 @@ public class Solution : SolutionBase
     private const char StartMarker = 'S';
     private const char EndHeight = 'z';
     private const char EndMarker = 'E';
-
-    private static readonly HashSet<Vector2D> MovesSet = new()
-    {
-        Vector2D.Up,
-        Vector2D.Down,
-        Vector2D.Left,
-        Vector2D.Right,
-    };
     
     public override object Run(int part)
     {
+        ParseGrid(out var map, out var start, out var end);
+        
         return part switch
         {
-            1 => GetFewestStepsFromStart(),
-            2 => GetFewestStepsFromMinHeight(),
+            1 => GetMinDistance(map, start, end),
+            2 => GetFewestStepsFromMinHeight(map, end),
             _ => ProblemNotSolvedString
         };
     }
 
-    private int GetFewestStepsFromStart()
+    private static int GetFewestStepsFromMinHeight(Grid2D<char> map, Vector2D end)
     {
-        ParseGrid(out var grid, out var start, out var bestSignalPos);
-        
-        bool MoveAllowed(char from, char to) => !(to - from > 1);
-        return GetMinDistancesMap(grid, start, MoveAllowed)[bestSignalPos];
+        return map
+            .GetAllPositions()
+            .Where(pos => map[pos] == MinHeight)
+            .Min(start => GetMinDistance(map, start, end));
     }
 
-    private int GetFewestStepsFromMinHeight()
+    private static int GetMinDistance(Grid2D<char> map, Vector2D start, Vector2D end)
     {
-        ParseGrid(out var grid, out _, out var bestSignalPos);
+        var queue = new Queue<Vector2D>(new[] { start });
+        var visited = new HashSet<Vector2D>(new[] { start });
+        var depth = 0;
         
-        bool MoveAllowed(char from, char to) => to >= from || from - to == 1;
-
-        var minDistances = GetMinDistancesMap(grid, bestSignalPos, MoveAllowed);
-        var allPositions = grid.GetAllPositions();
-        
-        return allPositions
-            .Where(p => grid[p] == MinHeight)
-            .Select(position => minDistances[position])
-            .Min();
-    }
-
-    private static Dictionary<Vector2D, int> GetMinDistancesMap(Grid2D<char> grid, Vector2D start, Func<char, char, bool> moveAllowedFunc)
-    {
-        var allPositions = grid.GetAllPositions().ToList();
-        var unvisited = new HashSet<Vector2D>(allPositions);
-        var distances = allPositions.ToDictionary(n => n, _ => int.MaxValue);
-
-        distances[start] = 0;
-
-        for (var i = 0; i < allPositions.Count; i++)
+        while (queue.Any())
         {
-            var current = GetClosestUnvisited(distances, unvisited);
-            unvisited.Remove(current);
-            
-            if (distances[current] == int.MaxValue)
+            var nodesAtDepth = queue.Count;
+            while (nodesAtDepth-- > 0)
             {
-                continue;
-            }
-
-            foreach (var move in MovesSet)
-            {
-                var next = current + move;
-                if (!grid.IsInDomain(next) || !moveAllowedFunc(grid[current], grid[next]))
+                var pos = queue.Dequeue();
+                if (pos == end)
                 {
-                    continue;
+                    return depth;
                 }
 
-                var distanceViaCurrent = distances[current] + 1; 
-                if (distanceViaCurrent < distances[next])
+                var adjacent = pos
+                    .GetAdjacentSet(Metric.Taxicab)
+                    .Where(map.IsInDomain)
+                    .Where(adj => map[adj] - map[pos] <= 1)
+                    .Where(adj => !visited.Contains(adj));
+                
+                foreach (var adj in adjacent)
                 {
-                    distances[next] = distanceViaCurrent;
+                    visited.Add(adj);
+                    queue.Enqueue(adj);
                 }
             }
+
+            depth++;
         }
 
-        return distances;
+        return int.MaxValue;
     }
-
-    private static Vector2D GetClosestUnvisited(Dictionary<Vector2D, int> distances, IReadOnlySet<Vector2D> unvisited)
-    {
-        var min = int.MaxValue;
-        var closest = Vector2D.Zero;
-
-        foreach (var (position, distance) in distances)
-        {
-            if (!unvisited.Contains(position) || distance > min)
-            {
-                continue;
-            }
-            
-            min = distance;
-            closest = position;
-        }
-
-        return closest;
-    }
-
+    
     private void ParseGrid(out Grid2D<char> grid, out Vector2D start, out Vector2D end)
     {
         grid = Grid2D<char>.MapChars(GetInputLines(), c => c);

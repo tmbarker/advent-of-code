@@ -1,4 +1,5 @@
 using Problems.Common;
+using Utilities.Cartesian;
 
 namespace Problems.Y2022.D04;
 
@@ -9,46 +10,41 @@ public class Solution : SolutionBase
 {
     public override object Run(int part)
     {
-        var pairs = ParseInputLines(parseFunc: ParseAssignmentPair);
+        var assignments = ParseInputLines(parseFunc: ParseAssignment);
         return part switch
         {
-            1 => GetNumInclusivePairs(pairs),
-            2 => GetNumIntersectingPairs(pairs),
+            1 => CountEncapsulating(assignments),
+            2 => CountIntersecting(assignments),
             _ => ProblemNotSolvedString
         };
     }
 
-    private static int GetNumInclusivePairs(IEnumerable<(Pair P1, Pair P2)> pairs)
+    private static int CountEncapsulating(IEnumerable<(Aabb1D R1, Aabb1D R2)> assignments)
     {
-        return pairs.Count(assignments => CheckContains(assignments.P1, assignments.P2));
+        return assignments.Count(assignment => CheckContains(assignment.R1, assignment.R2));
     }
     
-    private static int GetNumIntersectingPairs(IEnumerable<(Pair P1, Pair P2)> pairs)
+    private static int CountIntersecting(IEnumerable<(Aabb1D R1, Aabb1D R2)> assignments)
     {
-        return pairs.Count(assignments => CheckIntersects(assignments.P1, assignments.P2));
+        return assignments.Count(assignment => Aabb1D.FindOverlap(assignment.R1, assignment.R2, out _));
     }
 
-    private static bool CheckContains(Pair a, Pair b)
+    private static bool CheckContains(Aabb1D a, Aabb1D b)
     {
-        return (a.N1 <= b.N1 && a.N2 >= b.N2) || (b.N1 <= a.N1 && b.N2 >= a.N2);
-    }
-    
-    private static bool CheckIntersects(Pair a, Pair b)
-    {
-        return a.N1 <= b.N2 && b.N1 <= a.N2;
-    }
-    
-    private static (Pair P1, Pair P2) ParseAssignmentPair(string assignmentPair)
-    {
-        var assignments = assignmentPair.Split(',');
-        return (ParseAssignment(assignments[0]), ParseAssignment(assignments[1]));
-    }
-    
-    private static Pair ParseAssignment(string assignment)
-    {
-        var sections = assignment.Split('-');
-        return new Pair(int.Parse(sections[0]), int.Parse(sections[1]));
+        return (a.Min <= b.Min && a.Max >= b.Max) || (b.Min <= a.Min && b.Max >= a.Max);
     }
 
-    private readonly record struct Pair(int N1, int N2);
+    private static (Aabb1D R1, Aabb1D R2) ParseAssignment(string line)
+    {
+        var assignments = line.Split(',');
+        return (ParseRange(assignments[0]), ParseRange(assignments[1]));
+    }
+    
+    private static Aabb1D ParseRange(string range)
+    {
+        var sections = range.Split('-');
+        return new Aabb1D(
+            min: int.Parse(sections[0]),
+            max: int.Parse(sections[1]));
+    }
 }
