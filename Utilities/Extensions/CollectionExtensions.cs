@@ -1,3 +1,4 @@
+using System.Collections.Immutable;
 using Utilities.Cartesian;
 
 namespace Utilities.Extensions;
@@ -162,6 +163,98 @@ public static class CollectionExtensions
             }
 
             startingElementIndex++;
+        }
+    }
+
+    /// <summary>
+    /// Return all combinations of the source sequence elements of size <paramref name="k"/>
+    /// </summary>
+    /// <param name="elements">The source sequence</param>
+    /// <param name="k">The number of elements in each returned combination</param>
+    public static IEnumerable<IEnumerable<T>> Combinations<T>(this IEnumerable<T> elements, int k)
+    {
+        if (k < 0)
+        {
+            throw new InvalidOperationException();
+        }
+
+        if (elements == null)
+        {
+            throw new ArgumentNullException(nameof(elements));
+        }
+
+        var enumerated = elements as T[] ?? elements.ToArray();
+        return 
+            from combination in Combinations(n: enumerated.Length, k)
+            select enumerated.ZipWhere(combination);
+    }
+    
+    /// <summary>
+    /// Takes two numbers non-negative numbers, <paramref name="n"/> and <paramref name="k"/>, and
+    /// produces all sequences of n bits with k true bits and n-k false bits.
+    /// </summary>
+    /// <param name="n">The total number of bits in each sequence</param>
+    /// <param name="k">The number of set bits in each sequence</param>
+    /// <returns></returns>
+    private static IEnumerable<ImmutableStack<bool>> Combinations(int n, int k)
+    {
+        if (k == 0 && n == 0)
+        {
+            yield return ImmutableStack<bool>.Empty;
+            yield break;
+        }
+        
+        if (n < k)
+        {
+            yield break;   
+        }
+
+        //  First produce all the sequences that start with true,
+        //  and then all the sequences that start with false.
+        //
+        //  At least one of n or k is not zero, and 0 <= k <= n,
+        //  therefore n is not zero. But k could be.
+        //
+        if (k > 0)
+        {
+            foreach (var r in Combinations(n: n - 1, k: k - 1))
+            {
+                yield return r.Push(true);
+            }
+        }
+
+        foreach (var r in Combinations(n: n - 1, k: k))
+        {
+            yield return r.Push(false);
+        }
+    }
+    
+    private static IEnumerable<T> ZipWhere<T>(this IEnumerable<T> items, IEnumerable<bool> selectors)
+    {
+        if (items == null)
+        {
+            throw new ArgumentNullException(nameof(items));
+        }
+            
+        if (selectors == null)
+        {
+            throw new ArgumentNullException(nameof(selectors));
+        }
+
+        return ZipWhereIterator(items, selectors);
+    }
+    
+    private static IEnumerable<T> ZipWhereIterator<T>(IEnumerable<T> items, IEnumerable<bool> selectors)
+    {
+        using var itemEnumerator = items.GetEnumerator();
+        using var selectorEnumerator = selectors.GetEnumerator();
+
+        while (itemEnumerator.MoveNext() && selectorEnumerator.MoveNext())
+        {
+            if (selectorEnumerator.Current)
+            {
+                yield return itemEnumerator.Current;   
+            }
         }
     }
 }

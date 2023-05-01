@@ -100,17 +100,8 @@ public class Solution : SolutionBase
         }
 
         var choices = new List<IList<Device>>();
-        foreach (var device in devices)
-        {
-            choices.Add(new[] { device });
-        }
-        
-        foreach (var device1 in devices)
-        foreach (var device2 in devices)
-        {
-            choices.Add(new List<Device> { device1, device2 });
-        }
-
+        choices.AddRange(devices.Combinations(k: 1).Select(c => c.ToList()));
+        choices.AddRange(devices.Combinations(k: 2).Select(c => c.ToList()));
         return choices;
     }
 
