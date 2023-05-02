@@ -33,7 +33,7 @@ public readonly struct Aabb1D : IEnumerable<int>, IEquatable<Aabb1D>
             return false;
         }
 
-        var limits = new[] { lhs.Min, lhs.Max, rhs.Min, rhs.Max }.OrderBy(n =>n).ToList();
+        var limits = new[] { lhs.Min, lhs.Max, rhs.Min, rhs.Max }.Order().ToList();
         overlap = new Aabb1D(
             min: limits[1],
             max: limits[2]);

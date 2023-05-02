@@ -50,7 +50,7 @@ public class Solution : SolutionBase
         var sortedFrequencies = doubledFrequencies.Values
             .Where(c => c > 0)
             .Select(n => n/2)
-            .OrderBy(n => n)
+            .Order()
             .ToList();
 
         return sortedFrequencies.Last() - sortedFrequencies.First();

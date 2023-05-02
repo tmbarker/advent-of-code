@@ -45,8 +45,8 @@ public readonly struct Aabb2D : IEnumerable<Vector2D>, IEquatable<Aabb2D>
             return false;
         }
 
-        var xLimits = new[] { lhs.XMin, lhs.XMax, rhs.XMin, rhs.XMax }.OrderBy(n =>n).ToList();
-        var yLimits = new[] { lhs.YMin, lhs.YMax, rhs.YMin, rhs.YMax }.OrderBy(n =>n).ToList();
+        var xLimits = new[] { lhs.XMin, lhs.XMax, rhs.XMin, rhs.XMax }.Order().ToList();
+        var yLimits = new[] { lhs.YMin, lhs.YMax, rhs.YMin, rhs.YMax }.Order().ToList();
 
         overlap = new Aabb2D(
             xMin: xLimits[1],

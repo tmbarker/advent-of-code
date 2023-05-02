@@ -31,7 +31,7 @@ public class Solution : SolutionBase
     {
         return GetLowPoints(grid)
             .Select(lowPoint => MeasureBasinSize(grid, lowPoint))
-            .OrderByDescending(s => s)
+            .OrderDescending()
             .Take(NumBasinsToMultiply)
             .Aggregate((i, j) => i * j);
     }

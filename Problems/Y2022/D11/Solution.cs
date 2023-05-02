@@ -39,7 +39,7 @@ public class Solution : SolutionBase
         }
 
         return activityCounts
-            .OrderByDescending(n => n)
+            .OrderDescending()
             .Take(2)
             .Aggregate((first, second) => first * second);
         

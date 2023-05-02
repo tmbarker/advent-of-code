@@ -40,7 +40,7 @@ public class Solution : SolutionBase
         calories.Add(currentCalories);
 
         return calories
-            .OrderByDescending(c => c)
+            .OrderDescending()
             .Take(num)
             .Sum();
     }

@@ -31,7 +31,7 @@ public class State : IEquatable<State>
         var devicePairs = devices
             .GroupBy(device => device.Element)
             .Select(grouping => $"<{grouping.Single(IsMicrochip).Floor}-{grouping.Single(IsGenerator).Floor}>")
-            .OrderBy(pairKey => pairKey);
+            .Order();
         
         sb.Append($"[Elevator: {elevator}]");
         sb.Append($"[Devices: {string.Join("", devicePairs)}]");

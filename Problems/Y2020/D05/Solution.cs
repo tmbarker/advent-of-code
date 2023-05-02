@@ -22,7 +22,7 @@ public class Solution : SolutionBase
     {
         var orderedSeatIds = boardingPasses
             .Select(GetSeatId)
-            .OrderBy(id => id)
+            .Order()
             .ToList();
 
         for (var i = 1; i < orderedSeatIds.Count; i++)

@@ -32,7 +32,7 @@ public readonly struct State : IEquatable<State>
     
     private static string BuildKey(Vector2D targetData, IEnumerable<Vector2D> emptyNodes)
     {
-        var ordered = emptyNodes.OrderBy(p => p, PosComparer);
+        var ordered = emptyNodes.Order(PosComparer);
         return $"<target data: {targetData}><empty nodes: {string.Join(string.Empty, ordered)}>";
     }
 

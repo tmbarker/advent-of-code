@@ -29,7 +29,7 @@ public class Solution : SolutionBase
     {
         return passphrases.Count(passphrase =>
         {
-            var sortedWords = passphrase.Select(word => string.Concat(word.OrderBy(c => c)));
+            var sortedWords = passphrase.Select(word => string.Concat(word.Order()));
             var sortedSet = new HashSet<string>(sortedWords);
 
             return sortedSet.Count == passphrase.Count;

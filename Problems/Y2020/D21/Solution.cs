@@ -72,7 +72,7 @@ public class Solution : SolutionBase
     private static string FormAllergensList(Dictionary<string, string> allergensMap)
     {
         return string.Join(',', allergensMap.Keys
-            .OrderBy(allergen => allergen)
+            .Order()
             .Select(allergen => allergensMap[allergen]));
     }
     

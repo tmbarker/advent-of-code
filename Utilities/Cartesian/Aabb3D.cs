@@ -70,9 +70,9 @@ public readonly struct Aabb3D : IEnumerable<Vector3D>, IEquatable<Aabb3D>
             return false;
         }
 
-        var xLimits = new[] { lhs.XMin, lhs.XMax, rhs.XMin, rhs.XMax }.OrderBy(n =>n).ToList();
-        var yLimits = new[] { lhs.YMin, lhs.YMax, rhs.YMin, rhs.YMax }.OrderBy(n =>n).ToList();
-        var zLimits = new[] { lhs.ZMin, lhs.ZMax, rhs.ZMin, rhs.ZMax }.OrderBy(n =>n).ToList();
+        var xLimits = new[] { lhs.XMin, lhs.XMax, rhs.XMin, rhs.XMax }.Order().ToList();
+        var yLimits = new[] { lhs.YMin, lhs.YMax, rhs.YMin, rhs.YMax }.Order().ToList();
+        var zLimits = new[] { lhs.ZMin, lhs.ZMax, rhs.ZMin, rhs.ZMax }.Order().ToList();
         
         overlap = new Aabb3D(
             xMin: xLimits[1],
