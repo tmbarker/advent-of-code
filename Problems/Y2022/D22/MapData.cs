@@ -1,4 +1,3 @@
-using Problems.Common;
 using System.Text.RegularExpressions;
 using Utilities.Cartesian;
 using Utilities.Extensions;
@@ -7,24 +6,22 @@ namespace Problems.Y2022.D22;
 
 public static class MapData
 {
-    private const string InstructionRegex = @"(\d+|[LR])";
     private const string Left = "L";
     private const string Right = "R";
     private const char Free = '.';
     private const char Blocked = '#';
     
-    public const int RowMultiplier = 1000;
-    public const int ColMultiplier = 4;
+    public const int RowFactor = 1000;
+    public const int ColFactor = 4;
 
-    public static readonly Dictionary<Vector2D, int> FacingValues = new()
+    public static readonly Dictionary<Vector2D, int> FacingOffset = new()
     {
         { Vector2D.Right, 0 },
         { Vector2D.Down, 1 },
         { Vector2D.Left, 2 },
         { Vector2D.Up, 3 },
     };
-
-    // TODO: Refactor - Currently all cube face adjacencies/mappings are handled by hardcoded conditionals
+    
     public static bool TryMoveBetweenFaces(Pose pose, Grid2D<Square> board)
     {
         var targetPos = Vector2D.PositiveInfinity;
@@ -34,6 +31,15 @@ public static class MapData
         var y = pose.Pos.Y;
         var face = pose.Facing;
 
+        
+        // The input is structured like a cube net, the below conditionals manually map face edges to
+        // the constructed adjacent face edges:
+        //
+        //    1 2
+        //    3  
+        //  4 5
+        //  6
+        
         // 1 -> 6
         if (y == 199 && x is >= 50 and < 100 && face == Vector2D.Up)
         {
@@ -142,25 +148,20 @@ public static class MapData
         return true;
     }
 
-    public static void Parse(IList<string> input, out Grid2D<Square> board, out IEnumerable<Instruction> instructions)
+    public static void Parse(string[] input, out Grid2D<Square> board, out IEnumerable<Instruction> instructions)
     {
         var freePosSet = new HashSet<Vector2D>();
         var blockedPosSet = new HashSet<Vector2D>();
 
-        for (var i = 0; i < input.Count; i++)
+        for (var i = 0; i < input.Length - 2; i++)
         {
-            if (string.IsNullOrWhiteSpace(input[i]))
-            {
-                break;
-            }
-
             ParsePositionsFromLine(input[i], i, freePosSet, blockedPosSet);
         }
 
         var cols = Math.Max(freePosSet.Max(p => p.X), blockedPosSet.Max(p => p.X)) + 1;
         var rows = Math.Max(freePosSet.Max(p => p.Y), blockedPosSet.Max(p => p.Y)) + 1;
 
-        instructions = ParseInstructions(input.Last());
+        instructions = ParseInstructions(input[^1]);
         board = Grid2D<Square>.WithDimensions(rows, cols);
         
         for (var y = 0; y < rows; y++)
@@ -192,105 +193,15 @@ public static class MapData
 
     private static IEnumerable<Instruction> ParseInstructions(string line)
     {
-        var instructions = new List<Instruction>();
-        var matches = Regex.Matches(line, InstructionRegex);
-
-        foreach (Match match in matches)
+        foreach (Match match in Regex.Matches(line, @"(\d+|[LR])"))
         {
-            switch (match.Value)
+            yield return match.Value switch
             {
-                case Left:
-                    instructions.Add(new Instruction(0, Rotation3D.Positive90Z));
-                    continue;
-                case Right:
-                    instructions.Add(new Instruction(0, Rotation3D.Negative90Z));
-                    continue;
-                default:
-                    instructions.Add(new Instruction(match.ParseInt(), Rotation3D.Zero));
-                    break;
-            }
-        }
+                Left  => new Instruction(steps: 0, Rotation3D.Positive90Z),
+                Right => new Instruction(steps: 0, Rotation3D.Negative90Z),
+                _     => new Instruction(steps: match.ParseInt(), Rotation3D.Zero)
+            };
 
-        return instructions;
-    }
-
-    // TODO: Remove after hardcoded cube mapping logic is refactored
-    #region TEST MEMBERS
-
-    private const int FaceSize = 50;
-    private static readonly HashSet<Vector2D> NetFaceCoords = new()
-    {
-        FaceSize * new Vector2D(0, 0),
-        FaceSize * new Vector2D(0, 1),
-        FaceSize * new Vector2D(1, 1),
-        FaceSize * new Vector2D(1, 2),
-        FaceSize * new Vector2D(1, 3),
-        FaceSize * new Vector2D(2, 3),
-    };
-    
-    public static void TestCubeFaceMappings(Grid2D<Square> board)
-    {
-        foreach (var facePos in NetFaceCoords)
-        {
-            TestCubeFaceMapping(facePos, board);
         }
     }
-
-    private static void TestCubeFaceMapping(Vector2D faceOrigin, Grid2D<Square> board)
-    {
-        var faceVertices = new List<Vector2D>
-        {
-            faceOrigin + (FaceSize - 1) * Vector2D.Zero,
-            faceOrigin + (FaceSize - 1) * Vector2D.Up,
-            faceOrigin + (FaceSize - 1) * Vector2D.One,
-            faceOrigin + (FaceSize - 1) * Vector2D.Right,
-        };
-
-        for (var i = 0; i < faceVertices.Count - 1; i++)
-        {
-            var fromVertex = faceVertices[i];
-            var toVertex = faceVertices[i + 1];
-            var step = Vector2D.Normalize(toVertex - fromVertex);
-            var fromFacing = (Vector2D)(Rotation3D.Positive90Z * step);
-            var current = fromVertex;
-
-            // Don't need to traverse edges which aren't on the perimeter of the net
-            var isInteriorEdge = board.IsInDomain(current + fromFacing) && board[current + fromFacing] != Square.OutOfBounds;
-            if (isInteriorEdge)
-            {
-                continue;
-            }
-             
-            // Iterate along the edge
-            while (current != toVertex + step)
-            {
-                // We don't need to verify cases where the edge position is unreachable due to being blocked, or the
-                // mapped to position is blocked, there is no symmetry to verify in these cases
-                var fromPose = new Pose(current, fromFacing);
-                if (board[fromPose.Pos] == Square.Blocked || !TryMoveBetweenFaces(fromPose, board))
-                {
-                    current += step;
-                    continue;
-                }
-
-                // If we can map to a position, we must be able to map back to it
-                var returnFacing = -1 * fromPose.Facing;
-                var returnPose = new Pose(fromPose.Pos, returnFacing);
-                if (!TryMoveBetweenFaces(returnPose, board))
-                {
-                    throw new NoSolutionException($"Cannot return to {current} from {returnPose.Pos}");
-                }
-
-                // If we map to a position, we must map back to the same from position
-                if (returnPose.Pos != current)
-                {
-                    throw new NoSolutionException($"Asymmetry detected: From => {current}");
-                }
-                
-                current += step;
-            }
-        }
-    }
-
-    #endregion
 }

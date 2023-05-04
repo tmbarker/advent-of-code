@@ -105,7 +105,7 @@ public class Solution : SolutionBase
     {
         var row = board.Height - pose.Pos.Y;
         var col = pose.Pos.X + 1;
-        return MapData.RowMultiplier * row + MapData.ColMultiplier * col + MapData.FacingValues[pose.Facing];
+        return MapData.RowFactor * row + MapData.ColFactor * col + MapData.FacingOffset[pose.Facing];
     }
     
     private static Vector2D FindStartPos(Grid2D<Square> board)

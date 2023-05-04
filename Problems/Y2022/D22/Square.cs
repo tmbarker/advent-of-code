@@ -4,5 +4,5 @@ public enum Square
 {
     Free,
     Blocked,
-    OutOfBounds,
+    OutOfBounds
 }
