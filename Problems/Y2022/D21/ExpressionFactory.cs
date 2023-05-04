@@ -9,7 +9,7 @@ public static class ExpressionFactory
         { '+', Operator.Add },
         { '-', Operator.Subtract },
         { '*', Operator.Multiply },
-        { '/', Operator.Divide },
+        { '/', Operator.Divide }
     };
     
     public static Expression Parse(string expressionStr)
@@ -23,7 +23,7 @@ public static class ExpressionFactory
             {
                 Id = elements[0],
                 Operator = Operator.Identity,
-                Value = long.Parse(elements[1]),
+                Value = long.Parse(elements[1])
             };
         }
 
@@ -32,7 +32,7 @@ public static class ExpressionFactory
             Id = elements[0],
             Operator = OperatorMap[arguments[1][0]],
             Lhs = arguments[0],
-            Rhs = arguments[2],
+            Rhs = arguments[2]
         };
     }
 }

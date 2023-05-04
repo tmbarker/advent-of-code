@@ -15,7 +15,7 @@ public class Solution : SolutionBase
     private static readonly Dictionary<int, char> DrawChars = new()
     {
         { 0, '.' },
-        { 1, '#' },
+        { 1, '#' }
     };
 
     public override object Run(int part)

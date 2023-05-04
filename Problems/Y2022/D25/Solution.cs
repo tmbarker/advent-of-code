@@ -18,7 +18,7 @@ public class Solution : SolutionBase
         { 1, '1' },
         { 0, '0' },
         { -1, MinusOne },
-        { -2, MinusTwo },
+        { -2, MinusTwo }
     };
     
     public override int Parts => 1;
@@ -72,7 +72,7 @@ public class Solution : SolutionBase
         {
             MinusOne => -1,
             MinusTwo => -2,
-            _ => digit - '0',
+            _ => digit - '0'
         };
     }
 }

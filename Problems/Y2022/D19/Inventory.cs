@@ -14,15 +14,15 @@ public readonly struct Inventory
                 { Materials.Ore, 0 },
                 { Materials.Clay, 0 },
                 { Materials.Obsidian, 0 },
-                { Materials.Geode, 0 },
+                { Materials.Geode, 0 }
             },
             Robots = new Dictionary<Materials, int>
             {
                 { Materials.Ore, 1 },
                 { Materials.Clay, 0 },
                 { Materials.Obsidian, 0 },
-                { Materials.Geode, 0 },
-            },
+                { Materials.Geode, 0 }
+            }
         };
     }
     
@@ -31,7 +31,7 @@ public readonly struct Inventory
         return new Inventory
         {
             Funds = GetFundsAfterWaiting(),
-            Robots = new Dictionary<Materials, int>(Robots),
+            Robots = new Dictionary<Materials, int>(Robots)
         };
     }
 
@@ -40,7 +40,7 @@ public readonly struct Inventory
         return new Inventory
         {
             Funds = GetFundsAfterBuilding(bp, target),
-            Robots = GetRobotsAfterBuilding(target),
+            Robots = GetRobotsAfterBuilding(target)
         };
     }
     

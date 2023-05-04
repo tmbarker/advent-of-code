@@ -37,7 +37,7 @@ public static class Cheats
         "east",
         "north",
         "east",
-        "inv",
+        "inv"
     });
     public static readonly IReadOnlyList<string> InventoryItems = new List<string>
     {

@@ -6,5 +6,5 @@ public enum GameObject
     Wall,
     Block,
     Paddle,
-    Ball,
+    Ball
 }

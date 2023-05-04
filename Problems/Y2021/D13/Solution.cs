@@ -15,7 +15,7 @@ public class Solution : SolutionBase
     private static readonly Dictionary<FoldType, FoldTransform> FoldTransforms = new()
     {
         { FoldType.Horizontal, HorizontalFoldTransform},
-        { FoldType.Vertical, VerticalFoldTransform},
+        { FoldType.Vertical, VerticalFoldTransform}
     };
 
     public override object Run(int part)

@@ -126,6 +126,6 @@ public partial class IntCodeVm
     public enum ExitCode
     {
         Halted,
-        AwaitingInput,
+        AwaitingInput
     }
 }

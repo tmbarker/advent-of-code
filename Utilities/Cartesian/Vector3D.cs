@@ -189,7 +189,7 @@ public static class Vector3DExtensions
             vector + Vector3D.Left,
             vector + Vector3D.Right,
             vector + Vector3D.Forward,
-            vector + Vector3D.Back,
+            vector + Vector3D.Back
         };
     }
     

@@ -11,5 +11,5 @@ internal enum OpCode
     Lst = 7,
     Eql = 8,
     Rbo = 9,
-    Hlt = 99,
+    Hlt = 99
 }

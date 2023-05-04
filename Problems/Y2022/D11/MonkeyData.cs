@@ -46,7 +46,7 @@ public static class MonkeyData
             TestDivisor = divisor,
             ThrowToOnSuccess = success,
             ThrowToOnFailure = failure,
-            ApplyBoredDivisor = applyBoredDivisor,
+            ApplyBoredDivisor = applyBoredDivisor
         });
     } 
 }

@@ -37,7 +37,7 @@ public readonly struct Element
         Open,
         Close,
         Delim,
-        Value,
+        Value
     }
 }
 

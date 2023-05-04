@@ -14,7 +14,7 @@ public class Solution : SolutionBase
         new SyntaxChecker.Rule('(', ')', 3, 1),
         new SyntaxChecker.Rule('[', ']', 57, 2),
         new SyntaxChecker.Rule('{', '}', 1197, 3),
-        new SyntaxChecker.Rule('<', '>', 25137, 4),
+        new SyntaxChecker.Rule('<', '>', 25137, 4)
     };
     
     public override object Run(int part)

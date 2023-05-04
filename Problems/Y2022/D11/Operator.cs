@@ -4,5 +4,5 @@ public enum Operator
 {
     Add,
     Multiply,
-    Square,
+    Square
 }

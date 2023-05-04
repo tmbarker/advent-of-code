@@ -9,7 +9,7 @@ public static class MovePreferences
         (Vector2D.Up, new HashSet<Vector2D> { new(-1, 1), new(0, 1), new(1, 1) }),
         (Vector2D.Down, new HashSet<Vector2D> { new(-1, -1), new(0, -1), new(1, -1) }),
         (Vector2D.Left, new HashSet<Vector2D> { new(-1, 1), new(-1, 0), new(-1, -1) }),
-        (Vector2D.Right, new HashSet<Vector2D> { new(1, 1), new(1, 0), new(1, -1) }),
+        (Vector2D.Right, new HashSet<Vector2D> { new(1, 1), new(1, 0), new(1, -1) })
     };
 
     public static int Count => Choices.Count;

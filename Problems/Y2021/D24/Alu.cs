@@ -15,7 +15,7 @@ public static class Alu
         {"w", 0L},
         {"x", 0L},
         {"y", 0L},
-        {"z", 0L},
+        {"z", 0L}
     };
 
     public static long Run(IEnumerable<string> instructions, Queue<int> inputBuffer)

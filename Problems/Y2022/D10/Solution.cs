@@ -11,7 +11,7 @@ namespace Problems.Y2022.D10;
 public class Solution : SolutionBase
 {
     private const int CrtWidth = 40;
-    private static readonly HashSet<int> SampleCycles = new() { 20, 60, 100, 140, 180, 220, };
+    private static readonly HashSet<int> SampleCycles = new() { 20, 60, 100, 140, 180, 220 };
 
     public override object Run(int part)
     {

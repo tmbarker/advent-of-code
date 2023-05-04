@@ -66,7 +66,7 @@ public sealed class VerticalLine : Rock
             new(x: 0, y: 0),
             new(x: 0, y: 1),
             new(x: 0, y: 2),
-            new(x: 0, y: 3),
+            new(x: 0, y: 3)
         };
     }
     
@@ -82,7 +82,7 @@ public sealed class Square : Rock
             new(x: 0, y: 0),
             new(x: 0, y: 1),
             new(x: 1, y: 0),
-            new(x: 1, y: 1),
+            new(x: 1, y: 1)
         };
     }
     

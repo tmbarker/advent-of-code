@@ -16,14 +16,14 @@ public class Field
         {Amber,  1},
         {Bronze, 10},
         {Copper, 100},
-        {Desert, 1000},
+        {Desert, 1000}
     };
     private static readonly Dictionary<char, int> SideRoomAbscissas = new()
     {
         {Amber,  2},
         {Bronze, 4},
         {Copper, 6},
-        {Desert, 8},
+        {Desert, 8}
     };
 
     private readonly Dictionary<(Vector2D, Vector2D), int> _moveDistances;

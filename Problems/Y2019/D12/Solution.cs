@@ -39,7 +39,7 @@ public class Solution : SolutionBase
         {
             FindCycle(Axis.X, bodies),
             FindCycle(Axis.Y, bodies),
-            FindCycle(Axis.Z, bodies),
+            FindCycle(Axis.Z, bodies)
         };
 
         return NumericsHelper.Lcm(cycles);
@@ -129,7 +129,7 @@ public class Solution : SolutionBase
             { Moon.Io,       new State(ParsePosition(input[0]), Vector3D.Zero)},
             { Moon.Europa,   new State(ParsePosition(input[1]), Vector3D.Zero)},
             { Moon.Ganymede, new State(ParsePosition(input[2]), Vector3D.Zero)},
-            { Moon.Callisto, new State(ParsePosition(input[3]), Vector3D.Zero)},
+            { Moon.Callisto, new State(ParsePosition(input[3]), Vector3D.Zero)}
         };
     }
 

@@ -17,7 +17,7 @@ public class Solution : SolutionBase
     {
         1000,
         2000,
-        3000,
+        3000
     };
 
     public override object Run(int part)

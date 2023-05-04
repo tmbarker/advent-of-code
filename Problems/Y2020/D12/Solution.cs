@@ -26,7 +26,7 @@ public class Solution : SolutionBase
         { North, Vector2D.Up },
         { South, Vector2D.Down },
         { East, Vector2D.Right },
-        { West, Vector2D.Left },
+        { West, Vector2D.Left }
     };
 
     public override object Run(int part)

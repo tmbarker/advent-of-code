@@ -5,5 +5,5 @@ public enum Moon
     Io,
     Europa,
     Ganymede,
-    Callisto,
+    Callisto
 }

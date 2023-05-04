@@ -20,14 +20,14 @@ public class Tile
             { EdgeId.A, Vector2D.Down },
             { EdgeId.B, Vector2D.Left },
             { EdgeId.C, Vector2D.Up },
-            { EdgeId.D, Vector2D.Right },
+            { EdgeId.D, Vector2D.Right }
         };
         EdgeFingerprints = new Dictionary<EdgeId, EdgeFingerprint>
         {
             { EdgeId.A, new(GetEdgeString(EdgeId.A)) },
             { EdgeId.B, new(GetEdgeString(EdgeId.B)) },
             { EdgeId.C, new(GetEdgeString(EdgeId.C)) },
-            { EdgeId.D, new(GetEdgeString(EdgeId.D)) },
+            { EdgeId.D, new(GetEdgeString(EdgeId.D)) }
         };
     }
 
@@ -85,7 +85,7 @@ public class Tile
             {Vector2D.Up,    () => string.Concat(_content.GetRow(_content.Height - 1))},
             {Vector2D.Down,  () => string.Concat(_content.GetRow(0))},
             {Vector2D.Left,  () => string.Concat(_content.GetCol(0))},
-            {Vector2D.Right, () => string.Concat(_content.GetCol(_content.Width - 1))},
+            {Vector2D.Right, () => string.Concat(_content.GetCol(_content.Width - 1))}
         };
     }
     
@@ -95,6 +95,6 @@ public class Tile
         A,
         B,
         C,
-        D,
+        D
     }
 }

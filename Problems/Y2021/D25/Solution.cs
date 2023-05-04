@@ -14,7 +14,7 @@ public class Solution : SolutionBase
     private static readonly Dictionary<char, Vector2D> HerdDirections = new()
     {
         { '>', Vector2D.Right },
-        { 'v', Vector2D.Down },
+        { 'v', Vector2D.Down }
     };
     
     public override int Parts => 1;

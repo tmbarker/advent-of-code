@@ -28,10 +28,10 @@ public class Solution : SolutionBase
         {3, new HashSet<char>{'a', 'c', 'd', 'f', 'g'}},
         {4, new HashSet<char>{'b', 'c', 'd', 'f'}},
         {5, new HashSet<char>{'a', 'b', 'd', 'f', 'g'}},
-        {6, new HashSet<char>{'a', 'b', 'd', 'e', 'f', 'g',}},
+        {6, new HashSet<char>{'a', 'b', 'd', 'e', 'f', 'g' }},
         {7, new HashSet<char>{'a', 'c', 'f'}},
         {8, new HashSet<char>{'a', 'b', 'c', 'd', 'e', 'f', 'g'}},
-        {9, new HashSet<char>{'a', 'b', 'c', 'd', 'f', 'g'}},
+        {9, new HashSet<char>{'a', 'b', 'c', 'd', 'f', 'g'}}
     };
 
     public override object Run(int part)

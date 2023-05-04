@@ -165,7 +165,7 @@ public class Solution : SolutionBase
                 {
                     { Materials.Ore, numbers[5]},
                     { Materials.Obsidian, numbers[6]}
-                }},
+                }}
             }
         };
     }

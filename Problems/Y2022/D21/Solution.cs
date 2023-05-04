@@ -106,7 +106,7 @@ public class Solution : SolutionBase
             {
                 Operator = exp.Operator,
                 KnownOperand = results[lhsSolved ? lhs : rhs],
-                KnownOperandOnLhs = lhsSolved,
+                KnownOperandOnLhs = lhsSolved
             });
 
             var unsolvedExpr = !results.ContainsKey(lhs) ? lhs : rhs;

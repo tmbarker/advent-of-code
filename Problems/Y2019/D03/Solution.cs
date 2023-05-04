@@ -19,7 +19,7 @@ public class Solution : SolutionBase
         {'U', Vector2D.Up},
         {'D', Vector2D.Down},
         {'L', Vector2D.Left},
-        {'R', Vector2D.Right},
+        {'R', Vector2D.Right}
     };
 
     public override object Run(int part)

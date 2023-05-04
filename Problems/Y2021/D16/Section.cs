@@ -6,5 +6,5 @@ public enum Section
     TypeId,
     LengthTypeId,
     SubPacketCount,
-    SubPacketBits,
+    SubPacketBits
 }

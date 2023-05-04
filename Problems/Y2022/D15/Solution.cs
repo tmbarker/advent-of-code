@@ -104,7 +104,7 @@ public class Solution : SolutionBase
             sensorPos + (range + 1) * Vector2D.Up,
             sensorPos + (range + 1) * Vector2D.Right,
             sensorPos + (range + 1) * Vector2D.Down,
-            sensorPos + (range + 1) * Vector2D.Left,
+            sensorPos + (range + 1) * Vector2D.Left
         };
 
         //  Trace a square immediately outside of the sensor range by lerping between the vertices of the smallest

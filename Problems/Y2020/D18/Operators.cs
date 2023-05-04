@@ -12,16 +12,16 @@ public static class Operators
     public static readonly Dictionary<char, Operator> Delegates = new()
     {
         { Add, (a, b) => a + b },
-        { Mul, (a, b) => a * b },
+        { Mul, (a, b) => a * b }
     };
     public static readonly Dictionary<char, int> EqualPrecedence = new()
     {
         { Add, 0 },
-        { Mul, 0 },
+        { Mul, 0 }
     };
     public static readonly Dictionary<char, int> AddPrecedence = new()
     {
         { Add, 0 },
-        { Mul, 1 },
+        { Mul, 1 }
     };
 }

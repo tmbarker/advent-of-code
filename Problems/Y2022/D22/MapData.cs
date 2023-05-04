@@ -19,7 +19,7 @@ public static class MapData
         { Vector2D.Right, 0 },
         { Vector2D.Down, 1 },
         { Vector2D.Left, 2 },
-        { Vector2D.Up, 3 },
+        { Vector2D.Up, 3 }
     };
     
     public static bool TryMoveBetweenFaces(Pose pose, Grid2D<Square> board)

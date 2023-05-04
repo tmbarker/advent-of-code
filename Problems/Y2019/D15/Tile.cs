@@ -4,5 +4,5 @@ public enum Tile
 {
     Wall = 0,
     Empty,
-    Target,
+    Target
 }

@@ -114,7 +114,7 @@ public class Solution : SolutionBase
         {
             Lhs = elements.Groups[1].Value[0],
             Rhs = elements.Groups[2].Value[0],
-            Insert = elements.Groups[3].Value[0],
+            Insert = elements.Groups[3].Value[0]
         };
     }
 }

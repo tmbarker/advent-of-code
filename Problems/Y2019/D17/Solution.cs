@@ -18,7 +18,7 @@ public class Solution : IntCodeSolution
         { 'v', Vector2D.Up },
         { '^', Vector2D.Down },
         { '<', Vector2D.Left },
-        { '>', Vector2D.Right },
+        { '>', Vector2D.Right }
     };
     private static readonly Dictionary<char, Rotation3D> TurnCommands = new()
     {

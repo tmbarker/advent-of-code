@@ -19,7 +19,7 @@ public class Solution : SolutionBase
         new (3, 1),
         new (5, 1),
         new (7, 1),
-        new (1, 2),
+        new (1, 2)
     };
 
     public override object Run(int part)

@@ -24,6 +24,6 @@ public static class SeaMonster
         new Vector2D(17, 1),
         new Vector2D(18, 1),
         new Vector2D(18, 2),
-        new Vector2D(19, 1),
+        new Vector2D(19, 1)
     };
 }

@@ -51,7 +51,7 @@ public static class RoutineBuilder
                         {
                             {'A', aFunc},
                             {'B', bFunc},
-                            {'C', cFunc},
+                            {'C', cFunc}
                         };
                     }
                 }

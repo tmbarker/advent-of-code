@@ -7,5 +7,5 @@ public enum Materials
     Clay =     1 << 1,
     Obsidian = 1 << 2,
     Geode =    1 << 3,
-    All =          ~0,
+    All =          ~0
 }

@@ -16,7 +16,7 @@ public static class Input
         { new Vector2D(6, 0), 'D' },
         
         { new Vector2D(8, 1), 'B' },
-        { new Vector2D(8, 0), 'A' },
+        { new Vector2D(8, 0), 'A' }
     };
     
     public static readonly Dictionary<Vector2D, char> Part2 = new()
@@ -39,6 +39,6 @@ public static class Input
         { new Vector2D(8, 3), 'B' },
         { new Vector2D(8, 2), 'A' },
         { new Vector2D(8, 1), 'C' },
-        { new Vector2D(8, 0), 'A' },
+        { new Vector2D(8, 0), 'A' }
     };
 }

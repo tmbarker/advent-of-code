@@ -19,7 +19,7 @@ public class Solution : SolutionBase
         new(Rotation3D.Positive90Y,  Rotation3D.RotationsAroundAxis(Axis.Z)), // +x -> +z
         new(Rotation3D.Negative90Y,  Rotation3D.RotationsAroundAxis(Axis.Z)), // +x -> -z
         new(Rotation3D.Positive90Z,  Rotation3D.RotationsAroundAxis(Axis.Y)), // +x -> +y
-        new(Rotation3D.Negative90Z,  Rotation3D.RotationsAroundAxis(Axis.Y)), // +x -> -y
+        new(Rotation3D.Negative90Z,  Rotation3D.RotationsAroundAxis(Axis.Y))  // +x -> -y
     };
 
     public override object Run(int part)
