@@ -1,6 +1,5 @@
 using Problems.Attributes;
 using Problems.Common;
-using Utilities.Extensions;
 
 namespace Problems.Y2022.D19;
 
@@ -20,7 +19,7 @@ public class Solution : SolutionBase
 
     public override object Run(int part)
     {
-        var blueprints = ParseInputLines(parseFunc: ParseBlueprint);
+        var blueprints = ParseInputLines(parseFunc: Blueprint.Parse);
         return part switch
         {
             1 => EvaluateQualityLevels(blueprints, timeLimit: 24),
@@ -40,10 +39,11 @@ public class Solution : SolutionBase
         foreach (var blueprint in blueprints)
         {
             maxGeodes.Add(FindMaxGeodes(
+                m: 0,
                 t: timeLimit,
                 bp: blueprint,
                 inv: Inventory.GetInitial(),
-                allowedToBuild: Materials.All));
+                canBuildMask: Materials.All));
         }
 
         return maxGeodes.Aggregate((i, j) => i * j);
@@ -52,57 +52,66 @@ public class Solution : SolutionBase
     private static int ComputeQualityLevel(Blueprint blueprint, int timeLimit)
     {
         var maxBlueprintProduction = FindMaxGeodes(
+            m: 0,
             t: timeLimit,
             bp: blueprint,
             inv: Inventory.GetInitial(),
-            allowedToBuild: Materials.All);
+            canBuildMask: Materials.All);
         
         return blueprint.Id * maxBlueprintProduction;
     }
 
-    private static int FindMaxGeodes(int t, Blueprint bp, Inventory inv, Materials allowedToBuild)
+    private static int FindMaxGeodes(int m, int t, Blueprint bp, Inventory inv, Materials canBuildMask)
     {
-        switch (t)
+        if (t == 1)
         {
-            case <= 0:
-                return inv.Funds[Materials.Geode];
-            case 1:
-                return inv.Funds[Materials.Geode] + inv.Robots[Materials.Geode];
+            return inv.Robots[Materials.Geode] + inv.Funds[Materials.Geode];
         }
         
-        var maxGeodes = 0;
+        if (GetUpperBound(Materials.Geode, inv, t) <= m)
+        {
+            return m;
+        }
+
         foreach (var material in MaterialTypes)
         {
-            if (IsBuildingReasonable(material, bp, inv, allowedToBuild))
+            if (IsBuildingReasonable(material, bp, inv, t, canBuildMask))
             {
-                maxGeodes = Math.Max(maxGeodes, FindMaxGeodes(
+                m = Math.Max(m, FindMaxGeodes(
+                    m: m,
                     t: t - 1,
                     bp: bp,
                     inv: inv.AfterBuilding(bp, material),
-                    allowedToBuild: Materials.All));
+                    canBuildMask: Materials.All));
             }
         }
 
         if (IsWaitingReasonable(bp, inv))
         {
-            maxGeodes = Math.Max(maxGeodes, FindMaxGeodes(
+            m = Math.Max(m, FindMaxGeodes(
+                m: m,
                 t: t - 1,
                 bp: bp,
                 inv: inv.AfterWaiting(),
-                allowedToBuild: FormAllowedToBuyAfterWaitingMask(bp, inv)));
+                canBuildMask: UpdateCanBuildMaskAfterWaiting(bp, inv, canBuildMask)));
         }
 
-        return maxGeodes;
+        return m;
     }
 
-    private static bool IsBuildingReasonable(Materials target, Blueprint bp, Inventory inv, Materials allowedToBuild)
+    private static int GetUpperBound(Materials target, Inventory inv, int t)
     {
-        if (!allowedToBuild.HasFlag(target))
+        return inv.Funds[target] + t * inv.Robots[target] + t * (t - 1);
+    }
+
+    private static bool IsBuildingReasonable(Materials target, Blueprint bp, Inventory inv, int t, Materials canBuild)
+    {
+        if (!canBuild.HasFlag(target))
         {
             return false;
         }
 
-        if (target != Materials.Geode && inv.Robots[target] >= bp.HighestCosts[target])
+        if (target != Materials.Geode && inv.Robots[target] * t + inv.Funds[target] >= bp.HighestCosts[target] * t)
         {
             return false;
         }
@@ -115,10 +124,9 @@ public class Solution : SolutionBase
         return !bp.RobotCosts.Values.All(costs => CanAffordToBuild(costs, inv.Funds));
     }
 
-    private static Materials FormAllowedToBuyAfterWaitingMask(Blueprint bp, Inventory inv)
+    private static Materials UpdateCanBuildMaskAfterWaiting(Blueprint bp, Inventory inv, Materials mask)
     {
-        var mask = Materials.All;
-        foreach (var material in inv.Funds.Keys)
+        foreach (var material in MaterialTypes)
         {
             if (CanAffordToBuild(bp.RobotCosts[material], inv.Funds))
             {
@@ -138,35 +146,5 @@ public class Solution : SolutionBase
             }
         }
         return true;
-    }
-
-    private static Blueprint ParseBlueprint(string input)
-    {
-        var numbers = input.ParseInts();
-        return new Blueprint
-        {
-            Id = numbers[0],
-            RobotCosts = new Dictionary<Materials, Dictionary<Materials, int>>
-            {
-                { Materials.Ore , new Dictionary<Materials, int>
-                {
-                    { Materials.Ore, numbers[1]}
-                }},
-                { Materials.Clay , new Dictionary<Materials, int>
-                {
-                    { Materials.Ore, numbers[2]}
-                }},
-                { Materials.Obsidian , new Dictionary<Materials, int>
-                {
-                    { Materials.Ore, numbers[3]},
-                    { Materials.Clay, numbers[4]}
-                }},
-                { Materials.Geode , new Dictionary<Materials, int>
-                {
-                    { Materials.Ore, numbers[5]},
-                    { Materials.Obsidian, numbers[6]}
-                }}
-            }
-        };
     }
 }
