@@ -42,7 +42,7 @@ public class Solution : SolutionBase
             FindCycle(Axis.Z, bodies)
         };
 
-        return NumericsHelper.Lcm(cycles);
+        return Numerics.Lcm(cycles);
     }
 
     private static int FindCycle(Axis component, Dictionary<Moon, State> bodies)

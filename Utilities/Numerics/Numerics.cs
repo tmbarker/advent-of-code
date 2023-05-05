@@ -1,6 +1,6 @@
 namespace Utilities.Numerics;
 
-public static class NumericsHelper
+public static class Numerics
 {
     /// <summary>
     /// Compute the Greatest Common Divisor of <paramref name="a"/> and <paramref name="b"/>
