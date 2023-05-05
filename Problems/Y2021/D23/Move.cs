@@ -6,6 +6,6 @@ public readonly record struct Move(Vector2D From, Vector2D To, int Cost, MoveTyp
 
 public enum MoveType
 {
-    ToWaiting,
+    ToHallway,
     ToSideRoom
 }

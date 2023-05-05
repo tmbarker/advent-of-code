@@ -1,3 +1,4 @@
+using Problems.Attributes;
 using Problems.Common;
 
 namespace Problems.Y2021.D24;
@@ -5,6 +6,7 @@ namespace Problems.Y2021.D24;
 /// <summary>
 /// Arithmetic Logic Unit: https://adventofcode.com/2021/day/24
 /// </summary>
+[InputSpecific("Only validates hand-calculated answers, see source for details")]
 public class Solution : SolutionBase
 {
     /*
@@ -107,8 +109,8 @@ public class Solution : SolutionBase
         digit[13] = digit[0] + 8
         
     Therefore our extrema are:
-    Max: 12996997829399
-    Min: 11841231117189
+        Max: 12996997829399
+        Min: 11841231117189
     */
     
     private const string LargestModelNumber  = "12996997829399";
@@ -118,8 +120,8 @@ public class Solution : SolutionBase
     {
         return part switch
         {
-            1 => TryModelNumber(GetInputLines(), LargestModelNumber),
-            2 => TryModelNumber(GetInputLines(), SmallestModelNumber),
+            1 => TryModelNumber(monadProgram: GetInputLines(), LargestModelNumber),
+            2 => TryModelNumber(monadProgram: GetInputLines(), SmallestModelNumber),
             _ => ProblemNotSolvedString
         };
     }

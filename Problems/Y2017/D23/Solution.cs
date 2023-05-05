@@ -1,4 +1,5 @@
-﻿using Problems.Common;
+﻿using Problems.Attributes;
+using Problems.Common;
 using Problems.Y2017.Common;
 
 namespace Problems.Y2017.D23;
@@ -6,6 +7,7 @@ namespace Problems.Y2017.D23;
 /// <summary>
 /// Coprocessor Conflagration: https://adventofcode.com/2017/day/23
 /// </summary>
+[InputSpecific]
 public class Solution : SolutionBase
 {
     public override object Run(int part)
@@ -36,8 +38,9 @@ public class Solution : SolutionBase
 
     private static long RunDisassembled()
     {
-        //  This method was written by disassembling the input.
-        //  See the adjacent asm.txt for reference.
+        //  This method was written by disassembling the input. See the adjacent asm.txt for reference.
+        //  The main function of the assembly program is counting composite numbers within a range,
+        //  where the range boundaries are outputs of operations on specific constants in my input.
         //
         var count = 0L;
         for (var n = 106700L; n <= 123700L; n += 17)

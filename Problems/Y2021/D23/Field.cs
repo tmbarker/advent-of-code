@@ -80,6 +80,6 @@ public class Field
             From: from,
             To: to,
             Cost: StepCosts[actor] * _moveDistances[(from, to)],
-            Type: WaitingPositions.Contains(to) ? MoveType.ToWaiting : MoveType.ToSideRoom);
+            Type: WaitingPositions.Contains(to) ? MoveType.ToHallway : MoveType.ToSideRoom);
     }
 }

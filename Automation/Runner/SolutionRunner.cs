@@ -1,6 +1,7 @@
 using System.Diagnostics;
 using System.Text;
 using Automation.Input;
+using Problems.Attributes;
 using Problems.Common;
 
 namespace Automation.Runner;
@@ -26,16 +27,32 @@ public static class SolutionRunner
         }
 
         solution!.InputFilePath = inputPath;
-        
-        if (showLogs)
-        {
-            solution.LogsEnabled = true;
-        }
+        solution.LogsEnabled = showLogs;
 
+        if (CheckSolutionInputSpecific(solution, out var message))
+        {
+            Log(year, day, log: message, ConsoleColor.DarkYellow);
+        }
+        
         for (var i = 0; i < solution.Parts; i++)
         {
             TryRunSolutionPart(solution, year, day, part: i + 1);
         }
+    }
+
+    private static bool CheckSolutionInputSpecific(SolutionBase instance, out string message)
+    {
+        message = string.Empty;
+        var attr = Attribute.GetCustomAttribute(
+            element: instance.GetType(),
+            attributeType: typeof(InputSpecificAttribute));
+
+        if (attr != null)
+        {
+            message = $"[Warning] {((InputSpecificAttribute)attr).Message}";
+        }
+
+        return attr != null;
     }
 
     private static void TryRunSolutionPart(SolutionBase solutionInstance, int year, int day, int part)

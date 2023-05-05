@@ -1,3 +1,4 @@
+using Problems.Attributes;
 using Problems.Common;
 using Problems.Y2016.Common;
 
@@ -6,6 +7,7 @@ namespace Problems.Y2016.D23;
 /// <summary>
 /// Safe Cracking: https://adventofcode.com/2016/day/23
 /// </summary>
+[InputSpecific]
 public class Solution : SolutionBase
 {
     public override object Run(int part)

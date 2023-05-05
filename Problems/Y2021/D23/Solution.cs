@@ -1,3 +1,4 @@
+using Problems.Attributes;
 using Problems.Common;
 using Utilities.Cartesian;
 
@@ -6,6 +7,7 @@ namespace Problems.Y2021.D23;
 /// <summary>
 /// Amphipod: https://adventofcode.com/2021/day/23
 /// </summary>
+[InputSpecific("Inputs for this puzzle are difficult to parse arbitrarily, as such mine are hardcoded")]
 public class Solution : SolutionBase
 {
     public override object Run(int part)
@@ -18,22 +20,31 @@ public class Solution : SolutionBase
         };
     }
 
-    private static int FindMinCost(State state, Field field)
+    private static int FindMinCost(State initial, Field field)
     {
-        if (AllActorsFinished(state, field))
+        var costs = new Dictionary<State, int> { { initial, 0 } };
+        var queue = new PriorityQueue<State, int>(new[] { (initial, 0) });
+
+        while (queue.Count > 0)
         {
-            return state.Cost;   
+            var state = queue.Dequeue();
+            if (AllActorsFinished(state, field))
+            {
+                return state.Cost;   
+            }
+
+            var adjacent = GetReasonableMoves(state, field)
+                .Select(adj => state.AfterMove(adj))
+                .Where(adj => !costs.TryGetValue(adj, out var cost) || adj.Cost < cost);
+            
+            foreach (var adj in adjacent)
+            {
+                costs[adj] = adj.Cost;
+                queue.Enqueue(adj, adj.Cost); 
+            }
         }
 
-        var minCost = int.MaxValue;
-        foreach (var move in GetReasonableMoves(state, field))
-        {
-            minCost = Math.Min(minCost, FindMinCost(
-                state: state.AfterMove(move),
-                field: field));
-        }
-
-        return minCost;
+        throw new NoSolutionException();
     }
     
     private static IEnumerable<Move> GetReasonableMoves(State state, Field field)

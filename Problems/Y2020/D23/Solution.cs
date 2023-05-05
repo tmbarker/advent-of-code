@@ -8,18 +8,24 @@ namespace Problems.Y2020.D23;
 /// </summary>
 public class Solution : SolutionBase
 {
-    private const int Moves1 = 100;
-    private const int Moves2 = 10000000;
-    private const int PadTo = 1000000;
-
     public override object Run(int part)
     {
-        var numbers = ParseNumbers(GetInputText());
+        var cups = GetInputText()
+            .Select(c => c - '0')
+            .ToList();
+        
+        var map = part switch
+        {
+            1 => PlayGame(moves: 100, cups),
+            2 => PlayGame(moves: 10000000, cups: Pad(cups, length: 1000000)),
+            _ => throw new NoSolutionException()
+        };
+        
         return part switch
         {
-            1 => FormWrappingString(PlayGame(Moves1, numbers)),
-            2 => ComputeProduct(PlayGame(Moves2, PadNumbersTo(numbers, PadTo))),
-            _ => ProblemNotSolvedString
+            1 => FormWrappingString(map),
+            2 => ComputeProduct(map),
+            _ => throw new NoSolutionException()
         };
     }
 
@@ -28,11 +34,11 @@ public class Solution : SolutionBase
         var curCup = cups.First();
         var minCup = cups.Min();
         var maxCup = cups.Max();
-        
+
         var nextCupMap = new int[cups.Count + 1];
         for (var i = 0; i < cups.Count; i++)
         {
-            nextCupMap[i + 1] = cups[(cups.IndexOf(i + 1) + 1) % cups.Count];
+            nextCupMap[cups[i]] = cups[(i + 1) % cups.Count];
         }
         
         for (var m = 0; m < moves; m++)
@@ -70,28 +76,25 @@ public class Solution : SolutionBase
             next = nextCupMap[next];
             sb.Append(next);
         }
+        
         return sb.ToString();
     }
 
     private static long ComputeProduct(IReadOnlyList<int> nextCupMap)
     {
-        var n1 = nextCupMap[1];
-        var n2 = nextCupMap[n1];
-        return (long)n1 * n2;
+        var nc1 = nextCupMap[1];
+        var nc2 = nextCupMap[nc1];
+        return (long)nc1 * nc2;
     }
     
-    private static IList<int> PadNumbersTo(IList<int> numbers, int padTo)
+    private static IList<int> Pad(IList<int> numbers, int length)
     {
-        var padded = new List<int>(Enumerable.Range(1, padTo));
+        var padded = new List<int>(Enumerable.Range(1, length));
         for (var i = 0; i < numbers.Count; i++)
         {
             padded[i] = numbers[i];
         }
+        
         return padded;
-    }
-    
-    private static IList<int> ParseNumbers(string input)
-    {
-        return new List<int>(input.Select(c => int.Parse(c.ToString())));
     }
 }
