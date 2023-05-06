@@ -18,113 +18,116 @@ public class Solution : SolutionBase
     {
         return part switch
         {
-            1 => GetHeightNaive(numRocks: 2022L, out _),
+            1 => GetHeightNaive(numRocks: 2022L),
             2 => GetHeightCycle(numRocks: 1000000000000L),
             _ => ProblemNotSolvedString
         };
     }
 
-    private long GetHeightNaive(long numRocks, out List<int> heightDeltas)
+    private long GetHeightNaive(long numRocks)
     {
-        heightDeltas = new List<int>();
-        
-        var jetPattern = ParseJetPattern();
-        var rockPile = new HashSet<Vector2D>(GetFloorPositions());
-        var rockPileHeight = 0;
+        var height = 0;
+        var pile = new HashSet<Vector2D>(collection: GetFloorPositions());
+        var jetPattern = JetPattern.Parse(sequence: GetInputText());
 
         for (var i = 0; i < numRocks; i++)
         {
-            AddRockToPile(
-                rock: RockSource.Get(i), 
-                pos: new Vector2D(SpawnOffset, SpawnHeight + rockPileHeight + 1), 
-                rockPile: rockPile, 
-                jetPattern: jetPattern);
-            
-            heightDeltas.Add(rockPile.Max(r => r.Y) - rockPileHeight);
-            rockPileHeight += heightDeltas.Last();
+            height = AddRockAndMeasure(
+                rock: RockSource.Get(i),
+                pos: GetSpawnPos(height),
+                pile: pile,
+                pattern: jetPattern);
         }
 
-        return rockPileHeight;
+        return height;
     }
 
     private long GetHeightCycle(long numRocks)
     {
-        const int warmupDuration = 500;
-        const int cycleFindSeed = 5000;
+        var pile = new HashSet<Vector2D>(collection: GetFloorPositions());
+        var jetPattern = JetPattern.Parse(sequence: GetInputText());
         
-        GetHeightNaive(cycleFindSeed, out var heightDeltas);
-        heightDeltas = heightDeltas.Skip(warmupDuration).ToList();
+        var count = 0;
+        var height = 0;
+        var hash = string.Empty;
+        var seen = new Dictionary<string, (int Rocks, int Height)>();
 
-        var cycleFound = false;
-        var cycleLength = 0;
-        var cycleHeight = 0;
-
-        for (var c = 1; c < heightDeltas.Count / 2; c++)
+        while (seen.TryAdd(hash, (count, height)))
         {
-            var cycleValid = true;
-            for (var i = 0; i < heightDeltas.Count - c; i++)
-            {
-                if (heightDeltas[i] != heightDeltas[i + c])
-                {
-                    cycleValid = false;
-                    break;
-                }
-            }
+            height = AddRockAndMeasure(
+                rock: RockSource.Get(count),
+                pos: GetSpawnPos(height),
+                pile: pile,
+                pattern: jetPattern);
 
-            if (cycleValid)
+            hash = HashState(count++ % 5, jetPattern.Index, height, pile);
+        }
+        
+        var cycleLength = count - seen[hash].Rocks;
+        var cycleHeight = height - seen[hash].Height;
+        
+        var remainder = numRocks % cycleLength;
+        var numCycles = (numRocks - remainder) / cycleLength;
+        
+        return numCycles * cycleHeight + GetHeightNaive(remainder);
+    }
+
+    private static string HashState(int rockIndex, int jetIndex, int height, IReadOnlySet<Vector2D> pile)
+    {
+        var profile = new int[ChamberWidth];
+        for (var x = 0; x < ChamberWidth; x++)
+        {
+            var depth = 0;
+            while (!pile.Contains(new Vector2D(x, y: height - depth)))
             {
-                cycleFound = true;
-                cycleLength = c;
-                cycleHeight = heightDeltas.Take(cycleLength).Sum();
-                break;
+                depth++;
             }
+                
+            profile[x] = depth;
         }
 
-        if (!cycleFound)
-        {
-            throw new NoSolutionException();
-        }
-
-        var calculateNaive = numRocks % cycleLength;
-        var numCycles = (numRocks - calculateNaive) / cycleLength;
-        
-        return numCycles * cycleHeight + GetHeightNaive(calculateNaive, out _);
+        return
+            $"[Profile: {string.Join(',', profile)}]" +
+            $"[Rock: {rockIndex}]" +
+            $"[Jet: {jetIndex}]";
     }
     
-    private static void AddRockToPile(Rock rock, Vector2D pos, HashSet<Vector2D> rockPile, JetPattern jetPattern)
+    private static Vector2D GetSpawnPos(int pileHeight)
+    {
+        return new Vector2D(x: SpawnOffset, y: SpawnHeight + pileHeight + 1);
+    }
+    
+    private static int AddRockAndMeasure(Rock rock, Vector2D pos, HashSet<Vector2D> pile, JetPattern pattern)
     {
         while (true)
         {
-            var jetVector = jetPattern.Next();
-            if (CanMove(rock, pos, jetVector, rockPile))
+            var jetVector = pattern.Next();
+            if (CanMove(rock, pos, desiredMove: jetVector, pile))
             {
                 pos += jetVector;
             }
             
-            if (CanMove(rock, pos, Gravity, rockPile))
+            if (CanMove(rock, pos, desiredMove: Gravity, pile))
             {
                 pos += Gravity;
                 continue;
             }
     
-            MarkPositions(rock, pos, rockPile);
+            AddToPile(rock, pos, pile);
             break;
         }
+
+        return pile.Max(item => item.Y);
     }
     
     private static bool CanMove(Rock rock, Vector2D pos, Vector2D desiredMove, IReadOnlySet<Vector2D> rockPile)
     {
         return rock.Shape
             .Select(p => pos + desiredMove + p)
-            .All(p => PositionAvailable(p, rockPile));
+            .All(p => p.X is >= 0 and < ChamberWidth && !rockPile.Contains(p));
     }
 
-    private static bool PositionAvailable(Vector2D targetPos, IReadOnlySet<Vector2D> rockPile)
-    {
-        return targetPos.X is >= 0 and < ChamberWidth && !rockPile.Contains(targetPos);
-    }
-
-    private static void MarkPositions(Rock rock, Vector2D pos, ISet<Vector2D> rockPile)
+    private static void AddToPile(Rock rock, Vector2D pos, ISet<Vector2D> rockPile)
     {
         foreach (var position in rock.Shape.Select(p => pos + p))
         {
@@ -138,10 +141,5 @@ public class Solution : SolutionBase
         {
             yield return new Vector2D(x, y: 0);
         }
-    }
-    
-    private JetPattern ParseJetPattern()
-    {
-        return JetPattern.Parse(GetInputText());
     }
 }

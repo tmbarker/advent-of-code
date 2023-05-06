@@ -3,8 +3,6 @@ namespace Problems.Y2022.D17;
 public static class RockSource
 {
     private static readonly List<Rock> List = new();
-
-    private static int CycleLength => List.Count; 
     
     static RockSource()
     {
@@ -17,6 +15,6 @@ public static class RockSource
 
     public static Rock Get(int index)
     {
-        return List[index % CycleLength];
+        return List[index % List.Count];
     }
 }

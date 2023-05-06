@@ -10,22 +10,26 @@ public class JetPattern
         { '<', Vector2D.Left }
     };
 
-    private readonly Queue<Vector2D> _queue;
+
+    private readonly List<Vector2D> _list;
+
+    public int Index { get; private set; }
 
     private JetPattern(IEnumerable<Vector2D> vectors)
     {
-        _queue = new Queue<Vector2D>(vectors);
+        Index = 0;
+        _list = new List<Vector2D>(vectors);
     }
 
     public Vector2D Next()
     {
-        var vector = _queue.Dequeue();
-        _queue.Enqueue(vector);
-        return vector;
+        var next = _list[Index % _list.Count];
+        Index = (Index + 1) % _list.Count;
+        return next;
     }
 
-    public static JetPattern Parse(string input)
+    public static JetPattern Parse(string sequence)
     {
-        return new JetPattern(input.Select(c => JetVectorMap[c]));
+        return new JetPattern(sequence.Select(c => JetVectorMap[c]));
     }
 }
