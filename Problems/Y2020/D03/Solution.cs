@@ -9,17 +9,15 @@ namespace Problems.Y2020.D03;
 /// </summary>
 public class Solution : SolutionBase
 {
-    private const char Tree = '#';
-
     private static readonly Vector2D InitialPos = Vector2D.Zero;
-    private static readonly Vector2D Trajectory = new(3, 1);
-    private static readonly IList<Vector2D> Trajectories = new List<Vector2D>()
+    private static readonly Vector2D Trajectory = new(x: 3, y: 1);
+    private static readonly IList<Vector2D> Trajectories = new List<Vector2D>
     {
-        new (1, 1),
-        new (3, 1),
-        new (5, 1),
-        new (7, 1),
-        new (1, 2)
+        new (x: 1, y: 1),
+        new (x: 3, y: 1),
+        new (x: 5, y: 1),
+        new (x: 7, y: 1),
+        new (x: 1, y: 2)
     };
 
     public override object Run(int part)
@@ -46,7 +44,7 @@ public class Solution : SolutionBase
 
         while (pos.Y < length)
         {
-            if (forest[pos.Y][pos.X] == Tree)
+            if (forest[pos.Y][pos.X] == '#')
             {
                 count++;
             }

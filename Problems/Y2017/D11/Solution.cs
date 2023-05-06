@@ -23,7 +23,7 @@ public class Solution : SolutionBase
     public override object Run(int part)
     {
         var input = GetInputText();
-        var steps = input.Split(',');
+        var steps = input.Split(separator: ',');
         
         return part switch
         {

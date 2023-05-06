@@ -41,7 +41,7 @@ public class Solution : SolutionBase
         var adjacencyMap = new Dictionary<string, HashSet<string>>();
         foreach (var line in lines)
         {
-            var vertices = line.Split('-');
+            var vertices = line.Split(separator: '-');
             var v1 = vertices[0];
             var v2 = vertices[1];
             

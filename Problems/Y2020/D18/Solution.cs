@@ -1,6 +1,6 @@
-using System.Text.RegularExpressions;
 using Problems.Attributes;
 using Problems.Common;
+using Utilities.Extensions;
 
 namespace Problems.Y2020.D18;
 
@@ -13,8 +13,6 @@ using Precedences = IReadOnlyDictionary<char, int>;
 [Favourite("Operation Order", Topics.StringParsing|Topics.Math, Difficulty.Medium)]
 public class Solution : SolutionBase
 {
-    private static readonly Regex WhitespaceRegex = new(@"\s+");
-
     public override object Run(int part)
     {
         var expressions = ParseExpressions(GetInputLines());
@@ -83,6 +81,6 @@ public class Solution : SolutionBase
     
     private static Queue<char> ParseTokens(string expression)
     {
-        return new Queue<char>(WhitespaceRegex.Replace(expression, string.Empty));
+        return new Queue<char>(expression.TrimWhitespace());
     }
 }

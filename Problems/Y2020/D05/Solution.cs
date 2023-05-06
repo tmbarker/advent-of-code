@@ -43,11 +43,11 @@ public class Solution : SolutionBase
         
         var rowBits = (int)Math.Round(Math.Log2(numRows));
         var row = Convert.ToInt16(boardingPass[..rowBits]
-            .Replace('F', '0')
-            .Replace('B', '1'), 2);
+            .Replace(oldChar: 'F', newChar: '0')
+            .Replace(oldChar: 'B', newChar: '1'), fromBase: 2);
         var col = Convert.ToInt16(boardingPass[rowBits..]
-            .Replace('L', '0')
-            .Replace('R', '1'), 2);
+            .Replace(oldChar: 'L', newChar: '0')
+            .Replace(oldChar: 'R', newChar: '1'), fromBase: 2);
 
         return numCols * row + col;
 

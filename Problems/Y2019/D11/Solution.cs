@@ -33,8 +33,8 @@ public class Solution : IntCodeSolution
         var program = LoadIntCodeProgram();
         return part switch
         {
-            1 => RunRobot(program, Black).Count,
-            2 => Draw(RunRobot(program, White)),
+            1 => RunRobot(program, startColour: Black).Count,
+            2 => Draw(RunRobot(program, startColour: White)),
             _ => ProblemNotSolvedString
         };
     }

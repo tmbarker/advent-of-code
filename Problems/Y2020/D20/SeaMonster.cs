@@ -10,20 +10,20 @@ public static class SeaMonster
 
     public static readonly HashSet<Vector2D> Pattern = new()
     {
-        new Vector2D(0, 1),
-        new Vector2D(1, 0),
-        new Vector2D(4, 0),
-        new Vector2D(5, 1),
-        new Vector2D(6, 1),
-        new Vector2D(7, 0),
-        new Vector2D(10, 0),
-        new Vector2D(11, 1),
-        new Vector2D(12, 1),
-        new Vector2D(13, 0),
-        new Vector2D(16, 0),
-        new Vector2D(17, 1),
-        new Vector2D(18, 1),
-        new Vector2D(18, 2),
-        new Vector2D(19, 1)
+        new Vector2D(x:  0, y: 1),
+        new Vector2D(x:  1, y: 0),
+        new Vector2D(x:  4, y: 0),
+        new Vector2D(x:  5, y: 1),
+        new Vector2D(x:  6, y: 1),
+        new Vector2D(x:  7, y: 0),
+        new Vector2D(x: 10, y: 0),
+        new Vector2D(x: 11, y: 1),
+        new Vector2D(x: 12, y: 1),
+        new Vector2D(x: 13, y: 0),
+        new Vector2D(x: 16, y: 0),
+        new Vector2D(x: 17, y: 1),
+        new Vector2D(x: 18, y: 1),
+        new Vector2D(x: 18, y: 2),
+        new Vector2D(x: 19, y: 1)
     };
 }

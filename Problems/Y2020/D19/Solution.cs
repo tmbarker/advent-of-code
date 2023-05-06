@@ -116,7 +116,7 @@ public class Solution : SolutionBase
         rules = new Dictionary<int, string>();
         for (var i = 0; !string.IsNullOrWhiteSpace(input[i]); i++)
         {
-            var elements = input[i].Split(':');
+            var elements = input[i].Split(separator: ':');
             var ruleId = int.Parse(elements[0]);
             
             rules.Add(ruleId, elements[1]);

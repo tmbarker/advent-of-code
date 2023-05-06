@@ -6,7 +6,6 @@ public static class MapChars
 {
     public const char Start = 'X';
     public const char Empty = '.';
-    public const char Wall = '#';
     
     public static readonly Dictionary<Vector2D, char> DoorChars = new()
     {

@@ -2,15 +2,39 @@ using Utilities.Cartesian;
 
 namespace Problems.Y2019.D12;
 
-public readonly struct StateComp
+public readonly struct StateComp : IEquatable<StateComp>
 {
     public StateComp(Axis component, State state)
     {
         Pos = state.Pos.GetComponent(component);
         Vel = state.Vel.GetComponent(component);
     }
-
-    // ReSharper disable UnusedAutoPropertyAccessor.Local
+    
     private int Pos { get; }
     private int Vel { get; }
+
+    public bool Equals(StateComp other)
+    {
+        return Pos == other.Pos && Vel == other.Vel;
+    }
+
+    public override bool Equals(object? obj)
+    {
+        return obj is StateComp other && Equals(other);
+    }
+
+    public override int GetHashCode()
+    {
+        return HashCode.Combine(Pos, Vel);
+    }
+
+    public static bool operator ==(StateComp left, StateComp right)
+    {
+        return left.Equals(right);
+    }
+
+    public static bool operator !=(StateComp left, StateComp right)
+    {
+        return !left.Equals(right);
+    }
 }

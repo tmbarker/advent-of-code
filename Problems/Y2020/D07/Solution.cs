@@ -74,8 +74,8 @@ public class Solution : SolutionBase
             foreach (Match match in contents)
             {
                 capacityMap[colour].Add(new BagContent(
-                    count: match.Groups[1].ParseInt(), 
-                    colour: match.Groups[2].Value));
+                    Count: match.Groups[1].ParseInt(), 
+                    Colour: match.Groups[2].Value));
             }
         }
         return capacityMap;

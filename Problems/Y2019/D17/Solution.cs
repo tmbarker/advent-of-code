@@ -14,7 +14,8 @@ public class Solution : IntCodeSolution
     
     private static readonly Dictionary<char, Vector2D> Directions = new()
     {
-        // NOTE: The UV coordinate system is used for this problem, while the Vector2D static vectors are XY
+        //  NOTE: The UV coordinate system is used for this problem, while the Vector2D static vectors are XY
+        // 
         { 'v', Vector2D.Up },
         { '^', Vector2D.Down },
         { '<', Vector2D.Left },

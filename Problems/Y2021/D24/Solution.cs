@@ -113,20 +113,20 @@ public class Solution : SolutionBase
         Min: 11841231117189
     */
     
-    private const string LargestModelNumber  = "12996997829399";
-    private const string SmallestModelNumber = "11841231117189";
+    private const string MaxModelNumber  = "12996997829399";
+    private const string MinModelNumber = "11841231117189";
 
     public override object Run(int part)
     {
         return part switch
         {
-            1 => TryModelNumber(monadProgram: GetInputLines(), LargestModelNumber),
-            2 => TryModelNumber(monadProgram: GetInputLines(), SmallestModelNumber),
+            1 => ValidateModelNumber(monadProgram: GetInputLines(), modelNumber: MaxModelNumber),
+            2 => ValidateModelNumber(monadProgram: GetInputLines(), modelNumber: MinModelNumber),
             _ => ProblemNotSolvedString
         };
     }
 
-    private static string TryModelNumber(IEnumerable<string> monadProgram, string modelNumber)
+    private static string ValidateModelNumber(IEnumerable<string> monadProgram, string modelNumber)
     {
         var digitBuffer = new Queue<int>(modelNumber.Select(c => c - '0'));
         var result = Alu.Run(monadProgram, digitBuffer);

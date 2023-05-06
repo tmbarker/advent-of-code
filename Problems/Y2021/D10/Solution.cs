@@ -11,10 +11,10 @@ public class Solution : SolutionBase
 {
     private static readonly List<SyntaxChecker.Rule> SyntaxRules = new()
     {
-        new SyntaxChecker.Rule('(', ')', 3, 1),
-        new SyntaxChecker.Rule('[', ']', 57, 2),
-        new SyntaxChecker.Rule('{', '}', 1197, 3),
-        new SyntaxChecker.Rule('<', '>', 25137, 4)
+        new SyntaxChecker.Rule(openWith: '(', closeWith: ')', errorPoints: 3,     completionPoints: 1),
+        new SyntaxChecker.Rule(openWith: '[', closeWith: ']', errorPoints: 57,    completionPoints: 2),
+        new SyntaxChecker.Rule(openWith: '{', closeWith: '}', errorPoints: 1197,  completionPoints: 3),
+        new SyntaxChecker.Rule(openWith: '<', closeWith: '>', errorPoints: 25137, completionPoints: 4)
     };
     
     public override object Run(int part)

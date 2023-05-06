@@ -46,4 +46,6 @@ public class Solution : SolutionBase
             Letter: matches.Groups[3].Value[0],
             Password: matches.Groups[4].Value);
     }
+    
+    private readonly record struct Policy(int N1, int N2, char Letter, string Password);
 }

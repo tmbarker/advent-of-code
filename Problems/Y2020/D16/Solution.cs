@@ -125,6 +125,6 @@ public class Solution : SolutionBase
 
     private static Ticket ParseTicket(string line)
     {
-        return new List<int>(line.Split(',').Select(int.Parse));
+        return new List<int>(line.Split(separator: ',').Select(int.Parse));
     }
 }

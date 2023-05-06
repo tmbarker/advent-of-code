@@ -16,7 +16,7 @@ public class Solution : SolutionBase
     public override object Run(int part)
     {
         var input = GetInputText();
-        var instructions = input.Split(',');
+        var instructions = input.Split(separator: ',');
 
         return part switch
         {

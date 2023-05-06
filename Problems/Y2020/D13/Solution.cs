@@ -67,6 +67,6 @@ public class Solution : SolutionBase
     private static void ParseInput(IList<string> input, out int timestamp, out IList<string> busIds)
     {
         timestamp = int.Parse(input[0]);
-        busIds = new List<string>(input[1].Split(','));
+        busIds = new List<string>(input[1].Split(separator: ','));
     }
 }

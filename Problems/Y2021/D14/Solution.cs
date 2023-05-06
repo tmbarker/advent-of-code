@@ -9,17 +9,13 @@ namespace Problems.Y2021.D14;
 /// </summary>
 public class Solution : SolutionBase
 {
-    private const string RuleRegex = @"(.)(.) -> (.)";
-    private const int Steps1 = 10;
-    private const int Steps2 = 40;
-
     public override object Run(int part)
     {
         Parse(GetInputLines(), out var polymer, out var rules);
         return part switch
         {
-            1 => GetMaxExtendedVariance(polymer, rules, Steps1),
-            2 => GetMaxExtendedVariance(polymer, rules, Steps2),
+            1 => GetMaxExtendedVariance(polymer, rules, steps: 10),
+            2 => GetMaxExtendedVariance(polymer, rules, steps: 40),
             _ => ProblemNotSolvedString
         };
     }
@@ -43,7 +39,8 @@ public class Solution : SolutionBase
             doubledFrequencies[rhs] += count;
         }
 
-        // The only polymer elements which aren't doubled are the LHS of the first pair, and the RHS of the last pair
+        //  The only polymer elements which aren't doubled are the LHS of the first pair, and the RHS of the last pair
+        // 
         doubledFrequencies[pStart]++;
         doubledFrequencies[pEnd]++;
 
@@ -109,7 +106,7 @@ public class Solution : SolutionBase
 
     private static Rule ParseRule(string line)
     {
-        var elements = Regex.Match(line, RuleRegex);
+        var elements = Regex.Match(line, @"(.)(.) -> (.)");
         return new Rule
         {
             Lhs = elements.Groups[1].Value[0],

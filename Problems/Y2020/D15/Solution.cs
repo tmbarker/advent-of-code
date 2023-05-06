@@ -47,6 +47,6 @@ public class Solution : SolutionBase
 
     private static IEnumerable<int> GetInitialNumbers(string input)
     {
-        return input.Split(',').Select(int.Parse);
+        return input.Split(separator: ',').Select(int.Parse);
     }
 }

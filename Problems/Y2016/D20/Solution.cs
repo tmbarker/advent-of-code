@@ -57,7 +57,7 @@ public class Solution : SolutionBase
     
     private static IEnumerable<IntervalEndpoint> ParseEndpoints(string line)
     {
-        var elements = line.Split('-');
+        var elements = line.Split(separator: '-');
         yield return new IntervalEndpoint(Value: long.Parse(elements[0]), Type: EndpointType.Start);
         yield return new IntervalEndpoint(Value: long.Parse(elements[1]), Type: EndpointType.End);
     }

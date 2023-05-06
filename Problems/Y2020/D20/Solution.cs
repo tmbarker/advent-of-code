@@ -69,7 +69,8 @@ public class Solution : SolutionBase
         var composite = BuildCompositeImage(tiles, assembled);
         var seaMonsterChrCount = composite.Count(kvp => kvp.Value == SeaMonster.Chr);
 
-        // We need to check 8 orientations: 0, 90, 180, and 270 deg on either side of the image
+        //  We need to check 8 orientations: 0, 90, 180, and 270 deg on either side of the image
+        // 
         for (var i = 0; i < 2; i++)
         {
             if (CheckRotationsForSeaMonster(composite, out var numFound))
@@ -131,8 +132,9 @@ public class Solution : SolutionBase
         var positions = new Dictionary<int, Vector2D> { { firstId, Vector2D.Zero } };
         var queue = new Queue<int>(new[] { firstId });
 
-        // Place the first piece arbitrarily, then continuously match all pieces with known congruences to previously
-        // placed pieces. Afterwards, normalize the positions such that the lower left piece has position (0,0)
+        //  Place the first piece arbitrarily, then continuously match all pieces with known congruences to previously
+        //  placed pieces. Afterwards, normalize the positions such that the lower left piece has position (0,0)
+        //
         while (queue.Any())
         {
             var placedTileId = queue.Dequeue();

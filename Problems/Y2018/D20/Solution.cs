@@ -27,7 +27,8 @@ public class Solution : SolutionBase
         return part switch
         {
             1 => costs.Values.Max(),
-            _ => costs.Values.Count(c => c >= 1000)
+            2 => costs.Values.Count(c => c >= 1000),
+            _ => ProblemNotSolvedString
         };
     }
 

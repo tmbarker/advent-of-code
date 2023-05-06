@@ -19,8 +19,8 @@ public class Solution : SolutionBase
     {
         var initialPositions = ParseInitialPositions(GetInputLines());
         var initialState = new GameState(
-            P1: new Player(initialPositions.P1, 0),
-            P2: new Player(initialPositions.P2, 0));
+            P1: new Player(Position: initialPositions.P1, Score: 0),
+            P2: new Player(Position: initialPositions.P2, Score: 0));
         
         return part switch
         {

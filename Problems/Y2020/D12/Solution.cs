@@ -103,7 +103,9 @@ public class Solution : SolutionBase
     private static Instruction ParseInstruction(string line)
     {
         return new Instruction(
-            command: line[0],
-            amount: int.Parse(line[1..]));
+            Command: line[0],
+            Amount: int.Parse(line[1..]));
     }
+
+    private readonly record struct Instruction(char Command, int Amount);
 }

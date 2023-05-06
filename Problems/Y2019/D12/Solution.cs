@@ -82,8 +82,8 @@ public class Solution : SolutionBase
                 z: StepVelocityComponent(Axis.Z, moon, bodies));
                 
             nextPoses.Add(moon, new State(
-                pos: state.Pos + nextVel, 
-                vel: nextVel));
+                Pos: state.Pos + nextVel, 
+                Vel: nextVel));
         }
         return nextPoses;
     }

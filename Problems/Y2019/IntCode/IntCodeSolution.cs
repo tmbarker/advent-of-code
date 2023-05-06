@@ -6,6 +6,6 @@ public abstract class IntCodeSolution : SolutionBase
 {
     protected IList<long> LoadIntCodeProgram()
     {
-        return new List<long>(GetInputText().Split(',').Select(long.Parse));
+        return new List<long>(GetInputText().Split(separator: ',').Select(long.Parse));
     }
 }

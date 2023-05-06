@@ -82,8 +82,8 @@ public class Solution : SolutionBase
 
     private static (Route W1, Route W2) ParseWireRoutes(IList<string> input)
     {
-        var w1 = input[0].Split(',');
-        var w2 = input[1].Split(',');
+        var w1 = input[0].Split(separator: ',');
+        var w2 = input[1].Split(separator: ',');
         return (w1, w2);
     }
 }

@@ -9,7 +9,6 @@ namespace Problems.Y2021.D06;
 [Favourite("Lanternfish", Topics.Math, Difficulty.Medium)]
 public class Solution : SolutionBase
 {
-    private const char Delimiter = ',';
     private const int ResetTo = 6;
     private const int SpawnAt = 8;
 
@@ -49,7 +48,7 @@ public class Solution : SolutionBase
     private IEnumerable<int> GetInitialState()
     {
         return GetInputText()
-            .Split(Delimiter)
+            .Split(separator: ',')
             .Select(int.Parse);
     }
 }

@@ -125,7 +125,7 @@ public class Solution : SolutionBase
             Section.LengthTypeId => Read(buffer, 1),
             Section.SubPacketCount => Read(buffer, 11),
             Section.SubPacketBits => Read(buffer, 15),
-            _ => throw new ArgumentOutOfRangeException(nameof(section), section.ToString())
+            _ => throw new NoSolutionException()
         };
 
         return BinToDec(binary);

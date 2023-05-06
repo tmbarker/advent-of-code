@@ -8,15 +8,12 @@ namespace Problems.Y2019.D19;
 /// </summary>
 public class Solution : IntCodeSolution
 {
-    private const int SearchSize = 50;
-    private const int ShipSize = 100;
-
     public override object Run(int part)
     {
         return part switch
         {
-            1 => CountBeamPoints(SearchSize),
-            2 => FindShip(ShipSize),
+            1 => CountBeamPoints(searchDimension: 50),
+            2 => FindShip(shipSize: 100),
             _ => ProblemNotSolvedString
         };
     }

@@ -9,33 +9,30 @@ namespace Problems.Y2021.D20;
 public class Solution : SolutionBase
 {
     private const char Lit = '#';
-    private const int Steps1 = 2;
-    private const int Steps2 = 50;
     private const int WindowSize = 3;
-    private const int BinaryRadix = 2;
 
     public override object Run(int part)
     {
         ParseInput(GetInputLines(), out var litInImage, out var algorithm);
         return part switch
         {
-            1 => EnhanceImage(litInImage, algorithm, Steps1).Count,
-            2 => EnhanceImage(litInImage, algorithm, Steps2).Count,
+            1 => EnhanceImage(litInImage, algorithm, steps: 2),
+            2 => EnhanceImage(litInImage, algorithm, steps: 50),
             _ => ProblemNotSolvedString
         };
     }
 
-    private static ISet<Vector2D> EnhanceImage(ISet<Vector2D> litInImage, IList<bool> algorithm, int numSteps)
+    private static int EnhanceImage(ISet<Vector2D> litInImage, IList<bool> algorithm, int steps)
     {
         var imageRect = new Aabb2D(litInImage, true);
         
-        for (var n = 0; n < numSteps; n++)
+        for (var n = 0; n < steps; n++)
         {
             imageRect += 1;
-            litInImage = EnhanceImage(imageRect, litInImage, algorithm, algorithm[0] && n % 2 == 1);
+            litInImage = EnhanceImage(imageRect, litInImage, algorithm, backgroundLit: algorithm[0] && n % 2 == 1);
         }
-        
-        return litInImage;
+
+        return litInImage.Count;
     }
     
     private static ISet<Vector2D> EnhanceImage(Aabb2D imageRect, ICollection<Vector2D> litInImage, IList<bool> algorithm, bool backgroundLit)
@@ -74,7 +71,7 @@ public class Solution : SolutionBase
             }
 
             var bitIndex = WindowSize * WindowSize - (x + WindowSize * y) - 1;
-            var bitValue = (int)Math.Pow(BinaryRadix, bitIndex);
+            var bitValue = (int)Math.Pow(2, bitIndex);
 
             index += bitValue;
         }

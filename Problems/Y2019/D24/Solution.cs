@@ -10,11 +10,9 @@ namespace Problems.Y2019.D24;
 public class Solution : SolutionBase
 {
     private const int Size = 5;
-    
-    private static readonly Vector2D CenterTile = new(2, 2);
-    private static readonly Aabb2D TileAabb = new(
-        extents: new[] { Vector2D.Zero, new(Size - 1, Size - 1) },
-        inclusive: true);
+
+    private static readonly Vector2D CenterTile = new(x: 2, y: 2);
+    private static readonly Aabb2D TileAabb = new(xMin: 0, yMin: 0, xMax: Size - 1, yMax: Size - 1);
 
     public override object Run(int part)
     {
@@ -117,7 +115,7 @@ public class Solution : SolutionBase
         
         foreach (var direction in Vector2D.Zero.GetAdjacentSet(Metric.Taxicab))
         {
-            // "Regular" (same depth) adjacencies
+            //  "Regular" (same depth) adjacencies
             //
             var target = xy + direction;
             if (TileAabb.Contains(target) && target != CenterTile)
@@ -126,7 +124,7 @@ public class Solution : SolutionBase
                 continue;
             }
 
-            // Encapsulating "outer" (depth -1) adjacencies
+            //  Encapsulating "outer" (depth -1) adjacencies
             //
             if (!TileAabb.Contains(target))
             {
@@ -134,7 +132,7 @@ public class Solution : SolutionBase
                 continue;
             }
             
-            // Nested "inner" (depth + 1) adjacencies
+            //  Nested "inner" (depth + 1) adjacencies
             //
             const int radius = Size / 2;
             var fixedOffset = -radius * direction;

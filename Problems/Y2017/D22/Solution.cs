@@ -56,7 +56,7 @@ public class Solution : SolutionBase
     
     private static DefaultDictionary<Vector2D, State> ParseGrid(IReadOnlyList<string> input)
     {
-        var grid = new DefaultDictionary<Vector2D, State>(defaultSelector: _ => State.Clean);
+        var grid = new DefaultDictionary<Vector2D, State>(defaultValue: State.Clean);
         var height = input.Count;
         var width = input[0].Length;
 

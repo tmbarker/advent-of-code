@@ -36,13 +36,13 @@ public class Solution : SolutionBase
 
     private static (Aabb1D R1, Aabb1D R2) ParseAssignment(string line)
     {
-        var assignments = line.Split(',');
+        var assignments = line.Split(separator: ',');
         return (ParseRange(assignments[0]), ParseRange(assignments[1]));
     }
     
     private static Aabb1D ParseRange(string range)
     {
-        var sections = range.Split('-');
+        var sections = range.Split(separator: '-');
         return new Aabb1D(
             min: int.Parse(sections[0]),
             max: int.Parse(sections[1]));

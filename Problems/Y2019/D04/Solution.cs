@@ -56,7 +56,7 @@ public class Solution : SolutionBase
     
     private static Aabb1D ParseValidRange(string input)
     {
-        var elements = input.Split('-');
+        var elements = input.Split(separator: '-');
         return new Aabb1D(
             min: int.Parse(elements[0]),
             max: int.Parse(elements[1]));

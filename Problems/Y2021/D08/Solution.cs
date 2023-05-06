@@ -10,8 +10,7 @@ public class Solution : SolutionBase
 {
     private const char PartsDelimiter = '|';
     private const char ElementsDelimiter = ' ';
-
-    // ReSharper disable CommentTypo
+    
     // NOTE: This is the reference seven segment display used in the hardcoded map below
     //       aaaa
     //      b    c
@@ -20,6 +19,7 @@ public class Solution : SolutionBase
     //      e    f
     //      e    f
     //       gggg
+    //
     private static readonly Dictionary<int, HashSet<char>> RequiredSegmentsMap = new()
     {
         {0, new HashSet<char>{'a', 'b', 'c', 'e', 'f', 'g'}},
@@ -51,8 +51,7 @@ public class Solution : SolutionBase
         var occurrences = 0;
         var uniqueSegmentCountsSet = GetDigitsWithUniqueSegmentCounts()
             .Select(d => RequiredSegmentsMap[d].Count);
-
-        // ReSharper disable once LoopCanBeConvertedToQuery
+        
         foreach (var observation in observations)
         {
             var outputDigitLengths = observation.OutputDigitSegments.Select(d => d.Length);
@@ -65,8 +64,6 @@ public class Solution : SolutionBase
     private static int SumDecodedOutputs(IEnumerable<DisplayObservation> observations)
     {
         var sum = 0;
-        
-        // ReSharper disable once LoopCanBeConvertedToQuery
         foreach (var observation in observations)
         {
             var segmentMap = DecodeSegmentPatterns(observation.UniqueSegmentPatterns);
@@ -74,7 +71,6 @@ public class Solution : SolutionBase
 
             sum += decodedOutput;
         }
-
         return sum;
     }
 
@@ -82,9 +78,10 @@ public class Solution : SolutionBase
     {
         var decodedSegmentsMap = new Dictionary<char, char>();
         
-        // We can decode the first 3 signals/segments by noticing that in any given set of 10 distinct digits, there
-        // are 3 segments with a distinct frequency count. These 3 mappings can be found by comparing the expected
-        // segment frequencies with the observed segment frequencies
+        //  We can decode the first 3 signals/segments by noticing that in any given set of 10 distinct digits, there
+        //  are 3 segments with a distinct frequency count. These 3 mappings can be found by comparing the expected
+        //  segment frequencies with the observed segment frequencies
+        //
         var expectedSegmentFrequencies = FormExpectedSegmentFrequencyMap();
         var distinctSegmentFrequencies = expectedSegmentFrequencies.FilterByDistinctValues();
         var observedSegmentFrequencies = FormObservedSegmentFrequencyMap(uniqueSegmentPatterns);
@@ -103,8 +100,9 @@ public class Solution : SolutionBase
             }
         }
 
-        // We now have 3 of 7 signals/segments decoded, to decode the remaining 4 we can use the digits which
-        // require a distinct number of segments to display, starting with the digit requiring the fewest segments
+        //  We now have 3 of 7 signals/segments decoded, to decode the remaining 4 we can use the digits which
+        //  require a distinct number of segments to display, starting with the digit requiring the fewest segments
+        //
         var orderedDigitsWithUniqueSegmentCountSet = GetDigitsWithUniqueSegmentCounts()
             .OrderBy(d => RequiredSegmentsMap[d].Count);
 
@@ -120,7 +118,8 @@ public class Solution : SolutionBase
                     continue;
                 }
                 
-                // Check that we only have 1 missing/yet to be decoded segment in the digit
+                //  Check that we only have 1 missing/yet to be decoded segment in the digit
+                //
                 if (signalPattern.Count(s => !decodedSegmentsMap.ContainsKey(s)) != 1)
                 {
                     continue;
@@ -200,8 +199,6 @@ public class Solution : SolutionBase
     private static IEnumerable<DisplayObservation> ParseSignalPatternNotes(IEnumerable<string> input)
     {
         const StringSplitOptions splitOptions = StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries;
-        
-        // ReSharper disable once LoopCanBeConvertedToQuery
         foreach (var line in input)
         {
             var parts = line.Split(PartsDelimiter, splitOptions);

@@ -64,7 +64,7 @@ public class Solution : SolutionBase
 
     private static Vector2D ParseVertex(string coordinates)
     {
-        var parts = coordinates.Split(",");
+        var parts = coordinates.Split(separator: ',');
         var x = int.Parse(parts[0]);
         var y = int.Parse(parts[1]);
 

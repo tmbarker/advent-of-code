@@ -8,9 +8,6 @@ namespace Problems.Y2020.D17;
 /// </summary>
 public class Solution : SolutionBase
 {
-    private const char On = '#';
-    private const int Cycles = 6;
-
     private static readonly IReadOnlySet<int> StayOnSet = new HashSet<int> { 2, 3 };
     private static readonly IReadOnlySet<int> TurnOnSet = new HashSet<int> { 3 };
 
@@ -18,8 +15,8 @@ public class Solution : SolutionBase
     {
         return part switch
         {
-            1 => Cycle3D(GetInputLines(), Cycles),
-            2 => Cycle4D(GetInputLines(), Cycles),
+            1 => Cycle3D(GetInputLines(), cycles: 6),
+            2 => Cycle4D(GetInputLines(), cycles: 6),
             _ => ProblemNotSolvedString
         };
     }
@@ -37,7 +34,7 @@ public class Solution : SolutionBase
     
     private static int Cycle4D(IList<string> input, int cycles)
     {
-        var active = ParseInitial(input, (x, y) => new Vector4D(x, y, 0, 0));
+        var active = ParseInitial(input, (x, y) => new Vector4D(x, y, z: 0, w: 0));
         for (var i = 0; i < cycles; i++)
         {
             active = Cycle4D(active);
@@ -95,7 +92,7 @@ public class Solution : SolutionBase
         for (var y = 0; y < rows; y++)
         for (var x = 0; x < cols; x++)
         {
-            if (input[rows - y - 1][x] == On)
+            if (input[rows - y - 1][x] == '#')
             {
                 set.Add(parseFunc(x, rows - y - 1));
             }

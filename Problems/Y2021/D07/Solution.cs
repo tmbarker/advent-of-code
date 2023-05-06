@@ -37,7 +37,7 @@ public class Solution : SolutionBase
     private IList<int> GetPositions()
     {
         return GetInputText()
-            .Split(',')
+            .Split(separator: ',')
             .Select(int.Parse)
             .ToList();
     }

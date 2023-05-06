@@ -16,8 +16,6 @@ public class Solution : SolutionBase
     private const string Cut = "cut";
     private const string Increment = "increment";
 
-    private static readonly Regex NumberRegex = new(@"(-?\d+)");
-
     public override object Run(int part)
     {
         return part switch
@@ -142,7 +140,7 @@ public class Solution : SolutionBase
     
     private static long ParseArg(string line)
     {
-        var match = NumberRegex.Match(line);
+        var match = Regex.Match(line, @"(-?\d+)");
         return match.Success
             ? long.Parse(match.Groups[0].Value)
             : 0L;
