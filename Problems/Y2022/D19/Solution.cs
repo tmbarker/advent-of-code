@@ -22,18 +22,23 @@ public class Solution : SolutionBase
         var blueprints = ParseInputLines(parseFunc: Blueprint.Parse);
         return part switch
         {
-            1 => EvaluateQualityLevels(blueprints, timeLimit: 24),
-            2 => ComputeBlueprintProducts(blueprints.Take(count: 3), timeLimit: 32),
+            1 => ComputeQualityLevels(blueprints, timeLimit: 24),
+            2 => ComputeGeodeProducts(blueprints.Take(count: 3), timeLimit: 32),
             _ => ProblemNotSolvedString
         };
     }
 
-    private static int EvaluateQualityLevels(IEnumerable<Blueprint> blueprints, int timeLimit)
+    private static int ComputeQualityLevels(IEnumerable<Blueprint> blueprints, int timeLimit)
     {
-        return blueprints.Sum(b => ComputeQualityLevel(b, timeLimit));
+        return blueprints.Sum(bp => bp.Id * FindMaxGeodes(
+            m: 0,
+            t: timeLimit,
+            bp: bp,
+            inv: Inventory.GetInitial(),
+            canBuildMask: Materials.All));
     }
 
-    private static int ComputeBlueprintProducts(IEnumerable<Blueprint> blueprints, int timeLimit)
+    private static int ComputeGeodeProducts(IEnumerable<Blueprint> blueprints, int timeLimit)
     {
         var maxGeodes = new List<int>();
         foreach (var blueprint in blueprints)
@@ -46,19 +51,7 @@ public class Solution : SolutionBase
                 canBuildMask: Materials.All));
         }
 
-        return maxGeodes.Aggregate((i, j) => i * j);
-    }
-    
-    private static int ComputeQualityLevel(Blueprint blueprint, int timeLimit)
-    {
-        var maxBlueprintProduction = FindMaxGeodes(
-            m: 0,
-            t: timeLimit,
-            bp: blueprint,
-            inv: Inventory.GetInitial(),
-            canBuildMask: Materials.All);
-        
-        return blueprint.Id * maxBlueprintProduction;
+        return maxGeodes.Aggregate((a, b) => a * b);
     }
 
     private static int FindMaxGeodes(int m, int t, Blueprint bp, Inventory inv, Materials canBuildMask)
