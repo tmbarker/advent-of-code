@@ -8,7 +8,7 @@ using CasualtyMap = Dictionary<char, int>;
 
 public class GameState
 {
-    public int Tick { get; set; } = -1;
+    public int Tick { get; set; }
     public Field Field { get; }
     public UnitMap Units { get; }
     public CasualtyMap Casualties { get; }

@@ -6,19 +6,27 @@ public static class Sim
 {
     public static CombatResult Run(GameState state, bool print)
     {
-        var tickFailure = false;
-        while (!tickFailure)
+        var success = true;
+        while (success)
         {
-            state.Tick++;
             if (print)
             {
                 state.Print();
             }
 
             var turnOrder = GetTurnOrder(state);
-            for (var i = 0; i < turnOrder.Count && !tickFailure; i++)
+            for (var i = 0; i < turnOrder.Count; i++)
             {
-                tickFailure = !TickUnit(state, turnOrder[i]);
+                if (!TickUnit(state, turnOrder[i]))
+                {
+                    success = false;
+                    break;
+                }
+                
+                if (i == turnOrder.Count - 1)
+                {
+                    state.Tick++;
+                }
             }
         }
 
