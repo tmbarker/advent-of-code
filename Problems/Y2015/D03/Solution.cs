@@ -44,7 +44,7 @@ public class Solution : SolutionBase
     private static int CountDistinctPair(string steps)
     {
         var set = new HashSet<Vector2D> { Vector2D.Zero };
-        var agents = new Dictionary<int, Vector2D>()
+        var agents = new Dictionary<int, Vector2D>
         {
             { 0, Vector2D.Zero },
             { 1, Vector2D.Zero }

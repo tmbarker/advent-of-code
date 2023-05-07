@@ -44,14 +44,38 @@ public class CircularLinkedList<T>
    
    public CircularLinkedListNode<T> AddAfter(CircularLinkedListNode<T> node, T value)
    {
-      var newNode = new CircularLinkedListNode<T>(value);
+      var newNode = new CircularLinkedListNode<T>(node.List!, value);
+      InternalInsertNodeBefore(node.Next!, newNode);
+      return newNode;
+   }
+
+   public CircularLinkedListNode<T> AddAfter(CircularLinkedListNode<T> node, CircularLinkedListNode<T> newNode)
+   {
+      if (newNode.List != null)
+      {
+         throw new InvalidOperationException($"Cannot insert node, it is already in a {nameof(CircularLinkedList<T>)}");
+      }
+
+      newNode.List = node.List!;
       InternalInsertNodeBefore(node.Next!, newNode);
       return newNode;
    }
 
    public CircularLinkedListNode<T> AddBefore(CircularLinkedListNode<T> node, T value)
    {
-      var newNode = new CircularLinkedListNode<T>(value);
+      var newNode = new CircularLinkedListNode<T>(node.List!, value);
+      InternalInsertNodeBefore(node, newNode);
+      return newNode;
+   }
+   
+   public CircularLinkedListNode<T> AddBefore(CircularLinkedListNode<T> node, CircularLinkedListNode<T> newNode)
+   {
+      if (newNode.List != null)
+      {
+         throw new InvalidOperationException($"Cannot insert node, it is already in a {nameof(CircularLinkedList<T>)}");
+      }
+
+      newNode.List = node.List!;
       InternalInsertNodeBefore(node, newNode);
       return newNode;
    }
@@ -61,7 +85,7 @@ public class CircularLinkedList<T>
    /// </summary>
    public CircularLinkedListNode<T> AddFirst(T value)
    {
-      var node = new CircularLinkedListNode<T>(value);
+      var node = new CircularLinkedListNode<T>(this, value);
       if (Head == null)
       {
          InternalInsertNodeToEmptyList(node);
@@ -79,7 +103,7 @@ public class CircularLinkedList<T>
    /// </summary>
    public CircularLinkedListNode<T> AddLast(T value)
    {
-      var node = new CircularLinkedListNode<T>(value);
+      var node = new CircularLinkedListNode<T>(this, value);
       if (Head == null)
       {
          InternalInsertNodeToEmptyList(node);
