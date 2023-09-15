@@ -47,7 +47,7 @@ public class Solution : IntCodeSolution
             .Aggregate(0, (sum, pos) => sum + pos.X * pos.Y);
     }
 
-    private long GetCollectedDust(IReadOnlySet<Vector2D> positions, Pose pose)
+    private long GetCollectedDust(IReadOnlySet<Vector2D> positions, Pose2D pose)
     {
         var robot = IntCodeVm.Create(LoadRobotProgram());
         var commands = ComputeCommands(positions, pose);
@@ -66,16 +66,16 @@ public class Solution : IntCodeSolution
             : throw new NoSolutionException(message: $"Invalid VM exit code [{ec}]");
     }
 
-    private static IEnumerable<string> ComputeCommands(IReadOnlySet<Vector2D> positions, Pose pose)
+    private static IEnumerable<string> ComputeCommands(IReadOnlySet<Vector2D> positions, Pose2D pose)
     {
         var commands = new List<string>();
-        var visited = new HashSet<Vector2D> { pose.Position };
+        var visited = new HashSet<Vector2D> { pose.Pos };
 
         while (visited.Count < positions.Count)
         {
             foreach (var (cmd, turn) in TurnCommands)
             {
-                if (!positions.Contains(pose.Turn(turn).Step().Position))
+                if (!positions.Contains(pose.Turn(turn).Step().Pos))
                 {
                     continue;
                 }
@@ -86,11 +86,11 @@ public class Solution : IntCodeSolution
             }
 
             var steps = 0;
-            while (positions.Contains(pose.Step().Position))
+            while (positions.Contains(pose.Step().Pos))
             {
                 steps++;
                 pose = pose.Step();
-                visited.Add(pose.Position);
+                visited.Add(pose.Pos);
             }
             
             commands.Add(steps.ToString());
@@ -102,7 +102,7 @@ public class Solution : IntCodeSolution
     private static State ParseCameraOutput(string ascii)
     {
         var scaffolding = new HashSet<Vector2D>();
-        var robotPose = new Pose(Vector2D.Zero, Vector2D.Zero);
+        var robotPose = new Pose2D(pos:Vector2D.Zero, face:Vector2D.Zero);
 
         var rows = ascii.Split('\n', StringSplitOptions.RemoveEmptyEntries);
         var cols = rows[0].Length;
@@ -116,7 +116,7 @@ public class Solution : IntCodeSolution
             if (Directions.TryGetValue(chr, out var direction))
             {
                 scaffolding.Add(pos);
-                robotPose = new Pose(pos, direction);
+                robotPose = new Pose2D(pos, direction);
             }
             
             if (chr == Scaffold)

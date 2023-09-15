@@ -8,6 +8,13 @@ namespace Problems.Y2022.D22;
 /// </summary>
 public class Solution : SolutionBase
 {
+    private delegate bool MoveHandler(Pose2D pose, Grid2D<Square> board, out Pose2D result);
+    private static readonly Dictionary<MoveMode, MoveHandler> MoveHandlers = new()
+    {
+        { MoveMode.Planar, TryMove2D },
+        { MoveMode.Cubic,  TryMove3D }
+    };
+    
     public override object Run(int part)
     {
         MapData.Parse(GetInputLines(), out var board, out var instructions);
@@ -22,90 +29,89 @@ public class Solution : SolutionBase
 
     private static int ComputePassword(Grid2D<Square> board, IEnumerable<Instruction> instructions, MoveMode mode)
     {
-        var pose = new Pose(FindStartPos(board), Vector2D.Right);
+        var pose = new Pose2D(
+            pos: FindStartPos(board),
+            face: Vector2D.Right);
 
-        foreach (var instruction in instructions)
-        {
-            pose = FollowInstruction(pose, board, instruction, mode);
-        }
+        pose = instructions.Aggregate(
+            seed: pose,
+            func: (current, instruction) => FollowInstruction(current, board, instruction, mode));
 
         return ComputePassword(pose, board);
     }
 
-    private static Pose FollowInstruction(Pose pose, Grid2D<Square> board, Instruction instr, MoveMode mode)
+    private static Pose2D FollowInstruction(Pose2D pose, Grid2D<Square> board, Instruction instr, MoveMode mode)
     {
         var moveSuccess = true;
         for (var i = 0; i < instr.Steps && moveSuccess; i++)
         {
-            moveSuccess = mode == MoveMode.Planar
-                ? TryMove2D(pose, board)
-                : TryMove3D(pose, board);
+            moveSuccess = MoveHandlers[mode](pose, board, out var result);
+            if (moveSuccess)
+            {
+                pose = result;
+            }
         }
 
-        pose.Facing = instr.Rotation * pose.Facing;
-        return pose;
+        return pose.Turn(instr.Rotation);
     }
 
-    private static bool TryMove2D(Pose pose, Grid2D<Square> board)
+    private static bool TryMove2D(Pose2D pose, Grid2D<Square> board, out Pose2D result)
     {
-        var desiredPos = pose.Pos + pose.Facing;
-        var defined = board.IsInDomain(desiredPos);
-            
-        if (defined && board[desiredPos] == Square.Blocked)
+        if (board.IsInDomain(pose.Ahead) && board[pose.Ahead] == Square.Blocked)
         {
+            result = default;
             return false;
         }
 
-        if (defined && board[desiredPos] == Square.Free)
+        if (board.IsInDomain(pose.Ahead) && board[pose.Ahead] == Square.Free)
         {
-            pose.Pos = desiredPos;
+            result = pose.Step();
             return true;
         }
 
-        return TryWrap2D(pose, board);
+        return TryWrap2D(pose, board, out result);
     }
     
-    private static bool TryWrap2D(Pose pose, Grid2D<Square> board)
+    private static bool TryWrap2D(Pose2D pose, Grid2D<Square> board, out Pose2D result)
     {
-        var targetPos = pose.Pos - pose.Facing;
+        var targetPos = pose.Pos - pose.Face;
         while (board.IsInDomain(targetPos) && board[targetPos] != Square.OutOfBounds)
         {
-            targetPos -= pose.Facing;
+            targetPos -= pose.Face;
         }
 
-        if (board[targetPos + pose.Facing] != Square.Free)
+        if (board[targetPos + pose.Face] != Square.Free)
         {
+            result = default;
             return false;
         }
-        
-        pose.Pos = targetPos + pose.Facing;
+
+        result = new Pose2D(pos: targetPos + pose.Face, face: pose.Face);
         return true;
     }
     
-    private static bool TryMove3D(Pose pose, Grid2D<Square> board)
+    private static bool TryMove3D(Pose2D pose, Grid2D<Square> board, out Pose2D result)
     {
-        var naivePos = pose.Pos + pose.Facing;
-        var defined = board.IsInDomain(naivePos);
-
-        if (!defined || board[naivePos] == Square.OutOfBounds)
+        if (!board.IsInDomain(pose.Ahead) || board[pose.Ahead] == Square.OutOfBounds)
         {
-            return MapData.TryMoveBetweenFaces(pose, board);
+            return MapData.TryMoveBetweenFaces(pose, board, out result);
         }
 
-        if (board[naivePos] == Square.Blocked)
+        if (board[pose.Ahead] == Square.Blocked)
         {
+            result = default;
             return false;
         }
 
-        pose.Pos = naivePos;
+        result = pose.Step();
         return true;
     }
 
-    private static int ComputePassword(Pose pose, Grid2D<Square> board)
+    private static int ComputePassword(Pose2D pose, Grid2D<Square> board)
     {
         var row = board.Height - pose.Pos.Y;
         var col = pose.Pos.X + 1;
-        return MapData.RowFactor * row + MapData.ColFactor * col + MapData.FacingOffset[pose.Facing];
+        return MapData.RowFactor * row + MapData.ColFactor * col + MapData.FacingOffset[pose.Face];
     }
     
     private static Vector2D FindStartPos(Grid2D<Square> board)

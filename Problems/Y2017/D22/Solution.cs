@@ -11,19 +11,19 @@ namespace Problems.Y2017.D22;
 [Favourite("Sporifica Virus", Topics.Vectors, Difficulty.Medium)]
 public class Solution : SolutionBase
 {
-    private static readonly Dictionary<State, Func<Pose, Pose>> Behaviors = new()
+    private static readonly Dictionary<State, Func<Pose2D, Pose2D>> Behaviors = new()
     {
-        { State.Clean,    pose => pose.Left() },
+        { State.Clean,    pose => pose.Turn(rot:Rotation3D.Positive90Z) },
         { State.Weakened, pose => pose },
-        { State.Infected, pose => pose.Right() },
-        { State.Flagged,  pose => pose.Reverse() }
+        { State.Infected, pose => pose.Turn(rot:Rotation3D.Negative90Z) },
+        { State.Flagged,  pose => pose.Turn(rot:Rotation3D.Positive180Z) }
     };
 
     public override object Run(int part)
     {
         var input = GetInputLines();
         var grid = ParseGrid(input);
-        var pose = new Pose(pos: Vector2D.Zero, face: Vector2D.Up);
+        var pose = new Pose2D(pos: Vector2D.Zero, face: Vector2D.Up);
         
         return part switch
         {
@@ -33,7 +33,7 @@ public class Solution : SolutionBase
         };
     }
 
-    private static int CountInfected(IDictionary<Vector2D, State> grid, Pose pose, int strength, int bursts)
+    private static int CountInfected(IDictionary<Vector2D, State> grid, Pose2D pose, int strength, int bursts)
     {
         var count = 0;
         for (var i = 0; i < bursts; i++)
@@ -48,7 +48,7 @@ public class Solution : SolutionBase
             }
             
             grid[pos] = next;
-            pose = Behaviors[state].Invoke(pose).Step();
+            pose = Behaviors[state](pose).Step();
         }
         
         return count;

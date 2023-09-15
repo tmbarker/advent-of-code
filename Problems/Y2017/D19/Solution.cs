@@ -32,25 +32,23 @@ public class Solution : SolutionBase
     {
         var letters = new StringBuilder();
         var steps = 1;
-        
-        var face = Vector2D.Down;
-        var pos = start;
+        var pose = new Pose2D(pos: start, face: Vector2D.Down);
 
-        while (CanMoveTo(map, pos: pos + face))
+        while (CanMoveTo(map, pos: pose.Ahead))
         {
-            pos += face;
+            pose = pose.Step();
             steps++;
             
-            if (char.IsLetter(map[pos]))
+            if (char.IsLetter(map[pose.Pos]))
             {
-                letters.Append(map[pos]);
+                letters.Append(map[pose.Pos]);
             }
 
-            if (map[pos] == Junction)
+            if (map[pose.Pos] == Junction)
             {
-                face = CanMoveTo(map, pos + (Vector2D)(Rotation3D.Positive90Z * face))
-                    ? Rotation3D.Positive90Z * face
-                    : Rotation3D.Negative90Z * face;
+                pose = CanMoveTo(map, pose.Pos + (Vector2D)(Rotation3D.Positive90Z * pose.Face))
+                    ? pose.Turn(Rotation3D.Positive90Z)
+                    : pose.Turn(Rotation3D.Negative90Z);
             }
         }
 

@@ -24,29 +24,28 @@ public class Solution : SolutionBase
 
     private static int GetMinDistance(IEnumerable<string> steps, bool haltOnRepeat)
     {
-        var pos = Vector2D.Zero;
-        var face = Vector2D.Up;
+        var pose = new Pose2D(pos: Vector2D.Zero, face: Vector2D.Up);
         var visited = new HashSet<Vector2D>();
 
         foreach (var step in steps)
         {
-            face = step[0] switch
+            pose = step[0] switch
             {
-                'L' => Rotation3D.Positive90Z * face,
-                'R' => Rotation3D.Negative90Z * face,
-                _ => face
+                'L' => pose.Turn(Rotation3D.Positive90Z),
+                'R' => pose.Turn(Rotation3D.Negative90Z),
+                _ => pose
             };
 
             for (var i = 0; i < step.ParseInt(); i++)
             {
-                pos += face;
-                if (haltOnRepeat && !visited.Add(pos))
+                pose = pose.Step();
+                if (haltOnRepeat && !visited.Add(pose.Pos))
                 {
-                    return pos.Magnitude(metric: Metric.Taxicab);
+                    return pose.Pos.Magnitude(metric: Metric.Taxicab);
                 }
             }
         }
 
-        return pos.Magnitude(metric: Metric.Taxicab);
+        return pose.Pos.Magnitude(metric: Metric.Taxicab);
     }
 }

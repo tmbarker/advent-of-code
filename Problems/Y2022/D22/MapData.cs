@@ -6,145 +6,139 @@ namespace Problems.Y2022.D22;
 
 public static class MapData
 {
-    private const string Left = "L";
-    private const string Right = "R";
-    private const char Free = '.';
-    private const char Blocked = '#';
-    
     public const int RowFactor = 1000;
     public const int ColFactor = 4;
 
     public static readonly Dictionary<Vector2D, int> FacingOffset = new()
     {
         { Vector2D.Right, 0 },
-        { Vector2D.Down, 1 },
-        { Vector2D.Left, 2 },
-        { Vector2D.Up, 3 }
+        { Vector2D.Down,  1 },
+        { Vector2D.Left,  2 },
+        { Vector2D.Up,    3 }
     };
     
-    public static bool TryMoveBetweenFaces(Pose pose, Grid2D<Square> board)
+    public static bool TryMoveBetweenFaces(Pose2D pose, Grid2D<Square> board, out Pose2D result)
     {
         var targetPos = Vector2D.PositiveInfinity;
-        var targetFacing = Vector2D.Zero;
+        var targetFace = Vector2D.Zero;
         
         var x = pose.Pos.X;
         var y = pose.Pos.Y;
-        var face = pose.Facing;
-
+        var face = pose.Face;
         
-        // The input is structured like a cube net, the below conditionals manually map face edges to
-        // the constructed adjacent face edges:
+        //  The input is structured like a cube net, the below conditionals manually map face edges to
+        //  the constructed adjacent face edges:
         //
-        //    1 2
-        //    3  
-        //  4 5
-        //  6
+        //     1 2
+        //     3  
+        //   4 5
+        //   6
         
         // 1 -> 6
         if (y == 199 && x is >= 50 and < 100 && face == Vector2D.Up)
         {
             targetPos = new Vector2D(0, 99 - x);
-            targetFacing = Vector2D.Right;
+            targetFace = Vector2D.Right;
         }
         
         // 6 -> 1
         if (x == 0 && y is >= 0 and < 50 && face == Vector2D.Left)
         {
             targetPos = new Vector2D(99 - y, 199);
-            targetFacing = Vector2D.Down;
+            targetFace = Vector2D.Down;
         }
         
         // 2 -> 6
         if (y == 199 && x is >= 100 and < 150 && face == Vector2D.Up)
         {
             targetPos = new Vector2D(x - 100, 0);
-            targetFacing = Vector2D.Up;
+            targetFace = Vector2D.Up;
         }
         
         // 6 -> 2
         if (y == 0 && x is >= 0 and < 50 && face == Vector2D.Down)
         {
             targetPos = new Vector2D(100 + x, 199);
-            targetFacing = Vector2D.Down;
+            targetFace = Vector2D.Down;
         }
         
         // 1 -> 4
         if (x == 50 && y is >= 150 and < 200 && face == Vector2D.Left)
         {
             targetPos = new Vector2D(0, 249 - y);
-            targetFacing = Vector2D.Right;
+            targetFace = Vector2D.Right;
         }
         
         // 4 -> 1
         if (x == 0 && y is >= 50 and < 100 && face == Vector2D.Left)
         {
             targetPos = new Vector2D(50, 249 - y);
-            targetFacing = Vector2D.Right;
+            targetFace = Vector2D.Right;
         }
 
         // 2 -> 5
         if (x == 149 && y is >= 150 and < 200 && face == Vector2D.Right)
         {
             targetPos = new Vector2D(99, 249 - y);
-            targetFacing = Vector2D.Left;
+            targetFace = Vector2D.Left;
         }
         
         // 5 -> 2
         if (x == 99 && y is >= 50 and < 100 && face == Vector2D.Right)
         {
             targetPos = new Vector2D(149, 249 - y);
-            targetFacing = Vector2D.Left;
+            targetFace = Vector2D.Left;
         }
         
         // 4 -> 3
         if (y == 99 && x is >= 0 and < 50 && face == Vector2D.Up)
         {
             targetPos = new Vector2D(50, 149 - x);
-            targetFacing = Vector2D.Right;
+            targetFace = Vector2D.Right;
         }
         
         // 3 -> 4
         if (x == 50 && y is >= 100 and < 150 && face == Vector2D.Left)
         {
             targetPos = new Vector2D(149 - y, 99);
-            targetFacing = Vector2D.Down;
+            targetFace = Vector2D.Down;
         }
         
         // 3 -> 2
         if (x == 99 && y is >= 100 and < 150 && face == Vector2D.Right)
         {
             targetPos = new Vector2D(249 - y, 150);
-            targetFacing = Vector2D.Up;
+            targetFace = Vector2D.Up;
         }
         
         // 2 -> 3
         if (y == 150 && x is >= 100 and < 150 && face == Vector2D.Down)
         {
             targetPos = new Vector2D(99, 249 - x);
-            targetFacing = Vector2D.Left;
+            targetFace = Vector2D.Left;
         }
         
         // 6 -> 5
         if (x == 49 && y is >= 0 and < 50 && face == Vector2D.Right)
         {
             targetPos = new Vector2D(99 - y, 50);
-            targetFacing = Vector2D.Up;
+            targetFace = Vector2D.Up;
         }
         
         // 5 -> 6
         if (y == 50 && x is >= 50 and < 100 && face == Vector2D.Down)
         {
             targetPos = new Vector2D(49, 99 - x);
-            targetFacing = Vector2D.Left;
+            targetFace = Vector2D.Left;
         }
 
         if (!board.IsInDomain(targetPos) || board[targetPos] != Square.Free)
         {
+            result = default;
             return false;
         }
-
-        pose.Pos = targetPos;
-        pose.Facing = targetFacing;
+        
+        result = new Pose2D(targetPos, targetFace);
         return true;
     }
 
@@ -181,10 +175,10 @@ public static class MapData
         {
             switch (line[x])
             {
-                case Free:
+                case '.':
                     freePosSet.Add(new Vector2D(x, y));
                     break;
-                case Blocked:
+                case '#':
                     blockedPosSet.Add(new Vector2D(x, y));
                     break;
             }
@@ -197,9 +191,9 @@ public static class MapData
         {
             yield return match.Value switch
             {
-                Left  => new Instruction(steps: 0, Rotation3D.Positive90Z),
-                Right => new Instruction(steps: 0, Rotation3D.Negative90Z),
-                _     => new Instruction(steps: match.ParseInt(), Rotation3D.Zero)
+                "L" => new Instruction(steps: 0, Rotation3D.Positive90Z),
+                "R" => new Instruction(steps: 0, Rotation3D.Negative90Z),
+                _ => new Instruction(steps: match.ParseInt(), Rotation3D.Zero)
             };
 
         }
