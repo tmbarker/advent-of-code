@@ -10,7 +10,7 @@ public static class AocHttpClient
     private const string LastRequestEnvVar = "aoc_last_request";
     private const string UserSessionName = "session";
     private const string UserAgentName = "user-agent";
-    private const string UserAgentValue = ".NET/6.0 (github.com/tmbarker/advent-of-code via AocHttpClient.cs)";
+    private const string UserAgentValue = ".NET/7.0 (github.com/tmbarker/advent-of-code via AocHttpClient.cs)";
 
     public static async Task<HttpResponseMessage> SendRequest(string route, string userSession)
     {
@@ -30,8 +30,10 @@ public static class AocHttpClient
         
         //  We do not need to worry about socket exhaustion for this low rate HttpClient usage
         //
+        // ReSharper disable UsingStatementResourceInitialization
         using var handler = new HttpClientHandler { CookieContainer = cookieContainer };
         using var client = new HttpClient(handler) { BaseAddress = baseUri };
+        // ReSharper restore UsingStatementResourceInitialization
 
         cookieContainer.Add(baseUri, new Cookie(name: UserSessionName, value: userSession));
         client.DefaultRequestHeaders.Add(name: UserAgentName, value: UserAgentValue);

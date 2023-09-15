@@ -5,15 +5,15 @@ namespace Utilities.Cartesian;
 /// </summary>
 public readonly struct Pose2D : IEquatable<Pose2D>
 {
+    public Vector2D Pos { get; }
+    public Vector2D Face { get; }
+    public Vector2D Ahead => Pos + Face;
+    
     public Pose2D(Vector2D pos, Vector2D face)
     {
         Pos = pos;
         Face = face;
     }
-
-    public Vector2D Pos { get; }
-    public Vector2D Face { get; }
-    public Vector2D Ahead => Pos + Face;
     
     public Pose2D Step()
     {
