@@ -62,11 +62,18 @@ internal static class Program
             handle: InputProvider.SetCachePath,
             symbol: cacheArg);
 
+        var scratchCommand = new Command(
+            name: "scratch",
+            description: $"Execute the {nameof(ScratchPad)}");
+
+        scratchCommand.SetHandler(handle: ScratchPad.Execute);
+        
         var rootCommand = new RootCommand(description: "CLI entry point for running AoC problem solutions");
         rootCommand.AddCommand(solveCommand);
         rootCommand.AddCommand(updateReadmeCommand);
         rootCommand.AddCommand(setUserSessionCommand);
         rootCommand.AddCommand(setInputCacheCommand);
+        rootCommand.AddCommand(scratchCommand);
         
         return await rootCommand.InvokeAsync(args);
     }
