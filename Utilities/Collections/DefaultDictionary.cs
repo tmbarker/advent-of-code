@@ -21,8 +21,8 @@ public class DefaultDictionary<TKey, TValue> : IDictionary<TKey, TValue> where T
     
     public TValue this[TKey key]
     {
-        get => _dictionary.TryGetValue(key, out var value) ? value : _defaultSelector.Invoke(key);
-        set => _dictionary[key] = value;
+        get => IndexGetInternal(key);
+        set => IndexSetInternal(key, value);
     }
 
     public DefaultDictionary(Func<TKey, TValue> defaultSelector)
@@ -86,6 +86,22 @@ public class DefaultDictionary<TKey, TValue> : IDictionary<TKey, TValue> where T
         return _dictionary.GetEnumerator();
     }
 
+    private void IndexSetInternal(TKey key, TValue value)
+    {
+        _dictionary[key] = value;
+    }
+
+    private TValue IndexGetInternal(TKey key)
+    {
+        if (_dictionary.TryGetValue(key, out var value))
+        {
+            return value;
+        }
+
+        _dictionary[key] = _defaultSelector.Invoke(key);
+        return _dictionary[key];
+    }
+    
     IEnumerator IEnumerable.GetEnumerator()
     {
         return ((IEnumerable)_dictionary).GetEnumerator();
