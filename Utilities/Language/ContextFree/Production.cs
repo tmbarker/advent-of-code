@@ -29,7 +29,7 @@ public readonly struct Production : IEquatable<Production>
         _yieldHash = string.Join(YieldDelimiter, Yields);
     }
 
-    public Production(string nonTerminal, string yields) : this(nonTerminal, yields: new[] { yields })
+    public Production(string nonTerminal, string yields) : this(nonTerminal, yields: Enumerable.Repeat(yields, 1))
     {
     }
     

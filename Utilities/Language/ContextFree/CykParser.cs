@@ -1,12 +1,28 @@
+using System.Runtime.CompilerServices;
 using Utilities.Graph;
 
 namespace Utilities.Language.ContextFree;
 
 /// <summary>
-/// A CYK Parser which exposes <see cref="Recognize"/>
+/// A parser which executes the Cocke-Younger-Kasami (CYK) recognition algorithm
 /// </summary>
 public static class CykParser
 {
+    /// <summary>
+    /// Execute the Cocke-Younger-Kasami (CYK) algorithm to attempt to parse the input using the provided grammar
+    /// </summary>
+    /// <param name="grammar">The grammar definition</param>
+    /// <param name="sentence">The input to attempt to parse</param>
+    /// <returns>A boolean representing if the input is recognized as part of the grammar</returns>
+    public static bool Recognize(Grammar grammar, List<string> sentence)
+    {
+        return RecognizeInternal(
+            grammar: grammar,
+            sentence: sentence,
+            buildParseTree: false,
+            tree: out _);
+    }
+    
     /// <summary>
     /// Execute the Cocke-Younger-Kasami (CYK) algorithm to attempt to parse the input using the provided grammar
     /// </summary>
@@ -16,16 +32,45 @@ public static class CykParser
     /// <returns>A boolean representing if the input is recognized as part of the grammar</returns>
     public static bool Recognize(Grammar grammar, List<string> sentence, out GenericTreeNode<string>? parseTreeRoot)
     {
+        return RecognizeInternal(
+            grammar: grammar,
+            sentence: sentence,
+            buildParseTree: true,
+            tree: out parseTreeRoot);
+    }
+
+    /// <summary>
+    /// Execute the Cocke-Younger-Kasami (CYK) algorithm to attempt to parse the input using the provided grammar
+    /// </summary>
+    /// <param name="grammar">The grammar definition</param>
+    /// <param name="sentence">The input to attempt to parse</param>
+    /// <param name="buildParseTree">Attempt to build a parse tree when set</param>
+    /// <param name="tree">The root node of a valid parse tree if the input is recognized
+    /// and <paramref name="buildParseTree"/> is set</param>
+    /// <returns>A boolean representing if the input is recognized as part of the grammar</returns>
+    private static bool RecognizeInternal(
+        Grammar grammar, 
+        IReadOnlyList<string> sentence, 
+        bool buildParseTree,
+        out GenericTreeNode<string>? tree)
+    {
         var n = sentence.Count;
         var table = new CykTable();
 
+        var units = grammar.Productions
+            .Where(p => IsUnitTerminal(p, grammar.Terminals))
+            .ToHashSet();
+        var bins = grammar.Productions
+            .Where(p => IsBinaryNonTerminal(p, grammar.NonTerminals))
+            .ToHashSet();
+        
         for (var s = 0; s < n; s++)
         {
-            foreach (var production in grammar.Productions)
+            foreach (var unit in units)
             {
-                if (IsUnitTerminal(production, grammar.Terminals, out var terminal) && terminal == sentence[s])
+                if (unit.Yields[0] == sentence[s])
                 {
-                    table.P[(1, s, production.NonTerminal)] = true;
+                    table.P[(1, s, unit.NonTerminal)] = true;
                 }
             }   
         }
@@ -34,64 +79,48 @@ public static class CykParser
         for (var s = 0; s <= n - l; s++)    // Start of span
         for (var p = 1; p < l; p++)         // Partition of span
         {
-            foreach (var production in grammar.Productions)
+            foreach (var bin in bins)
             {
-                if (!IsBinaryNonTerminal(production, grammar.NonTerminals, out var lhs, out var rhs))
+                if (!table.P[(p, s, bin.Yields[0])] || !table.P[(l - p, s + p, bin.Yields[1])])
                 {
                     continue;
                 }
 
-                if (!table.P[(p, s, lhs)] || !table.P[(l - p, s + p, rhs)])
-                {
-                    continue;
-                }
-
-                table.P[(l, s, production.NonTerminal)] = true;
-                table.B[(l, s, production.NonTerminal)].Add((p, lhs, rhs));
+                table.P[(l, s, bin.NonTerminal)] = true;
+                table.B[(l, s, bin.NonTerminal)].Add((p, bin.Yields[0], bin.Yields[1]));
             }
         }
 
         var recognize = table.P[(n, 0, grammar.Start)];
-        parseTreeRoot = recognize
+        tree = recognize && buildParseTree
             ? BuildParseTree(nt: grammar.Start, s: 0, l: n, t: table, i: sentence)
             : null;
-
+        
         return recognize;
     }
     
     /// <summary>
-    /// Does this production produce exactly one terminal?
+    /// Does this production yield exactly one terminal?
     /// </summary>
     /// <param name="p">The production</param>
     /// <param name="t">The set of terminals</param>
-    /// <param name="ut">The yielded terminal</param>
     /// <returns>A boolean representing if <paramref name="p"/> produces exactly one terminal</returns>
-    private static bool IsUnitTerminal(Production p, IReadOnlySet<string> t, out string ut)
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    private static bool IsUnitTerminal(Production p, IReadOnlySet<string> t)
     {
-        ut = p.Yields[0];
-        return p.Yields.Count == 1 && t.Contains(ut);
+        return p.Yields.Count == 1 && t.Contains(p.Yields[0]);
     }
 
     /// <summary>
-    /// Does this production produce exactly two non terminals? 
+    /// Does this production yield exactly two non terminals? 
     /// </summary>
     /// <param name="p">The production</param>
     /// <param name="nt">The set of non-terminals</param>
-    /// <param name="lhs">the yielded left non-terminal</param>
-    /// <param name="rhs">The yielded right non-terminal</param>
     /// <returns>A boolean representing if <paramref name="p"/> produces exactly two non-terminals</returns>
-    private static bool IsBinaryNonTerminal(Production p, IReadOnlySet<string> nt, out string lhs, out string rhs)
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    private static bool IsBinaryNonTerminal(Production p, IReadOnlySet<string> nt)
     {
-        if (p.Yields.Count == 2 && p.Yields.All(nt.Contains))
-        {
-            lhs = p.Yields[0];
-            rhs = p.Yields[1];
-            return true;
-        }
-        
-        lhs = string.Empty;
-        rhs = string.Empty;
-        return false;
+        return p.Yields.Count == 2 && nt.Contains(p.Yields[0]) && nt.Contains(p.Yields[1]);
     }
     
     /// <summary>
@@ -114,8 +143,18 @@ public static class CykParser
 
         foreach (var (p, lhs, rhs) in t.B[(l, s, nt)])
         {
-            node.Children.Add(item: BuildParseTree(nt: lhs, s: s, l: p, t: t, i: i));
-            node.Children.Add(item: BuildParseTree(nt: rhs, s: s + p, l: l - p, t: t, i: i));
+            node.Children.Add(item: BuildParseTree(
+                nt: lhs, 
+                s: s, 
+                l: p, 
+                t: t, 
+                i: i));
+            node.Children.Add(item: BuildParseTree(
+                nt: rhs,
+                s: s + p,
+                l: l - p,
+                t: t,
+                i: i));
 
             //  Stop after the first valid parse tree
             //

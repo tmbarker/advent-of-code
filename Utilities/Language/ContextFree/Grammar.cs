@@ -33,4 +33,14 @@ public class Grammar
             throw new ArgumentException("Terminals and non-terminals must be disjoint");
         }
     }
+
+    public void Print()
+    {
+        Console.WriteLine($"{nameof(Start)}: {Start}");
+        Console.WriteLine($"{nameof(Productions)}");
+        foreach (var production in Productions)
+        {
+            Console.WriteLine($"\t{production.NonTerminal} -> {string.Join(" ", production.Yields)}");
+        }
+    }
 }
