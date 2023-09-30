@@ -34,7 +34,8 @@ public class Solution : SolutionBase
         var input = GetInputLines();
         var sentences = input
             .SkipWhile(line => string.IsNullOrWhiteSpace(line) || !char.IsLetter(line[0]))
-            .Select(ParseSentence);
+            .Select(Tokenize)
+            .AsParallel();
         var productions = input
             .TakeWhile(line => !string.IsNullOrWhiteSpace(line))
             .SelectMany(line => ParseRule(line, useOverrides));
@@ -59,12 +60,12 @@ public class Solution : SolutionBase
         {
             yield return new Production(
                 nonTerminal: nonTerminal,
-                yields: alternation.Trim('"').Split(separator: ' ', options: Options));
+                yields: alternation.Trim(trimChar: '"').Split(separator: ' ', options: Options));
         }
     }
 
-    private static List<string> ParseSentence(string sentenceStr)
+    private static List<string> Tokenize(string sentence)
     {
-        return sentenceStr.Select(c => c.ToString()).ToList();
+        return sentence.Select(c => c.ToString()).ToList();
     }
 }
