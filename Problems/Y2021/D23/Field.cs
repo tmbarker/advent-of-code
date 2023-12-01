@@ -1,4 +1,3 @@
-using Utilities.Geometry;
 using Utilities.Geometry.Euclidean;
 using Utilities.Graph;
 

@@ -1,5 +1,4 @@
 using Utilities.Extensions;
-using Utilities.Geometry;
 using Utilities.Geometry.Euclidean;
 
 namespace Problems.Y2021.D19;

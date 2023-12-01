@@ -1,7 +1,6 @@
 using Problems.Common;
 using Utilities.Collections;
 using Utilities.Extensions;
-using Utilities.Geometry;
 using Utilities.Geometry.Euclidean;
 
 namespace Problems.Y2015.D06;

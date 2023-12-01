@@ -2,7 +2,6 @@ using System.Text;
 using Problems.Y2019.IntCode;
 using Utilities.Collections;
 using Utilities.Extensions;
-using Utilities.Geometry;
 using Utilities.Geometry.Euclidean;
 
 namespace Problems.Y2019.D11;

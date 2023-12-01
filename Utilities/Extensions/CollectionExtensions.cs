@@ -1,5 +1,4 @@
 using System.Collections.Immutable;
-using Utilities.Geometry;
 using Utilities.Geometry.Euclidean;
 
 namespace Utilities.Extensions;
