@@ -1,5 +1,6 @@
 using System.Text;
 using Problems.Common;
+using Utilities.Extensions;
 using Utilities.Hashing;
 
 namespace Problems.Y2016.D05;
@@ -53,7 +54,7 @@ public class Solution : SolutionBase
         {
             var hash = hashProvider.GetHashHex($"{input}{i}");
             var found = hash.StartsWith("00000");
-            var pos = hash[5] - '0';
+            var pos = hash[5].AsDigit();
 
             if (!found || !unset.Contains(pos) || pos < 0 || pos >= 8)
             {

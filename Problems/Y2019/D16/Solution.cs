@@ -1,4 +1,5 @@
 using Problems.Common;
+using Utilities.Extensions;
 
 namespace Problems.Y2019.D16;
 
@@ -107,6 +108,6 @@ public class Solution : SolutionBase
     
     private static int[] ParseNumbers(string input)
     {
-        return input.Select(c => c - '0').ToArray();
+        return input.Select(StringExtensions.AsDigit).ToArray();
     }
 }

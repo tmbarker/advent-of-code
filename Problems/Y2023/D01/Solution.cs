@@ -1,4 +1,5 @@
 using Problems.Common;
+using Utilities.Extensions;
 
 namespace Problems.Y2023.D01;
 
@@ -30,14 +31,11 @@ public class Solution : SolutionBase
         };
     }
 
-    private int Sum(Func<string, int> parseFunc)
-    {
-        return ParseInputLines(parseFunc).Sum();
-    }
-
+    private int Sum(Func<string, int> parseFunc) => ParseInputLines(parseFunc).Sum();
+    
     private static int ParseNaive(string line)
     {
-        return int.Parse($"{line.First(char.IsNumber)}{line.Last(char.IsNumber)}");
+        return 10 * line.First(char.IsNumber).AsDigit() + line.Last(char.IsNumber).AsDigit();
     }
     
     private static int ParseInterpreted(string line)
@@ -49,7 +47,7 @@ public class Solution : SolutionBase
         {
             if (char.IsNumber(line[i]))
             {
-                digits.Add(item: line[i] - '0');
+                digits.Add(item: line[i].AsDigit());
                 continue;
             }
 

@@ -1,4 +1,5 @@
 using Problems.Common;
+using Utilities.Extensions;
 
 namespace Problems.Y2015.D10;
 
@@ -11,7 +12,7 @@ public class Solution : SolutionBase
     {
         var input = GetInputText();
         var sequence = input
-            .Select(c => c - '0')
+            .Select(StringExtensions.AsDigit)
             .ToList();
         
         return part switch

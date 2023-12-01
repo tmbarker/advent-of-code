@@ -1,4 +1,5 @@
 using Problems.Common;
+using Utilities.Extensions;
 
 namespace Problems.Y2021.D03;
 
@@ -115,6 +116,6 @@ public class Solution : SolutionBase
 
     private static bool IsBitSet(string number, int bit)
     {
-        return number[number.Length - 1 - bit] - '0' > 0;
+        return number[number.Length - 1 - bit].AsDigit() > 0;
     }
 }

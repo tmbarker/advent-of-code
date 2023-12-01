@@ -1,5 +1,6 @@
 using System.Text;
 using Problems.Common;
+using Utilities.Extensions;
 
 namespace Problems.Y2020.D23;
 
@@ -11,7 +12,7 @@ public class Solution : SolutionBase
     public override object Run(int part)
     {
         var cups = GetInputText()
-            .Select(c => c - '0')
+            .Select(StringExtensions.AsDigit)
             .ToList();
         
         var map = part switch

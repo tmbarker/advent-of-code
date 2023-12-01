@@ -1,4 +1,5 @@
 using Problems.Common;
+using Utilities.Extensions;
 using Utilities.Geometry.Euclidean;
 
 namespace Problems.Y2021.D11;
@@ -54,6 +55,6 @@ public class Solution : SolutionBase
 
     private Grid2D<int> GetInitialState()
     {
-        return Grid2D<int>.MapChars(GetInputLines(), c => c - '0');
+        return Grid2D<int>.MapChars(strings: GetInputLines(), elementFunc:StringExtensions.AsDigit);
     }
 }

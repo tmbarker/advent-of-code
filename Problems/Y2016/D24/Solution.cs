@@ -69,7 +69,7 @@ public class Solution : SolutionBase
         {
             if (char.IsNumber(map[y][x]))
             {
-                pois[map[y][x] - '0'] = new Vector2D(x, y);
+                pois[map[y][x].AsDigit()] = new Vector2D(x, y);
             }
         }
 

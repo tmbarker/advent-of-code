@@ -1,5 +1,6 @@
 ﻿using System.Text;
 using Problems.Common;
+using Utilities.Extensions;
 
 namespace Problems.Y2022.D25;
 
@@ -72,7 +73,7 @@ public class Solution : SolutionBase
         {
             MinusOne => -1,
             MinusTwo => -2,
-            _ => digit - '0'
+            _ => digit.AsDigit()
         };
     }
 }

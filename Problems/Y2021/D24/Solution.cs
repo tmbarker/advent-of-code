@@ -1,5 +1,6 @@
 using Problems.Attributes;
 using Problems.Common;
+using Utilities.Extensions;
 
 namespace Problems.Y2021.D24;
 
@@ -128,7 +129,7 @@ public class Solution : SolutionBase
 
     private static string ValidateModelNumber(IEnumerable<string> monadProgram, string modelNumber)
     {
-        var digitBuffer = new Queue<int>(modelNumber.Select(c => c - '0'));
+        var digitBuffer = new Queue<int>(modelNumber.Select(StringExtensions.AsDigit));
         var result = Alu.Run(monadProgram, digitBuffer);
 
         return result == 0

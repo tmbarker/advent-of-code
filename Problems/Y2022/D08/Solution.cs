@@ -1,5 +1,6 @@
 using Problems.Attributes;
 using Problems.Common;
+using Utilities.Extensions;
 using Utilities.Geometry.Euclidean;
 
 namespace Problems.Y2022.D08;
@@ -16,7 +17,7 @@ public class Solution : SolutionBase
     public override object Run(int part)
     {
         var input = GetInputLines();
-        var trees = Grid2D<int>.MapChars(input, c => c - '0');
+        var trees = Grid2D<int>.MapChars(input, elementFunc: StringExtensions.AsDigit);
         
         return part switch
         {

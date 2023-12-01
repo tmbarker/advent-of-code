@@ -1,6 +1,7 @@
 ﻿using System.Text;
 using Problems.Attributes;
 using Problems.Common;
+using Utilities.Extensions;
 
 namespace Problems.Y2021.D16;
 
@@ -149,7 +150,7 @@ public class Solution : SolutionBase
         for (var i = 0; i < digits; i++)
         {
             var p = (long)Math.Pow(2, i);
-            var d = binary[digits - i - 1] - '0';
+            var d = binary[digits - i - 1].AsDigit();
             value += d * p;
         }
         

@@ -1,4 +1,5 @@
 using Problems.Common;
+using Utilities.Extensions;
 
 namespace Problems.Y2018.D14;
 
@@ -41,7 +42,7 @@ public class Solution : SolutionBase
         var recipes = new List<int>(InitialRecipes);
         var elves = new List<int>(InitialElves);
 
-        var sequence = new List<int>(sequenceStr.Select(c => c - '0'));
+        var sequence = new List<int>(sequenceStr.Select(StringExtensions.AsDigit));
         var matchHead = 0;
 
         while (true)

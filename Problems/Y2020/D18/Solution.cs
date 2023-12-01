@@ -44,7 +44,7 @@ public class Solution : SolutionBase
                 case Operators.Close:
                     return EvaluateTokenStacks(operators, literals);
                 default:
-                    literals.Push(token - '0');
+                    literals.Push(token.AsDigit());
                     break;
             }
         }

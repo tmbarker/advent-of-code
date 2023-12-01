@@ -1,4 +1,5 @@
 using Problems.Common;
+using Utilities.Extensions;
 using Utilities.Geometry.Euclidean;
 
 namespace Problems.Y2021.D09;
@@ -95,6 +96,6 @@ public class Solution : SolutionBase
 
     private static Grid2D<int> ParseGrid(IList<string> lines)
     {
-        return Grid2D<int>.MapChars(lines, c => c - '0');
+        return Grid2D<int>.MapChars(lines, elementFunc: StringExtensions.AsDigit);
     }
 }

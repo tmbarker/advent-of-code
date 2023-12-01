@@ -1,4 +1,5 @@
 ﻿using Problems.Common;
+using Utilities.Extensions;
 using Utilities.Geometry.Euclidean;
 
 namespace Problems.Y2021.D15;
@@ -86,7 +87,7 @@ public class Solution : SolutionBase
            var xTileIndex = (x - xInTile) / colsPerTile;
            var yTileIndex = tilesPerSide - 1 - (y - yInTile) / rowsPerTile;
 
-           var rawRisk = input[rowsPerTile - yInTile - 1][xInTile] - '0';
+           var rawRisk = input[rowsPerTile - yInTile - 1][xInTile].AsDigit();
            var unclampedRisk = rawRisk + xTileIndex + yTileIndex;
 
            map[x, y] = unclampedRisk > MaxRisk

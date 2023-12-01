@@ -1,4 +1,5 @@
 using Problems.Common;
+using Utilities.Extensions;
 
 namespace Problems.Y2017.D01;
 
@@ -23,6 +24,6 @@ public class Solution : SolutionBase
     {
         return stream
             .Where((chr, i) => chr == stream[(i + steps) % stream.Length])
-            .Sum(t => t - '0');
+            .Sum(StringExtensions.AsDigit);
     }
 }

@@ -1,11 +1,12 @@
-﻿using System.Text.RegularExpressions;
+﻿using System.Runtime.CompilerServices;
+using System.Text.RegularExpressions;
 
 namespace Utilities.Extensions;
 
 public static class StringExtensions
 {
-    private static readonly Regex NumberRegex = new(@"(-?\d+)");
-    private static readonly Regex WhitespaceRegex = new(@"\s+");
+    private static readonly Regex NumberRegex = new(pattern: @"(-?\d+)");
+    private static readonly Regex WhitespaceRegex = new(pattern: @"\s+");
 
     public static IList<int> ParseInts(this string str)
     {
@@ -27,7 +28,13 @@ public static class StringExtensions
 
         return numbers;
     }
-
+    
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static int AsDigit(this char c)
+    {
+        return c - '0';
+    }
+    
     public static string TrimWhitespace(this string str)
     {
         return WhitespaceRegex.Replace(input: str, replacement: string.Empty);

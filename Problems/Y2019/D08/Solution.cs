@@ -1,5 +1,6 @@
 using System.Text;
 using Problems.Common;
+using Utilities.Extensions;
 
 namespace Problems.Y2019.D08;
 
@@ -57,7 +58,7 @@ public class Solution : SolutionBase
     private static IList<IList<int>> ParseLayers(string input)
     {
         return input
-            .Select(chars => chars - '0')
+            .Select(StringExtensions.AsDigit)
             .Chunk(PixelsPerLayer)
             .Select(digits => (IList<int>)new List<int>(digits))
             .ToList();
