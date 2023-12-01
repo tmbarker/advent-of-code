@@ -55,13 +55,11 @@ public class Solution : SolutionBase
 
             foreach (var (spelled, digit) in SpelledDigits)
             {
-                if (i + spelled.Length - 1 >= line.Length || line[i..(i + spelled.Length)] != spelled)
+                if (i + spelled.Length - 1 < line.Length && line[i..(i + spelled.Length)] == spelled)
                 {
-                    continue;
+                    digits.Add(digit);
+                    break;
                 }
-                
-                digits.Add(digit);
-                break;
             }
         }
 
