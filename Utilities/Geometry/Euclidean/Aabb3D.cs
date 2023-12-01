@@ -1,9 +1,9 @@
 using System.Collections;
 
-namespace Utilities.Cartesian;
+namespace Utilities.Geometry.Euclidean;
 
 /// <summary>
-/// A readonly axis aligned 3D Cuboid value type
+/// A readonly 3D AABB value type
 /// </summary>
 public readonly struct Aabb3D : IEnumerable<Vector3D>, IEquatable<Aabb3D>
 { 

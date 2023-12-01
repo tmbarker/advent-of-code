@@ -1,4 +1,5 @@
-using Utilities.Cartesian;
+using Utilities.Geometry;
+using Utilities.Geometry.Euclidean;
 
 namespace Problems.Y2020.D11;
 
@@ -10,7 +11,7 @@ public class SeatMap
     private SeatMap(IDictionary<Vector2D, bool> occupancyMap)
     {
         _occupancyMap = occupancyMap;
-        _bounds = new Aabb2D(occupancyMap.Keys, true);
+        _bounds = new Aabb2D(extents: occupancyMap.Keys);
     }
 
     public bool this[Vector2D seat] => _occupancyMap[seat];

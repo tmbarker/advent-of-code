@@ -1,5 +1,6 @@
-using Utilities.Cartesian;
 using Utilities.Extensions;
+using Utilities.Geometry;
+using Utilities.Geometry.Euclidean;
 
 namespace Problems.Y2019.D13;
 
@@ -65,7 +66,7 @@ public class Screen
     
     public void Print((int Left, int Top) drawAt)
     {
-        var bounds = new Aabb2D(_pixels.Keys, true);
+        var bounds = new Aabb2D(extents: _pixels.Keys);
         var rows = bounds.Height;
         var cols = bounds.Width;
         var grid = Grid2D<GameObject>.WithDimensions(rows, cols, Origin.Uv);

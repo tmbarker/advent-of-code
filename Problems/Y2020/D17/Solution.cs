@@ -1,5 +1,6 @@
 using Problems.Common;
-using Utilities.Cartesian;
+using Utilities.Geometry;
+using Utilities.Geometry.Euclidean;
 
 namespace Problems.Y2020.D17;
 
@@ -60,7 +61,7 @@ public class Solution : SolutionBase
     private static ISet<Vector4D> Cycle4D(ICollection<Vector4D> active)
     {
         var nextActive = new HashSet<Vector4D>();
-        foreach (var pos in new Aabb4D(active, false))
+        foreach (var pos in new Aabb4D(active, inclusive: false))
         {
             var activeAdjCount = pos
                 .GetAdjacentSet(Metric.Chebyshev)

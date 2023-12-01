@@ -1,6 +1,7 @@
 using Problems.Common;
-using Utilities.Cartesian;
 using Utilities.Extensions;
+using Utilities.Geometry;
+using Utilities.Geometry.Euclidean;
 
 namespace Problems.Y2021.D25;
 
@@ -91,7 +92,7 @@ public class Solution : SolutionBase
         var rows = input.Count;
         var cols = input[0].Length;
 
-        bounds = new Aabb2D(0, cols - 1, 0, rows - 1);
+        bounds = new Aabb2D(xMin: 0, xMax: cols - 1, yMin: 0, yMax: rows - 1);
         herds = HerdDirections.Values.ToDictionary<Vector2D, Vector2D, ISet<Vector2D>>(
             keySelector: d => d,
             elementSelector: _ => new HashSet<Vector2D>());

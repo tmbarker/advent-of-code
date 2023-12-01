@@ -1,6 +1,6 @@
 using Problems.Attributes;
 using Problems.Common;
-using Utilities.Hexagonal;
+using Utilities.Geometry.Hexagonal;
 
 namespace Problems.Y2017.D11;
 

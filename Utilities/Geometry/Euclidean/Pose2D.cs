@@ -1,4 +1,4 @@
-namespace Utilities.Cartesian;
+namespace Utilities.Geometry.Euclidean;
 
 /// <summary>
 /// A readonly value type representing a 2D pose (Position and Facing vectors)

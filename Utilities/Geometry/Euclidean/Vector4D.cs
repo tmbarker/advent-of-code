@@ -1,9 +1,9 @@
-namespace Utilities.Cartesian;
+namespace Utilities.Geometry.Euclidean;
 
 /// <summary>
 /// A readonly integral 4D Vector value type
 /// </summary>
-public readonly struct Vector4D : IEquatable<Vector4D>
+public readonly struct Vector4D : IEquatable<Vector4D>, IPoint<Vector4D>
 {
     private const string StringFormat = "[{0},{1},{2},{3}]";
 
@@ -121,42 +121,39 @@ public readonly struct Vector4D : IEquatable<Vector4D>
 
         return dx + dy + dz + dw;
     }
-}
-
-public static class Vector4DExtensions
-{
-    /// <summary>
-    /// Get a set of vectors adjacent to <paramref name="vector"/>, depending on the <paramref name="metric"/> diagonally
-    /// adjacent vectors may or may not be included in the returned set
-    /// </summary>
-    /// <exception cref="ArgumentException">This method does not support the Euclidean distance metric</exception>
-    public static ISet<Vector4D> GetAdjacentSet(this Vector4D vector, Metric metric)
+    
+    public ISet<Vector4D> GetAdjacentSet(Metric metric)
     {
         return metric switch
         {
-            Metric.Chebyshev => GetChebyshevAdjacentSet(vector),
-            Metric.Taxicab => GetTaxicabAdjacentSet(vector),
+            Metric.Chebyshev => GetChebyshevAdjacentSet(),
+            Metric.Taxicab => GetTaxicabAdjacentSet(),
             _ => throw new ArgumentException(
-                $"The {metric} distance metric is not well defined over integral vector space", nameof(metric))
+                $"The {metric} distance metric is not well defined over {nameof(Vector4D)} space", nameof(metric))
         };
     }
 
-    private static ISet<Vector4D> GetTaxicabAdjacentSet(Vector4D vector)
+    public int Magnitude(Metric metric)
+    {
+        return Distance(a: this, b: Zero, metric);
+    }
+    
+    private ISet<Vector4D> GetTaxicabAdjacentSet()
     {
         return new HashSet<Vector4D>
         {
-            vector + new Vector4D(x:  1, y:  0, z:  0, w:  0),
-            vector + new Vector4D(x: -1, y:  0, z:  0, w:  0),
-            vector + new Vector4D(x:  0, y:  1, z:  0, w:  0),
-            vector + new Vector4D(x:  0, y: -1, z:  0, w:  0),
-            vector + new Vector4D(x:  0, y:  0, z:  1, w:  0),
-            vector + new Vector4D(x:  0, y:  0, z: -1, w:  0),
-            vector + new Vector4D(x:  0, y:  0, z:  0, w:  1),
-            vector + new Vector4D(x:  0, y:  0, z:  0, w: -1)
+            this + new Vector4D(x:  1, y:  0, z:  0, w:  0),
+            this + new Vector4D(x: -1, y:  0, z:  0, w:  0),
+            this + new Vector4D(x:  0, y:  1, z:  0, w:  0),
+            this + new Vector4D(x:  0, y: -1, z:  0, w:  0),
+            this + new Vector4D(x:  0, y:  0, z:  1, w:  0),
+            this + new Vector4D(x:  0, y:  0, z: -1, w:  0),
+            this + new Vector4D(x:  0, y:  0, z:  0, w:  1),
+            this + new Vector4D(x:  0, y:  0, z:  0, w: -1)
         };
     }
     
-    private static ISet<Vector4D> GetChebyshevAdjacentSet(Vector4D vector)
+    private ISet<Vector4D> GetChebyshevAdjacentSet()
     {
         var set = new HashSet<Vector4D>();
         
@@ -166,13 +163,13 @@ public static class Vector4DExtensions
         for (var w = -1; w <= 1; w++)
         {
             set.Add(new Vector4D(
-                x: vector.X + x,
-                y: vector.Y + y,
-                z: vector.Z + z,
-                w: vector.W + w));
+                x: X + x,
+                y: Y + y,
+                z: Z + z,
+                w: W + w));
         }
 
-        set.Remove(vector);
+        set.Remove(item: this);
         return set;
     }
 }

@@ -1,5 +1,6 @@
-using Utilities.Cartesian;
 using Utilities.Extensions;
+using Utilities.Geometry;
+using Utilities.Geometry.Euclidean;
 
 namespace Problems.Y2018.D17;
 
@@ -43,8 +44,7 @@ public class Reservoir
     public void Print()
     {
         var aabb = new Aabb2D(
-            extents: _positionStates.Keys.Where(p => _positionStates[p] != Terrain.Empty).ToList(),
-            inclusive: true);
+            extents: _positionStates.Keys.Where(p => _positionStates[p] != Terrain.Empty).ToList());
 
         for (var y = aabb.YMin; y <= aabb.YMax; y++)
         {

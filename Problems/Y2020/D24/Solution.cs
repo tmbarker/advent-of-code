@@ -1,6 +1,6 @@
 using System.Text.RegularExpressions;
 using Problems.Common;
-using Utilities.Hexagonal;
+using Utilities.Geometry.Hexagonal;
 
 namespace Problems.Y2020.D24;
 

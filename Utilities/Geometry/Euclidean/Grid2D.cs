@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Text;
 
-namespace Utilities.Cartesian;
+namespace Utilities.Geometry.Euclidean;
 
 /// <summary>
 /// 2D grid data structure providing (X,Y) style indexing

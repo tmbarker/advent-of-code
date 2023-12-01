@@ -1,5 +1,6 @@
 using Problems.Common;
-using Utilities.Cartesian;
+using Utilities.Geometry;
+using Utilities.Geometry.Euclidean;
 
 namespace Problems.Y2021.D20;
 
@@ -24,7 +25,7 @@ public class Solution : SolutionBase
 
     private static int EnhanceImage(ISet<Vector2D> litInImage, IList<bool> algorithm, int steps)
     {
-        var imageRect = new Aabb2D(litInImage, true);
+        var imageRect = new Aabb2D(extents: litInImage);
         
         for (var n = 0; n < steps; n++)
         {

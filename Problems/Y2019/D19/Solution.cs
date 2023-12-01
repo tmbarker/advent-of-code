@@ -1,5 +1,6 @@
 using Problems.Y2019.IntCode;
-using Utilities.Cartesian;
+using Utilities.Geometry;
+using Utilities.Geometry.Euclidean;
 
 namespace Problems.Y2019.D19;
 
@@ -39,7 +40,11 @@ public class Solution : IntCodeSolution
     private int CountBeamPoints(int searchDimension)
     {
         var program = LoadIntCodeProgram();
-        var searchArea = new Aabb2D(0, searchDimension - 1, 0, searchDimension - 1);
+        var searchArea = new Aabb2D(
+            xMin: 0,
+            xMax: searchDimension - 1,
+            yMin: 0,
+            yMax: searchDimension - 1);
 
         return searchArea.Sum(point => CheckPointInBeam(point.X, point.Y, program) ? 1 : 0);
     }

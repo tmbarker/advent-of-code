@@ -1,5 +1,6 @@
-using Utilities.Cartesian;
 using Utilities.Extensions;
+using Utilities.Geometry;
+using Utilities.Geometry.Euclidean;
 
 namespace Problems.Y2016.D22;
 

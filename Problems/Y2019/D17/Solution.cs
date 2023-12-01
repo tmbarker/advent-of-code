@@ -1,7 +1,8 @@
 using System.Text;
 using Problems.Common;
 using Problems.Y2019.IntCode;
-using Utilities.Cartesian;
+using Utilities.Geometry;
+using Utilities.Geometry.Euclidean;
 
 namespace Problems.Y2019.D17;
 

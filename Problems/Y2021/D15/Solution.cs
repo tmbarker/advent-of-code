@@ -1,5 +1,6 @@
 ﻿using Problems.Common;
-using Utilities.Cartesian;
+using Utilities.Geometry;
+using Utilities.Geometry.Euclidean;
 
 namespace Problems.Y2021.D15;
 

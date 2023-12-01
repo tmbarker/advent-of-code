@@ -1,7 +1,8 @@
 using Problems.Attributes;
 using Problems.Common;
-using Utilities.Cartesian;
 using Utilities.Extensions;
+using Utilities.Geometry;
+using Utilities.Geometry.Euclidean;
 using Utilities.Numerics;
 
 namespace Problems.Y2019.D12;

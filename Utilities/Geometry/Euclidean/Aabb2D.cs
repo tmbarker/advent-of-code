@@ -1,39 +1,44 @@
 using System.Collections;
 
-namespace Utilities.Cartesian;
+namespace Utilities.Geometry.Euclidean;
 
 /// <summary>
-/// A readonly axis aligned 2D Rect value type
+/// A readonly 2D axis aligned bounding box value type
 /// </summary>
 public readonly struct Aabb2D : IEnumerable<Vector2D>, IEquatable<Aabb2D>
 {
-    public Aabb2D(ICollection<Vector2D> extents, bool inclusive)
+    public Aabb2D(ICollection<Vector2D> extents)
     {
-        var delta = inclusive ? 0 : 1;
-        XMin = extents.Min(p => p.X) - delta;
-        XMax = extents.Max(p => p.X) + delta;
-        YMin = extents.Min(p => p.Y) - delta;
-        YMax = extents.Max(p => p.Y) + delta;
+        Min = new Vector2D(
+            x: extents.Min(p => p.X),
+            y: extents.Min(p => p.Y));
+        Max = new Vector2D(
+            x: extents.Max(p => p.X),
+            y: extents.Max(p => p.Y));
+    }
+
+    public Aabb2D(Vector2D min, Vector2D max) : this(extents: new[] { min, max })
+    {
     }
     
     public Aabb2D(int xMin, int xMax, int yMin, int yMax)
     {
-        XMin = xMin;
-        XMax = xMax;
-        YMin = yMin;
-        YMax = yMax;
+        Min = new Vector2D(x: xMin, y: yMin);
+        Max = new Vector2D(x: xMax, y: yMax);
     }
     
-    public int XMin { get; }
-    public int XMax { get; }
-    public int YMin { get; }
-    public int YMax { get; }
-
+    public Vector2D Min { get; }
+    public Vector2D Max { get; }
+    
+    public int XMin => Min.X;
+    public int XMax => Max.X;
+    public int YMin => Min.Y;
+    public int YMax => Max.Y;
     public int Width => XMax - XMin + 1;
     public int Height => YMax - YMin + 1;
     public long Area => (long)Width * Height;
 
-    public static bool FindOverlap(Aabb2D lhs, Aabb2D rhs, out  Aabb2D overlap)
+    public static bool Overlap(Aabb2D lhs, Aabb2D rhs, out  Aabb2D overlap)
     {
         var hasOverlap =
             lhs.XMax >= rhs.XMin && lhs.XMin <= rhs.XMax &&
@@ -104,9 +109,17 @@ public readonly struct Aabb2D : IEnumerable<Vector2D>, IEquatable<Aabb2D>
         };
     }
     
+    public static Aabb2D operator ++(Aabb2D lhs) => lhs + 1;
+    
+    public static Aabb2D operator --(Aabb2D lhs) => lhs - 1;
+    
     private Aabb2D Expand(int amount)
     {
-        return new Aabb2D(xMin: XMin - amount, xMax: XMax + amount, yMin: YMin - amount, yMax: YMax + amount);
+        return new Aabb2D(
+            xMin: XMin - amount,
+            xMax: XMax + amount,
+            yMin: YMin - amount,
+            yMax: YMax + amount);
     }
 
     private Aabb2D Contract(int amount)
@@ -117,16 +130,20 @@ public readonly struct Aabb2D : IEnumerable<Vector2D>, IEquatable<Aabb2D>
         if (2 * amount >= width)
         {
             throw new ArgumentOutOfRangeException(nameof(amount), amount,
-                $"Contraction amount [{amount}] must be less than half of width [{width}]");
+                message: $"Contraction amount [{amount}] must be less than half of width [{width}]");
         }
         
         if (2 * amount >= height)
         {
             throw new ArgumentOutOfRangeException(nameof(amount), amount,
-                $"Contraction amount [{amount}] must be less than half of height [{height}]");
+                message: $"Contraction amount [{amount}] must be less than half of height [{height}]");
         }
-        
-        return new Aabb2D(xMin: XMin + amount, xMax: XMax - amount, yMin: YMin + amount, yMax: YMax - amount);
+
+        return new Aabb2D(
+            xMin: XMin + amount,
+            xMax: XMax - amount,
+            yMin: YMin + amount,
+            yMax: YMax - amount);
     }
     
     public override string ToString()
@@ -150,7 +167,7 @@ public readonly struct Aabb2D : IEnumerable<Vector2D>, IEquatable<Aabb2D>
 
     public bool Equals(Aabb2D other)
     {
-        return XMin == other.XMin && XMax == other.XMax && YMin == other.YMin && YMax == other.YMax;
+        return Min == other.Min && Max == other.Max;
     }
 
     public override bool Equals(object? obj)
@@ -160,7 +177,7 @@ public readonly struct Aabb2D : IEnumerable<Vector2D>, IEquatable<Aabb2D>
 
     public override int GetHashCode()
     {
-        return HashCode.Combine(XMin, XMax, YMin, YMax);
+        return HashCode.Combine(Min, Max);
     }
 
     public static bool operator ==(Aabb2D left, Aabb2D right)

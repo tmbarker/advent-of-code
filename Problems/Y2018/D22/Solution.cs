@@ -1,7 +1,8 @@
 using Problems.Attributes;
 using Problems.Common;
-using Utilities.Cartesian;
 using Utilities.Extensions;
+using Utilities.Geometry;
+using Utilities.Geometry.Euclidean;
 
 namespace Problems.Y2018.D22;
 
@@ -30,7 +31,7 @@ public class Solution : SolutionBase
 
     private static long SumAreaRisks(Cave cave, Vector2D min, Vector2D max)
     {
-        var aabb = new Aabb2D(extents: new[] { min, max }, inclusive: true);
+        var aabb = new Aabb2D(min, max);
         var regions = aabb.Select(pos => cave[pos].Type);
 
         return regions.Sum(region => Cave.RegionRiskLevels[region]);

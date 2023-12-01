@@ -1,4 +1,4 @@
-namespace Utilities.Hexagonal;
+namespace Utilities.Geometry.Hexagonal;
 
 public enum Flat
 {

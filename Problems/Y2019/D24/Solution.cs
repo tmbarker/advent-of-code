@@ -1,6 +1,7 @@
 using Problems.Common;
-using Utilities.Cartesian;
 using Utilities.Extensions;
+using Utilities.Geometry;
+using Utilities.Geometry.Euclidean;
 
 namespace Problems.Y2019.D24;
 
@@ -12,7 +13,11 @@ public class Solution : SolutionBase
     private const int Size = 5;
 
     private static readonly Vector2D CenterTile = new(x: 2, y: 2);
-    private static readonly Aabb2D TileAabb = new(xMin: 0, yMin: 0, xMax: Size - 1, yMax: Size - 1);
+    private static readonly Aabb2D TileAabb = new(
+        xMin: 0, 
+        yMin: 0, 
+        xMax: Size - 1, 
+        yMax: Size - 1);
 
     public override object Run(int part)
     {

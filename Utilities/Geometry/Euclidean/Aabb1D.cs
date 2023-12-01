@@ -1,19 +1,12 @@
 using System.Collections;
 
-namespace Utilities.Cartesian;
+namespace Utilities.Geometry.Euclidean;
 
 /// <summary>
 /// A readonly interval value type
 /// </summary>
 public readonly struct Aabb1D : IEnumerable<int>, IEquatable<Aabb1D>
 {
-    public Aabb1D(ICollection<int> extents, bool inclusive)
-    {
-        var delta = inclusive ? 0 : 1;
-        Min = extents.Min() - delta;
-        Max = extents.Max() + delta;
-    }
-    
     public Aabb1D(int min, int max)
     {
         Min = min;
@@ -24,7 +17,7 @@ public readonly struct Aabb1D : IEnumerable<int>, IEquatable<Aabb1D>
     public int Max { get; }
     public int Length => Max - Min + 1;
     
-    public static bool FindOverlap(Aabb1D lhs, Aabb1D rhs, out  Aabb1D overlap)
+    public static bool Overlap(Aabb1D lhs, Aabb1D rhs, out  Aabb1D overlap)
     {
         var hasOverlap = lhs.Max >= rhs.Min && lhs.Min <= rhs.Max;
         if (!hasOverlap)

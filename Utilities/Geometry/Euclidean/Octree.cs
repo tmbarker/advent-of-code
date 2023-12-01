@@ -1,4 +1,4 @@
-namespace Utilities.Cartesian;
+namespace Utilities.Geometry.Euclidean;
 
 public static class Octree
 {

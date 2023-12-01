@@ -1,6 +1,7 @@
 using Problems.Y2019.IntCode;
-using Utilities.Cartesian;
 using Utilities.Extensions;
+using Utilities.Geometry;
+using Utilities.Geometry.Euclidean;
 using Utilities.Graph;
 
 namespace Problems.Y2019.D15;

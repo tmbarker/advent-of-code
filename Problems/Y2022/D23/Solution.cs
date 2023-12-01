@@ -1,6 +1,7 @@
 using Problems.Common;
-using Utilities.Cartesian;
 using Utilities.Extensions;
+using Utilities.Geometry;
+using Utilities.Geometry.Euclidean;
 
 namespace Problems.Y2022.D23;
 
@@ -91,7 +92,7 @@ public class Solution : SolutionBase
 
     private static int EmptyPositionsInBoundingBox(ICollection<Vector2D> positions)
     {
-        var aabb = new Aabb2D(extents: positions, inclusive: true);
+        var aabb = new Aabb2D(extents: positions);
         var emptyCount = aabb.Area - positions.Count;
 
         return (int)emptyCount;

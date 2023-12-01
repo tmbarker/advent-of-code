@@ -1,5 +1,6 @@
 using Problems.Common;
-using Utilities.Cartesian;
+using Utilities.Geometry;
+using Utilities.Geometry.Euclidean;
 using Utilities.Hashing;
 
 namespace Problems.Y2016.D17;

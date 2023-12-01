@@ -1,6 +1,6 @@
 using System.Collections;
 
-namespace Utilities.Cartesian;
+namespace Utilities.Geometry.Euclidean;
 
 /// <summary>
 /// A readonly 4D AABB value type

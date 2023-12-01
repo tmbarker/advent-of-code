@@ -1,6 +1,7 @@
 using Problems.Common;
-using Utilities.Cartesian;
 using Utilities.Extensions;
+using Utilities.Geometry;
+using Utilities.Geometry.Euclidean;
 
 namespace Problems.Y2018.D20;
 
@@ -85,7 +86,7 @@ public class Solution : SolutionBase
         var visited = new HashSet<Vector2D> { start };
         var heap = new PriorityQueue<Vector2D, int>(new[] { (start, 0) });
         
-        var aabb = new Aabb2D(extents: map.Keys, inclusive: true);
+        var aabb = new Aabb2D(extents: map.Keys);
         var costs = aabb.ToDictionary(
             keySelector: p => p,
             elementSelector: p => p == start ? 0 : int.MaxValue);

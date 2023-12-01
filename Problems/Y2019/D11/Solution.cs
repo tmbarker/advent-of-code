@@ -1,8 +1,9 @@
 using System.Text;
 using Problems.Y2019.IntCode;
-using Utilities.Cartesian;
 using Utilities.Collections;
 using Utilities.Extensions;
+using Utilities.Geometry;
+using Utilities.Geometry.Euclidean;
 
 namespace Problems.Y2019.D11;
 
@@ -74,7 +75,7 @@ public class Solution : IntCodeSolution
             .Normalize()
             .ToHashSet();
 
-        var aabb = new Aabb2D(white, true);
+        var aabb = new Aabb2D(extents: white);
         var image = new StringBuilder();
 
         for (var y = aabb.Height - 1; y >= 0; y--)

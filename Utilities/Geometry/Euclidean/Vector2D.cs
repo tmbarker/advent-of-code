@@ -1,9 +1,9 @@
-namespace Utilities.Cartesian;
+namespace Utilities.Geometry.Euclidean;
 
 /// <summary>
 /// A readonly integral 2D Vector value type
 /// </summary>
-public readonly struct Vector2D : IEquatable<Vector2D>
+public readonly struct Vector2D : IEquatable<Vector2D>, IPoint<Vector2D>
 {
     private const string StringFormat = "[{0},{1}]";
 
@@ -50,7 +50,7 @@ public readonly struct Vector2D : IEquatable<Vector2D>
     
     public static Vector2D Normalize(Vector2D vector)
     {
-        return new Vector2D(Math.Sign(vector.X), Math.Sign(vector.Y));
+        return new Vector2D(x: Math.Sign(vector.X), y: Math.Sign(vector.Y));
     }
 
     public static int Distance(Vector2D a, Vector2D b, Metric metric)
@@ -65,7 +65,7 @@ public readonly struct Vector2D : IEquatable<Vector2D>
 
     public static Vector2D MinCollinear(Vector2D vector)
     {
-        var maxDivisor = ChebyshevDistance(Zero, vector);
+        var maxDivisor = ChebyshevDistance(a: Zero, b: vector);
         for (var k = maxDivisor; k > 1; k--)
         {
             var candidate = vector / k;
@@ -138,6 +138,49 @@ public readonly struct Vector2D : IEquatable<Vector2D>
         return Id;
     }
     
+    public ISet<Vector2D> GetAdjacentSet(Metric metric)
+    {
+        return metric switch
+        {
+            Metric.Chebyshev => GetChebyshevAdjacentSet(),
+            Metric.Taxicab => GetTaxicabAdjacentSet(),
+            _ => throw new ArgumentException(
+                $"The {metric} distance metric is not well defined over {nameof(Vector2D)} space", nameof(metric))
+        };
+    }
+    
+    public int Magnitude(Metric metric)
+    {
+        return Distance(a: this, b: Zero, metric);
+    }
+    
+    private ISet<Vector2D> GetTaxicabAdjacentSet()
+    {
+        return new HashSet<Vector2D>
+        {
+            this + Up,
+            this + Down, 
+            this + Left,
+            this + Right
+        };
+    }
+    
+    private ISet<Vector2D> GetChebyshevAdjacentSet()
+    {
+        var set = new HashSet<Vector2D>();
+        
+        for (var x = -1; x <= 1; x++)
+        for (var y = -1; y <= 1; y++)
+        {
+            set.Add(new Vector2D(
+                x: X + x,
+                y: Y + y));
+        }
+
+        set.Remove(item:this);
+        return set;
+    }
+    
     private static int ChebyshevDistance(Vector2D a, Vector2D b)
     {
         var dx = Math.Abs(a.X - b.X);
@@ -161,15 +204,8 @@ public readonly struct Vector2D : IEquatable<Vector2D>
 public static class Vector2DExtensions
 {
     /// <summary>
-    /// Get the magnitude of the vector according to the specified distance metric
-    /// </summary>
-    public static int Magnitude(this Vector2D v, Metric metric)
-    {
-        return Vector2D.Distance(a: v, b: Vector2D.Zero, metric: metric);
-    }
-    
-    /// <summary>
-    /// Determine if two positions are diagonal, where they do not share a common value for either dimension
+    /// Determine if two positions are diagonal, where diagonal means that they do not share a common value for
+    /// either component
     /// </summary>
     public static bool IsDiagonalTo(this Vector2D lhs, Vector2D rhs)
     {
@@ -181,35 +217,6 @@ public static class Vector2DExtensions
     /// </summary>
     public static bool IsAdjacentTo(this Vector2D lhs, Vector2D rhs, Metric metric)
     {
-        return Vector2D.Distance(lhs, rhs, metric) <= 1;
-    }
-
-    /// <summary>
-    /// Get a set of vectors adjacent to <paramref name="vector"/>, depending on the <paramref name="metric"/> diagonally
-    /// adjacent vectors may or may not be included in the returned set
-    /// </summary>
-    /// <exception cref="ArgumentException">This method does not support the Euclidean distance metric</exception>
-    public static ISet<Vector2D> GetAdjacentSet(this Vector2D vector, Metric metric)
-    {
-        var set = new HashSet<Vector2D>
-        {
-            vector + Vector2D.Up,
-            vector + Vector2D.Down, 
-            vector + Vector2D.Left,
-            vector + Vector2D.Right
-        };
-
-        if (metric != Metric.Chebyshev)
-        {
-            return set;
-        }
-        
-        for (var x = -1; x <= 1; x += 2)
-        for (var y = -1; y <= 1; y += 2)
-        {
-            set.Add(vector + new Vector2D(x, y));
-        }
-
-        return set;
+        return Vector2D.Distance(a: lhs, b: rhs, metric) <= 1;
     }
 }

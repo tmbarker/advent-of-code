@@ -1,7 +1,8 @@
 using Problems.Attributes;
 using Problems.Common;
-using Utilities.Cartesian;
 using Utilities.Extensions;
+using Utilities.Geometry;
+using Utilities.Geometry.Euclidean;
 
 namespace Problems.Y2018.D06;
 
@@ -24,7 +25,7 @@ public class Solution : SolutionBase
 
     private static int GetLargestFiniteArea(ICollection<Vector2D> pois)
     {
-        var aabb = new Aabb2D(extents: pois, inclusive: true);
+        var aabb = new Aabb2D(extents: pois);
         var areaCounts = pois.ToDictionary(
             keySelector: poi => poi,
             elementSelector: _ => 0);
@@ -58,7 +59,7 @@ public class Solution : SolutionBase
 
     private static int GetLargestProximalArea(ICollection<Vector2D> pois, int maxDistance)
     {
-        var aabb = new Aabb2D(extents: pois, inclusive: true);
+        var aabb = new Aabb2D(extents: pois);
         return aabb.Count(pos => pois.Sum(poi => Vector2D.Distance(
             a: pos,
             b: poi,

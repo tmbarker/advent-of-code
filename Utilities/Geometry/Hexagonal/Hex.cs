@@ -1,4 +1,4 @@
-namespace Utilities.Hexagonal;
+namespace Utilities.Geometry.Hexagonal;
 
 /// <summary>
 /// A readonly integral hexagon value type. Represents a 2D hexagon using a 3D cubic coordinate system 

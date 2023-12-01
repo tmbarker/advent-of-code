@@ -1,5 +1,6 @@
 using Problems.Common;
-using Utilities.Cartesian;
+using Utilities.Geometry;
+using Utilities.Geometry.Euclidean;
 
 namespace Problems.Y2015.D18;
 
@@ -23,9 +24,11 @@ public class Solution : SolutionBase
         var input = GetInputLines();
         var rows = input.Length;
         var cols = input[0].Length;
-
-        var extents = new[] { new Vector2D(x: 0, y: 0), new Vector2D(x: cols - 1, y: rows - 1) };
-        var aabb = new Aabb2D(extents, inclusive: true);
+        
+        var aabb = new Aabb2D(
+            min: new Vector2D(x: 0, y: 0),
+            max: new Vector2D(x: cols - 1, y: rows - 1));
+        
         var on = new HashSet<Vector2D>();
         var next = new HashSet<Vector2D>();
 

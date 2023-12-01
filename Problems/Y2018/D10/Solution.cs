@@ -1,7 +1,8 @@
 using System.Text;
 using Problems.Common;
-using Utilities.Cartesian;
 using Utilities.Extensions;
+using Utilities.Geometry;
+using Utilities.Geometry.Euclidean;
 
 namespace Problems.Y2018.D10;
 
@@ -23,7 +24,7 @@ public class Solution : SolutionBase
     private (string Message, int Time) WaitForMessage()
     {
         var (pos, vel) = GetInitialPoses();
-        var aabb = new Aabb2D(pos, inclusive: true);
+        var aabb = new Aabb2D(pos);
         var area = aabb.Area;
         var prevArea = long.MaxValue;
         var time = 0;
@@ -34,7 +35,7 @@ public class Solution : SolutionBase
             time++;
             StepForwards(pos, vel);
             
-            aabb = new Aabb2D(pos, inclusive: true);
+            aabb = new Aabb2D(pos);
             area = aabb.Area;
         }
 
@@ -42,7 +43,7 @@ public class Solution : SolutionBase
         StepBackwards(pos, vel);
         
         var alignedPos = pos.Normalize().ToHashSet();
-        var alignedAabb = new Aabb2D(alignedPos, inclusive: true);
+        var alignedAabb = new Aabb2D(alignedPos);
         var message = new StringBuilder();
         
         for (var y = 0; y < alignedAabb.Height; y++)

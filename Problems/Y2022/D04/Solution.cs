@@ -1,5 +1,6 @@
 using Problems.Common;
-using Utilities.Cartesian;
+using Utilities.Geometry;
+using Utilities.Geometry.Euclidean;
 
 namespace Problems.Y2022.D04;
 
@@ -26,7 +27,7 @@ public class Solution : SolutionBase
     
     private static int CountIntersecting(IEnumerable<(Aabb1D R1, Aabb1D R2)> assignments)
     {
-        return assignments.Count(assignment => Aabb1D.FindOverlap(assignment.R1, assignment.R2, out _));
+        return assignments.Count(assignment => Aabb1D.Overlap(assignment.R1, assignment.R2, out _));
     }
 
     private static bool CheckContains(Aabb1D a, Aabb1D b)

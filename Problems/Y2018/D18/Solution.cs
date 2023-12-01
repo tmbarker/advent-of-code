@@ -1,6 +1,7 @@
 using System.Text;
 using Problems.Common;
-using Utilities.Cartesian;
+using Utilities.Geometry;
+using Utilities.Geometry.Euclidean;
 
 namespace Problems.Y2018.D18;
 
@@ -66,7 +67,7 @@ public class Solution : SolutionBase
     private static Dictionary<Vector2D, char> Evolve(Dictionary<Vector2D, char> map)
     {
         var next = new Dictionary<Vector2D, char>(capacity: map.Count);
-        var aabb = new Aabb2D(extents: map.Keys, inclusive: true);
+        var aabb = new Aabb2D(extents: map.Keys);
         
         foreach (var pos in aabb)
         {
@@ -100,7 +101,7 @@ public class Solution : SolutionBase
 
     private static string BuildKey(Dictionary<Vector2D, char> map)
     {
-        var aabb = new Aabb2D(extents: map.Keys, inclusive: true);
+        var aabb = new Aabb2D(extents: map.Keys);
         var sb = new StringBuilder();
         
         for (var y = aabb.YMin; y <= aabb.YMax; y++)
