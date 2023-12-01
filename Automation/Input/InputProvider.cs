@@ -6,7 +6,7 @@ public static class InputProvider
 {
     private const string UserSessionEnvVar = "aoc_user_session";
     private const string InputsCacheEnvVar = "aoc_inputs_cache";
-    private const string InputRequestRouteFormat = "/{0}/day/{1}/input";
+    private const string InputRequestRouteFormat = "{0}/day/{1}/input";
     private const string DefaultInputDirectoryName = "Inputs";
     private const string DefaultInputFileNameFormat = "{0:D2}.txt";
     
@@ -42,7 +42,7 @@ public static class InputProvider
         
         try
         {
-            Log($"Requesting input [GET {AocHttpClient.Domain}{requestRoute}]", ConsoleColor.Gray);
+            Log($"Requesting input [GET {AocHttpClient.Domain}/{requestRoute}]", ConsoleColor.Gray);
             var responseMessage = await AocHttpClient.SendRequest(requestRoute, userSession);
             var responseContent = await responseMessage.Content.ReadAsStringAsync();
 
