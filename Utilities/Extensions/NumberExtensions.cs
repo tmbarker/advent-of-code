@@ -2,7 +2,7 @@ using System.Numerics;
 
 namespace Utilities.Extensions;
 
-public static class MathExtensions
+public static class NumberExtensions
 {
     public static int Modulo(this int a, int modulus)
     {
