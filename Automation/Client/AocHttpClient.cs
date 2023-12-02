@@ -3,39 +3,48 @@ using System.Net;
 
 namespace Automation.Client;
 
+/// <summary>
+/// A utility class for sending HTTP requests to Advent of Code [<see cref="Domain"/>]
+/// </summary>
 public static class AocHttpClient
 {
+    /// <summary>
+    /// The Advent of Code domain that all requests this utility makes are relative to
+    /// </summary>
     public const string Domain = "https://adventofcode.com";
     
     private const string LastRequestEnvVar = "aoc_last_request";
     private const string UserSessionName = "session";
     private const string UserAgentName = "user-agent";
-    private const string UserAgentValue = ".NET/7.0 (github.com/tmbarker/advent-of-code via AocHttpClient.cs)";
-
+    private const string UserAgentValue = $".NET/7.0 (github.com/tmbarker/advent-of-code via {nameof(AocHttpClient)}.cs)";
+    
+    private static readonly Uri DomainUri = new (Domain);
+    private static readonly TimeSpan RateLimit = TimeSpan.FromMinutes(1);
+    
+    /// <summary>
+    /// Send an HTTP request to Advent of Code [<see cref="Domain"/>]
+    /// </summary>
+    /// <param name="route">The request route, relative to the Advent of Code <see cref="Domain"/></param>
+    /// <param name="userSession">The user session cookie value</param>
+    /// <returns>The request response</returns>
     public static async Task<HttpResponseMessage> SendRequest(string route, string userSession)
     {
         var lastRequest = GetLastRequestTime();
-        var nextAllowed = lastRequest.Add(TimeSpan.FromMinutes(1));
-        var now = DateTime.Now;
+        var nextAllowed = lastRequest.Add(RateLimit);
 
-        if (now < nextAllowed)
+        if (DateTime.Now < nextAllowed)
         {
             return new HttpResponseMessage(HttpStatusCode.TooManyRequests);
         }
-
-        var baseUri = new Uri(Domain);
-        var cookieContainer = new CookieContainer();
-
-        SetLastRequestTime(now);
         
-        //  We do not need to worry about socket exhaustion for this low rate HttpClient usage
-        //
-        // ReSharper disable UsingStatementResourceInitialization
-        using var handler = new HttpClientHandler { CookieContainer = cookieContainer };
-        using var client = new HttpClient(handler) { BaseAddress = baseUri };
-        // ReSharper restore UsingStatementResourceInitialization
+        SetLastRequestTime(DateTime.Now);
 
-        cookieContainer.Add(baseUri, new Cookie(name: UserSessionName, value: userSession));
+        using var handler = new HttpClientHandler();
+        handler.CookieContainer = new CookieContainer();
+        handler.CookieContainer.Add(DomainUri, new Cookie(name: UserSessionName, value: userSession));
+        
+        using var client = new HttpClient(handler);
+        client.BaseAddress = DomainUri;
         client.DefaultRequestHeaders.Add(name: UserAgentName, value: UserAgentValue);
             
         return await client.GetAsync(route);

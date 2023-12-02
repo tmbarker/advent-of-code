@@ -10,20 +10,25 @@ public abstract class SolutionBase
     public virtual int Parts => 2;
     
     public bool LogsEnabled { get; set; }
-    public string InputFilePath { get; set; } = string.Empty;
+    public string InputPath { get; set; } = string.Empty;
 
+    /// <summary>
+    /// Run the specified Solution <paramref name="part"/>
+    /// </summary>
+    /// <param name="part">The one-based solution part</param>
+    /// <returns>The solution part result</returns>
     public abstract object Run(int part);
 
     protected string[] GetInputLines()
     {
         AssertInputExists();
-        return File.ReadAllLines(InputFilePath);
+        return File.ReadAllLines(InputPath);
     }
 
     protected string GetInputText()
     {
         AssertInputExists();
-        return File.ReadAllText(InputFilePath).TrimEnd();
+        return File.ReadAllText(InputPath).TrimEnd();
     }
 
     protected IEnumerable<T> ParseInputLines<T>(Func<string, T> parseFunc)
@@ -33,11 +38,11 @@ public abstract class SolutionBase
 
     private void AssertInputExists()
     {
-        Debug.Assert(InputFileExists(), $"Input file does not exist [{InputFilePath}]");
+        Debug.Assert(condition: InputFileExists(), message: $"Input file does not exist [{InputPath}]");
     }
     
     private bool InputFileExists()
     {
-        return File.Exists(InputFilePath);
+        return File.Exists(InputPath);
     }
 }

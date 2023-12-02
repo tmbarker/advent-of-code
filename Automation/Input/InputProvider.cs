@@ -2,46 +2,35 @@ using Automation.Client;
 
 namespace Automation.Input;
 
+/// <summary>
+/// A utility which manages downloading, caching, and providing puzzle input files
+/// </summary>
 public static class InputProvider
 {
-    private const string UserSessionEnvVar = "aoc_user_session";
     private const string InputsCacheEnvVar = "aoc_inputs_cache";
     private const string InputRequestRouteFormat = "{0}/day/{1}/input";
     private const string DefaultInputDirectoryName = "Inputs";
     private const string DefaultInputFileNameFormat = "{0:D2}.txt";
     
-    public static async Task<string> GetInputFilePath(int year, int day)
+    public static bool CheckCacheForInput(int year, int day)
     {
-        //  Inputs are stored under the cache directory based on year: <cache directory>/<year>/<day>.txt
-        //
-        var cachePath = GetCachePath();
-        var fileName = FormInputFileName(day);
-        var directory = Path.Combine(cachePath, year.ToString());
-        var filePath = Path.Combine(directory, fileName);
-
-        if (File.Exists(filePath))
-        {
-            Log($"Input found in cache [{filePath}]", ConsoleColor.Gray);
-            return filePath;
-        }
-        
-        if (!Directory.Exists(directory))
-        {
-            Directory.CreateDirectory(directory);
-            Log($"Creating cache directory [{directory}]", ConsoleColor.Gray);
-        }
-        
-        var success = await TryDownloadInput(year, day, filePath);
-        return success ? filePath : string.Empty;
+        return File.Exists(FormCachedInputFilePath(year, day));
     }
 
-    private static async Task<bool> TryDownloadInput(int year, int day, string filePath)
+    public static async Task<bool> TryDownloadInputToCache(int year, int day, string userSession)
     {
+        var dirPath = FormInputDirectoryPath(year);
+        var filePath = FormCachedInputFilePath(year, day);
         var requestRoute = FormDomainRelativeInputRequest(year, day);
-        var userSession = GetUserSession();
         
         try
         {
+            if (!Directory.Exists(dirPath))
+            {
+                Directory.CreateDirectory(dirPath);
+                Log($"Creating cache directory [{dirPath}]", ConsoleColor.Gray);
+            }
+            
             Log($"Requesting input [GET {AocHttpClient.Domain}/{requestRoute}]", ConsoleColor.Gray);
             var responseMessage = await AocHttpClient.SendRequest(requestRoute, userSession);
             var responseContent = await responseMessage.Content.ReadAsStringAsync();
@@ -54,28 +43,22 @@ public static class InputProvider
                 return true;
             }
 
-            Log($"Input request response error code: {responseMessage.StatusCode}", ConsoleColor.Red);
+            Log($"Request error: {responseMessage.StatusCode}", ConsoleColor.Red);
             return false;
         }
         catch (Exception e)
         {
-            Log($"Error downloading input [GET {requestRoute}]:\n{e}", ConsoleColor.Red);
+            Log($"Error downloading input [GET {AocHttpClient.Domain}/{requestRoute}]:\n{e}", ConsoleColor.Red);
             return false;
         }
     }
-
-    public static void SetUserSession(string sessionCookie)
+    
+    public static string FormCachedInputFilePath(int year, int day)
     {
-        if (string.IsNullOrWhiteSpace(sessionCookie))
-        {
-            Log($"Invalid session cookie [{sessionCookie}]", ConsoleColor.Red);
-        }
+        var dirPath = FormInputDirectoryPath(year);
+        var fileName = FormInputFileName(day);
 
-        Environment.SetEnvironmentVariable(
-            variable: UserSessionEnvVar,
-            value: sessionCookie,
-            target: EnvironmentVariableTarget.User);
-        Log($"User session set [{sessionCookie}]", ConsoleColor.Green);
+        return Path.Combine(dirPath, fileName);
     }
     
     public static void SetCachePath(string path)
@@ -94,20 +77,6 @@ public static class InputProvider
             Log($"Error setting input cache, invalid path:\n{e}", ConsoleColor.Red);
         }
     }
-    
-    private static string GetUserSession()
-    {
-        var userSession = Environment.GetEnvironmentVariable(
-            variable: UserSessionEnvVar,
-            EnvironmentVariableTarget.User);
-
-        if (string.IsNullOrWhiteSpace(userSession))
-        {
-            throw new Exception(message: "User session cookie missing/not set");
-        }
-
-        return userSession;
-    }
 
     private static string GetCachePath()
     {
@@ -125,6 +94,16 @@ public static class InputProvider
         return Path.Combine(
             AppDomain.CurrentDomain.BaseDirectory,
             DefaultInputDirectoryName);
+    }
+
+    private static string FormInputDirectoryPath(int year)
+    {
+        var cacheDirPath = GetCachePath();
+        var yearDirName = year.ToString();
+
+        //  Inputs are stored under the cache directory based on year: <cache directory>/<year>/<day>.txt
+        //
+        return Path.Combine(cacheDirPath, yearDirName);
     }
     
     private static string FormInputFileName(int day)

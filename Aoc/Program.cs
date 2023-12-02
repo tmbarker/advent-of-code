@@ -18,19 +18,25 @@ internal static class Program
         var dayArg = new Argument<int>(
             name: "day", 
             description: "The problem day");
+        var inputPathOption = new Option<string>(
+            aliases: new[] { "--input", "--path" },
+            description: "Manually specify the path to the input file",
+            getDefaultValue: () => string.Empty);
         var logsOption = new Option<bool>(
-            aliases: new[] { "-l", "--logs" },
+            aliases: new[] { "--logs" },
             description: "Some problems emit logs as they run, print any such logs to the console",
             getDefaultValue: () => false);
         
         solveCommand.AddArgument(yearArg);
         solveCommand.AddArgument(dayArg);
         solveCommand.AddOption(logsOption);
+        solveCommand.AddOption(inputPathOption);
         solveCommand.SetHandler(
-            handle: async (year, day, showLogs) => await SolutionRunner.Run(year, day, showLogs),
+            handle: async (year, day, inputPath, showLogs) => await SolutionRunner.Run(year, day, inputPath, showLogs),
             symbol1: yearArg,
             symbol2: dayArg,
-            symbol3: logsOption);
+            symbol3: inputPathOption,
+            symbol4: logsOption);
         
         var updateReadmeCommand = new Command(
             name: "update-readme", 
@@ -47,7 +53,7 @@ internal static class Program
         
         setUserSessionCommand.AddArgument(sessionArg);
         setUserSessionCommand.SetHandler(
-            handle: InputProvider.SetUserSession,
+            handle: SolutionRunner.SetUserSession,
             symbol: sessionArg);
         
         var setInputCacheCommand = new Command(
@@ -68,7 +74,7 @@ internal static class Program
 
         scratchCommand.SetHandler(handle: ScratchPad.Execute);
         
-        var rootCommand = new RootCommand(description: "CLI entry point for running AoC problem solutions");
+        var rootCommand = new RootCommand(description: "CLI entry point for running AoC puzzle solutions");
         rootCommand.AddCommand(solveCommand);
         rootCommand.AddCommand(updateReadmeCommand);
         rootCommand.AddCommand(setUserSessionCommand);

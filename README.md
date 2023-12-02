@@ -92,17 +92,16 @@ dotnet run solve <year> <day>
 
 2. From a `.cs` file, using reflective `SolutionRunner`:
 ```
-using Automation.Input;
 using Automation.Runner;
 
-InputProvider.SetUserSession(sessionCookie: <session cookie>);
+SolutionRunner.SetUserSession(userSession: <session cookie>);
 SolutionRunner.Run(year: <year>, day: <day>);
 ```
 3. From a `.cs` file, directly instantiating a given `Solution`:
 ```
 using Problems.Y<year>.D<day>;
 
-var solution = new Solution() { InputFilePath = <input file path> };
+var solution = new Solution() { InputPath = <input file path> };
 var p1 = solution.Run(part: 1);
 var p2 = solution.Run(part: 2);
 ```
