@@ -24,32 +24,29 @@ public class Solution : SolutionBase
 
     private int SumPossible()
     {
-        var games = ParseInputLines(parseFunc: ParseGame);
         var constraint = new Set(Red: 12, Green: 13, Blue: 14);
-        var possible = games.Where(game => IsPossible(constraint, game));
+        var games = ParseInputLines(parseFunc: ParseGame);
+        var possible = games.Where(game => IsPossible(game, constraint));
 
         return possible.Sum(game => game.Id);
     }
     
-    private static bool IsPossible(Set constraint, Game game)
+    private static bool IsPossible(Game game, Set constraint)
     {
-        return game.Draws.All(draw => IsPossible(constraint, observed: draw));
+        return game.Draws.All(draw => IsPossible(observed: draw, constraint));
     }
 
-    private static bool IsPossible(Set constraint, Set observed)
+    private static bool IsPossible(Set observed, Set constraint)
     {
-        return
-            observed.Red <= constraint.Red &&
-            observed.Blue <= constraint.Blue &&
+        return 
+            observed.Red   <= constraint.Red && 
+            observed.Blue  <= constraint.Blue && 
             observed.Green <= constraint.Green;
     }
     
     private int SumMinimumPowers()
     {
-        var games = ParseInputLines(parseFunc: ParseGame);
-        var powers = games.Select(GetMinimumPower);
-
-        return powers.Sum();
+        return ParseInputLines(parseFunc: ParseGame).Sum(GetMinimumPower);
     }
 
     private static int GetMinimumPower(Game game)
@@ -65,22 +62,16 @@ public class Solution : SolutionBase
     {
         var elements = line.Split(separator: ':');
         var id = elements[0].ParseInt();
-        
-        var setStrings = elements[1].Split(separator: ';');
-        var setEntities = new List<Set>();
+        var draws = new List<Set>();
 
-        foreach (var drawString in setStrings)
+        foreach (var setString in elements[1].Split(separator: ';'))
         {
-            var r = Regex.Match(input: drawString, pattern: @"(\d+) red");
-            var g = Regex.Match(input: drawString, pattern: @"(\d+) green");
-            var b = Regex.Match(input: drawString, pattern: @"(\d+) blue");
-
-            setEntities.Add(new Set(
-                Red:   r.Success ? r.Groups[1].ParseInt() : 0,
-                Blue:  b.Success ? b.Groups[1].ParseInt() : 0,
-                Green: g.Success ? g.Groups[1].ParseInt() : 0));
+            draws.Add(item: new Set(
+                Red:   Regex.Match(input: setString, pattern: @"(\d+) red").ParseSingleIntOrDefault(group: 1),
+                Blue:  Regex.Match(input: setString, pattern: @"(\d+) blue").ParseSingleIntOrDefault(group: 1),
+                Green: Regex.Match(input: setString, pattern: @"(\d+) green").ParseSingleIntOrDefault(group: 1)));
         }
 
-        return new Game(id, setEntities);
+        return new Game(id, draws);
     }
 }

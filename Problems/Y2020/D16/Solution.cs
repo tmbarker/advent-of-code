@@ -106,11 +106,11 @@ public class Solution : SolutionBase
             var match = Regex.Match(input[i], @"([a-z ]+): (\d+)-(\d+) or (\d+)-(\d+)");
             var field = match.Groups[1].Value;
             var r1 = new Aabb1D(
-                min: match.Groups[2].ParseInt(),
-                max: match.Groups[3].ParseInt());
+                min: match.Groups[2].ParseSingleInt(),
+                max: match.Groups[3].ParseSingleInt());
             var r2 = new Aabb1D(
-                min: match.Groups[4].ParseInt(),
-                max: match.Groups[5].ParseInt());
+                min: match.Groups[4].ParseSingleInt(),
+                max: match.Groups[5].ParseSingleInt());
 
             fieldValidators.Add(
                 key: field,

@@ -29,12 +29,12 @@ public class Solution : SolutionBase
         foreach (var line in input)
         {
             var match = regex.Match(line);
-            var keys = match.SelectCaptures(group: "Keys");
-            var values = match.SelectCaptures(group: "Values").Select(int.Parse);
+            var keys = match.Groups["Keys"].Captures.Select(c => c.Value);
+            var values = match.Groups["Values"].ParseManyInt();
             
             if (predicate(keys.Zip(values)))
             {
-                return match.Groups["Id"].ParseInt();
+                return match.Groups["Id"].ParseSingleInt();
             }
         }
 

@@ -193,7 +193,7 @@ public static class MapData
             {
                 "L" => new Instruction(steps: 0, Rotation3D.Positive90Z),
                 "R" => new Instruction(steps: 0, Rotation3D.Negative90Z),
-                _ => new Instruction(steps: match.ParseInt(), Rotation3D.Zero)
+                _   => new Instruction(steps: match.ParseInt(), Rotation3D.Zero)
             };
 
         }

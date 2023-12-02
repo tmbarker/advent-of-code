@@ -38,7 +38,7 @@ public static class Origami
             {
                 var match = Regex.Match(line, FoldRegex);
                 var fold = match.Groups[1].Value.Contains(HorizontalSignifier) ? FoldType.Horizontal : FoldType.Vertical;
-                var foldAt = match.Groups[2].ParseInt();
+                var foldAt = match.Groups[2].ParseSingleInt();
                 folds.Add((fold, foldAt));
             }
         }

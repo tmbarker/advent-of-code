@@ -39,12 +39,12 @@ public class Solution : SolutionBase
 
     private static Policy ParsePolicy(string line)
     {
-        var matches = Regex.Match(line, @"(\d+)-(\d+) ([a-z]): (.*)");
+        var match = Regex.Match(line, @"(\d+)-(\d+) ([a-z]): (.*)");
         return new Policy(
-            N1: matches.Groups[1].ParseInt(),
-            N2: matches.Groups[2].ParseInt(),
-            Letter: matches.Groups[3].Value[0],
-            Password: matches.Groups[4].Value);
+            N1: match.Groups[1].ParseSingleInt(),
+            N2: match.Groups[2].ParseSingleInt(),
+            Letter: match.Groups[3].Value[0],
+            Password: match.Groups[4].Value);
     }
     
     private readonly record struct Policy(int N1, int N2, char Letter, string Password);
