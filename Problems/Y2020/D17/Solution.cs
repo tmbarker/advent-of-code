@@ -46,7 +46,7 @@ public class Solution : SolutionBase
     private static ISet<Vector3D> Cycle3D(ICollection<Vector3D> active)
     {
         var nextActive = new HashSet<Vector3D>();
-        foreach (var pos in new Aabb3D(active, false))
+        foreach (var pos in new Aabb3D(active, inclusive: false))
         {
             var activeAdjCount = pos
                 .GetAdjacentSet(Metric.Chebyshev)

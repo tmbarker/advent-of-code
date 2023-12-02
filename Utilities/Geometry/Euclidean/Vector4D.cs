@@ -3,7 +3,7 @@ namespace Utilities.Geometry.Euclidean;
 /// <summary>
 /// A readonly integral 4D Vector value type
 /// </summary>
-public readonly struct Vector4D : IEquatable<Vector4D>, IPoint<Vector4D>
+public readonly struct Vector4D : IMetricSpaceVector<Vector4D>, IEquatable<Vector4D>
 {
     private const string StringFormat = "[{0},{1},{2},{3}]";
 
@@ -14,6 +14,7 @@ public readonly struct Vector4D : IEquatable<Vector4D>, IPoint<Vector4D>
     public int Y { get; }
     public int Z { get; }
     public int W { get; }
+    public int this[Axis axis] => GetComponent(axis);
     
     public Vector4D(int x, int y, int z, int w)
     {
@@ -23,14 +24,6 @@ public readonly struct Vector4D : IEquatable<Vector4D>, IPoint<Vector4D>
         W = w;
 
         Id = string.Format(StringFormat, X, Y, Z, W);
-    }
-
-    public void Deconstruct(out int x, out int y, out int z, out int w)
-    {
-        x = X;
-        y = Y;
-        z = Z;
-        w = W;
     }
 
     public int GetComponent(Axis component)
@@ -55,21 +48,21 @@ public readonly struct Vector4D : IEquatable<Vector4D>, IPoint<Vector4D>
         };
     }
 
-    public static implicit operator Vector4D(Vector3D v) => new(v.X, v.Y, v.Z, 0);
+    public static implicit operator Vector4D(Vector3D v) => new(v.X, v.Y, v.Z, w: 0);
     
     public static Vector4D operator +(Vector4D lhs, Vector4D rhs)
     {
-        return new Vector4D(lhs.X + rhs.X, lhs.Y + rhs.Y, lhs.Z + rhs.Z, lhs.W + rhs.W);
+        return new Vector4D(x: lhs.X + rhs.X, y: lhs.Y + rhs.Y, z: lhs.Z + rhs.Z, w: lhs.W + rhs.W);
     }
 
     public static Vector4D operator -(Vector4D lhs, Vector4D rhs)
     {
-        return new Vector4D(lhs.X - rhs.X, lhs.Y - rhs.Y, lhs.Z - rhs.Z, lhs.W - rhs.W);
+        return new Vector4D(x: lhs.X - rhs.X, y: lhs.Y - rhs.Y, z: lhs.Z - rhs.Z, w: lhs.W - rhs.W);
     }
 
     public static Vector4D operator *(int k, Vector4D rhs)
     {
-        return new Vector4D(k * rhs.X, k * rhs.Y, k * rhs.Z, k * rhs.W);
+        return new Vector4D(x: k * rhs.X, y: k * rhs.Y, z: k * rhs.Z, w: k * rhs.W);
     }
 
     public static bool operator ==(Vector4D left, Vector4D right)
@@ -122,6 +115,11 @@ public readonly struct Vector4D : IEquatable<Vector4D>, IPoint<Vector4D>
         return dx + dy + dz + dw;
     }
     
+    public int Magnitude(Metric metric)
+    {
+        return Distance(a: this, b: Zero, metric);
+    }
+    
     public ISet<Vector4D> GetAdjacentSet(Metric metric)
     {
         return metric switch
@@ -131,11 +129,6 @@ public readonly struct Vector4D : IEquatable<Vector4D>, IPoint<Vector4D>
             _ => throw new ArgumentException(
                 $"The {metric} distance metric is not well defined over {nameof(Vector4D)} space", nameof(metric))
         };
-    }
-
-    public int Magnitude(Metric metric)
-    {
-        return Distance(a: this, b: Zero, metric);
     }
     
     private ISet<Vector4D> GetTaxicabAdjacentSet()

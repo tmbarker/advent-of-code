@@ -1,5 +1,8 @@
 namespace Utilities.Geometry.Euclidean;
 
+/// <summary>
+/// A utility class that exposing <see cref="Subdivide"/>
+/// </summary>
 public static class Octree
 {
     /// <summary>

@@ -3,7 +3,7 @@ namespace Utilities.Geometry.Euclidean;
 /// <summary>
 /// A readonly integral 2D Vector value type
 /// </summary>
-public readonly struct Vector2D : IEquatable<Vector2D>, IPoint<Vector2D>
+public readonly struct Vector2D : IMetricSpaceVector<Vector2D>, IEquatable<Vector2D>
 {
     private const string StringFormat = "[{0},{1}]";
 
@@ -12,12 +12,12 @@ public readonly struct Vector2D : IEquatable<Vector2D>, IPoint<Vector2D>
     public static readonly Vector2D Down  = new(x:  0, y: -1);
     public static readonly Vector2D Left  = new(x: -1, y:  0);
     public static readonly Vector2D Right = new(x:  1, y:  0);
-    public static readonly Vector2D One   = new(x:  1, y:  1);
     public static readonly Vector2D PositiveInfinity = new (x: int.MaxValue, y:int.MaxValue);
 
     private string Id { get; }
     public int X { get; }
     public int Y { get; }
+    public int this[Axis axis] => GetComponent(axis);
     
     public Vector2D(int x, int y)
     {
@@ -90,22 +90,22 @@ public readonly struct Vector2D : IEquatable<Vector2D>, IPoint<Vector2D>
     
     public static Vector2D operator +(Vector2D lhs, Vector2D rhs)
     {
-        return new Vector2D(lhs.X + rhs.X, lhs.Y + rhs.Y);
+        return new Vector2D(x: lhs.X + rhs.X, y: lhs.Y + rhs.Y);
     }
 
     public static Vector2D operator -(Vector2D lhs, Vector2D rhs)
     {
-        return new Vector2D(lhs.X - rhs.X, lhs.Y - rhs.Y);
+        return new Vector2D(x: lhs.X - rhs.X, y: lhs.Y - rhs.Y);
     }
 
     public static Vector2D operator *(int k, Vector2D rhs)
     {
-        return new Vector2D(k * rhs.X, k * rhs.Y);
+        return new Vector2D(x: k * rhs.X, y: k * rhs.Y);
     }
     
     public static Vector2D operator /(Vector2D lhs, int k)
     {
-        return new Vector2D(lhs.X / k, lhs.Y / k);
+        return new Vector2D(x:lhs.X / k, y:lhs.Y / k);
     }
 
     public static bool operator ==(Vector2D left, Vector2D right)
@@ -138,6 +138,11 @@ public readonly struct Vector2D : IEquatable<Vector2D>, IPoint<Vector2D>
         return Id;
     }
     
+    public int Magnitude(Metric metric)
+    {
+        return Distance(a: this, b: Zero, metric);
+    }
+    
     public ISet<Vector2D> GetAdjacentSet(Metric metric)
     {
         return metric switch
@@ -147,11 +152,6 @@ public readonly struct Vector2D : IEquatable<Vector2D>, IPoint<Vector2D>
             _ => throw new ArgumentException(
                 $"The {metric} distance metric is not well defined over {nameof(Vector2D)} space", nameof(metric))
         };
-    }
-    
-    public int Magnitude(Metric metric)
-    {
-        return Distance(a: this, b: Zero, metric);
     }
     
     private ISet<Vector2D> GetTaxicabAdjacentSet()

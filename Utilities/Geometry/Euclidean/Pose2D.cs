@@ -29,7 +29,7 @@ public readonly struct Pose2D : IEquatable<Pose2D>
     {
         if (rot.Axis != Axis.Z && rot != Rotation3D.Zero)
         {
-            throw new InvalidOperationException($"Invalid axis of rotation [{rot.Axis}]");
+            throw new InvalidOperationException(message: $"Invalid axis of rotation [{rot.Axis}]");
         }
 
         return new Pose2D(pos: Pos, face: rot * Face);

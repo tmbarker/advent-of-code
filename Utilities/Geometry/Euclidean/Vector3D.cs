@@ -3,7 +3,7 @@ namespace Utilities.Geometry.Euclidean;
 /// <summary>
 /// A readonly integral 3D Vector value type
 /// </summary>
-public readonly struct Vector3D : IEquatable<Vector3D>, IPoint<Vector3D>
+public readonly struct Vector3D : IMetricSpaceVector<Vector3D>, IEquatable<Vector3D>
 {
     private const string StringFormat = "[{0},{1},{2}]";
 
@@ -19,6 +19,7 @@ public readonly struct Vector3D : IEquatable<Vector3D>, IPoint<Vector3D>
     public int X { get; }
     public int Y { get; }
     public int Z { get; }
+    public int this[Axis axis] => GetComponent(axis);
     
     public Vector3D(int x, int y, int z)
     {
@@ -32,14 +33,7 @@ public readonly struct Vector3D : IEquatable<Vector3D>, IPoint<Vector3D>
     public Vector3D(Vector2D xy, int z) : this(xy.X, xy.Y, z)
     {
     }
-
-    public void Deconstruct(out int x, out int y, out int z)
-    {
-        x = X;
-        y = Y;
-        z = Z;
-    }
-
+    
     public int GetComponent(Axis component)
     {
         switch (component)
@@ -54,16 +48,6 @@ public readonly struct Vector3D : IEquatable<Vector3D>, IPoint<Vector3D>
             default:
                 throw new ArgumentOutOfRangeException(nameof(component), component, null);
         }
-    }
-    
-    public static Vector3D Normalize(Vector3D vector)
-    {
-        return new Vector3D(Math.Sign(vector.X), Math.Sign(vector.Y), Math.Sign(vector.Z));
-    }
-
-    public int Dot(Vector3D other)
-    {
-        return X * other.X + Y * other.Y + Z * other.Z;
     }
 
     public static int Distance(Vector3D a, Vector3D b, Metric metric)
@@ -81,17 +65,17 @@ public readonly struct Vector3D : IEquatable<Vector3D>, IPoint<Vector3D>
     
     public static Vector3D operator +(Vector3D lhs, Vector3D rhs)
     {
-        return new Vector3D(lhs.X + rhs.X, lhs.Y + rhs.Y, lhs.Z + rhs.Z);
+        return new Vector3D(x: lhs.X + rhs.X, y: lhs.Y + rhs.Y, z: lhs.Z + rhs.Z);
     }
 
     public static Vector3D operator -(Vector3D lhs, Vector3D rhs)
     {
-        return new Vector3D(lhs.X - rhs.X, lhs.Y - rhs.Y, lhs.Z - rhs.Z);
+        return new Vector3D(x: lhs.X - rhs.X, y: lhs.Y - rhs.Y, z: lhs.Z - rhs.Z);
     }
 
     public static Vector3D operator *(int k, Vector3D rhs)
     {
-        return new Vector3D(k * rhs.X, k * rhs.Y, k * rhs.Z);
+        return new Vector3D(x: k * rhs.X, y: k * rhs.Y, z: k * rhs.Z);
     }
 
     public static bool operator ==(Vector3D left, Vector3D right)
@@ -124,6 +108,11 @@ public readonly struct Vector3D : IEquatable<Vector3D>, IPoint<Vector3D>
         return Id;
     }
     
+    public int Magnitude(Metric metric)
+    {
+        return Distance(a: this, b: Zero, metric);
+    }
+    
     public ISet<Vector3D> GetAdjacentSet(Metric metric)
     {
         return metric switch
@@ -133,11 +122,6 @@ public readonly struct Vector3D : IEquatable<Vector3D>, IPoint<Vector3D>
             _ => throw new ArgumentException(
                 $"The {metric} distance metric is not well defined over {nameof(Vector3D)} space", nameof(metric))
         };
-    }
-
-    public int Magnitude(Metric metric)
-    {
-        return Distance(a: this, b: Zero, metric);
     }
     
     private ISet<Vector3D> GetTaxicabAdjacentSet()
