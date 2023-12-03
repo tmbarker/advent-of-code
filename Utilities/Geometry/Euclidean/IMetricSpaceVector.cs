@@ -3,7 +3,7 @@ namespace Utilities.Geometry.Euclidean;
 /// <summary>
 /// Represents a vector in <see cref="Euclidean"/> space 
 /// </summary>
-public interface IMetricSpaceVector<TVector>
+internal interface IMetricSpaceVector<TVector>
 {
     /// <summary>
     /// Get the magnitude of the specified component of the vector

@@ -11,7 +11,7 @@ public partial class Grid2D<T>
     /// <returns>A <see cref="Grid2D{T}"/> instance with the specified numbers of rows and columns</returns>
     public static Grid2D<T> WithDimensions(int rows, int cols, Origin origin = Origin.Xy)
     {
-        return new Grid2D<T>(new T[rows, cols], origin);
+        return new Grid2D<T>(array: new T[rows, cols], origin);
     }
 
     /// <summary>
@@ -31,6 +31,10 @@ public partial class Grid2D<T>
         for (var y = 0; y < rows; y++)
         for (var x = 0; x < cols; x++)
         {
+            //  NOTE: The backing array is always populated such that the bottom left element of the string "grid"
+            //  is populated into the bottom left element of the array. Once the Grid2D instance is constructed,
+            //  position indexing (i.e. abstracted array indexing) will be subject to the origin convention used.
+            //
             var chr = strings[rows - y - 1][x];
             var element = elementFunc(chr);
             

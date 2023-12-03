@@ -1,52 +1,56 @@
 using System.Collections;
+using System.Runtime.CompilerServices;
 using System.Text;
 
 namespace Utilities.Geometry.Euclidean;
 
 /// <summary>
-/// 2D grid data structure providing (X,Y) style indexing
+/// A 2D grid data structure providing (X,Y) style indexing
 /// </summary>
-/// <typeparam name="T">The type at each grid position</typeparam>
+/// <typeparam name="T">The type associated with the value at each grid position</typeparam>
 public partial class Grid2D<T> : IEnumerable<KeyValuePair<Vector2D, T>>
 {
-    private const string InvalidFlipAxisError = $"{nameof(Grid2D<T>)} can only be flipped about the X and Y axis";
-    private const string InvalidRotAxisError = $"{nameof(Grid2D<T>)} can only be rotated about the Z axis";
-    
-    private T[,] _grid;
+    /// <summary>
+    /// The internal backing array, which is indexed from the bottom left.
+    /// <para />When <see cref="_origin"/> is set to <see cref="Origin.Xy"/> the position argument of "Get" and "Set"
+    /// queries will match the array index, i.e. <see cref="Vector2D"/>.<see cref="Vector2D.Zero"/> will index the
+    /// bottom left element from the array (e.g. <see cref="_array"/>[0, 0]).
+    /// <para />Accordingly, when <see cref="_origin"/> is set to <see cref="Origin.Uv"/> then
+    /// <see cref="Vector2D"/>.<see cref="Vector2D.Zero"/> will index the top left element from the array.
+    /// </summary>
+    private T[,] _array;
     private readonly Origin _origin;
     
     /// <summary>
     /// Internal constructor
     /// </summary>
-    /// <param name="grid">The 2D array which will back the Grid instance, it should be populated such that the bottom
+    /// <param name="array">The 2D array which will back the Grid instance, it should be populated such that the bottom
     /// left element of the <see cref="Grid2D{T}"/> is indexed at [0,0] when using the <see cref="Origin.Xy"/> origin</param>
     /// <param name="origin">Which origin to use</param>
-    private Grid2D(T[,] grid, Origin origin)
+    private Grid2D(T[,] array, Origin origin)
     {
-        _grid = grid;
+        _array = array;
         _origin = origin;
-        
-        EvaluateDimensions();
     }
-    
+
     /// <summary>
     /// The number of columns in the <see cref="Grid2D{T}"/> instance
     /// </summary>
-    public int Width { get; private set; }
+    public int Width => _array.GetLength(dimension: 1);
     /// <summary>
     /// The number of rows in the <see cref="Grid2D{T}"/> instance
     /// </summary>
-    public int Height { get; private set; }
+    public int Height => _array.GetLength(dimension: 0);
 
     /// <summary>
-    /// Index the element at position (<paramref name="x"/>,<paramref name="y"/>)
+    /// Index the element at position (<paramref name="x"/>, <paramref name="y"/>)
     /// </summary>
     /// <param name="x">The column index</param>
     /// <param name="y">The row index</param>
     public T this[int x, int y]
     {
-        get => GetInternal(x, y);
-        set => SetInternal(x, y, value);
+        get => GetElementInternal(x, y);
+        set => SetElementInternal(x, y, value);
     }
 
     /// <summary>
@@ -55,8 +59,8 @@ public partial class Grid2D<T> : IEnumerable<KeyValuePair<Vector2D, T>>
     /// <param name="position">The position to index</param>
     public T this[Vector2D position]
     {
-        get => GetInternal(position.X, position.Y);
-        set => SetInternal(position.X, position.Y, value);
+        get => GetElementInternal(position.X, position.Y);
+        set => SetElementInternal(position.X, position.Y, value);
     }
 
     /// <summary>
@@ -87,7 +91,7 @@ public partial class Grid2D<T> : IEnumerable<KeyValuePair<Vector2D, T>>
     {
         var sb = new StringBuilder();
         var paddingStr = padding > 0 
-            ? new string(' ', padding) 
+            ? new string(c: ' ', padding) 
             : string.Empty;
 
         if (!string.IsNullOrEmpty(prepend))
@@ -95,14 +99,13 @@ public partial class Grid2D<T> : IEnumerable<KeyValuePair<Vector2D, T>>
             sb.Append(prepend);
         }
         
-        for (var y = Height - 1; y >= 0; y--)
+        for (var r = Height - 1; r >= 0; r--)
         {
-            for (var x = 0; x < Width; x++)
+            for (var c = 0; c < Width; c++)
             {
-                var element = _grid[y, x];
-                var pos = new Vector2D(
-                    x: x,
-                    y: TransformY(y));
+                var element = _array[r, c];
+                var (x, y) = ArrayIndicesToXy(r, c);
+                var pos = new Vector2D(x, y);
                 
                 var elementString = elementFormatter != null
                     ? elementFormatter(pos, element)
@@ -127,77 +130,17 @@ public partial class Grid2D<T> : IEnumerable<KeyValuePair<Vector2D, T>>
             yield return new Vector2D(x, y);
         }
     }
-
-    /// <summary>
-    /// Flip the grid about the specified axis
-    /// </summary>
-    /// <param name="about">The axis about which to flip the grid</param>
-    /// <exception cref="ArgumentOutOfRangeException"><see cref="Axis.X"/> and <see cref="Axis.Y"/> axes only</exception>
-    public void Flip(Axis about)
-    {
-        var tmp = new T[Height, Width];
-        for (var x = 0; x < Width; x++)
-        for (var y = 0; y < Height; y++)
-        {
-            // ReSharper disable once SwitchExpressionHandlesSomeKnownEnumValuesWithExceptionInDefault
-            tmp[y, x] = about switch
-            {
-                Axis.X => _grid[Height - y - 1, x],
-                Axis.Y => _grid[y, Width - x - 1],
-                _ => throw new ArgumentOutOfRangeException(nameof(about), about, InvalidFlipAxisError)
-            };
-        }
-
-        _grid = tmp;
-        EvaluateDimensions();
-    }
-    
-    /// <summary>
-    /// Rotate the grid by the given argument
-    /// </summary>
-    /// <param name="rot">The rotation to perform on the grid</param>
-    /// <exception cref="ArgumentOutOfRangeException">Argument must be a rotation around the <see cref="Axis.Z"/> axis</exception>
-    public void Rotate(Rotation3D rot)
-    {
-        if (rot.Axis != Axis.Z)
-        {
-            throw new ArgumentOutOfRangeException(nameof(rot), rot, InvalidRotAxisError);
-        }
-        
-        var map = new Dictionary<Vector2D, Vector2D>();
-        for (var y = 0; y < Height; y++)
-        for (var x = 0; x < Width; x++)
-        {
-            var from = new Vector2D(x, y);
-            var to = rot * from;
-            map[to] = from;
-        }
-
-        var xMin = map.Keys.Min(v => v.X);
-        var xMax = map.Keys.Max(v => v.X);
-        var yMin = map.Keys.Min(v => v.Y);
-        var yMax = map.Keys.Max(v => v.Y);
-
-        var tmp = new T[yMax - yMin + 1, xMax - xMin + 1];
-        foreach (var ((xTo, yTo), (xFrom, yFrom)) in map)
-        {
-            tmp[yTo - yMin, xTo - xMin] = _grid[yFrom, xFrom];
-        }
-
-        _grid = tmp;
-        EvaluateDimensions();
-    }
     
     /// <summary>
     /// Extract a row from the grid
     /// </summary>
     /// <param name="rowIndex">The 0-based row index</param>
     /// <returns>The elements of the row, starting with the 0-index column element</returns>
-    public IEnumerable<T> GetRow(int rowIndex)
+    public IEnumerable<T> EnumerateRow(int rowIndex)
     {
         for (var x = 0; x < Width; x++)
         {
-            yield return GetInternal(x, rowIndex);
+            yield return GetElementInternal(x, y: rowIndex);
         }
     }
     
@@ -206,59 +149,53 @@ public partial class Grid2D<T> : IEnumerable<KeyValuePair<Vector2D, T>>
     /// </summary>
     /// <param name="colIndex">The 0-based column index</param>
     /// <returns>The elements of the column, starting with the 0-index row element</returns>
-    public IEnumerable<T> GetCol(int colIndex)
+    public IEnumerable<T> EnumerateCol(int colIndex)
     {
         for (var y = 0; y < Height; y++)
         {
-            yield return GetInternal(colIndex, y);
-        }
-    }
-    
-    /// <summary>
-    /// Extract the positions of a row from the grid
-    /// </summary>
-    /// <param name="rowIndex">The 0-based row index</param>
-    /// <returns>The position elements of the row, starting with the 0-index column element</returns>
-    public IEnumerable<Vector2D> GetRowPositions(int rowIndex)
-    {
-        for (var x = 0; x < Width; x++)
-        {
-            yield return new Vector2D(x, rowIndex);
-        }
-    }
-    
-    /// <summary>
-    /// Extract the positions of a column from the grid
-    /// </summary>
-    /// <param name="colIndex">The 0-based column index</param>
-    /// <returns>The position elements of the column, starting with the 0-index row element</returns>
-    public IEnumerable<Vector2D> GetColPositions(int colIndex)
-    {
-        for (var y = 0; y < Height; y++)
-        {
-            yield return new Vector2D(colIndex, y);
+            yield return GetElementInternal(x: colIndex, y);
         }
     }
 
-    private T GetInternal(int x, int y)
+    private T GetElementInternal(int x, int y)
     {
-        return _grid[TransformY(y), x];
+        var (row, col) = XyToArrayIndices(x, y);
+        return _array[row, col];
     }
     
-    private void SetInternal(int x, int y, T value)
+    private void SetElementInternal(int x, int y, T value)
     {
-        _grid[TransformY(y), x] = value;
+        var (row, col) = XyToArrayIndices(x, y);
+        _array[row, col] = value;
     }
 
-    private int TransformY(int raw)
+    /// <summary>
+    /// Convert the abstracted XY position of a grid element to indices of the backing array
+    /// </summary>
+    /// <param name="x">The X component of the abstracted grid element position</param>
+    /// <param name="y">The y component of the abstracted grid element position</param>
+    /// <returns>The row and col values used to index into the backing array</returns>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    private (int row, int col) XyToArrayIndices(int x, int y)
     {
-        return _origin == Origin.Xy ? raw : Height - raw - 1;
+        var row = _origin == Origin.Xy ? y : Height - y - 1;
+        var col = x;
+
+        return (row, col);
     }
     
-    private void EvaluateDimensions()
+    /// <summary>
+    /// Convert backing array indices to the corresponding abstracted XY position of a grid element
+    /// </summary>
+    /// <param name="row">The row index in the backing array</param>
+    /// <param name="col">The col index in the backing array</param>
+    /// <returns>The XY position of the abstracted grid element</returns>
+    private (int x, int y) ArrayIndicesToXy(int row, int col)
     {
-        Height = _grid.GetLength(0);
-        Width = _grid.GetLength(1);
+        var x = col;
+        var y = _origin == Origin.Xy ? row : Height - row - 1;
+
+        return (x, y);
     }
 
     public IEnumerator<KeyValuePair<Vector2D, T>> GetEnumerator()
@@ -266,7 +203,7 @@ public partial class Grid2D<T> : IEnumerable<KeyValuePair<Vector2D, T>>
         for (var y = 0; y < Height; y++)
         for (var x = 0; x < Width; x++)
         {
-            yield return new KeyValuePair<Vector2D, T>(new Vector2D(x, y), GetInternal(x, y));
+            yield return new KeyValuePair<Vector2D, T>(new Vector2D(x, y), GetElementInternal(x, y));
         }
     }
 

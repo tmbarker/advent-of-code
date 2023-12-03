@@ -48,8 +48,9 @@ public class Solution : SolutionBase
         //
         for (var y = 0; y < trees.Height; y++)
         {
-            var row = trees.GetRowPositions(y);
-            var enumerated = row.ToArray();
+            var row = y;
+            var positions = Enumerable.Range(start: 0, count: trees.Width).Select(x => new Vector2D(x, y: row));
+            var enumerated = positions.ToArray();
             
             los.Add(enumerated);
             los.Add(enumerated.Reverse());
@@ -59,8 +60,9 @@ public class Solution : SolutionBase
         //
         for (var x = 0; x < trees.Width; x++)
         {
-            var col = trees.GetColPositions(x);
-            var enumerated = col.ToArray();
+            var col = x;
+            var positions = Enumerable.Range(start: 0, count: trees.Height).Select(y => new Vector2D(x: col, y));
+            var enumerated = positions.ToArray();
             
             los.Add(enumerated);
             los.Add(enumerated.Reverse());

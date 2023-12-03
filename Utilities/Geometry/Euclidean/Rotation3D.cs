@@ -7,58 +7,50 @@ namespace Utilities.Geometry.Euclidean;
 /// </summary>
 public readonly struct Rotation3D : IEquatable<Rotation3D>
 {
-    private const string ThetaOutOfRangeError = "Theta must be an integral multiple of 90 degrees";
-    private const string AxisOutOfRangeError = "Axis must be a 3D spatial axis (X, Y, or Z)";
-    private const int DegreesPerRotation = 360;
-    private const int NinetyDegrees = DegreesPerRotation / 4;
-
-    private readonly double _thetaRad;
-
-    public static readonly Rotation3D Zero         = new(axis: Axis.X, thetaDeg: 0);
-    public static readonly Rotation3D Negative90X  = new(axis: Axis.X, thetaDeg: -NinetyDegrees);
-    public static readonly Rotation3D Positive90X  = new(axis: Axis.X, thetaDeg: NinetyDegrees);
-    public static readonly Rotation3D Positive180X = new(axis: Axis.X, thetaDeg: 2 * NinetyDegrees);
-    public static readonly Rotation3D Negative90Y  = new(axis: Axis.Y, thetaDeg: -NinetyDegrees);
-    public static readonly Rotation3D Positive90Y  = new(axis: Axis.Y, thetaDeg: NinetyDegrees);
-    public static readonly Rotation3D Positive180Y = new(axis: Axis.Y, thetaDeg: 2 * NinetyDegrees);
-    public static readonly Rotation3D Negative90Z  = new(axis: Axis.Z, thetaDeg: -NinetyDegrees);
-    public static readonly Rotation3D Positive90Z  = new(axis: Axis.Z, thetaDeg: NinetyDegrees);
-    public static readonly Rotation3D Positive180Z = new(axis: Axis.Z, thetaDeg: 2 * NinetyDegrees);
+    public const int DegreesPerRotation = 360;
+    public const int NinetyDegrees = 90;
+    
+    public static readonly Rotation3D Zero         = new(axis: Axis.X, thetaDeg:  0);
+    public static readonly Rotation3D Negative90X  = new(axis: Axis.X, thetaDeg: -1 * NinetyDegrees);
+    public static readonly Rotation3D Positive90X  = new(axis: Axis.X, thetaDeg:  1 * NinetyDegrees);
+    public static readonly Rotation3D Positive180X = new(axis: Axis.X, thetaDeg:  2 * NinetyDegrees);
+    public static readonly Rotation3D Negative90Y  = new(axis: Axis.Y, thetaDeg: -1 * NinetyDegrees);
+    public static readonly Rotation3D Positive90Y  = new(axis: Axis.Y, thetaDeg:  1 * NinetyDegrees);
+    public static readonly Rotation3D Positive180Y = new(axis: Axis.Y, thetaDeg:  2 * NinetyDegrees);
+    public static readonly Rotation3D Negative90Z  = new(axis: Axis.Z, thetaDeg: -1 * NinetyDegrees);
+    public static readonly Rotation3D Positive90Z  = new(axis: Axis.Z, thetaDeg:  1 * NinetyDegrees);
+    public static readonly Rotation3D Positive180Z = new(axis: Axis.Z, thetaDeg:  2 * NinetyDegrees);
 
     public Rotation3D(Axis axis, int thetaDeg)
     {
-        if (axis == Axis.W)
+        if (axis is not (Axis.X or Axis.Y or Axis.Z))
         {
-            throw new ArgumentOutOfRangeException(nameof(axis), axis, AxisOutOfRangeError);
+            throw ThrowHelper.InvalidAxis(axis);
         }
         
         if (thetaDeg.Modulo(NinetyDegrees) != 0)
         {
-            throw new ArgumentOutOfRangeException(nameof(thetaDeg), thetaDeg, ThetaOutOfRangeError);
+            throw ThrowHelper.InvalidTheta(thetaDeg);
         }
 
         Axis = axis;
         ThetaDeg = thetaDeg.Modulo(DegreesPerRotation);
-        _thetaRad = thetaDeg * Math.PI * 2 / DegreesPerRotation;
+        ThetaRad = DegToRad(thetaDeg);
     }
 
-    private int ThetaDeg { get; }
     public Axis Axis { get; }
+    public int ThetaDeg { get; }
+    private double ThetaRad { get; }
 
     public static Vector3D operator *(Rotation3D r, Vector3D v)
     {
-        switch (r.Axis)
+        return r.Axis switch
         {
-            case Axis.X:
-                return RotateAboutX(r, v);
-            case Axis.Y:
-                return RotateAboutY(r, v);
-            case Axis.Z:
-                return RotateAboutZ(r, v);
-            case Axis.W:
-            default:
-                throw new InvalidOperationException($"Invalid axis of rotation [{r.Axis}]");
-        }
+            Axis.X => RotateAboutX(r, v),
+            Axis.Y => RotateAboutY(r, v),
+            Axis.Z => RotateAboutZ(r, v),
+            _ => throw ThrowHelper.InvalidAxis(r.Axis)
+        };
     }
     
     public static Vector4D operator *(Rotation3D r, Vector4D v)
@@ -73,37 +65,38 @@ public readonly struct Rotation3D : IEquatable<Rotation3D>
 
     public static IEnumerable<Rotation3D> RotationsAroundAxis(Axis axis)
     {
-        if (axis == Axis.W)
+        if (axis is not (Axis.X or Axis.Y or Axis.Z))
         {
-            throw new ArgumentOutOfRangeException(nameof(axis), axis,
-                "Axis must be a 3D spatial dimension (X, Y, or Z)");
+            throw ThrowHelper.InvalidAxis(axis);
         }
         
         for (var i = 0; i < DegreesPerRotation / NinetyDegrees; i++)
         {
-            yield return new Rotation3D(axis, i * NinetyDegrees);
+            yield return new Rotation3D(axis, thetaDeg: i * NinetyDegrees);
         }
     }
 
+    private static double DegToRad(int deg) => deg * Math.PI * 2 / DegreesPerRotation;
+    
     private static Vector3D RotateAboutX(Rotation3D r, Vector3D v)
     {
-        var y = v.Y * Math.Cos(r._thetaRad) - v.Z * Math.Sin(r._thetaRad);
-        var z = v.Y * Math.Sin(r._thetaRad) + v.Z * Math.Cos(r._thetaRad);
-        return new Vector3D(v.X, (int)Math.Round(y), (int)Math.Round(z));
+        var y = v.Y * Math.Cos(r.ThetaRad) - v.Z * Math.Sin(r.ThetaRad);
+        var z = v.Y * Math.Sin(r.ThetaRad) + v.Z * Math.Cos(r.ThetaRad);
+        return new Vector3D(v.X, y: (int)Math.Round(y), z: (int)Math.Round(z));
     }
     
     private static Vector3D RotateAboutY(Rotation3D r, Vector3D v)
     {
-        var x = v.X * Math.Cos(r._thetaRad) + v.Z * Math.Sin(r._thetaRad);
-        var z = v.Z * Math.Cos(r._thetaRad) - v.X * Math.Sin(r._thetaRad);
-        return new Vector3D((int)Math.Round(x), v.Y, (int)Math.Round(z));
+        var x = v.X * Math.Cos(r.ThetaRad) + v.Z * Math.Sin(r.ThetaRad);
+        var z = v.Z * Math.Cos(r.ThetaRad) - v.X * Math.Sin(r.ThetaRad);
+        return new Vector3D(x: (int)Math.Round(x), v.Y, z: (int)Math.Round(z));
     }
     
     private static Vector3D RotateAboutZ(Rotation3D r, Vector3D v)
     {
-        var x = v.X * Math.Cos(r._thetaRad) - v.Y * Math.Sin(r._thetaRad);
-        var y = v.X * Math.Sin(r._thetaRad) + v.Y * Math.Cos(r._thetaRad);
-        return new Vector3D((int)Math.Round(x), (int)Math.Round(y), v.Z);
+        var x = v.X * Math.Cos(r.ThetaRad) - v.Y * Math.Sin(r.ThetaRad);
+        var y = v.X * Math.Sin(r.ThetaRad) + v.Y * Math.Cos(r.ThetaRad);
+        return new Vector3D(x: (int)Math.Round(x), y: (int)Math.Round(y), v.Z);
     }
     
     public static bool operator ==(Rotation3D lhs, Rotation3D rhs)
@@ -134,5 +127,24 @@ public readonly struct Rotation3D : IEquatable<Rotation3D>
     public override string ToString()
     {
         return $"R({Axis}): {ThetaDeg}°";
+    }
+    
+    /// <summary>
+    /// Internal throw helper for <see cref="Rotation3D"/>
+    /// </summary>
+    private static class ThrowHelper
+    {
+        private const string ThetaOutOfRangeError = $"Theta must be an integer multiple of {nameof(NinetyDegrees)} degrees";
+        private const string AxisOutOfRangeError = "Axis must be a 3D Eucliedean axis (X, Y, or Z)";
+
+        internal static Exception InvalidTheta(int theta)
+        {
+            throw new ArgumentOutOfRangeException(nameof(theta), theta, message: ThetaOutOfRangeError);
+        }
+        
+        internal static Exception InvalidAxis(Axis axis)
+        {
+            throw new ArgumentOutOfRangeException(nameof(axis), axis, message: AxisOutOfRangeError);
+        }
     }
 }

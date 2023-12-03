@@ -82,10 +82,10 @@ public class Tile
     {
         return new Dictionary<Vector2D, Func<string>>
         {
-            {Vector2D.Up,    () => string.Concat(_content.GetRow(_content.Height - 1))},
-            {Vector2D.Down,  () => string.Concat(_content.GetRow(0))},
-            {Vector2D.Left,  () => string.Concat(_content.GetCol(0))},
-            {Vector2D.Right, () => string.Concat(_content.GetCol(_content.Width - 1))}
+            {Vector2D.Up,    () => string.Concat(_content.EnumerateRow(_content.Height - 1))},
+            {Vector2D.Down,  () => string.Concat(_content.EnumerateRow(0))},
+            {Vector2D.Left,  () => string.Concat(_content.EnumerateCol(0))},
+            {Vector2D.Right, () => string.Concat(_content.EnumerateCol(_content.Width - 1))}
         };
     }
     
