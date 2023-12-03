@@ -2,6 +2,11 @@
 
 ## My Favourite Puzzles and Solutions
 
+### 2023
+Puzzle | My Solution | Date | Topic(s) | Difficulty
+:--- | :---: | :---: | :--- | :---
+[Gear Ratios](https://adventofcode.com/2023/day/3) | [Solution](https://github.com/tmbarker/advent-of-code/blob/main/Problems/Y2023/D03/Solution.cs) | 2023-03 | Vectors | :green_circle: Easy
+
 ### 2022
 Puzzle | My Solution | Date | Topic(s) | Difficulty
 :--- | :---: | :---: | :--- | :---
