@@ -28,17 +28,17 @@ public partial class Grid2D<T>
         var cols = strings[0].Length;
         var array = new T[rows, cols];
 
-        for (var y = 0; y < rows; y++)
-        for (var x = 0; x < cols; x++)
+        for (var row = 0; row < rows; row++)
+        for (var col = 0; col < cols; col++)
         {
             //  NOTE: The backing array is always populated such that the bottom left element of the string "grid"
             //  is populated into the bottom left element of the array. Once the Grid2D instance is constructed,
             //  position indexing (i.e. abstracted array indexing) will be subject to the origin convention used.
             //
-            var chr = strings[rows - y - 1][x];
+            var chr = strings[rows - row - 1][col];
             var element = elementFunc(chr);
             
-            array[y, x] = element;
+            array[row, col] = element;
         }
 
         return new Grid2D<T>(array, origin);

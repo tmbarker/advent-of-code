@@ -10,13 +10,13 @@ public partial class Grid2D<T>
     public void Flip(Axis about)
     {
         var tmp = new T[Height, Width];
-        for (var x = 0; x < Width; x++)
-        for (var y = 0; y < Height; y++)
+        for (var col = 0; col < Width; col++)
+        for (var row = 0; row < Height; row++)
         {
-            tmp[y, x] = about switch
+            tmp[row, col] = about switch
             {
-                Axis.X => _array[Height - y - 1, x],
-                Axis.Y => _array[y, Width - x - 1],
+                Axis.X => _array[Height - row - 1, col],
+                Axis.Y => _array[row, Width - col - 1],
                 _ => throw ThrowHelper.InvalidFlipAxis(about)
             };
         }
@@ -47,10 +47,10 @@ public partial class Grid2D<T>
         }
         
         var map = new Dictionary<Vector3D, Vector3D>();
-        for (var y = 0; y < Height; y++)
-        for (var x = 0; x < Width; x++)
+        for (var row = 0; row < Height; row++)
+        for (var col = 0; col < Width; col++)
         {
-            var from = new Vector3D(x, y, z: 0);
+            var from = new Vector3D(x: col, y: row, z: 0);
             var to = rot * from;
             map[to] = from;
         }
