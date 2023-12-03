@@ -25,7 +25,7 @@ public class Solution : SolutionBase
 
     private static long ExecuteBoolean(IEnumerable<Instruction> instructions)
     {
-        var map = new DefaultDictionary<Vector2D, bool>(defaultValue: false);
+        var map = new DefaultDict<Vector2D, bool>(defaultValue: false);
         
         foreach (var (aabb, action) in instructions)
         foreach (var pos in aabb)
@@ -44,7 +44,7 @@ public class Solution : SolutionBase
     
     private static long ExecuteIntegral(IEnumerable<Instruction> instructions)
     {
-        var map = new DefaultDictionary<Vector2D, int>(defaultValue: 0);
+        var map = new DefaultDict<Vector2D, int>(defaultValue: 0);
         
         foreach (var (aabb, action) in instructions)
         foreach (var pos in aabb)

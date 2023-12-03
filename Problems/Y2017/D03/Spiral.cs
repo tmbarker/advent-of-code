@@ -5,7 +5,7 @@ namespace Problems.Y2017.D03;
 
 public class Spiral
 {
-    private readonly DefaultDictionary<Vector2D, int> _memory;
+    private readonly DefaultDict<Vector2D, int> _memory;
     private Vector2D _dir = Vector2D.Right;
 
     public int LastVal { get; private set; }
@@ -20,7 +20,7 @@ public class Spiral
     
     public Spiral()
     {
-        _memory = new DefaultDictionary<Vector2D, int>(defaultValue: 0);
+        _memory = new DefaultDict<Vector2D, int>(defaultValue: 0);
         StoreValue(pos: Vector2D.Zero, value: 1);
     }
 

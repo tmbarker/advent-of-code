@@ -39,10 +39,10 @@ public class Solution : IntCodeSolution
         };
     }
 
-    private static DefaultDictionary<Vector2D, long> RunRobot(IList<long> intCodeProgram, long startColour)
+    private static DefaultDict<Vector2D, long> RunRobot(IList<long> intCodeProgram, long startColour)
     {
         var robot = IntCodeVm.Create(intCodeProgram);
-        var painted = new DefaultDictionary<Vector2D, long>(defaultValue: Black) 
+        var painted = new DefaultDict<Vector2D, long>(defaultValue: Black) 
             { { InitialRobotPos, startColour } };
         
         var pos = InitialRobotPos;

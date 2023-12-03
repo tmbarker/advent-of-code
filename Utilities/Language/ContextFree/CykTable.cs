@@ -10,8 +10,8 @@ using BackRef = ValueTuple<int, string, string>;
 /// </summary>
 public readonly struct CykTable
 {
-    public DefaultDictionary<Key, bool> P { get; } = new(defaultValue: false);
-    public DefaultDictionary<Key, HashSet<BackRef>> B { get; } = new(defaultValue: new HashSet<BackRef>());
+    public DefaultDict<Key, bool> P { get; } = new(defaultValue: false);
+    public DefaultDict<Key, HashSet<BackRef>> B { get; } = new(defaultValue: new HashSet<BackRef>());
     
     public CykTable()
     {

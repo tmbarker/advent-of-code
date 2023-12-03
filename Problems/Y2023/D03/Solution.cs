@@ -12,7 +12,7 @@ namespace Problems.Y2023.D03;
 public class Solution : SolutionBase
 {
     private readonly record struct Number(int Value, HashSet<Vector2D> Positions);
-    private readonly record struct Schematic(List<Number> Numbers, DefaultDictionary<char, HashSet<Vector2D>> Symbols);
+    private readonly record struct Schematic(List<Number> Numbers, DefaultDict<char, HashSet<Vector2D>> Symbols);
     
     private const char Void = '.';
     private const char Gear = '*';
@@ -75,7 +75,7 @@ public class Solution : SolutionBase
     
     private static Schematic BuildSchematic(IReadOnlyList<string> lines)
     {
-        var symbols = new DefaultDictionary<char, HashSet<Vector2D>>(defaultValue: new HashSet<Vector2D>());
+        var symbols = new DefaultDict<char, HashSet<Vector2D>>(defaultValue: new HashSet<Vector2D>());
         var numbers = new List<Number>();
 
         for (var y = 0; y < lines.Count; y++)

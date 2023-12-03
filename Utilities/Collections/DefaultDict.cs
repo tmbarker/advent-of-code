@@ -9,7 +9,7 @@ namespace Utilities.Collections;
 /// </summary>
 /// <typeparam name="TKey">The type of the keys in the dictionary</typeparam>
 /// <typeparam name="TValue">The type of the values in the dictionary</typeparam>
-public class DefaultDictionary<TKey, TValue> : IDictionary<TKey, TValue> where TKey : notnull
+public class DefaultDict<TKey, TValue> : IDictionary<TKey, TValue> where TKey : notnull
 {
     private readonly Dictionary<TKey, TValue> _dictionary;
     private readonly Func<TKey, TValue> _defaultSelector;
@@ -25,13 +25,13 @@ public class DefaultDictionary<TKey, TValue> : IDictionary<TKey, TValue> where T
         set => IndexSetInternal(key, value);
     }
 
-    public DefaultDictionary(Func<TKey, TValue> defaultSelector)
+    public DefaultDict(Func<TKey, TValue> defaultSelector)
     {
         _dictionary = new Dictionary<TKey, TValue>();
         _defaultSelector = defaultSelector;
     }
 
-    public DefaultDictionary(TValue defaultValue) : this(defaultSelector: _ => defaultValue)
+    public DefaultDict(TValue defaultValue) : this(defaultSelector: _ => defaultValue)
     {
     }
 

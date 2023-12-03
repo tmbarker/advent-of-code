@@ -54,9 +54,9 @@ public class Solution : SolutionBase
         return count;
     }
     
-    private static DefaultDictionary<Vector2D, State> ParseGrid(IReadOnlyList<string> input)
+    private static DefaultDict<Vector2D, State> ParseGrid(IReadOnlyList<string> input)
     {
-        var grid = new DefaultDictionary<Vector2D, State>(defaultValue: State.Clean);
+        var grid = new DefaultDict<Vector2D, State>(defaultValue: State.Clean);
         var height = input.Count;
         var width = input[0].Length;
 
