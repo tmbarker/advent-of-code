@@ -9,7 +9,7 @@ namespace Problems.Y2023.D04;
 /// </summary>
 public class Solution : SolutionBase
 {
-    private readonly record struct Card(int Id, int NumWins);
+    private readonly record struct Card(int Wins);
     
     public override object Run(int part)
     {
@@ -23,26 +23,21 @@ public class Solution : SolutionBase
 
     private int CountScore()
     {
-        return ParseInputLines(parseFunc: ParseCard).Sum(card => ScoreCard(n: card.NumWins));
+        return ParseInputLines(parseFunc: ParseCard).Sum(card => ScoreCard(n: card.Wins));
     }
 
     private int CountCards()
     {
-        var map = ParseInputLines(parseFunc: ParseCard).ToDictionary(card => card.Id);
-        var queue = new Queue<Card>(collection: map.Values);
-        var count = queue.Count;
+        var cards = ParseInputLines(parseFunc: ParseCard).ToArray();
+        var counts = Enumerable.Repeat(element: 1, count: cards.Length).ToArray();
 
-        while (queue.Any())
+        for (var n = 1; n <= cards.Length; n++)
+        for (var w = 1; w <= cards[n - 1].Wins; w++)
         {
-            var card = queue.Dequeue();
-            for (var i = 1; i <= card.NumWins; i++)
-            {
-                queue.Enqueue(map[card.Id + i]);
-                count++;
-            }
+            counts[n - 1 + w] += counts[n - 1];
         }
 
-        return count;
+        return counts.Sum();
     }
 
     private static int ScoreCard(int n)
@@ -54,12 +49,10 @@ public class Solution : SolutionBase
     
     private static Card ParseCard(string line)
     {
-        var match = Regex.Match(input: line, pattern: @"Card\s+(?<Id>\d+):(?:\s+(?<Wins>\d+))+\s\|(?:\s+(?<Have>\d+))+");
+        var match = Regex.Match(input: line, pattern: @"Card\s+(?:\d+):(?:\s+(?<Wins>\d+))+\s\|(?:\s+(?<Have>\d+))+");
         var wins = match.Groups["Wins"].ParseInts();
         var have = match.Groups["Have"].ParseInts();
 
-        return new Card(
-            Id: match.Groups["Id"].ParseInt(),
-            NumWins: have.Count(wins.Contains));
+        return new Card(Wins: have.Count(wins.Contains));
     }
 }
