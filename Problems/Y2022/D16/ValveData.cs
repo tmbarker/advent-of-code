@@ -39,7 +39,7 @@ public class ValveData
         var matches = Regex.Match(line, InputRegex);
         
         var valveId = matches.Groups[1].Value;
-        var flowRate = matches.Groups[2].ParseSingleInt();
+        var flowRate = matches.Groups[2].ParseInt();
         var adjacent = matches.Groups[3].Value;
         var adjacentIds = adjacent.Split(Delimiter, StringSplitOptions.TrimEntries);
 

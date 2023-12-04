@@ -55,8 +55,8 @@ public class Solution : SolutionBase
     private static Card ParseCard(string line)
     {
         var match = Regex.Match(input: line, pattern: @"Card\s+(?<Id>\d+):(?:\s+(?<Wins>\d+))+\s\|(?:\s+(?<Have>\d+))+");
-        var wins = match.Groups["Wins"].ParseManyInt();
-        var have = match.Groups["Have"].ParseManyInt();
+        var wins = match.Groups["Wins"].ParseInts();
+        var have = match.Groups["Have"].ParseInts();
 
         return new Card(
             Id: match.Groups["Id"].ParseInt(),

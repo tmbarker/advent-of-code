@@ -41,8 +41,8 @@ public class Solution : SolutionBase
     {
         var match = Regex.Match(line, @"(\d+)-(\d+) ([a-z]): (.*)");
         return new Policy(
-            N1: match.Groups[1].ParseSingleInt(),
-            N2: match.Groups[2].ParseSingleInt(),
+            N1: match.Groups[1].ParseInt(),
+            N2: match.Groups[2].ParseInt(),
             Letter: match.Groups[3].Value[0],
             Password: match.Groups[4].Value);
     }

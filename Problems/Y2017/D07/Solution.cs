@@ -34,7 +34,7 @@ public class Solution : SolutionBase
         {
             var match = regex.Match(line);
             var id = match.Groups["Id"].Value;
-            var weight = match.Groups["Weight"].ParseSingleInt();
+            var weight = match.Groups["Weight"].ParseInt();
             var adjacencies = match.Groups["Edges"].Captures.Select(c => c.Value);
             
             weights.Add(id, weight);

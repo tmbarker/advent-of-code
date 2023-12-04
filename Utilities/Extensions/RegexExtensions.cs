@@ -8,47 +8,20 @@ namespace Utilities.Extensions;
 public static class RegexExtensions
 {
     /// <summary>
-    /// Parse the value <see cref="string"/> of the <see cref="Match"/> as an <see cref="int"/>
+    /// If the <see cref="Match"/> is successful parse it as an <see cref="int"/>, otherwise return
+    /// the <paramref name="default"/> value
     /// </summary>
-    public static int ParseInt(this Match match)
-    {
-        return int.Parse(match.Value);
-    }
-
-    /// <summary>
-    /// If the <see cref="Match"/> is successful assume that the specified <see cref="Group"/> was matched only once,
-    /// and parse it as an <see cref="int"/>, otherwise return the <paramref name="default"/> value
-    /// </summary>
-    public static int ParseSingleIntOrDefault(this Match match, int group, int @default = 0)
+    public static int ParseIntOrDefault(this Match match, int @default = 0)
     {
         return match.Success
-            ? match.Groups[group].ParseSingleInt()
+            ? match.ParseInt()
             : @default;
-    }
-    
-    /// <summary>
-    /// If the <see cref="Match"/> is successful assume that the specified <see cref="Group"/> was matched only once,
-    /// and parse it as an <see cref="int"/>, otherwise return the <paramref name="default"/> value
-    /// </summary>
-    public static int ParseSingleIntOrDefault(this Match match, string group, int @default = 0)
-    {
-        return match.Success
-            ? match.Groups[group].ParseSingleInt()
-            : @default;
-    }
-
-    /// <summary>
-    /// Parse the first <see cref="Capture"/> in the specified <see cref="Group"/> as an <see cref="int"/>
-    /// </summary>
-    public static int ParseSingleInt(this Group group)
-    {
-        return int.Parse(group.Value);
     }
     
     /// <summary>
     /// Parse all <see cref="Capture"/> instances in the specified <see cref="Group"/> as an <see cref="int"/>
     /// </summary>
-    public static IEnumerable<int> ParseManyInt(this Group group)
+    public static IEnumerable<int> ParseInts(this Group group)
     {
         return group.Captures.Select(capture => capture.ParseInt());
     }

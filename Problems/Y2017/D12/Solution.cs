@@ -68,8 +68,8 @@ public class Solution : SolutionBase
         foreach (var line in input)
         {
             var match = regex.Match(line);
-            var id = match.Groups["Id"].ParseSingleInt();
-            var adjacencies = match.Groups["Adj"].ParseManyInt();
+            var id = match.Groups["Id"].ParseInt();
+            var adjacencies = match.Groups["Adj"].ParseInts();
 
             adjacency[id] = new HashSet<int>(adjacencies);
         }

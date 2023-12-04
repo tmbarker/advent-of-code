@@ -63,8 +63,8 @@ public static class FavouriteTableBuilder
         {
             var attributeInstance = (FavouriteAttribute)favourite.GetCustomAttribute(favouriteAttributeType)!;
             var match = ProblemRegex.Match(favourite.FullName!);
-            var year = match.Groups["Year"].ParseSingleInt();
-            var day = match.Groups["Day"].ParseSingleInt();
+            var year = match.Groups["Year"].ParseInt();
+            var day = match.Groups["Day"].ParseInt();
 
             yield return new FavouriteEntry(
                 title: attributeInstance.Title,

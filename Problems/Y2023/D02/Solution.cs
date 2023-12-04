@@ -67,9 +67,9 @@ public class Solution : SolutionBase
         foreach (var setString in elements[1].Split(separator: ';'))
         {
             draws.Add(item: new Set(
-                Red:   Regex.Match(input: setString, pattern: @"(\d+) red").ParseSingleIntOrDefault(group: 1),
-                Blue:  Regex.Match(input: setString, pattern: @"(\d+) blue").ParseSingleIntOrDefault(group: 1),
-                Green: Regex.Match(input: setString, pattern: @"(\d+) green").ParseSingleIntOrDefault(group: 1)));
+                Red:   Regex.Match(input: setString, pattern: @"(\d+) red").ParseIntOrDefault(),
+                Blue:  Regex.Match(input: setString, pattern: @"(\d+) blue").ParseIntOrDefault(),
+                Green: Regex.Match(input: setString, pattern: @"(\d+) green").ParseIntOrDefault()));
         }
 
         return new Game(id, draws);

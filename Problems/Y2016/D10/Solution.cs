@@ -61,7 +61,7 @@ public class Solution : SolutionBase
         foreach (var line in input.Where(l => l.Contains(SourceMarker)))
         {
             var match = SourceRegex.Match(line);
-            var value = match.Groups["V"].ParseSingleInt();
+            var value = match.Groups["V"].ParseInt();
             var nodeId = match.Groups["A"].Value;
             var node = map[nodeId];
 

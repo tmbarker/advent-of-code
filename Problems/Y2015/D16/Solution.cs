@@ -30,11 +30,11 @@ public class Solution : SolutionBase
         {
             var match = regex.Match(line);
             var keys = match.Groups["Keys"].Captures.Select(c => c.Value);
-            var values = match.Groups["Values"].ParseManyInt();
+            var values = match.Groups["Values"].ParseInts();
             
             if (predicate(keys.Zip(values)))
             {
-                return match.Groups["Id"].ParseSingleInt();
+                return match.Groups["Id"].ParseInt();
             }
         }
 
