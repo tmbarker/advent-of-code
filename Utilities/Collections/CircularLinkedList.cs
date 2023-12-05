@@ -255,9 +255,9 @@ public class CircularLinkedList<T>
       {
          var elementString = nodeFormatter != null
             ? nodeFormatter(current.Value)
-            : current.Value!.ToString();
+            : current.Value?.ToString() ?? string.Empty;
 
-         elements.Add(elementString!);
+         elements.Add(elementString);
          current = current.Next;
       }
 
