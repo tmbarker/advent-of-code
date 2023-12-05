@@ -6,6 +6,7 @@
 Puzzle | My Solution | Date | Topic(s) | Difficulty
 :--- | :---: | :---: | :--- | :---
 [Gear Ratios](https://adventofcode.com/2023/day/3) | [Solution](https://github.com/tmbarker/advent-of-code/blob/main/Problems/Y2023/D03/Solution.cs) | 2023-03 | Vectors | :green_circle: Easy
+[If You Give A Seed A Fertilizer](https://adventofcode.com/2023/day/5) | [Solution](https://github.com/tmbarker/advent-of-code/blob/main/Problems/Y2023/D05/Solution.cs) | 2023-05 | Math | :red_circle: Hard
 
 ### 2022
 Puzzle | My Solution | Date | Topic(s) | Difficulty
