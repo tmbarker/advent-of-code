@@ -38,17 +38,24 @@ public sealed class Solution : SolutionBase
                 seed: 1L, 
                 func: (product, race) => product * CountStrategies(race));
     }
-
+    
     private static long CountStrategies(Race race)
     {
-        var count = 0;
-        for (var t = 1; t < race.Time - 1; t++)
-        {
-            if ((race.Time - t) * t > race.Distance)
-            {
-                count++;
-            }
-        }
-        return count;
+        var zeroes = SolveQuadratic(a: -1, b: race.Time, c: -1 * race.Distance);
+        var min = Math.BitIncrement(zeroes.Min());
+        var max = Math.BitDecrement(zeroes.Max());
+
+        return (long)(Math.Floor(max) - Math.Ceiling(min) + 1);
+    }
+    
+    private static double[] SolveQuadratic(long a, long b, long c)
+    {
+        var zeroes = new double[2];
+        var discriminant = b * b - 4.0 * a * c;
+
+        zeroes[0] = (-b + Math.Sqrt(discriminant)) / (2.0 * a);
+        zeroes[1] = (-b - Math.Sqrt(discriminant)) / (2.0 * a);
+        
+        return zeroes;
     }
 }
