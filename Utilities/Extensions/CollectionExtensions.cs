@@ -61,19 +61,19 @@ public static class CollectionExtensions
     }
 
     /// <summary>
-    /// Initialize a <see cref="IReadOnlyCollection{T}"/> using the elements from <paramref name="collection"/>
+    /// Initialize a <see cref="IReadOnlyCollection{T}"/> using the elements from <paramref name="source"/>
     /// </summary>
-    public static IReadOnlyCollection<T> Freeze<T>(this IEnumerable<T> collection)
+    public static IReadOnlyCollection<T> Freeze<T>(this IEnumerable<T> source)
     {
-        return new List<T>(collection);
+        return new List<T>(source);
     }
     
     /// <summary>
-    /// Remove a single element from <paramref name="collection"/>, if it exists
+    /// Remove a single element from <paramref name="source"/>, if it exists
     /// </summary>
-    public static ICollection<T> Except<T>(this IEnumerable<T> collection, T single)
+    public static ICollection<T> Except<T>(this IEnumerable<T> source, T single)
     {
-        return new List<T>(collection.Except(new[] { single }));
+        return new List<T>(source.Except(new[] { single }));
     }
 
     /// <summary>
@@ -137,6 +137,43 @@ public static class CollectionExtensions
         return collection
             .GroupBy(e => e)
             .MaxBy(g => g.Count())!.Key;
+    }
+    
+    /// <summary>
+    /// Chunk the source based on a <paramref name="takePredicate"/> and an optional <paramref name="skipPredicate"/>
+    /// </summary>
+    /// <param name="source"></param>
+    /// <param name="takePredicate">Select which elements should be included in a chunk</param>
+    /// <param name="skipPredicate">Select which elements to skip between chunks, if not provided
+    /// then <paramref name="takePredicate"/> is used and negated</param>
+    /// <typeparam name="T">The type associated with each element in the source</typeparam>
+    /// <returns></returns>
+    public static IEnumerable<T[]> ChunkBy<T>(this IEnumerable<T> source, Predicate<T> takePredicate,
+        Predicate<T>? skipPredicate = null)
+    {
+        var chunks = new List<T[]>();
+        var enumerable = source as IList<T> ?? source.ToArray();
+        
+        for (var i = 0; i < enumerable.Count;)
+        {
+            var chunk = enumerable
+                .Skip(i)
+                .TakeWhile(takePredicate.Invoke)
+                .ToArray();
+
+            if (chunk.Length > 0)
+            {
+                chunks.Add(chunk);   
+            }
+            
+            i += chunk.Length;
+            i += enumerable
+                .Skip(i)
+                .TakeWhile(element => skipPredicate?.Invoke(element) ?? !takePredicate.Invoke(element))
+                .Count();
+        }
+
+        return chunks;
     }
 
     /// <summary>
