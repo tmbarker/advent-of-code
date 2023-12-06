@@ -81,6 +81,6 @@ public sealed class Solution : SolutionBase
     
     private static Queue<char> ParseTokens(string expression)
     {
-        return new Queue<char>(expression.TrimWhitespace());
+        return new Queue<char>(expression.RemoveWhitespace());
     }
 }

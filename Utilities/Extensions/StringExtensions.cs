@@ -35,7 +35,7 @@ public static class StringExtensions
         return c - '0';
     }
     
-    public static string TrimWhitespace(this string str)
+    public static string RemoveWhitespace(this string str)
     {
         return WhitespaceRegex.Replace(input: str, replacement: string.Empty);
     }

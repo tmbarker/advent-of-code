@@ -13,7 +13,7 @@ public sealed class Solution : SolutionBase
     public override object Run(int part)
     {
         var input = GetInputText();
-        var buffer = input.TrimWhitespace();
+        var buffer = input.RemoveWhitespace();
         
         return part switch
         {
