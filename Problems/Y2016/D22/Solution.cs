@@ -9,7 +9,7 @@ namespace Problems.Y2016.D22;
 /// Grid Computing: https://adventofcode.com/2016/day/22
 /// </summary>
 [Favourite("Grid Computing", Topics.Graphs, Difficulty.Hard)]
-public class Solution : SolutionBase
+public sealed class Solution : SolutionBase
 {
     public override object Run(int part)
     {

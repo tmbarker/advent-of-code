@@ -5,7 +5,7 @@ namespace Problems.Y2015.D23;
 /// <summary>
 /// Opening the Turing Lock: https://adventofcode.com/2015/day/23
 /// </summary>
-public class Solution : SolutionBase
+public sealed class Solution : SolutionBase
 {
     public override object Run(int part)
     {

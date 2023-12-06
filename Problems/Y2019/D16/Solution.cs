@@ -6,7 +6,7 @@ namespace Problems.Y2019.D16;
 /// <summary>
 /// Flawed Frequency Transmission: https://adventofcode.com/2019/day/16
 /// </summary>
-public class Solution : SolutionBase
+public sealed class Solution : SolutionBase
 {
     private const int Phases = 100;
     private const int MessageLength = 8;

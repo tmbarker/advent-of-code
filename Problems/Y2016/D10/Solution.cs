@@ -7,7 +7,7 @@ namespace Problems.Y2016.D10;
 /// <summary>
 /// Balance Bots: https://adventofcode.com/2016/day/10
 /// </summary>
-public class Solution : SolutionBase
+public sealed class Solution : SolutionBase
 {
     private const string SourceMarker = "value";
     private static readonly Regex SourceRegex = new(@"^value (?<V>\d+) goes to (?<A>[a-z 0-9]+)$");

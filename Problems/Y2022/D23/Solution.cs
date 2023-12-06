@@ -7,7 +7,7 @@ namespace Problems.Y2022.D23;
 /// <summary>
 /// Unstable Diffusion: https://adventofcode.com/2022/day/23
 /// </summary>
-public class Solution : SolutionBase
+public sealed class Solution : SolutionBase
 {
     public override object Run(int part)
     {

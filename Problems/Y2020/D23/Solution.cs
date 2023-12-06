@@ -7,7 +7,7 @@ namespace Problems.Y2020.D23;
 /// <summary>
 /// Crab Cups: https://adventofcode.com/2020/day/23
 /// </summary>
-public class Solution : SolutionBase
+public sealed class Solution : SolutionBase
 {
     public override object Run(int part)
     {

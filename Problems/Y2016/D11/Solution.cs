@@ -7,7 +7,7 @@ namespace Problems.Y2016.D11;
 /// <summary>
 /// Radioisotope Thermoelectric Generators: https://adventofcode.com/2016/day/11
 /// </summary>
-public class Solution : SolutionBase
+public sealed class Solution : SolutionBase
 {
     private static readonly Regex MicrochipRegex = new(@"([a-z]+)-compatible microchip");
     private static readonly Regex GeneratorRegex = new(@"([a-z]+) generator");

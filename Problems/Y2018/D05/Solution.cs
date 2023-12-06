@@ -7,7 +7,7 @@ namespace Problems.Y2018.D05;
 /// Alchemical Reduction: https://adventofcode.com/2018/day/5
 /// </summary>
 [Favourite("Alchemical Reduction", Topics.StringParsing, Difficulty.Easy)]
-public class Solution : SolutionBase
+public sealed class Solution : SolutionBase
 {
     public override object Run(int part)
     {

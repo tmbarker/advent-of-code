@@ -1,6 +1,6 @@
 namespace Utilities.Geometry.Euclidean;
 
-public partial class Grid2D<T>
+public sealed partial class Grid2D<T>
 {
     /// <summary>
     /// Flip the grid about the specified axis

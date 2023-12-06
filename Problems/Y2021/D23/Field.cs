@@ -3,7 +3,7 @@ using Utilities.Graph;
 
 namespace Problems.Y2021.D23;
 
-public class Field
+public sealed class Field
 {
     private const int  HallwayLength = 11;
     private const char Amber =  'A';

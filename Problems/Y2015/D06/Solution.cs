@@ -8,7 +8,7 @@ namespace Problems.Y2015.D06;
 /// <summary>
 /// Probably a Fire Hazard: https://adventofcode.com/2015/day/6
 /// </summary>
-public class Solution : SolutionBase
+public sealed class Solution : SolutionBase
 {
     public override object Run(int part)
     {

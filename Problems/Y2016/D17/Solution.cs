@@ -7,7 +7,7 @@ namespace Problems.Y2016.D17;
 /// <summary>
 /// Two Steps Forward: https://adventofcode.com/2016/day/17
 /// </summary>
-public class Solution : SolutionBase
+public sealed class Solution : SolutionBase
 {
     private static readonly Vector2D Start  = new(x: 0, y: 3);
     private static readonly Vector2D Target = new(x: 3, y: 0);

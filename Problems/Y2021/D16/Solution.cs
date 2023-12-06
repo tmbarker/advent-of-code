@@ -9,7 +9,7 @@ namespace Problems.Y2021.D16;
 /// Packet Decoder: https://adventofcode.com/2021/day/16
 /// </summary>
 [Favourite("Packet Decoder", Topics.StringParsing, Difficulty.Medium)]
-public class Solution : SolutionBase
+public sealed class Solution : SolutionBase
 {
     private static readonly Dictionary<char, string> HexToPaddedBinary = new() {
         { '0', "0000" },

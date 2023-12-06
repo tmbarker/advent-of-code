@@ -8,7 +8,7 @@ namespace Problems.Y2017.D24;
 /// Electromagnetic Moat: https://adventofcode.com/2017/day/24
 /// </summary>
 [Favourite("Electromagnetic Moat", Topics.Graphs, Difficulty.Medium)]
-public class Solution : SolutionBase
+public sealed class Solution : SolutionBase
 {
     public override object Run(int part)
     {

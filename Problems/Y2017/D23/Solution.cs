@@ -8,7 +8,7 @@ namespace Problems.Y2017.D23;
 /// Coprocessor Conflagration: https://adventofcode.com/2017/day/23
 /// </summary>
 [InputSpecific]
-public class Solution : SolutionBase
+public sealed class Solution : SolutionBase
 {
     public override object Run(int part)
     {

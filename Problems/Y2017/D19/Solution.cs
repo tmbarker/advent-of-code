@@ -7,7 +7,7 @@ namespace Problems.Y2017.D19;
 /// <summary>
 /// A Series of Tubes: https://adventofcode.com/2017/day/19
 /// </summary>
-public class Solution : SolutionBase
+public sealed class Solution : SolutionBase
 {
     private const char Junction = '+';
     private static readonly HashSet<char> Traversable = new() { '|', '-', '+' };

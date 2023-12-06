@@ -1,6 +1,6 @@
 namespace Problems.Y2021.D12;
 
-public class PathFinder
+public sealed class PathFinder
 {
     private const string StartId = "start";
     private const string EndId = "end";

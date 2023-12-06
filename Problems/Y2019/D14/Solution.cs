@@ -6,7 +6,7 @@ namespace Problems.Y2019.D14;
 /// <summary>
 /// Space Stoichiometry: https://adventofcode.com/2019/day/14
 /// </summary>
-public class Solution : SolutionBase
+public sealed class Solution : SolutionBase
 {
     private const string Fuel = "FUEL";
     private const string Ore = "ORE";

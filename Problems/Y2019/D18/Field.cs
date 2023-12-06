@@ -6,7 +6,7 @@ namespace Problems.Y2019.D18;
 using AdjacencyList = Dictionary<Vector2D, HashSet<Vector2D>>;
 using EntityMap = Dictionary<Vector2D, char>;
 
-public class Field
+public sealed class Field
 {
     private const char Start = '@';
     private const char Empty = '.';

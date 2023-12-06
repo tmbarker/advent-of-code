@@ -8,7 +8,7 @@ namespace Problems.Y2019.D13;
 /// Care Package: https://adventofcode.com/2019/day/13
 /// </summary>
 [Favourite("Care Package", Topics.IntCode, Difficulty.Medium)]
-public class Solution : IntCodeSolution
+public sealed class Solution : IntCodeSolution
 {
     public override object Run(int part)
     {

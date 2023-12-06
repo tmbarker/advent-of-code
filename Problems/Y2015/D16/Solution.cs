@@ -7,7 +7,7 @@ namespace Problems.Y2015.D16;
 /// <summary>
 /// Aunt Sue: https://adventofcode.com/2015/day/16
 /// </summary>
-public class Solution : SolutionBase
+public sealed class Solution : SolutionBase
 {
     private delegate bool ValidPredicate(IEnumerable<(string, int)> things);
     

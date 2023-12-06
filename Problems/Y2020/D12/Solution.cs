@@ -8,7 +8,7 @@ namespace Problems.Y2020.D12;
 /// Rain Risk: https://adventofcode.com/2020/day/12
 /// </summary>
 [Favourite("Rain Risk", Topics.Vectors, Difficulty.Easy)]
-public class Solution : SolutionBase
+public sealed class Solution : SolutionBase
 {
     private const char North = 'N';
     private const char South = 'S';

@@ -8,7 +8,7 @@ namespace Problems.Y2018.D17;
 /// Reservoir Research: https://adventofcode.com/2018/day/17
 /// </summary>
 [Favourite("Reservoir Research", Topics.Vectors, Difficulty.Medium)]
-public class Solution : SolutionBase
+public sealed class Solution : SolutionBase
 {
     private static readonly Vector2D Gravity = new(x: 0, y: 1);
 

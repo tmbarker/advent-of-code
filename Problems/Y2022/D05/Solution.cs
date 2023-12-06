@@ -6,7 +6,7 @@ namespace Problems.Y2022.D05;
 /// <summary>
 /// Supply Stacks: https://adventofcode.com/2022/day/5
 /// </summary>
-public class Solution : SolutionBase
+public sealed class Solution : SolutionBase
 {
     public override object Run(int part)
     {

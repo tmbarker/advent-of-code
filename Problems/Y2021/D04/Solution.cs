@@ -5,7 +5,7 @@ namespace Problems.Y2021.D04;
 /// <summary>
 /// Giant Squid: https://adventofcode.com/2021/day/4
 /// </summary>
-public class Solution : SolutionBase
+public sealed class Solution : SolutionBase
 {
     public override object Run(int part)
     {

@@ -5,7 +5,7 @@ namespace Problems.Y2015.D17;
 /// <summary>
 /// No Such Thing as Too Much: https://adventofcode.com/2015/day/17
 /// </summary>
-public class Solution : SolutionBase
+public sealed class Solution : SolutionBase
 {
     public override object Run(int part)
     {

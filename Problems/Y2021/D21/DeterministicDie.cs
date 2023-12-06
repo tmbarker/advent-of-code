@@ -1,6 +1,6 @@
 namespace Problems.Y2021.D21;
 
-public class DeterministicDie
+public sealed class DeterministicDie
 {
     private const int Sides = 100;
     private int _nextRollValue = 1;

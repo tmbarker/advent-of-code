@@ -1,6 +1,6 @@
 namespace Problems.Y2019.D23;
 
-public class NetworkAwaiter
+public sealed class NetworkAwaiter
 {
     private readonly Network _network;
     private readonly CancellationTokenSource _cts = new();

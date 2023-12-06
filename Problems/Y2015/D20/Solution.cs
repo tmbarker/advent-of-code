@@ -7,7 +7,7 @@ namespace Problems.Y2015.D20;
 /// Infinite Elves and Infinite Houses: https://adventofcode.com/2015/day/20
 /// </summary>
 [Favourite("Infinite Elves and Infinite Houses", Topics.Math, Difficulty.Medium)]
-public class Solution : SolutionBase
+public sealed class Solution : SolutionBase
 {
     public override object Run(int part)
     {

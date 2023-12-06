@@ -9,7 +9,7 @@ namespace Problems.Y2022.D08;
 /// Treetop Tree House: https://adventofcode.com/2022/day/8
 /// </summary>
 [Favourite("Treetop Tree House", Topics.Vectors, Difficulty.Easy)]
-public class Solution : SolutionBase
+public sealed class Solution : SolutionBase
 {
     private const int MinHeight = 0;
     private const int MaxHeight = 9;

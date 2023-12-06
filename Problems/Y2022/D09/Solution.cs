@@ -8,7 +8,7 @@ namespace Problems.Y2022.D09;
 /// Rope Bridge: https://adventofcode.com/2022/day/9
 /// </summary>
 [Favourite("Rope Bridge", Topics.Vectors, Difficulty.Medium)]
-public class Solution : SolutionBase
+public sealed class Solution : SolutionBase
 {
     private static readonly Dictionary<string, Vector2D> VectorMap = new()
     {

@@ -8,7 +8,7 @@ using SfNumber = List<Element>;
 /// <summary>
 /// Snailfish: https://adventofcode.com/2021/day/18
 /// </summary>
-public class Solution : SolutionBase
+public sealed class Solution : SolutionBase
 {
     private const int ExplodeThreshold = 5;
     private const int SplitThreshold = 10;

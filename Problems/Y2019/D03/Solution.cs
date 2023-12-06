@@ -12,7 +12,7 @@ using PathCosts = IDictionary<Vector2D, int>;
 /// Crossed Wires: https://adventofcode.com/2019/day/3
 /// </summary>
 [Favourite("Crossed Wires", Topics.Vectors, Difficulty.Easy)]
-public class Solution : SolutionBase
+public sealed class Solution : SolutionBase
 {
     private static readonly Dictionary<char, Vector2D> Directions = new()
     {

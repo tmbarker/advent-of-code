@@ -1,6 +1,6 @@
 namespace Utilities.Collections;
 
-internal class DisjointSetNode<T> where T : IEquatable<T>
+internal sealed class DisjointSetNode<T> where T : IEquatable<T>
 {
     public T Element { get; }
     public DisjointSetNode<T> Parent { get; set; }

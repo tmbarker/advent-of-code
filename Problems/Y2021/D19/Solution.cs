@@ -8,7 +8,7 @@ namespace Problems.Y2021.D19;
 /// Beacon Scanner: https://adventofcode.com/2021/day/19
 /// </summary>
 [Favourite("Beacon Scanner", Topics.Vectors, Difficulty.Hard)]
-public class Solution : SolutionBase
+public sealed class Solution : SolutionBase
 {
     private const int IntersectionThreshold = 12;
     

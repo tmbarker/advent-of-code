@@ -6,7 +6,7 @@ namespace Problems.Y2023.D01;
 /// <summary>
 /// Trebuchet?!: https://adventofcode.com/2023/day/1
 /// </summary>
-public class Solution : SolutionBase
+public sealed class Solution : SolutionBase
 {
     private static readonly Dictionary<string, int> SpelledDigits = new()
     {

@@ -6,7 +6,7 @@ namespace Problems.Y2021.D03;
 /// <summary>
 /// Binary Diagnostic: https://adventofcode.com/2021/day/3
 /// </summary>
-public class Solution : SolutionBase
+public sealed class Solution : SolutionBase
 {
     public override object Run(int part)
     {

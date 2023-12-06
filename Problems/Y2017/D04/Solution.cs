@@ -7,7 +7,7 @@ using Passphrase = IList<string>;
 /// <summary>
 /// High-Entropy Passphrases: https://adventofcode.com/2017/day/4
 /// </summary>
-public class Solution : SolutionBase
+public sealed class Solution : SolutionBase
 {
     public override object Run(int part)
     {

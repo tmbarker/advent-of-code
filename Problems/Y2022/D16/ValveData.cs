@@ -4,7 +4,7 @@ using Utilities.Graph;
 
 namespace Problems.Y2022.D16;
 
-public class ValveData
+public sealed class ValveData
 {
     private const string InputRegex = @".*([A-Z]{2}).*=(\d+);.*valves?(.*)";
     private const char Delimiter = ',';

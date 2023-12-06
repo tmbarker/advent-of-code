@@ -2,7 +2,7 @@ using Utilities.Geometry.Euclidean;
 
 namespace Problems.Y2018.D15;
 
-public class Unit
+public sealed class Unit
 {
     public int Id { get; }
     public char Team { get; }

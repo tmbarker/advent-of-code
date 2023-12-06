@@ -11,7 +11,7 @@ using Precedences = IReadOnlyDictionary<char, int>;
 /// Operation Order: https://adventofcode.com/2020/day/18
 /// </summary>
 [Favourite("Operation Order", Topics.StringParsing|Topics.Math, Difficulty.Medium)]
-public class Solution : SolutionBase
+public sealed class Solution : SolutionBase
 {
     public override object Run(int part)
     {

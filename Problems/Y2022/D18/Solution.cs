@@ -7,7 +7,7 @@ namespace Problems.Y2022.D18;
 /// <summary>
 /// Boiling Boulders: https://adventofcode.com/2022/day/18
 /// </summary>
-public class Solution : SolutionBase
+public sealed class Solution : SolutionBase
 {
     public override object Run(int part)
     {

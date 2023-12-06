@@ -7,7 +7,7 @@ namespace Problems.Y2021.D11;
 /// <summary>
 /// Dumbo Octopus: https://adventofcode.com/2021/day/11
 /// </summary>
-public class Solution : SolutionBase
+public sealed class Solution : SolutionBase
 {
     public override object Run(int part)
     {

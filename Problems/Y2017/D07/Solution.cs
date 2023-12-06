@@ -8,7 +8,7 @@ namespace Problems.Y2017.D07;
 /// <summary>
 /// Recursive Circus: https://adventofcode.com/2017/day/7
 /// </summary>
-public class Solution : SolutionBase
+public sealed class Solution : SolutionBase
 {
     public override object Run(int part)
     {

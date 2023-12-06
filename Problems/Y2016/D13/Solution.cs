@@ -6,7 +6,7 @@ namespace Problems.Y2016.D13;
 /// <summary>
 /// A Maze of Twisty Little Cubicles: https://adventofcode.com/2016/day/13
 /// </summary>
-public class Solution : SolutionBase
+public sealed class Solution : SolutionBase
 {
     private static readonly Vector2D Start = new (x: 1, y: 1);
     private static readonly Vector2D Target = new (x: 31, y: 39);

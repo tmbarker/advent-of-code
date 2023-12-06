@@ -1,6 +1,6 @@
 namespace Problems.Y2020.D09;
 
-public class Sum
+public sealed class Sum
 {
     public long Value { get; private set; }
     private IList<long> Elements { get; } = new List<long>();

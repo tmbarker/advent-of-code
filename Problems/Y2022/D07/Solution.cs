@@ -5,7 +5,7 @@ namespace Problems.Y2022.D07;
 /// <summary>
 /// No Space Left On Device: https://adventofcode.com/2022/day/7
 /// </summary>
-public class Solution : SolutionBase
+public sealed class Solution : SolutionBase
 {
     public override object Run(int part)
     {

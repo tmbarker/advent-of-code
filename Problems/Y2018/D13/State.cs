@@ -2,7 +2,7 @@ using Utilities.Geometry.Euclidean;
 
 namespace Problems.Y2018.D13;
 
-public class State
+public sealed class State
 {
     private static readonly IComparer<Vector2D> TickOrderComparer = new TickOrderComparer();
 

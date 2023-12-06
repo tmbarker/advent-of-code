@@ -5,7 +5,7 @@ namespace Problems.Y2016.D25;
 /// <summary>
 /// Clock Signal: https://adventofcode.com/2016/day/25
 /// </summary>
-public class Solution : SolutionBase
+public sealed class Solution : SolutionBase
 {
     public override int Parts => 1;
 

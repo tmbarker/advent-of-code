@@ -1,6 +1,6 @@
 namespace Problems.Y2023.D05;
 
-public class MapTable
+public sealed class MapTable
 {
     public IReadOnlyList<MapEntry> OrderedEntries { get; }
 

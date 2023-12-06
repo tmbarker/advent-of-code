@@ -7,7 +7,7 @@ using Memo = HashSet<(string P1State, string P2State)>;
 /// <summary>
 /// Crab Combat: https://adventofcode.com/2020/day/22
 /// </summary>
-public class Solution : SolutionBase
+public sealed class Solution : SolutionBase
 {
     public override object Run(int part)
     {

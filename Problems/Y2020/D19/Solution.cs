@@ -8,7 +8,7 @@ namespace Problems.Y2020.D19;
 /// Monster Messages: https://adventofcode.com/2020/day/19
 /// </summary>
 [Favourite("Monster Messages", Topics.FormalLanguage, Difficulty.Hard)]
-public class Solution : SolutionBase
+public sealed class Solution : SolutionBase
 {
     private const string StartSymbol = "0";
     private const StringSplitOptions Options = StringSplitOptions.TrimEntries;

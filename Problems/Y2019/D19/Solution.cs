@@ -6,7 +6,7 @@ namespace Problems.Y2019.D19;
 /// <summary>
 /// Tractor Beam: https://adventofcode.com/2019/day/19
 /// </summary>
-public class Solution : IntCodeSolution
+public sealed class Solution : IntCodeSolution
 {
     public override object Run(int part)
     {

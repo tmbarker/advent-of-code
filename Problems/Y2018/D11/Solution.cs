@@ -7,7 +7,7 @@ namespace Problems.Y2018.D11;
 /// Chronal Charge: https://adventofcode.com/2018/day/11
 /// </summary>
 [Favourite("Chronal Charge", Topics.Vectors, Difficulty.Hard)]
-public class Solution : SolutionBase
+public sealed class Solution : SolutionBase
 {
     public override object Run(int part)
     {

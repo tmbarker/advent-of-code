@@ -6,7 +6,7 @@ namespace Problems.Y2015.D02;
 /// <summary>
 /// I Was Told There Would Be No Math: https://adventofcode.com/2015/day/2
 /// </summary>
-public class Solution : SolutionBase
+public sealed class Solution : SolutionBase
 {
     public override object Run(int part)
     {

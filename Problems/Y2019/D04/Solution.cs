@@ -6,7 +6,7 @@ namespace Problems.Y2019.D04;
 /// <summary>
 /// Secure Container: https://adventofcode.com/2019/day/4
 /// </summary>
-public class Solution : SolutionBase
+public sealed class Solution : SolutionBase
 {
     public override object Run(int part)
     {

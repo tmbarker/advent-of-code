@@ -9,7 +9,7 @@ namespace Problems.Y2018.D06;
 /// Chronal Coordinates: https://adventofcode.com/2018/day/6
 /// </summary>
 [Favourite("Chronal Coordinates", Topics.Vectors, Difficulty.Medium)]
-public class Solution : SolutionBase
+public sealed class Solution : SolutionBase
 {
     public override object Run(int part)
     {

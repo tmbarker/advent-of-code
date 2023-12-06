@@ -11,7 +11,7 @@ using AdjacencyList = Dictionary<Vector2D, HashSet<Vector2D>>;
 /// Donut Maze: https://adventofcode.com/2019/day/20
 /// </summary>
 [Favourite("Donut Maze", Topics.Graphs, Difficulty.Hard)]
-public class Solution : SolutionBase
+public sealed class Solution : SolutionBase
 { 
     private const char Traversable = '.';
     private static readonly PortalKey Entrance = new('A', 'A');

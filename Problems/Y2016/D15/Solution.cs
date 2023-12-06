@@ -8,7 +8,7 @@ namespace Problems.Y2016.D15;
 /// Timing is Everything: https://adventofcode.com/2016/day/15
 /// </summary>
 [Favourite("Timing is Everything", Topics.Math, Difficulty.Easy)]
-public class Solution : SolutionBase
+public sealed class Solution : SolutionBase
 {
     public override object Run(int part)
     {

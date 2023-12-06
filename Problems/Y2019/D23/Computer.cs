@@ -2,7 +2,7 @@ using Problems.Y2019.IntCode;
 
 namespace Problems.Y2019.D23;
 
-public class Computer
+public sealed class Computer
 {
     private readonly int _id;
     private readonly IntCodeVm _vm;

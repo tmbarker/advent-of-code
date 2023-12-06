@@ -7,7 +7,7 @@ namespace Problems.Y2018.D09;
 /// <summary>
 /// Marble Mania: https://adventofcode.com/2018/day/9
 /// </summary>
-public class Solution : SolutionBase
+public sealed class Solution : SolutionBase
 {
     public override object Run(int part)
     {

@@ -2,7 +2,7 @@ using Utilities.Geometry.Euclidean;
 
 namespace Problems.Y2016.D22;
 
-public class PosComparer : IComparer<Vector2D>
+public sealed class PosComparer : IComparer<Vector2D>
 {
     public int Compare(Vector2D x, Vector2D y)
     {

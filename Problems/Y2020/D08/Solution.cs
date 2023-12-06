@@ -7,7 +7,7 @@ using Instructions = IList<(string Op, int Arg)>;
 /// <summary>
 /// Handheld Halting: https://adventofcode.com/2020/day/8
 /// </summary>
-public class Solution : SolutionBase
+public sealed class Solution : SolutionBase
 {
     public override object Run(int part)
     {

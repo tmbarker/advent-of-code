@@ -6,7 +6,7 @@ namespace Problems.Y2015.D14;
 /// <summary>
 /// Reindeer Olympics: https://adventofcode.com/2015/day/14
 /// </summary>
-public class Solution : SolutionBase
+public sealed class Solution : SolutionBase
 {
     public override object Run(int part)
     {

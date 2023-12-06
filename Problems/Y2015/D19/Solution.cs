@@ -8,7 +8,7 @@ namespace Problems.Y2015.D19;
 /// Medicine for Rudolph: https://adventofcode.com/2015/day/19
 /// </summary>
 [Favourite("Medicine for Rudolph", Topics.RegularExpressions, Difficulty.Hard)]
-public class Solution : SolutionBase
+public sealed class Solution : SolutionBase
 {
     public override object Run(int part)
     {

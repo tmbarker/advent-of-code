@@ -9,7 +9,7 @@ namespace Problems.Y2017.D14;
 /// <summary>
 /// Disk Defragmentation: https://adventofcode.com/2017/day/14
 /// </summary>
-public class Solution : SolutionBase
+public sealed class Solution : SolutionBase
 {
     public override object Run(int part)
     {

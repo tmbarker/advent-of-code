@@ -8,7 +8,7 @@ namespace Problems.Y2018.D07;
 /// <summary>
 /// The Sum of Its Parts: https://adventofcode.com/2018/day/7
 /// </summary>
-public class Solution : SolutionBase
+public sealed class Solution : SolutionBase
 {
     public override object Run(int part)
     {

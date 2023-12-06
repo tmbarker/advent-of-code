@@ -9,7 +9,7 @@ namespace Problems.Y2018.D23;
 /// Experimental Emergency Teleportation: https://adventofcode.com/2018/day/23
 /// </summary>
 [Favourite("Experimental Emergency Teleportation", Topics.Vectors, Difficulty.Hard)]
-public class Solution : SolutionBase
+public sealed class Solution : SolutionBase
 {
     public override object Run(int part)
     {

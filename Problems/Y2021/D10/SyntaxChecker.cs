@@ -2,7 +2,7 @@ using Problems.Common;
 
 namespace Problems.Y2021.D10;
 
-public class SyntaxChecker
+public sealed class SyntaxChecker
 {
     private const long CompletionCharacterMultiplier = 5;
     

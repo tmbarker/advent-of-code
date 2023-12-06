@@ -7,7 +7,7 @@ namespace Problems.Y2018.D18;
 /// <summary>
 /// Settlers of The North Pole: https://adventofcode.com/2018/day/18
 /// </summary>
-public class Solution : SolutionBase
+public sealed class Solution : SolutionBase
 {
     private const char Ground = '.';
     private const char Trees = '|';

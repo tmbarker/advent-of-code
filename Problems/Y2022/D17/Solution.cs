@@ -6,7 +6,7 @@ namespace Problems.Y2022.D17;
 /// <summary>
 /// Pyroclastic Flow: https://adventofcode.com/2022/day/17
 /// </summary>
-public class Solution : SolutionBase
+public sealed class Solution : SolutionBase
 {
     private const int ChamberWidth = 7;
     private const int SpawnHeight = 3;

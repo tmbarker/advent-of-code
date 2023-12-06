@@ -6,7 +6,7 @@ namespace Problems.Y2020.D11;
 /// <summary>
 /// Seating System: https://adventofcode.com/2020/day/11
 /// </summary>
-public class Solution : SolutionBase
+public sealed class Solution : SolutionBase
 { 
     public override object Run(int part)
     {

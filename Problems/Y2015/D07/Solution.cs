@@ -9,7 +9,7 @@ using Memo = Dictionary<string, uint>;
 /// Some Assembly Required: https://adventofcode.com/2015/day/7
 /// </summary>
 [Favourite("Some Assembly Required", Topics.Graphs|Topics.BitwiseOperations, Difficulty.Hard)]
-public class Solution : SolutionBase
+public sealed class Solution : SolutionBase
 {
     private const string Buffer = "BUFFER";
     private const string And    = "AND";

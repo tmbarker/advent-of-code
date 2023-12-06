@@ -9,7 +9,7 @@ namespace Problems.Y2019.D25;
 /// Cryostasis: https://adventofcode.com/2019/day/25
 /// </summary>
 [InputSpecific]
-public class Solution : IntCodeSolution
+public sealed class Solution : IntCodeSolution
 {
     public override int Parts => 1;
     

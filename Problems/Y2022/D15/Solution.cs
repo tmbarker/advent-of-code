@@ -9,7 +9,7 @@ namespace Problems.Y2022.D15;
 /// Beacon Exclusion Zone: https://adventofcode.com/2022/day/15
 /// </summary>
 [Favourite("Beacon Exclusion Zone", Topics.Vectors, Difficulty.Medium)]
-public class Solution : SolutionBase
+public sealed class Solution : SolutionBase
 {
     private const int Row = 2000000;
     private const int SearchAreaDimension = 4000000;

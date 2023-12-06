@@ -7,7 +7,7 @@ namespace Problems.Y2022.D25;
 /// <summary>
 /// Full of Hot Air: https://adventofcode.com/2022/day/25
 /// </summary>
-public class Solution : SolutionBase
+public sealed class Solution : SolutionBase
 {
     private const int SnafuRadix = 5;
     private const char MinusOne = '-';

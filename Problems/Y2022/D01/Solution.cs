@@ -5,7 +5,7 @@ namespace Problems.Y2022.D01;
 /// <summary>
 /// Calorie Counting: https://adventofcode.com/2022/day/1
 /// </summary>
-public class Solution : SolutionBase
+public sealed class Solution : SolutionBase
 {
     public override object Run(int part)
     {

@@ -2,7 +2,7 @@ using Utilities.Geometry.Euclidean;
 
 namespace Problems.Y2018.D15;
 
-public class SquareComparer : IComparer<Vector2D>
+public sealed class SquareComparer : IComparer<Vector2D>
 {
     public int Compare(Vector2D a, Vector2D b)
     {

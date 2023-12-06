@@ -2,7 +2,7 @@ using Utilities.Extensions;
 
 namespace Problems.Y2022.D16;
 
-public class StrategyFinder
+public sealed class StrategyFinder
 {
     private readonly ValveData _valveData;
 

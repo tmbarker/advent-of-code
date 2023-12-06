@@ -6,7 +6,7 @@ namespace Problems.Y2015.D04;
 /// <summary>
 /// The Ideal Stocking Stuffer: https://adventofcode.com/2015/day/4
 /// </summary>
-public class Solution : SolutionBase
+public sealed class Solution : SolutionBase
 {
     public override object Run(int part)
     {

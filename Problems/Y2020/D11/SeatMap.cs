@@ -2,7 +2,7 @@ using Utilities.Geometry.Euclidean;
 
 namespace Problems.Y2020.D11;
 
-public class SeatMap
+public sealed class SeatMap
 {
     private readonly IDictionary<Vector2D, bool> _occupancyMap;
     private readonly Aabb2D _bounds;

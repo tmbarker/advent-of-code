@@ -8,7 +8,7 @@ namespace Problems.Y2016.D07;
 /// Internet Protocol Version 7: https://adventofcode.com/2016/day/7
 /// </summary>
 [Favourite("Internet Protocol Version 7", Topics.RegularExpressions, Difficulty.Medium)]
-public class Solution : SolutionBase
+public sealed class Solution : SolutionBase
 {
     private static readonly Regex AbaRegex  = new(@"([a-z])(?!\1)([a-z])\1");
     private static readonly Regex AbbaRegex = new(@"([a-z])(?!\1)([a-z])\2\1");

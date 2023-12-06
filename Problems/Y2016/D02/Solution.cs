@@ -7,7 +7,7 @@ namespace Problems.Y2016.D02;
 /// <summary>
 /// Bathroom Security: https://adventofcode.com/2016/day/2
 /// </summary>
-public class Solution : SolutionBase
+public sealed class Solution : SolutionBase
 {
     private static readonly Dictionary<Vector2D, char> Square = new()
     {

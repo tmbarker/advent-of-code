@@ -2,7 +2,7 @@ using Problems.Common;
 
 namespace Problems.Y2019.D23;
 
-public class Nat
+public sealed class Nat
 {
     private Packet Packet { get; set; }
     public bool BufferInitialized { get; private set; }

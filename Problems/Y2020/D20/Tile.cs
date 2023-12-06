@@ -2,7 +2,7 @@ using Utilities.Geometry.Euclidean;
 
 namespace Problems.Y2020.D20;
 
-public class Tile
+public sealed class Tile
 {
     private readonly Grid2D<char> _content;
     private readonly Dictionary<Vector2D, Func<string>> _edgeStringGetters;

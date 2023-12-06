@@ -6,7 +6,7 @@ namespace Problems.Y2015.D10;
 /// <summary>
 /// Elves Look, Elves Say: https://adventofcode.com/2015/day/10
 /// </summary>
-public class Solution : SolutionBase
+public sealed class Solution : SolutionBase
 {
     public override object Run(int part)
     {

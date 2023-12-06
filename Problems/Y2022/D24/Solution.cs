@@ -7,7 +7,7 @@ namespace Problems.Y2022.D24;
 /// <summary>
 /// Blizzard Basin: https://adventofcode.com/2022/day/24
 /// </summary>
-public class Solution : SolutionBase
+public sealed class Solution : SolutionBase
 {
     private const char Empty = '.';
     private const char Wall = '#';

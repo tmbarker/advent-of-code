@@ -1,6 +1,6 @@
 namespace Problems.Y2017.D25;
 
-public class TuringMachine
+public sealed class TuringMachine
 {
     private readonly Dictionary<char, State> _ruleTable;
     private readonly Dictionary<int, bool> _tape = new();

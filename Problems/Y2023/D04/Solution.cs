@@ -7,7 +7,7 @@ namespace Problems.Y2023.D04;
 /// <summary>
 /// Scratchcards: https://adventofcode.com/2023/day/4
 /// </summary>
-public class Solution : SolutionBase
+public sealed class Solution : SolutionBase
 {
     private readonly record struct Card(int Wins);
     

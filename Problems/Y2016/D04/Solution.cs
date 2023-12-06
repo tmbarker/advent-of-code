@@ -6,7 +6,7 @@ namespace Problems.Y2016.D04;
 /// <summary>
 /// Security Through Obscurity: https://adventofcode.com/2016/day/4
 /// </summary>
-public class Solution : SolutionBase
+public sealed class Solution : SolutionBase
 {
     public override object Run(int part)
     {

@@ -6,7 +6,7 @@ namespace Problems.Y2015.D21;
 /// <summary>
 /// RPG Simulator 20XX: https://adventofcode.com/2015/day/21
 /// </summary>
-public class Solution : SolutionBase
+public sealed class Solution : SolutionBase
 {
     public override object Run(int part)
     {

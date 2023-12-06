@@ -12,7 +12,7 @@ using Memo = IDictionary<(string, string), bool>;
 /// Handy Haversacks: https://adventofcode.com/2020/day/7
 /// </summary>
 [Favourite("Handy Haversacks", Topics.Graphs|Topics.Recursion, Difficulty.Medium)]
-public class Solution : SolutionBase
+public sealed class Solution : SolutionBase
 {
     private const string ShinyGold = "shiny gold";
     

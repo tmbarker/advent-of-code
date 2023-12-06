@@ -1,6 +1,6 @@
 namespace Problems.Y2017.D24;
 
-public class AdapterHelper
+public sealed class AdapterHelper
 {
     private readonly Dictionary<string, Adapter> _adapters = new();
     private readonly Dictionary<int, HashSet<Compatibility>> _compatibilities = new();

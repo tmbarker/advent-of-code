@@ -1,6 +1,6 @@
 namespace Utilities.Geometry.Euclidean;
 
-public partial class Grid2D<T>
+public sealed partial class Grid2D<T>
 {
     /// <summary>
     /// Generate a <see cref="Grid2D{T}"/> instance by specifying the dimensions

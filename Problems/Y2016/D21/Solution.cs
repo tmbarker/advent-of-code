@@ -7,7 +7,7 @@ namespace Problems.Y2016.D21;
 /// <summary>
 /// Scrambled Letters and Hash: https://adventofcode.com/2016/day/21
 /// </summary>
-public class Solution : SolutionBase
+public sealed class Solution : SolutionBase
 {
     public override object Run(int part)
     {

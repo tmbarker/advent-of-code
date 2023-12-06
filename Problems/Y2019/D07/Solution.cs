@@ -6,7 +6,7 @@ namespace Problems.Y2019.D07;
 /// <summary>
 /// Amplification Circuit: https://adventofcode.com/2019/day/7
 /// </summary>
-public class Solution : IntCodeSolution
+public sealed class Solution : IntCodeSolution
 {
     public override object Run(int part)
     {

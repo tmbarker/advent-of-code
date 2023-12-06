@@ -6,7 +6,7 @@ namespace Problems.Y2016.D12;
 /// <summary>
 /// Leonardo's Monorail: https://adventofcode.com/2016/day/12
 /// </summary>
-public class Solution : SolutionBase
+public sealed class Solution : SolutionBase
 {
     public override object Run(int part)
     {

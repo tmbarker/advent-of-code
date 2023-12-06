@@ -1,6 +1,6 @@
 namespace Problems.Y2018.D21;
 
-public class Cpu
+public sealed class Cpu
 {
     private readonly long _ipAdr;
     private readonly Dictionary<long, Action> _ipListeners = new();

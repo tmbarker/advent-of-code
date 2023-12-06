@@ -6,7 +6,7 @@ namespace Problems.Y2016.D06;
 /// <summary>
 /// Signals and Noise: https://adventofcode.com/2016/day/6
 /// </summary>
-public class Solution : SolutionBase
+public sealed class Solution : SolutionBase
 {
     public override object Run(int part)
     {

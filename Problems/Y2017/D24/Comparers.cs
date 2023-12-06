@@ -1,6 +1,6 @@
 namespace Problems.Y2017.D24;
 
-public class StrengthComparer : IComparer<Bridge>
+public sealed class StrengthComparer : IComparer<Bridge>
 {
     public int Compare(Bridge x, Bridge y)
     {
@@ -8,7 +8,7 @@ public class StrengthComparer : IComparer<Bridge>
     }
 }
 
-public class LengthComparer : IComparer<Bridge>
+public sealed class LengthComparer : IComparer<Bridge>
 {
     public int Compare(Bridge x, Bridge y)
     {

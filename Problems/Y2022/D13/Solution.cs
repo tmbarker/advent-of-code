@@ -5,7 +5,7 @@ namespace Problems.Y2022.D13;
 /// <summary>
 /// Distress Signal: https://adventofcode.com/2022/day/13
 /// </summary>
-public class Solution : SolutionBase
+public sealed class Solution : SolutionBase
 {
     private const string DivisorPacket1 = "[[2]]";
     private const string DivisorPacket2 = "[[6]]";

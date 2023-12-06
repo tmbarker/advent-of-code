@@ -5,7 +5,7 @@ namespace Problems.Y2018.D24;
 /// <summary>
 /// Immune System Simulator 20XX: https://adventofcode.com/2018/day/24
 /// </summary>
-public class Solution : SolutionBase
+public sealed class Solution : SolutionBase
 {
     public override object Run(int part)
     {

@@ -1,6 +1,6 @@
 namespace Problems.Y2015.D24;
 
-public class GroupComparer : IComparer<HashSet<long>?>
+public sealed class GroupComparer : IComparer<HashSet<long>?>
 {
     public static GroupComparer Instance { get; } = new();
     

@@ -5,7 +5,7 @@ namespace Problems.Y2015.D24;
 /// <summary>
 /// It Hangs in the Balance: https://adventofcode.com/2015/day/24
 /// </summary>
-public class Solution : SolutionBase
+public sealed class Solution : SolutionBase
 {
     public override object Run(int part)
     {

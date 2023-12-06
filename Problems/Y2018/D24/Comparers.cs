@@ -1,6 +1,6 @@
 namespace Problems.Y2018.D24;
 
-public class TargetPriorityComparer : IComparer<Group>
+public sealed class TargetPriorityComparer : IComparer<Group>
 {
     public int Compare(Group x, Group y)
     {
@@ -10,7 +10,7 @@ public class TargetPriorityComparer : IComparer<Group>
     }
 }
 
-public class AttackPriorityComparer : IComparer<Group>
+public sealed class AttackPriorityComparer : IComparer<Group>
 {
     public int Compare(Group x, Group y)
     {

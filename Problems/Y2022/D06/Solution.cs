@@ -5,7 +5,7 @@ namespace Problems.Y2022.D06;
 /// <summary>
 /// Tuning Trouble: https://adventofcode.com/2022/day/6
 /// </summary>
-public class Solution : SolutionBase
+public sealed class Solution : SolutionBase
 {
     public override object Run(int part)
     {

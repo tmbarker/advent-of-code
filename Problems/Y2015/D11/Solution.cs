@@ -6,7 +6,7 @@ namespace Problems.Y2015.D11;
 /// <summary>
 /// Corporate Policy: https://adventofcode.com/2015/day/11
 /// </summary>
-public class Solution : SolutionBase
+public sealed class Solution : SolutionBase
 {
     public override object Run(int part)
     {

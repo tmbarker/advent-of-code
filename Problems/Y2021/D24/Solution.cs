@@ -8,7 +8,7 @@ namespace Problems.Y2021.D24;
 /// Arithmetic Logic Unit: https://adventofcode.com/2021/day/24
 /// </summary>
 [InputSpecific("Only validates hand-calculated answers, see source for details")]
-public class Solution : SolutionBase
+public sealed class Solution : SolutionBase
 {
     /*
     The MONAD program repeats the following block for each of the 14 input digits. The only differences between

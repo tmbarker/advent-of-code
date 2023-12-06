@@ -6,7 +6,7 @@ namespace Problems.Y2022.D22;
 /// <summary>
 /// Monkey Map: https://adventofcode.com/2022/day/22
 /// </summary>
-public class Solution : SolutionBase
+public sealed class Solution : SolutionBase
 {
     private delegate bool MoveHandler(Pose2D pose, Grid2D<Square> board, out Pose2D result);
     private static readonly Dictionary<MoveMode, MoveHandler> MoveHandlers = new()

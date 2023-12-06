@@ -8,7 +8,7 @@ namespace Problems.Y2022.D10;
 /// Cathode-Ray Tube: https://adventofcode.com/2022/day/10
 /// </summary>
 [Favourite("Cathode-Ray Tube", Topics.Assembly, Difficulty.Medium)]
-public class Solution : SolutionBase
+public sealed class Solution : SolutionBase
 {
     private const int CrtWidth = 40;
     private static readonly HashSet<int> SampleCycles = new() { 20, 60, 100, 140, 180, 220 };

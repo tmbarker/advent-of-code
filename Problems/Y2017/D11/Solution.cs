@@ -8,7 +8,7 @@ namespace Problems.Y2017.D11;
 /// Hex Ed: https://adventofcode.com/2017/day/11
 /// </summary>
 [Favourite("Hex Ed", Topics.Math, Difficulty.Easy)]
-public class Solution : SolutionBase
+public sealed class Solution : SolutionBase
 {
     private static readonly Dictionary<string, Hex> Directions = new()
     {

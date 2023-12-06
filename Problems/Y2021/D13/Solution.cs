@@ -9,7 +9,7 @@ namespace Problems.Y2021.D13;
 /// Transparent Origami: https://adventofcode.com/2021/day/13
 /// </summary>
 [Favourite("Transparent Origami", Topics.Vectors, Difficulty.Easy)]
-public class Solution : SolutionBase
+public sealed class Solution : SolutionBase
 {
     private delegate HashSet<Vector2D> FoldTransform(int foldAt, HashSet<Vector2D> dots);
     private static readonly Dictionary<FoldType, FoldTransform> FoldTransforms = new()

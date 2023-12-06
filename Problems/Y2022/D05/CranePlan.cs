@@ -2,7 +2,7 @@ using Utilities.Extensions;
 
 namespace Problems.Y2022.D05;
 
-public class CranePlan
+public sealed class CranePlan
 {
     private const char DataElementDelimiter = ' ';
     

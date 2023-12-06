@@ -5,7 +5,7 @@ namespace Problems.Y2021.D07;
 /// <summary>
 /// The Treachery of Whales: https://adventofcode.com/2021/day/7
 /// </summary>
-public class Solution : SolutionBase
+public sealed class Solution : SolutionBase
 {
     public override object Run(int part)
     {

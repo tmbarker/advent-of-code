@@ -5,7 +5,7 @@ namespace Problems.Y2020.D25;
 /// <summary>
 /// Combo Breaker: https://adventofcode.com/2020/day/25
 /// </summary>
-public class Solution : SolutionBase
+public sealed class Solution : SolutionBase
 {
     private const long DeviceSubject = 7L;
     private const long Mod = 20201227L;

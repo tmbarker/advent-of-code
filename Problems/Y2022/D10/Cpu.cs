@@ -2,7 +2,7 @@ using Problems.Common;
 
 namespace Problems.Y2022.D10;
 
-public class Cpu
+public sealed class Cpu
 {
     public readonly struct State
     {

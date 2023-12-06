@@ -5,7 +5,7 @@ namespace Problems.Y2016.D16;
 /// <summary>
 /// Dragon Checksum: https://adventofcode.com/2016/day/16
 /// </summary>
-public class Solution : SolutionBase
+public sealed class Solution : SolutionBase
 {
     public override object Run(int part)
     {

@@ -5,7 +5,7 @@ namespace Problems.Y2020.D09;
 /// <summary>
 /// Encoding Error: https://adventofcode.com/2020/day/9
 /// </summary>
-public class Solution : SolutionBase
+public sealed class Solution : SolutionBase
 {
     private const int PreambleLength = 25;
     

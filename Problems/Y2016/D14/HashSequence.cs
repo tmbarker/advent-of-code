@@ -2,7 +2,7 @@ using Utilities.Hashing;
 
 namespace Problems.Y2016.D14;
 
-public class HashSequence
+public sealed class HashSequence
 {
     private readonly string _salt;
     private readonly int _stretches;

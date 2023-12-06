@@ -6,7 +6,7 @@ namespace Problems.Y2017.D02;
 /// <summary>
 /// Corruption Checksum
 /// </summary>
-public class Solution : SolutionBase
+public sealed class Solution : SolutionBase
 {
     public override object Run(int part)
     {

@@ -7,7 +7,7 @@ namespace Problems.Y2022.D14;
 /// <summary>
 /// Regolith Reservoir: https://adventofcode.com/2022/day/14
 /// </summary>
-public class Solution : SolutionBase
+public sealed class Solution : SolutionBase
 {
     private const int FloorDelta = 2;
     private static readonly Vector2D SandOrigin = new(x: 500, y: 0);

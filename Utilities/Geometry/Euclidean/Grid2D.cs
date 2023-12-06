@@ -8,7 +8,7 @@ namespace Utilities.Geometry.Euclidean;
 /// A 2D grid data structure providing (X,Y) style indexing
 /// </summary>
 /// <typeparam name="T">The type associated with the value at each grid position</typeparam>
-public partial class Grid2D<T> : IEnumerable<KeyValuePair<Vector2D, T>>
+public sealed partial class Grid2D<T> : IEnumerable<KeyValuePair<Vector2D, T>>
 {
     /// <summary>
     /// The internal backing array, which is indexed from the bottom left.

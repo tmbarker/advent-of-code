@@ -3,7 +3,7 @@ using Utilities.Geometry.Euclidean;
 
 namespace Problems.Y2019.D13;
 
-public class Screen
+public sealed class Screen
 {
     private static readonly Vector2D ScoreKey = new(-1, 0);
     private static readonly Dictionary<long, GameObject> GobCodes = new()

@@ -8,7 +8,7 @@ namespace Problems.Y2016.D09;
 /// Explosives in Cyberspace: https://adventofcode.com/2016/day/9
 /// </summary>
 [Favourite("Explosives in Cyberspace", Topics.StringParsing, Difficulty.Medium)]
-public class Solution : SolutionBase
+public sealed class Solution : SolutionBase
 {
     public override object Run(int part)
     {

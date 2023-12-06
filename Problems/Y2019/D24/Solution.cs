@@ -7,7 +7,7 @@ namespace Problems.Y2019.D24;
 /// <summary>
 /// Planet of Discord: https://adventofcode.com/2019/day/24
 /// </summary>
-public class Solution : SolutionBase
+public sealed class Solution : SolutionBase
 {
     private const int Size = 5;
 

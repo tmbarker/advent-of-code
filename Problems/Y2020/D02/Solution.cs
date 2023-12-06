@@ -7,7 +7,7 @@ namespace Problems.Y2020.D02;
 /// <summary>
 /// Password Philosophy: https://adventofcode.com/2020/day/2
 /// </summary>
-public class Solution : SolutionBase
+public sealed class Solution : SolutionBase
 {
     public override object Run(int part)
     {

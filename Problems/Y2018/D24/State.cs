@@ -4,7 +4,7 @@ namespace Problems.Y2018.D24;
 
 using GroupKey = ValueTuple<Team, int>;
 
-public class State
+public sealed class State
 {
     private bool Drawn { get; }
     private Dictionary<Team, HashSet<int>> MembersByTeam { get; } = new()

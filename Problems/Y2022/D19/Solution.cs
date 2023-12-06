@@ -7,7 +7,7 @@ namespace Problems.Y2022.D19;
 /// Not Enough Minerals: https://adventofcode.com/2022/day/19
 /// </summary>
 [Favourite("Not Enough Minerals", Topics.Graphs|Topics.Recursion, Difficulty.Hard)]
-public class Solution : SolutionBase
+public sealed class Solution : SolutionBase
 {
     private static readonly HashSet<Materials> MaterialTypes = new()
     {

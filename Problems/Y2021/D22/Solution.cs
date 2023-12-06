@@ -7,7 +7,7 @@ namespace Problems.Y2021.D22;
 /// <summary>
 /// Reactor Reboot: https://adventofcode.com/2021/day/22
 /// </summary>
-public class Solution : SolutionBase
+public sealed class Solution : SolutionBase
 {
     public override object Run(int part)
     {

@@ -6,7 +6,7 @@ namespace Problems.Y2021.D20;
 /// <summary>
 /// Trench Map: https://adventofcode.com/2021/day/20
 /// </summary>
-public class Solution : SolutionBase
+public sealed class Solution : SolutionBase
 {
     private const char Lit = '#';
     private const int WindowSize = 3;

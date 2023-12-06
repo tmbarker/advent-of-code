@@ -5,7 +5,7 @@ namespace Problems.Y2016.D18;
 /// <summary>
 /// Like a Rogue: https://adventofcode.com/2016/day/18
 /// </summary>
-public class Solution : SolutionBase
+public sealed class Solution : SolutionBase
 {
     private delegate bool TrapPredicate(char left, char center, char right);
     

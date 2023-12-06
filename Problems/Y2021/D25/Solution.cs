@@ -9,7 +9,7 @@ using Herds = Dictionary<Vector2D, ISet<Vector2D>>;
 /// <summary>
 /// Sea Cucumber: https://adventofcode.com/2021/day/25
 /// </summary>
-public class Solution : SolutionBase
+public sealed class Solution : SolutionBase
 {
     private static readonly Dictionary<char, Vector2D> HerdDirections = new()
     {

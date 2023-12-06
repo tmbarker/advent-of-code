@@ -5,7 +5,7 @@ namespace Problems.Y2020.D15;
 /// <summary>
 /// Rambunctious Recitation: https://adventofcode.com/2020/day/15
 /// </summary>
-public class Solution : SolutionBase
+public sealed class Solution : SolutionBase
 {
     public override object Run(int part)
     {

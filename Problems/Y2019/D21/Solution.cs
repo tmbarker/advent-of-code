@@ -5,7 +5,7 @@ namespace Problems.Y2019.D21;
 /// <summary>
 /// Springdroid Adventure: https://adventofcode.com/2019/day/21
 /// </summary>
-public class Solution : IntCodeSolution
+public sealed class Solution : IntCodeSolution
 {
     // The springdroid jumps 4 steps, in WALK mode it's sensors can see 4 steps ahead. The best strategy we can employ
     // is as follows:

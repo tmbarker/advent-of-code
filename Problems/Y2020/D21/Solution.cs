@@ -7,7 +7,7 @@ namespace Problems.Y2020.D21;
 /// <summary>
 /// Allergen Assessment: https://adventofcode.com/2020/day/21
 /// </summary>
-public class Solution : SolutionBase
+public sealed class Solution : SolutionBase
 {
     public override object Run(int part)
     {

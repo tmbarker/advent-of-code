@@ -11,7 +11,7 @@ using Memo = IDictionary<string, int>;
 /// Universal Orbit Map: https://adventofcode.com/2019/day/6
 /// </summary>
 [Favourite("Universal Orbit Map", Topics.Graphs|Topics.Recursion, Difficulty.Easy)]
-public class Solution : SolutionBase
+public sealed class Solution : SolutionBase
 {
     private const string Com = "COM";
     private const string You = "YOU";

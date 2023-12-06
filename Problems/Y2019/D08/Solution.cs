@@ -7,7 +7,7 @@ namespace Problems.Y2019.D08;
 /// <summary>
 /// Space Image Format: https://adventofcode.com/2019/day/8
 /// </summary>
-public class Solution : SolutionBase
+public sealed class Solution : SolutionBase
 {
     private const int Cols = 25;
     private const int Rows = 6;

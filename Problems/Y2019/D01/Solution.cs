@@ -5,7 +5,7 @@ namespace Problems.Y2019.D01;
 /// <summary>
 /// The Tyranny of the Rocket Equation: https://adventofcode.com/2019/day/1
 /// </summary>
-public class Solution : SolutionBase
+public sealed class Solution : SolutionBase
 {
     public override object Run(int part)
     {

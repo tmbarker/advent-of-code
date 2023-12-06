@@ -8,7 +8,7 @@ namespace Problems.Y2016.D05;
 /// <summary>
 /// How About a Nice Game of Chess?: https://adventofcode.com/2016/day/5
 /// </summary>
-public class Solution : SolutionBase
+public sealed class Solution : SolutionBase
 {
     public override object Run(int part)
     {

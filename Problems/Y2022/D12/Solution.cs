@@ -6,7 +6,7 @@ namespace Problems.Y2022.D12;
 /// <summary>
 /// Hill Climbing Algorithm: https://adventofcode.com/2022/day/12
 /// </summary>
-public class Solution : SolutionBase
+public sealed class Solution : SolutionBase
 {
     private const char MinHeight = 'a';
     private const char StartHeight = MinHeight;

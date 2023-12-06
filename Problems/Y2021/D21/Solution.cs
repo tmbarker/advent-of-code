@@ -6,7 +6,7 @@ namespace Problems.Y2021.D21;
 /// <summary>
 /// Dirac Dice: https://adventofcode.com/2021/day/21
 /// </summary>
-public class Solution : SolutionBase
+public sealed class Solution : SolutionBase
 {
     private const int BoardPlaces = 10;
     private const int QuantumDieSides = 3;

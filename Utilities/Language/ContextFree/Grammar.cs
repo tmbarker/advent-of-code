@@ -3,7 +3,7 @@ namespace Utilities.Language.ContextFree;
 /// <summary>
 /// Represents a Context Free Grammar
 /// </summary>
-public class Grammar
+public sealed class Grammar
 {
     public string Start { get; }
     public IReadOnlyList<Production> Productions { get; }

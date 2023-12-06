@@ -5,7 +5,7 @@ namespace Problems.Y2021.D01;
 /// <summary>
 /// Sonar Sweep: https://adventofcode.com/2021/day/1
 /// </summary>
-public class Solution : SolutionBase
+public sealed class Solution : SolutionBase
 {
     public override object Run(int part)
     {

@@ -12,7 +12,7 @@ using Rules = IReadOnlyDictionary<string, string>;
 /// Fractal Art: https://adventofcode.com/2017/day/21
 /// </summary>
 [Favourite("Fractal Art", Topics.Vectors, Difficulty.Medium)]
-public class Solution : SolutionBase
+public sealed class Solution : SolutionBase
 {
     private static readonly Pattern Initial = new(size: 3, buffer: @".#./..#/###");
     private static readonly IReadOnlyList<Transform> Transforms = new List<Transform>

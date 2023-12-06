@@ -6,7 +6,7 @@ namespace Problems.Y2018.D21;
 /// <summary>
 /// Chronal Conversion: https://adventofcode.com/2018/day/21
 /// </summary>
-public class Solution : SolutionBase
+public sealed class Solution : SolutionBase
 {
     public override object Run(int part)
     {

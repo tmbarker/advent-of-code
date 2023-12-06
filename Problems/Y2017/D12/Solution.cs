@@ -8,7 +8,7 @@ namespace Problems.Y2017.D12;
 /// <summary>
 /// Digital Plumber: https://adventofcode.com/2017/day/12
 /// </summary>
-public class Solution : SolutionBase
+public sealed class Solution : SolutionBase
 {
     public override object Run(int part)
     {

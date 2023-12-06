@@ -11,7 +11,7 @@ using NodeMap = IDictionary<char, CircularLinkedListNode<char>>;
 /// <summary>
 /// Permutation Promenade: https://adventofcode.com/2017/day/16
 /// </summary>
-public class Solution : SolutionBase
+public sealed class Solution : SolutionBase
 {
     public override object Run(int part)
     {

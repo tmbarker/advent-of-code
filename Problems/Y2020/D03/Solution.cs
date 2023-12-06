@@ -7,7 +7,7 @@ namespace Problems.Y2020.D03;
 /// <summary>
 /// Toboggan Trajectory: https://adventofcode.com/2020/day/3
 /// </summary>
-public class Solution : SolutionBase
+public sealed class Solution : SolutionBase
 {
     private static readonly Vector2D InitialPos = Vector2D.Zero;
     private static readonly Vector2D Trajectory = new(x: 3, y: 1);

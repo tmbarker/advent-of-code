@@ -8,7 +8,7 @@ namespace Problems.Y2017.D06;
 /// Memory Reallocation: https://adventofcode.com/2017/day/6
 /// </summary>
 [Favourite("Memory Reallocation", Topics.BitwiseOperations, Difficulty.Easy)]
-public class Solution : SolutionBase
+public sealed class Solution : SolutionBase
 {
     public override object Run(int part)
     {

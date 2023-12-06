@@ -6,7 +6,7 @@ namespace Problems.Y2022.D04;
 /// <summary>
 /// Camp Cleanup: https://adventofcode.com/2022/day/4
 /// </summary>
-public class Solution : SolutionBase
+public sealed class Solution : SolutionBase
 {
     public override object Run(int part)
     {

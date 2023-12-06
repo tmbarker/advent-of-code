@@ -8,7 +8,7 @@ namespace Problems.Y2018.D25;
 /// <summary>
 /// Four-Dimensional Adventure: https://adventofcode.com/2018/day/25
 /// </summary>
-public class Solution : SolutionBase
+public sealed class Solution : SolutionBase
 {
     public override int Parts => 1;
     

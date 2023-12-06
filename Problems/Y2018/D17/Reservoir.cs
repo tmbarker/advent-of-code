@@ -5,7 +5,7 @@ namespace Problems.Y2018.D17;
 
 internal delegate IEnumerable<Vector2D> VeinBuilder(int fixedComponent, int variableMin, int variableMax);
 
-public class Reservoir
+public sealed class Reservoir
 {
     private static readonly Dictionary<char, VeinBuilder> VeinBuilders = new()
     {

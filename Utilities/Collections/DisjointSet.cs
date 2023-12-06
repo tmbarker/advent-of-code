@@ -5,7 +5,7 @@ namespace Utilities.Collections;
 /// Compression, and <see cref="Union"/> is by Rank
 /// </summary>
 /// <typeparam name="T">The type of value associated with each element in the set</typeparam>
-public class DisjointSet<T> where T : IEquatable<T>
+public sealed class DisjointSet<T> where T : IEquatable<T>
 {
     private readonly Dictionary<T, DisjointSetNode<T>> _nodes = new();
 

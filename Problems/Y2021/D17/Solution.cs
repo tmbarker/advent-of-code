@@ -7,7 +7,7 @@ namespace Problems.Y2021.D17;
 /// <summary>
 /// Trick Shot: https://adventofcode.com/2021/day/17
 /// </summary>
-public class Solution : SolutionBase
+public sealed class Solution : SolutionBase
 {
     public override object Run(int part)
     {

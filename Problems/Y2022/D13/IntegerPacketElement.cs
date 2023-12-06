@@ -1,6 +1,6 @@
 namespace Problems.Y2022.D13;
 
-public class IntegerPacketElement : PacketElement
+public sealed class IntegerPacketElement : PacketElement
 {
     public IntegerPacketElement(int value)
     {

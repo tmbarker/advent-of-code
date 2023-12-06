@@ -6,7 +6,7 @@ namespace Problems.Y2017.D13;
 /// <summary>
 /// Packet Scanners: https://adventofcode.com/2017/day/13
 /// </summary>
-public class Solution : SolutionBase
+public sealed class Solution : SolutionBase
 {
     public override object Run(int part)
     {

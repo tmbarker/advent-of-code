@@ -1,6 +1,6 @@
 namespace Automation.Readme;
 
-public class FavouriteTable
+public sealed class FavouriteTable
 {
     public int Year { get; }
     public readonly IReadOnlyList<FavouriteEntry> Entries;

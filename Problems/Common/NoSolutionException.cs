@@ -1,6 +1,6 @@
 namespace Problems.Common;
 
-public class NoSolutionException : Exception
+public sealed class NoSolutionException : Exception
 {
     private const string NoSolutionErrorText = "No solution exists";
 

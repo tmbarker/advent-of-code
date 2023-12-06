@@ -9,7 +9,7 @@ namespace Utilities.Collections;
 /// </summary>
 /// <typeparam name="TKey">The type of the keys in the dictionary</typeparam>
 /// <typeparam name="TValue">The type of the values in the dictionary</typeparam>
-public class DefaultDict<TKey, TValue> : IDictionary<TKey, TValue> where TKey : notnull
+public sealed class DefaultDict<TKey, TValue> : IDictionary<TKey, TValue> where TKey : notnull
 {
     private readonly Dictionary<TKey, TValue> _dictionary;
     private readonly Func<TKey, TValue> _defaultSelector;

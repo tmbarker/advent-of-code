@@ -6,7 +6,7 @@ namespace Problems.Y2016.D14;
 /// <summary>
 /// One-Time Pad: https://adventofcode.com/2016/day/14
 /// </summary>
-public class Solution : SolutionBase
+public sealed class Solution : SolutionBase
 {
     private static readonly Regex CandidateRegex = new(@"(?<C>[a-z0-9])\1\1");
     

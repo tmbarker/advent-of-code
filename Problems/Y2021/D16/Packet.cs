@@ -14,7 +14,7 @@ public abstract class Packet
     public abstract long Evaluate();
 }
 
-public class LiteralPacket : Packet
+public sealed class LiteralPacket : Packet
 {
     private readonly long _value;
     
@@ -29,7 +29,7 @@ public class LiteralPacket : Packet
     }
 }
 
-public class OperatorPacket : Packet
+public sealed class OperatorPacket : Packet
 {
     private readonly Operator _operator;
     

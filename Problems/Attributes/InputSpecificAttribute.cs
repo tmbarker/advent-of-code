@@ -1,7 +1,7 @@
 namespace Problems.Attributes;
 
 [AttributeUsage(validOn: AttributeTargets.Class)]
-public class InputSpecificAttribute : Attribute
+public sealed class InputSpecificAttribute : Attribute
 {
     private const string DefaultMessage =
         "This solution implementation is input specific, and may not work on all inputs";

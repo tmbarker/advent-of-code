@@ -13,7 +13,7 @@ using PositionsMap = IDictionary<int, Vector2D>;
 /// Jurassic Jigsaw: https://adventofcode.com/2020/day/20
 /// </summary>
 [Favourite("Jurassic Jigsaw", Topics.Vectors, Difficulty.Hard)]
-public class Solution : SolutionBase
+public sealed class Solution : SolutionBase
 {
     private const int TileSize = 10;
     private const int ContentSize = 8;

@@ -2,7 +2,7 @@ using Utilities.Geometry.Euclidean;
 
 namespace Problems.Y2022.D17;
 
-public class JetPattern
+public sealed class JetPattern
 {
     private static readonly Dictionary<char, Vector2D> JetVectorMap = new()
     {

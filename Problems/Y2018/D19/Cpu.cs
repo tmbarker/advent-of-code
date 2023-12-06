@@ -1,6 +1,6 @@
 namespace Problems.Y2018.D19;
 
-public class Cpu
+public sealed class Cpu
 {
     private const int LoopAdr = 1;
     private const int ExitAdr = 16;

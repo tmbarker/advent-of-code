@@ -5,7 +5,7 @@ namespace Problems.Y2018.D01;
 /// <summary>
 /// Chronal Calibration: https://adventofcode.com/2018/day/1
 /// </summary>
-public class Solution : SolutionBase
+public sealed class Solution : SolutionBase
 {
     public override object Run(int part)
     {

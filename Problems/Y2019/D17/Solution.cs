@@ -8,7 +8,7 @@ namespace Problems.Y2019.D17;
 /// <summary>
 /// Set and Forget: https://adventofcode.com/2019/day/17
 /// </summary>
-public class Solution : IntCodeSolution
+public sealed class Solution : IntCodeSolution
 {
     private const char Scaffold = '#';
     

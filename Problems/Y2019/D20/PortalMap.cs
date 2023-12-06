@@ -2,7 +2,7 @@ using Utilities.Geometry.Euclidean;
 
 namespace Problems.Y2019.D20;
 
-public class PortalMap
+public sealed class PortalMap
 {
     private readonly Dictionary<PortalKey, IList<PortalEntrance>> _entranceMap;
     private readonly Dictionary<Vector2D, EntranceType> _typeMap;

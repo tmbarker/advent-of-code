@@ -2,7 +2,7 @@ using Utilities.Collections;
 
 namespace Problems.Y2017.Common;
 
-public class Vm
+public sealed class Vm
 {
     private readonly DefaultDict<string, long> _registers;
     private readonly Dictionary<string, Action> _listeners;

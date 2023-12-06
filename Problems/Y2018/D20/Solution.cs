@@ -7,7 +7,7 @@ namespace Problems.Y2018.D20;
 /// <summary>
 /// A Regular Map: https://adventofcode.com/2018/day/20
 /// </summary>
-public class Solution : SolutionBase
+public sealed class Solution : SolutionBase
 {
     private static readonly Vector2D Start = Vector2D.Zero;
     private static readonly Dictionary<char, Vector2D> Directions = new()

@@ -7,7 +7,7 @@ namespace Problems.Y2021.D14;
 /// <summary>
 /// Extended Polymerization: https://adventofcode.com/2021/day/14/input
 /// </summary>
-public class Solution : SolutionBase
+public sealed class Solution : SolutionBase
 {
     public override object Run(int part)
     {

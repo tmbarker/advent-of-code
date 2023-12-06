@@ -7,7 +7,7 @@ namespace Problems.Y2021.D10;
 /// Syntax Scoring: https://adventofcode.com/2021/day/10
 /// </summary>
 [Favourite("Syntax Scoring", Topics.StringParsing, Difficulty.Easy)]
-public class Solution : SolutionBase
+public sealed class Solution : SolutionBase
 {
     private static readonly List<SyntaxChecker.Rule> SyntaxRules = new()
     {

@@ -5,7 +5,7 @@ namespace Problems.Y2019.D05;
 /// <summary>
 /// Sunny with a Chance of Asteroids: https://adventofcode.com/2019/day/5
 /// </summary>
-public class Solution : IntCodeSolution
+public sealed class Solution : IntCodeSolution
 {
     public override object Run(int part)
     {

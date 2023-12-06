@@ -8,7 +8,7 @@ namespace Problems.Y2020.D04;
 /// Passport Processing: https://adventofcode.com/2020/day/4
 /// </summary>
 [Favourite("Passport Processing", Topics.RegularExpressions, Difficulty.Medium)]
-public class Solution : SolutionBase
+public sealed class Solution : SolutionBase
 {
     private const RegexOptions Options = RegexOptions.Multiline;
     private static readonly IReadOnlyDictionary<string, string> FieldValidators = new Dictionary<string, string>

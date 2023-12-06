@@ -6,7 +6,7 @@ namespace Problems.Y2020.D06;
 /// <summary>
 /// Custom Customs: https://adventofcode.com/2020/day/6
 /// </summary>
-public class Solution : SolutionBase
+public sealed class Solution : SolutionBase
 {
     public override object Run(int part)
     {

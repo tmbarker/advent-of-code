@@ -2,7 +2,7 @@ using Problems.Common;
 
 namespace Problems.Y2016.Common;
 
-public class Vm
+public sealed class Vm
 {
     private readonly Dictionary<string, long> _registers = new();
     private long _ip;

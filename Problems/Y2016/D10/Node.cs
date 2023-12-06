@@ -1,6 +1,6 @@
 namespace Problems.Y2016.D10;
 
-public class Node
+public sealed class Node
 {
     public string Id { get; }
     public string? Low { get; init; }

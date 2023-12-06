@@ -3,7 +3,7 @@ using Utilities.Geometry.Euclidean;
 
 namespace Problems.Y2017.D03;
 
-public class Spiral
+public sealed class Spiral
 {
     private readonly DefaultDict<Vector2D, int> _memory;
     private Vector2D _dir = Vector2D.Right;

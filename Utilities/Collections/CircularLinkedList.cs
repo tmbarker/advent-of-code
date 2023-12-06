@@ -5,7 +5,7 @@ namespace Utilities.Collections;
 /// <see cref="LinkedList{T}"/>, except it is circular
 /// </summary>
 /// <typeparam name="T">The type of the value encapsulated in each <see cref="CircularLinkedListNode{T}"/></typeparam>
-public class CircularLinkedList<T>
+public sealed class CircularLinkedList<T>
 {
    public CircularLinkedList()
    {

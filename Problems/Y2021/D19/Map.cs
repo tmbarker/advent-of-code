@@ -2,7 +2,7 @@ using Utilities.Geometry.Euclidean;
 
 namespace Problems.Y2021.D19;
 
-public class Map
+public sealed class Map
 {
     public Dictionary<int, Vector3D> KnownScanners { get; } = new();
     public Dictionary<int, ISet<Vector3D>> KnownBeacons { get; } = new();

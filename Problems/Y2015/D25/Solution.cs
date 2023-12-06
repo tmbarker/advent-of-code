@@ -6,7 +6,7 @@ namespace Problems.Y2015.D25;
 /// <summary>
 /// Let It Snow: https://adventofcode.com/2015/day/25
 /// </summary>
-public class Solution : SolutionBase
+public sealed class Solution : SolutionBase
 {
     public override int Parts => 1;
 

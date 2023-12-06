@@ -7,7 +7,7 @@ namespace Problems.Y2019.D10;
 /// <summary>
 /// Monitoring Station: https://adventofcode.com/2019/day/10
 /// </summary>
-public class Solution : SolutionBase
+public sealed class Solution : SolutionBase
 {
     private const char Asteroid = '#';
     private const int TargetCount = 200;

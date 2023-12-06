@@ -9,7 +9,7 @@ namespace Problems.Y2015.D13;
 /// Knights of the Dinner Table: https://adventofcode.com/2015/day/13
 /// </summary>
 [Favourite("Knights of the Dinner Table", Topics.Graphs, Difficulty.Easy)]
-public class Solution : SolutionBase
+public sealed class Solution : SolutionBase
 {
     private const string Gain = "gain";
     private const string You = "you";

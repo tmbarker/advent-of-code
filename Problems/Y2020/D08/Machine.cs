@@ -1,6 +1,6 @@
 namespace Problems.Y2020.D08;
 
-public class Machine
+public sealed class Machine
 {
     public const string Nop = "nop";
     public const string Jmp = "jmp";

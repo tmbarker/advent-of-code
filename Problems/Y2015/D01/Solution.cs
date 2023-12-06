@@ -5,7 +5,7 @@ namespace Problems.Y2015.D01;
 /// <summary>
 /// Not Quite Lisp: https://adventofcode.com/2015/day/1
 /// </summary>
-public class Solution : SolutionBase
+public sealed class Solution : SolutionBase
 {
     public override object Run(int part)
     {

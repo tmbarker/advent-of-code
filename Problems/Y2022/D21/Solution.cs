@@ -5,7 +5,7 @@ namespace Problems.Y2022.D21;
 /// <summary>
 /// Monkey Math: https://adventofcode.com/2022/day/21
 /// </summary>
-public class Solution : SolutionBase
+public sealed class Solution : SolutionBase
 {
     private const string Root = "root";
     private const string Unknown = "humn";

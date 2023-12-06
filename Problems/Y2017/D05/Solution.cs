@@ -5,7 +5,7 @@ namespace Problems.Y2017.D05;
 /// <summary>
 /// A Maze of Twisty Trampolines, All Alike: https://adventofcode.com/2017/day/5
 /// </summary>
-public class Solution : SolutionBase
+public sealed class Solution : SolutionBase
 {
     public override object Run(int part)
     {

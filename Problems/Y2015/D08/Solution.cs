@@ -8,7 +8,7 @@ namespace Problems.Y2015.D08;
 /// Matchsticks: https://adventofcode.com/2015/day/8
 /// </summary>
 [Favourite("Matchsticks", Topics.RegularExpressions, Difficulty.Medium)]
-public class Solution : SolutionBase
+public sealed class Solution : SolutionBase
 {
     public override object Run(int part)
     {

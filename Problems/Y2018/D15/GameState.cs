@@ -6,7 +6,7 @@ using Field = Grid2D<char>;
 using UnitMap = Dictionary<int, Unit>;
 using CasualtyMap = Dictionary<char, int>;
 
-public class GameState
+public sealed class GameState
 {
     public int Tick { get; set; }
     public Field Field { get; }

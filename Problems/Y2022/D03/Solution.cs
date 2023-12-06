@@ -5,7 +5,7 @@ namespace Problems.Y2022.D03;
 /// <summary>
 /// Rucksack Reorganization: https://adventofcode.com/2022/day/3
 /// </summary>
-public class Solution : SolutionBase
+public sealed class Solution : SolutionBase
 {
     private const int AlphabetLength = 26;
     private const int GroupSize = 3;

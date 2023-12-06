@@ -8,7 +8,7 @@ namespace Problems.Y2021.D23;
 /// Amphipod: https://adventofcode.com/2021/day/23
 /// </summary>
 [InputSpecific("Inputs for this puzzle are difficult to parse arbitrarily, as such mine are hardcoded")]
-public class Solution : SolutionBase
+public sealed class Solution : SolutionBase
 {
     public override object Run(int part)
     {

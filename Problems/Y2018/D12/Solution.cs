@@ -5,7 +5,7 @@ namespace Problems.Y2018.D12;
 /// <summary>
 /// Subterranean Sustainability: https://adventofcode.com/2018/day/12
 /// </summary>
-public class Solution : SolutionBase
+public sealed class Solution : SolutionBase
 {
     public override object Run(int part)
     {

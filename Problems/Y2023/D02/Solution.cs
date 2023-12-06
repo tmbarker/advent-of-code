@@ -7,7 +7,7 @@ namespace Problems.Y2023.D02;
 /// <summary>
 /// Cube Conundrum: https://adventofcode.com/2023/day/2
 /// </summary>
-public class Solution : SolutionBase
+public sealed class Solution : SolutionBase
 {
     private readonly record struct Game(int Id, List<Set> Draws);
     private readonly record struct Set(int Red, int Green, int Blue);

@@ -7,7 +7,7 @@ namespace Problems.Y2016.D08;
 /// <summary>
 /// Two-Factor Authentication: https://adventofcode.com/2016/day/8
 /// </summary>
-public class Solution : SolutionBase
+public sealed class Solution : SolutionBase
 {
     private const int Rows = 6;
     private const int Cols = 50;

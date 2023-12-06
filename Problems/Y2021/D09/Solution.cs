@@ -7,7 +7,7 @@ namespace Problems.Y2021.D09;
 /// <summary>
 /// Smoke Basin: https://adventofcode.com/2021/day/9
 /// </summary>
-public class Solution : SolutionBase
+public sealed class Solution : SolutionBase
 {
     private const int BasinBoundaryHeight = 9;
     private const int NumBasinsToMultiply = 3;

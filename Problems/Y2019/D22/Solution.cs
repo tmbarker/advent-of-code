@@ -10,7 +10,7 @@ namespace Problems.Y2019.D22;
 /// Slam Shuffle: https://adventofcode.com/2019/day/22
 /// </summary>
 [Favourite("Slam Shuffle", Topics.Math, Difficulty.Hard)]
-public class Solution : SolutionBase
+public sealed class Solution : SolutionBase
 {
     private const string Stack = "stack";
     private const string Cut = "cut";

@@ -6,7 +6,7 @@ namespace Problems.Y2021.D08;
 /// <summary>
 /// Seven Segment Search: https://adventofcode.com/2021/day/8
 /// </summary>
-public class Solution : SolutionBase
+public sealed class Solution : SolutionBase
 {
     private const char PartsDelimiter = '|';
     private const char ElementsDelimiter = ' ';

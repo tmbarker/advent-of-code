@@ -2,7 +2,7 @@ using Problems.Common;
 
 namespace Problems.Y2019.D18;
 
-public class PathFinder
+public sealed class PathFinder
 {
     private readonly Field _field;
     

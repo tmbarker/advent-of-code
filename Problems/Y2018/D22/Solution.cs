@@ -9,7 +9,7 @@ namespace Problems.Y2018.D22;
 /// Mode Maze: https://adventofcode.com/2018/day/22
 /// </summary>
 [Favourite("Mode Maze", Topics.Graphs, Difficulty.Hard)]
-public class Solution : SolutionBase
+public sealed class Solution : SolutionBase
 {
     private const int MoveCost = 1;
     private const int SwapCost = 7;

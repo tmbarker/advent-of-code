@@ -2,7 +2,7 @@ using Utilities.Geometry.Euclidean;
 
 namespace Problems.Y2021.D23;
 
-public class SideRoom
+public sealed class SideRoom
 {
     private readonly int _abscissa;
     private readonly int _depth;

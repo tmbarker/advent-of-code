@@ -6,7 +6,7 @@ namespace Problems.Y2017.D15;
 /// <summary>
 /// Dueling Generators: https://adventofcode.com/2017/day/15
 /// </summary>
-public class Solution : SolutionBase
+public sealed class Solution : SolutionBase
 {
     private const ulong FactorA = 16807UL;
     private const ulong FactorB = 48271UL;

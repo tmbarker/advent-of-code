@@ -6,7 +6,7 @@ namespace Problems.Y2015.D12;
 /// <summary>
 /// JSAbacusFramework.io: https://adventofcode.com/2015/day/12
 /// </summary>
-public class Solution : SolutionBase
+public sealed class Solution : SolutionBase
 {
     public override object Run(int part)
     {

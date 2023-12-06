@@ -8,7 +8,7 @@ namespace Problems.Y2016.D23;
 /// Safe Cracking: https://adventofcode.com/2016/day/23
 /// </summary>
 [InputSpecific]
-public class Solution : SolutionBase
+public sealed class Solution : SolutionBase
 {
     public override object Run(int part)
     {

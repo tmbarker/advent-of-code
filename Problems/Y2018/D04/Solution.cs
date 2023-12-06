@@ -7,7 +7,7 @@ namespace Problems.Y2018.D04;
 /// <summary>
 /// Repose Record: https://adventofcode.com/2018/day/4
 /// </summary>
-public class Solution : SolutionBase
+public sealed class Solution : SolutionBase
 {
     private const string DateTimeFormat = "yyyy-MM-dd HH:mm";
     private const string Guard = "Guard";

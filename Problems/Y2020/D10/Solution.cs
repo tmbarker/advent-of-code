@@ -5,7 +5,7 @@ namespace Problems.Y2020.D10;
 /// <summary>
 /// Adapter Array: https://adventofcode.com/2020/day/10
 /// </summary>
-public class Solution : SolutionBase
+public sealed class Solution : SolutionBase
 {
     private const int Range = 3;
     private static readonly IReadOnlySet<int> DifferencesOfInterest = new HashSet<int> { 1, 3 };

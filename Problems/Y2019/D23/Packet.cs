@@ -2,7 +2,7 @@ namespace Problems.Y2019.D23;
 
 public readonly record struct Packet(int RecipientId, long X, long Y);
 
-public class PacketEventArgs : EventArgs
+public sealed class PacketEventArgs : EventArgs
 {
     public PacketEventArgs(int senderId, Packet payload)
     {

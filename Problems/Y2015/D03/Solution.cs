@@ -6,7 +6,7 @@ namespace Problems.Y2015.D03;
 /// <summary>
 /// Perfectly Spherical Houses in a Vacuum: https://adventofcode.com/2015/day/3
 /// </summary>
-public class Solution : SolutionBase
+public sealed class Solution : SolutionBase
 {
     private static readonly Dictionary<char, Vector2D> Map = new()
     {

@@ -7,7 +7,7 @@ namespace Problems.Y2021.D15;
 /// <summary>
 /// Chiton: https://adventofcode.com/2021/day/15
 /// </summary>
-public class Solution : SolutionBase
+public sealed class Solution : SolutionBase
 {
     private const int MaxRisk = 9;
 

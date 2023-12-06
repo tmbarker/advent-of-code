@@ -9,7 +9,7 @@ namespace Problems.Y2017.D20;
 /// Particle Swarm: https://adventofcode.com/2017/day/20
 /// </summary>
 [Favourite("Particle Swarm", Topics.Math|Topics.Vectors, Difficulty.Hard)]
-public class Solution : SolutionBase
+public sealed class Solution : SolutionBase
 {
     public override object Run(int part)
     {

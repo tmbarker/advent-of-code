@@ -7,7 +7,7 @@ namespace Problems.Y2023.D05;
 /// If You Give A Seed A Fertilizer: https://adventofcode.com/2023/day/5
 /// </summary>
 [Favourite("If You Give A Seed A Fertilizer", Topics.Math, Difficulty.Hard)]
-public class Solution : SolutionBase
+public sealed class Solution : SolutionBase
 {
     public override object Run(int part)
     {

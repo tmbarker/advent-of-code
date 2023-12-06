@@ -5,7 +5,7 @@ namespace Problems.Y2020.D05;
 /// <summary>
 /// Binary Boarding: https://adventofcode.com/2020/day/5
 /// </summary>
-public class Solution : SolutionBase
+public sealed class Solution : SolutionBase
 {
     public override object Run(int part)
     {

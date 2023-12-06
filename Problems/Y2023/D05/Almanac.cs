@@ -2,7 +2,7 @@ using Utilities.Extensions;
 
 namespace Problems.Y2023.D05;
 
-public class Almanac
+public sealed class Almanac
 {
     private const string MapToken = "map";
     private const int NumMaps = 7;

@@ -1,6 +1,6 @@
 namespace Problems.Y2020.D22;
 
-public class Deck
+public sealed class Deck
 {
     private readonly Queue<int> _cards;
 

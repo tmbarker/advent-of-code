@@ -9,7 +9,7 @@ namespace Problems.Y2019.D11;
 /// <summary>
 /// Space Police: https://adventofcode.com/2019/day/11
 /// </summary>
-public class Solution : IntCodeSolution
+public sealed class Solution : IntCodeSolution
 {
     private const long Black = 0L;
     private const long White = 1L;

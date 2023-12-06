@@ -10,7 +10,7 @@ using Floor = HashSet<Hex>;
 /// <summary>
 /// Lobby Layout: https://adventofcode.com/2020/day/24
 /// </summary>
-public class Solution : SolutionBase
+public sealed class Solution : SolutionBase
 {
     private static readonly Dictionary<string, Hex> Adjacencies = new()
     {

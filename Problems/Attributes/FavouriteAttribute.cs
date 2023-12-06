@@ -1,7 +1,7 @@
 namespace Problems.Attributes;
 
 [AttributeUsage(validOn: AttributeTargets.Class)]
-public class FavouriteAttribute : Attribute
+public sealed class FavouriteAttribute : Attribute
 {
     public FavouriteAttribute(string title, Topics topics, Difficulty difficulty)
     {

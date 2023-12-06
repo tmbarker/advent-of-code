@@ -2,7 +2,7 @@ using Utilities.Geometry.Euclidean;
 
 namespace Problems.Y2021.D11;
 
-public class OctopusGrid
+public sealed class OctopusGrid
 {
     private const int ResetTo = 0;
     private const int FlashAt = 10;

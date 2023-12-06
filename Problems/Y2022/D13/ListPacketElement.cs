@@ -2,7 +2,7 @@ using System.Text;
 
 namespace Problems.Y2022.D13;
 
-public class ListPacketElement : PacketElement
+public sealed class ListPacketElement : PacketElement
 {
     private readonly List<PacketElement> _elements = new ();
     

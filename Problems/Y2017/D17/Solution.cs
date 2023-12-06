@@ -7,7 +7,7 @@ namespace Problems.Y2017.D17;
 /// <summary>
 /// Spinlock: https://adventofcode.com/2017/day/17
 /// </summary>
-public class Solution : SolutionBase
+public sealed class Solution : SolutionBase
 {
     public override object Run(int part)
     {

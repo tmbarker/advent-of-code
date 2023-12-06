@@ -6,7 +6,7 @@ namespace Problems.Y2015.D22;
 /// <summary>
 /// Wizard Simulator 20XX: https://adventofcode.com/2015/day/22
 /// </summary>
-public class Solution : SolutionBase
+public sealed class Solution : SolutionBase
 {
     public override object Run(int part)
     {

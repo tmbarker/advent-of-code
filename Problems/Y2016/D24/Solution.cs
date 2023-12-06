@@ -9,7 +9,7 @@ namespace Problems.Y2016.D24;
 /// Air Duct Spelunking: https://adventofcode.com/2016/day/24
 /// </summary>
 [Favourite("Air Duct Spelunking", Topics.Graphs|Topics.Recursion, Difficulty.Medium)]
-public class Solution : SolutionBase
+public sealed class Solution : SolutionBase
 {
     public override object Run(int part)
     {

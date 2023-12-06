@@ -1,6 +1,6 @@
 namespace Problems.Y2019.D23;
 
-public class Network
+public sealed class Network
 {
     public const int NatId = 255;
     private const int NumNodes = 50;

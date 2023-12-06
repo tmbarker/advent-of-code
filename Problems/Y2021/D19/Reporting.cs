@@ -2,7 +2,7 @@ using Utilities.Geometry.Euclidean;
 
 namespace Problems.Y2021.D19;
 
-public class Reporting
+public sealed class Reporting
 {
     public Reporting(int scannerId, IEnumerable<Vector3D> beacons)
     {

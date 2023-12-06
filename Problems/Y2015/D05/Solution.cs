@@ -8,7 +8,7 @@ namespace Problems.Y2015.D05;
 /// Doesn't He Have Intern-Elves For This?: https://adventofcode.com/2015/day/5
 /// </summary>
 [Favourite("Doesn't He Have Intern-Elves For This?", Topics.RegularExpressions, Difficulty.Medium)]
-public class Solution : SolutionBase
+public sealed class Solution : SolutionBase
 {
     private static readonly Regex NiceA = new(@"^(?=.*(.)\1)(?!.*(ab|cd|pq|xy))(.*[aeiou]){3,}");
     private static readonly Regex NiceB = new(@"^(?=.*(.)(.).*\1\2).*(.).\3");

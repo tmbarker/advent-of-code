@@ -6,7 +6,7 @@ namespace Problems.Y2017.D01;
 /// <summary>
 /// Inverse Captcha: https://adventofcode.com/2017/day/1
 /// </summary>
-public class Solution : SolutionBase
+public sealed class Solution : SolutionBase
 {
     
     public override object Run(int part)

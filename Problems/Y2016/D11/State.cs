@@ -2,7 +2,7 @@ using System.Text;
 
 namespace Problems.Y2016.D11;
 
-public class State : IEquatable<State>
+public sealed class State : IEquatable<State>
 {
     private readonly string _key;
 

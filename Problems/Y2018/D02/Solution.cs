@@ -5,7 +5,7 @@ namespace Problems.Y2018.D02;
 /// <summary>
 /// Inventory Management System: https://adventofcode.com/2018/day/2
 /// </summary>
-public class Solution : SolutionBase
+public sealed class Solution : SolutionBase
 {
     public override object Run(int part)
     {

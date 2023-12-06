@@ -6,7 +6,7 @@ namespace Utilities.Collections;
 /// A generic fixed size circular buffer. An exposed indexer (<see cref="this[int]"/>) allows for non-FIFO use cases.
 /// </summary>
 /// <typeparam name="T">The type associated with each element in the buffer</typeparam>
-public class CircularBuffer<T> : IEnumerable<T>
+public sealed class CircularBuffer<T> : IEnumerable<T>
 {
     private readonly T[] _buffer;
     private int _readIndex;

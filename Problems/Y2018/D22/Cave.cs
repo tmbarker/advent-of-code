@@ -3,7 +3,7 @@ using Utilities.Geometry.Euclidean;
 
 namespace Problems.Y2018.D22;
 
-public class Cave
+public sealed class Cave
 {
     public static readonly Dictionary<RegionType, int> RegionRiskLevels = new()
     {

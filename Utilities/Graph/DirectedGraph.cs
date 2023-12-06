@@ -4,7 +4,7 @@ namespace Utilities.Graph;
 /// A primitive directed graph template 
 /// </summary>
 /// <typeparam name="T">The type of value associated with each vertex</typeparam>
-public class DirectedGraph<T> where T : IEquatable<T>
+public sealed class DirectedGraph<T> where T : IEquatable<T>
 {
     public readonly record struct Edge(T From, T To);
     

@@ -9,7 +9,7 @@ namespace Problems.Y2023.D03;
 /// Gear Ratios: https://adventofcode.com/2023/day/3
 /// </summary>
 [Favourite("Gear Ratios", Topics.Vectors, Difficulty.Easy)]
-public class Solution : SolutionBase
+public sealed class Solution : SolutionBase
 {
     private readonly record struct Number(int Value, HashSet<Vector2D> Positions);
     private readonly record struct Schematic(List<Number> Numbers, DefaultDict<char, HashSet<Vector2D>> Symbols);

@@ -5,7 +5,7 @@ namespace Problems.Y2020.D14;
 /// <summary>
 /// Docking Data: https://adventofcode.com/2020/day/14
 /// </summary>
-public class Solution : SolutionBase
+public sealed class Solution : SolutionBase
 {
     public override object Run(int part)
     {

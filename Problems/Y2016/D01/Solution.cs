@@ -7,7 +7,7 @@ namespace Problems.Y2016.D01;
 /// <summary>
 /// No Time for a Taxicab: https://adventofcode.com/2016/day/1
 /// </summary>
-public class Solution : SolutionBase
+public sealed class Solution : SolutionBase
 {
     public override object Run(int part)
     {

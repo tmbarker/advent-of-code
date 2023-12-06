@@ -2,7 +2,7 @@
 
 namespace Problems.Y2022.D24;
 
-public class Blizzard
+public sealed class Blizzard
 {
     public Blizzard(Vector2D pos, Vector2D heading)
     {

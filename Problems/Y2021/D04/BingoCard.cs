@@ -2,7 +2,7 @@ using Utilities.Geometry.Euclidean;
 
 namespace Problems.Y2021.D04;
 
-public class BingoCard
+public sealed class BingoCard
 {
     private readonly Grid2D<int> _squares;
     private readonly Dictionary<int, Vector2D> _numberMap = new();

@@ -1,6 +1,6 @@
 namespace Problems.Y2018.D16;
 
-public class Cpu
+public sealed class Cpu
 {
     private readonly Dictionary<int, int> _registers = new();
 

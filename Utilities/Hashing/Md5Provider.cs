@@ -3,15 +3,10 @@ using System.Text;
 
 namespace Utilities.Hashing;
 
-public class Md5Provider
+public sealed class Md5Provider
 {
-    private readonly MD5 _hashProvider;
+    private readonly MD5 _hashProvider = MD5.Create();
 
-    public Md5Provider()
-    {
-        _hashProvider = MD5.Create();
-    }
-    
     ~Md5Provider()
     {
         _hashProvider.Dispose();

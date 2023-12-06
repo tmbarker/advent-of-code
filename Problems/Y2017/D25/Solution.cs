@@ -6,7 +6,7 @@ namespace Problems.Y2017.D25;
 /// <summary>
 /// The Halting Problem: https://adventofcode.com/2017/day/25
 /// </summary>
-public class Solution : SolutionBase
+public sealed class Solution : SolutionBase
 {
     public override int Parts => 1;
 
