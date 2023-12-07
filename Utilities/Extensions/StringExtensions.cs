@@ -20,6 +20,11 @@ public static class StringExtensions
     {
         return ParseInts(str)[0];
     }
+    
+    public static long ParseLong(this string str)
+    {
+        return ParseLongs(str)[0];
+    }
 
     public static IList<long> ParseLongs(this string str)
     {
