@@ -35,11 +35,34 @@ public static class RegexExtensions
     }
 
     /// <summary>
+    /// Enumerate all <see cref="Match"/> instances from the <see cref="MatchCollection"/>.
+    /// </summary>
+    public static IList<string> SelectValues(this MatchCollection matches)
+    {
+        return matches
+            .Select(match => match.Value)
+            .ToList();
+    }
+    
+    /// <summary>
     /// Enumerate all <see cref="Capture"/> instances from the specified <see cref="Group"/> over the entire
     /// <see cref="MatchCollection"/>. This extension is effectively a Select Many wrapper.
     /// </summary>
-    public static IEnumerable<string> SelectCaptures(this MatchCollection matches, int group)
+    public static IList<string> SelectCaptures(this MatchCollection matches, int group)
     {
-        return matches.SelectMany(match => match.Groups[group].Captures.Select(capture => capture.Value));
+        return matches
+            .SelectMany(match => match.Groups[group].Captures.Select(capture => capture.Value))
+            .ToList();
+    }
+    
+    /// <summary>
+    /// Enumerate all <see cref="Capture"/> instances from the specified <see cref="Group"/> over the entire
+    /// <see cref="MatchCollection"/>. This extension is effectively a Select Many wrapper.
+    /// </summary>
+    public static IList<string> SelectCaptures(this MatchCollection matches, string group)
+    {
+        return matches
+            .SelectMany(match => match.Groups[group].Captures.Select(capture => capture.Value))
+            .ToList();
     }
 }
