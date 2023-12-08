@@ -116,7 +116,7 @@ public sealed class Solution : SolutionBase
         foreach (var line in input)
         {
             var numbers = line.ParseInts();
-            var vertices = numbers.Count / 2;
+            var vertices = numbers.Length / 2;
 
             for (var i = 1; i < vertices; i++)
             {

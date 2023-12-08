@@ -1,38 +1,38 @@
-﻿using System.Runtime.CompilerServices;
+﻿using System.Numerics;
+using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
 
 namespace Utilities.Extensions;
 
 public static class StringExtensions
 {
-    private static readonly Regex NumberRegex = new(pattern: @"(-?\d+)");
-    private static readonly Regex WhitespaceRegex = new(pattern: @"\s+");
+    private const RegexOptions Options = RegexOptions.Compiled;
+    private static readonly Regex NumberRegex = new(pattern: @"(-?\d+)", Options);
+    private static readonly Regex WhitespaceRegex = new(pattern: @"\s+", Options);
 
-    public static IList<int> ParseInts(this string str)
+    private static T ParseNumber<T>(this string s) where T : INumber<T>
     {
-        var matches = NumberRegex.Matches(str);
-        var numbers = new List<int>(matches.Select(m => int.Parse(m.Value)));
-
-        return numbers;
+        return ParseNumbers<T>(s)[0];
     }
 
-    public static int ParseInt(this string str)
+    private static T[] ParseNumbers<T>(this string s) where T : INumber<T>
     {
-        return ParseInts(str)[0];
+        return NumberRegex.Matches(s)
+            .Select(m => T.Parse(s: m.Value.AsSpan(), provider: null))
+            .ToArray();
     }
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static int ParseInt(this string s) => ParseNumber<int>(s);
     
-    public static long ParseLong(this string str)
-    {
-        return ParseLongs(str)[0];
-    }
-
-    public static IList<long> ParseLongs(this string str)
-    {
-        var matches = NumberRegex.Matches(str);
-        var numbers = new List<long>(matches.Select(m => long.Parse(m.Value)));
-
-        return numbers;
-    }
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static long ParseLong(this string s) => ParseNumber<long>(s);
+    
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static int[] ParseInts(this string s) => ParseNumbers<int>(s);
+    
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static IList<long> ParseLongs(this string s) => ParseNumbers<long>(s);
     
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static int AsDigit(this char c)
