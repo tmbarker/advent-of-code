@@ -1,5 +1,5 @@
 using Problems.Common;
-using Utilities.Extensions;
+using Utilities.Collections;
 using Utilities.Geometry.Euclidean;
 
 namespace Problems.Y2022.D23;
@@ -47,7 +47,7 @@ public sealed class Solution : SolutionBase
     private static int Diffuse(HashSet<Vector2D> positions, int roundIndex)
     {
         var targetsMap = new Dictionary<Vector2D, Vector2D>();
-        var targetsCount = new Dictionary<Vector2D, int>();
+        var targetsCount = new DefaultDict<Vector2D, int>(defaultValue: 0);
 
         foreach (var actor in positions)
         {
@@ -67,7 +67,6 @@ public sealed class Solution : SolutionBase
 
                 var target = actor + move;
                 targetsMap[actor] = target;
-                targetsCount.EnsureContainsKey(target);
                 targetsCount[target]++;
                 break;
             }

@@ -1,12 +1,9 @@
-using Utilities.Extensions;
+using Utilities.Collections;
 
 namespace Problems.Y2022.D07;
 
-public static class ConsoleParser
+public class ConsoleParser
 {
-    private const char ConsoleDelimiter = ' ';
-    private const char PathDelimiter = '/';
-    
     private const string CmdPrefix = "$";
     private const string RootCmd = "/";
     private const string ParentCmd = "..";
@@ -14,13 +11,13 @@ public static class ConsoleParser
 
     public const string RootDirectoryPath = RootCmd;
     
-    private static Stack<string> CurrentDirectory { get; } = new ();
-    private static Dictionary<string, int>? DirectorySizeIndex { get; set; }
+    private Stack<string> CurrentDirectory { get; } = new ();
+    private IDictionary<string, int> DirectorySizeIndex { get; } = new DefaultDict<string, int>(defaultValue: 0);
 
-    public static Dictionary<string, int> ConstructDirectorySizeIndex(IEnumerable<string> consoleOutput)
+    public IDictionary<string, int> BuildDirectoryMap(IEnumerable<string> consoleOutput)
     {
         CurrentDirectory.Clear();
-        DirectorySizeIndex = new Dictionary<string, int>();
+        DirectorySizeIndex.Clear();
         
         foreach (var line in consoleOutput)
         {
@@ -39,7 +36,7 @@ public static class ConsoleParser
         return DirectorySizeIndex;
     }
 
-    private static void HandleCdCommand(string arg)
+    private void HandleCdCommand(string arg)
     {
         switch (arg)
         {
@@ -56,7 +53,7 @@ public static class ConsoleParser
         }
     }
 
-    private static void HandleLsItem(string line)
+    private void HandleLsItem(string line)
     {
         var elements = ParseLine(line);
         if (int.TryParse(elements[0], out var filesize))
@@ -65,23 +62,19 @@ public static class ConsoleParser
         }
     }
 
-    private static void IncrementContainingDirectories(int increment)
+    private void IncrementContainingDirectories(int increment)
     {
-        var history = new Stack<string>(CurrentDirectory.Reverse());
+        var history = new Stack<string>(collection: CurrentDirectory.Reverse());
         while (history.Count > 0)
         {
-            var directoryPath = FormDirectoryPath(history);
-            
-            DirectorySizeIndex!.EnsureContainsKey(directoryPath);
-            DirectorySizeIndex![directoryPath] += increment;
-
+            DirectorySizeIndex[FormDirectoryPath(history)] += increment;
             history.Pop();
         }
     }
 
     private static string FormDirectoryPath(IEnumerable<string> directories)
     {
-        return string.Join(PathDelimiter, directories);
+        return string.Join(separator: '/', directories);
     }
     
     private static bool TryParseCommand(string line, out Command? cmd, out string? arg)
@@ -109,6 +102,6 @@ public static class ConsoleParser
 
     private static string[] ParseLine(string line)
     {
-        return line.Split(ConsoleDelimiter, StringSplitOptions.RemoveEmptyEntries);
+        return line.Split(separator: ' ', StringSplitOptions.RemoveEmptyEntries);
     }
 }

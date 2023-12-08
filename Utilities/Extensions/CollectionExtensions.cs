@@ -6,21 +6,10 @@ namespace Utilities.Extensions;
 public static class CollectionExtensions
 {
     /// <summary>
-    /// Ensure the <paramref name="dictionary"/> contains <paramref name="key"/>, add the default value of <typeparamref name="TValue"/> if it doesn't
-    /// </summary>
-    public static void EnsureContainsKey<TKey, TValue>(this IDictionary<TKey, TValue> dictionary, TKey key)
-        where TKey : notnull where TValue : notnull
-    {
-        if (!dictionary.ContainsKey(key))
-        {
-            dictionary.Add(key, default!);
-        }
-    }
-
-    /// <summary>
     /// Attempt to remove all specified <see cref="keys"/> from the <see cref="Dictionary{TKey,TValue}"/> instance
     /// </summary>
-    public static void RemoveMany<TKey, TValue>(this IDictionary<TKey, TValue> dictionary, IEnumerable<TKey> keys) where TKey : notnull
+    public static void RemoveMany<TKey, TValue>(this IDictionary<TKey, TValue> dictionary, IEnumerable<TKey> keys)
+        where TKey : notnull
     {
         foreach (var key in keys)
         {
@@ -29,37 +18,16 @@ public static class CollectionExtensions
     }
 
     /// <summary>
-    /// Filter the dictionary entries so only Key-Value pairs with a distinct Value are returned
-    /// </summary>
-    public static Dictionary<TKey, TValue> FilterByDistinctValues<TKey, TValue>(this IDictionary<TKey, TValue> dictionary) where TKey : notnull
-    {
-        return dictionary
-            .GroupBy(kvp => kvp.Value)
-            .Where(g => g.Count() == 1)
-            .Select(g => g.First())
-            .ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
-    }
-    
-    /// <summary>
     /// Filter the dictionary entries using a Value Predicate
     /// </summary>
-    public static Dictionary<TKey, TValue> WhereValues<TKey, TValue>(this IDictionary<TKey, TValue> dictionary, Predicate<TValue> predicate) where TKey : notnull
+    public static Dictionary<TKey, TValue> WhereValues<TKey, TValue>(this IDictionary<TKey, TValue> dictionary,
+        Predicate<TValue> predicate) where TKey : notnull
     {
         return dictionary
             .Where(kvp => predicate(kvp.Value))
             .ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
     }
     
-    /// <summary>
-    /// Filter the dictionary entries using a Key Predicate
-    /// </summary>
-    public static Dictionary<TKey, TValue> WhereKeys<TKey, TValue>(this IDictionary<TKey, TValue> dictionary, Predicate<TKey> predicate) where TKey : notnull
-    {
-        return dictionary
-            .Where(kvp => predicate(kvp.Key))
-            .ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
-    }
-
     /// <summary>
     /// Initialize a <see cref="IReadOnlyCollection{T}"/> using the elements from <paramref name="source"/>
     /// </summary>
@@ -73,7 +41,7 @@ public static class CollectionExtensions
     /// </summary>
     public static ICollection<T> Except<T>(this IEnumerable<T> source, T single)
     {
-        return new List<T>(source.Except(new[] { single }));
+        return new List<T>(collection: source.Except(new[] { single }));
     }
 
     /// <summary>
@@ -87,8 +55,8 @@ public static class CollectionExtensions
         var presentInAll = enumerable
             .Skip(1)
             .Aggregate(
-                new HashSet<T>(enumerable.First()),
-                (inAll, nextCollection) =>
+                seed: new HashSet<T>(collection: enumerable.First()),
+                func: (inAll, nextCollection) =>
                 {
                     inAll.IntersectWith(nextCollection);
                     return inAll;
@@ -104,28 +72,19 @@ public static class CollectionExtensions
     public static IEnumerable<Vector2D> Normalize(this IEnumerable<Vector2D> collection)
     {
         var enumerated = collection.ToList();
-        var delta = new Vector2D(
-            x: enumerated.Min(v => v.X),
-            y: enumerated.Min(v => v.Y));
+        var dx = int.MaxValue;
+        var dy = int.MaxValue;
 
         foreach (var vector in enumerated)
         {
-            yield return vector - delta;
+            dx = Math.Min(dx, vector.X);
+            dy = Math.Min(dy, vector.Y);
         }
-    }
 
-    /// <summary>
-    /// Normalize the values of the dictionary such that the "smallest" value is <see cref="Vector2D.Zero"/>
-    /// </summary>
-    public static void NormalizeValues<TKey>(this IDictionary<TKey, Vector2D> dictionary)
-    {
-        var delta = new Vector2D(
-            x: dictionary.Values.Min(v => v.X),
-            y: dictionary.Values.Min(v => v.Y));
-        
-        foreach (var (key, _) in dictionary)
+        var delta = new Vector2D(dx, dy);
+        foreach (var vector in enumerated)
         {
-            dictionary[key] -= delta;
+            yield return vector - delta;
         }
     }
 

@@ -1,5 +1,6 @@
 ﻿using System.Text.RegularExpressions;
 using Problems.Common;
+using Utilities.Collections;
 using Utilities.Extensions;
 
 namespace Problems.Y2021.D14;
@@ -23,44 +24,40 @@ public sealed class Solution : SolutionBase
     private static long GetMaxExtendedVariance(IList<char> polymer, IList<Rule> rules, int steps)
     {
         var extendedPolymer = ExtendPolymer(polymer, rules, steps);
-        var maxVariance = ComputeMaxFrequencyVariance(extendedPolymer, polymer.First(), polymer.Last());
+        var maxVariance = ComputeMaxFrequencyVariance(extendedPolymer, polymer[0], polymer[^1]);
 
         return maxVariance;
     }
     
-    private static long ComputeMaxFrequencyVariance(Dictionary<(char, char), long> pairCounts, char pStart, char pEnd)
+    private static long ComputeMaxFrequencyVariance(IDictionary<(char, char), long> pairCounts, char start, char end)
     {
-        var doubledFrequencies = new Dictionary<char, long>();
+        var doubledFrequencies = new DefaultDict<char, long>(defaultValue: 0L);
         foreach (var ((lhs, rhs), count) in pairCounts)
         {
-            doubledFrequencies.EnsureContainsKey(lhs);
-            doubledFrequencies.EnsureContainsKey(rhs);
             doubledFrequencies[lhs] += count;
             doubledFrequencies[rhs] += count;
         }
 
         //  The only polymer elements which aren't doubled are the LHS of the first pair, and the RHS of the last pair
         // 
-        doubledFrequencies[pStart]++;
-        doubledFrequencies[pEnd]++;
+        doubledFrequencies[start]++;
+        doubledFrequencies[end]++;
 
         var sortedFrequencies = doubledFrequencies.Values
             .Where(c => c > 0)
-            .Select(n => n/2)
+            .Select(n => n / 2)
             .Order()
             .ToList();
 
-        return sortedFrequencies.Last() - sortedFrequencies.First();
+        return sortedFrequencies[^1] - sortedFrequencies[0];
     }
 
-    private static Dictionary<(char, char), long> ExtendPolymer(IList<char> polymer, IList<Rule> rules, int steps)
+    private static IDictionary<(char, char), long> ExtendPolymer(IList<char> polymer, IList<Rule> rules, int steps)
     {
-        var pairCounts = new Dictionary<(char, char), long>();
+        var pairCounts = new DefaultDict<(char, char), long>(defaultValue: 0L);
         for (var i = 0; i < polymer.Count - 1; i++)
         {
-            var key = (polymer[i], polymer[i + 1]);
-            pairCounts.EnsureContainsKey(key);
-            pairCounts[key]++;
+            pairCounts[(polymer[i], polymer[i + 1])]++;
         }
 
         for (var i = 0; i < steps; i++)
@@ -71,29 +68,21 @@ public sealed class Solution : SolutionBase
         return pairCounts;
     }
 
-    private static void ExtendPolymer(Dictionary<(char, char), long> pairCounts, IList<Rule> rules)
+    private static void ExtendPolymer(IDictionary<(char, char), long> pairCounts, IList<Rule> rules)
     {
-        var deltas = new Dictionary<(char, char), long>();
+        var deltas = new DefaultDict<(char, char), long>(defaultValue: 0L);
         foreach (var (lhs, rhs) in pairCounts.Keys.Freeze())
         {
             foreach (var rule in rules.Where(rule => rule.Lhs == lhs && rule.Rhs == rhs))
             {
-                var lPairKey = (lhs, rule.Insert);
-                var rPairKey = (rule.Insert, rhs);
-
-                deltas.EnsureContainsKey(rule.MatchKey);
-                deltas.EnsureContainsKey(lPairKey);
-                deltas.EnsureContainsKey(rPairKey);
-
                 deltas[rule.MatchKey] -= pairCounts[rule.MatchKey];
-                deltas[lPairKey] += pairCounts[rule.MatchKey];
-                deltas[rPairKey] += pairCounts[rule.MatchKey];
+                deltas[(lhs, rule.Insert)] += pairCounts[rule.MatchKey];
+                deltas[(rule.Insert, rhs)] += pairCounts[rule.MatchKey];
             }
         }
 
         foreach (var (pairKey, delta) in deltas)
         {
-            pairCounts.EnsureContainsKey(pairKey);
             pairCounts[pairKey] += delta;
         }
     }
@@ -106,7 +95,7 @@ public sealed class Solution : SolutionBase
 
     private static Rule ParseRule(string line)
     {
-        var elements = Regex.Match(line, @"(.)(.) -> (.)");
+        var elements = Regex.Match(line, pattern: @"(.)(.) -> (.)");
         return new Rule
         {
             Lhs = elements.Groups[1].Value[0],

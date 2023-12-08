@@ -36,7 +36,7 @@ public sealed class Screen
     
     public int GetCount(GameObject type)
     {
-        return _pixels.WhereValues(t => t == type).Count;
+        return _pixels.Count(kvp => kvp.Value == type);
     }
 
     private void ParsePixel(Queue<long> machineOutput)

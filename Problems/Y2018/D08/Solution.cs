@@ -63,9 +63,7 @@ public sealed class Solution : SolutionBase
 
         for (var i = 0; i < numMetadata; i++)
         {
-            value += childNodeValues.TryGetValue(buffer.Dequeue(), out var metadata) 
-                ? metadata 
-                : 0;
+            value += childNodeValues.GetValueOrDefault(buffer.Dequeue(), 0);
         }
 
         return value;

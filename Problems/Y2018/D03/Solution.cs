@@ -1,4 +1,5 @@
 ﻿using Problems.Common;
+using Utilities.Collections;
 using Utilities.Extensions;
 using Utilities.Geometry.Euclidean;
 
@@ -22,16 +23,15 @@ public sealed class Solution : SolutionBase
 
     private static int CountClaimOverlaps(IEnumerable<Aabb2D> claimAabbs)
     {
-        var map = new Dictionary<Vector2D, int>();
+        var map = new DefaultDict<Vector2D, int>(defaultValue: 0);
         
         foreach (var aabb in claimAabbs)
         foreach (var position in aabb)
         {
-            map.EnsureContainsKey(position);
             map[position]++;
         }
 
-        return map.WhereValues(c => c > 1).Count;
+        return map.Keys.Count(c => map[c] > 1);
     }
 
     private static int GetNonOverlappedClaim(IList<(int Id, Aabb2D aabb2D)> claims)

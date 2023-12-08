@@ -1,5 +1,5 @@
 using Problems.Common;
-using Utilities.Extensions;
+using Utilities.Collections;
 
 namespace Problems.Y2021.D08;
 
@@ -83,19 +83,15 @@ public sealed class Solution : SolutionBase
         //  segment frequencies with the observed segment frequencies
         //
         var expectedSegmentFrequencies = FormExpectedSegmentFrequencyMap();
-        var distinctSegmentFrequencies = expectedSegmentFrequencies.FilterByDistinctValues();
+        var distinctSegmentFrequencies = FilterByDistinctValues(expectedSegmentFrequencies);
         var observedSegmentFrequencies = FormObservedSegmentFrequencyMap(uniqueSegmentPatterns);
         
-        foreach (var (segment, expectedFrequency) in distinctSegmentFrequencies)
+        foreach (var (expectedSegment, expectedFrequency) in distinctSegmentFrequencies)
+        foreach (var (observedSegment, observedFrequency) in observedSegmentFrequencies)
         {
-            foreach (var (observedSegment, observedFrequency) in observedSegmentFrequencies)
+            if (observedFrequency == expectedFrequency)
             {
-                if (observedFrequency != expectedFrequency)
-                {
-                    continue;
-                }
-                
-                decodedSegmentsMap.Add(observedSegment, segment);
+                decodedSegmentsMap.Add(observedSegment, expectedSegment);
                 break;
             }
         }
@@ -161,36 +157,33 @@ public sealed class Solution : SolutionBase
 
     private static IEnumerable<int> GetDigitsWithUniqueSegmentCounts()
     {
-        return RequiredSegmentsMap
-            .ToDictionary(kvp => kvp.Key, kvp => kvp.Value.Count)
-            .FilterByDistinctValues()
-            .Keys.ToHashSet();
+        var map = RequiredSegmentsMap.ToDictionary(kvp => kvp.Key, kvp => kvp.Value.Count);
+        var distinct = FilterByDistinctValues(map);
+
+        return distinct.Keys;
     }
 
-    private static Dictionary<char, int> FormExpectedSegmentFrequencyMap()
+    private static IDictionary<char, int> FormExpectedSegmentFrequencyMap()
     {
         var frequencyMap = RequiredSegmentsMap[8].ToDictionary(c => c, _ => 0);
+        
         foreach (var (_, segments) in RequiredSegmentsMap)
+        foreach (var segment in segments)
         {
-            foreach (var segment in segments)
-            {
-                frequencyMap[segment]++;
-            }
+            frequencyMap[segment]++;
         }
 
         return frequencyMap;
     }
 
-    private static Dictionary<char, int> FormObservedSegmentFrequencyMap(IEnumerable<string> observations)
+    private static IDictionary<char, int> FormObservedSegmentFrequencyMap(IEnumerable<string> observations)
     {
-        var frequencyMap = new Dictionary<char, int>();
+        var frequencyMap = new DefaultDict<char, int>(defaultValue: 0);
+        
         foreach (var observation in observations)
+        foreach (var segment in observation)
         {
-            foreach (var segment in observation)
-            {
-                frequencyMap.EnsureContainsKey(segment);
-                frequencyMap[segment]++;
-            }
+            frequencyMap[segment]++;
         }
         
         return frequencyMap;
@@ -198,14 +191,27 @@ public sealed class Solution : SolutionBase
 
     private static IEnumerable<DisplayObservation> ParseSignalPatternNotes(IEnumerable<string> input)
     {
-        const StringSplitOptions splitOptions = StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries;
+        const StringSplitOptions options = StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries;
         foreach (var line in input)
         {
-            var parts = line.Split(PartsDelimiter, splitOptions);
-            var uniquePatterns = parts[0].Split(ElementsDelimiter, splitOptions);
-            var outputDigits = parts[1].Split(ElementsDelimiter, splitOptions);
+            var parts = line.Split(separator: PartsDelimiter, options);
+            var uniquePatterns = parts[0].Split(separator: ElementsDelimiter, options);
+            var outputDigits = parts[1].Split(separator: ElementsDelimiter, options);
 
             yield return new DisplayObservation(uniquePatterns, outputDigits);
         }
+    }
+
+    /// <summary>
+    /// Filter the dictionary entries so only Key-Value pairs with a distinct Value are returned
+    /// </summary>
+    private static Dictionary<TKey, TValue> FilterByDistinctValues<TKey, TValue>(IDictionary<TKey, TValue> dictionary)
+        where TKey : notnull
+    {
+        return dictionary
+            .GroupBy(kvp => kvp.Value)
+            .Where(g => g.Count() == 1)
+            .Select(g => g.First())
+            .ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
     }
 }

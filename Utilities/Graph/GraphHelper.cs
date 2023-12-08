@@ -59,9 +59,7 @@ public static class GraphHelper
             adjacencyList: adjacencyList,
             stopPredicate: key => EqualityComparer<T>.Default.Equals(end, key));
 
-        return costs.TryGetValue(end, out var cost)
-            ? cost
-            : int.MaxValue;
+        return costs.GetValueOrDefault(end, int.MaxValue);
     }
 
     private static Dictionary<T, int> DijkstraUnweighted<T>(T start,

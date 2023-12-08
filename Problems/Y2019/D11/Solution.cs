@@ -69,8 +69,8 @@ public sealed class Solution : IntCodeSolution
 
     private static string Draw(IDictionary<Vector2D, long> painted)
     {
-        var white = painted
-            .WhereValues(c => c == White).Keys
+        var white = painted.Keys
+            .Where(c => painted[c] == White)
             .Normalize()
             .ToHashSet();
 

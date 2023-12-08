@@ -1,5 +1,5 @@
 using Problems.Common;
-using Utilities.Extensions;
+using Utilities.Collections;
 using Utilities.Geometry.Euclidean;
 
 namespace Problems.Y2021.D05;
@@ -27,9 +27,9 @@ public sealed class Solution : SolutionBase
         return ventMap.Values.Count(v => v > 1);
     }
     
-    private static Dictionary<Vector2D, int> BuildVentMap(IEnumerable<(Vector2D v1, Vector2D v2)> lines, bool ignoreDiagonals)
+    private static IDictionary<Vector2D, int> BuildVentMap(IEnumerable<(Vector2D v1, Vector2D v2)> lines, bool ignoreDiagonals)
     {
-        var dictionary = new Dictionary<Vector2D, int>();
+        var map = new DefaultDict<Vector2D, int>(defaultValue: 0);
 
         foreach (var (v1, v2) in lines)
         {
@@ -38,22 +38,20 @@ public sealed class Solution : SolutionBase
                 continue;
             }
             
-            dictionary.EnsureContainsKey(v2);
-            dictionary[v2]++;
+            map[v2]++;
             
             var current = v1;
             var step = Vector2D.Normalize(v2 - v1);
 
             while (current != v2)
             {
-                dictionary.EnsureContainsKey(current);
-                dictionary[current]++;
+                map[current]++;
                 
                 current += step;
             }
         }
 
-        return dictionary;
+        return map;
     }
 
     private static (Vector2D v1, Vector2D v2) ParseVentLineVertices(string line)

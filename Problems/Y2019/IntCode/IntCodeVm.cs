@@ -88,7 +88,7 @@ public partial class IntCodeVm
 
     private long ReadMem(long adr)
     {
-        return _memory.TryGetValue(adr, out var value) ? value : 0L;
+        return _memory.GetValueOrDefault(adr, 0L);
     }
 
     private void WriteMem(long adr, long val)

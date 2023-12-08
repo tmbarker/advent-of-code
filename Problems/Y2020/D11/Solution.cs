@@ -13,13 +13,13 @@ public sealed class Solution : SolutionBase
         var seatMap = SeatMap.Parse(GetInputLines());
         return part switch
         {
-            1 => CountOccupiedSeatsAtSteadyState(seatMap, Concern.Adjacent, moveThreshold: 4),
-            2 => CountOccupiedSeatsAtSteadyState(seatMap, Concern.Visible, moveThreshold: 5),
+            1 => CountOccupiedAtSteadyState(seatMap, Concern.Adjacent, moveThreshold: 4),
+            2 => CountOccupiedAtSteadyState(seatMap, Concern.Visible, moveThreshold: 5),
             _ => ProblemNotSolvedString
         };
     }
 
-    private static int CountOccupiedSeatsAtSteadyState(SeatMap map, Concern concern, int moveThreshold)
+    private static int CountOccupiedAtSteadyState(SeatMap map, Concern concern, int moveThreshold)
     {
         var changed = true;
         var nextOccupied = new HashSet<Vector2D>();

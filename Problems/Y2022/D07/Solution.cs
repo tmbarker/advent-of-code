@@ -10,7 +10,8 @@ public sealed class Solution : SolutionBase
     public override object Run(int part)
     {
         var consoleOutput = GetInputLines();
-        var sizeIndex = ConsoleParser.ConstructDirectorySizeIndex(consoleOutput);
+        var consoleParser = new ConsoleParser();
+        var sizeIndex = consoleParser.BuildDirectoryMap(consoleOutput);
 
         return part switch
         {
@@ -20,14 +21,14 @@ public sealed class Solution : SolutionBase
         };
     }
 
-    private static int SumDirectoriesUnderSize(Dictionary<string, int> sizeIndex, int thresholdSize)
+    private static int SumDirectoriesUnderSize(IDictionary<string, int> sizeIndex, int thresholdSize)
     {
         return sizeIndex.Values
             .Where(v => v <= thresholdSize)
             .Sum();
     }
 
-    private static int FreeUpSpace(Dictionary<string, int> directorySizeIndex, int systemVolume, int requiredSpace)
+    private static int FreeUpSpace(IDictionary<string, int> directorySizeIndex, int systemVolume, int requiredSpace)
     {
         var freeSpace = systemVolume - directorySizeIndex[ConsoleParser.RootDirectoryPath];
         var needed = requiredSpace - freeSpace;

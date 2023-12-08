@@ -1,8 +1,9 @@
+using System.Collections;
 using Utilities.Geometry.Euclidean;
 
 namespace Problems.Y2020.D11;
 
-public sealed class SeatMap
+public sealed class SeatMap : IEnumerable<KeyValuePair<Vector2D, bool>>
 {
     private readonly IDictionary<Vector2D, bool> _occupancyMap;
     private readonly Aabb2D _bounds;
@@ -15,11 +16,6 @@ public sealed class SeatMap
 
     public bool this[Vector2D seat] => _occupancyMap[seat];
     
-    public IEnumerator<KeyValuePair<Vector2D, bool>> GetEnumerator()
-    {
-        return _occupancyMap.GetEnumerator();
-    }
-
     public void UpdateOccupancy(IReadOnlySet<Vector2D> occupied)
     {
         foreach (var seat in _occupancyMap.Keys)
@@ -35,7 +31,7 @@ public sealed class SeatMap
     
     public bool IsPosInBounds(Vector2D pos)
     {
-        return _bounds.Contains(pos, true);
+        return _bounds.Contains(pos, inclusive: true);
     }
     
     public int CountOccupied()
@@ -54,10 +50,20 @@ public sealed class SeatMap
         {
             if (input[y][x] == 'L')
             {
-                occupancyMap.Add(new Vector2D(x, rows - y - 1), false);
+                occupancyMap[new Vector2D(x, y: rows - y - 1)] = false;
             }
         }
 
         return new SeatMap(occupancyMap);
+    }
+
+    public IEnumerator<KeyValuePair<Vector2D, bool>> GetEnumerator()
+    {
+        return _occupancyMap.GetEnumerator();
+    }
+
+    IEnumerator IEnumerable.GetEnumerator()
+    {
+        return ((IEnumerable)_occupancyMap).GetEnumerator();
     }
 }

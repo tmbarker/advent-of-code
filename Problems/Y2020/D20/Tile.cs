@@ -4,15 +4,17 @@ namespace Problems.Y2020.D20;
 
 public sealed class Tile
 {
-    private readonly Grid2D<char> _content;
+    private const int BorderWidth = 1;
+    private readonly Grid2D<char> _pixels;
     private readonly Dictionary<Vector2D, Func<string>> _edgeStringGetters;
 
     public Dictionary<EdgeId, Vector2D> EdgeDirections { get; }
     public Dictionary<EdgeId, EdgeFingerprint> EdgeFingerprints { get; }
+    public int ContentSize => _pixels.Height - 2 * BorderWidth;
 
-    public Tile(Grid2D<char> content)
+    public Tile(Grid2D<char> pixels)
     {
-        _content = content;
+        _pixels = pixels;
         _edgeStringGetters = BuildEdgeStringGetters();
         
         EdgeDirections = new Dictionary<EdgeId, Vector2D>
@@ -31,14 +33,14 @@ public sealed class Tile
         };
     }
 
-    public char this[int x, int y] => _content[x, y];
+    public char this[int x, int y] => _pixels[x, y];
 
     public void OrientToMatch(EdgeId matchEdge, EdgeId toOtherEdge, Tile onOtherTile)
     {
         var requiredEdgeDir = -1 * onOtherTile.EdgeDirections[toOtherEdge];
         while (EdgeDirections[matchEdge] != requiredEdgeDir)
         {
-            Rotate(Rotation3D.Positive90Z);
+            Rotate(rot: Rotation3D.Positive90Z);
         }
         
         if (GetEdgeString(matchEdge) == onOtherTile.GetEdgeString(toOtherEdge))
@@ -49,7 +51,7 @@ public sealed class Tile
         Flip();
         while (EdgeDirections[matchEdge] != requiredEdgeDir)
         {
-            Rotate(Rotation3D.Positive90Z);
+            Rotate(rot: Rotation3D.Positive90Z);
         }
     }
 
@@ -60,7 +62,7 @@ public sealed class Tile
     
     private void Rotate(Rotation3D rot)
     {
-        _content.Rotate(rot);
+        _pixels.Rotate(rot);
         foreach (var (edgeId, edgeDirection) in EdgeDirections)
         {
             EdgeDirections[edgeId] = rot * edgeDirection;
@@ -69,7 +71,7 @@ public sealed class Tile
     
     private void Flip()
     {
-        _content.Flip(Axis.Y);
+        _pixels.Flip(about: Axis.Y);
         foreach (var (edgeId, edgeDirection) in EdgeDirections)
         {
             EdgeDirections[edgeId] = new Vector2D(
@@ -82,10 +84,10 @@ public sealed class Tile
     {
         return new Dictionary<Vector2D, Func<string>>
         {
-            {Vector2D.Up,    () => string.Concat(_content.EnumerateRow(_content.Height - 1))},
-            {Vector2D.Down,  () => string.Concat(_content.EnumerateRow(0))},
-            {Vector2D.Left,  () => string.Concat(_content.EnumerateCol(0))},
-            {Vector2D.Right, () => string.Concat(_content.EnumerateCol(_content.Width - 1))}
+            {Vector2D.Up,    () => string.Concat(_pixels.EnumerateRow(_pixels.Height - 1))},
+            {Vector2D.Down,  () => string.Concat(_pixels.EnumerateRow(0))},
+            {Vector2D.Left,  () => string.Concat(_pixels.EnumerateCol(0))},
+            {Vector2D.Right, () => string.Concat(_pixels.EnumerateCol(_pixels.Width - 1))}
         };
     }
     

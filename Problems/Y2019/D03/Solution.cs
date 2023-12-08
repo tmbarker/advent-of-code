@@ -1,6 +1,5 @@
 using Problems.Attributes;
 using Problems.Common;
-using Utilities.Extensions;
 using Utilities.Geometry.Euclidean;
 
 namespace Problems.Y2019.D03;
@@ -46,9 +45,8 @@ public sealed class Solution : SolutionBase
     
     private static int FindCheapestIntersection((PathCosts W1, PathCosts W2) costs)
     {
-        return costs.W1
-            .WhereKeys(p => costs.W2.ContainsKey(p))
-            .Select(kvp => kvp.Key)
+        return costs.W1.Keys
+            .Where(p => costs.W2.ContainsKey(p))
             .Min(p => costs.W1[p] + costs.W2[p]);
     }
 

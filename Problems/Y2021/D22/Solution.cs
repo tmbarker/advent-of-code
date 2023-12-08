@@ -1,4 +1,5 @@
 using Problems.Common;
+using Utilities.Collections;
 using Utilities.Extensions;
 using Utilities.Geometry.Euclidean;
 
@@ -50,21 +51,19 @@ public sealed class Solution : SolutionBase
 
     private static long Reboot(IEnumerable<(bool On, Aabb3D Aabb)> instructions)
     {
-        var signedAabbs = new Dictionary<Aabb3D, int>();
+        var signedAabbs = new DefaultDict<Aabb3D, int>(defaultValue: 0);
         foreach (var (on, aabb) in instructions)
         {
             foreach (var (signedAabb, weight) in signedAabbs.Freeze())
             {
                 if (Aabb3D.FindOverlap(aabb, signedAabb, out var overlap))
                 {
-                    signedAabbs.EnsureContainsKey(overlap);
                     signedAabbs[overlap] -= weight;
                 }
             }
 
             if (on)
             {
-                signedAabbs.EnsureContainsKey(aabb);
                 signedAabbs[aabb]++;
             }
         }
