@@ -1,4 +1,5 @@
 using Problems.Common;
+using Utilities.Geometry.Euclidean;
 
 namespace Problems.Y2016.D20;
 
@@ -7,6 +8,8 @@ namespace Problems.Y2016.D20;
 /// </summary>
 public sealed class Solution : SolutionBase
 {
+    private readonly record struct IntervalEndpoint(long Value, EndpointType Type);
+    
     public override object Run(int part)
     {
         return part switch
@@ -24,13 +27,13 @@ public sealed class Solution : SolutionBase
         var endpoints = GetInputLines()
             .SelectMany(ParseEndpoints)
             .OrderBy(endpoint => endpoint.Value)
-            .ToList();
+            .ToArray();
 
-        for (var i = 0; i < endpoints.Count; i++)
+        for (var i = 0; i < endpoints.Length; i++)
         {
             var endpoint = endpoints[i];
             var isFirst = i == 0;
-            var isLast = i >= endpoints.Count - 1;
+            var isLast = i >= endpoints.Length - 1;
             
             if (endpoint.Type == EndpointType.Start)
             {
@@ -57,10 +60,8 @@ public sealed class Solution : SolutionBase
     
     private static IEnumerable<IntervalEndpoint> ParseEndpoints(string line)
     {
-        var elements = line.Split(separator: '-');
-        yield return new IntervalEndpoint(Value: long.Parse(elements[0]), Type: EndpointType.Start);
-        yield return new IntervalEndpoint(Value: long.Parse(elements[1]), Type: EndpointType.End);
+        var interval = Range<long>.Parse(line);
+        yield return new IntervalEndpoint(Value: interval.Min, Type: EndpointType.Start);
+        yield return new IntervalEndpoint(Value: interval.Max, Type: EndpointType.End);
     }
-
-    private readonly record struct IntervalEndpoint(long Value, EndpointType Type);
 }

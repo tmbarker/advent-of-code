@@ -23,7 +23,7 @@ public sealed class Solution : SolutionBase
 
     private static int Cycle3D(IList<string> input, int cycles)
     {
-        var active = ParseInitial(input, (x, y) => new Vector3D(x, y, 0));
+        var active = ParseInitial(input, (x, y) => new Vector3D(x, y, z: 0));
         for (var i = 0; i < cycles; i++)
         {
             active = Cycle3D(active);

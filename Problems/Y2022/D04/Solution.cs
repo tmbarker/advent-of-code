@@ -19,32 +19,27 @@ public sealed class Solution : SolutionBase
         };
     }
 
-    private static int CountEncapsulating(IEnumerable<(Aabb1D R1, Aabb1D R2)> assignments)
+    private static int CountEncapsulating(IEnumerable<(Range<int> R1, Range<int> R2)> assignments)
     {
-        return assignments.Count(assignment => CheckContains(assignment.R1, assignment.R2));
+        return assignments.Count(assignment => CheckContains(a: assignment.R1, b: assignment.R2));
     }
     
-    private static int CountIntersecting(IEnumerable<(Aabb1D R1, Aabb1D R2)> assignments)
+    private static int CountIntersecting(IEnumerable<(Range<int> R1, Range<int> R2)> assignments)
     {
-        return assignments.Count(assignment => Aabb1D.Overlap(assignment.R1, assignment.R2, out _));
+        return assignments.Count(assignment => Range<int>.Overlap(a: assignment.R1, b: assignment.R2, out _));
     }
 
-    private static bool CheckContains(Aabb1D a, Aabb1D b)
+    private static bool CheckContains(Range<int> a, Range<int> b)
     {
-        return (a.Min <= b.Min && a.Max >= b.Max) || (b.Min <= a.Min && b.Max >= a.Max);
+        return a.Contains(b) || b.Contains(a);
     }
 
-    private static (Aabb1D R1, Aabb1D R2) ParseAssignment(string line)
+    private static (Range<int> R1, Range<int> R2) ParseAssignment(string line)
     {
         var assignments = line.Split(separator: ',');
-        return (ParseRange(assignments[0]), ParseRange(assignments[1]));
-    }
-    
-    private static Aabb1D ParseRange(string range)
-    {
-        var sections = range.Split(separator: '-');
-        return new Aabb1D(
-            min: int.Parse(sections[0]),
-            max: int.Parse(sections[1]));
+        var r1 = Range<int>.Parse(assignments[0]);
+        var r2 = Range<int>.Parse(assignments[1]);
+
+        return (r1, r2);
     }
 }

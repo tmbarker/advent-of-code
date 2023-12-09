@@ -11,7 +11,7 @@ public sealed class Solution : SolutionBase
     public override object Run(int part)
     {
         var input = GetInputText();
-        var range = ParseValidRange(input);
+        var range = Range<int>.Parse(input);
         
         return part switch
         {
@@ -21,7 +21,7 @@ public sealed class Solution : SolutionBase
         };
     }
 
-    private static int CountValidPasswords(Aabb1D range, int minRun, int maxRun)
+    private static int CountValidPasswords(Range<int> range, int minRun, int maxRun)
     {
         return Enumerable.Range(range.Min, range.Length).Count(p => IsValid(p, minRun, maxRun));
     }
@@ -52,13 +52,5 @@ public sealed class Solution : SolutionBase
 
         observedRuns.Add(curObservedRun);
         return observedRuns.Any(r => r >= minRun && r <= maxRun);
-    }
-    
-    private static Aabb1D ParseValidRange(string input)
-    {
-        var elements = input.Split(separator: '-');
-        return new Aabb1D(
-            min: int.Parse(elements[0]),
-            max: int.Parse(elements[1]));
     }
 }

@@ -41,7 +41,7 @@ public sealed class Solution : SolutionBase
             knots[0] += step;
             for (var i = 1; i < count; i++)
             {
-                if (!knots[i].IsAdjacentTo(knots[i - 1], Metric.Chebyshev))
+                if (!Vector2D.IsAdjacent(a: knots[i], b: knots[i - 1], Metric.Chebyshev))
                 {
                     knots[i] += Vector2D.Normalize(knots[i - 1] - knots[i]);
                 }

@@ -1,4 +1,3 @@
-using Utilities.Extensions;
 using Utilities.Geometry.Euclidean;
 
 namespace Problems.Y2019.D13;

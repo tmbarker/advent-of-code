@@ -1,3 +1,5 @@
+using Utilities.Geometry.Euclidean;
+
 namespace Problems.Y2023.D05;
 
 public readonly struct MapEntry
@@ -8,7 +10,7 @@ public readonly struct MapEntry
 
     public long SourceMin => SourceStart;
     public long SourceMax => SourceStart + RangeLength - 1;
-    public Range SourceRange => new (SourceStart, SourceMax);
+    public Range<long> SourceRange => new (SourceStart, SourceMax);
 
     public MapEntry(long destStart, long sourceStart, long rangeLength)
     {
@@ -17,9 +19,9 @@ public readonly struct MapEntry
         RangeLength = rangeLength;
     }
 
-    public Range Apply(Range range)
+    public Range<long> Apply(Range<long> range)
     {
-        return new Range(
+        return new Range<long>(
             min: DestStart + range.Min - SourceStart,
             max: DestStart + range.Max - SourceStart);
     }

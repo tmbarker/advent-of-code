@@ -10,12 +10,12 @@ public static class StringExtensions
     private static readonly Regex NumberRegex = new(pattern: @"(-?\d+)", Options);
     private static readonly Regex WhitespaceRegex = new(pattern: @"\s+", Options);
 
-    private static T ParseNumber<T>(this string s) where T : INumber<T>
+    public static T ParseNumber<T>(this string s) where T : INumber<T>
     {
         return ParseNumbers<T>(s)[0];
     }
 
-    private static T[] ParseNumbers<T>(this string s) where T : INumber<T>
+    public static T[] ParseNumbers<T>(this string s) where T : INumber<T>
     {
         return NumberRegex.Matches(s)
             .Select(m => T.Parse(s: m.Value.AsSpan(), provider: null))

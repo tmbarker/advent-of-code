@@ -1,9 +1,11 @@
+using Utilities.Extensions;
+
 namespace Utilities.Geometry.Euclidean;
 
 /// <summary>
 /// A readonly integral 3D Vector value type
 /// </summary>
-public readonly struct Vector3D : IMetricSpaceVector<Vector3D>, IEquatable<Vector3D>
+public readonly struct Vector3D : IEquatable<Vector3D>
 {
     private const string StringFormat = "[{0},{1},{2}]";
 
@@ -46,7 +48,7 @@ public readonly struct Vector3D : IMetricSpaceVector<Vector3D>, IEquatable<Vecto
                 return Z;
             case Axis.W:
             default:
-                throw new ArgumentOutOfRangeException(nameof(component), component, null);
+                throw VectorThrowHelper<Vector3D>.InvalidComponent(component);
         }
     }
 
@@ -56,7 +58,7 @@ public readonly struct Vector3D : IMetricSpaceVector<Vector3D>, IEquatable<Vecto
         {
             Metric.Chebyshev => ChebyshevDistance(a, b),
             Metric.Taxicab => TaxicabDistance(a, b),
-            _ => throw new ArgumentOutOfRangeException(nameof(metric), metric, null)
+            _ => throw VectorThrowHelper<Vector3D>.InvalidMetric(metric)
         };
     }
 
@@ -119,8 +121,7 @@ public readonly struct Vector3D : IMetricSpaceVector<Vector3D>, IEquatable<Vecto
         {
             Metric.Chebyshev => GetChebyshevAdjacentSet(),
             Metric.Taxicab => GetTaxicabAdjacentSet(),
-            _ => throw new ArgumentException(
-                $"The {metric} distance metric is not well defined over {nameof(Vector3D)} space", nameof(metric))
+            _ => throw VectorThrowHelper<Vector3D>.InvalidMetric(metric)
         };
     }
     
@@ -171,5 +172,24 @@ public readonly struct Vector3D : IMetricSpaceVector<Vector3D>, IEquatable<Vecto
         var dz = Math.Abs(a.Z - b.Z);
 
         return dx + dy + dz;
+    }
+
+    public static Vector3D Parse(string s)
+    {
+        var numbers = s.ParseInts();
+        return new Vector3D(x: numbers[0], y: numbers[1], z: numbers[2]);
+    }
+    
+    public static bool TryParse(string? s, out Vector3D result)
+    {
+        var numbers = s?.ParseInts() ?? Array.Empty<int>();
+        if (numbers.Length < 3)
+        {
+            result = Zero;
+            return false;
+        }
+    
+        result = new Vector3D(x: numbers[0], y: numbers[1], z: numbers[2]);
+        return true;
     }
 }

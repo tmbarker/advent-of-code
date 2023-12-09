@@ -63,7 +63,7 @@ public static class Pathfinding
             while (nodesAtDepth-- > 0)
             {
                 var pos = queue.Dequeue();
-                if (pos.IsAdjacentTo(start, Metric.Taxicab))
+                if (Vector2D.IsAdjacent(a: pos, b: start, Metric.Taxicab))
                 {
                     candidates.Add(pos);
                     continue;

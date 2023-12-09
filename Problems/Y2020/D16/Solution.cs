@@ -105,16 +105,16 @@ public sealed class Solution : SolutionBase
         {
             var match = Regex.Match(input[i], @"([a-z ]+): (\d+)-(\d+) or (\d+)-(\d+)");
             var field = match.Groups[1].Value;
-            var r1 = new Aabb1D(
+            var r1 = new Range<int>(
                 min: match.Groups[2].ParseInt(),
                 max: match.Groups[3].ParseInt());
-            var r2 = new Aabb1D(
+            var r2 = new Range<int>(
                 min: match.Groups[4].ParseInt(),
                 max: match.Groups[5].ParseInt());
 
             fieldValidators.Add(
                 key: field,
-                value: value => r1.Contains(value, true) || r2.Contains(value, true));
+                value: value => r1.Contains(value) || r2.Contains(value));
 
             if (field.StartsWith("departure"))
             {

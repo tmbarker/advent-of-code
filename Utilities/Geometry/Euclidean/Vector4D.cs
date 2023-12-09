@@ -1,13 +1,14 @@
+using Utilities.Extensions;
+
 namespace Utilities.Geometry.Euclidean;
 
 /// <summary>
 /// A readonly integral 4D Vector value type
 /// </summary>
-public readonly struct Vector4D : IMetricSpaceVector<Vector4D>, IEquatable<Vector4D>
+public readonly struct Vector4D : IEquatable<Vector4D>
 {
     private const string StringFormat = "[{0},{1},{2},{3}]";
-
-    public static readonly Vector4D Zero = new(x:0, y:0, z:0, w:0);
+    private static readonly Vector4D Zero = new(x:0, y:0, z:0, w:0);
 
     private string Id { get; }
     public int X { get; }
@@ -34,7 +35,7 @@ public readonly struct Vector4D : IMetricSpaceVector<Vector4D>, IEquatable<Vecto
             Axis.Y => Y,
             Axis.Z => Z,
             Axis.W => W,
-            _ => throw new ArgumentOutOfRangeException(nameof(component), component, null)
+            _ => throw VectorThrowHelper<Vector4D>.InvalidComponent(component)
         };
     }
     
@@ -44,7 +45,7 @@ public readonly struct Vector4D : IMetricSpaceVector<Vector4D>, IEquatable<Vecto
         {
             Metric.Chebyshev => ChebyshevDistance(a, b),
             Metric.Taxicab => TaxicabDistance(a, b),
-            _ => throw new ArgumentOutOfRangeException(nameof(metric), metric, null)
+            _ => throw VectorThrowHelper<Vector4D>.InvalidMetric(metric)
         };
     }
 
@@ -126,8 +127,7 @@ public readonly struct Vector4D : IMetricSpaceVector<Vector4D>, IEquatable<Vecto
         {
             Metric.Chebyshev => GetChebyshevAdjacentSet(),
             Metric.Taxicab => GetTaxicabAdjacentSet(),
-            _ => throw new ArgumentException(
-                $"The {metric} distance metric is not well defined over {nameof(Vector4D)} space", nameof(metric))
+            _ => throw VectorThrowHelper<Vector4D>.InvalidMetric(metric)
         };
     }
     
@@ -164,5 +164,24 @@ public readonly struct Vector4D : IMetricSpaceVector<Vector4D>, IEquatable<Vecto
 
         set.Remove(item: this);
         return set;
+    }
+
+    public static Vector4D Parse(string s)
+    {
+        var numbers = s.ParseInts();
+        return new Vector4D(x: numbers[0], y: numbers[1], z: numbers[2], w: numbers[3]);
+    }
+    
+    public static bool TryParse(string? s, out Vector4D result)
+    {
+        var numbers = s?.ParseInts() ?? Array.Empty<int>();
+        if (numbers.Length < 4)
+        {
+            result = Zero;
+            return false;
+        }
+    
+        result = new Vector4D(x: numbers[0], y: numbers[1], z: numbers[2], w: numbers[3]);
+        return true;
     }
 }

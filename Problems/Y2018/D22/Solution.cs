@@ -97,14 +97,9 @@ public sealed class Solution : SolutionBase
 
     private static Scan ParseInput(IList<string> input)
     {
-        var coords = input[1].ParseInts();
-        var target = new Vector2D(
-            x: coords[0],
-            y: coords[1]);
-
         return new Scan(
             Depth: input[0].ParseInt(),
             Mouth: Vector2D.Zero,
-            Target: target);
+            Target: Vector2D.Parse(input[1]));
     }
 }

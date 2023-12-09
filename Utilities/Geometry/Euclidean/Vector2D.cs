@@ -1,9 +1,11 @@
+using Utilities.Extensions;
+
 namespace Utilities.Geometry.Euclidean;
 
 /// <summary>
 /// A readonly integral 2D Vector value type
 /// </summary>
-public readonly struct Vector2D : IMetricSpaceVector<Vector2D>, IEquatable<Vector2D>
+public readonly struct Vector2D : IEquatable<Vector2D>
 {
     private const string StringFormat = "[{0},{1}]";
 
@@ -44,7 +46,7 @@ public readonly struct Vector2D : IMetricSpaceVector<Vector2D>, IEquatable<Vecto
             case Axis.Z:
             case Axis.W:
             default:
-                throw new ArgumentOutOfRangeException(nameof(component), component, null);
+                throw VectorThrowHelper<Vector2D>.InvalidComponent(component);
         }
     }
     
@@ -59,10 +61,15 @@ public readonly struct Vector2D : IMetricSpaceVector<Vector2D>, IEquatable<Vecto
         {
             Metric.Chebyshev => ChebyshevDistance(a, b),
             Metric.Taxicab => TaxicabDistance(a, b),
-            _ => throw new ArgumentOutOfRangeException(nameof(metric), metric, null)
+            _ => throw VectorThrowHelper<Vector2D>.InvalidMetric(metric)
         };
     }
 
+    public static bool IsAdjacent(Vector2D a, Vector2D b, Metric metric)
+    {
+        return Distance(a, b, metric) <= 1;
+    }
+    
     public static Vector2D MinCollinear(Vector2D vector)
     {
         var maxDivisor = ChebyshevDistance(a: Zero, b: vector);
@@ -149,8 +156,7 @@ public readonly struct Vector2D : IMetricSpaceVector<Vector2D>, IEquatable<Vecto
         {
             Metric.Chebyshev => GetChebyshevAdjacentSet(),
             Metric.Taxicab => GetTaxicabAdjacentSet(),
-            _ => throw new ArgumentException(
-                $"The {metric} distance metric is not well defined over {nameof(Vector2D)} space", nameof(metric))
+            _ => throw VectorThrowHelper<Vector2D>.InvalidMetric(metric)
         };
     }
     
@@ -196,27 +202,23 @@ public readonly struct Vector2D : IMetricSpaceVector<Vector2D>, IEquatable<Vecto
 
         return dx + dy;
     }
-}
 
-/// <summary>
-/// Extension methods for <see cref="Vector2D"/> instances 
-/// </summary>
-public static class Vector2DExtensions
-{
-    /// <summary>
-    /// Determine if two positions are diagonal, where diagonal means that they do not share a common value for
-    /// either component
-    /// </summary>
-    public static bool IsDiagonalTo(this Vector2D lhs, Vector2D rhs)
+    public static Vector2D Parse(string s)
     {
-        return lhs.X != rhs.X && lhs.Y != rhs.Y;
+        var numbers = s.ParseInts();
+        return new Vector2D(x: numbers[0], y: numbers[1]);
     }
     
-    /// <summary>
-    /// Determine if two positions are adjacent, where adjacent means the specified distance metric is less than or equal to 1
-    /// </summary>
-    public static bool IsAdjacentTo(this Vector2D lhs, Vector2D rhs, Metric metric)
+    public static bool TryParse(string? s, out Vector2D result)
     {
-        return Vector2D.Distance(a: lhs, b: rhs, metric) <= 1;
+        var numbers = s?.ParseInts() ?? Array.Empty<int>();
+        if (numbers.Length < 2)
+        {
+            result = Zero;
+            return false;
+        }
+    
+        result = new Vector2D(x: numbers[0], y: numbers[1]);
+        return true;
     }
 }

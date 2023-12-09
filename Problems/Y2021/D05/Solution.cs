@@ -21,19 +21,19 @@ public sealed class Solution : SolutionBase
 
     private int CountDangerousLocations(bool ignoreDiagonals)
     {
-        var lines = ParseInputLines(parseFunc: ParseVentLineVertices);
+        var lines = ParseInputLines(parseFunc: ParseVertices);
         var ventMap = BuildVentMap(lines, ignoreDiagonals);
 
         return ventMap.Values.Count(v => v > 1);
     }
     
-    private static IDictionary<Vector2D, int> BuildVentMap(IEnumerable<(Vector2D v1, Vector2D v2)> lines, bool ignoreDiagonals)
+    private static IDictionary<Vector2D, int> BuildVentMap(IEnumerable<(Vector2D V1, Vector2D V2)> lines, bool ignoreDiagonals)
     {
         var map = new DefaultDict<Vector2D, int>(defaultValue: 0);
 
         foreach (var (v1, v2) in lines)
         {
-            if (v1.IsDiagonalTo(v2) && ignoreDiagonals)
+            if (ignoreDiagonals && v1.X != v2.X && v1.Y != v2.Y)
             {
                 continue;
             }
@@ -46,7 +46,6 @@ public sealed class Solution : SolutionBase
             while (current != v2)
             {
                 map[current]++;
-                
                 current += step;
             }
         }
@@ -54,18 +53,9 @@ public sealed class Solution : SolutionBase
         return map;
     }
 
-    private static (Vector2D v1, Vector2D v2) ParseVentLineVertices(string line)
+    private static (Vector2D V1, Vector2D V2) ParseVertices(string line)
     {
-        var parts = line.Split("->", StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries);
-        return (ParseVertex(parts[0]), ParseVertex(parts[1]));
-    }
-
-    private static Vector2D ParseVertex(string coordinates)
-    {
-        var parts = coordinates.Split(separator: ',');
-        var x = int.Parse(parts[0]);
-        var y = int.Parse(parts[1]);
-
-        return new Vector2D(x, y);
+        var parts = line.Split(separator: "->");
+        return (V1: Vector2D.Parse(parts[0]), V2: Vector2D.Parse(parts[1]));
     }
 }

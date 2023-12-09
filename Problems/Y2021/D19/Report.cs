@@ -27,19 +27,10 @@ public static class Report
                 continue;
             }
             
-            activeBeacons.Add(ParseVector(line));
+            activeBeacons.Add(item: Vector3D.Parse(line));
         }
         
         reportings.Add(new Reporting(activeScanner, activeBeacons));
         return reportings;
-    }
-
-    private static Vector3D ParseVector(string line)
-    {
-        var numbers = line.ParseInts();
-        return new Vector3D(
-            x: numbers[0],
-            y: numbers[1],
-            z: numbers[2]);
     }
 }

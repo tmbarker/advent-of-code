@@ -1,5 +1,4 @@
 using Problems.Common;
-using Utilities.Extensions;
 using Utilities.Geometry.Euclidean;
 
 namespace Problems.Y2022.D18;
@@ -11,7 +10,7 @@ public sealed class Solution : SolutionBase
 {
     public override object Run(int part)
     {
-        var surfaceVectors = ParseSurfaceVectors(GetInputLines());
+        var surfaceVectors = ParseInputLines(parseFunc: Vector3D.Parse);
         return part switch
         {
             1 => ComputeTotalSurfaceArea(surfaceVectors),
@@ -59,14 +58,5 @@ public sealed class Solution : SolutionBase
         }
 
         return (int)(ComputeTotalSurfaceArea(boundingSet) - aabb.GetSurfaceArea());
-    }
-    
-    private static IEnumerable<Vector3D> ParseSurfaceVectors(IEnumerable<string> lines)
-    {
-        return 
-            from line in lines 
-            select line.ParseInts() into numbers 
-            let x = numbers[0] let y = numbers[1] let z = numbers[2] 
-            select new Vector3D(x, y, z);
     }
 }

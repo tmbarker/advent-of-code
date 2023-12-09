@@ -1,6 +1,5 @@
 using Problems.Attributes;
 using Problems.Common;
-using Utilities.Extensions;
 using Utilities.Geometry.Euclidean;
 using Utilities.Numerics;
 
@@ -126,19 +125,10 @@ public sealed class Solution : SolutionBase
     {
         return new Dictionary<Moon, State>
         {
-            { Moon.Io,       new State(ParsePosition(input[0]), Vector3D.Zero)},
-            { Moon.Europa,   new State(ParsePosition(input[1]), Vector3D.Zero)},
-            { Moon.Ganymede, new State(ParsePosition(input[2]), Vector3D.Zero)},
-            { Moon.Callisto, new State(ParsePosition(input[3]), Vector3D.Zero)}
+            { Moon.Io,       new State(Pos: Vector3D.Parse(input[0]), Vel: Vector3D.Zero)},
+            { Moon.Europa,   new State(Pos: Vector3D.Parse(input[1]), Vel: Vector3D.Zero)},
+            { Moon.Ganymede, new State(Pos: Vector3D.Parse(input[2]), Vel: Vector3D.Zero)},
+            { Moon.Callisto, new State(Pos: Vector3D.Parse(input[3]), Vel: Vector3D.Zero)}
         };
-    }
-
-    private static Vector3D ParsePosition(string line)
-    {
-        var numbers = line.ParseInts();
-        return new Vector3D(
-            x: numbers[0],
-            y: numbers[1],
-            z: numbers[2]);
     }
 }

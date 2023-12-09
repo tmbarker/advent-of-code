@@ -96,9 +96,9 @@ public static class Sim
         return targetPositions.Any();
     }
     
-    private static bool IsAdjacentToAny(GameState state, int unitId, IEnumerable<Vector2D> targetPositions)
+    private static bool IsAdjacentToAny(GameState state, int unitId, IEnumerable<Vector2D> targets)
     {
-        return targetPositions.Any(p => p.IsAdjacentTo(state.Units[unitId].Pos, Metric.Taxicab));
+        return targets.Any(pos => Vector2D.IsAdjacent(a: pos, b: state.Units[unitId].Pos, Metric.Taxicab));
     }
     
     private static bool FindOpenInRange(GameState state, IEnumerable<Vector2D> targetPositions, out HashSet<Vector2D> inRangePositions)
