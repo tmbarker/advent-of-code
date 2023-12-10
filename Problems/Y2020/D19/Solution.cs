@@ -40,12 +40,11 @@ public sealed class Solution : SolutionBase
             .TakeWhile(line => !string.IsNullOrWhiteSpace(line))
             .SelectMany(line => ParseRule(line, useOverrides));
 
-        var cfgGrammar = new Grammar(StartSymbol, productions);
-        var cnfGrammar = CnfConverter.Convert(cfgGrammar);
+        var cfg = new Grammar(StartSymbol, productions);
+        var cnf = CnfConverter.Convert(cfg);
+        var cyk = new CykParser(cnf);
         
-        return sentences.Count(s => CykParser.Recognize(
-            grammar: cnfGrammar,
-            sentence: s));
+        return sentences.Count(s => cyk.Recognize(s));
     }
 
     private static IEnumerable<Production> ParseRule(string ruleStr, bool useOverrides)

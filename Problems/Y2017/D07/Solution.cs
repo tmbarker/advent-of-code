@@ -25,14 +25,13 @@ public sealed class Solution : SolutionBase
 
     private static Tower ParseTower(IEnumerable<string> input)
     {
-        var regex = new Regex(@"(?<Id>[a-z]+) \((?<Weight>\d+)\)(?: ->)?(?: (?<Edges>[a-z]+),?)*");
         var weights = new Dictionary<string, int>();
         var adjacency = new Dictionary<string, HashSet<string>>();
         var edges = new List<DirectedGraph<string>.Edge>();
 
         foreach (var line in input)
         {
-            var match = regex.Match(line);
+            var match = Regex.Match(line, @"(?<Id>[a-z]+) \((?<Weight>\d+)\)(?: ->)?(?: (?<Edges>[a-z]+),?)*");
             var id = match.Groups["Id"].Value;
             var weight = match.Groups["Weight"].ParseInt();
             var adjacencies = match.Groups["Edges"].Captures.Select(c => c.Value);
@@ -40,7 +39,7 @@ public sealed class Solution : SolutionBase
             weights.Add(id, weight);
             foreach (var adj in adjacencies)
             {
-                adjacency.TryAdd(id, new HashSet<string>());
+                adjacency.TryAdd(id, []);
                 adjacency[id].Add(adj);
             }
         }
@@ -48,7 +47,7 @@ public sealed class Solution : SolutionBase
         foreach (var (source, sinks) in adjacency)
         foreach (var sink in sinks)
         {
-            edges.Add(new DirectedGraph<string>.Edge(From: source, To: sink));
+            edges.Add(item: new DirectedGraph<string>.Edge(From: source, To: sink));
         }
 
         var graph = new DirectedGraph<string>(edges);

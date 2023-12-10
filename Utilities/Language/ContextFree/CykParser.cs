@@ -1,4 +1,3 @@
-using System.Runtime.CompilerServices;
 using Utilities.Graph;
 
 namespace Utilities.Language.ContextFree;
@@ -6,67 +5,78 @@ namespace Utilities.Language.ContextFree;
 /// <summary>
 /// A parser which executes the Cocke-Younger-Kasami (CYK) recognition algorithm
 /// </summary>
-public static class CykParser
+public class CykParser
 {
+    private readonly Grammar _grammar;
+    private readonly Production[] _units;
+    private readonly Production[] _bins;
+    
     /// <summary>
-    /// Execute the Cocke-Younger-Kasami (CYK) algorithm to attempt to parse the input using the provided grammar
+    /// Instantiate a <see cref="CykParser"/> specific to the provided CNF <paramref name="grammar"/>.
     /// </summary>
-    /// <param name="grammar">The grammar definition</param>
-    /// <param name="sentence">The input to attempt to parse</param>
-    /// <returns>A boolean representing if the input is recognized as part of the grammar</returns>
-    public static bool Recognize(Grammar grammar, List<string> sentence)
+    /// <param name="grammar">A CNF <see cref="Grammar"/> instance</param>
+    /// <exception cref="ArgumentException">The specified <paramref name="grammar"/> must be in Chomsky Normal
+    /// Form (CNF)
+    /// </exception>
+    public CykParser(Grammar grammar)
     {
-        return RecognizeInternal(
-            grammar: grammar,
-            sentence: sentence,
-            buildParseTree: false,
-            tree: out _);
+        if (!grammar.IsInCnf)
+        {
+            throw new ArgumentException(
+                message: $"{nameof(grammar)} must be in Chomsky Normal Form (CNF)",
+                paramName: nameof(grammar));
+        }
+
+        _grammar = grammar;
+        _units = grammar.Productions.Where(p => Grammar.IsUnitTerminal(p, grammar.Terminals)).ToArray();
+        _bins = grammar.Productions.Where(p => Grammar.IsBinaryNonTerminal(p, grammar.NonTerminals)).ToArray();
     }
     
     /// <summary>
     /// Execute the Cocke-Younger-Kasami (CYK) algorithm to attempt to parse the input using the provided grammar
     /// </summary>
-    /// <param name="grammar">The grammar definition</param>
     /// <param name="sentence">The input to attempt to parse</param>
-    /// <param name="parseTreeRoot">The root node of a valid parse tree if the input is recognized</param>
     /// <returns>A boolean representing if the input is recognized as part of the grammar</returns>
-    public static bool Recognize(Grammar grammar, List<string> sentence, out GenericTreeNode<string>? parseTreeRoot)
+    public bool Recognize(IReadOnlyList<string> sentence)
     {
         return RecognizeInternal(
-            grammar: grammar,
+            sentence: sentence,
+            buildParseTree: false,
+            parseTreeRoot: out _);
+    }
+    
+    /// <summary>
+    /// Execute the Cocke-Younger-Kasami (CYK) algorithm to attempt to parse the input using the provided grammar
+    /// </summary>
+    /// <param name="sentence">The input to attempt to parse</param>
+    /// <param name="parseTreeRoot">The root node of a valid parse parseTreeRoot if the input is recognized</param>
+    /// <returns>A boolean representing if the input is recognized as part of the grammar</returns>
+    public bool Recognize(IReadOnlyList<string> sentence, out GenericNode<string>? parseTreeRoot)
+    {
+        return RecognizeInternal(
             sentence: sentence,
             buildParseTree: true,
-            tree: out parseTreeRoot);
+            parseTreeRoot: out parseTreeRoot);
     }
 
     /// <summary>
     /// Execute the Cocke-Younger-Kasami (CYK) algorithm to attempt to parse the input using the provided grammar
     /// </summary>
-    /// <param name="grammar">The grammar definition</param>
     /// <param name="sentence">The input to attempt to parse</param>
-    /// <param name="buildParseTree">Attempt to build a parse tree when set</param>
-    /// <param name="tree">The root node of a valid parse tree if the input is recognized
+    /// <param name="buildParseTree">Attempt to build a parse parseTreeRoot when set</param>
+    /// <param name="parseTreeRoot">The root node of a valid parse parseTreeRoot if the input is recognized
     /// and <paramref name="buildParseTree"/> is set</param>
     /// <returns>A boolean representing if the input is recognized as part of the grammar</returns>
-    private static bool RecognizeInternal(
-        Grammar grammar, 
-        IReadOnlyList<string> sentence, 
+    private bool RecognizeInternal(IReadOnlyList<string> sentence, 
         bool buildParseTree,
-        out GenericTreeNode<string>? tree)
+        out GenericNode<string>? parseTreeRoot)
     {
         var n = sentence.Count;
         var table = new CykTable();
-
-        var units = grammar.Productions
-            .Where(p => IsUnitTerminal(p, grammar.Terminals))
-            .ToHashSet();
-        var bins = grammar.Productions
-            .Where(p => IsBinaryNonTerminal(p, grammar.NonTerminals))
-            .ToHashSet();
         
         for (var s = 0; s < n; s++)
         {
-            foreach (var unit in units)
+            foreach (var unit in _units)
             {
                 if (unit.Yields[0] == sentence[s])
                 {
@@ -79,7 +89,7 @@ public static class CykParser
         for (var s = 0; s <= n - l; s++)    // Start of span
         for (var p = 1; p < l; p++)         // Partition of span
         {
-            foreach (var bin in bins)
+            foreach (var bin in _bins)
             {
                 if (!table.P[(p, s, bin.Yields[0])] || !table.P[(l - p, s + p, bin.Yields[1])])
                 {
@@ -91,53 +101,29 @@ public static class CykParser
             }
         }
 
-        var recognize = table.P[(n, 0, grammar.Start)];
-        tree = recognize && buildParseTree
-            ? BuildParseTree(nt: grammar.Start, s: 0, l: n, t: table, i: sentence)
+        var recognize = table.P[(n, 0, _grammar.Start)];
+        parseTreeRoot = recognize && buildParseTree
+            ? BuildParseTree(nt: _grammar.Start, s: 0, l: n, t: table, i: sentence)
             : null;
         
         return recognize;
     }
     
     /// <summary>
-    /// Does this production yield exactly one terminal?
-    /// </summary>
-    /// <param name="p">The production</param>
-    /// <param name="t">The set of terminals</param>
-    /// <returns>A boolean representing if <paramref name="p"/> produces exactly one terminal</returns>
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    private static bool IsUnitTerminal(Production p, IReadOnlySet<string> t)
-    {
-        return p.Yields.Count == 1 && t.Contains(p.Yields[0]);
-    }
-
-    /// <summary>
-    /// Does this production yield exactly two non terminals? 
-    /// </summary>
-    /// <param name="p">The production</param>
-    /// <param name="nt">The set of non-terminals</param>
-    /// <returns>A boolean representing if <paramref name="p"/> produces exactly two non-terminals</returns>
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    private static bool IsBinaryNonTerminal(Production p, IReadOnlySet<string> nt)
-    {
-        return p.Yields.Count == 2 && nt.Contains(p.Yields[0]) && nt.Contains(p.Yields[1]);
-    }
-    
-    /// <summary>
-    /// Build a single valid parse tree
+    /// Build a single valid parse parseTreeRoot
     /// </summary>
     /// <param name="nt">The non-terminal to parse</param>
     /// <param name="s">The substring start position</param>
     /// <param name="l">The substring length</param>
     /// <param name="t">The populated <see cref="CykTable"/></param>
     /// <param name="i">The input sentence</param>
-    /// <returns>A valid parse tree</returns>
-    private static GenericTreeNode<string> BuildParseTree(string nt, int s, int l, CykTable t, IReadOnlyList<string> i) 
+    /// <returns>A valid parse parseTreeRoot</returns>
+    private static GenericNode<string> BuildParseTree(string nt, int s, int l, CykTable t, IReadOnlyList<string> i) 
     {
-        var node = new GenericTreeNode<string>(value: nt);
+        var node = new GenericNode<string>(value: nt);
         if (l == 1)
         {
-            node.Children.Add(item: new GenericTreeNode<string>(value: i[s]));
+            node.Children.Add(item: new GenericNode<string>(value: i[s]));
             return node;
         }
 
@@ -156,7 +142,7 @@ public static class CykParser
                 t: t,
                 i: i));
 
-            //  Stop after the first valid parse tree
+            //  Stop after the first valid parse parseTreeRoot
             //
             break;
         }

@@ -5,10 +5,8 @@ namespace Utilities.Geometry.Euclidean;
 /// <summary>
 /// A readonly integral 3D Vector value type
 /// </summary>
-public readonly struct Vector3D : IEquatable<Vector3D>
+public readonly struct Vector3D(int x, int y, int z) : IEquatable<Vector3D>
 {
-    private const string StringFormat = "[{0},{1},{2}]";
-
     public static readonly Vector3D Zero    = new(x:  0, y:  0, z:  0);
     public static readonly Vector3D Up      = new(x:  0, y:  1, z:  0);
     public static readonly Vector3D Down    = new(x:  0, y: -1, z:  0);
@@ -16,22 +14,12 @@ public readonly struct Vector3D : IEquatable<Vector3D>
     public static readonly Vector3D Right   = new(x:  1, y:  0, z:  0);
     public static readonly Vector3D Forward = new(x:  0, y:  0, z:  1);
     public static readonly Vector3D Back    = new(x:  0, y:  0, z: -1);
-
-    private string Id { get; }
-    public int X { get; }
-    public int Y { get; }
-    public int Z { get; }
+    
+    public int X { get; } = x;
+    public int Y { get; } = y;
+    public int Z { get; } = z;
     public int this[Axis axis] => GetComponent(axis);
-    
-    public Vector3D(int x, int y, int z)
-    {
-        X = x;
-        Y = y;
-        Z = z;
-        
-        Id = string.Format(StringFormat, X, Y, Z);
-    }
-    
+
     public Vector3D(Vector2D xy, int z) : this(xy.X, xy.Y, z)
     {
     }
@@ -107,7 +95,7 @@ public readonly struct Vector3D : IEquatable<Vector3D>
     
     public override string ToString()
     {
-        return Id;
+        return $"[{X},{Y},{Z}]";
     }
     
     public int Magnitude(Metric metric)
@@ -125,31 +113,31 @@ public readonly struct Vector3D : IEquatable<Vector3D>
         };
     }
     
-    private ISet<Vector3D> GetTaxicabAdjacentSet()
+    private HashSet<Vector3D> GetTaxicabAdjacentSet()
     {
-        return new HashSet<Vector3D>
-        {
+        return
+        [
             this + Up,
-            this + Down, 
+            this + Down,
             this + Left,
             this + Right,
             this + Forward,
             this + Back
-        };
+        ];
     }
     
-    private ISet<Vector3D> GetChebyshevAdjacentSet()
+    private HashSet<Vector3D> GetChebyshevAdjacentSet()
     {
         var set = new HashSet<Vector3D>();
         
-        for (var x = -1; x <= 1; x++)
-        for (var y = -1; y <= 1; y++)
-        for (var z = -1; z <= 1; z++)
+        for (var dx = -1; dx <= 1; dx++)
+        for (var dy = -1; dy <= 1; dy++)
+        for (var dz = -1; dz <= 1; dz++)
         {
             set.Add(new Vector3D(
-                x: X + x,
-                y: Y + y,
-                z: Z + z));
+                x: X + dx,
+                y: Y + dy,
+                z: Z + dz));
         }
 
         set.Remove(item:this);

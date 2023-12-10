@@ -75,7 +75,7 @@ public sealed class Solution : SolutionBase
     
     private static Schematic BuildSchematic(IReadOnlyList<string> lines)
     {
-        var symbols = new DefaultDict<char, HashSet<Vector2D>>(defaultValue: new HashSet<Vector2D>());
+        var symbols = new DefaultDict<char, HashSet<Vector2D>>(defaultSelector: _ => []);
         var numbers = new List<Number>();
 
         for (var y = 0; y < lines.Count; y++)

@@ -5,27 +5,15 @@ namespace Utilities.Geometry.Euclidean;
 /// <summary>
 /// A readonly integral 4D Vector value type
 /// </summary>
-public readonly struct Vector4D : IEquatable<Vector4D>
+public readonly struct Vector4D(int x, int y, int z, int w) : IEquatable<Vector4D>
 {
-    private const string StringFormat = "[{0},{1},{2},{3}]";
     private static readonly Vector4D Zero = new(x:0, y:0, z:0, w:0);
-
-    private string Id { get; }
-    public int X { get; }
-    public int Y { get; }
-    public int Z { get; }
-    public int W { get; }
-    public int this[Axis axis] => GetComponent(axis);
     
-    public Vector4D(int x, int y, int z, int w)
-    {
-        X = x;
-        Y = y;
-        Z = z;
-        W = w;
-
-        Id = string.Format(StringFormat, X, Y, Z, W);
-    }
+    public int X { get; } = x;
+    public int Y { get; } = y;
+    public int Z { get; } = z;
+    public int W { get; } = w;
+    public int this[Axis axis] => GetComponent(axis);
 
     public int GetComponent(Axis component)
     {
@@ -93,7 +81,7 @@ public readonly struct Vector4D : IEquatable<Vector4D>
     
     public override string ToString()
     {
-        return Id;
+        return $"[{X},{Y},{Z},{W}]";
     }
     
     private static int ChebyshevDistance(Vector4D a, Vector4D b)
@@ -131,10 +119,10 @@ public readonly struct Vector4D : IEquatable<Vector4D>
         };
     }
     
-    private ISet<Vector4D> GetTaxicabAdjacentSet()
+    private HashSet<Vector4D> GetTaxicabAdjacentSet()
     {
-        return new HashSet<Vector4D>
-        {
+        return
+        [
             this + new Vector4D(x:  1, y:  0, z:  0, w:  0),
             this + new Vector4D(x: -1, y:  0, z:  0, w:  0),
             this + new Vector4D(x:  0, y:  1, z:  0, w:  0),
@@ -143,23 +131,23 @@ public readonly struct Vector4D : IEquatable<Vector4D>
             this + new Vector4D(x:  0, y:  0, z: -1, w:  0),
             this + new Vector4D(x:  0, y:  0, z:  0, w:  1),
             this + new Vector4D(x:  0, y:  0, z:  0, w: -1)
-        };
+        ];
     }
     
-    private ISet<Vector4D> GetChebyshevAdjacentSet()
+    private HashSet<Vector4D> GetChebyshevAdjacentSet()
     {
         var set = new HashSet<Vector4D>();
         
-        for (var x = -1; x <= 1; x++)
-        for (var y = -1; y <= 1; y++)
-        for (var z = -1; z <= 1; z++)
-        for (var w = -1; w <= 1; w++)
+        for (var dx = -1; dx <= 1; dx++)
+        for (var dy = -1; dy <= 1; dy++)
+        for (var dz = -1; dz <= 1; dz++)
+        for (var dw = -1; dw <= 1; dw++)
         {
             set.Add(new Vector4D(
-                x: X + x,
-                y: Y + y,
-                z: Z + z,
-                w: W + w));
+                x: X + dx,
+                y: Y + dy,
+                z: Z + dz,
+                w: W + dw));
         }
 
         set.Remove(item: this);

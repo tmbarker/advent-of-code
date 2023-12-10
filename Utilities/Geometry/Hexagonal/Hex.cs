@@ -5,8 +5,6 @@ namespace Utilities.Geometry.Hexagonal;
 /// </summary>
 public readonly struct Hex : IEquatable<Hex>
 {
-    private const string DescFormat = "[q={0},r={1},s={2}]";
-
     public static readonly Hex Zero = new(q: 0, r: 0, s: 0);
     public static readonly IReadOnlyDictionary<Enum, Hex> Directions = new Dictionary<Enum, Hex>
     {
@@ -24,8 +22,7 @@ public readonly struct Hex : IEquatable<Hex>
         { Pointy.Sw, new(q: -1, r:  1, s:  0) },
         { Pointy.W,  new(q: -1, r:  0, s:  1) }
     };
-
-    private string Id { get; }
+    
     public int Q { get; }
     public int R { get; }
     public int S { get; }
@@ -34,12 +31,10 @@ public readonly struct Hex : IEquatable<Hex>
 
     public Hex(int q, int r, int s)
     {
-        Id = string.Format(DescFormat, q, r, s);
-        
         if (q + r + s != 0)
         {
             throw new ArgumentException(
-                message: $"Coordinates do not meet the Hex constraint that Q + R + S = 0: [{Id}]");
+                message: $"Coordinates do not meet the Hex constraint that Q + R + S = 0: [q={Q},r={R},s={S}]");
         }
 
         Q = q;
@@ -106,6 +101,6 @@ public readonly struct Hex : IEquatable<Hex>
     
     public override string ToString()
     {
-        return Id;
+        return $"[q={Q},r={R},s={S}]";
     }
 }

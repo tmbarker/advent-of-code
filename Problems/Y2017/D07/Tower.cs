@@ -2,26 +2,20 @@ using Utilities.Graph;
 
 namespace Problems.Y2017.D07;
 
-public readonly struct Tower
+public readonly struct Tower(DirectedGraph<string> graph, Dictionary<string, int> naiveWeights)
 {
-    private DirectedGraph<string> Graph { get; }
-    private Dictionary<string, int> NaiveWeights { get; }
-    
+    private DirectedGraph<string> Graph { get; } = graph;
+    private Dictionary<string, int> NaiveWeights { get; } = naiveWeights;
+
     public string Root => Graph.Sources.Single();
-    
-    public Tower(DirectedGraph<string> graph, Dictionary<string, int> naiveWeights)
-    {
-        Graph = graph;
-        NaiveWeights = naiveWeights;
-    }
-    
+
     public int Balance()
     {
         var unbalanced = string.Empty;
         var weightMemo = new Dictionary<string, int>();
         var queue = new Queue<string>(new[] { Root });
 
-        while (queue.Any())
+        while (queue.Count != 0)
         {
             var current = queue.Dequeue();
             var balanced = IsBalanced(current, weightMemo);

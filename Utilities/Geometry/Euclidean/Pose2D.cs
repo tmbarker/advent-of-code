@@ -3,18 +3,12 @@ namespace Utilities.Geometry.Euclidean;
 /// <summary>
 /// A readonly value type representing a 2D pose (Position and Facing vectors)
 /// </summary>
-public readonly struct Pose2D : IEquatable<Pose2D>
+public readonly struct Pose2D(Vector2D pos, Vector2D face) : IEquatable<Pose2D>
 {
-    public Vector2D Pos { get; }
-    public Vector2D Face { get; }
+    public Vector2D Pos { get; } = pos;
+    public Vector2D Face { get; } = face;
     public Vector2D Ahead => Pos + Face;
-    
-    public Pose2D(Vector2D pos, Vector2D face)
-    {
-        Pos = pos;
-        Face = face;
-    }
-    
+
     public Pose2D Step()
     {
         return new Pose2D(pos: Ahead, face: Face);

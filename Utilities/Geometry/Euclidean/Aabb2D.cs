@@ -26,9 +26,9 @@ public readonly struct Aabb2D : IEnumerable<Vector2D>, IEquatable<Aabb2D>
         Min = new Vector2D(x: xMin, y: yMin);
         Max = new Vector2D(x: xMax, y: yMax);
     }
-    
-    public Vector2D Min { get; }
-    public Vector2D Max { get; }
+
+    private Vector2D Min { get; }
+    private Vector2D Max { get; }
     
     public int XMin => Min.X;
     public int XMax => Max.X;

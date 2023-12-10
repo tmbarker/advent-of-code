@@ -5,35 +5,18 @@ namespace Utilities.Geometry.Euclidean;
 /// <summary>
 /// A readonly integral 2D Vector value type
 /// </summary>
-public readonly struct Vector2D : IEquatable<Vector2D>
+public readonly struct Vector2D(int x, int y) : IEquatable<Vector2D>
 {
-    private const string StringFormat = "[{0},{1}]";
-
     public static readonly Vector2D Zero  = new(x:  0, y:  0);
     public static readonly Vector2D Up    = new(x:  0, y:  1);
     public static readonly Vector2D Down  = new(x:  0, y: -1);
     public static readonly Vector2D Left  = new(x: -1, y:  0);
     public static readonly Vector2D Right = new(x:  1, y:  0);
     public static readonly Vector2D PositiveInfinity = new (x: int.MaxValue, y:int.MaxValue);
-
-    private string Id { get; }
-    public int X { get; }
-    public int Y { get; }
-    public int this[Axis axis] => GetComponent(axis);
     
-    public Vector2D(int x, int y)
-    {
-        X = x;
-        Y = y;
-        
-        Id = string.Format(StringFormat, X, Y);
-    }
-
-    public void Deconstruct(out int x, out int y)
-    {
-        x = X;
-        y = Y;
-    }
+    public int X { get; } = x;
+    public int Y { get; } = y;
+    public int this[Axis axis] => GetComponent(axis);
 
     public int GetComponent(Axis component)
     {
@@ -142,7 +125,7 @@ public readonly struct Vector2D : IEquatable<Vector2D>
     
     public override string ToString()
     {
-        return Id;
+        return $"[{X},{Y}]";
     }
     
     public int Magnitude(Metric metric)
@@ -160,27 +143,27 @@ public readonly struct Vector2D : IEquatable<Vector2D>
         };
     }
     
-    private ISet<Vector2D> GetTaxicabAdjacentSet()
+    private HashSet<Vector2D> GetTaxicabAdjacentSet()
     {
-        return new HashSet<Vector2D>
-        {
+        return
+        [
             this + Up,
-            this + Down, 
+            this + Down,
             this + Left,
             this + Right
-        };
+        ];
     }
     
-    private ISet<Vector2D> GetChebyshevAdjacentSet()
+    private HashSet<Vector2D> GetChebyshevAdjacentSet()
     {
         var set = new HashSet<Vector2D>();
         
-        for (var x = -1; x <= 1; x++)
-        for (var y = -1; y <= 1; y++)
+        for (var dx = -1; dx <= 1; dx++)
+        for (var dy = -1; dy <= 1; dy++)
         {
             set.Add(new Vector2D(
-                x: X + x,
-                y: Y + y));
+                x: X + dx,
+                y: Y + dy));
         }
 
         set.Remove(item:this);

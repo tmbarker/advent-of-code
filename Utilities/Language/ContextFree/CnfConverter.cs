@@ -12,13 +12,13 @@ public static class CnfConverter
     /// <summary>
     /// An ordered set of transforms to convert any CFG to CNF
     /// </summary>
-    private static readonly List<Func<Grammar, Grammar>> _orderedTransforms = new ()
-    {
+    private static readonly List<Func<Grammar, Grammar>> _orderedTransforms =
+    [
         START,
         TERM,
         BIN,
         UNIT
-    };
+    ];
     
     /// <summary>
     /// Convert a Context Free <see cref="Grammar"/> to Chomsky Normal Form (CNF)
@@ -27,6 +27,11 @@ public static class CnfConverter
     /// <returns>A <see cref="Grammar"/> instance, where all <see cref="Production"/> rules are in CNF</returns>
     public static Grammar Convert(Grammar original)
     {
+        if (original.IsInCnf)
+        {
+            return original;
+        }
+        
         return _orderedTransforms.Aggregate(
             seed: original,
             func: (grammar, transform) => transform.Invoke(grammar));
@@ -58,7 +63,7 @@ public static class CnfConverter
         var newNonTerminals = new HashSet<string>(g.NonTerminals);
         var newProductions = new List<Production>(g.Productions);
         var nonSolitaries = g.Productions
-            .Where(p => IsNonSolitary(p, nt: g.NonTerminals, t: g.Terminals))
+            .Where(p => Grammar.IsNonSolitary(p, nt: g.NonTerminals, t: g.Terminals))
             .ToHashSet();
 
         foreach (var nonSolitaryProduction in nonSolitaries)
@@ -103,7 +108,7 @@ public static class CnfConverter
         var newNonTerminals = new HashSet<string>(g.NonTerminals);
         var newProductions = new List<Production>(g.Productions);
         var supraBinaries = g.Productions
-            .Where(p => IsSupraBinary(p, g.NonTerminals))
+            .Where(p => Grammar.IsSupraBinaryNonTerminal(p, g.NonTerminals))
             .ToHashSet();
         
         foreach (var initialProduction in supraBinaries)
@@ -146,7 +151,7 @@ public static class CnfConverter
     {
         var newProductions = new List<Production>(g.Productions);
         var unitProductions = newProductions
-            .Where(p => IsUnit(p, g.NonTerminals))
+            .Where(p => Grammar.IsUnitNonTerminal(p, g.NonTerminals))
             .ToHashSet();
         
         while (unitProductions.Any())
@@ -164,28 +169,13 @@ public static class CnfConverter
             }
             
             unitProductions = newProductions
-                .Where(p => IsUnit(p, g.NonTerminals))
+                .Where(p => Grammar.IsUnitNonTerminal(p, g.NonTerminals))
                 .ToHashSet();
         }
         
         return new Grammar(
             start: g.Start,
             productions: newProductions);
-    }
-
-    private static bool IsNonSolitary(Production p, IReadOnlySet<string> nt, IReadOnlySet<string> t)
-    {
-        return p.Yields.Any(nt.Contains) && p.Yields.Any(t.Contains);
-    }
-
-    private static bool IsSupraBinary(Production p, IReadOnlySet<string> nt)
-    {
-        return p.Yields.Count > 2 && p.Yields.All(nt.Contains);
-    }
-    
-    private static bool IsUnit(Production p, IReadOnlySet<string> nt)
-    {
-        return p.Yields.Count == 1 && nt.Contains(p.Yields[0]);
     }
     
     private static string GetNewNonTerminal(string prefix, IReadOnlySet<string> nonTerminals)

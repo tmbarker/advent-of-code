@@ -8,16 +8,11 @@ namespace Utilities.Geometry.Euclidean;
 /// <summary>
 /// A generic readonly interval value type
 /// </summary>
-public readonly struct Range<T> : IEnumerable<T>, IEquatable<Range<T>> where T : IBinaryNumber<T>
+public readonly struct Range<T>(T min, T max) : IEnumerable<T>, IEquatable<Range<T>>
+    where T : IBinaryNumber<T>
 {
-    public Range(T min, T max)
-    {
-        Min = min;
-        Max = max;
-    }
-
-    public T Min { get; }
-    public T Max { get; }
+    public T Min { get; } = min;
+    public T Max { get; } = max;
     public T Length => Max - Min + T.One;
     
     public static bool Overlap(Range<T> a, Range<T> b, out  Range<T> overlap)

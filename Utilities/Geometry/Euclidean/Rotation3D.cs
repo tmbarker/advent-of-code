@@ -52,16 +52,6 @@ public readonly struct Rotation3D : IEquatable<Rotation3D>
             _ => throw ThrowHelper.InvalidAxis(r.Axis)
         };
     }
-    
-    public static Vector4D operator *(Rotation3D r, Vector4D v)
-    {
-        var spatial = r * (Vector3D)v;
-        return new Vector4D(
-            x: spatial.X,
-            y: spatial.Y,
-            z: spatial.Z,
-            w: v.W);
-    }
 
     public static IEnumerable<Rotation3D> RotationsAroundAxis(Axis axis)
     {

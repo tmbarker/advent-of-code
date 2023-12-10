@@ -1,3 +1,5 @@
+using Utilities.Collections;
+
 namespace Utilities.Graph;
 
 /// <summary>
@@ -8,11 +10,11 @@ public sealed class DirectedGraph<T> where T : IEquatable<T>
 {
     public readonly record struct Edge(T From, T To);
     
-    public Dictionary<T, HashSet<T>> Incoming { get; } = new();
-    public Dictionary<T, HashSet<T>> Outgoing { get; } = new();
+    public IDictionary<T, HashSet<T>> Incoming { get; } = new DefaultDict<T, HashSet<T>>(defaultSelector: _ => []);
+    public IDictionary<T, HashSet<T>> Outgoing { get; } = new DefaultDict<T, HashSet<T>>(defaultSelector: _ => []);
 
-    public IEnumerable<T> Sources => Outgoing.Keys.Where(v => !Incoming.ContainsKey(v) || !Incoming[v].Any());
-    public IEnumerable<T> Sinks => Incoming.Keys.Where(v => !Outgoing.ContainsKey(v) || !Outgoing[v].Any());
+    public IEnumerable<T> Sources => Outgoing.Keys.Where(v => Incoming[v].Count == 0);
+    public IEnumerable<T> Sinks => Incoming.Keys.Where(v => Outgoing[v].Count == 0);
 
     public DirectedGraph()
     {
@@ -33,12 +35,7 @@ public sealed class DirectedGraph<T> where T : IEquatable<T>
 
     public void AddEdge(T from, T to)
     {
-        Incoming.TryAdd(to,   new HashSet<T>());
-        Incoming.TryAdd(from, new HashSet<T>());
         Incoming[to].Add(from);
-        
-        Outgoing.TryAdd(to,   new HashSet<T>());
-        Outgoing.TryAdd(from, new HashSet<T>());
         Outgoing[from].Add(to);
     }
 

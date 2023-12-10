@@ -1,6 +1,5 @@
 using Problems.Common;
 using Utilities.Collections;
-using Utilities.Extensions;
 using Utilities.Geometry.Euclidean;
 
 namespace Problems.Y2018.D25;
@@ -23,7 +22,7 @@ public sealed class Solution : SolutionBase
 
     private int CountConstellations()
     {
-        var points = ParseInputLines(parseFunc: ParsePoint).ToList();
+        var points = ParseInputLines(parseFunc: Vector4D.Parse).ToList();
         var disjointSet = new DisjointSet<Vector4D>();
         var adjacency = new Dictionary<Vector4D, IEnumerable<Vector4D>>();
         
@@ -46,15 +45,5 @@ public sealed class Solution : SolutionBase
         }
         
         return disjointSet.PartitionsCount;
-    }
-
-    private static Vector4D ParsePoint(string line)
-    {
-        var numbers = line.ParseInts();
-        return new Vector4D(
-            x: numbers[0],
-            y: numbers[1],
-            z: numbers[2],
-            w: numbers[3]);
     }
 }

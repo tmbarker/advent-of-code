@@ -13,12 +13,12 @@ public sealed class Solution : SolutionBase
     public override object Run(int part)
     {
         var edges = ParseInputLines(parseFunc: ParseEdge);
-        var dag = new DirectedGraph<char>(edges);
+        var graph = new DirectedGraph<char>(edges);
         
         return part switch
         {
-            1 => TopologicalSort(graph: dag),
-            2 => TopologicalSortTimed(graph: dag, baseStepTime: 60, agents: 5),
+            1 => TopologicalSort(graph),
+            2 => TopologicalSortTimed(graph, baseStepTime: 60, agents: 5),
             _ => ProblemNotSolvedString
         };
     }
