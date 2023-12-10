@@ -7,14 +7,15 @@ namespace Utilities.Geometry.Euclidean;
 /// </summary>
 public readonly struct Aabb2D : IEnumerable<Vector2D>, IEquatable<Aabb2D>
 {
-    public Aabb2D(ICollection<Vector2D> extents)
+    public Aabb2D(ICollection<Vector2D> extents, bool inclusive = true)
     {
+        var delta = inclusive ? 0 : 1;
         Min = new Vector2D(
-            x: extents.Min(p => p.X),
-            y: extents.Min(p => p.Y));
+            x: extents.Min(p => p.X) - delta,
+            y: extents.Min(p => p.Y) - delta);
         Max = new Vector2D(
-            x: extents.Max(p => p.X),
-            y: extents.Max(p => p.Y));
+            x: extents.Max(p => p.X) + delta,
+            y: extents.Max(p => p.Y) + delta);
     }
 
     public Aabb2D(Vector2D min, Vector2D max) : this(extents: new[] { min, max })
@@ -27,8 +28,8 @@ public readonly struct Aabb2D : IEnumerable<Vector2D>, IEquatable<Aabb2D>
         Max = new Vector2D(x: xMax, y: yMax);
     }
 
-    private Vector2D Min { get; }
-    private Vector2D Max { get; }
+    public Vector2D Min { get; }
+    public Vector2D Max { get; }
     
     public int XMin => Min.X;
     public int XMax => Max.X;

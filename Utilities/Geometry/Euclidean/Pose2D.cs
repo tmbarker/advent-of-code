@@ -8,6 +8,9 @@ public readonly struct Pose2D(Vector2D pos, Vector2D face) : IEquatable<Pose2D>
     public Vector2D Pos { get; } = pos;
     public Vector2D Face { get; } = face;
     public Vector2D Ahead => Pos + Face;
+    public Vector2D Behind => Pos - Face;
+    public Vector2D Right => GetSideAdjacent(right: true);
+    public Vector2D Left => GetSideAdjacent(right: false);
 
     public Pose2D Step()
     {
@@ -19,6 +22,15 @@ public readonly struct Pose2D(Vector2D pos, Vector2D face) : IEquatable<Pose2D>
         return new Pose2D(pos: Pos + amount * Face, face: Face);
     }
 
+    public Vector2D GetSideAdjacent(bool right)
+    {
+        var dir = right
+            ? Rotation3D.Negative90Z * Face
+            : Rotation3D.Positive90Z * Face;
+
+        return Pos + (Vector2D)dir;
+    }
+    
     public Pose2D Turn(Rotation3D rot)
     {
         if (rot.Axis != Axis.Z && rot != Rotation3D.Zero)
