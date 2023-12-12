@@ -4,22 +4,7 @@ namespace Utilities.Extensions;
 
 public static class NumberExtensions
 {
-    public static int Modulo(this int a, int modulus)
-    {
-        return (a % modulus + modulus) % modulus;
-    }
-    
-    public static long Modulo(this long a, long modulus)
-    {
-        return (a % modulus + modulus) % modulus;
-    }
-
-    public static double Modulo(this double a, double modulus)
-    {
-        return (a % modulus + modulus) % modulus;
-    }
-    
-    public static BigInteger Modulo(this BigInteger a, BigInteger modulus)
+    public static T Modulo<T>(this T a, T modulus) where T : INumber<T>
     {
         return (a % modulus + modulus) % modulus;
     }
