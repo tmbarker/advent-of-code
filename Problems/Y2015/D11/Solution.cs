@@ -1,11 +1,8 @@
 using System.Text.RegularExpressions;
-using Problems.Common;
 
 namespace Problems.Y2015.D11;
 
-/// <summary>
-/// Corporate Policy: https://adventofcode.com/2015/day/11
-/// </summary>
+[PuzzleInfo("Corporate Policy", Topics.StringParsing|Topics.RegularExpressions, Difficulty.Easy)]
 public sealed class Solution : SolutionBase
 {
     public override object Run(int part)

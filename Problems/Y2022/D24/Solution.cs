@@ -1,18 +1,12 @@
-﻿using Problems.Common;
-using Utilities.Extensions;
+﻿using Utilities.Extensions;
 using Utilities.Geometry.Euclidean;
 
 namespace Problems.Y2022.D24;
 
-/// <summary>
-/// Blizzard Basin: https://adventofcode.com/2022/day/24
-/// </summary>
+[PuzzleInfo("Blizzard Basin", Topics.Vectors|Topics.Simulation, Difficulty.Medium)]
 public sealed class Solution : SolutionBase
 {
-    private const char Empty = '.';
-    private const char Wall = '#';
-    
-    private static readonly Dictionary<char, Vector2D> VectorMap = new()
+    private static readonly Dictionary<char, Vector2D> VelMap = new()
     {
         {'^', Vector2D.Up},
         {'v', Vector2D.Down},
@@ -22,121 +16,97 @@ public sealed class Solution : SolutionBase
 
     public override object Run(int part)
     {
-        ParseInput(GetInputLines(), out var field, out var start, out var end, out var blizzards);
+        ParseInput(
+            input: GetInputLines(),
+            out var start,
+            out var end,
+            out var storm);
         
         return part switch
         {
-            1 => Traverse(field, start, end, blizzards),
-            2 => Navigate(field, start, end, blizzards),
+            1 => Traverse(start, end, storm),
+            2 => Navigate(start, end, storm),
             _ => ProblemNotSolvedString
         };
     }
 
-    private static int Navigate(Grid2D<char> field, Vector2D start, Vector2D end, IList<Blizzard> blizzards)
+    private static int Navigate(Vector2D start, Vector2D end, Storm storm)
     {
         var sum = 0;
-        sum += Traverse(field, start, end, blizzards);
-        sum += Traverse(field, end, start, blizzards);
-        sum += Traverse(field, start, end, blizzards);
-        
+        sum += Traverse(start, end, storm);
+        sum += Traverse(end, start, storm);
+        sum += Traverse(start, end, storm);
         return sum;
     }
     
-    private static int Traverse(Grid2D<char> field, Vector2D start, Vector2D end, IList<Blizzard> blizzards)
+    private static int Traverse(Vector2D start, Vector2D end, Storm storm)
     {
-        var t = 1;
-        var activePaths = new HashSet<Vector2D> { start };
+        var t = 0;
+        var heads = new HashSet<Vector2D> { start };
 
-        while (activePaths.Count > 0)
+        while (heads.Count > 0)
         {
-            AdvanceBlizzards(field, blizzards);
-            foreach (var pathHead in activePaths.Freeze())
+            t++;
+            storm.Step();
+            
+            foreach (var head in heads.Freeze())
             {
-                var canWait = blizzards.All(b => b.Pos != pathHead);
-                var moves = GetLegalMoves(pathHead, start, field, blizzards);
-
-                if (!canWait)
+                if (storm.OccupiedPositions.Contains(head))
                 {
-                    activePaths.Remove(pathHead);
+                    heads.Remove(head);
                 }
 
-                foreach (var move in moves)
+                foreach (var move in storm.GetSafeMoves(head))
                 {
                     if (move == end)
                     {
                         return t;
                     }
-                    activePaths.Add(move);
+                    heads.Add(move);
                 }
             }
-            
-            t++;
         }
 
         throw new NoSolutionException();
     }
-
-    private static void AdvanceBlizzards(Grid2D<char> field, IEnumerable<Blizzard> blizzards)
+    
+    private static void ParseInput(IList<string> input,
+        out Vector2D start, 
+        out Vector2D end, 
+        out Storm storm)
     {
-        foreach (var blizzard in blizzards)
+        start = new Vector2D(x: input[0].IndexOf(Terrain.Void),  y: input.Count - 1);
+        end =   new Vector2D(x: input[^1].IndexOf(Terrain.Void), y: 0);
+        
+        var field = Grid2D<char>.MapChars(input, elementFunc: c => c);
+        var blizzards = new List<Blizzard>();
+        
+        for (var y = 0; y < field.Height; y++)
+        for (var x = 0; x < field.Width;  x++)
         {
-            if (field[blizzard.Course] == Empty)
+            if (!VelMap.TryGetValue(field[x, y], out var vel))
             {
-                blizzard.Pos = blizzard.Course;
                 continue;
             }
 
-            var respawn = blizzard.Pos - blizzard.Heading;
-            while (field[respawn] != Wall)
-            {
-                respawn -= blizzard.Heading;
-            }
-
-            blizzard.Pos = respawn + blizzard.Heading;
+            var pos = new Vector2D(x, y);
+            field[x, y] = Terrain.Void;
+            blizzards.Add(item: new Blizzard(
+                pos: pos,
+                vel: vel,
+                respawnAt: CalculateRespawnPos(pos, vel, field)));
         }
+
+        storm = new Storm(field, blizzards);
     }
 
-    private static List<Vector2D> GetLegalMoves(Vector2D pathHead, Vector2D start, Grid2D<char> field, IEnumerable<Blizzard> blizzards)
+    private static Vector2D CalculateRespawnPos(Vector2D pos, Vector2D vel, Grid2D<char> field)
     {
-        return pathHead
-            .GetAdjacentSet(Metric.Taxicab)
-            .Where(move => IsMoveAllowed(move, start, field, blizzards))
-            .ToList();
-    }
-    
-    private static bool IsMoveAllowed(Vector2D move, Vector2D start, Grid2D<char> field, IEnumerable<Blizzard> blizzards)
-    {
-        return
-            move != start &&
-            field.IsInDomain(move) &&
-            field[move] == Empty &&
-            blizzards.All(b => b.Pos != move);
-    }
-    
-    private static void ParseInput(IList<string> input, out Grid2D<char> field, out Vector2D start, out Vector2D end, out List<Blizzard> blizzards)
-    {
-        var rows = input.Count;
-        var cols = input[0].Length;
-
-        blizzards = new List<Blizzard>();
-        field = Grid2D<char>.WithDimensions(rows, cols);
-        start = new Vector2D(input[0].IndexOf(Empty), rows - 1);
-        end = new Vector2D(input[rows - 1].IndexOf(Empty), 0);
-
-        for (var y = 0; y < rows; y++)
-        for (var x = 0; x < cols; x++)
+        var target = pos;
+        while (field[target] != Terrain.Wall)
         {
-            var pos = new Vector2D(x, rows - y - 1);
-            var value = input[y][x];
-
-            field[pos] = value == Empty || VectorMap.ContainsKey(value) 
-                ? Empty 
-                : Wall;
-            
-            if (VectorMap.TryGetValue(value, out var heading))
-            {
-                blizzards.Add(new Blizzard(pos, heading));
-            }
+            target -= vel;
         }
+        return target + vel;
     }
 }

@@ -1,14 +1,9 @@
 ﻿using System.Text;
-using Problems.Attributes;
-using Problems.Common;
 using Utilities.Extensions;
 
 namespace Problems.Y2021.D16;
 
-/// <summary>
-/// Packet Decoder: https://adventofcode.com/2021/day/16
-/// </summary>
-[Favourite("Packet Decoder", Topics.StringParsing, Difficulty.Medium)]
+[PuzzleInfo("Packet Decoder", Topics.StringParsing, Difficulty.Medium, favourite: true)]
 public sealed class Solution : SolutionBase
 {
     private static readonly Dictionary<char, string> HexToPaddedBinary = new() {
@@ -121,11 +116,11 @@ public sealed class Solution : SolutionBase
     {
         var binary = section switch
         {
-            Section.Version => Read(buffer, 3),
-            Section.TypeId => Read(buffer, 3),
-            Section.LengthTypeId => Read(buffer, 1),
-            Section.SubPacketCount => Read(buffer, 11),
-            Section.SubPacketBits => Read(buffer, 15),
+            Section.Version =>        Read(buffer, n: 3),
+            Section.TypeId =>         Read(buffer, n: 3),
+            Section.LengthTypeId =>   Read(buffer, n: 1),
+            Section.SubPacketCount => Read(buffer, n: 11),
+            Section.SubPacketBits =>  Read(buffer, n: 15),
             _ => throw new NoSolutionException()
         };
 

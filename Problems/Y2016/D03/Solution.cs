@@ -1,11 +1,8 @@
-using Problems.Common;
 using Utilities.Extensions;
 
 namespace Problems.Y2016.D03;
 
-/// <summary>
-/// Squares With Three Sides: https://adventofcode.com/2016/day/3
-/// </summary>
+[PuzzleInfo("Square With Three Sides", Topics.Math, Difficulty.Easy)]
 public sealed class Solution : SolutionBase
 {
     public override object Run(int part)

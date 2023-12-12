@@ -1,6 +1,4 @@
 using System.Text.RegularExpressions;
-using Problems.Attributes;
-using Problems.Common;
 using Utilities.Extensions;
 
 namespace Problems.Y2017.D21;
@@ -8,10 +6,7 @@ namespace Problems.Y2017.D21;
 using Transform = Func<Pattern, Pattern>;
 using Rules = IReadOnlyDictionary<string, string>;
 
-/// <summary>
-/// Fractal Art: https://adventofcode.com/2017/day/21
-/// </summary>
-[Favourite("Fractal Art", Topics.Vectors, Difficulty.Medium)]
+[PuzzleInfo("Fractal Art", Topics.Vectors, Difficulty.Medium, favourite: true)]
 public sealed class Solution : SolutionBase
 {
     private static readonly Pattern Initial = new(size: 3, buffer: @".#./..#/###");

@@ -1,13 +1,8 @@
 using System.Text.RegularExpressions;
-using Problems.Attributes;
-using Problems.Common;
 
 namespace Problems.Y2020.D04;
 
-/// <summary>
-/// Passport Processing: https://adventofcode.com/2020/day/4
-/// </summary>
-[Favourite("Passport Processing", Topics.RegularExpressions, Difficulty.Medium)]
+[PuzzleInfo("Passport Processing", Topics.RegularExpressions, Difficulty.Medium, favourite: true)]
 public sealed class Solution : SolutionBase
 {
     private const RegexOptions Options = RegexOptions.Multiline;
@@ -45,8 +40,8 @@ public sealed class Solution : SolutionBase
         return FieldValidators.Values.All(regex => Regex.IsMatch(passport, regex, Options));
     }
     
-    private static IEnumerable<string> ParsePassportData(string input)
+    private static string[] ParsePassportData(string input)
     {
-        return input.Split(new[] { "\r\n\r\n" }, StringSplitOptions.RemoveEmptyEntries);
+        return input.Split(separator: ["\r\n\r\n"], StringSplitOptions.RemoveEmptyEntries);
     }
 }

@@ -1,10 +1,6 @@
-using Problems.Common;
-
 namespace Problems.Y2021.D01;
 
-/// <summary>
-/// Sonar Sweep: https://adventofcode.com/2021/day/1
-/// </summary>
+[PuzzleInfo("Sonar Sweep", Topics.None, Difficulty.Easy)]
 public sealed class Solution : SolutionBase
 {
     public override object Run(int part)

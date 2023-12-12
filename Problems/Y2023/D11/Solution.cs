@@ -1,11 +1,8 @@
-using Problems.Common;
 using Utilities.Geometry.Euclidean;
 
 namespace Problems.Y2023.D11;
 
-/// <summary>
-/// Cosmic Expansion: https://adventofcode.com/2023/day/11
-/// </summary>
+[PuzzleInfo("Cosmic Expansion", Topics.Vectors, Difficulty.Easy)]
 public sealed class Solution : SolutionBase
 {
     public override object Run(int part)

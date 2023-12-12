@@ -1,14 +1,9 @@
-using Problems.Attributes;
-using Problems.Common;
 using Utilities.Extensions;
 using Utilities.Geometry.Euclidean;
 
 namespace Problems.Y2016.D24;
 
-/// <summary>
-/// Air Duct Spelunking: https://adventofcode.com/2016/day/24
-/// </summary>
-[Favourite("Air Duct Spelunking", Topics.Graphs|Topics.Recursion, Difficulty.Medium)]
+[PuzzleInfo("Air Duct Spelunking", Topics.Graphs|Topics.Recursion, Difficulty.Medium, favourite: true)]
 public sealed class Solution : SolutionBase
 {
     public override object Run(int part)
@@ -30,7 +25,7 @@ public sealed class Solution : SolutionBase
         return GetMinCost(
             cost: 0,
             pos: 0,
-            unvisited: pois.Keys.Except(0).ToHashSet(),
+            unvisited: pois.Keys.Except(single: 0).ToHashSet(),
             costs: costs,
             loop: loop);
     }

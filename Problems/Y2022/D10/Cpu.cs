@@ -1,5 +1,3 @@
-using Problems.Common;
-
 namespace Problems.Y2022.D10;
 
 public sealed class Cpu

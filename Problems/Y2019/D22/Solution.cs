@@ -1,15 +1,10 @@
 using System.Numerics;
 using System.Text.RegularExpressions;
-using Problems.Attributes;
-using Problems.Common;
 using Utilities.Extensions;
 
 namespace Problems.Y2019.D22;
 
-/// <summary>
-/// Slam Shuffle: https://adventofcode.com/2019/day/22
-/// </summary>
-[Favourite("Slam Shuffle", Topics.Math, Difficulty.Hard)]
+[PuzzleInfo("Slam Shuffle", Topics.Math, Difficulty.Hard, favourite: true)]
 public sealed class Solution : SolutionBase
 {
     private const string Stack = "stack";

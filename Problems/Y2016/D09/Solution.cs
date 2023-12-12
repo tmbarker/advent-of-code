@@ -1,13 +1,8 @@
-using Problems.Attributes;
-using Problems.Common;
 using Utilities.Extensions;
 
 namespace Problems.Y2016.D09;
 
-/// <summary>
-/// Explosives in Cyberspace: https://adventofcode.com/2016/day/9
-/// </summary>
-[Favourite("Explosives in Cyberspace", Topics.StringParsing, Difficulty.Medium)]
+[PuzzleInfo("Explosives in Cyberspace", Topics.StringParsing, Difficulty.Medium, favourite: true)]
 public sealed class Solution : SolutionBase
 {
     public override object Run(int part)

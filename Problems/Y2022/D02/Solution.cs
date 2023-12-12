@@ -1,10 +1,6 @@
-using Problems.Common;
-
 namespace Problems.Y2022.D02;
 
-/// <summary>
-/// Rock Paper Scissors: https://adventofcode.com/2022/day/2
-/// </summary>
+[PuzzleInfo("Rock Paper Scissors", Topics.Simulation, Difficulty.Medium)]
 public sealed class Solution : SolutionBase
 {
     private static readonly Dictionary<char, RockPaperScissorsChoice> StrategyGuideChoiceMap = new()

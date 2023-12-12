@@ -1,5 +1,4 @@
 using System.Text.RegularExpressions;
-using Problems.Common;
 using Utilities.Extensions;
 using Utilities.Geometry.Euclidean;
 
@@ -9,15 +8,13 @@ using Ticket = IList<int>;
 using FieldMap = IDictionary<string, int>;
 using FieldValidators = IDictionary<string, Predicate<int>>;
 
-/// <summary>
-/// Ticket Translation: https://adventofcode.com/2020/day/16
-/// </summary>
+[PuzzleInfo("Ticket Translation", Topics.StringParsing, Difficulty.Medium)]
 public sealed class Solution : SolutionBase
 {
     public override object Run(int part)
     {
         ParseInput(
-            input: GetInputLines(),
+            input:           GetInputLines(),
             yourTicket:      out var yours,
             otherTickets:    out var others,
             fieldValidators: out var validators,

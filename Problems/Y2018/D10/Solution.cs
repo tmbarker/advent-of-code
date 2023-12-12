@@ -1,13 +1,10 @@
 using System.Text;
-using Problems.Common;
 using Utilities.Extensions;
 using Utilities.Geometry.Euclidean;
 
 namespace Problems.Y2018.D10;
 
-/// <summary>
-/// The Stars Align: https://adventofcode.com/2018/day/10
-/// </summary>
+[PuzzleInfo("The Stars Align", Topics.Vectors, Difficulty.Medium)]
 public sealed class Solution : SolutionBase
 {
     public override object Run(int part)

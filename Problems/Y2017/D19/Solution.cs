@@ -1,16 +1,15 @@
 using System.Text;
-using Problems.Common;
 using Utilities.Geometry.Euclidean;
 
 namespace Problems.Y2017.D19;
 
-/// <summary>
-/// A Series of Tubes: https://adventofcode.com/2017/day/19
-/// </summary>
+[PuzzleInfo("A Series of Tubes", Topics.Graphs, Difficulty.Medium)]
 public sealed class Solution : SolutionBase
 {
+    private readonly record struct PathSummary(string Letters, int Steps);
+    
     private const char Junction = '+';
-    private static readonly HashSet<char> Traversable = new() { '|', '-', '+' };
+    private static readonly HashSet<char> Traversable = ['|', '-', '+'];
 
     public override object Run(int part)
     {
@@ -61,6 +60,4 @@ public sealed class Solution : SolutionBase
     {
         return map.IsInDomain(pos) && (Traversable.Contains(map[pos]) || char.IsLetter(map[pos]));
     }
-
-    private readonly record struct PathSummary(string Letters, int Steps);
 }

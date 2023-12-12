@@ -1,5 +1,3 @@
-using Problems.Attributes;
-using Problems.Common;
 using Utilities.Extensions;
 using Utilities.Geometry.Euclidean;
 
@@ -9,10 +7,7 @@ using TileMap = IDictionary<int, Tile>;
 using CongruenceMap = IDictionary<int, List<Tile.Congruence>>;
 using PositionsMap = IDictionary<int, Vector2D>;
 
-/// <summary>
-/// Jurassic Jigsaw: https://adventofcode.com/2020/day/20
-/// </summary>
-[Favourite("Jurassic Jigsaw", Topics.Vectors, Difficulty.Hard)]
+[PuzzleInfo("Jurassic Jigsaw", Topics.Vectors, Difficulty.Hard, favourite: true)]
 public sealed class Solution : SolutionBase
 {
     public override object Run(int part)

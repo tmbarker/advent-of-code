@@ -1,12 +1,9 @@
 using System.Text;
-using Problems.Common;
 using Utilities.Geometry.Euclidean;
 
 namespace Problems.Y2018.D18;
 
-/// <summary>
-/// Settlers of The North Pole: https://adventofcode.com/2018/day/18
-/// </summary>
+[PuzzleInfo("Settlers of the North Pole", Topics.Vectors|Topics.Simulation, Difficulty.Medium)]
 public sealed class Solution : SolutionBase
 {
     private const char Ground = '.';

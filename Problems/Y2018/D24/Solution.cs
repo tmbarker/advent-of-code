@@ -1,10 +1,6 @@
-using Problems.Common;
-
 namespace Problems.Y2018.D24;
 
-/// <summary>
-/// Immune System Simulator 20XX: https://adventofcode.com/2018/day/24
-/// </summary>
+[PuzzleInfo("Immune System Simulator 20XX", Topics.Simulation, Difficulty.Hard)]
 public sealed class Solution : SolutionBase
 {
     public override object Run(int part)

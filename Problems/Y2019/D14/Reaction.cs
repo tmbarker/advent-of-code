@@ -1,15 +1,9 @@
 namespace Problems.Y2019.D14;
 
-public readonly struct Reaction
+public readonly struct Reaction(IEnumerable<Term> reactants, Term product)
 {
-    public Reaction(IEnumerable<Term> reactants, Term product)
-    {
-        Reactants = new List<Term>(reactants);
-        Product = product;
-    }
-    
-    public IReadOnlyList<Term> Reactants { get; }
-    public Term Product { get; }
+    public IReadOnlyList<Term> Reactants { get; } = new List<Term>(reactants);
+    public Term Product { get; } = product;
 
     public override string ToString()
     {

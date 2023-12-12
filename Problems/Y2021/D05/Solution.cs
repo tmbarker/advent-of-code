@@ -1,12 +1,9 @@
-using Problems.Common;
 using Utilities.Collections;
 using Utilities.Geometry.Euclidean;
 
 namespace Problems.Y2021.D05;
 
-/// <summary>
-/// Hydrothermal Venture: https://adventofcode.com/2021/day/5
-/// </summary>
+[PuzzleInfo("Hydrothermal Venture", Topics.Vectors, Difficulty.Easy)]
 public sealed class Solution : SolutionBase
 {
     public override object Run(int part)

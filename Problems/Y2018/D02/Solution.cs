@@ -1,10 +1,6 @@
-using Problems.Common;
-
 namespace Problems.Y2018.D02;
 
-/// <summary>
-/// Inventory Management System: https://adventofcode.com/2018/day/2
-/// </summary>
+[PuzzleInfo("Inventory Management System", Topics.StringParsing, Difficulty.Easy)]
 public sealed class Solution : SolutionBase
 {
     public override object Run(int part)

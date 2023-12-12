@@ -1,12 +1,8 @@
-using Problems.Common;
-
 namespace Problems.Y2020.D08;
 
 using Instructions = IList<(string Op, int Arg)>;
 
-/// <summary>
-/// Handheld Halting: https://adventofcode.com/2020/day/8
-/// </summary>
+[PuzzleInfo("Handheld Halting", Topics.Assembly|Topics.Simulation, Difficulty.Medium)]
 public sealed class Solution : SolutionBase
 {
     public override object Run(int part)

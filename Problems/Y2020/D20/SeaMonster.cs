@@ -8,8 +8,8 @@ public static class SeaMonster
     public static int Width => 20;
     public static int Height => 2;
 
-    public static readonly HashSet<Vector2D> Pattern = new()
-    {
+    public static readonly HashSet<Vector2D> Pattern =
+    [
         new Vector2D(x:  0, y: 1),
         new Vector2D(x:  1, y: 0),
         new Vector2D(x:  4, y: 0),
@@ -25,5 +25,5 @@ public static class SeaMonster
         new Vector2D(x: 18, y: 1),
         new Vector2D(x: 18, y: 2),
         new Vector2D(x: 19, y: 1)
-    };
+    ];
 }

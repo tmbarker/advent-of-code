@@ -1,6 +1,4 @@
 using System.Text.RegularExpressions;
-using Problems.Attributes;
-using Problems.Common;
 using Utilities.Extensions;
 
 namespace Problems.Y2020.D07;
@@ -8,10 +6,7 @@ namespace Problems.Y2020.D07;
 using ContentMap = IReadOnlyDictionary<string, IList<BagContent>>;
 using Memo = IDictionary<(string, string), bool>;
 
-/// <summary>
-/// Handy Haversacks: https://adventofcode.com/2020/day/7
-/// </summary>
-[Favourite("Handy Haversacks", Topics.Graphs|Topics.Recursion, Difficulty.Medium)]
+[PuzzleInfo("Handy Haversacks", Topics.Graphs|Topics.Recursion, Difficulty.Medium, favourite: true)]
 public sealed class Solution : SolutionBase
 {
     private const string ShinyGold = "shiny gold";

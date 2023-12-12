@@ -1,11 +1,8 @@
-using Problems.Common;
 using Utilities.Extensions;
 
 namespace Problems.Y2021.D03;
 
-/// <summary>
-/// Binary Diagnostic: https://adventofcode.com/2021/day/3
-/// </summary>
+[PuzzleInfo("Binary Diagnostic", Topics.BitwiseOperations, Difficulty.Medium)]
 public sealed class Solution : SolutionBase
 {
     public override object Run(int part)

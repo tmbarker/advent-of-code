@@ -1,13 +1,8 @@
-using Problems.Attributes;
-using Problems.Common;
 using Utilities.Extensions;
 
 namespace Problems.Y2016.D15;
 
-/// <summary>
-/// Timing is Everything: https://adventofcode.com/2016/day/15
-/// </summary>
-[Favourite("Timing is Everything", Topics.Math, Difficulty.Easy)]
+[PuzzleInfo("Timing is Everything", Topics.Math, Difficulty.Easy, favourite: true)]
 public sealed class Solution : SolutionBase
 {
     public override object Run(int part)

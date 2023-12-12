@@ -1,5 +1,4 @@
 using System.Text;
-using Problems.Common;
 using Utilities.Collections;
 using Utilities.Extensions;
 
@@ -8,9 +7,7 @@ namespace Problems.Y2017.D16;
 using LinkedList = CircularLinkedList<char>;
 using NodeMap = IDictionary<char, CircularLinkedListNode<char>>;
 
-/// <summary>
-/// Permutation Promenade: https://adventofcode.com/2017/day/16
-/// </summary>
+[PuzzleInfo("Permutation Promenade", Topics.Simulation, Difficulty.Hard)]
 public sealed class Solution : SolutionBase
 {
     public override object Run(int part)
@@ -28,7 +25,7 @@ public sealed class Solution : SolutionBase
 
     private static string Execute(IList<string> instructions, bool findCycle, int rounds)
     {
-        var list = new CircularLinkedList<char>();
+        var list = new LinkedList();
         var map = new Dictionary<char, CircularLinkedListNode<char>>();
         
         foreach (var c in @"abcdefghijklmnop".ToCharArray())

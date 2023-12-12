@@ -1,10 +1,6 @@
-using Problems.Common;
-
 namespace Problems.Y2022.D11;
 
-/// <summary>
-/// Monkey in the Middle: https://adventofcode.com/2022/day/11
-/// </summary>
+[PuzzleInfo("Monkey in the Middle", Topics.Simulation|Topics.Math, Difficulty.Medium)]
 public sealed class Solution : SolutionBase
 {
     public override object Run(int part)

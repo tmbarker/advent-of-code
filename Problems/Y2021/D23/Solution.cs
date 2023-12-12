@@ -1,13 +1,9 @@
-using Problems.Attributes;
-using Problems.Common;
 using Utilities.Geometry.Euclidean;
 
 namespace Problems.Y2021.D23;
 
-/// <summary>
-/// Amphipod: https://adventofcode.com/2021/day/23
-/// </summary>
-[InputSpecific("Inputs for this puzzle are difficult to parse arbitrarily, as such mine are hardcoded")]
+[InputSpecificSolution("Inputs for this puzzle are difficult to parse arbitrarily, as such mine are hardcoded")]
+[PuzzleInfo("Amphipod", Topics.Graphs, Difficulty.Hard)]
 public sealed class Solution : SolutionBase
 {
     public override object Run(int part)

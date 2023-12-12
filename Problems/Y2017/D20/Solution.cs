@@ -1,14 +1,9 @@
-using Problems.Attributes;
-using Problems.Common;
 using Utilities.Extensions;
 using Utilities.Geometry.Euclidean;
 
 namespace Problems.Y2017.D20;
 
-/// <summary>
-/// Particle Swarm: https://adventofcode.com/2017/day/20
-/// </summary>
-[Favourite("Particle Swarm", Topics.Math|Topics.Vectors, Difficulty.Hard)]
+[PuzzleInfo("Particle Swarm", Topics.Math|Topics.Vectors, Difficulty.Hard, favourite: true)]
 public sealed class Solution : SolutionBase
 {
     public override object Run(int part)

@@ -8,12 +8,12 @@ public static class SnailfishParser
     private const char Close = ']';
     private const char Delim = ',';
     
-    private static readonly HashSet<char> SyntaxSet = new()
-    {
+    private static readonly HashSet<char> SyntaxSet =
+    [
         Open,
         Close,
         Delim
-    };
+    ];
     
     public static SfNumber Parse(string number)
     {

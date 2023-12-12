@@ -1,10 +1,6 @@
-using Problems.Common;
-
 namespace Problems.Y2015.D23;
 
-/// <summary>
-/// Opening the Turing Lock: https://adventofcode.com/2015/day/23
-/// </summary>
+[PuzzleInfo("Opening the Turing Lock", Topics.Assembly|Topics.Simulation, Difficulty.Easy)]
 public sealed class Solution : SolutionBase
 {
     public override object Run(int part)

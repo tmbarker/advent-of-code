@@ -1,11 +1,8 @@
-using Problems.Common;
 using Problems.Y2017.Common;
 
 namespace Problems.Y2017.D18;
 
-/// <summary>
-/// Duet: https://adventofcode.com/2017/day/18
-/// </summary>
+[PuzzleInfo("Duet", Topics.Assembly|Topics.Simulation, Difficulty.Medium)]
 public sealed class Solution : SolutionBase
 {
     public override object Run(int part)
@@ -29,21 +26,14 @@ public sealed class Solution : SolutionBase
             OutputBuffer = buffer
         };
 
-        void OnDataTransmitted(long data)
-        {
-            transmitted = data;
-        }
-        
-        void OnDataReceived(long data)
-        {
-            cts.Cancel();
-        }
-
         vm.DataTransmitted += OnDataTransmitted;
         vm.DataReceived += OnDataReceived;
         vm.Run(cts.Token);
 
         return transmitted;
+
+        void OnDataTransmitted(long data) => transmitted = data;
+        void OnDataReceived(long data) => cts.Cancel();
     }
 
     private long CountTransmissions()
@@ -64,8 +54,8 @@ public sealed class Solution : SolutionBase
             var ec1 = vm1.Run(token: default);
             var halted = ec0 == Vm.ExitCode.Halted && ec1 == Vm.ExitCode.Halted;
             var inputs =
-                ec0 == Vm.ExitCode.AwaitingInput && buffer0.Any() ||
-                ec1 == Vm.ExitCode.AwaitingInput && buffer1.Any();
+                ec0 == Vm.ExitCode.AwaitingInput && buffer0.Count != 0 ||
+                ec1 == Vm.ExitCode.AwaitingInput && buffer1.Count != 0;
 
             done = halted || !inputs;
         }

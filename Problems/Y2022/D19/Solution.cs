@@ -1,21 +1,15 @@
-using Problems.Attributes;
-using Problems.Common;
-
 namespace Problems.Y2022.D19;
 
-/// <summary>
-/// Not Enough Minerals: https://adventofcode.com/2022/day/19
-/// </summary>
-[Favourite("Not Enough Minerals", Topics.Graphs|Topics.Recursion, Difficulty.Hard)]
+[PuzzleInfo("Not Enough Minerals", Topics.Graphs|Topics.Recursion, Difficulty.Hard, favourite: true)]
 public sealed class Solution : SolutionBase
 {
-    private static readonly HashSet<Materials> MaterialTypes = new()
-    {
+    private static readonly HashSet<Materials> MaterialTypes =
+    [
         Materials.Ore,
         Materials.Clay,
         Materials.Obsidian,
         Materials.Geode
-    };
+    ];
 
     public override object Run(int part)
     {

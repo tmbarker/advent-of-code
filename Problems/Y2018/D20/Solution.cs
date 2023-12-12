@@ -1,12 +1,9 @@
-using Problems.Common;
 using Utilities.Extensions;
 using Utilities.Geometry.Euclidean;
 
 namespace Problems.Y2018.D20;
 
-/// <summary>
-/// A Regular Map: https://adventofcode.com/2018/day/20
-/// </summary>
+[PuzzleInfo("A Regular Map", Topics.Vectors|Topics.Graphs|Topics.StringParsing, Difficulty.Hard)]
 public sealed class Solution : SolutionBase
 {
     private static readonly Vector2D Start = Vector2D.Zero;

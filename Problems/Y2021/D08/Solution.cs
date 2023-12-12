@@ -1,11 +1,8 @@
-using Problems.Common;
 using Utilities.Collections;
 
 namespace Problems.Y2021.D08;
 
-/// <summary>
-/// Seven Segment Search: https://adventofcode.com/2021/day/8
-/// </summary>
+[PuzzleInfo("Seven Segment Search", Topics.None, Difficulty.Medium)]
 public sealed class Solution : SolutionBase
 {
     private const char PartsDelimiter = '|';
@@ -22,16 +19,16 @@ public sealed class Solution : SolutionBase
     //
     private static readonly Dictionary<int, HashSet<char>> RequiredSegmentsMap = new()
     {
-        {0, new HashSet<char>{'a', 'b', 'c', 'e', 'f', 'g'}},
-        {1, new HashSet<char>{'c', 'f'}},
-        {2, new HashSet<char>{'a', 'c', 'd', 'e', 'g'}},
-        {3, new HashSet<char>{'a', 'c', 'd', 'f', 'g'}},
-        {4, new HashSet<char>{'b', 'c', 'd', 'f'}},
-        {5, new HashSet<char>{'a', 'b', 'd', 'f', 'g'}},
-        {6, new HashSet<char>{'a', 'b', 'd', 'e', 'f', 'g' }},
-        {7, new HashSet<char>{'a', 'c', 'f'}},
-        {8, new HashSet<char>{'a', 'b', 'c', 'd', 'e', 'f', 'g'}},
-        {9, new HashSet<char>{'a', 'b', 'c', 'd', 'f', 'g'}}
+        {0, ['a', 'b', 'c', 'e', 'f', 'g'] },
+        {1, ['c', 'f'] },
+        {2, ['a', 'c', 'd', 'e', 'g'] },
+        {3, ['a', 'c', 'd', 'f', 'g'] },
+        {4, ['b', 'c', 'd', 'f'] },
+        {5, ['a', 'b', 'd', 'f', 'g'] },
+        {6, ['a', 'b', 'd', 'e', 'f', 'g'] },
+        {7, ['a', 'c', 'f'] },
+        {8, ['a', 'b', 'c', 'd', 'e', 'f', 'g'] },
+        {9, ['a', 'b', 'c', 'd', 'f', 'g'] }
     };
 
     public override object Run(int part)

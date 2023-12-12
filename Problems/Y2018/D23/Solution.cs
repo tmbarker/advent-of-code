@@ -1,16 +1,13 @@
-using Problems.Attributes;
-using Problems.Common;
 using Utilities.Extensions;
 using Utilities.Geometry.Euclidean;
 
 namespace Problems.Y2018.D23;
 
-/// <summary>
-/// Experimental Emergency Teleportation: https://adventofcode.com/2018/day/23
-/// </summary>
-[Favourite("Experimental Emergency Teleportation", Topics.Vectors, Difficulty.Hard)]
+[PuzzleInfo("Experimental Emergency Teleportation", Topics.Vectors, Difficulty.Hard, favourite: true)]
 public sealed class Solution : SolutionBase
 {
+    private readonly record struct Nanobot(Vector3D Pos, int Range);
+    
     public override object Run(int part)
     {
         var nanobots = ParseInputLines(parseFunc: ParseNanobot).ToList();

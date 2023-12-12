@@ -1,12 +1,9 @@
-using Problems.Common;
 using Utilities.Extensions;
 using Utilities.Geometry.Euclidean;
 
 namespace Problems.Y2021.D17;
 
-/// <summary>
-/// Trick Shot: https://adventofcode.com/2021/day/17
-/// </summary>
+[PuzzleInfo("Trick Shot", Topics.Math, Difficulty.Easy)]
 public sealed class Solution : SolutionBase
 {
     public override object Run(int part)

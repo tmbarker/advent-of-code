@@ -1,5 +1,3 @@
-using Problems.Attributes;
-using Problems.Common;
 using Utilities.Extensions;
 
 namespace Problems.Y2020.D18;
@@ -7,10 +5,7 @@ namespace Problems.Y2020.D18;
 using Tokens = Queue<char>;
 using Precedences = IReadOnlyDictionary<char, int>;
 
-/// <summary>
-/// Operation Order: https://adventofcode.com/2020/day/18
-/// </summary>
-[Favourite("Operation Order", Topics.StringParsing|Topics.Math, Difficulty.Medium)]
+[PuzzleInfo("Operation Order", Topics.StringParsing|Topics.Math, Difficulty.Medium, favourite: true)]
 public sealed class Solution : SolutionBase
 {
     public override object Run(int part)
@@ -29,7 +24,7 @@ public sealed class Solution : SolutionBase
         var operators = new Stack<char>();
         var literals = new Stack<long>();
 
-        while (tokens.Any())
+        while (tokens.Count > 0)
         {
             var token = tokens.Dequeue();
             switch (token)

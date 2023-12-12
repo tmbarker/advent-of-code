@@ -1,13 +1,10 @@
 using System.Text;
-using Problems.Common;
 using Problems.Y2019.IntCode;
 using Utilities.Geometry.Euclidean;
 
 namespace Problems.Y2019.D17;
 
-/// <summary>
-/// Set and Forget: https://adventofcode.com/2019/day/17
-/// </summary>
+[PuzzleInfo("Set and Forget", Topics.IntCode|Topics.Vectors, Difficulty.Medium)]
 public sealed class Solution : IntCodeSolution
 {
     private const char Scaffold = '#';
@@ -66,7 +63,7 @@ public sealed class Solution : IntCodeSolution
             : throw new NoSolutionException(message: $"Invalid VM exit code [{ec}]");
     }
 
-    private static IEnumerable<string> ComputeCommands(IReadOnlySet<Vector2D> positions, Pose2D pose)
+    private static List<string> ComputeCommands(IReadOnlySet<Vector2D> positions, Pose2D pose)
     {
         var commands = new List<string>();
         var visited = new HashSet<Vector2D> { pose.Pos };
@@ -138,7 +135,7 @@ public sealed class Solution : IntCodeSolution
     private static string ReadAsciiOutput(IntCodeVm vm)
     {
         var sb = new StringBuilder();
-        while (vm.OutputBuffer.Any())
+        while (vm.OutputBuffer.Count > 0)
         {
             sb.Append((char)vm.OutputBuffer.Dequeue());
         }

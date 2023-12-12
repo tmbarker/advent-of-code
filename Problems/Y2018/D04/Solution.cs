@@ -1,20 +1,19 @@
 using System.Text.RegularExpressions;
-using Problems.Common;
 using Utilities.Extensions;
 
 namespace Problems.Y2018.D04;
 
-/// <summary>
-/// Repose Record: https://adventofcode.com/2018/day/4
-/// </summary>
+[PuzzleInfo("Repose Record", Topics.StringParsing|Topics.Math, Difficulty.Medium)]
 public sealed class Solution : SolutionBase
 {
+    private readonly record struct Log(DateTime DateTime, string Observation);
+    
     private const string DateTimeFormat = "yyyy-MM-dd HH:mm";
     private const string Guard = "Guard";
     private const string Falls = "falls";
     private const string Wakes = "wakes";
-        
-    private static readonly Regex LogRegex = new(@"^\[(.+)\] (.+)$");
+
+    private static readonly Regex LogRegex = new(pattern: @"^\[(.+)\] (.+)$");
 
     public override object Run(int part)
     {

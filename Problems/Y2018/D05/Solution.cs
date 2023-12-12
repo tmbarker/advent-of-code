@@ -1,12 +1,6 @@
-using Problems.Attributes;
-using Problems.Common;
-
 namespace Problems.Y2018.D05;
 
-/// <summary>
-/// Alchemical Reduction: https://adventofcode.com/2018/day/5
-/// </summary>
-[Favourite("Alchemical Reduction", Topics.StringParsing, Difficulty.Easy)]
+[PuzzleInfo("Alchemical Reduction", Topics.StringParsing|Topics.Simulation, Difficulty.Easy, favourite: true)]
 public sealed class Solution : SolutionBase
 {
     public override object Run(int part)

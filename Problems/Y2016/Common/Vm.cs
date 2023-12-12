@@ -1,5 +1,3 @@
-using Problems.Common;
-
 namespace Problems.Y2016.Common;
 
 public sealed class Vm

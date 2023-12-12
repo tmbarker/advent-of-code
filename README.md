@@ -21,7 +21,7 @@ Puzzle | My Solution | Date | Topic(s) | Difficulty
 ### 2021
 Puzzle | My Solution | Date | Topic(s) | Difficulty
 :--- | :---: | :---: | :--- | :---
-[Lanternfish](https://adventofcode.com/2021/day/6) | [Solution](https://github.com/tmbarker/advent-of-code/blob/main/Problems/Y2021/D06/Solution.cs) | 2021-06 | Math | :yellow_circle: Medium
+[Lanternfish](https://adventofcode.com/2021/day/6) | [Solution](https://github.com/tmbarker/advent-of-code/blob/main/Problems/Y2021/D06/Solution.cs) | 2021-06 | Math, Simulation | :yellow_circle: Medium
 [Syntax Scoring](https://adventofcode.com/2021/day/10) | [Solution](https://github.com/tmbarker/advent-of-code/blob/main/Problems/Y2021/D10/Solution.cs) | 2021-10 | String Parsing | :green_circle: Easy
 [Passage Pathing](https://adventofcode.com/2021/day/12) | [Solution](https://github.com/tmbarker/advent-of-code/blob/main/Problems/Y2021/D12/Solution.cs) | 2021-12 | Graphs, Recursion | :yellow_circle: Medium
 [Transparent Origami](https://adventofcode.com/2021/day/13) | [Solution](https://github.com/tmbarker/advent-of-code/blob/main/Problems/Y2021/D13/Solution.cs) | 2021-13 | Vectors | :green_circle: Easy
@@ -51,7 +51,7 @@ Puzzle | My Solution | Date | Topic(s) | Difficulty
 ### 2018
 Puzzle | My Solution | Date | Topic(s) | Difficulty
 :--- | :---: | :---: | :--- | :---
-[Alchemical Reduction](https://adventofcode.com/2018/day/5) | [Solution](https://github.com/tmbarker/advent-of-code/blob/main/Problems/Y2018/D05/Solution.cs) | 2018-05 | String Parsing | :green_circle: Easy
+[Alchemical Reduction](https://adventofcode.com/2018/day/5) | [Solution](https://github.com/tmbarker/advent-of-code/blob/main/Problems/Y2018/D05/Solution.cs) | 2018-05 | String Parsing, Simulation | :green_circle: Easy
 [Chronal Coordinates](https://adventofcode.com/2018/day/6) | [Solution](https://github.com/tmbarker/advent-of-code/blob/main/Problems/Y2018/D06/Solution.cs) | 2018-06 | Vectors | :yellow_circle: Medium
 [Chronal Charge](https://adventofcode.com/2018/day/11) | [Solution](https://github.com/tmbarker/advent-of-code/blob/main/Problems/Y2018/D11/Solution.cs) | 2018-11 | Vectors | :red_circle: Hard
 [Reservoir Research](https://adventofcode.com/2018/day/17) | [Solution](https://github.com/tmbarker/advent-of-code/blob/main/Problems/Y2018/D17/Solution.cs) | 2018-17 | Vectors | :yellow_circle: Medium
@@ -65,7 +65,7 @@ Puzzle | My Solution | Date | Topic(s) | Difficulty
 [Hex Ed](https://adventofcode.com/2017/day/11) | [Solution](https://github.com/tmbarker/advent-of-code/blob/main/Problems/Y2017/D11/Solution.cs) | 2017-11 | Math | :green_circle: Easy
 [Particle Swarm](https://adventofcode.com/2017/day/20) | [Solution](https://github.com/tmbarker/advent-of-code/blob/main/Problems/Y2017/D20/Solution.cs) | 2017-20 | Vectors, Math | :red_circle: Hard
 [Fractal Art](https://adventofcode.com/2017/day/21) | [Solution](https://github.com/tmbarker/advent-of-code/blob/main/Problems/Y2017/D21/Solution.cs) | 2017-21 | Vectors | :yellow_circle: Medium
-[Sporifica Virus](https://adventofcode.com/2017/day/22) | [Solution](https://github.com/tmbarker/advent-of-code/blob/main/Problems/Y2017/D22/Solution.cs) | 2017-22 | Vectors | :yellow_circle: Medium
+[Sporifica Virus](https://adventofcode.com/2017/day/22) | [Solution](https://github.com/tmbarker/advent-of-code/blob/main/Problems/Y2017/D22/Solution.cs) | 2017-22 | Vectors, Simulation | :yellow_circle: Medium
 [Electromagnetic Moat](https://adventofcode.com/2017/day/24) | [Solution](https://github.com/tmbarker/advent-of-code/blob/main/Problems/Y2017/D24/Solution.cs) | 2017-24 | Graphs | :yellow_circle: Medium
 
 ### 2016

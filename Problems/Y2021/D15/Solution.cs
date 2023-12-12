@@ -1,12 +1,9 @@
-﻿using Problems.Common;
-using Utilities.Extensions;
+﻿using Utilities.Extensions;
 using Utilities.Geometry.Euclidean;
 
 namespace Problems.Y2021.D15;
 
-/// <summary>
-/// Chiton: https://adventofcode.com/2021/day/15
-/// </summary>
+[PuzzleInfo("Chiton", Topics.Graphs, Difficulty.Medium)]
 public sealed class Solution : SolutionBase
 {
     private const int MaxRisk = 9;

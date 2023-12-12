@@ -1,14 +1,10 @@
-using Problems.Common;
 using Utilities.Extensions;
 
 namespace Problems.Y2017.D01;
 
-/// <summary>
-/// Inverse Captcha: https://adventofcode.com/2017/day/1
-/// </summary>
+[PuzzleInfo("Inverse Captcha", Topics.StringParsing, Difficulty.Easy)]
 public sealed class Solution : SolutionBase
 {
-    
     public override object Run(int part)
     {
         var stream = GetInputText();

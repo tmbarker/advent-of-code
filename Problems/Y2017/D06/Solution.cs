@@ -1,13 +1,8 @@
-using Problems.Attributes;
-using Problems.Common;
 using Utilities.Extensions;
 
 namespace Problems.Y2017.D06;
 
-/// <summary>
-/// Memory Reallocation: https://adventofcode.com/2017/day/6
-/// </summary>
-[Favourite("Memory Reallocation", Topics.BitwiseOperations, Difficulty.Easy)]
+[PuzzleInfo("Memory Reallocation", Topics.BitwiseOperations, Difficulty.Easy, favourite: true)]
 public sealed class Solution : SolutionBase
 {
     public override object Run(int part)

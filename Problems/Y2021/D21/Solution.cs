@@ -1,11 +1,8 @@
-using Problems.Common;
 using Utilities.Extensions;
 
 namespace Problems.Y2021.D21;
 
-/// <summary>
-/// Dirac Dice: https://adventofcode.com/2021/day/21
-/// </summary>
+[PuzzleInfo("Dirac Dice", Topics.Math|Topics.Simulation, Difficulty.Hard)]
 public sealed class Solution : SolutionBase
 {
     private const int BoardPlaces = 10;

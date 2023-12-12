@@ -1,5 +1,3 @@
-using Problems.Attributes;
-using Problems.Common;
 using Utilities.Geometry.Euclidean;
 
 namespace Problems.Y2019.D20;
@@ -7,10 +5,7 @@ namespace Problems.Y2019.D20;
 using Maze = Grid2D<char>;
 using AdjacencyList = Dictionary<Vector2D, HashSet<Vector2D>>;
 
-/// <summary>
-/// Donut Maze: https://adventofcode.com/2019/day/20
-/// </summary>
-[Favourite("Donut Maze", Topics.Graphs, Difficulty.Hard)]
+[PuzzleInfo("Donut Maze", Topics.Graphs, Difficulty.Hard, favourite: true)]
 public sealed class Solution : SolutionBase
 { 
     private const char Traversable = '.';

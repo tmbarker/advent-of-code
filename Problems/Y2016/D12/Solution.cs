@@ -1,11 +1,8 @@
-using Problems.Common;
 using Problems.Y2016.Common;
 
 namespace Problems.Y2016.D12;
 
-/// <summary>
-/// Leonardo's Monorail: https://adventofcode.com/2016/day/12
-/// </summary>
+[PuzzleInfo("Leonardo's Monorail", Topics.Assembly|Topics.Simulation, Difficulty.Easy)]
 public sealed class Solution : SolutionBase
 {
     public override object Run(int part)

@@ -1,11 +1,8 @@
-using Problems.Common;
 using Utilities.Extensions;
 
 namespace Problems.Y2023.D06;
 
-/// <summary>
-/// Wait For It: https://adventofcode.com/2023/day/6
-/// </summary>
+[PuzzleInfo("Wait For It", Topics.Math, Difficulty.Easy)]
 public sealed class Solution : SolutionBase
 {
     private readonly record struct Race(long Time, long Distance);

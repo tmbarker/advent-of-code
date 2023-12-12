@@ -1,14 +1,9 @@
-using Problems.Attributes;
-using Problems.Common;
 using Utilities.Collections;
 using Utilities.Geometry.Euclidean;
 
 namespace Problems.Y2023.D03;
 
-/// <summary>
-/// Gear Ratios: https://adventofcode.com/2023/day/3
-/// </summary>
-[Favourite("Gear Ratios", Topics.Vectors, Difficulty.Easy)]
+[PuzzleInfo("Gear Ratios", Topics.Vectors, Difficulty.Easy, favourite: true)]
 public sealed class Solution : SolutionBase
 {
     private readonly record struct Number(int Value, HashSet<Vector2D> Positions);

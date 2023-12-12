@@ -1,14 +1,9 @@
-using Problems.Attributes;
-using Problems.Common;
 using Utilities.Extensions;
 using Utilities.Geometry.Euclidean;
 
 namespace Problems.Y2021.D13;
 
-/// <summary>
-/// Transparent Origami: https://adventofcode.com/2021/day/13
-/// </summary>
-[Favourite("Transparent Origami", Topics.Vectors, Difficulty.Easy)]
+[PuzzleInfo("Transparent Origami", Topics.Vectors, Difficulty.Easy, favourite: true)]
 public sealed class Solution : SolutionBase
 {
     private delegate HashSet<Vector2D> FoldTransform(int foldAt, HashSet<Vector2D> dots);

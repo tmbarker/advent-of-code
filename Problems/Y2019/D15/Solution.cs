@@ -8,9 +8,7 @@ namespace Problems.Y2019.D15;
 using FieldMap = IDictionary<Vector2D, Tile>;
 using CostsMap = IDictionary<Vector2D, int>;
 
-/// <summary>
-/// Oxygen System: https://adventofcode.com/2019/day/15
-/// </summary>
+[PuzzleInfo("Oxygen System", Topics.IntCode|Topics.Vectors, Difficulty.Medium)]
 public sealed class Solution : IntCodeSolution
 {
     private static readonly Dictionary<Vector2D, long> Commands = new()

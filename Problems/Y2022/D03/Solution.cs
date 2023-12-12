@@ -1,10 +1,6 @@
-using Problems.Common;
-
 namespace Problems.Y2022.D03;
 
-/// <summary>
-/// Rucksack Reorganization: https://adventofcode.com/2022/day/3
-/// </summary>
+[PuzzleInfo("Rucksack Reorganization", Topics.None, Difficulty.Easy)]
 public sealed class Solution : SolutionBase
 {
     private const int AlphabetLength = 26;

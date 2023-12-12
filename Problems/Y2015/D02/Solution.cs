@@ -1,11 +1,8 @@
-using Problems.Common;
 using Utilities.Extensions;
 
 namespace Problems.Y2015.D02;
 
-/// <summary>
-/// I Was Told There Would Be No Math: https://adventofcode.com/2015/day/2
-/// </summary>
+[PuzzleInfo("I Was Told There Would Be No Math", Topics.Math, Difficulty.Easy)]
 public sealed class Solution : SolutionBase
 {
     public override object Run(int part)

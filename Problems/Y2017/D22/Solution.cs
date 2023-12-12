@@ -1,14 +1,9 @@
-using Problems.Attributes;
-using Problems.Common;
 using Utilities.Collections;
 using Utilities.Geometry.Euclidean;
 
 namespace Problems.Y2017.D22;
 
-/// <summary>
-/// Sporifica Virus: https://adventofcode.com/2017/day/22
-/// </summary>
-[Favourite("Sporifica Virus", Topics.Vectors, Difficulty.Medium)]
+[PuzzleInfo("Sporifica Virus", Topics.Vectors|Topics.Simulation, Difficulty.Medium, favourite: true)]
 public sealed class Solution : SolutionBase
 {
     private static readonly Dictionary<State, Func<Pose2D, Pose2D>> Behaviors = new()

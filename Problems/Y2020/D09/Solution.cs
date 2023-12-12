@@ -1,10 +1,6 @@
-using Problems.Common;
-
 namespace Problems.Y2020.D09;
 
-/// <summary>
-/// Encoding Error: https://adventofcode.com/2020/day/9
-/// </summary>
+[PuzzleInfo("Encoding Error", Topics.Math, Difficulty.Medium)]
 public sealed class Solution : SolutionBase
 {
     private const int PreambleLength = 25;

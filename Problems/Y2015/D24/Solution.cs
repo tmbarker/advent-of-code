@@ -1,12 +1,10 @@
-using Problems.Common;
-
 namespace Problems.Y2015.D24;
 
-/// <summary>
-/// It Hangs in the Balance: https://adventofcode.com/2015/day/24
-/// </summary>
+[PuzzleInfo("It Hangs in the Balance", Topics.Graphs|Topics.Math, Difficulty.Hard)]
 public sealed class Solution : SolutionBase
 {
+    private readonly record struct State(int Index, bool Include, long Sum, long Remaining);
+    
     public override object Run(int part)
     {
         var input = GetInputLines();
@@ -28,14 +26,14 @@ public sealed class Solution : SolutionBase
         var initial = new State(Index: -1, Include: false, Sum: 0, Remaining: numbers.Sum());
         var parentMap = new Dictionary<State, State>();
         var groups = new List<HashSet<long>>();
-        var stack = new Stack<State>(new[] { initial });
+        var stack = new Stack<State>([initial]);
 
-        while (stack.Any())
+        while (stack.Count > 0)
         {
             var state = stack.Pop();
             if (state.Sum == target)
             {
-                groups.Add(BacktrackGroup(head: state, parentMap, numbers));
+                groups.Add(item: BacktrackGroup(head: state, parentMap, numbers));
                 continue;
             }
 
@@ -83,6 +81,4 @@ public sealed class Solution : SolutionBase
 
         return group;
     }
-
-    private readonly record struct State(int Index, bool Include, long Sum, long Remaining);
 }

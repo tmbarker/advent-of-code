@@ -1,11 +1,8 @@
-using Problems.Common;
 using Utilities.Extensions;
 
 namespace Problems.Y2019.D16;
 
-/// <summary>
-/// Flawed Frequency Transmission: https://adventofcode.com/2019/day/16
-/// </summary>
+[PuzzleInfo("Flawed Frequency Transmission", Topics.Math, Difficulty.Hard)]
 public sealed class Solution : SolutionBase
 {
     private const int Phases = 100;

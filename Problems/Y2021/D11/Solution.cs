@@ -1,12 +1,9 @@
-using Problems.Common;
 using Utilities.Extensions;
 using Utilities.Geometry.Euclidean;
 
 namespace Problems.Y2021.D11;
 
-/// <summary>
-/// Dumbo Octopus: https://adventofcode.com/2021/day/11
-/// </summary>
+[PuzzleInfo("Dumbo Octopus", Topics.Simulation, Difficulty.Medium)]
 public sealed class Solution : SolutionBase
 {
     public override object Run(int part)

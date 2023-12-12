@@ -3,9 +3,7 @@ using Utilities.Geometry.Euclidean;
 
 namespace Problems.Y2019.D19;
 
-/// <summary>
-/// Tractor Beam: https://adventofcode.com/2019/day/19
-/// </summary>
+[PuzzleInfo("Tractor Beam", Topics.IntCode, Difficulty.Medium)]
 public sealed class Solution : IntCodeSolution
 {
     public override object Run(int part)

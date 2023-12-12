@@ -3,9 +3,7 @@ using Utilities.Extensions;
 
 namespace Problems.Y2019.D07;
 
-/// <summary>
-/// Amplification Circuit: https://adventofcode.com/2019/day/7
-/// </summary>
+[PuzzleInfo("Amplification Circuit", Topics.IntCode|Topics.Simulation, Difficulty.Medium)]
 public sealed class Solution : IntCodeSolution
 {
     public override object Run(int part)
@@ -59,7 +57,7 @@ public sealed class Solution : IntCodeSolution
                     input: phase));
             }
 
-            while (amps.Any())
+            while (amps.Count > 0)
             {
                 var amp = amps.Dequeue();
                 amp.InputBuffer.Enqueue(signal);

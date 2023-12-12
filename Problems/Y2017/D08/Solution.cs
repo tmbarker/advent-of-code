@@ -1,10 +1,6 @@
-using Problems.Common;
-
 namespace Problems.Y2017.D08;
 
-/// <summary>
-/// I Heard You Like Registers: https://adventofcode.com/2017/day/8
-/// </summary>
+[PuzzleInfo("I Heard You Like Registers", Topics.Assembly|Topics.Simulation, Difficulty.Easy)]
 public sealed class Solution : SolutionBase
 {
     public override object Run(int part)

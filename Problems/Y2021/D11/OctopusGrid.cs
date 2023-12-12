@@ -2,20 +2,13 @@ using Utilities.Geometry.Euclidean;
 
 namespace Problems.Y2021.D11;
 
-public sealed class OctopusGrid
+public sealed class OctopusGrid(Grid2D<int> energyLevels)
 {
     private const int ResetTo = 0;
     private const int FlashAt = 10;
-    
-    private readonly Grid2D<int> _octopusStates;
 
     public event Action<Vector2D>? SingleFlashed;
     public event Action<int>? AllFlashed;
-
-    public OctopusGrid(Grid2D<int> initialEnergyLevels)
-    {
-        _octopusStates = initialEnergyLevels;
-    }
 
     public void Observe(int steps)
     {
@@ -41,7 +34,7 @@ public sealed class OctopusGrid
         var flashedSet = new HashSet<Vector2D>();
         var readyToFlash = new Queue<Vector2D>();
         
-        var enumeratedPositions = _octopusStates
+        var enumeratedPositions = energyLevels
             .GetAllPositions()
             .ToList();
         
@@ -53,38 +46,37 @@ public sealed class OctopusGrid
         while (readyToFlash.Count > 0)
         {
             var flashedPos = readyToFlash.Dequeue();
-            if (flashedSet.Contains(flashedPos))
+            if (!flashedSet.Add(flashedPos))
             {
                 continue;
             }
 
-            flashedSet.Add(flashedPos);
             RaiseSingleFlashed(flashedPos);
             
             foreach (var adjacent in flashedPos.GetAdjacentSet(Metric.Chebyshev))
             {
-                if (_octopusStates.IsInDomain(adjacent))
+                if (energyLevels.IsInDomain(adjacent))
                 {
                     IncrementAndEnqueueIfReady(adjacent, readyToFlash);
                 }
             }
         }
 
-        if (flashedSet.Count == _octopusStates.Width * _octopusStates.Height)
+        if (flashedSet.Count == energyLevels.Width * energyLevels.Height)
         {
             RaiseAllFlashed(stepIndex + 1);
         }
         
         foreach (var position in flashedSet)
         {
-            _octopusStates[position] = ResetTo;
+            energyLevels[position] = ResetTo;
         }
     }
 
     private void IncrementAndEnqueueIfReady(Vector2D pos, Queue<Vector2D> readyToFlashQueue)
     {
-        _octopusStates[pos]++;
-        if (_octopusStates[pos] >= FlashAt)
+        energyLevels[pos]++;
+        if (energyLevels[pos] >= FlashAt)
         {
             readyToFlashQueue.Enqueue(pos);
         }

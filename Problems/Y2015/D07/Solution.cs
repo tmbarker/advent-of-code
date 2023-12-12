@@ -1,14 +1,8 @@
-using Problems.Attributes;
-using Problems.Common;
-
 namespace Problems.Y2015.D07;
 
 using Memo = Dictionary<string, uint>;
 
-/// <summary>
-/// Some Assembly Required: https://adventofcode.com/2015/day/7
-/// </summary>
-[Favourite("Some Assembly Required", Topics.Graphs|Topics.BitwiseOperations, Difficulty.Hard)]
+[PuzzleInfo("Some Assembly Required", Topics.Graphs|Topics.BitwiseOperations, Difficulty.Hard, favourite: true)]
 public sealed class Solution : SolutionBase
 {
     private const string Buffer = "BUFFER";
@@ -18,7 +12,7 @@ public sealed class Solution : SolutionBase
     private const string LShift = "LSHIFT";
     private const string RShift = "RSHIFT";
 
-    private static readonly HashSet<string> Operators = new() { Buffer, And, Or, Not, LShift, RShift };
+    private static readonly HashSet<string> Operators = [Buffer, And, Or, Not, LShift, RShift];
 
     public override object Run(int part)
     {

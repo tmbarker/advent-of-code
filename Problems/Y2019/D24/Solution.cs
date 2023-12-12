@@ -1,12 +1,9 @@
-using Problems.Common;
 using Utilities.Extensions;
 using Utilities.Geometry.Euclidean;
 
 namespace Problems.Y2019.D24;
 
-/// <summary>
-/// Planet of Discord: https://adventofcode.com/2019/day/24
-/// </summary>
+[PuzzleInfo("Planet of Discord", Topics.Vectors|Topics.Simulation, Difficulty.Medium)]
 public sealed class Solution : SolutionBase
 {
     private const int Size = 5;

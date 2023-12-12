@@ -1,10 +1,6 @@
-using Problems.Common;
-
 namespace Problems.Y2021.D04;
 
-/// <summary>
-/// Giant Squid: https://adventofcode.com/2021/day/4
-/// </summary>
+[PuzzleInfo("Giant Squid", Topics.Simulation, Difficulty.Easy)]
 public sealed class Solution : SolutionBase
 {
     public override object Run(int part)

@@ -13,5 +13,7 @@ public enum Topics
     Math =                1 << 6,
     IntCode =             1 << 7,
     BitwiseOperations =   1 << 8,
-    FormalLanguage =      1 << 9
+    FormalLanguage =      1 << 9,
+    Hashing =             1 << 10,
+    Simulation =          1 << 11
 }

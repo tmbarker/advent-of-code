@@ -1,13 +1,10 @@
 ﻿using System.Text.RegularExpressions;
-using Problems.Common;
 using Utilities.Collections;
 using Utilities.Extensions;
 
 namespace Problems.Y2021.D14;
 
-/// <summary>
-/// Extended Polymerization: https://adventofcode.com/2021/day/14/input
-/// </summary>
+[PuzzleInfo("Extended Polymerization", Topics.Simulation, Difficulty.Medium)]
 public sealed class Solution : SolutionBase
 {
     public override object Run(int part)
@@ -89,7 +86,7 @@ public sealed class Solution : SolutionBase
 
     private static void Parse(IList<string> input, out List<char> polymer, out List<Rule> rules)
     {
-        polymer = new List<char>(input[0]);
+        polymer = [..input[0]];
         rules = input.Skip(2).Select(ParseRule).ToList();
     }
 

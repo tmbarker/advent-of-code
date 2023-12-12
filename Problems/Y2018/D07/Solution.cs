@@ -1,13 +1,10 @@
 using System.Text;
 using System.Text.RegularExpressions;
-using Problems.Common;
 using Utilities.Graph;
 
 namespace Problems.Y2018.D07;
 
-/// <summary>
-/// The Sum of Its Parts: https://adventofcode.com/2018/day/7
-/// </summary>
+[PuzzleInfo("The Sum of Its Parts", Topics.Graphs, Difficulty.Hard)]
 public sealed class Solution : SolutionBase
 {
     public override object Run(int part)

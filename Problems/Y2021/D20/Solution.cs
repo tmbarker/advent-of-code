@@ -1,11 +1,8 @@
-using Problems.Common;
 using Utilities.Geometry.Euclidean;
 
 namespace Problems.Y2021.D20;
 
-/// <summary>
-/// Trench Map: https://adventofcode.com/2021/day/20
-/// </summary>
+[PuzzleInfo("Trench Map", Topics.Vectors|Topics.Simulation, Difficulty.Hard)]
 public sealed class Solution : SolutionBase
 {
     private const char Lit = '#';

@@ -1,15 +1,12 @@
-using Problems.Common;
 using Utilities.Geometry.Euclidean;
 
 namespace Problems.Y2020.D17;
 
-/// <summary>
-/// Conway Cubes: https://adventofcode.com/2020/day/17
-/// </summary>
+[PuzzleInfo("Conway Cubes", Topics.Vectors|Topics.Simulation, Difficulty.Medium)]
 public sealed class Solution : SolutionBase
 {
-    private static readonly IReadOnlySet<int> StayOnSet = new HashSet<int> { 2, 3 };
-    private static readonly IReadOnlySet<int> TurnOnSet = new HashSet<int> { 3 };
+    private static readonly HashSet<int> StayOnSet = [2, 3];
+    private static readonly HashSet<int> TurnOnSet = [3];
 
     public override object Run(int part)
     {

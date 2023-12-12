@@ -1,12 +1,9 @@
 using System.Text.RegularExpressions;
-using Problems.Common;
 using Utilities.Extensions;
 
 namespace Problems.Y2015.D16;
 
-/// <summary>
-/// Aunt Sue: https://adventofcode.com/2015/day/16
-/// </summary>
+[PuzzleInfo("Aunt Sue", Topics.RegularExpressions, Difficulty.Easy)]
 public sealed class Solution : SolutionBase
 {
     private delegate bool ValidPredicate(IEnumerable<(string, int)> things);

@@ -1,10 +1,6 @@
-using Problems.Common;
-
 namespace Problems.Y2020.D05;
 
-/// <summary>
-/// Binary Boarding: https://adventofcode.com/2020/day/5
-/// </summary>
+[PuzzleInfo("Binary Boarding", Topics.BitwiseOperations, Difficulty.Medium)]
 public sealed class Solution : SolutionBase
 {
     public override object Run(int part)

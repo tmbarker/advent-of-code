@@ -1,10 +1,6 @@
-using Problems.Common;
-
 namespace Problems.Y2015.D17;
 
-/// <summary>
-/// No Such Thing as Too Much: https://adventofcode.com/2015/day/17
-/// </summary>
+[PuzzleInfo("No Such Thing as Too Much", Topics.Graphs, Difficulty.Medium)]
 public sealed class Solution : SolutionBase
 {
     public override object Run(int part)
@@ -28,7 +24,7 @@ public sealed class Solution : SolutionBase
     private static HashSet<State> GetCombinations(IEnumerable<Cup> cups, int total)
     {
         var initial = new State(
-            unused: new HashSet<Cup>(cups),
+            unused: [..cups],
             numUsed: 0,
             totalVolume: 0); 
         
@@ -36,7 +32,7 @@ public sealed class Solution : SolutionBase
         var queue = new Queue<State>(new[] { initial });
         var visited = new HashSet<State> { initial };
 
-        while (queue.Any())
+        while (queue.Count > 0)
         {
             var state = queue.Dequeue();
             foreach (var unused in state.Unused)

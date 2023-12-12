@@ -1,15 +1,12 @@
-using Problems.Common;
 using Utilities.Extensions;
 
 namespace Problems.Y2018.D14;
 
-/// <summary>
-/// Chocolate Charts: https://adventofcode.com/2018/day/14
-/// </summary>
+[PuzzleInfo("Chocolate Charts", Topics.StringParsing, Difficulty.Medium)]
 public sealed class Solution : SolutionBase
 {
-    private static readonly List<int> InitialRecipes = new() { 3, 7 };
-    private static readonly List<int> InitialElves =   new() { 0, 1 };
+    private static readonly List<int> InitialRecipes = [3, 7];
+    private static readonly List<int> InitialElves = [0, 1];
 
     public override object Run(int part)
     {
@@ -92,7 +89,7 @@ public sealed class Solution : SolutionBase
         } 
         while (number > 0);
 
-        while (stack.Any())
+        while (stack.Count > 0)
         {
             yield return stack.Pop();
         }

@@ -1,13 +1,12 @@
-using Problems.Common;
 using Utilities.Extensions;
 
 namespace Problems.Y2015.D14;
 
-/// <summary>
-/// Reindeer Olympics: https://adventofcode.com/2015/day/14
-/// </summary>
+[PuzzleInfo("Reindeer Olympics", Topics.Math, Difficulty.Easy)]
 public sealed class Solution : SolutionBase
 {
+    private readonly record struct Reindeer(string Name, int FlySpeed, int FlyDuration, int RestDuration);
+    
     public override object Run(int part)
     {
         var reindeer = ParseInputLines(parseFunc: ParseReindeer).ToList();
@@ -64,6 +63,4 @@ public sealed class Solution : SolutionBase
             FlyDuration:  numbers[1],
             RestDuration: numbers[2]);
     }
-    
-    private readonly record struct Reindeer(string Name, int FlySpeed, int FlyDuration, int RestDuration);
 }

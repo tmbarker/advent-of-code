@@ -1,11 +1,8 @@
-using Problems.Common;
 using Utilities.Extensions;
 
 namespace Problems.Y2023.D01;
 
-/// <summary>
-/// Trebuchet?!: https://adventofcode.com/2023/day/1
-/// </summary>
+[PuzzleInfo("Trebuchet?!", Topics.StringParsing, Difficulty.Medium)]
 public sealed class Solution : SolutionBase
 {
     private static readonly Dictionary<string, int> SpelledDigits = new()

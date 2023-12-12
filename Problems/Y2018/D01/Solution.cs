@@ -1,10 +1,6 @@
-using Problems.Common;
-
 namespace Problems.Y2018.D01;
 
-/// <summary>
-/// Chronal Calibration: https://adventofcode.com/2018/day/1
-/// </summary>
+[PuzzleInfo("Chronal Calibration", Topics.Math, Difficulty.Easy)]
 public sealed class Solution : SolutionBase
 {
     public override object Run(int part)

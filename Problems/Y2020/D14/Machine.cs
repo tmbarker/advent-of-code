@@ -4,8 +4,8 @@ namespace Problems.Y2020.D14;
 
 public static class Machine
 {
-    private static readonly Regex MskRegex = new(@"mask = (?<msk>[01X]+)");
-    private static readonly Regex MemRegex = new(@"mem\[(?<adr>\d+)\] = (?<val>\d+)");
+    private static readonly Regex MskRegex = new(pattern: @"mask = (?<msk>[01X]+)");
+    private static readonly Regex MemRegex = new(pattern: @"mem\[(?<adr>\d+)\] = (?<val>\d+)");
     
     public static ulong RunV1(IEnumerable<string> program)
     {

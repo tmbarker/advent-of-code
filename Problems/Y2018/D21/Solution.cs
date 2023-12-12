@@ -1,11 +1,8 @@
-using Problems.Common;
 using Utilities.Extensions;
 
 namespace Problems.Y2018.D21;
 
-/// <summary>
-/// Chronal Conversion: https://adventofcode.com/2018/day/21
-/// </summary>
+[PuzzleInfo("Chronal Conversion", Topics.Assembly|Topics.Simulation, Difficulty.Hard)]
 public sealed class Solution : SolutionBase
 {
     public override object Run(int part)

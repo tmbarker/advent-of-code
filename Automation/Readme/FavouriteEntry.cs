@@ -2,20 +2,11 @@ using Problems.Attributes;
 
 namespace Automation.Readme;
 
-public readonly struct FavouriteEntry
+public readonly struct FavouriteEntry(string title, int year, int day, Topics topics, Difficulty difficulty)
 {
-    public string Title { get; }
-    public int Year { get; }
-    public int Day { get; }
-    public Topics Topics { get; }
-    public Difficulty Difficulty { get; }
-
-    public FavouriteEntry(string title, int year, int day, Topics topics, Difficulty difficulty)
-    {
-        Title = title;
-        Year = year;
-        Day = day;
-        Topics = topics;
-        Difficulty = difficulty;
-    }
+    public string Title { get; } = title;
+    public int Year { get; } = year;
+    public int Day { get; } = day;
+    public Topics Topics { get; } = topics;
+    public Difficulty Difficulty { get; } = difficulty;
 }

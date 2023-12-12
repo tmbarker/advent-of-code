@@ -1,11 +1,8 @@
-using Problems.Common;
 using Utilities.Geometry.Euclidean;
 
 namespace Problems.Y2021.D02;
 
-/// <summary>
-/// Dive: https://adventofcode.com/2021/day/2
-/// </summary>
+[PuzzleInfo("Dive", Topics.Vectors, Difficulty.Easy)]
 public sealed class Solution : SolutionBase
 {
     private const string Forward = "forward";

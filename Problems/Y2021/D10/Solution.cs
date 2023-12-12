@@ -1,21 +1,15 @@
-using Problems.Attributes;
-using Problems.Common;
-
 namespace Problems.Y2021.D10;
 
-/// <summary>
-/// Syntax Scoring: https://adventofcode.com/2021/day/10
-/// </summary>
-[Favourite("Syntax Scoring", Topics.StringParsing, Difficulty.Easy)]
+[PuzzleInfo("Syntax Scoring", Topics.StringParsing, Difficulty.Easy, favourite: true)]
 public sealed class Solution : SolutionBase
 {
-    private static readonly List<SyntaxChecker.Rule> SyntaxRules = new()
-    {
-        new SyntaxChecker.Rule(openWith: '(', closeWith: ')', errorPoints: 3,     completionPoints: 1),
-        new SyntaxChecker.Rule(openWith: '[', closeWith: ']', errorPoints: 57,    completionPoints: 2),
-        new SyntaxChecker.Rule(openWith: '{', closeWith: '}', errorPoints: 1197,  completionPoints: 3),
+    private static readonly List<SyntaxChecker.Rule> SyntaxRules =
+    [
+        new SyntaxChecker.Rule(openWith: '(', closeWith: ')', errorPoints:     3, completionPoints: 1),
+        new SyntaxChecker.Rule(openWith: '[', closeWith: ']', errorPoints:    57, completionPoints: 2),
+        new SyntaxChecker.Rule(openWith: '{', closeWith: '}', errorPoints:  1197, completionPoints: 3),
         new SyntaxChecker.Rule(openWith: '<', closeWith: '>', errorPoints: 25137, completionPoints: 4)
-    };
+    ];
     
     public override object Run(int part)
     {

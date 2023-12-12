@@ -1,10 +1,6 @@
-using Problems.Common;
-
 namespace Problems.Y2022.D13;
 
-/// <summary>
-/// Distress Signal: https://adventofcode.com/2022/day/13
-/// </summary>
+[PuzzleInfo("Distress Signal", Topics.StringParsing, Difficulty.Hard)]
 public sealed class Solution : SolutionBase
 {
     private const string DivisorPacket1 = "[[2]]";

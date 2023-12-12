@@ -1,12 +1,9 @@
-using Problems.Common;
 using Utilities.Extensions;
 using Utilities.Geometry.Euclidean;
 
 namespace Problems.Y2016.D01;
 
-/// <summary>
-/// No Time for a Taxicab: https://adventofcode.com/2016/day/1
-/// </summary>
+[PuzzleInfo("No Time for a Taxicab", Topics.Vectors, Difficulty.Easy)]
 public sealed class Solution : SolutionBase
 {
     public override object Run(int part)

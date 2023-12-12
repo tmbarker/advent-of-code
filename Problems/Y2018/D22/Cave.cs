@@ -1,4 +1,3 @@
-using Problems.Common;
 using Utilities.Geometry.Euclidean;
 
 namespace Problems.Y2018.D22;

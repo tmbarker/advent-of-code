@@ -1,5 +1,3 @@
-using Problems.Common;
-
 namespace Problems.Y2018.D24;
 
 using GroupKey = ValueTuple<Team, int>;

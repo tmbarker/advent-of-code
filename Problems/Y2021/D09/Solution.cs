@@ -1,12 +1,9 @@
-using Problems.Common;
 using Utilities.Extensions;
 using Utilities.Geometry.Euclidean;
 
 namespace Problems.Y2021.D09;
 
-/// <summary>
-/// Smoke Basin: https://adventofcode.com/2021/day/9
-/// </summary>
+[PuzzleInfo("Smoke Basin", Topics.Vectors, Difficulty.Medium)]
 public sealed class Solution : SolutionBase
 {
     private const int BasinBoundaryHeight = 9;

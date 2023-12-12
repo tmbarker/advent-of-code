@@ -1,10 +1,6 @@
-using Problems.Common;
-
 namespace Problems.Y2020.D10;
 
-/// <summary>
-/// Adapter Array: https://adventofcode.com/2020/day/10
-/// </summary>
+[PuzzleInfo("Adapter Array", Topics.Recursion, Difficulty.Medium)]
 public sealed class Solution : SolutionBase
 {
     private const int Range = 3;
@@ -12,7 +8,9 @@ public sealed class Solution : SolutionBase
 
     public override object Run(int part)
     {
-        var sortedAdapters = GetSortedAdapters(GetInputLines());
+        var input = GetInputLines();
+        var sortedAdapters = GetSortedAdapters(input);
+        
         return part switch
         {
             1 => ComputeAdapterDifferencesProduct(sortedAdapters),
@@ -73,8 +71,8 @@ public sealed class Solution : SolutionBase
     private static List<int> GetSortedAdapters(IEnumerable<string> input)
     {
         var elements = input.Select(int.Parse).ToList();
-        elements.Add(0);
-        elements.Add(elements.Max() + Range);
+        elements.Add(item: 0);
+        elements.Add(item: elements.Max() + Range);
         
         elements.Sort();
         return elements;

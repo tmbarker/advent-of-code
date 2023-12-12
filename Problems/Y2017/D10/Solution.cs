@@ -1,12 +1,9 @@
-using Problems.Common;
 using Problems.Y2017.Common;
 using Utilities.Extensions;
 
 namespace Problems.Y2017.D10;
 
-/// <summary>
-/// Knot Hash: https://adventofcode.com/2017/day/10
-/// </summary>
+[PuzzleInfo("Knot Hash", Topics.Hashing, Difficulty.Medium)]
 public sealed class Solution : SolutionBase
 {
     public override object Run(int part)

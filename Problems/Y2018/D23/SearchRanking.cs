@@ -1,17 +1,10 @@
 namespace Problems.Y2018.D23;
 
-public readonly struct SearchRanking : IComparable<SearchRanking>
+public readonly struct SearchRanking(long inRange, long distance, long volume) : IComparable<SearchRanking>
 {
-    private readonly long _inRange;
-    private readonly long _distance;
-    private readonly long _volume;
-
-    public SearchRanking(long inRange, long distance, long volume)
-    {
-        _inRange = inRange;
-        _distance = distance;
-        _volume = volume;
-    }
+    private readonly long _inRange = inRange;
+    private readonly long _distance = distance;
+    private readonly long _volume = volume;
 
     public int CompareTo(SearchRanking other)
     {

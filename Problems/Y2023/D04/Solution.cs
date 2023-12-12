@@ -1,12 +1,9 @@
 using System.Text.RegularExpressions;
-using Problems.Common;
 using Utilities.Extensions;
 
 namespace Problems.Y2023.D04;
 
-/// <summary>
-/// Scratchcards: https://adventofcode.com/2023/day/4
-/// </summary>
+[PuzzleInfo("Scratchcards", Topics.None, Difficulty.Easy)]
 public sealed class Solution : SolutionBase
 {
     private readonly record struct Card(int Wins);

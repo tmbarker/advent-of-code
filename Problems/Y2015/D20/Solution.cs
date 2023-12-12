@@ -1,12 +1,6 @@
-using Problems.Attributes;
-using Problems.Common;
-
 namespace Problems.Y2015.D20;
 
-/// <summary>
-/// Infinite Elves and Infinite Houses: https://adventofcode.com/2015/day/20
-/// </summary>
-[Favourite("Infinite Elves and Infinite Houses", Topics.Math, Difficulty.Medium)]
+[PuzzleInfo("Infinite Elves and Infinite Houses", Topics.Math, Difficulty.Medium, favourite: true)]
 public sealed class Solution : SolutionBase
 {
     public override object Run(int part)

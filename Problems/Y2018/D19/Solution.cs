@@ -1,11 +1,8 @@
-using Problems.Common;
 using Utilities.Extensions;
 
 namespace Problems.Y2018.D19;
 
-/// <summary>
-/// Go With The Flow: https://adventofcode.com/2018/day/19
-/// </summary>
+[PuzzleInfo("Go With The Flow", Topics.Assembly|Topics.Simulation, Difficulty.Hard)]
 public sealed class Solution : SolutionBase
 {
     public override object Run(int part)

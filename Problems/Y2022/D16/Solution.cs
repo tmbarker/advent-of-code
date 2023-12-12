@@ -1,12 +1,6 @@
-using Problems.Attributes;
-using Problems.Common;
-
 namespace Problems.Y2022.D16;
 
-/// <summary>
-/// Proboscidea Volcanium: https://adventofcode.com/2022/day/16
-/// </summary>
-[Favourite("Proboscidea Volcanium", Topics.Graphs|Topics.Recursion, Difficulty.Hard)]
+[PuzzleInfo("Proboscidea Volcanium", Topics.Graphs|Topics.Recursion, Difficulty.Hard, favourite: true)]
 public sealed class Solution : SolutionBase
 {
     public override object Run(int part)

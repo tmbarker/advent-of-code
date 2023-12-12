@@ -1,24 +1,21 @@
 using System.Text.RegularExpressions;
-using Problems.Common;
 using Utilities.Extensions;
 
 namespace Problems.Y2016.D11;
 
-/// <summary>
-/// Radioisotope Thermoelectric Generators: https://adventofcode.com/2016/day/11
-/// </summary>
+[PuzzleInfo("Radioisotope Thermoelectric Generators", Topics.Graphs, Difficulty.Hard)]
 public sealed class Solution : SolutionBase
 {
-    private static readonly Regex MicrochipRegex = new(@"([a-z]+)-compatible microchip");
-    private static readonly Regex GeneratorRegex = new(@"([a-z]+) generator");
+    private static readonly Regex MicrochipRegex = new(pattern: @"([a-z]+)-compatible microchip");
+    private static readonly Regex GeneratorRegex = new(pattern: @"([a-z]+) generator");
 
-    private static readonly List<Device> ExtraDevices = new()
-    {
+    private static readonly List<Device> ExtraDevices =
+    [
         new Device(Type: DeviceType.Generator, Element: "elerium",   Floor: 1),
         new Device(Type: DeviceType.Microchip, Element: "elerium",   Floor: 1),
         new Device(Type: DeviceType.Generator, Element: "dilithium", Floor: 1),
         new Device(Type: DeviceType.Microchip, Element: "dilithium", Floor: 1)
-    };
+    ];
     
     public override object Run(int part)
     {

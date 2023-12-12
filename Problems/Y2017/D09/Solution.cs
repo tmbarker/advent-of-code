@@ -1,12 +1,10 @@
-using Problems.Common;
-
 namespace Problems.Y2017.D09;
 
-/// <summary>
-/// Stream Processing: https://adventofcode.com/2017/day/9
-/// </summary>
+[PuzzleInfo("Stream Processing", Topics.StringParsing, Difficulty.Medium)]
 public sealed class Solution : SolutionBase
 {
+    private readonly record struct Summary(int Score, int Garbage);
+    
     public override object Run(int part)
     {
         var input = GetInputText();
@@ -27,7 +25,7 @@ public sealed class Solution : SolutionBase
         var depth = 0;
         var scope = default(Scope);
 
-        while (stream.Any())
+        while (stream.Count > 0)
         {
             switch (scope, stream.Dequeue())
             {

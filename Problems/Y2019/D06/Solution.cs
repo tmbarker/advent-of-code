@@ -1,5 +1,3 @@
-using Problems.Attributes;
-using Problems.Common;
 using Utilities.Graph;
 
 namespace Problems.Y2019.D06;
@@ -7,10 +5,7 @@ namespace Problems.Y2019.D06;
 using OrbitMap = IDictionary<string, string>;
 using Memo = IDictionary<string, int>;
 
-/// <summary>
-/// Universal Orbit Map: https://adventofcode.com/2019/day/6
-/// </summary>
-[Favourite("Universal Orbit Map", Topics.Graphs|Topics.Recursion, Difficulty.Easy)]
+[PuzzleInfo("Universal Orbit Map", Topics.Graphs|Topics.Recursion, Difficulty.Easy, favourite: true)]
 public sealed class Solution : SolutionBase
 {
     private const string Com = "COM";

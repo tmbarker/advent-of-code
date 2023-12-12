@@ -1,14 +1,9 @@
-using Problems.Attributes;
-using Problems.Common;
 using Utilities.Extensions;
 using Utilities.Geometry.Euclidean;
 
 namespace Problems.Y2022.D15;
 
-/// <summary>
-/// Beacon Exclusion Zone: https://adventofcode.com/2022/day/15
-/// </summary>
-[Favourite("Beacon Exclusion Zone", Topics.Vectors, Difficulty.Medium)]
+[PuzzleInfo("Beacon Exclusion Zone", Topics.Vectors, Difficulty.Medium, favourite: true)]
 public sealed class Solution : SolutionBase
 {
     private const int Row = 2000000;

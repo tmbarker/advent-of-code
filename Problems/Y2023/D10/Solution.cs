@@ -1,11 +1,8 @@
-using Problems.Common;
 using Utilities.Geometry.Euclidean;
 
 namespace Problems.Y2023.D10;
 
-/// <summary>
-/// Pipe Maze: https://adventofcode.com/2023/day/10
-/// </summary>
+[PuzzleInfo("Pipe Maze", Topics.Graphs, Difficulty.Hard)]
 public class Solution : SolutionBase
 {
     private readonly record struct Map(HashSet<Vector2D> LoopPositions, int MaxDepth);

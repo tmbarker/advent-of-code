@@ -1,11 +1,8 @@
-using Problems.Common;
 using Utilities.Geometry.Euclidean;
 
 namespace Problems.Y2015.D18;
 
-/// <summary>
-/// Like a GIF For Your Yard: https://adventofcode.com/2015/day/18
-/// </summary>
+[PuzzleInfo("Like a GIF For Your Yard", Topics.Simulation, Difficulty.Easy)]
 public sealed class Solution : SolutionBase
 {
     public override object Run(int part)

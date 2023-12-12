@@ -1,13 +1,12 @@
-using Problems.Common;
 using Utilities.Extensions;
 
 namespace Problems.Y2015.D15;
 
-/// <summary>
-/// Science for Hungry People: https://adventofcode.com/2015/day/15
-/// </summary>
+[PuzzleInfo("Science for Hungry People", Topics.Math, Difficulty.Easy)]
 public sealed class Solution : SolutionBase
 {
+    private readonly record struct Properties(int Cap, int Dur, int Fla, int Tex, int Cal);
+    
     public override object Run(int part)
     {
         return part switch
@@ -60,6 +59,4 @@ public sealed class Solution : SolutionBase
             Tex: numbers[3],
             Cal: numbers[4]);
     }
-    
-    private readonly record struct Properties(int Cap, int Dur, int Fla, int Tex, int Cal);
 }

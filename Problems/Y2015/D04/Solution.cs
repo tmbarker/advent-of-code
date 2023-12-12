@@ -1,11 +1,8 @@
-using Problems.Common;
 using Utilities.Hashing;
 
 namespace Problems.Y2015.D04;
 
-/// <summary>
-/// The Ideal Stocking Stuffer: https://adventofcode.com/2015/day/4
-/// </summary>
+[PuzzleInfo("The Ideal Stocking Stuffer", Topics.Hashing, Difficulty.Easy)]
 public sealed class Solution : SolutionBase
 {
     public override object Run(int part)

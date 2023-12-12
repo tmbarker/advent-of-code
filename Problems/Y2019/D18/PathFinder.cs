@@ -1,48 +1,36 @@
-using Problems.Common;
-
 namespace Problems.Y2019.D18;
 
-public sealed class PathFinder
+public sealed class PathFinder(Field field)
 {
-    private readonly Field _field;
-    
-    public PathFinder(Field field)
-    {
-        _field = field;
-    }
-
     public int Run(bool ignoreDoors)
     {
-        var initialState = State.Initial(_field.StartPos);
+        var initialState = State.Initial(field.StartPos);
         var queue = new Queue<State>(new[] { initialState });
         var visited = new HashSet<State>(new[] { initialState });
         
-        while (queue.Any())
+        while (queue.Count > 0)
         {
             var state = queue.Dequeue();
-            if (_field.AllKeysFound(state))
+            if (field.AllKeysFound(state))
             {
                 return state.Steps;
             }
             
-            foreach (var adj in _field.GetAdj(state.Pos))
+            foreach (var adj in field.GetAdj(state.Pos))
             {
-                if (!ignoreDoors && _field.CheckForDoorAt(adj, out var door) && !state.HasKey(char.ToLower(door)))
+                if (!ignoreDoors && field.CheckForDoorAt(adj, out var door) && !state.HasKey(char.ToLower(door)))
                 {
                     continue;
                 }
 
-                var next = _field.CheckForKeyAt(adj, out var key) && !state.HasKey(key)
+                var next = field.CheckForKeyAt(adj, out var key) && !state.HasKey(key)
                     ? state.AfterPickup(adj, key)
                     : state.AfterStep(adj);
 
-                if (visited.Contains(next))
+                if (visited.Add(next))
                 {
-                    continue;
+                    queue.Enqueue(next);
                 }
-                
-                visited.Add(next);
-                queue.Enqueue(next);
             }
         }
 

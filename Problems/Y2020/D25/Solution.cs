@@ -1,10 +1,6 @@
-using Problems.Common;
-
 namespace Problems.Y2020.D25;
 
-/// <summary>
-/// Combo Breaker: https://adventofcode.com/2020/day/25
-/// </summary>
+[PuzzleInfo("Combo Breaker", Topics.Math, Difficulty.Medium)]
 public sealed class Solution : SolutionBase
 {
     private const long DeviceSubject = 7L;

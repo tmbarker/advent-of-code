@@ -1,13 +1,8 @@
-using Problems.Attributes;
-using Problems.Common;
 using Utilities.Language.ContextFree;
 
 namespace Problems.Y2020.D19;
 
-/// <summary>
-/// Monster Messages: https://adventofcode.com/2020/day/19
-/// </summary>
-[Favourite("Monster Messages", Topics.FormalLanguage, Difficulty.Hard)]
+[PuzzleInfo("Monster Messages", Topics.FormalLanguage, Difficulty.Hard, favourite: true)]
 public sealed class Solution : SolutionBase
 {
     private const string StartSymbol = "0";

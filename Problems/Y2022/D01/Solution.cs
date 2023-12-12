@@ -1,10 +1,8 @@
-using Problems.Common;
+using Utilities.Extensions;
 
 namespace Problems.Y2022.D01;
 
-/// <summary>
-/// Calorie Counting: https://adventofcode.com/2022/day/1
-/// </summary>
+[PuzzleInfo("Calorie Counting", Topics.None, Difficulty.Easy)]
 public sealed class Solution : SolutionBase
 {
     public override object Run(int part)
@@ -19,27 +17,9 @@ public sealed class Solution : SolutionBase
 
     private int GetMaxCalories(int num)
     {
-        var lines = GetInputLines();
-        var calories = new List<int>();
-        var currentCalories = 0;
-        
-        foreach (var line in lines)
-        {
-            if (string.IsNullOrWhiteSpace(line))
-            {
-                calories.Add(currentCalories);
-                currentCalories = 0;
-                continue;
-            }
-
-            currentCalories += int.Parse(line);
-        }
-        
-        //  Handle the case where the last line in the input isn't empty
-        //
-        calories.Add(currentCalories);
-
-        return calories
+        return GetInputLines()
+            .ChunkBy(line => !string.IsNullOrWhiteSpace(line))
+            .Select(chunk => chunk.Sum(int.Parse))
             .OrderDescending()
             .Take(num)
             .Sum();

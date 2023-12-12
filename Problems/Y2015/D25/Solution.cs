@@ -1,11 +1,8 @@
-using Problems.Common;
 using Utilities.Extensions;
 
 namespace Problems.Y2015.D25;
 
-/// <summary>
-/// Let It Snow: https://adventofcode.com/2015/day/25
-/// </summary>
+[PuzzleInfo("Let It Snow", Topics.Math, Difficulty.Medium)]
 public sealed class Solution : SolutionBase
 {
     public override int Parts => 1;

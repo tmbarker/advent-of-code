@@ -1,12 +1,9 @@
 using System.Text.RegularExpressions;
-using Problems.Common;
 using Utilities.Extensions;
 
 namespace Problems.Y2023.D02;
 
-/// <summary>
-/// Cube Conundrum: https://adventofcode.com/2023/day/2
-/// </summary>
+[PuzzleInfo("Cube Conundrum", Topics.Math, Difficulty.Easy)]
 public sealed class Solution : SolutionBase
 {
     private readonly record struct Game(int Id, List<Set> Draws);

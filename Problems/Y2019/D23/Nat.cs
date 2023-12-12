@@ -1,5 +1,3 @@
-using Problems.Common;
-
 namespace Problems.Y2019.D23;
 
 public sealed class Nat

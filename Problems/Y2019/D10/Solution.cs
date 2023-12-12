@@ -1,12 +1,9 @@
-using Problems.Common;
 using Utilities.Extensions;
 using Utilities.Geometry.Euclidean;
 
 namespace Problems.Y2019.D10;
 
-/// <summary>
-/// Monitoring Station: https://adventofcode.com/2019/day/10
-/// </summary>
+[PuzzleInfo("Monitoring Station", Topics.Vectors, Difficulty.Medium)]
 public sealed class Solution : SolutionBase
 {
     private const char Asteroid = '#';
@@ -76,7 +73,7 @@ public sealed class Solution : SolutionBase
             var los = laserSteps.Dequeue();
             destroyed.Add(collinearSetsMap[los].Dequeue());
             
-            if (!collinearSetsMap[los].Any())
+            if (collinearSetsMap[los].Count == 0)
             {
                 collinearSetsMap.Remove(los);
             }

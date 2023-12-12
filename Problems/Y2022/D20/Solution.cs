@@ -1,20 +1,17 @@
-using Problems.Common;
 using Utilities.Collections;
 using Utilities.Extensions;
 
 namespace Problems.Y2022.D20;
 
-/// <summary>
-/// Grove Positioning System: https://adventofcode.com/2022/day/20
-/// </summary>
+[PuzzleInfo("Grove Positioning System", Topics.Simulation, Difficulty.Hard)]
 public sealed class Solution : SolutionBase
 {
-    private static readonly HashSet<int> CoordinateOffsets = new()
-    {
+    private static readonly HashSet<int> CoordinateOffsets =
+    [
         1000,
         2000,
         3000
-    };
+    ];
 
     public override object Run(int part)
     {

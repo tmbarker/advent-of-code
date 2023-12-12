@@ -1,13 +1,10 @@
-using Problems.Common;
 using Utilities.Extensions;
 
 namespace Problems.Y2021.D18;
 
 using SfNumber = List<Element>;
 
-/// <summary>
-/// Snailfish: https://adventofcode.com/2021/day/18
-/// </summary>
+[PuzzleInfo("Snailfish", Topics.StringParsing, Difficulty.Hard)]
 public sealed class Solution : SolutionBase
 {
     private const int ExplodeThreshold = 5;

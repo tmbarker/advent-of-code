@@ -1,13 +1,10 @@
-using Problems.Common;
 using Utilities.Collections;
 using Utilities.Extensions;
 using Utilities.Geometry.Euclidean;
 
 namespace Problems.Y2021.D22;
 
-/// <summary>
-/// Reactor Reboot: https://adventofcode.com/2021/day/22
-/// </summary>
+[PuzzleInfo("Reactor Reboot", Topics.Math, Difficulty.Hard)]
 public sealed class Solution : SolutionBase
 {
     public override object Run(int part)

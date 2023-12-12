@@ -1,12 +1,9 @@
 using System.Text;
-using Problems.Common;
 using Utilities.Geometry.Euclidean;
 
 namespace Problems.Y2016.D02;
 
-/// <summary>
-/// Bathroom Security: https://adventofcode.com/2016/day/2
-/// </summary>
+[PuzzleInfo("Bathroom Security", Topics.Vectors, Difficulty.Easy)]
 public sealed class Solution : SolutionBase
 {
     private static readonly Dictionary<Vector2D, char> Square = new()

@@ -1,4 +1,3 @@
-using Problems.Common;
 using Utilities.Extensions;
 using Utilities.Geometry.Euclidean;
 
@@ -6,9 +5,7 @@ namespace Problems.Y2021.D25;
 
 using Herds = Dictionary<Vector2D, ISet<Vector2D>>;
 
-/// <summary>
-/// Sea Cucumber: https://adventofcode.com/2021/day/25
-/// </summary>
+[PuzzleInfo("Sea Cucumber", Topics.Vectors|Topics.Simulation, Difficulty.Medium)]
 public sealed class Solution : SolutionBase
 {
     private static readonly Dictionary<char, Vector2D> HerdDirections = new()

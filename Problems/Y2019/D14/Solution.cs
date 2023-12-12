@@ -1,11 +1,8 @@
 using System.Text.RegularExpressions;
-using Problems.Common;
 
 namespace Problems.Y2019.D14;
 
-/// <summary>
-/// Space Stoichiometry: https://adventofcode.com/2019/day/14
-/// </summary>
+[PuzzleInfo("Space Stoichiometry", Topics.Math, Difficulty.Hard)]
 public sealed class Solution : SolutionBase
 {
     private const string Fuel = "FUEL";

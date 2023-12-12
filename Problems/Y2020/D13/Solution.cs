@@ -1,10 +1,6 @@
-using Problems.Common;
-
 namespace Problems.Y2020.D13;
 
-/// <summary>
-/// Shuttle Search: https://adventofcode.com/2020/day/13
-/// </summary>
+[PuzzleInfo("Shuttle Search", Topics.Math, Difficulty.Hard)]
 public sealed class Solution : SolutionBase
 {
     public override object Run(int part)

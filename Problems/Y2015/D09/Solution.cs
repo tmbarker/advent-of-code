@@ -1,13 +1,12 @@
-using Problems.Common;
 using Utilities.Extensions;
 
 namespace Problems.Y2015.D09;
 
-/// <summary>
-/// All in a Single Night: https://adventofcode.com/2015/day/9
-/// </summary>
+[PuzzleInfo("All in a Single Night", Topics.Graphs, Difficulty.Medium)]
 public sealed class Solution : SolutionBase
 {
+    private readonly record struct Route(string From, string To, int Cost);
+    
     public override object Run(int part)
     {
         var input = GetInputLines();
@@ -109,6 +108,4 @@ public sealed class Solution : SolutionBase
         var tokens = line.Split(' ');
         return new Route(From: tokens[0], To: tokens[2], Cost: int.Parse(tokens[4]));
     }
-
-    private readonly record struct Route(string From, string To, int Cost);
 }

@@ -1,12 +1,6 @@
-using Problems.Attributes;
-using Problems.Common;
-
 namespace Problems.Y2021.D06;
 
-/// <summary>
-/// Lanternfish: https://adventofcode.com/2021/day/6
-/// </summary>
-[Favourite("Lanternfish", Topics.Math, Difficulty.Medium)]
+[PuzzleInfo("Lanternfish", Topics.Math | Topics.Simulation, Difficulty.Medium, favourite: true)]
 public sealed class Solution : SolutionBase
 {
     private const int ResetTo = 6;

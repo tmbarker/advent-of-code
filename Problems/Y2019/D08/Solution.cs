@@ -1,12 +1,9 @@
 using System.Text;
-using Problems.Common;
 using Utilities.Extensions;
 
 namespace Problems.Y2019.D08;
 
-/// <summary>
-/// Space Image Format: https://adventofcode.com/2019/day/8
-/// </summary>
+[PuzzleInfo("Space Image Format", Topics.Simulation, Difficulty.Medium)]
 public sealed class Solution : SolutionBase
 {
     private const int Cols = 25;
@@ -30,7 +27,7 @@ public sealed class Solution : SolutionBase
         };
     }
 
-    private static int ComputeMinLayerProduct(IEnumerable<IList<int>> layers)
+    private static int ComputeMinLayerProduct(IEnumerable<List<int>> layers)
     {
         var minLayer = layers.MinBy(l => l.Count(d => d == 0));
         var ones = minLayer!.Count(d => d == 1);
@@ -39,7 +36,7 @@ public sealed class Solution : SolutionBase
         return ones * twos;
     }
 
-    private static string BuildResultingImage(IList<IList<int>> layers)
+    private static string BuildResultingImage(IList<List<int>> layers)
     {
         var image = new StringBuilder();
         for (var i = 0; i < PixelsPerLayer; i++)
@@ -55,12 +52,12 @@ public sealed class Solution : SolutionBase
         return image.ToString();
     }
 
-    private static IList<IList<int>> ParseLayers(string input)
+    private static List<List<int>> ParseLayers(string input)
     {
         return input
             .Select(StringExtensions.AsDigit)
             .Chunk(PixelsPerLayer)
-            .Select(digits => (IList<int>)new List<int>(digits))
+            .Select(digits => new List<int>(digits))
             .ToList();
     }
 }

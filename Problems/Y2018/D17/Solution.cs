@@ -1,13 +1,8 @@
-using Problems.Attributes;
-using Problems.Common;
 using Utilities.Geometry.Euclidean;
 
 namespace Problems.Y2018.D17;
 
-/// <summary>
-/// Reservoir Research: https://adventofcode.com/2018/day/17
-/// </summary>
-[Favourite("Reservoir Research", Topics.Vectors, Difficulty.Medium)]
+[PuzzleInfo("Reservoir Research", Topics.Vectors, Difficulty.Medium, favourite: true)]
 public sealed class Solution : SolutionBase
 {
     private static readonly Vector2D Gravity = new(x: 0, y: 1);

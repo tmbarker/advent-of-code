@@ -4,13 +4,13 @@ namespace Problems.Y2022.D23;
 
 public static class MovePreferences
 {
-    private static readonly List<(Vector2D target, HashSet<Vector2D> checkSet)> Choices = new()
-    {
-        (Vector2D.Up, new HashSet<Vector2D> { new(-1, 1), new(0, 1), new(1, 1) }),
-        (Vector2D.Down, new HashSet<Vector2D> { new(-1, -1), new(0, -1), new(1, -1) }),
-        (Vector2D.Left, new HashSet<Vector2D> { new(-1, 1), new(-1, 0), new(-1, -1) }),
-        (Vector2D.Right, new HashSet<Vector2D> { new(1, 1), new(1, 0), new(1, -1) })
-    };
+    private static readonly List<(Vector2D target, HashSet<Vector2D> checkSet)> Choices =
+    [
+        (target: Vector2D.Up,    checkSet:[new Vector2D(x: -1, y:  1), new Vector2D(x:  0, y:  1), new Vector2D(x:  1, y:  1)]),
+        (target: Vector2D.Down,  checkSet:[new Vector2D(x: -1, y: -1), new Vector2D(x:  0, y: -1), new Vector2D(x:  1, y: -1)]),
+        (target: Vector2D.Left,  checkSet:[new Vector2D(x: -1, y:  1), new Vector2D(x: -1, y:  0), new Vector2D(x: -1, y: -1)]),
+        (target: Vector2D.Right, checkSet:[new Vector2D(x:  1, y:  1), new Vector2D(x:  1, y:  0), new Vector2D(x:  1, y: -1)])
+    ];
 
     public static int Count => Choices.Count;
 

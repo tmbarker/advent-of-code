@@ -1,5 +1,4 @@
 using System.Text.RegularExpressions;
-using Problems.Common;
 using Utilities.Geometry.Hexagonal;
 
 namespace Problems.Y2020.D24;
@@ -7,9 +6,7 @@ namespace Problems.Y2020.D24;
 using Instructions = IList<string>;
 using Floor = HashSet<Hex>;
 
-/// <summary>
-/// Lobby Layout: https://adventofcode.com/2020/day/24
-/// </summary>
+[PuzzleInfo("Lobby Layout", Topics.Vectors|Topics.Math, Difficulty.Easy)]
 public sealed class Solution : SolutionBase
 {
     private static readonly Dictionary<string, Hex> Adjacencies = new()
@@ -40,7 +37,7 @@ public sealed class Solution : SolutionBase
     {
         for (var d = 0; d < days; d++)
         {
-            var consider = new HashSet<Hex>();
+            var consider = new Floor();
             var next = new Floor();
             
             foreach (var tile in floor)
@@ -93,7 +90,7 @@ public sealed class Solution : SolutionBase
 
     private static IEnumerable<Instructions> ParseInstructions(IEnumerable<string> input)
     {
-        var regex = new Regex(@"(e|se|sw|w|nw|ne)+");
+        var regex = new Regex(pattern: @"(e|se|sw|w|nw|ne)+");
         foreach (var line in input)
         {
             var match = regex.Match(line);

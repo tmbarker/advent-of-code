@@ -1,11 +1,8 @@
-using Problems.Common;
 using Utilities.Geometry.Euclidean;
 
 namespace Problems.Y2018.D13;
 
-/// <summary>
-/// Mine Cart Madness: https://adventofcode.com/2018/day/13
-/// </summary>
+[PuzzleInfo("Mine Cart Madness", Topics.Simulation, Difficulty.Hard)]
 public sealed class Solution : SolutionBase
 {
     public override object Run(int part)

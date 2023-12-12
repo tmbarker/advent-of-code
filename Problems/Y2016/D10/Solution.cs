@@ -1,12 +1,9 @@
 using System.Text.RegularExpressions;
-using Problems.Common;
 using Utilities.Extensions;
 
 namespace Problems.Y2016.D10;
 
-/// <summary>
-/// Balance Bots: https://adventofcode.com/2016/day/10
-/// </summary>
+[PuzzleInfo("Balance Bots", Topics.RegularExpressions, Difficulty.Medium)]
 public sealed class Solution : SolutionBase
 {
     private const string SourceMarker = "value";
@@ -22,7 +19,7 @@ public sealed class Solution : SolutionBase
         return part switch
         {
             1 => FindNode(map, v1: 61, v2: 17),
-            2 => ComputeOutputProduct(map, outputIds: new HashSet<int> { 0, 1, 2 }),
+            2 => ComputeOutputProduct(map, outputIds: [0, 1, 2]),
             _ => ProblemNotSolvedString
         };
     }
@@ -72,7 +69,7 @@ public sealed class Solution : SolutionBase
             }
         }
 
-        while (queue.Any())
+        while (queue.Count > 0)
         {
             var id = queue.Dequeue();
             var node = map[id];

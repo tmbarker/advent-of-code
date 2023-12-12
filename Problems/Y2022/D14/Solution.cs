@@ -1,22 +1,19 @@
-using Problems.Common;
 using Utilities.Extensions;
 using Utilities.Geometry.Euclidean;
 
 namespace Problems.Y2022.D14;
 
-/// <summary>
-/// Regolith Reservoir: https://adventofcode.com/2022/day/14
-/// </summary>
+[PuzzleInfo("Regolith Reservoir", Topics.Vectors|Topics.Simulation, Difficulty.Medium)]
 public sealed class Solution : SolutionBase
 {
     private const int FloorDelta = 2;
     private static readonly Vector2D SandOrigin = new(x: 500, y: 0);
-    private static readonly HashSet<Vector2D> FallVectors = new()
-    {
+    private static readonly HashSet<Vector2D> FallVectors =
+    [
         new Vector2D(x:  0, y: 1),
         new Vector2D(x: -1, y: 1),
         new Vector2D(x:  1, y: 1)
-    };
+    ];
 
     public override object Run(int part)
     {

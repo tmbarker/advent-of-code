@@ -22,7 +22,7 @@ public sealed class ValveData
         {
             var (id, flows, adjacencies) = ParseLine(line);
             flowRates.Add(id, flows);
-            tunnelAdjacencies.Add(id, new HashSet<string>(adjacencies));
+            tunnelAdjacencies.Add(id, [..adjacencies]);
         }
 
         return new ValveData(flowRates, tunnelAdjacencies);

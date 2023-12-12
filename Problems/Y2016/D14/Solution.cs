@@ -1,11 +1,8 @@
 using System.Text.RegularExpressions;
-using Problems.Common;
 
 namespace Problems.Y2016.D14;
 
-/// <summary>
-/// One-Time Pad: https://adventofcode.com/2016/day/14
-/// </summary>
+[PuzzleInfo("One-Time Pad", Topics.Hashing, Difficulty.Medium)]
 public sealed class Solution : SolutionBase
 {
     private static readonly Regex CandidateRegex = new(@"(?<C>[a-z0-9])\1\1");

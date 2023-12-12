@@ -1,11 +1,8 @@
-using Problems.Common;
 using Utilities.Extensions;
 
 namespace Problems.Y2016.D04;
 
-/// <summary>
-/// Security Through Obscurity: https://adventofcode.com/2016/day/4
-/// </summary>
+[PuzzleInfo("Security Through Obscurity", Topics.StringParsing, Difficulty.Easy)]
 public sealed class Solution : SolutionBase
 {
     public override object Run(int part)

@@ -1,13 +1,9 @@
-using Problems.Attributes;
-using Problems.Common;
 using Utilities.Extensions;
 
 namespace Problems.Y2021.D24;
 
-/// <summary>
-/// Arithmetic Logic Unit: https://adventofcode.com/2021/day/24
-/// </summary>
-[InputSpecific("Only validates hand-calculated answers, see source for details")]
+[InputSpecificSolution("Only validates hand-calculated answers, see source for details")]
+[PuzzleInfo("Arithmetic Logic Unit", Topics.Assembly, Difficulty.Hard)]
 public sealed class Solution : SolutionBase
 {
     /*

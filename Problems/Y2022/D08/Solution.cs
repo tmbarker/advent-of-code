@@ -1,14 +1,9 @@
-using Problems.Attributes;
-using Problems.Common;
 using Utilities.Extensions;
 using Utilities.Geometry.Euclidean;
 
 namespace Problems.Y2022.D08;
 
-/// <summary>
-/// Treetop Tree House: https://adventofcode.com/2022/day/8
-/// </summary>
-[Favourite("Treetop Tree House", Topics.Vectors, Difficulty.Easy)]
+[PuzzleInfo("Treetop Tree House", Topics.Vectors, Difficulty.Easy, favourite: true)]
 public sealed class Solution : SolutionBase
 {
     private const int MinHeight = 0;

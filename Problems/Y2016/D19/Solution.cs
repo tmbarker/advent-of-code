@@ -1,13 +1,8 @@
-using Problems.Attributes;
-using Problems.Common;
 using Utilities.Collections;
 
 namespace Problems.Y2016.D19;
 
-/// <summary>
-/// An Elephant Named Joseph: https://adventofcode.com/2016/day/19
-/// </summary>
-[Favourite("An Elephant Named Joseph", Topics.Math, Difficulty.Hard)]
+[PuzzleInfo("An Elephant Named Joseph", Topics.Math, Difficulty.Hard, favourite: true)]
 public sealed class Solution : SolutionBase
 {
     public override object Run(int part)

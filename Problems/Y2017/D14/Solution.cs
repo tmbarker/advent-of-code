@@ -1,14 +1,11 @@
 using System.Collections;
 using System.Globalization;
-using Problems.Common;
 using Problems.Y2017.Common;
 using Utilities.Collections;
 
 namespace Problems.Y2017.D14;
 
-/// <summary>
-/// Disk Defragmentation: https://adventofcode.com/2017/day/14
-/// </summary>
+[PuzzleInfo("Disk Defragmentation", Topics.Vectors|Topics.BitwiseOperations, Difficulty.Medium)]
 public sealed class Solution : SolutionBase
 {
     public override object Run(int part)

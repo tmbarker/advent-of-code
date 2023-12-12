@@ -1,12 +1,9 @@
-using Problems.Common;
 using Utilities.Extensions;
 using Utilities.Geometry.Euclidean;
 
 namespace Problems.Y2020.D03;
 
-/// <summary>
-/// Toboggan Trajectory: https://adventofcode.com/2020/day/3
-/// </summary>
+[PuzzleInfo("Toboggan Trajectory", Topics.Vectors|Topics.Math, Difficulty.Easy)]
 public sealed class Solution : SolutionBase
 {
     private static readonly Vector2D InitialPos = Vector2D.Zero;

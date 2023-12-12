@@ -1,10 +1,6 @@
-using Problems.Common;
-
 namespace Problems.Y2019.D01;
 
-/// <summary>
-/// The Tyranny of the Rocket Equation: https://adventofcode.com/2019/day/1
-/// </summary>
+[PuzzleInfo("The Tyranny of the Rocket Equation", Topics.Math, Difficulty.Easy)]
 public sealed class Solution : SolutionBase
 {
     public override object Run(int part)

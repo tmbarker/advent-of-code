@@ -1,13 +1,8 @@
 using System.Text.RegularExpressions;
-using Problems.Attributes;
-using Problems.Common;
 
 namespace Problems.Y2015.D08;
 
-/// <summary>
-/// Matchsticks: https://adventofcode.com/2015/day/8
-/// </summary>
-[Favourite("Matchsticks", Topics.RegularExpressions, Difficulty.Medium)]
+[PuzzleInfo("Matchsticks", Topics.RegularExpressions, Difficulty.Medium, favourite: true)]
 public sealed class Solution : SolutionBase
 {
     public override object Run(int part)

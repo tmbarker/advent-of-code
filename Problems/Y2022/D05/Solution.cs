@@ -1,11 +1,8 @@
 using System.Text;
-using Problems.Common;
 
 namespace Problems.Y2022.D05;
 
-/// <summary>
-/// Supply Stacks: https://adventofcode.com/2022/day/5
-/// </summary>
+[PuzzleInfo("Supply Stacks", Topics.Simulation, Difficulty.Medium)]
 public sealed class Solution : SolutionBase
 {
     public override object Run(int part)

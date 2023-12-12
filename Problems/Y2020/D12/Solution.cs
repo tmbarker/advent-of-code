@@ -1,15 +1,12 @@
-using Problems.Attributes;
-using Problems.Common;
 using Utilities.Geometry.Euclidean;
 
 namespace Problems.Y2020.D12;
 
-/// <summary>
-/// Rain Risk: https://adventofcode.com/2020/day/12
-/// </summary>
-[Favourite("Rain Risk", Topics.Vectors, Difficulty.Easy)]
+[PuzzleInfo("Rain Risk", Topics.Vectors, Difficulty.Easy, favourite: true)]
 public sealed class Solution : SolutionBase
 {
+    private readonly record struct Instruction(char Command, int Amount);
+    
     private const char North = 'N';
     private const char South = 'S';
     private const char East = 'E';
@@ -106,6 +103,4 @@ public sealed class Solution : SolutionBase
             Command: line[0],
             Amount: int.Parse(line[1..]));
     }
-
-    private readonly record struct Instruction(char Command, int Amount);
 }

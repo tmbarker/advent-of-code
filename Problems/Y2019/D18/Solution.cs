@@ -1,10 +1,6 @@
-﻿using Problems.Common;
+﻿namespace Problems.Y2019.D18;
 
-namespace Problems.Y2019.D18;
-
-/// <summary>
-/// Many-Worlds Interpretation: https://adventofcode.com/2019/day/18
-/// </summary>
+[PuzzleInfo("Many-Worlds Interpretation", Topics.Graphs, Difficulty.Medium)]
 public sealed class Solution : SolutionBase
 {
     public override object Run(int part)

@@ -1,17 +1,14 @@
-using Problems.Common;
 using Utilities.Geometry.Euclidean;
 using Utilities.Hashing;
 
 namespace Problems.Y2016.D17;
 
-/// <summary>
-/// Two Steps Forward: https://adventofcode.com/2016/day/17
-/// </summary>
+[PuzzleInfo("Two Steps Forward", Topics.Vectors|Topics.Graphs, Difficulty.Medium)]
 public sealed class Solution : SolutionBase
 {
     private static readonly Vector2D Start  = new(x: 0, y: 3);
     private static readonly Vector2D Target = new(x: 3, y: 0);
-    private static readonly HashSet<char> OpenSet = new() { 'b', 'c', 'd', 'e', 'f' };
+    private static readonly HashSet<char> OpenSet = ['b', 'c', 'd', 'e', 'f'];
     
     private static readonly Dictionary<int, Vector2D> IndicesMap = new()
     {

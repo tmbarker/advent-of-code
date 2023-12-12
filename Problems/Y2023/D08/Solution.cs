@@ -1,13 +1,10 @@
 using System.Text.RegularExpressions;
-using Problems.Common;
 using Utilities.Extensions;
 using Utilities.Numerics;
 
 namespace Problems.Y2023.D08;
 
-/// <summary>
-/// Haunted Wasteland: https://adventofcode.com/2023/day/8
-/// </summary>
+[PuzzleInfo("Haunted Wasteland", Topics.Graphs, Difficulty.Medium)]
 public sealed class Solution : SolutionBase
 {
     private readonly record struct Node(string Id, string Left, string Right);

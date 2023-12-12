@@ -1,4 +1,3 @@
-using Problems.Common;
 using Utilities.Geometry.Euclidean;
 
 namespace Problems.Y2017.D03;
@@ -6,6 +5,7 @@ namespace Problems.Y2017.D03;
 /// <summary>
 /// Spiral Memory: https://adventofcode.com/2017/day/3
 /// </summary>
+[PuzzleInfo("Spiral Memory", Topics.Vectors, Difficulty.Medium)]
 public sealed class Solution : SolutionBase
 {
     public override object Run(int part)
@@ -24,22 +24,20 @@ public sealed class Solution : SolutionBase
     private static int GetDistanceToOrigin(int square)
     {
         var memory = new Spiral();
+        memory.Build(
+            valueFunc: spiral => spiral.LastVal + 1,
+            stopFunc: spiral => spiral.LastVal == square);
         
-        int ValueFunc(Spiral spiral) => spiral.LastVal + 1;
-        bool StopPredicate(Spiral spiral) => spiral.LastVal == square;
-
-        memory.Build(ValueFunc, StopPredicate);
         return memory.LastPos.Magnitude(Metric.Taxicab);
     }
     
     private static int GetFirstLargerValue(int threshold)
     {
         var memory = new Spiral();
+        memory.Build(
+            valueFunc: spiral => spiral.NextPos.GetAdjacentSet(Metric.Chebyshev).Sum(pos => spiral[pos]),
+            stopFunc: spiral => spiral.LastVal > threshold);
         
-        int ValueFunc(Spiral spiral) => spiral.NextPos.GetAdjacentSet(Metric.Chebyshev).Sum(pos => spiral[pos]);
-        bool StopPredicate(Spiral spiral) => spiral.LastVal > threshold;
-
-        memory.Build(ValueFunc, StopPredicate);
         return memory.LastVal;
     }
 }

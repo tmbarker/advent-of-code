@@ -1,13 +1,10 @@
 using System.Text.RegularExpressions;
-using Problems.Common;
 using Utilities.Extensions;
 using Utilities.Graph;
 
 namespace Problems.Y2017.D07;
 
-/// <summary>
-/// Recursive Circus: https://adventofcode.com/2017/day/7
-/// </summary>
+[PuzzleInfo("Recursive Circus", Topics.Graphs, Difficulty.Medium)]
 public sealed class Solution : SolutionBase
 {
     public override object Run(int part)

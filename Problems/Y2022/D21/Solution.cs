@@ -1,16 +1,12 @@
-using Problems.Common;
-
 namespace Problems.Y2022.D21;
 
-/// <summary>
-/// Monkey Math: https://adventofcode.com/2022/day/21
-/// </summary>
+[PuzzleInfo("Monkey Math", Topics.StringParsing|Topics.Math, Difficulty.Hard)]
 public sealed class Solution : SolutionBase
 {
     private const string Root = "root";
     private const string Unknown = "humn";
 
-    private static readonly HashSet<Operator> CommutativeOperators = new() { Operator.Add, Operator.Multiply };
+    private static readonly HashSet<Operator> CommutativeOperators = [Operator.Add, Operator.Multiply];
     private static readonly Dictionary<Operator, Operator> InverseOperators = new()
     {
         { Operator.Add, Operator.Subtract },

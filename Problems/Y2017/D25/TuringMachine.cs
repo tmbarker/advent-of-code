@@ -1,15 +1,12 @@
 namespace Problems.Y2017.D25;
 
-public sealed class TuringMachine
+public sealed class TuringMachine(IReadOnlyDictionary<char, TuringMachine.State> ruleTable)
 {
-    private readonly Dictionary<char, State> _ruleTable;
+    public readonly record struct Transition(bool Write, int Move, char Next);
+    public readonly record struct State(Transition False, Transition True);
+    
     private readonly Dictionary<int, bool> _tape = new();
     private int _cursor;
-    
-    public TuringMachine(Dictionary<char, State> ruleTable)
-    {
-        _ruleTable = ruleTable;
-    }
 
     public int Run(char state, int steps)
     {
@@ -18,7 +15,7 @@ public sealed class TuringMachine
         
         for (var i = 0; i < steps; i++)
         {
-            var rule = _ruleTable[state];
+            var rule = ruleTable[state];
             var transition = _tape.TryGetValue(_cursor, out var value) && value
                 ? rule.True
                 : rule.False;
@@ -31,7 +28,4 @@ public sealed class TuringMachine
 
         return _tape.Values.Count(b => b);
     }
-    
-    public readonly record struct Transition(bool Write, int Move, char Next);
-    public readonly record struct State(Transition False, Transition True);
 }

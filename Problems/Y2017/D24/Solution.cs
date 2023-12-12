@@ -1,13 +1,8 @@
-using Problems.Attributes;
-using Problems.Common;
 using Utilities.Extensions;
 
 namespace Problems.Y2017.D24;
 
-/// <summary>
-/// Electromagnetic Moat: https://adventofcode.com/2017/day/24
-/// </summary>
-[Favourite("Electromagnetic Moat", Topics.Graphs, Difficulty.Medium)]
+[PuzzleInfo("Electromagnetic Moat", Topics.Graphs, Difficulty.Medium, favourite: true)]
 public sealed class Solution : SolutionBase
 {
     public override object Run(int part)
@@ -26,7 +21,7 @@ public sealed class Solution : SolutionBase
         var helper = BuildAdapterHelper(input);
         var bridges = GetBridges(
             head: 0,
-            used: new HashSet<string>(),
+            used: [],
             helper: helper);
 
         return bridges.MaxBy(bridge => bridge, bridgeComparer).Strength;
@@ -70,7 +65,7 @@ public sealed class Solution : SolutionBase
 
     private static HashSet<string> UnionAfter(IEnumerable<string> used, string after)
     {
-        return new HashSet<string>(used) { after };
+        return [..used, after];
     }
 
     private static AdapterHelper BuildAdapterHelper(IEnumerable<string> input)

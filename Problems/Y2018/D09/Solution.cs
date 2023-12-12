@@ -1,12 +1,9 @@
-using Problems.Common;
 using Utilities.Collections;
 using Utilities.Extensions;
 
 namespace Problems.Y2018.D09;
 
-/// <summary>
-/// Marble Mania: https://adventofcode.com/2018/day/9
-/// </summary>
+[PuzzleInfo("Marble Mania", Topics.Simulation, Difficulty.Medium)]
 public sealed class Solution : SolutionBase
 {
     public override object Run(int part)

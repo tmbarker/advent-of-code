@@ -1,10 +1,6 @@
-using Problems.Common;
-
 namespace Problems.Y2016.D25;
 
-/// <summary>
-/// Clock Signal: https://adventofcode.com/2016/day/25
-/// </summary>
+[PuzzleInfo("Clock Signal", Topics.Assembly, Difficulty.Medium)]
 public sealed class Solution : SolutionBase
 {
     public override int Parts => 1;

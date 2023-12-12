@@ -1,12 +1,9 @@
-using Problems.Common;
 using Utilities.Collections;
 using Utilities.Extensions;
 
 namespace Problems.Y2016.D21;
 
-/// <summary>
-/// Scrambled Letters and Hash: https://adventofcode.com/2016/day/21
-/// </summary>
+[PuzzleInfo("Scrambled Letters and Hash", Topics.Math|Topics.Simulation, Difficulty.Hard)]
 public sealed class Solution : SolutionBase
 {
     public override object Run(int part)

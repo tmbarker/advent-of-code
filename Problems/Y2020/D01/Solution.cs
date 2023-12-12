@@ -1,10 +1,6 @@
-using Problems.Common;
-
 namespace Problems.Y2020.D01;
 
-/// <summary>
-/// Report Repair: https://adventofcode.com/2020/day/1
-/// </summary>
+[PuzzleInfo("Report Repair", Topics.Math, Difficulty.Easy)]
 public sealed class Solution : SolutionBase
 {
     public override object Run(int part)

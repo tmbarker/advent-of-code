@@ -1,11 +1,8 @@
-using Problems.Common;
 using Utilities.Geometry.Euclidean;
 
 namespace Problems.Y2022.D12;
 
-/// <summary>
-/// Hill Climbing Algorithm: https://adventofcode.com/2022/day/12
-/// </summary>
+[PuzzleInfo("Hill Climbing Algorithm", Topics.Graphs, Difficulty.Medium)]
 public sealed class Solution : SolutionBase
 {
     private const char MinHeight = 'a';
@@ -40,7 +37,7 @@ public sealed class Solution : SolutionBase
         var visited = new HashSet<Vector2D>(new[] { start });
         var depth = 0;
         
-        while (queue.Any())
+        while (queue.Count > 0)
         {
             var nodesAtDepth = queue.Count;
             while (nodesAtDepth-- > 0)

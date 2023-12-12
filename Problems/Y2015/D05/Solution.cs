@@ -1,13 +1,8 @@
 using System.Text.RegularExpressions;
-using Problems.Attributes;
-using Problems.Common;
 
 namespace Problems.Y2015.D05;
 
-/// <summary>
-/// Doesn't He Have Intern-Elves For This?: https://adventofcode.com/2015/day/5
-/// </summary>
-[Favourite("Doesn't He Have Intern-Elves For This?", Topics.RegularExpressions, Difficulty.Medium)]
+[PuzzleInfo("Doesn't He Have Intern-Elves For This?", Topics.RegularExpressions, Difficulty.Medium, favourite: true)]
 public sealed class Solution : SolutionBase
 {
     private static readonly Regex NiceA = new(@"^(?=.*(.)\1)(?!.*(ab|cd|pq|xy))(.*[aeiou]){3,}");

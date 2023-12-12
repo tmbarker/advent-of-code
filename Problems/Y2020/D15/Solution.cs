@@ -1,10 +1,6 @@
-using Problems.Common;
-
 namespace Problems.Y2020.D15;
 
-/// <summary>
-/// Rambunctious Recitation: https://adventofcode.com/2020/day/15
-/// </summary>
+[PuzzleInfo("Rambunctious Recitation", Topics.Simulation, Difficulty.Medium)]
 public sealed class Solution : SolutionBase
 {
     public override object Run(int part)
@@ -27,7 +23,7 @@ public sealed class Solution : SolutionBase
         foreach (var number in startingNumbers)
         {
             lastSpoken = number;
-            spokenMap[number] = (turnNumber, turnNumber);
+            spokenMap[number] = (Last: turnNumber, Previous: turnNumber);
 
             turnNumber++;
         }
@@ -36,8 +32,8 @@ public sealed class Solution : SolutionBase
         {
             lastSpoken = spokenMap[lastSpoken].Last - spokenMap[lastSpoken].Previous;
             spokenMap[lastSpoken] = spokenMap.ContainsKey(lastSpoken)
-                ? spokenMap[lastSpoken] = (turnNumber, spokenMap[lastSpoken].Last)
-                : spokenMap[lastSpoken] = (turnNumber, turnNumber);
+                ? spokenMap[lastSpoken] = (Last: turnNumber, Previous: spokenMap[lastSpoken].Last)
+                : spokenMap[lastSpoken] = (Last: turnNumber, Previous: turnNumber);
 
             turnNumber++;
         }

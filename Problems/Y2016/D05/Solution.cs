@@ -1,13 +1,10 @@
 using System.Text;
-using Problems.Common;
 using Utilities.Extensions;
 using Utilities.Hashing;
 
 namespace Problems.Y2016.D05;
 
-/// <summary>
-/// How About a Nice Game of Chess?: https://adventofcode.com/2016/day/5
-/// </summary>
+[PuzzleInfo("How About a Nice Game of Chess", Topics.Hashing, Difficulty.Easy)]
 public sealed class Solution : SolutionBase
 {
     public override object Run(int part)

@@ -2,9 +2,7 @@ using Problems.Y2019.IntCode;
 
 namespace Problems.Y2019.D23;
 
-/// <summary>
-/// Category Six: https://adventofcode.com/2019/day/23
-/// </summary>
+[PuzzleInfo("Category Six", Topics.IntCode, Difficulty.Hard)]
 public sealed class Solution : IntCodeSolution
 {
     public override object Run(int part)

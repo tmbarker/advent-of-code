@@ -1,13 +1,8 @@
-using Problems.Attributes;
-using Problems.Common;
 using Utilities.Geometry.Euclidean;
 
 namespace Problems.Y2021.D19;
 
-/// <summary>
-/// Beacon Scanner: https://adventofcode.com/2021/day/19
-/// </summary>
-[Favourite("Beacon Scanner", Topics.Vectors, Difficulty.Hard)]
+[PuzzleInfo("Beacon Scanner", Topics.Vectors, Difficulty.Hard, favourite: true)]
 public sealed class Solution : SolutionBase
 {
     private const int IntersectionThreshold = 12;

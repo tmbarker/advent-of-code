@@ -1,10 +1,6 @@
-using Problems.Common;
-
 namespace Problems.Y2018.D15;
 
-/// <summary>
-/// Beverage Bandits: https://adventofcode.com/2018/day/15
-/// </summary>
+[PuzzleInfo("Beverage Bandits", Topics.Simulation, Difficulty.Hard)]
 public sealed class Solution : SolutionBase
 {
     public override object Run(int part)

@@ -1,10 +1,6 @@
-using Problems.Common;
-
 namespace Problems.Y2016.D18;
 
-/// <summary>
-/// Like a Rogue: https://adventofcode.com/2016/day/18
-/// </summary>
+[PuzzleInfo("Like a Rogue", Topics.StringParsing, Difficulty.Medium)]
 public sealed class Solution : SolutionBase
 {
     private delegate bool TrapPredicate(char left, char center, char right);
@@ -12,13 +8,13 @@ public sealed class Solution : SolutionBase
     private const char Safe = '.';
     private const char Trap = '^';
 
-    private static readonly List<TrapPredicate> TrapPredicates = new()
-    {
+    private static readonly List<TrapPredicate> TrapPredicates =
+    [
         (left, center, right) => left == Trap && center == Trap && right == Safe,
         (left, center, right) => left == Safe && center == Trap && right == Trap,
         (left, center, right) => left == Trap && center == Safe && right == Safe,
         (left, center, right) => left == Safe && center == Safe && right == Trap
-    };
+    ];
 
     public override object Run(int part)
     {

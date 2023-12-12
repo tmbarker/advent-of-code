@@ -1,11 +1,8 @@
-using Problems.Common;
 using Utilities.Geometry.Euclidean;
 
 namespace Problems.Y2022.D22;
 
-/// <summary>
-/// Monkey Map: https://adventofcode.com/2022/day/22
-/// </summary>
+[PuzzleInfo("Monkey Map", Topics.Vectors, Difficulty.Hard)]
 public sealed class Solution : SolutionBase
 {
     private delegate bool MoveHandler(Pose2D pose, Grid2D<Square> board, out Pose2D result);

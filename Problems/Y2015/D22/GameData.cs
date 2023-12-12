@@ -2,14 +2,14 @@ namespace Problems.Y2015.D22;
 
 public static class GameData
 {
-    public static readonly HashSet<Spell> Spells = new ()
-    {
+    public static readonly HashSet<Spell> Spells =
+    [
         Spell.MagicMissile,
         Spell.Drain,
         Spell.Shield,
         Spell.Poison,
         Spell.Recharge
-    };
+    ];
     
     public static readonly Dictionary<Spell, int> SpellCosts = new()
     {

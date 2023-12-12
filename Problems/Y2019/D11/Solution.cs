@@ -6,9 +6,7 @@ using Utilities.Geometry.Euclidean;
 
 namespace Problems.Y2019.D11;
 
-/// <summary>
-/// Space Police: https://adventofcode.com/2019/day/11
-/// </summary>
+[PuzzleInfo("Space Police", Topics.IntCode|Topics.Vectors, Difficulty.Medium)]
 public sealed class Solution : IntCodeSolution
 {
     private const long Black = 0L;

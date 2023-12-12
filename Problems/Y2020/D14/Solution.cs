@@ -1,10 +1,6 @@
-using Problems.Common;
-
 namespace Problems.Y2020.D14;
 
-/// <summary>
-/// Docking Data: https://adventofcode.com/2020/day/14
-/// </summary>
+[PuzzleInfo("Docking Data", Topics.Assembly|Topics.BitwiseOperations|Topics.Simulation, Difficulty.Hard)]
 public sealed class Solution : SolutionBase
 {
     public override object Run(int part)

@@ -1,10 +1,6 @@
-using Problems.Common;
-
 namespace Problems.Y2016.D16;
 
-/// <summary>
-/// Dragon Checksum: https://adventofcode.com/2016/day/16
-/// </summary>
+[PuzzleInfo("Dragon Checksum", Topics.BitwiseOperations, Difficulty.Easy)]
 public sealed class Solution : SolutionBase
 {
     public override object Run(int part)

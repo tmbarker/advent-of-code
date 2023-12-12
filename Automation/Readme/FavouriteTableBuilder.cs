@@ -53,16 +53,21 @@ public static class FavouriteTableBuilder
 
     private static IEnumerable<FavouriteEntry> ResolveEntries()
     {
-        var favouriteAttributeType = typeof(FavouriteAttribute);
-        var problemsAssembly = favouriteAttributeType.Assembly;
-        var favourites = FindDecoratedTypes(
-            assembly: problemsAssembly, 
-            attributeType: favouriteAttributeType);
+        var puzzleAttributeType = typeof(PuzzleInfoAttribute);
+        var puzzlesAssembly = puzzleAttributeType.Assembly;
+        var puzzles = FindDecoratedTypes(
+            assembly: puzzlesAssembly, 
+            attributeType: puzzleAttributeType);
 
-        foreach (var favourite in favourites)
+        foreach (var puzzle in puzzles)
         {
-            var attributeInstance = (FavouriteAttribute)favourite.GetCustomAttribute(favouriteAttributeType)!;
-            var match = ProblemRegex.Match(favourite.FullName!);
+            var attributeInstance = (PuzzleInfoAttribute)puzzle.GetCustomAttribute(puzzleAttributeType)!;
+            if (!attributeInstance.Favourite)
+            {
+                continue;
+            }
+            
+            var match = ProblemRegex.Match(puzzle.FullName!);
             var year = match.Groups["Year"].ParseInt();
             var day = match.Groups["Day"].ParseInt();
 

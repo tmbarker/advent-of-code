@@ -124,11 +124,11 @@ public static class SolutionRunner
         message = string.Empty;
         var attr = Attribute.GetCustomAttribute(
             element: instance.GetType(),
-            attributeType: typeof(InputSpecificAttribute));
+            attributeType: typeof(InputSpecificSolutionAttribute));
 
         if (attr != null)
         {
-            message = $"[Warning] {((InputSpecificAttribute)attr).Message}";
+            message = $"[Warning] {((InputSpecificSolutionAttribute)attr).Message}";
         }
 
         return attr != null;

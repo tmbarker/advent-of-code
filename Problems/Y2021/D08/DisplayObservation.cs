@@ -1,13 +1,7 @@
 namespace Problems.Y2021.D08;
 
-public readonly struct DisplayObservation
+public readonly struct DisplayObservation(IEnumerable<string> uniqueSignalPatterns, IEnumerable<string> outputDigits)
 {
-    public DisplayObservation(IEnumerable<string> uniqueSignalPatterns, IEnumerable<string> outputDigits)
-    {
-        UniqueSegmentPatterns.AddRange(uniqueSignalPatterns);
-        OutputDigitSegments.AddRange(outputDigits);
-    }
-
-    public List<string> UniqueSegmentPatterns { get; } = new();
-    public List<string> OutputDigitSegments { get; } = new();
+    public List<string> UniqueSegmentPatterns { get; } = [..uniqueSignalPatterns];
+    public List<string> OutputDigitSegments { get; } = [..outputDigits];
 }

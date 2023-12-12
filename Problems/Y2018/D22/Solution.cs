@@ -1,14 +1,9 @@
-using Problems.Attributes;
-using Problems.Common;
 using Utilities.Extensions;
 using Utilities.Geometry.Euclidean;
 
 namespace Problems.Y2018.D22;
 
-/// <summary>
-/// Mode Maze: https://adventofcode.com/2018/day/22
-/// </summary>
-[Favourite("Mode Maze", Topics.Graphs, Difficulty.Hard)]
+[PuzzleInfo("Mode Maze", Topics.Graphs, Difficulty.Hard, favourite: true)]
 public sealed class Solution : SolutionBase
 {
     private const int MoveCost = 1;

@@ -1,11 +1,8 @@
-using Problems.Common;
 using Utilities.Extensions;
 
 namespace Problems.Y2015.D21;
 
-/// <summary>
-/// RPG Simulator 20XX: https://adventofcode.com/2015/day/21
-/// </summary>
+[PuzzleInfo("RPG Simulator 20XX", Topics.Simulation, Difficulty.Hard)]
 public sealed class Solution : SolutionBase
 {
     public override object Run(int part)

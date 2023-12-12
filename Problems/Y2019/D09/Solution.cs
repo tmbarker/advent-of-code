@@ -1,11 +1,8 @@
-using Problems.Common;
 using Problems.Y2019.IntCode;
 
 namespace Problems.Y2019.D09;
 
-/// <summary>
-/// Sensor Boost: https://adventofcode.com/2019/day/9
-/// </summary>
+[PuzzleInfo("Sensor Boost", Topics.IntCode, Difficulty.Easy)]
 public sealed class Solution : IntCodeSolution
 {
     public override object Run(int part)

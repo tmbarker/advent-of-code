@@ -1,11 +1,8 @@
-using Problems.Common;
 using Utilities.Geometry.Euclidean;
 
 namespace Problems.Y2019.D04;
 
-/// <summary>
-/// Secure Container: https://adventofcode.com/2019/day/4
-/// </summary>
+[PuzzleInfo("Secure Container", Topics.StringParsing, Difficulty.Easy)]
 public sealed class Solution : SolutionBase
 {
     public override object Run(int part)

@@ -1,14 +1,9 @@
-using Problems.Attributes;
-using Problems.Common;
 using Utilities.Geometry.Euclidean;
 using Utilities.Numerics;
 
 namespace Problems.Y2019.D12;
 
-/// <summary>
-/// The N-Body Problem: https://adventofcode.com/2019/day/12
-/// </summary>
-[Favourite("The N-Body Problem", Topics.Math, Difficulty.Hard)]
+[PuzzleInfo("The N-Body Problem", Topics.Math, Difficulty.Hard, favourite: true)]
 public sealed class Solution : SolutionBase
 {
     public override object Run(int part)

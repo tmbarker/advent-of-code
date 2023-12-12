@@ -1,11 +1,8 @@
-using Problems.Common;
 using Utilities.Geometry.Euclidean;
 
 namespace Problems.Y2022.D04;
 
-/// <summary>
-/// Camp Cleanup: https://adventofcode.com/2022/day/4
-/// </summary>
+[PuzzleInfo("Camp Cleanup", Topics.Math, Difficulty.Easy)]
 public sealed class Solution : SolutionBase
 {
     public override object Run(int part)

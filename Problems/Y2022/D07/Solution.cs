@@ -1,10 +1,6 @@
-using Problems.Common;
-
 namespace Problems.Y2022.D07;
 
-/// <summary>
-/// No Space Left On Device: https://adventofcode.com/2022/day/7
-/// </summary>
+[PuzzleInfo("No Space Left On Device", Topics.StringParsing, Difficulty.Medium)]
 public sealed class Solution : SolutionBase
 {
     public override object Run(int part)

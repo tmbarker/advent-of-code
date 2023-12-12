@@ -1,11 +1,8 @@
-using Problems.Common;
 using Utilities.Extensions;
 
 namespace Problems.Y2023.D07;
 
-/// <summary>
-/// Camel Cards: https://adventofcode.com/2023/day/7
-/// </summary>
+[PuzzleInfo("Camel Cards", Topics.Math, Difficulty.Medium)]
 public sealed class Solution : SolutionBase
 {
     public override object Run(int part)

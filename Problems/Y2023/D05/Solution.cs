@@ -1,13 +1,8 @@
-using Problems.Attributes;
-using Problems.Common;
 using Utilities.Geometry.Euclidean;
 
 namespace Problems.Y2023.D05;
 
-/// <summary>
-/// If You Give A Seed A Fertilizer: https://adventofcode.com/2023/day/5
-/// </summary>
-[Favourite("If You Give A Seed A Fertilizer", Topics.Math, Difficulty.Hard)]
+[PuzzleInfo("If You Give A Seed A Fertilizer", Topics.Math, Difficulty.Hard, favourite: true)]
 public sealed class Solution : SolutionBase
 {
     public override object Run(int part)

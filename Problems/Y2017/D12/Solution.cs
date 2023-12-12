@@ -1,13 +1,10 @@
 using System.Text.RegularExpressions;
-using Problems.Common;
 using Utilities.Collections;
 using Utilities.Extensions;
 
 namespace Problems.Y2017.D12;
 
-/// <summary>
-/// Digital Plumber: https://adventofcode.com/2017/day/12
-/// </summary>
+[PuzzleInfo("Digital Plumber", Topics.Graphs|Topics.Math, Difficulty.Medium)]
 public sealed class Solution : SolutionBase
 {
     public override object Run(int part)
@@ -28,7 +25,7 @@ public sealed class Solution : SolutionBase
         var visited = new HashSet<int> { id };
         var queue = new Queue<int>(new[] { id });
 
-        while (queue.Any())
+        while (queue.Count > 0)
         {
             var current = queue.Dequeue();
             foreach (var adj in adjacency[current])
@@ -71,7 +68,7 @@ public sealed class Solution : SolutionBase
             var id = match.Groups["Id"].ParseInt();
             var adjacencies = match.Groups["Adj"].ParseInts();
 
-            adjacency[id] = new HashSet<int>(adjacencies);
+            adjacency[id] = [..adjacencies];
         }
 
         return adjacency;

@@ -1,11 +1,8 @@
-using Problems.Common;
 using Utilities.Geometry.Euclidean;
 
 namespace Problems.Y2016.D13;
 
-/// <summary>
-/// A Maze of Twisty Little Cubicles: https://adventofcode.com/2016/day/13
-/// </summary>
+[PuzzleInfo("A Maze of Twisty Little Cubicles", Topics.Graphs | Topics.BitwiseOperations, Difficulty.Hard)]
 public sealed class Solution : SolutionBase
 {
     private static readonly Vector2D Start = new (x: 1, y: 1);
@@ -26,11 +23,11 @@ public sealed class Solution : SolutionBase
 
     private static int Search(Vector2D start, Vector2D target, int favourite)
     {
-        var queue = new Queue<Vector2D>(new[] { start });
-        var visited = new HashSet<Vector2D>(new[] { start });
+        var queue = new Queue<Vector2D>([start]);
+        var visited = new HashSet<Vector2D>([start]);
         var depth = 0;
 
-        while (queue.Any())
+        while (queue.Count > 0)
         {
             var nodesAtDepth = queue.Count;
             while (nodesAtDepth-- > 0)
@@ -63,7 +60,7 @@ public sealed class Solution : SolutionBase
         var visited = new HashSet<Vector2D>(new[] { start });
         var depth = 0;
 
-        while (queue.Any() && depth < maxDepth)
+        while (queue.Count > 0 && depth < maxDepth)
         {
             var nodesAtDepth = queue.Count;
             while (nodesAtDepth-- > 0)

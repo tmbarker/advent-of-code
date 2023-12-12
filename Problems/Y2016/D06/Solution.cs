@@ -1,11 +1,8 @@
 using System.Text;
-using Problems.Common;
 
 namespace Problems.Y2016.D06;
 
-/// <summary>
-/// Signals and Noise: https://adventofcode.com/2016/day/6
-/// </summary>
+[PuzzleInfo("Signals and Noise", Topics.StringParsing, Difficulty.Medium)]
 public sealed class Solution : SolutionBase
 {
     public override object Run(int part)

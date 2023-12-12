@@ -1,14 +1,9 @@
-using Problems.Attributes;
-using Problems.Common;
 using Utilities.Extensions;
 using Utilities.Geometry.Euclidean;
 
 namespace Problems.Y2016.D22;
 
-/// <summary>
-/// Grid Computing: https://adventofcode.com/2016/day/22
-/// </summary>
-[Favourite("Grid Computing", Topics.Graphs, Difficulty.Hard)]
+[PuzzleInfo("Grid Computing", Topics.Graphs, Difficulty.Hard, favourite: true)]
 public sealed class Solution : SolutionBase
 {
     public override object Run(int part)

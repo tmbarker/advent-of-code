@@ -1,11 +1,8 @@
-using Problems.Common;
 using Utilities.Extensions;
 
 namespace Problems.Y2015.D10;
 
-/// <summary>
-/// Elves Look, Elves Say: https://adventofcode.com/2015/day/10
-/// </summary>
+[PuzzleInfo("Elves Look, Elves Say", Topics.None, Difficulty.Easy)]
 public sealed class Solution : SolutionBase
 {
     public override object Run(int part)

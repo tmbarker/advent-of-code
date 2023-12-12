@@ -1,10 +1,6 @@
-using Problems.Common;
-
 namespace Problems.Y2018.D08;
 
-/// <summary>
-/// Memory Maneuver: https://adventofcode.com/2018/day/8
-/// </summary>
+[PuzzleInfo("Memory Maneuver", Topics.StringParsing, Difficulty.Medium)]
 public sealed class Solution : SolutionBase
 {
     public override object Run(int part)

@@ -2,9 +2,7 @@ using Problems.Y2019.IntCode;
 
 namespace Problems.Y2019.D05;
 
-/// <summary>
-/// Sunny with a Chance of Asteroids: https://adventofcode.com/2019/day/5
-/// </summary>
+[PuzzleInfo("Sunny with a Chance of Asteroids", Topics.IntCode, Difficulty.Easy)]
 public sealed class Solution : IntCodeSolution
 {
     public override object Run(int part)

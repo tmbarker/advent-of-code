@@ -1,12 +1,6 @@
-using Problems.Attributes;
-using Problems.Common;
-
 namespace Problems.Y2018.D11;
 
-/// <summary>
-/// Chronal Charge: https://adventofcode.com/2018/day/11
-/// </summary>
-[Favourite("Chronal Charge", Topics.Vectors, Difficulty.Hard)]
+[PuzzleInfo("Chronal Charge", Topics.Vectors, Difficulty.Hard, favourite: true)]
 public sealed class Solution : SolutionBase
 {
     public override object Run(int part)

@@ -12,7 +12,7 @@ public sealed class Machine
     {
         var acc = 0;
         var pc = 0;
-        var pcValueSet = new HashSet<int>(new[] { 0 });
+        var pcValueSet = new HashSet<int>([0]);
 
         while (pc < instructions.Count && !token.IsCancellationRequested)
         {
@@ -31,13 +31,9 @@ public sealed class Machine
                     break;
             }
             
-            if (pcValueSet.Contains(pc))
+            if (!pcValueSet.Add(pc))
             {
                 RaiseLoopDetected(acc);
-            }
-            else
-            {
-                pcValueSet.Add(pc);
             }
         }
 

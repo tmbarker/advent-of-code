@@ -1,14 +1,13 @@
 using System.Text.RegularExpressions;
-using Problems.Common;
 using Utilities.Extensions;
 
 namespace Problems.Y2020.D02;
 
-/// <summary>
-/// Password Philosophy: https://adventofcode.com/2020/day/2
-/// </summary>
+[PuzzleInfo("Password Philosophy", Topics.StringParsing, Difficulty.Easy)]
 public sealed class Solution : SolutionBase
 {
+    private readonly record struct Policy(int N1, int N2, char Letter, string Password);
+    
     public override object Run(int part)
     {
         var policies = ParseInputLines(parseFunc: ParsePolicy);
@@ -46,6 +45,4 @@ public sealed class Solution : SolutionBase
             Letter: match.Groups[3].Value[0],
             Password: match.Groups[4].Value);
     }
-    
-    private readonly record struct Policy(int N1, int N2, char Letter, string Password);
 }

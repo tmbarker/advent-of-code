@@ -18,14 +18,14 @@ public static class FavouriteTableFormatter
     public static string FormEntry(FavouriteEntry entry)
     {
         return string.Join(" | ",
-            FormProblemLink(entry.Title, entry.Year, entry.Day),
+            FormPuzzleLink(entry.Title, entry.Year, entry.Day),
             FormSolutionLink(entry.Year, entry.Day),
             FormDateString(entry.Year, entry.Day),
             FormTopics(entry.Topics),
             FormDifficulty(entry.Difficulty));
     }
 
-    private static string FormProblemLink(string title, int year, int day)
+    private static string FormPuzzleLink(string title, int year, int day)
     {
         return $"[{title}](https://adventofcode.com/{year}/day/{day})";
     }

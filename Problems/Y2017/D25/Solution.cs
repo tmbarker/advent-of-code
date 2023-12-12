@@ -1,11 +1,8 @@
-using Problems.Common;
 using Utilities.Extensions;
 
 namespace Problems.Y2017.D25;
 
-/// <summary>
-/// The Halting Problem: https://adventofcode.com/2017/day/25
-/// </summary>
+[PuzzleInfo("The Halting Problem", Topics.Simulation, Difficulty.Medium)]
 public sealed class Solution : SolutionBase
 {
     public override int Parts => 1;
@@ -31,7 +28,6 @@ public sealed class Solution : SolutionBase
     
     private static void ParseInput(IReadOnlyList<string> input, 
         out char state, out Dictionary<char, TuringMachine.State> rules, out int steps)
-
     {
         state = input[0][^2];
         rules = new Dictionary<char, TuringMachine.State>();
@@ -42,12 +38,12 @@ public sealed class Solution : SolutionBase
             var id = chunk[0][^2];
             var falseTransition = new TuringMachine.Transition(
                 Write: chunk[2][^2] == '1',
-                Move: chunk[3].Contains("right") ? 1 : -1,
-                Next: chunk[4][^2]);
+                Move:  chunk[3].Contains("right") ? 1 : -1,
+                Next:  chunk[4][^2]);
             var trueTransition = new TuringMachine.Transition(
                 Write: chunk[6][^2] == '1',
-                Move: chunk[7].Contains("right") ? 1 : -1,
-                Next: chunk[8][^2]);
+                Move:  chunk[7].Contains("right") ? 1 : -1,
+                Next:  chunk[8][^2]);
 
             rules[id] = new TuringMachine.State(falseTransition, trueTransition);
         }

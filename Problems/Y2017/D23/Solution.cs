@@ -1,13 +1,9 @@
-﻿using Problems.Attributes;
-using Problems.Common;
-using Problems.Y2017.Common;
+﻿using Problems.Y2017.Common;
 
 namespace Problems.Y2017.D23;
 
-/// <summary>
-/// Coprocessor Conflagration: https://adventofcode.com/2017/day/23
-/// </summary>
-[InputSpecific]
+[InputSpecificSolution]
+[PuzzleInfo("Coprocessor Conflagration", Topics.Assembly|Topics.Assembly, Difficulty.Hard)]
 public sealed class Solution : SolutionBase
 {
     public override object Run(int part)

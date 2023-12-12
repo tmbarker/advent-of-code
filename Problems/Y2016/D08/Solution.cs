@@ -1,12 +1,9 @@
-using Problems.Common;
 using Utilities.Extensions;
 using Utilities.Geometry.Euclidean;
 
 namespace Problems.Y2016.D08;
 
-/// <summary>
-/// Two-Factor Authentication: https://adventofcode.com/2016/day/8
-/// </summary>
+[PuzzleInfo("Two-Factor Authentication", Topics.Simulation, Difficulty.Medium)]
 public sealed class Solution : SolutionBase
 {
     private const int Rows = 6;

@@ -1,11 +1,8 @@
-using Problems.Common;
 using Utilities.Extensions;
 
 namespace Problems.Y2023.D09;
 
-/// <summary>
-/// Mirage Maintenance: https://adventofcode.com/2023/day/9
-/// </summary>
+[PuzzleInfo("Mirage Maintenance", Topics.Math, Difficulty.Easy)]
 public class Solution : SolutionBase
 {
     public override object Run(int part)

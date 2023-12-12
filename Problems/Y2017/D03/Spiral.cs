@@ -24,13 +24,13 @@ public sealed class Spiral
         StoreValue(pos: Vector2D.Zero, value: 1);
     }
 
-    public void Build(Func<Spiral, int> valueFunc, Predicate<Spiral> stopPredicate)
+    public void Build(Func<Spiral, int> valueFunc, Predicate<Spiral> stopFunc)
     {
         var stepsBeforeTurn = 1;
         var stepsSinceLastTurn = 0;
         var turnsSinceStepIncrement = 0;
 
-        while (!stopPredicate(this))
+        while (!stopFunc(this))
         {
             if (stepsSinceLastTurn == stepsBeforeTurn)
             {

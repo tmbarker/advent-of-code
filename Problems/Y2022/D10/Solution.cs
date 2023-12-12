@@ -1,17 +1,12 @@
 using System.Text;
-using Problems.Attributes;
-using Problems.Common;
 
 namespace Problems.Y2022.D10;
 
-/// <summary>
-/// Cathode-Ray Tube: https://adventofcode.com/2022/day/10
-/// </summary>
-[Favourite("Cathode-Ray Tube", Topics.Assembly, Difficulty.Medium)]
+[PuzzleInfo("Cathode-Ray Tube", Topics.Assembly, Difficulty.Medium, favourite: true)]
 public sealed class Solution : SolutionBase
 {
     private const int CrtWidth = 40;
-    private static readonly HashSet<int> SampleCycles = new() { 20, 60, 100, 140, 180, 220 };
+    private static readonly HashSet<int> SampleCycles = [20, 60, 100, 140, 180, 220];
 
     public override object Run(int part)
     {

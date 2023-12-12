@@ -1,11 +1,8 @@
-using Problems.Common;
 using Utilities.Geometry.Euclidean;
 
 namespace Problems.Y2022.D18;
 
-/// <summary>
-/// Boiling Boulders: https://adventofcode.com/2022/day/18
-/// </summary>
+[PuzzleInfo("Boiling Boulders", Topics.Vectors, Difficulty.Medium)]
 public sealed class Solution : SolutionBase
 {
     public override object Run(int part)

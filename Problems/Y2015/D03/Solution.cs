@@ -1,11 +1,8 @@
-using Problems.Common;
 using Utilities.Geometry.Euclidean;
 
 namespace Problems.Y2015.D03;
 
-/// <summary>
-/// Perfectly Spherical Houses in a Vacuum: https://adventofcode.com/2015/day/3
-/// </summary>
+[PuzzleInfo("Perfectly Spherical Houses in a Vacuum", Topics.Vectors, Difficulty.Easy)]
 public sealed class Solution : SolutionBase
 {
     private static readonly Dictionary<char, Vector2D> Map = new()

@@ -1,11 +1,8 @@
-using Problems.Common;
 using Problems.Y2019.IntCode;
 
 namespace Problems.Y2019.D02;
 
-/// <summary>
-/// 1202 Program Alarm: https://adventofcode.com/2019/day/2
-/// </summary>
+[PuzzleInfo("1202 Program Alarm", Topics.IntCode, Difficulty.Easy)]
 public sealed class Solution : IntCodeSolution
 {
     private const int Target = 19690720;

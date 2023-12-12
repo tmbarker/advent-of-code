@@ -1,13 +1,10 @@
-using Problems.Common;
 using Utilities.Collections;
 using Utilities.Extensions;
 using Utilities.Geometry.Euclidean;
 
 namespace Problems.Y2015.D06;
 
-/// <summary>
-/// Probably a Fire Hazard: https://adventofcode.com/2015/day/6
-/// </summary>
+[PuzzleInfo("Probably a Fire Hazard", Topics.Vectors, Difficulty.Easy)]
 public sealed class Solution : SolutionBase
 {
     public override object Run(int part)

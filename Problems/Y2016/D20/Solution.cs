@@ -1,11 +1,8 @@
-using Problems.Common;
 using Utilities.Geometry.Euclidean;
 
 namespace Problems.Y2016.D20;
 
-/// <summary>
-/// Firewall Rules: https://adventofcode.com/2016/day/20
-/// </summary>
+[PuzzleInfo("Firewall Rules", Topics.Math, Difficulty.Hard)]
 public sealed class Solution : SolutionBase
 {
     private readonly record struct IntervalEndpoint(long Value, EndpointType Type);

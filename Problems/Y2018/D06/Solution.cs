@@ -1,14 +1,9 @@
-using Problems.Attributes;
-using Problems.Common;
 using Utilities.Extensions;
 using Utilities.Geometry.Euclidean;
 
 namespace Problems.Y2018.D06;
 
-/// <summary>
-/// Chronal Coordinates: https://adventofcode.com/2018/day/6
-/// </summary>
-[Favourite("Chronal Coordinates", Topics.Vectors, Difficulty.Medium)]
+[PuzzleInfo("Chronal Coordinates", Topics.Vectors, Difficulty.Medium, favourite: true)]
 public sealed class Solution : SolutionBase
 {
     public override object Run(int part)

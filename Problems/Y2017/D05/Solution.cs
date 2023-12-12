@@ -1,10 +1,6 @@
-using Problems.Common;
-
 namespace Problems.Y2017.D05;
 
-/// <summary>
-/// A Maze of Twisty Trampolines, All Alike: https://adventofcode.com/2017/day/5
-/// </summary>
+[PuzzleInfo("A Maze of Twisty Trampolines, All Alike", Topics.Simulation, Difficulty.Easy)]
 public sealed class Solution : SolutionBase
 {
     public override object Run(int part)

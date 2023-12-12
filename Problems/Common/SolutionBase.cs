@@ -1,3 +1,6 @@
+global using Problems.Attributes;
+global using Problems.Common;
+
 using System.Diagnostics;
 
 namespace Problems.Common;

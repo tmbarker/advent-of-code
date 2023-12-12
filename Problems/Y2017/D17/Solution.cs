@@ -1,12 +1,9 @@
-using Problems.Common;
 using Utilities.Collections;
 using Utilities.Extensions;
 
 namespace Problems.Y2017.D17;
 
-/// <summary>
-/// Spinlock: https://adventofcode.com/2017/day/17
-/// </summary>
+[PuzzleInfo("Spinlock", Topics.Simulation, Difficulty.Medium)]
 public sealed class Solution : SolutionBase
 {
     public override object Run(int part)

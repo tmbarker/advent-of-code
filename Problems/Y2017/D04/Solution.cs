@@ -1,12 +1,8 @@
-using Problems.Common;
-
 namespace Problems.Y2017.D04;
 
 using Passphrase = IList<string>;
 
-/// <summary>
-/// High-Entropy Passphrases: https://adventofcode.com/2017/day/4
-/// </summary>
+[PuzzleInfo("High-Entropy Passphrases", Topics.StringParsing, Difficulty.Easy)]
 public sealed class Solution : SolutionBase
 {
     public override object Run(int part)

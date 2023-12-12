@@ -1,12 +1,9 @@
 using System.Text.RegularExpressions;
-using Problems.Common;
 using Utilities.Extensions;
 
 namespace Problems.Y2020.D21;
 
-/// <summary>
-/// Allergen Assessment: https://adventofcode.com/2020/day/21
-/// </summary>
+[PuzzleInfo("Allergen Assessment", Topics.None, Difficulty.Medium)]
 public sealed class Solution : SolutionBase
 {
     public override object Run(int part)

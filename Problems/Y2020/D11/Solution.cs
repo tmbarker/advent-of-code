@@ -1,11 +1,8 @@
-using Problems.Common;
 using Utilities.Geometry.Euclidean;
 
 namespace Problems.Y2020.D11;
 
-/// <summary>
-/// Seating System: https://adventofcode.com/2020/day/11
-/// </summary>
+[PuzzleInfo("Seating System", Topics.Vectors|Topics.Simulation, Difficulty.Medium)]
 public sealed class Solution : SolutionBase
 { 
     public override object Run(int part)

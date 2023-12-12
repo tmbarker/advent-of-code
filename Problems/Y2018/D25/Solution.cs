@@ -1,12 +1,9 @@
-using Problems.Common;
 using Utilities.Collections;
 using Utilities.Geometry.Euclidean;
 
 namespace Problems.Y2018.D25;
 
-/// <summary>
-/// Four-Dimensional Adventure: https://adventofcode.com/2018/day/25
-/// </summary>
+[PuzzleInfo("Four-Dimensional Adventure", Topics.Vectors, Difficulty.Medium)]
 public sealed class Solution : SolutionBase
 {
     public override int Parts => 1;

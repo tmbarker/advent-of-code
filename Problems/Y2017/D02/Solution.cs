@@ -1,11 +1,8 @@
-using Problems.Common;
 using Utilities.Extensions;
 
 namespace Problems.Y2017.D02;
 
-/// <summary>
-/// Corruption Checksum
-/// </summary>
+[PuzzleInfo("Corruption Checksum", Topics.Math, Difficulty.Easy)]
 public sealed class Solution : SolutionBase
 {
     public override object Run(int part)

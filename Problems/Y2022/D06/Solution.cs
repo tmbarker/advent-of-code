@@ -1,10 +1,6 @@
-using Problems.Common;
-
 namespace Problems.Y2022.D06;
 
-/// <summary>
-/// Tuning Trouble: https://adventofcode.com/2022/day/6
-/// </summary>
+[PuzzleInfo("Tuning Trouble", Topics.StringParsing, Difficulty.Easy)]
 public sealed class Solution : SolutionBase
 {
     public override object Run(int part)

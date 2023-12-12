@@ -1,13 +1,8 @@
-using Problems.Attributes;
-using Problems.Common;
 using Utilities.Geometry.Euclidean;
 
 namespace Problems.Y2022.D09;
 
-/// <summary>
-/// Rope Bridge: https://adventofcode.com/2022/day/9
-/// </summary>
-[Favourite("Rope Bridge", Topics.Vectors, Difficulty.Medium)]
+[PuzzleInfo("Rope Bridge", Topics.Vectors, Difficulty.Medium, favourite: true)]
 public sealed class Solution : SolutionBase
 {
     private static readonly Dictionary<string, Vector2D> VectorMap = new()

@@ -1,13 +1,8 @@
-using Problems.Attributes;
-using Problems.Common;
 using Utilities.Geometry.Hexagonal;
 
 namespace Problems.Y2017.D11;
 
-/// <summary>
-/// Hex Ed: https://adventofcode.com/2017/day/11
-/// </summary>
-[Favourite("Hex Ed", Topics.Math, Difficulty.Easy)]
+[PuzzleInfo("Hex Ed", Topics.Math, Difficulty.Easy, favourite: true)]
 public sealed class Solution : SolutionBase
 {
     private static readonly Dictionary<string, Hex> Directions = new()

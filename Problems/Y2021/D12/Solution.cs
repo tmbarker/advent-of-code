@@ -1,12 +1,6 @@
-using Problems.Attributes;
-using Problems.Common;
-
 namespace Problems.Y2021.D12;
 
-/// <summary>
-/// Passage Pathing: https://adventofcode.com/2021/day/12
-/// </summary>
-[Favourite("Passage Pathing", Topics.Graphs|Topics.Recursion, Difficulty.Medium)]
+[PuzzleInfo("Passage Pathing", Topics.Graphs|Topics.Recursion, Difficulty.Medium, favourite: true)]
 public sealed class Solution : SolutionBase
 {
     public override object Run(int part)
