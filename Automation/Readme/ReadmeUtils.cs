@@ -4,8 +4,13 @@ public static class ReadmeUtils
 {
     private const string ReadmeSearchPattern = "*.md";
     private const string ReadmeFilename = "README.md";
+
+    public static void UpdateReadme()
+    {
+        UpdateFavouritePuzzlesSection();
+    }
     
-    public static void UpdateFavouritePuzzles()
+    private static void UpdateFavouritePuzzlesSection()
     {
         if (!ResolveReadmeFilepath(out var readmeFilepath))
         {

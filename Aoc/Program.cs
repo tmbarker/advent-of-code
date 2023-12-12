@@ -37,12 +37,12 @@ internal static class Program
             symbol2: dayArg,
             symbol3: inputPathOption,
             symbol4: logsOption);
-        
+
         var updateReadmeCommand = new Command(
-            name: "update-readme", 
-            description: "Generate the README.md favourite problem tables");
+            name: "update-readme",
+            description: "Update the generated README.md content");
         
-        updateReadmeCommand.SetHandler(ReadmeUtils.UpdateFavouritePuzzles);
+        updateReadmeCommand.SetHandler(ReadmeUtils.UpdateReadme);
 
         var setUserSessionCommand = new Command(
             name: "set-session",

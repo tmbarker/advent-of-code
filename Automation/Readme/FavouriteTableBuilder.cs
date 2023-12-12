@@ -26,12 +26,22 @@ public static class FavouriteTableBuilder
             favouriteLines.AddRange(table.Entries.Select(FavouriteTableFormatter.FormEntry));
             favouriteLines.Add(string.Empty);
         }
-        
-        var favouritesStartIndex = readmeLines.IndexOf(SectionStart) + 1;
-        var favouritesEndIndex = readmeLines.IndexOf(SectionEnd) - 1;
 
-        readmeLines.RemoveRange(favouritesStartIndex, favouritesEndIndex - favouritesStartIndex + 1);
-        readmeLines.InsertRange(favouritesStartIndex, favouriteLines);
+        //  Look for the correct place to stitch the favourite tables into, if it's found, replace those lines.
+        //
+        if (readmeLines.Contains(item: SectionStart) && readmeLines.Contains(SectionEnd))
+        {
+            var favouritesStartIndex = readmeLines.IndexOf(SectionStart) + 1;
+            var favouritesEndIndex = readmeLines.IndexOf(SectionEnd) - 1;
+
+            readmeLines.RemoveRange(favouritesStartIndex, favouritesEndIndex - favouritesStartIndex + 1);
+            readmeLines.InsertRange(favouritesStartIndex, favouriteLines);
+            return;
+        }
+        
+        //  If we can't find an existing table, append to the bottom
+        //
+        readmeLines.AddRange(favouriteLines);
     }
 
     private static IEnumerable<FavouriteTable> GroupIntoTables(IEnumerable<FavouriteEntry> entries)
