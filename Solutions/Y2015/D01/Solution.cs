@@ -1,6 +1,5 @@
 namespace Solutions.Y2015.D01;
 
-/// https://adventofcode.com/2015/day/1
 [PuzzleInfo("Not Quite Lisp", Topics.StringParsing, Difficulty.Easy)]
 public sealed class Solution : SolutionBase
 {

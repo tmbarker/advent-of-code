@@ -2,9 +2,11 @@ global using Solutions.Attributes;
 global using Solutions.Common;
 
 using System.Diagnostics;
+using JetBrains.Annotations;
 
 namespace Solutions.Common;
 
+[UsedImplicitly(ImplicitUseTargetFlags.Default | ImplicitUseTargetFlags.WithInheritors)]
 public abstract class SolutionBase 
 {
     public const string DayStringFormat = "{0:D2}";
