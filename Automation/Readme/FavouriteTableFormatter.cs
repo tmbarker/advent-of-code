@@ -1,5 +1,5 @@
 using System.Text.RegularExpressions;
-using Problems.Attributes;
+using Solutions.Attributes;
 
 namespace Automation.Readme;
 
@@ -33,7 +33,7 @@ public static class FavouriteTableFormatter
     private static string FormSolutionLink(int year, int day)
     {
         return
-            $"[Solution](https://github.com/tmbarker/advent-of-code/blob/main/Problems/Y{year}/D{day:D2}/Solution.cs)";
+            $"[Solution](https://github.com/tmbarker/advent-of-code/blob/main/Solutions/Y{year}/D{day:D2}/Solution.cs)";
     }
 
     private static string FormDateString(int year, int day)

@@ -1,4 +1,4 @@
-using Problems.Attributes;
+using Solutions.Attributes;
 
 namespace Automation.Readme;
 

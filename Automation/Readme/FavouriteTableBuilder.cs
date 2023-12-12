@@ -1,6 +1,6 @@
 ﻿using System.Reflection;
 using System.Text.RegularExpressions;
-using Problems.Attributes;
+using Solutions.Attributes;
 using Utilities.Extensions;
 
 namespace Automation.Readme;
@@ -10,7 +10,7 @@ public static class FavouriteTableBuilder
     private const string SectionStart = "## My Favourite Puzzles and Solutions";
     private const string SectionEnd =   "## Running a Solution";
 
-    private static readonly Regex ProblemRegex = new(@"Problems.Y(?<Year>\d{4}).D(?<Day>\d{2})");
+    private static readonly Regex ProblemRegex = new(@"Solutions.Y(?<Year>\d{4}).D(?<Day>\d{2})");
 
     public static void Run(List<string> readmeLines)
     {

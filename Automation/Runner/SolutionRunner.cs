@@ -1,8 +1,8 @@
 using System.Diagnostics;
 using System.Text;
 using Automation.Input;
-using Problems.Attributes;
-using Problems.Common;
+using Solutions.Attributes;
+using Solutions.Common;
 
 namespace Automation.Runner;
 
