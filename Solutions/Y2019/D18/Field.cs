@@ -52,18 +52,14 @@ public sealed class Field
     public static IEnumerable<Field> Parse(IList<string> input, bool applyInputOverrides)
     {
         var grid = Grid2D<char>.MapChars(input, c => c);
-        var (nominalStartPos, _) = grid.Single(kvp => kvp.Value == Start);
+        var start = grid.Single(pos => grid[pos] == Start);
         
         if (applyInputOverrides)
         {
-            ApplyInputOverrides(grid, nominalStartPos);
+            ApplyInputOverrides(grid, start);
         }
 
-        var startPositions = grid
-            .Where(kvp => kvp.Value == Start)
-            .Select(kvp => kvp.Key);
-
-        foreach (var startPos in startPositions)
+        foreach (var startPos in grid.Where(pos => grid[pos] == Start))
         {
             yield return BuildField(grid, startPos);
         }
@@ -72,10 +68,10 @@ public sealed class Field
     private static Field BuildField(Grid2D<char> grid, Vector2D startPos)
     {
         var adjacency = new AdjacencyList();
-        var reachable = new Dictionary<Vector2D, char> { { startPos, Start } };
+        var reachable = new EntityMap { { startPos, Start } };
         var queue = new Queue<Vector2D>(new[] { startPos });
 
-        while (queue.Any())
+        while (queue.Count > 0)
         {
             var current = queue.Dequeue();
             var candidates = current

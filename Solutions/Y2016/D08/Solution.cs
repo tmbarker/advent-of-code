@@ -24,7 +24,7 @@ public sealed class Solution : SolutionBase
 
     private static int CountOn(Grid2D<bool> screen)
     {
-        return screen.Count(pixel => pixel.Value);
+        return screen.Count(pixel => screen[pixel]);
     }
 
     private static string BuildRepresentativeString(Grid2D<bool> screen)

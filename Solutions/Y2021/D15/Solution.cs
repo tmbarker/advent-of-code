@@ -24,7 +24,7 @@ public sealed class Solution : SolutionBase
 
         var visited = new HashSet<Vector2D> { start };
         var heap = new PriorityQueue<Vector2D, int>(new[] { (start, 0) });
-        var risks = riskMap.GetAllPositions().ToDictionary(
+        var risks = riskMap.ToDictionary(
             keySelector: p => p, 
             elementSelector: p => p == start ? 0 : int.MaxValue);
         

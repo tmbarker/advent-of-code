@@ -8,13 +8,13 @@ namespace Utilities.Geometry.Euclidean;
 /// A 2D grid data structure providing (X,Y) style indexing
 /// </summary>
 /// <typeparam name="T">The type associated with the value at each grid position</typeparam>
-public sealed partial class Grid2D<T> : IEnumerable<KeyValuePair<Vector2D, T>>
+public sealed partial class Grid2D<T> : IEnumerable<Vector2D>
 {
     /// <summary>
     /// The internal backing array, which is indexed from the bottom left.
     /// <para />When <see cref="_origin"/> is set to <see cref="Origin.Xy"/> the position argument of "Get" and "Set"
-    /// queries will match the array index, i.e. <see cref="Vector2D"/>.<see cref="Vector2D.Zero"/> will index the
-    /// bottom left element from the array (e.g. <see cref="_array"/>[0, 0]).
+    /// queries will match the array index, e.g. <see cref="Vector2D"/>.<see cref="Vector2D.Zero"/> will index the
+    /// bottom left element from the array (i.e. <see cref="_array"/>[0, 0]).
     /// <para />Accordingly, when <see cref="_origin"/> is set to <see cref="Origin.Uv"/> then
     /// <see cref="Vector2D"/>.<see cref="Vector2D.Zero"/> will index the top left element from the array.
     /// </summary>
@@ -120,18 +120,6 @@ public sealed partial class Grid2D<T> : IEnumerable<KeyValuePair<Vector2D, T>>
     }
     
     /// <summary>
-    /// Get all positions in the <see cref="Grid2D{T}"/> instance
-    /// </summary>
-    public IEnumerable<Vector2D> GetAllPositions()
-    {
-        for (var x = 0; x < Width; x++)
-        for (var y = 0; y < Height; y++)
-        {
-            yield return new Vector2D(x, y);
-        }
-    }
-    
-    /// <summary>
     /// Extract a row from the grid
     /// </summary>
     /// <param name="rowIndex">The 0-based row index</param>
@@ -197,18 +185,18 @@ public sealed partial class Grid2D<T> : IEnumerable<KeyValuePair<Vector2D, T>>
 
         return (x, y);
     }
-
-    public IEnumerator<KeyValuePair<Vector2D, T>> GetEnumerator()
+    
+    IEnumerator IEnumerable.GetEnumerator()
+    {
+        return GetEnumerator();
+    }
+    
+    public IEnumerator<Vector2D> GetEnumerator()
     {
         for (var y = 0; y < Height; y++)
         for (var x = 0; x < Width; x++)
         {
-            yield return new KeyValuePair<Vector2D, T>(new Vector2D(x, y), GetElementInternal(x, y));
+            yield return new Vector2D(x, y);
         }
-    }
-
-    IEnumerator IEnumerable.GetEnumerator()
-    {
-        return GetEnumerator();
     }
 }

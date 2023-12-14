@@ -65,7 +65,7 @@ public sealed class Solution : SolutionBase
     {
         var assembled = AssembleTiles(tiles, congruences);
         var composite = ExtractImage(tiles, assembled);
-        var totalMonsterCharCount = composite.Count(kvp => kvp.Value == SeaMonster.Chr);
+        var totalMonsterCharCount = composite.Count(pos => composite[pos] == SeaMonster.Chr);
         
         for (var i = 0; i < 2; i++)
         {

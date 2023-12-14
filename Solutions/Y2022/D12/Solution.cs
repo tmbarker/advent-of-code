@@ -13,7 +13,8 @@ public sealed class Solution : SolutionBase
     
     public override object Run(int part)
     {
-        ParseGrid(out var map, out var start, out var end);
+        var lines = GetInputLines();
+        var map = ParseGrid(lines, out var start, out var end);
         
         return part switch
         {
@@ -26,7 +27,6 @@ public sealed class Solution : SolutionBase
     private static int GetFewestStepsFromMinHeight(Grid2D<char> map, Vector2D end)
     {
         return map
-            .GetAllPositions()
             .Where(pos => map[pos] == MinHeight)
             .Min(start => GetMinDistance(map, start, end));
     }
@@ -67,13 +67,16 @@ public sealed class Solution : SolutionBase
         return int.MaxValue;
     }
     
-    private void ParseGrid(out Grid2D<char> grid, out Vector2D start, out Vector2D end)
+    private static Grid2D<char> ParseGrid(IList<string> lines, out Vector2D start, out Vector2D end)
     {
-        grid = Grid2D<char>.MapChars(GetInputLines(), c => c);
-        start = grid.Single(kvp => kvp.Value == StartMarker).Key;
-        end = grid.Single(kvp => kvp.Value == EndMarker).Key;
-
+        var grid = Grid2D<char>.MapChars(lines, c => c);
+        
+        start = grid.Single(pos => grid[pos] == StartMarker);
+        end = grid.Single(pos => grid[pos] == EndMarker);
+        
         grid[start] = StartHeight;
         grid[end] = EndHeight;
+        
+        return grid;
     }
 }

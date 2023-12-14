@@ -34,11 +34,7 @@ public sealed class OctopusGrid(Grid2D<int> energyLevels)
         var flashedSet = new HashSet<Vector2D>();
         var readyToFlash = new Queue<Vector2D>();
         
-        var enumeratedPositions = energyLevels
-            .GetAllPositions()
-            .ToList();
-        
-        foreach (var position in enumeratedPositions)
+        foreach (var position in energyLevels)
         {
             IncrementAndEnqueueIfReady(position, readyToFlash);
         }

@@ -107,9 +107,9 @@ public sealed class Solution : SolutionBase
     {
         var adjacencyList = new AdjacencyList();
         
-        foreach (var (pos, chr) in maze)
+        foreach (var pos in maze)
         {
-            if (chr != Traversable)
+            if (maze[pos] != Traversable)
             {
                 continue;
             }
@@ -128,9 +128,9 @@ public sealed class Solution : SolutionBase
         var entrances = new Dictionary<PortalKey, IList<PortalEntrance>>();
         var directions = new HashSet<Vector2D> { Vector2D.Down, Vector2D.Right };
 
-        foreach (var (pos, chr) in maze)
+        foreach (var pos in maze)
         {
-            if (!char.IsLetter(chr))
+            if (!char.IsLetter(maze[pos]))
             {
                 continue;
             }
