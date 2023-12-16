@@ -27,7 +27,7 @@ public sealed class Solution : SolutionBase
             return rawCol + 1;
         }
         
-        grid.Rotate(rot: Rotation3D.Positive90Z);
+        grid.Rotate(deg: Degrees.P90);
         
         if (FindSymmetryVertical(grid, exceptions, out var transformedCol))
         {

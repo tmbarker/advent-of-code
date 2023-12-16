@@ -83,9 +83,9 @@ public sealed class Solution : SolutionBase
     private static bool CheckRotationsForSeaMonster(Grid2D<char> image, out int foundCount)
     {
         foundCount = 0;
-        foreach (var rot in Rotation3D.RotationsAroundAxis(Axis.Z))
+        for (var i = 0; i < 4; i++)
         {
-            image.Rotate(rot);
+            image.Rotate(deg: i * Degrees.P90);
             for (var y = 0; y < image.Height - SeaMonster.Height; y++)
             for (var x = 0; x < image.Width  - SeaMonster.Width;  x++)
             {

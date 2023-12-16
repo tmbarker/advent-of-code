@@ -62,7 +62,7 @@ public sealed class Tile
     
     private void Rotate(Rotation3D rot)
     {
-        _pixels.Rotate(rot);
+        _pixels.Rotate(rot.ThetaDeg);
         foreach (var (edgeId, edgeDirection) in EdgeDirections)
         {
             EdgeDirections[edgeId] = rot * edgeDirection;

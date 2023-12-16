@@ -7,19 +7,16 @@ namespace Utilities.Geometry.Euclidean;
 /// </summary>
 public readonly struct Rotation3D : IEquatable<Rotation3D>
 {
-    public const int DegreesPerRotation = 360;
-    public const int NinetyDegrees = 90;
-    
-    public static readonly Rotation3D Zero         = new(axis: Axis.X, thetaDeg:  0);
-    public static readonly Rotation3D Negative90X  = new(axis: Axis.X, thetaDeg: -1 * NinetyDegrees);
-    public static readonly Rotation3D Positive90X  = new(axis: Axis.X, thetaDeg:  1 * NinetyDegrees);
-    public static readonly Rotation3D Positive180X = new(axis: Axis.X, thetaDeg:  2 * NinetyDegrees);
-    public static readonly Rotation3D Negative90Y  = new(axis: Axis.Y, thetaDeg: -1 * NinetyDegrees);
-    public static readonly Rotation3D Positive90Y  = new(axis: Axis.Y, thetaDeg:  1 * NinetyDegrees);
-    public static readonly Rotation3D Positive180Y = new(axis: Axis.Y, thetaDeg:  2 * NinetyDegrees);
-    public static readonly Rotation3D Negative90Z  = new(axis: Axis.Z, thetaDeg: -1 * NinetyDegrees);
-    public static readonly Rotation3D Positive90Z  = new(axis: Axis.Z, thetaDeg:  1 * NinetyDegrees);
-    public static readonly Rotation3D Positive180Z = new(axis: Axis.Z, thetaDeg:  2 * NinetyDegrees);
+    public static readonly Rotation3D Zero         = new(axis: Axis.X, thetaDeg: Degrees.Zero);
+    public static readonly Rotation3D Negative90X  = new(axis: Axis.X, thetaDeg: Degrees.N90);
+    public static readonly Rotation3D Positive90X  = new(axis: Axis.X, thetaDeg: Degrees.P90);
+    public static readonly Rotation3D Positive180X = new(axis: Axis.X, thetaDeg: Degrees.P180);
+    public static readonly Rotation3D Negative90Y  = new(axis: Axis.Y, thetaDeg: Degrees.N90);
+    public static readonly Rotation3D Positive90Y  = new(axis: Axis.Y, thetaDeg: Degrees.P90);
+    public static readonly Rotation3D Positive180Y = new(axis: Axis.Y, thetaDeg: Degrees.P180);
+    public static readonly Rotation3D Negative90Z  = new(axis: Axis.Z, thetaDeg: Degrees.N90);
+    public static readonly Rotation3D Positive90Z  = new(axis: Axis.Z, thetaDeg: Degrees.P90);
+    public static readonly Rotation3D Positive180Z = new(axis: Axis.Z, thetaDeg: Degrees.P180);
 
     public Rotation3D(Axis axis, int thetaDeg)
     {
@@ -28,13 +25,13 @@ public readonly struct Rotation3D : IEquatable<Rotation3D>
             throw ThrowHelper.InvalidAxis(axis);
         }
         
-        if (thetaDeg.Modulo(NinetyDegrees) != 0)
+        if (thetaDeg.Modulo(Degrees.P90) != 0)
         {
             throw ThrowHelper.InvalidTheta(thetaDeg);
         }
 
         Axis = axis;
-        ThetaDeg = thetaDeg.Modulo(DegreesPerRotation);
+        ThetaDeg = thetaDeg.Modulo(Degrees.P360);
         ThetaRad = DegToRad(thetaDeg);
     }
 
@@ -60,13 +57,13 @@ public readonly struct Rotation3D : IEquatable<Rotation3D>
             throw ThrowHelper.InvalidAxis(axis);
         }
         
-        for (var i = 0; i < DegreesPerRotation / NinetyDegrees; i++)
+        for (var i = 0; i < Degrees.P360 / Degrees.P90; i++)
         {
-            yield return new Rotation3D(axis, thetaDeg: i * NinetyDegrees);
+            yield return new Rotation3D(axis, thetaDeg: i * Degrees.P90);
         }
     }
 
-    private static double DegToRad(int deg) => deg * Math.PI * 2 / DegreesPerRotation;
+    private static double DegToRad(int deg) => deg * Math.PI * 2 / Degrees.P360;
     
     private static Vector3D RotateAboutX(Rotation3D r, Vector3D v)
     {
@@ -124,7 +121,7 @@ public readonly struct Rotation3D : IEquatable<Rotation3D>
     /// </summary>
     private static class ThrowHelper
     {
-        private const string ThetaOutOfRangeError = $"Theta must be an integer multiple of {nameof(NinetyDegrees)} degrees";
+        private const string ThetaOutOfRangeError = "Theta must be an integer multiple of 90 degrees";
         private const string AxisOutOfRangeError = "Axis must be a 3D Eucliedean axis (X, Y, or Z)";
 
         internal static Exception InvalidTheta(int theta)
