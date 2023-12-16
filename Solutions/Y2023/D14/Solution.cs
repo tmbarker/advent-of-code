@@ -15,7 +15,7 @@ public sealed class Solution : SolutionBase
 
         return part switch
         {
-            1 => ComputeLoad(grid: Tilt(grid, d: Vector2D.Up)),
+            1 => ComputeLoad(grid: Tilt(grid)),
             2 => ComputeLoad(grid: Spin(grid, n: 1000000000L)),
             _ => ProblemNotSolvedString
         };
@@ -47,43 +47,36 @@ public sealed class Solution : SolutionBase
         return grid;
     }
     
-    private static Grid2D<char> Tilt(Grid2D<char> grid, Vector2D d)
+    private static Grid2D<char> Tilt(Grid2D<char> grid)
     {
-        var rocks = grid.Where(pos => grid[pos] == Rock);
-        var order = d switch
+        for (var y = grid.Height - 1; y >= 0; y--)
+        for (var x = 0; x < grid.Width; x++)
         {
-            { } when d == Vector2D.Up    => rocks.OrderByDescending(pos => pos.Y),
-            { } when d == Vector2D.Left  => rocks.OrderBy(pos => pos.X),
-            { } when d == Vector2D.Down  => rocks.OrderBy(pos => pos.Y),
-            { } when d == Vector2D.Right => rocks.OrderByDescending(pos => pos.X),
-            { } => throw new NoSolutionException()
-        };
-        
-        foreach (var pos in order)
-        {
-            Roll(grid, pos, d);
+            if (grid[x, y] != Rock)
+            {
+                continue;
+            }
+            
+            var pos = new Vector2D(x, y);
+            var target = pos + Vector2D.Up;
+            
+            while (grid.IsInDomain(target) && grid[target] == Void)
+            {
+                target += Vector2D.Up;
+            }
+
+            grid[pos] = Void;
+            grid[target + Vector2D.Down] = Rock;
         }
         
         return grid;
     }
     
-    private static void Roll(Grid2D<char> grid, Vector2D pos, Vector2D dir)
-    {
-        var target = pos + dir;
-        while (grid.IsInDomain(target) && grid[target] == Void)
-        {
-            target += dir;
-        }
-
-        grid[pos] = Void;
-        grid[target - dir] = Rock;
-    }
-    
     private static void Cycle(Grid2D<char> grid)
     {
-        Tilt(grid, d: Vector2D.Up);
-        Tilt(grid, d: Vector2D.Left);
-        Tilt(grid, d: Vector2D.Down);
-        Tilt(grid, d: Vector2D.Right);
+        for (var i = 0; i < 4; i++)
+        {
+            Tilt(grid).Rotate(deg: Degrees.N90);   
+        }
     }
 }
