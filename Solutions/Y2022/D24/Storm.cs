@@ -51,7 +51,7 @@ public class Storm
     private bool IsPositionSafe(Vector2D target)
     {
         return
-            _field.IsInDomain(target) &&
+            _field.Contains(target) &&
             _field[target] == Terrain.Void &&
             !OccupiedPositions.Contains(target);
     }

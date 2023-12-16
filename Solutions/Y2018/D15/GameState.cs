@@ -64,7 +64,6 @@ public sealed class GameState
     {
         return Field.MapChars(
             strings: input,
-            elementFunc: c => c,
             origin: Origin.Uv);
     }
     

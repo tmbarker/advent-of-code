@@ -11,7 +11,7 @@ public sealed class Solution : SolutionBase
     public override object Run(int part)
     {
         var lines = GetInputLines();
-        var grid = Grid2D<char>.MapChars(lines, c => c);
+        var grid = Grid2D<char>.MapChars(lines);
 
         return part switch
         {
@@ -60,7 +60,7 @@ public sealed class Solution : SolutionBase
             var pos = new Vector2D(x, y);
             var target = pos + Vector2D.Up;
             
-            while (grid.IsInDomain(target) && grid[target] == Void)
+            while (grid.Contains(target) && grid[target] == Void)
             {
                 target += Vector2D.Up;
             }

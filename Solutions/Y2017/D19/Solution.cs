@@ -14,7 +14,7 @@ public sealed class Solution : SolutionBase
     public override object Run(int part)
     {
         var input = GetInputLines();
-        var map = Grid2D<char>.MapChars(input, c => c);
+        var map = Grid2D<char>.MapChars(input);
         var start = new Vector2D(
             x: input[0].IndexOf('|'),
             y: map.Height - 1);
@@ -58,6 +58,6 @@ public sealed class Solution : SolutionBase
 
     private static bool CanMoveTo(Grid2D<char> map, Vector2D pos)
     {
-        return map.IsInDomain(pos) && (Traversable.Contains(map[pos]) || char.IsLetter(map[pos]));
+        return map.Contains(pos) && (Traversable.Contains(map[pos]) || char.IsLetter(map[pos]));
     }
 }

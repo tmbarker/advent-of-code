@@ -51,7 +51,7 @@ public sealed class Field
     
     public static IEnumerable<Field> Parse(IList<string> input, bool applyInputOverrides)
     {
-        var grid = Grid2D<char>.MapChars(input, c => c);
+        var grid = Grid2D<char>.MapChars(input);
         var start = grid.Single(pos => grid[pos] == Start);
         
         if (applyInputOverrides)
@@ -108,7 +108,7 @@ public sealed class Field
 
     private static bool IsTraversable(Vector2D pos, Grid2D<char> grid)
     {
-        return grid.IsInDomain(pos) && grid[pos] != Wall;
+        return grid.Contains(pos) && grid[pos] != Wall;
     }
     
     private static void ApplyInputOverrides(Grid2D<char> grid, Vector2D startPos)

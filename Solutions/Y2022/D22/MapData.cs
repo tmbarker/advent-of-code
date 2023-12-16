@@ -132,7 +132,7 @@ public static class MapData
             targetFace = Vector2D.Left;
         }
 
-        if (!board.IsInDomain(targetPos) || board[targetPos] != Square.Free)
+        if (!board.Contains(targetPos) || board[targetPos] != Square.Free)
         {
             result = default;
             return false;

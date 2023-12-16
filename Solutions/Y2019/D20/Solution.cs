@@ -137,13 +137,13 @@ public sealed class Solution : SolutionBase
 
             foreach (var dir in directions)
             {
-                if (!maze.IsInDomain(pos + dir) || !char.IsLetter(maze[pos + dir]))
+                if (!maze.Contains(pos + dir) || !char.IsLetter(maze[pos + dir]))
                 {
                     continue;
                 }
 
                 var portal = new PortalKey(maze[pos], maze[pos + dir]);
-                var entranceType = !maze.IsInDomain(pos - dir) || !maze.IsInDomain(pos + dir + dir)
+                var entranceType = !maze.Contains(pos - dir) || !maze.Contains(pos + dir + dir)
                     ? EntranceType.Outer
                     : EntranceType.Inner;
                 var entrancePos = PositionValid(maze,pos - dir) 
@@ -164,13 +164,11 @@ public sealed class Solution : SolutionBase
     
     private static bool PositionValid(Maze maze, Vector2D pos)
     {
-        return maze.IsInDomain(pos) && maze[pos] == Traversable;
+        return maze.Contains(pos) && maze[pos] == Traversable;
     }
     
     private Maze ParseMaze()
     {
-        return Grid2D<char>.MapChars(
-            strings: GetInputLines(),
-            elementFunc: c => c);
+        return Maze.MapChars(strings: GetInputLines());
     }
 }

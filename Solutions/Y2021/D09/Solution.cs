@@ -50,7 +50,7 @@ public sealed class Solution : SolutionBase
 
             foreach (var adj in currentPos.GetAdjacentSet(Metric.Taxicab))
             {
-                if (!grid.IsInDomain(adj) || visited.Contains(adj))
+                if (!grid.Contains(adj) || visited.Contains(adj))
                 {
                     continue;
                 }
@@ -80,7 +80,7 @@ public sealed class Solution : SolutionBase
             var height = grid[pos];
             var lowerThanNeighbors = pos
                 .GetAdjacentSet(Metric.Taxicab)
-                .All(adj => !grid.IsInDomain(adj) || height < grid[adj]);
+                .All(adj => !grid.Contains(adj) || height < grid[adj]);
 
             if (lowerThanNeighbors)
             {

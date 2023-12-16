@@ -115,7 +115,7 @@ public sealed class Solution : SolutionBase
         var viewingHeight = trees[position];
         var nextPosition = position + viewingVector;
 
-        while (trees.IsInDomain(nextPosition))
+        while (trees.Contains(nextPosition))
         {
             viewingDistance++;
             

@@ -61,7 +61,7 @@ public sealed class Solution : SolutionBase
     {
         return current
             .GetAdjacentSet(Metric.Taxicab)
-            .Where(map.IsInDomain);
+            .Where(map.Contains);
     }
 
     private static void ParseRiskMap(IList<string> input, int tilesPerSide, out Grid2D<int> map, out Vector2D s, out Vector2D e)

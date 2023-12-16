@@ -8,7 +8,7 @@ public sealed class Solution : SolutionBase
     public override object Run(int part)
     {
         var lines = GetInputLines();
-        var grid = Grid2D<char>.MapChars(lines, c => c);
+        var grid = Grid2D<char>.MapChars(lines);
         
         return part switch
         {
@@ -50,7 +50,7 @@ public sealed class Solution : SolutionBase
             var pose = queue.Dequeue();
             var ahead = pose.Ahead;
 
-            if (!grid.IsInDomain(ahead))
+            if (!grid.Contains(ahead))
             {
                 continue;
             }

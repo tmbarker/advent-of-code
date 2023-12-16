@@ -3,7 +3,7 @@ namespace Utilities.Geometry.Euclidean;
 public sealed partial class Grid2D<T>
 {
     /// <summary>
-    /// Generate a <see cref="Grid2D{T}"/> instance by specifying the dimensions
+    /// Generate a <see cref="Grid2D{T}"/> instance by specifying the dimensions.
     /// </summary>
     /// <param name="rows">The number of rows in the resulting <see cref="Grid2D{T}"/> instance</param>
     /// <param name="cols">The number of columns in the resulting <see cref="Grid2D{T}"/> instance</param>
@@ -15,8 +15,8 @@ public sealed partial class Grid2D<T>
     }
 
     /// <summary>
-    /// Generate a <see cref="Grid2D{T}"/> from an <see cref="IList{T}"/> collection of <see cref="string"/> by applying
-    /// a delegate to each <see cref="char"/> in the input <paramref name="strings"/>
+    /// Generate a <see cref="Grid2D{T}"/> instance from an <see cref="IList{T}"/> collection of <see cref="string"/>
+    /// by applying a delegate to each <see cref="char"/> in the input <paramref name="strings"/>.
     /// </summary>
     /// <param name="strings">The string collection to populate the returned <see cref="Grid2D{T}"/> instance with</param>
     /// <param name="elementFunc">A delegate which builds an element from a <see cref="char"/></param>
@@ -42,5 +42,17 @@ public sealed partial class Grid2D<T>
         }
 
         return new Grid2D<T>(array, origin);
+    }
+    
+    /// <summary>
+    /// Generate a <see cref="Grid2D{T}"/> instance from an <see cref="IList{T}"/> collection of <see cref="string"/>
+    /// by taking each <see cref="char"/> as an element.
+    /// </summary>
+    /// <param name="strings">The string collection to populate the returned <see cref="Grid2D{T}"/> instance with</param>
+    /// <param name="origin">Which origin should be used</param>
+    /// <returns>A populated <see cref="Grid2D{T}"/> instance</returns>
+    public static Grid2D<char> MapChars(IList<string> strings, Origin origin = Origin.Xy)
+    {
+        return Grid2D<char>.MapChars(strings, elementFunc: c => c, origin);
     }
 }

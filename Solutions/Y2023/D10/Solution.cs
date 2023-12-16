@@ -118,7 +118,7 @@ public class Solution : SolutionBase
     {
         start = Vector2D.PositiveInfinity;
         
-        var maze = Grid2D<char>.MapChars(input, elementFunc: c => c);
+        var maze = Grid2D<char>.MapChars(input);
         for (var y = 0; y < maze.Height; y++)
         for (var x = 0; x < maze.Width; x++)
         {
@@ -129,7 +129,7 @@ public class Solution : SolutionBase
         }
         
         var adjNaive = start.GetAdjacentSet(Metric.Taxicab);
-        var adjPipes = adjNaive.Where(adj => maze.IsInDomain(adj) && PipeAdjacency.ContainsKey(maze[adj]));
+        var adjPipes = adjNaive.Where(adj => maze.Contains(adj) && PipeAdjacency.ContainsKey(maze[adj]));
         var adjDirs = new HashSet<Vector2D>();
         
         foreach (var pos in adjPipes)

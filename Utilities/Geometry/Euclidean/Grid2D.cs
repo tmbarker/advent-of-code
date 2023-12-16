@@ -68,7 +68,7 @@ public sealed partial class Grid2D<T> : IEnumerable<Vector2D>
     /// </summary>
     /// <param name="position">The position to check</param>
     /// <returns>A Boolean representing if the position is within the bounds of the <see cref="Grid2D{T}"/></returns>
-    public bool IsInDomain(Vector2D position)
+    public bool Contains(Vector2D position)
     {
         return
             position.X >= 0 && position.X < Width &&
@@ -178,6 +178,7 @@ public sealed partial class Grid2D<T> : IEnumerable<Vector2D>
     /// <param name="row">The row index in the backing array</param>
     /// <param name="col">The col index in the backing array</param>
     /// <returns>The XY position of the abstracted grid element</returns>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     private (int x, int y) ArrayIndicesToXy(int row, int col)
     {
         var x = col;

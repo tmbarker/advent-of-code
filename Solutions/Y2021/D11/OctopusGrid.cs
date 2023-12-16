@@ -51,7 +51,7 @@ public sealed class OctopusGrid(Grid2D<int> energyLevels)
             
             foreach (var adjacent in flashedPos.GetAdjacentSet(Metric.Chebyshev))
             {
-                if (energyLevels.IsInDomain(adjacent))
+                if (energyLevels.Contains(adjacent))
                 {
                     IncrementAndEnqueueIfReady(adjacent, readyToFlash);
                 }

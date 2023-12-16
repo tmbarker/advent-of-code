@@ -50,7 +50,7 @@ public sealed class Solution : SolutionBase
 
                 var adjacent = pos
                     .GetAdjacentSet(Metric.Taxicab)
-                    .Where(map.IsInDomain)
+                    .Where(map.Contains)
                     .Where(adj => map[adj] - map[pos] <= 1)
                     .Where(adj => !visited.Contains(adj));
                 
@@ -69,7 +69,7 @@ public sealed class Solution : SolutionBase
     
     private static Grid2D<char> ParseGrid(IList<string> lines, out Vector2D start, out Vector2D end)
     {
-        var grid = Grid2D<char>.MapChars(lines, c => c);
+        var grid = Grid2D<char>.MapChars(lines);
         
         start = grid.Single(pos => grid[pos] == StartMarker);
         end = grid.Single(pos => grid[pos] == EndMarker);

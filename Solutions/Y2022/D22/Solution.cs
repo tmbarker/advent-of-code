@@ -54,13 +54,13 @@ public sealed class Solution : SolutionBase
 
     private static bool TryMove2D(Pose2D pose, Grid2D<Square> board, out Pose2D result)
     {
-        if (board.IsInDomain(pose.Ahead) && board[pose.Ahead] == Square.Blocked)
+        if (board.Contains(pose.Ahead) && board[pose.Ahead] == Square.Blocked)
         {
             result = default;
             return false;
         }
 
-        if (board.IsInDomain(pose.Ahead) && board[pose.Ahead] == Square.Free)
+        if (board.Contains(pose.Ahead) && board[pose.Ahead] == Square.Free)
         {
             result = pose.Step();
             return true;
@@ -72,7 +72,7 @@ public sealed class Solution : SolutionBase
     private static bool TryWrap2D(Pose2D pose, Grid2D<Square> board, out Pose2D result)
     {
         var targetPos = pose.Pos - pose.Face;
-        while (board.IsInDomain(targetPos) && board[targetPos] != Square.OutOfBounds)
+        while (board.Contains(targetPos) && board[targetPos] != Square.OutOfBounds)
         {
             targetPos -= pose.Face;
         }
@@ -89,7 +89,7 @@ public sealed class Solution : SolutionBase
     
     private static bool TryMove3D(Pose2D pose, Grid2D<Square> board, out Pose2D result)
     {
-        if (!board.IsInDomain(pose.Ahead) || board[pose.Ahead] == Square.OutOfBounds)
+        if (!board.Contains(pose.Ahead) || board[pose.Ahead] == Square.OutOfBounds)
         {
             return MapData.TryMoveBetweenFaces(pose, board, out result);
         }

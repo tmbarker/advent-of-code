@@ -106,7 +106,7 @@ public static class Sim
         var field = state.Field;
         inRangePositions = targetPositions
             .SelectMany(p => p.GetAdjacentSet(Metric.Taxicab))
-            .Where(p => field.IsInDomain(p) && field[p] == GameData.Empty)
+            .Where(p => field.Contains(p) && field[p] == GameData.Empty)
             .ToHashSet();
 
         return inRangePositions.Any();

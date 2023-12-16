@@ -10,7 +10,7 @@ public sealed class Solution : SolutionBase
     {
         var grids = GetInputLines()
             .ChunkBy(line => !string.IsNullOrWhiteSpace(line))
-            .Select(chunk => Grid2D<bool>.MapChars(chunk, c => c == '#'));
+            .Select(chunk => Grid2D<char>.MapChars(chunk));
         
         return part switch
         {
@@ -20,7 +20,7 @@ public sealed class Solution : SolutionBase
         };
     }
     
-    private static int ScoreSymmetry(Grid2D<bool> grid, int exceptions)
+    private static int ScoreSymmetry(Grid2D<char> grid, int exceptions)
     {
         if (FindSymmetryVertical(grid, exceptions, out var rawCol))
         {
@@ -37,7 +37,7 @@ public sealed class Solution : SolutionBase
         throw new NoSolutionException();
     }
     
-    private static bool FindSymmetryVertical(Grid2D<bool> grid, int exceptions, out int col)
+    private static bool FindSymmetryVertical(Grid2D<char> grid, int exceptions, out int col)
     {
         for (var x = 0; x < grid.Width - 1; x++)
         {
@@ -52,7 +52,7 @@ public sealed class Solution : SolutionBase
         return false;
     }
 
-    private static bool IsSymmetricalAboutCol(Grid2D<bool> grid, int exceptions, int col)
+    private static bool IsSymmetricalAboutCol(Grid2D<char> grid, int exceptions, int col)
     {
         var aberrations = 0;
         
