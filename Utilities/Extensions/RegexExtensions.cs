@@ -35,6 +35,14 @@ public static class RegexExtensions
     }
 
     /// <summary>
+    /// Parse the value <see cref="string"/> of the <see cref="Capture"/> as a <see cref="long"/>
+    /// </summary>
+    public static long ParseLong(this Capture capture)
+    {
+        return long.Parse(capture.Value);
+    }
+    
+    /// <summary>
     /// Enumerate all <see cref="Match"/> instances from the <see cref="MatchCollection"/>.
     /// </summary>
     public static IList<string> SelectValues(this MatchCollection matches)
