@@ -7,46 +7,44 @@ namespace Solutions.Y2023.D17;
 [PuzzleInfo("Clumsy Crucible", Topics.Graphs, Difficulty.Medium)]
 public sealed class Solution : SolutionBase
 {
+    private const int Inf = int.MaxValue / 2;
     private readonly record struct State(Vector2D Pos, Vector2D Face, int Count);
     
     public override object Run(int part)
     {
+        var input = GetInputLines();
+        var grid = Grid2D<int>.MapChars(strings: input, elementFunc: c => c.AsDigit());
+        
         return part switch
         {
-            1 => Search(stepRange: new Range<int>(min: 0, max: 3)),
-            2 => Search(stepRange: new Range<int>(min: 4, max: 10)),
+            1 => Search(grid, constraint: new Range<int>(min: 1, max: 3)),
+            2 => Search(grid, constraint: new Range<int>(min: 4, max: 10)),
             _ => ProblemNotSolvedString
         };
     }
     
-    private int Search(Range<int> stepRange)
+    private static int Search(Grid2D<int> grid, Range<int> constraint)
     {
-        var grid = Grid2D<int>.MapChars(strings: GetInputLines(), elementFunc: c => c.AsDigit());
         var start = new Vector2D(x: 0, y: grid.Height - 1);
-        var end = new Vector2D(x: grid.Width - 1, y: 0);
-        
-        var cost = new DefaultDict<State, int>(defaultValue: int.MaxValue / 2);
-        var heap = new PriorityQueue<State, int>();
-        
-        foreach (var init in GetInitial(start))
-        {
-            cost[init] = 0;
-            heap.Enqueue(init, priority: 0);
-        }
+        var goal = new Vector2D(x: grid.Width - 1, y: 0);
+        var init = new State(Pos: start, Face: Vector2D.Right, Count: 0);
+
+        var cost = new DefaultDict<State, int>(defaultValue: Inf, items: [(init, 0)]);
+        var heap = new PriorityQueue<State, int>(items: [(init, 0)]);
 
         while (heap.Count > 0)
         {
-            var cur = heap.Dequeue();
-            if (cur.Pos == end && cur.Count >= stepRange.Min)
+            var state = heap.Dequeue();
+            if (state.Pos == goal && state.Count >= constraint.Min)
             {
-                return cost[cur];
+                return cost[state];
             }
             
-            foreach (var adj in GetAdjacent(cur, stepRange))
+            foreach (var adj in GetAdjacent(state, constraint))
             {
-                if (grid.Contains(adj.Pos) && cost[cur] + grid[adj.Pos] < cost[adj])
+                if (grid.Contains(adj.Pos) && cost[state] + grid[adj.Pos] < cost[adj])
                 {
-                    cost[adj] = cost[cur] + grid[adj.Pos];
+                    cost[adj] = cost[state] + grid[adj.Pos];
                     heap.Enqueue(adj, cost[adj]);
                 }
             }
@@ -55,26 +53,20 @@ public sealed class Solution : SolutionBase
         throw new NoSolutionException();
     }
     
-    private static IEnumerable<State> GetInitial(Vector2D origin)
+    private static IEnumerable<State> GetAdjacent(State state, Range<int> constraint)
     {
-        yield return new State(Pos: origin, Face: Vector2D.Right, Count: 0);
-        yield return new State(Pos: origin, Face: Vector2D.Down,  Count: 0);
-    }
-    
-    private static IEnumerable<State> GetAdjacent(State current, Range<int> stepRange)
-    {
-        if (current.Count >= stepRange.Min)
+        if (state.Count >= constraint.Min)
         {
-            var l = (Vector2D)(Rotation3D.Positive90Z * current.Face);
-            var r = (Vector2D)(Rotation3D.Negative90Z * current.Face);
+            var l = (Vector2D)(Rotation3D.Positive90Z * state.Face);
+            var r = (Vector2D)(Rotation3D.Negative90Z * state.Face);
             
-            yield return new State(Pos: current.Pos + l, Face: l, Count: 1);
-            yield return new State(Pos: current.Pos + r, Face: r, Count: 1);
+            yield return new State(Pos: state.Pos + l, Face: l, Count: 1);
+            yield return new State(Pos: state.Pos + r, Face: r, Count: 1);
         }
         
-        if (current.Count < stepRange.Max)
+        if (state.Count < constraint.Max)
         {
-            yield return new State(Pos: current.Pos + current.Face, Face: current.Face, Count: current.Count + 1);
+            yield return new State(Pos: state.Pos + state.Face, Face: state.Face, Count: state.Count + 1);
         }
     }
 }
