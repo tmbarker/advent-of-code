@@ -106,7 +106,7 @@ public static class CollectionExtensions
     /// <param name="skipPredicate">Select which elements to skip between chunks, if not provided
     /// then <paramref name="takePredicate"/> is used and negated</param>
     /// <typeparam name="T">The type associated with each element in the source</typeparam>
-    /// <returns></returns>
+    /// <returns>An iterator which yields chunk arrays</returns>
     public static IEnumerable<T[]> ChunkBy<T>(this IEnumerable<T> source, Predicate<T> takePredicate,
         Predicate<T>? skipPredicate = null)
     {
@@ -133,6 +133,20 @@ public static class CollectionExtensions
         }
 
         return chunks;
+    }
+
+    /// <summary>
+    /// Apply an action to each element in the <paramref name="source"/> collection.
+    /// </summary>
+    /// <param name="source">The source collection to act upon</param>
+    /// <param name="action">The <see cref="Action{T}"/> to apply to each element</param>
+    /// <typeparam name="T">The type associated with each element in the <paramref name="source"/> collection</typeparam>
+    public static void ForEach<T>(this IEnumerable<T> source, Action<T> action)
+    {
+        foreach (var element in source)
+        {
+            action.Invoke(element);
+        }
     }
 
     /// <summary>

@@ -1,4 +1,5 @@
 using System.Collections;
+using JetBrains.Annotations;
 
 namespace Utilities.Collections;
 
@@ -19,6 +20,7 @@ public sealed class DefaultDict<TKey, TValue>(Func<TKey, TValue> defaultSelector
     public ICollection<TKey> Keys => _dictionary.Keys;
     public ICollection<TValue> Values => _dictionary.Values;
     
+    [CollectionAccess(CollectionAccessType.UpdatedContent)]
     public TValue this[TKey key]
     {
         get => IndexGetInternal(key);
