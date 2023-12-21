@@ -9,6 +9,7 @@ Puzzle | My Solution | Date | Topic(s) | Difficulty
 [If You Give A Seed A Fertilizer](https://adventofcode.com/2023/day/5) | [Solution](https://github.com/tmbarker/advent-of-code/blob/main/Solutions/Y2023/D05/Solution.cs) | 2023-05 | Math | :red_circle: Hard
 [Hot Springs](https://adventofcode.com/2023/day/12) | [Solution](https://github.com/tmbarker/advent-of-code/blob/main/Solutions/Y2023/D12/Solution.cs) | 2023-12 | String Parsing | :red_circle: Hard
 [Aplenty](https://adventofcode.com/2023/day/19) | [Solution](https://github.com/tmbarker/advent-of-code/blob/main/Solutions/Y2023/D19/Solution.cs) | 2023-19 | String Parsing, Math | :yellow_circle: Medium
+[Step Counter](https://adventofcode.com/2023/day/21) | [Solution](https://github.com/tmbarker/advent-of-code/blob/main/Solutions/Y2023/D21/Solution.cs) | 2023-21 | Vectors, Math | :red_circle: Hard
 
 ### 2022
 Puzzle | My Solution | Date | Topic(s) | Difficulty
