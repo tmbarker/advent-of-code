@@ -37,8 +37,8 @@ public sealed class Solution : SolutionBase
         var queue = new Queue<Vector3D>();
         var aabb = new Aabb3D(elementsSet, false);
 
-        queue.Enqueue(aabb.GetMinVertex());
-        boundingSet.Add(aabb.GetMinVertex());
+        queue.Enqueue(aabb.Min);
+        boundingSet.Add(aabb.Min);
         
         while (queue.Count > 0)
         {

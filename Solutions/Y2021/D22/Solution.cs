@@ -25,7 +25,7 @@ public sealed class Solution : SolutionBase
 
         foreach (var step in instructions)
         {
-            if (!Aabb3D.FindOverlap(initRegion, step.Aabb, out var overlap))
+            if (!Aabb3D.Overlap(initRegion, step.Aabb, out var overlap))
             {
                 continue;
             }
@@ -53,7 +53,7 @@ public sealed class Solution : SolutionBase
         {
             foreach (var (signedAabb, weight) in signedAabbs.Freeze())
             {
-                if (Aabb3D.FindOverlap(aabb, signedAabb, out var overlap))
+                if (Aabb3D.Overlap(aabb, signedAabb, out var overlap))
                 {
                     signedAabbs[overlap] -= weight;
                 }
