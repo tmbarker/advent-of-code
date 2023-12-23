@@ -3,13 +3,13 @@ using Utilities.Geometry.Euclidean;
 
 namespace Solutions.Y2023.D23;
 
-using Graph = DefaultDict<Vector2D, HashSet<Vector2D>>;
+using Graph = DefaultDict<Vector2D, HashSet<(Vector2D Adj, int Cost)>>;
 
 [PuzzleInfo("A Long Walk", Topics.Graphs, Difficulty.Medium)]
 public sealed class Solution : SolutionBase
 {
     private const char Forest = '#';
-    private static readonly Dictionary<char, Vector2D> SlopeMap = new()
+    private static readonly Dictionary<char, Vector2D> Slopes = new()
     {
         { '^', Vector2D.Up },
         { 'v', Vector2D.Down },
@@ -22,11 +22,6 @@ public sealed class Solution : SolutionBase
         var input = GetInputLines();
         var graph = ParseGraph(input, slopes: part == 1, out var start, out var end);
 
-        return Search(graph, start, end);
-    }
-
-    private static int Search(Graph graph, Vector2D start, Vector2D end)
-    {
         return Dfs(graph, goal: end, pos: start, visited: [], n: 0);
     }
     
@@ -38,11 +33,11 @@ public sealed class Solution : SolutionBase
         }
      
         var max = 0;
-        foreach (var adj in graph[pos])
+        foreach (var (adj, cost) in graph[pos])
         {
             if (visited.Add(adj))
             {
-                max = Math.Max(max, Dfs(graph, goal, adj, visited, n: n + 1));
+                max = Math.Max(max, Dfs(graph, goal, adj, visited, n: n + cost));
                 visited.Remove(adj);
             }
         }
@@ -51,15 +46,45 @@ public sealed class Solution : SolutionBase
 
     private static Graph ParseGraph(IList<string> input, bool slopes, out Vector2D start, out Vector2D end)
     {
-        start = new Vector2D(x: input[0].IndexOf('.'), y: input.Count - 1);
-        end = new Vector2D(x: input[^1].IndexOf('.'), y: 0);
+        start = new Vector2D(x: input[0].IndexOf('.'),  y: input.Count - 1);
+        end =   new Vector2D(x: input[^1].IndexOf('.'), y: 0);
         
         var grid = Grid2D<char>.MapChars(input);
         var graph = new Graph(defaultSelector: _ => []);
+        var nodes = grid
+            .Where(pos => grid[pos] != Forest)
+            .Where(pos => !slopes || !Slopes.ContainsKey(grid[pos]))
+            .Where(pos => GetAdjacent(grid, pos, slopes).Count != 2)
+            .ToHashSet();
 
-        foreach (var pos in grid)
+        foreach (var node in nodes)
         {
-            graph[pos] = GetAdjacent(grid, pos, slopes);
+            var queue = new Queue<Vector2D>(collection: [node]);
+            var visited = new HashSet<Vector2D>(collection: [node]);
+            var cost = 0;
+
+            while (queue.Count > 0)
+            {
+                var heads = queue.Count;
+                while (heads-- > 0)
+                {
+                    var head = queue.Dequeue();
+                    if (head != node && nodes.Contains(head))
+                    {
+                        graph[node].Add((Adj: head, Cost: cost));
+                        continue;
+                    }
+
+                    foreach (var adj in GetAdjacent(grid, head, slopes))
+                    {
+                        if (visited.Add(adj))
+                        {
+                            queue.Enqueue(adj);   
+                        }
+                    }
+                }
+                cost++;
+            }
         }
 
         return graph;
@@ -68,7 +93,7 @@ public sealed class Solution : SolutionBase
     private static HashSet<Vector2D> GetAdjacent(Grid2D<char> grid, Vector2D pos, bool slopes)
     {
         var candidates = new List<Vector2D>(capacity: 4);
-        if (slopes && SlopeMap.TryGetValue(grid[pos], out var dir))
+        if (slopes && Slopes.TryGetValue(grid[pos], out var dir))
         {
             candidates.Add(item: pos + dir);
         }
