@@ -1,12 +1,8 @@
-﻿using System.Runtime.CompilerServices;
+﻿namespace Solutions.Y2023.D24;
 
-namespace Solutions.Y2023.D24;
-
-[PuzzleInfo("Never Tell Me The Odds", Topics.Vectors|Topics.Math, Difficulty.Hard)]
+[PuzzleInfo("Never Tell Me The Odds", Topics.Vectors|Topics.Math, Difficulty.Hard, favourite: true)]
 public sealed class Solution : SolutionBase
 {
-    private const double EpsilonParallel = 1e-3;
-    
     public override object Run(int part)
     {
         var rays = GetInputLines()
@@ -16,43 +12,29 @@ public sealed class Solution : SolutionBase
         return part switch
         {
             1 => Intersect2D(rays, aabb: new Aabb2(Min: 2e14, Max: 4e14)),
+            2 => Intersect3D(rays),
             _ => ProblemNotSolvedString
         };
     }
 
-    private static int Intersect2D(IReadOnlyList<Ray3> rays, Aabb2 aabb)
+    private static long Intersect2D(IReadOnlyList<Ray3> rays, Aabb2 aabb)
     {
-        var n = 0;
+        var n = 0L;
         
         for (var i = 0; i < rays.Count - 1; i++)
         for (var j = i + 1; j < rays.Count; j++)
         {
-            if (Intersect(a: rays[i], b: rays[j], out var p) && aabb.Contains(p))
+            if (Ray3.Intersect2D(a: rays[i], b: rays[j], out var p) && aabb.Contains(p))
             {
                 n++;
-            }   
+            }
         }
 
         return n;
     }
 
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    private static bool Intersect(Ray3 a, Ray3 b, out Vec3 p)
+    private static long Intersect3D(IReadOnlyList<Ray3> rays)
     {
-        var dx = b.S.X - a.S.X;
-        var dy = b.S.Y - a.S.Y;
-        var cp = b.D.X * a.D.Y - b.D.Y * a.D.X;
-        
-        if (Math.Abs(cp) < EpsilonParallel)
-        {
-            p = Vec3.Zero;
-            return false;
-        }
-        
-        var u = (dy * b.D.X - dx * b.D.Y) / cp;
-        var v = (dy * a.D.X - dx * a.D.Y) / cp;
-        
-        p = a.GetPoint(u);
-        return u >= 0 && v >= 0;
-    }
+        throw new NoSolutionException();
+    } 
 }

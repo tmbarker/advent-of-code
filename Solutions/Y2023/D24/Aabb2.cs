@@ -1,10 +1,7 @@
-﻿using System.Runtime.CompilerServices;
-
-namespace Solutions.Y2023.D24;
+﻿namespace Solutions.Y2023.D24;
 
 public readonly record struct Aabb2(double Min, double Max)
 {
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public bool Contains(Vec3 p)
     {
         return p.X >= Min && p.X <= Max &&
