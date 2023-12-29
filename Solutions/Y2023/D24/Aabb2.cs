@@ -1,6 +1,6 @@
 ﻿namespace Solutions.Y2023.D24;
 
-public readonly record struct Aabb2(double Min, double Max)
+public readonly record struct Aabb2(decimal Min, decimal Max)
 {
     public bool Contains(Vec3 p)
     {

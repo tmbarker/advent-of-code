@@ -4,7 +4,7 @@ namespace Solutions.Y2023.D24;
 
 public readonly record struct Ray3(Vec3 S, Vec3 V)
 {
-    private const double EpsilonParallel = 1e-3;
+    private const decimal EpsilonParallel = 1e-3m;
     
     public static bool Intersect2D(Ray3 a, Ray3 b, out Vec3 p)
     {
@@ -29,12 +29,12 @@ public readonly record struct Ray3(Vec3 S, Vec3 V)
     {
         var n = line.ParseLongs();
         var s = new Vec3(X: n[0], Y: n[1], Z: n[2]);
-        var d = new Vec3(X: n[3], Y: n[4], Z: n[5]);
+        var v = new Vec3(X: n[3], Y: n[4], Z: n[5]);
         
-        return new Ray3(s, d);
+        return new Ray3(s, v);
     }
     
-    private Vec3 GetPoint(double t)
+    private Vec3 GetPoint(decimal t)
     {
         return new Vec3(
             X: S.X + t * V.X,
