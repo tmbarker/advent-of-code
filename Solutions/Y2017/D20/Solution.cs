@@ -1,3 +1,4 @@
+using Utilities.Collections;
 using Utilities.Extensions;
 using Utilities.Geometry.Euclidean;
 
@@ -34,43 +35,34 @@ public sealed class Solution : SolutionBase
 
     private int CountCollisions(IDictionary<int, Particle> particles)
     {
-        if (LogsEnabled)
-        {
-            Console.WriteLine("Computing collisions");
-        }
+        Log("Computing collisions");
         
-        var collisions = new Dictionary<Collision, HashSet<int>>();
-        for (var i = 0; i < particles.Count; i++)
-        for (var j = 0; j < particles.Count; j++)
+        var collisions = new DefaultDict<Collision, HashSet<int>>(defaultSelector: _ => []);
+        var surviving = new HashSet<int>(collection: particles.Keys);
+        
+        for (var i = 0; i < particles.Count - 1; i++)
+        for (var j = i + 1; j < particles.Count; j++)
         {
-            if (i == j || !ComputeCollision(p1: particles[i], p2: particles[j], out var collision))
+            if (ComputeCollision(p1: particles[i], p2: particles[j], out var collision))
             {
-                continue;
+                collisions[collision].Add(i);
+                collisions[collision].Add(j);
             }
-
-            collisions.TryAdd(collision, new HashSet<int>());
-            collisions[collision].Add(i);
-            collisions[collision].Add(j);
         }
 
-        if (LogsEnabled)
-        {
-            Console.WriteLine("Collisions computed");
-            Console.WriteLine("Destroying particles");
-        }
+        Log("Collisions computed");
+        Log("Destroying particles");
         
         foreach (var collision in collisions.Keys.OrderBy(c => c.Tick))
         {
-            var presentAtTick = particles.Keys.Freeze();
             var involved = collisions[collision];
-
-            if (involved.Count(presentAtTick.Contains) >= 2)
+            if (involved.Count(surviving.Contains) >= 2)
             {
-                particles.RemoveMany(involved);
+                surviving.ExceptWith(involved);
             }
         }
         
-        return particles.Count;
+        return surviving.Count;
     }
     
     private static bool ComputeCollision(Particle p1, Particle p2, out Collision collision)

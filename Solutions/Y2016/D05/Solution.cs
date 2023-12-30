@@ -65,12 +65,4 @@ public sealed class Solution : SolutionBase
 
         return string.Concat(pass);
     }
-
-    private void Log(string log)
-    {
-        if (LogsEnabled)
-        {
-            Console.WriteLine(log);
-        }
-    }
 }

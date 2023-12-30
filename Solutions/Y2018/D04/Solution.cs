@@ -1,4 +1,5 @@
 using System.Text.RegularExpressions;
+using Utilities.Collections;
 using Utilities.Extensions;
 
 namespace Solutions.Y2018.D04;
@@ -6,14 +7,12 @@ namespace Solutions.Y2018.D04;
 [PuzzleInfo("Repose Record", Topics.StringParsing|Topics.Math, Difficulty.Medium)]
 public sealed class Solution : SolutionBase
 {
-    private readonly record struct Log(DateTime DateTime, string Observation);
+    private readonly record struct LogEntry(DateTime DateTime, string Observation);
     
     private const string DateTimeFormat = "yyyy-MM-dd HH:mm";
     private const string Guard = "Guard";
     private const string Falls = "falls";
     private const string Wakes = "wakes";
-
-    private static readonly Regex LogRegex = new(pattern: @"^\[(.+)\] (.+)$");
 
     public override object Run(int part)
     {
@@ -28,9 +27,9 @@ public sealed class Solution : SolutionBase
         };
     }
 
-    private static Dictionary<int, List<int>> BuildSleepMap(IEnumerable<Log> logs)
+    private static IDictionary<int, List<int>> BuildSleepMap(IEnumerable<LogEntry> logs)
     {
-        var sleepMap = new Dictionary<int, List<int>>();
+        var sleepMap = new DefaultDict<int, List<int>>(defaultSelector: _ => []);
         var ordered = logs
             .OrderBy(l => l.DateTime)
             .ToList();
@@ -49,7 +48,6 @@ public sealed class Solution : SolutionBase
                     asleepAt = dateTime.Minute;
                     break;
                 case not null when observation.StartsWith(Wakes):
-                    sleepMap.TryAdd(onDutyId, new List<int>());
                     sleepMap[onDutyId].AddRange(Enumerable.Range(
                         start: asleepAt,
                         count: dateTime.Minute - asleepAt));
@@ -60,7 +58,7 @@ public sealed class Solution : SolutionBase
         return sleepMap;
     }
 
-    private static int EvaluateStrategy1(Dictionary<int, List<int>> sleepMap)
+    private static int EvaluateStrategy1(IDictionary<int, List<int>> sleepMap)
     {
         var mostAsleep = sleepMap.MaxBy(kvp => kvp.Value.Count);
         var mostCommonlyAt = mostAsleep.Value.Mode();
@@ -68,7 +66,7 @@ public sealed class Solution : SolutionBase
         return mostAsleep.Key * mostCommonlyAt;
     }
     
-    private static int EvaluateStrategy2(Dictionary<int, List<int>> sleepMap)
+    private static int EvaluateStrategy2(IDictionary<int, List<int>> sleepMap)
     {
         var maxAsleep = 0;
         var bestGuard = 0;
@@ -95,12 +93,15 @@ public sealed class Solution : SolutionBase
         return bestGuard * bestMinute;
     }
 
-    private static Log ParseLog(string line)
-    {
-        var match = LogRegex.Match(line);
-        var dateTime = DateTime.ParseExact(s: match.Groups[1].Value, format: DateTimeFormat, provider: null);
+    private static LogEntry ParseLog(string line)
+    { 
+        var match = Regex.Match(line, pattern: @"^\[(.+)\] (.+)$");
         var observation = match.Groups[2].Value;
+        var dateTime = DateTime.ParseExact(
+            s: match.Groups[1].Value,
+            format: DateTimeFormat,
+            provider: null);
 
-        return new Log(dateTime, observation);
+        return new LogEntry(dateTime, observation);
     }
 }

@@ -26,7 +26,7 @@ public sealed class Solution : IntCodeSolution
         game.Run();
         PrintOutput(game);
 
-        while (Cheats.AutomationCommands.Any())
+        while (Cheats.AutomationCommands.Count != 0)
         {
             EnterGameCommand(
                 game: game,
@@ -54,10 +54,7 @@ public sealed class Solution : IntCodeSolution
                 var output = ReadAsciiOutput(game);
                 var match = Cheats.PasscodeRegex.Match(output);
 
-                if (LogsEnabled)
-                {
-                    Console.WriteLine(output);   
-                }
+                Log(output);
 
                 if (match.Success)
                 {
@@ -71,15 +68,9 @@ public sealed class Solution : IntCodeSolution
 
     private void PrintOutput(IntCodeVm game)
     {
-        if (!game.OutputBuffer.Any())
+        if (game.OutputBuffer.Count != 0)
         {
-            return;
-        }
-        
-        var output = ReadAsciiOutput(game);
-        if (LogsEnabled)
-        {
-            Console.WriteLine(output);   
+            Log(log: ReadAsciiOutput(game));
         }
     }
 
@@ -96,7 +87,7 @@ public sealed class Solution : IntCodeSolution
     private static string ReadAsciiOutput(IntCodeVm game)
     {
         var sb = new StringBuilder();
-        while (game.OutputBuffer.Any())
+        while (game.OutputBuffer.Count != 0)
         {
             sb.Append((char)game.OutputBuffer.Dequeue());
         }

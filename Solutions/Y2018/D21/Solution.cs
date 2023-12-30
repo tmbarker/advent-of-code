@@ -46,8 +46,8 @@ public sealed class Solution : SolutionBase
     {
         //  This logic comes from analyzing the assembly. Reference the adjacent asm.txt file to see the
         //  annotated assembly. For my input, with my IP bound to r2, the program could only halt when
-        //  r4 == r0 is checked at IP = 28L. Therefore, my answer if the last unique value in r4 when the 
-        //  IP hits 28L, before the r4 starts cycling
+        //  r4 == r0 is checked at IP = 28L. Therefore, my answer is the last unique value in r4 when the 
+        //  IP hits 28L, before r4 starts cycling
         //
         var lastValue = 0L;
         var prevValues = new HashSet<long>();
@@ -67,11 +67,8 @@ public sealed class Solution : SolutionBase
             }
         }
 
-        if (LogsEnabled)
-        {
-            Console.WriteLine("Warning, part 2 of this solution will take some time to run...");
-        }
-
+        Log("Warning, part 2 of this solution will take some time to run...");
+        
         cpu.RegisterIpListener(ipValue: 28L, OnHaltCheck);
         cpu.Run(program, cts.Token);
         

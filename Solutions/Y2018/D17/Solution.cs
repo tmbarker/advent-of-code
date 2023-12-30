@@ -14,8 +14,8 @@ public sealed class Solution : SolutionBase
 
         return part switch
         {
-            1 => Flood(reservoir, print: LogsEnabled, materials: new[] { Water.Flowing, Water.Settled }),
-            2 => Flood(reservoir, print: LogsEnabled, materials: new[] { Water.Settled }),
+            1 => Flood(reservoir, print: LogsEnabled, materials: [Water.Flowing, Water.Settled]),
+            2 => Flood(reservoir, print: LogsEnabled, materials: [Water.Settled]),
             _ => ProblemNotSolvedString
         };
     }
@@ -23,9 +23,9 @@ public sealed class Solution : SolutionBase
     private static int Flood(Reservoir reservoir, bool print, params char[] materials)
     {
         var outflowAt = Reservoir.SpringPos + Gravity;
-        var queue = new Queue<Vector2D>(new[] { outflowAt });
+        var queue = new Queue<Vector2D>(collection: [outflowAt]);
         
-        while (queue.Any())
+        while (queue.Count != 0)
         {
             var pos = queue.Dequeue();
             var below = pos + Gravity;
@@ -78,14 +78,13 @@ public sealed class Solution : SolutionBase
 
     private static bool TrySettle(Reservoir reservoir, Vector2D searchFrom, out HashSet<Vector2D> overflows)
     {
-        overflows = new HashSet<Vector2D>();
-        
+        overflows = [];
         var canSettle = true;
         var sides = new HashSet<Vector2D> { Vector2D.Left, Vector2D.Right };
         var visited = new HashSet<Vector2D> { searchFrom };
         var queue = new Queue<Vector2D>(new[] { searchFrom });
 
-        while (queue.Any())
+        while (queue.Count != 0)
         {
             var pos = queue.Dequeue();
             var below = pos + Gravity;
@@ -102,13 +101,10 @@ public sealed class Solution : SolutionBase
                 var adjacent = pos + direction;
                 var content = reservoir[adjacent];
                 
-                if ((content != Terrain.Empty && content != Water.Flowing) || visited.Contains(adjacent))
+                if (content is Terrain.Empty or Water.Flowing && visited.Add(adjacent))
                 {
-                    continue;
+                    queue.Enqueue(adjacent);
                 }
-                
-                visited.Add(adjacent);
-                queue.Enqueue(adjacent);
             }
         }
 

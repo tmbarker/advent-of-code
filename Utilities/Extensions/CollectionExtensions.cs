@@ -6,18 +6,6 @@ namespace Utilities.Extensions;
 public static class CollectionExtensions
 {
     /// <summary>
-    /// Attempt to remove all specified <see cref="keys"/> from the <see cref="Dictionary{TKey,TValue}"/> instance
-    /// </summary>
-    public static void RemoveMany<TKey, TValue>(this IDictionary<TKey, TValue> dictionary, IEnumerable<TKey> keys)
-        where TKey : notnull
-    {
-        foreach (var key in keys)
-        {
-            dictionary.Remove(key);
-        }
-    }
-
-    /// <summary>
     /// Filter the dictionary entries using a Value Predicate
     /// </summary>
     public static Dictionary<TKey, TValue> WhereValues<TKey, TValue>(this IDictionary<TKey, TValue> dictionary,

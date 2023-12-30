@@ -64,12 +64,8 @@ public sealed class Solution : IntCodeSolution
             return output;
         }
 
-        if (LogsEnabled)
-        {
-            Console.Write(output);
-            Console.WriteLine();   
-        }
 
+        Log($"Failure:\n{output}");
         return ProblemNotSolvedString;
     }
 }

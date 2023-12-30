@@ -24,6 +24,14 @@ public abstract class SolutionBase
     /// <returns>The solution part result</returns>
     public abstract object Run(int part);
 
+    protected void Log(string log)
+    {
+        if (LogsEnabled)
+        {
+            Console.WriteLine(log);
+        }
+    }
+    
     protected string[] GetInputLines()
     {
         AssertInputExists();
