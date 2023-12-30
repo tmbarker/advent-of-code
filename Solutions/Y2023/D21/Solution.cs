@@ -1,5 +1,6 @@
 using Utilities.Extensions;
 using Utilities.Geometry.Euclidean;
+using Utilities.Numerics;
 
 namespace Solutions.Y2023.D21;
 
@@ -68,13 +69,20 @@ public sealed class Solution : SolutionBase
         var ys = Simulate(grid, start, sampleAt: [x0, x0 + dx, x0 + 2 * dx]);
         
         //  Solve a system of equations to obtain the quadratic coefficients a, b, and c:
-        //  (1) y0 = c, (2) y1 = a + b + c, (3) y2 = 4a + b + c
-        //  
-        var c = ys[0];
-        var b = (4 * ys[1] - ys[2] - 3 * ys[0]) / 2;
-        var a = ys[1] - ys[0] - b;
+        //  (1) c = y0, (2) a + b + c = y1, (3) 4a + 2b + c = y2
+        //
+        var coefficients = LinearSolver.Solve(a: new double[,]
+        {
+            { 4, 2, 1, ys[2]},
+            { 1, 1, 1, ys[1]},
+            { 0, 0, 1, ys[0]}
+        });
 
+        var a = (long)coefficients[0];
+        var b = (long)coefficients[1];
+        var c = (long)coefficients[2];
         var x = (n - x0) / dx;
+        
         return a * x * x + b * x + c;
     }
     
