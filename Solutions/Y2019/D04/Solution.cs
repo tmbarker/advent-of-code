@@ -1,4 +1,4 @@
-using Utilities.Geometry.Euclidean;
+using Utilities.Numerics;
 
 namespace Solutions.Y2019.D04;
 

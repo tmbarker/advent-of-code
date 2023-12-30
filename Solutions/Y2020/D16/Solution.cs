@@ -1,6 +1,6 @@
 using System.Text.RegularExpressions;
 using Utilities.Extensions;
-using Utilities.Geometry.Euclidean;
+using Utilities.Numerics;
 
 namespace Solutions.Y2020.D16;
 

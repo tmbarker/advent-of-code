@@ -3,7 +3,7 @@ using System.Numerics;
 using System.Text.RegularExpressions;
 using Utilities.Extensions;
 
-namespace Utilities.Geometry.Euclidean;
+namespace Utilities.Numerics;
 
 /// <summary>
 /// A generic readonly interval value type
