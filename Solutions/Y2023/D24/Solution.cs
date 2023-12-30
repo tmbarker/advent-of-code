@@ -1,4 +1,6 @@
-﻿namespace Solutions.Y2023.D24;
+﻿using Utilities.Numerics;
+
+namespace Solutions.Y2023.D24;
 
 [PuzzleInfo("Never Tell Me The Odds", Topics.Vectors|Topics.Math, Difficulty.Hard, favourite: true)]
 public sealed class Solution : SolutionBase
@@ -36,8 +38,8 @@ public sealed class Solution : SolutionBase
     private static decimal Intersect3D(IReadOnlyList<Ray3> rays)
     {
         //  Let:
-        //    <p_rock(t)> = <X,Y,Z> + t <DX,DY,DZ> 
-        //    <p_hail(t)> = <x,y,z> + t <dx,dy,dz>
+        //    <p_rock>(t) = <X,Y,Z> + t <DX,DY,DZ> 
+        //    <p_hail>(t) = <x,y,z> + t <dx,dy,dz>
           
         //  A rock-hail collision requires the following to be true:
         //    X + t DX = x + t dx
@@ -69,15 +71,15 @@ public sealed class Solution : SolutionBase
         //  unknowns, which we can now solve relatively trivially using linear algebra.
         
         var matrix = new decimal[6, 7];
-        FillRow(matrix, row: 0, vals: Eq1Coefficients(a: rays[0], b: rays[1]));
-        FillRow(matrix, row: 1, vals: Eq1Coefficients(a: rays[0], b: rays[2]));
-        FillRow(matrix, row: 2, vals: Eq2Coefficients(a: rays[0], b: rays[1]));
-        FillRow(matrix, row: 3, vals: Eq2Coefficients(a: rays[0], b: rays[2]));
-        FillRow(matrix, row: 4, vals: Eq3Coefficients(a: rays[0], b: rays[1]));
-        FillRow(matrix, row: 5, vals: Eq3Coefficients(a: rays[0], b: rays[2]));
+        FillRow(matrix, row: 0, vals: Coefficients1(a: rays[0], b: rays[1]));
+        FillRow(matrix, row: 1, vals: Coefficients1(a: rays[0], b: rays[2]));
+        FillRow(matrix, row: 2, vals: Coefficients2(a: rays[0], b: rays[1]));
+        FillRow(matrix, row: 3, vals: Coefficients2(a: rays[0], b: rays[2]));
+        FillRow(matrix, row: 4, vals: Coefficients3(a: rays[0], b: rays[1]));
+        FillRow(matrix, row: 5, vals: Coefficients3(a: rays[0], b: rays[2]));
 
-        return SystemSolver
-            .Solve(a: matrix, n: 6)
+        return LinearSolver
+            .Solve(a: matrix)
             .Take(3)
             .Select(v => Math.Round(v))
             .Sum();
@@ -91,7 +93,7 @@ public sealed class Solution : SolutionBase
         }
     }
     
-    private static decimal[] Eq1Coefficients(Ray3 a, Ray3 b)
+    private static decimal[] Coefficients1(Ray3 a, Ray3 b)
     {
         // (dy'-dy) X + (dx-dx') Y + (y-y') DX + (x'-x) DY =  x' dy' - y' dx' - x dy + y dx
         var arr = new decimal[7];
@@ -103,7 +105,7 @@ public sealed class Solution : SolutionBase
         return arr;
     }
     
-    private static decimal[] Eq2Coefficients(Ray3 a, Ray3 b)
+    private static decimal[] Coefficients2(Ray3 a, Ray3 b)
     {
         // (dz'-dz) X + (dx-dx') Z + (z-z') DX + (x'-x) DZ =  x' dz' - z' dx' - x dz + z dx
         var arr = new decimal[7];
@@ -115,7 +117,7 @@ public sealed class Solution : SolutionBase
         return arr;
     }
     
-    private static decimal[] Eq3Coefficients(Ray3 a, Ray3 b)
+    private static decimal[] Coefficients3(Ray3 a, Ray3 b)
     {
         // (dz-dz') Y + (dy'-dy) Z + (z'-z) DY + (y-y') DZ = -y' dz' + z' dy' + y dz - z dy
         var arr = new decimal[7];

@@ -1,22 +1,34 @@
-﻿namespace Solutions.Y2023.D24;
+﻿using System.Numerics;
 
-public static class SystemSolver
+namespace Utilities.Numerics;
+
+/// <summary>
+/// A generic utility class for solving linear systems of equations
+/// </summary>
+public static class LinearSolver
 {
-    public static decimal[] Solve(decimal[,] a, int n)
+    /// <summary>
+    /// Solve a linear system of equations specified by an augmented coefficient matrix.
+    /// </summary>
+    /// <param name="a">The augmented coefficient matrix</param>
+    /// <typeparam name="T">The type associated with each matrix element</typeparam>
+    /// <returns>A vector containing a solution to the system of equations</returns>
+    public static T[] Solve<T>(T[,] a) where T : INumber<T>
     {
-        var x = new decimal[n];
+        var n = a.GetLength(dimension: 0);
+        var x = new T[n];
         PartialPivot(a, n);
         BackSubstitute(a, n, x);
         return x;
     }
 
-    private static void PartialPivot(decimal[,] a, int n)
+    private static void PartialPivot<T>(T[,] a, int n) where T : INumber<T>
     {
         for (var i = 0; i < n; i++) 
         {
             var pivotRow = i;
             for (var j = i + 1; j < n; j++) {
-                if (Math.Abs(a[j, i]) > Math.Abs(a[pivotRow, i])) {
+                if (T.Abs(a[j, i]) > T.Abs(a[pivotRow, i])) {
                     pivotRow = j;
                 }
             }
@@ -38,12 +50,12 @@ public static class SystemSolver
             }
         }
     }
-
-    private static void BackSubstitute(decimal[,] a, int n, decimal[] x)
+    
+    private static void BackSubstitute<T>(T[,] a, int n, T[] x) where T : INumber<T>
     {
         for (var i = n - 1; i >= 0; i--)
         {
-            decimal sum = 0;
+            var sum = T.Zero;
             for (var j = i + 1; j < n; j++)
             {
                 sum += a[i, j] * x[j];
