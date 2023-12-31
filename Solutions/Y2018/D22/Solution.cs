@@ -1,3 +1,4 @@
+using Utilities.Collections;
 using Utilities.Extensions;
 using Utilities.Geometry.Euclidean;
 
@@ -33,11 +34,11 @@ public sealed class Solution : SolutionBase
 
     private static int Traverse(Cave cave, Scan scan)
     {
-        var start = new State(scan.Mouth, EquippedTool.Torch);
+        var start =  new State(scan.Mouth, EquippedTool.Torch);
         var target = new State(scan.Target, EquippedTool.Torch);
         
-        var heap = new PriorityQueue<State, int>(new[] { (start, 0) });
-        var costs = new Dictionary<State, int> { { start, 0 } };
+        var heap = new PriorityQueue<State, int>(items: new[] { (start, 0) });
+        var costs = new DefaultDict<State, int>(defaultValue: int.MaxValue / 2) { { start, 0 } };
 
         while (heap.Count > 0)
         {
@@ -49,7 +50,6 @@ public sealed class Solution : SolutionBase
             
             foreach (var (state, cost) in GetPossibleTransitions(current, cave))
             {
-                costs.TryAdd(state, int.MaxValue);
                 if (costs[current] + cost < costs[state])
                 {
                     costs[state] = costs[current] + cost;

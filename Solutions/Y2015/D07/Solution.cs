@@ -1,3 +1,5 @@
+using Utilities.Collections;
+
 namespace Solutions.Y2015.D07;
 
 using Memo = Dictionary<string, uint>;
@@ -18,12 +20,12 @@ public sealed class Solution : SolutionBase
     {
         var instructions = GetInputLines();
         var circuit = AssembleCircuit(instructions);
-        var target = EvaluateSignal(circuit: circuit, memo: new Memo(), gate: "a");
+        var target = EvaluateSignal(circuit, memo: [], gate: "a");
 
         return part switch
         {
             1 => target,
-            2 => EvaluateSignal(circuit: circuit, memo: new Memo { { "b", target } }, gate: "a"),
+            2 => EvaluateSignal(circuit, memo: new Memo { { "b", target } }, gate: "a"),
             _ => ProblemNotSolvedString
         };
     }
@@ -62,7 +64,7 @@ public sealed class Solution : SolutionBase
     
     private static Circuit AssembleCircuit(IEnumerable<string> instructions)
     {
-        var gateInputs = new Dictionary<string, List<string>>();
+        var gateInputs = new DefaultDict<string, HashSet<string>>(defaultSelector: _ => []);
         var gateTypes = new Dictionary<string, string>(); 
 
         foreach (var line in instructions)
@@ -79,7 +81,6 @@ public sealed class Solution : SolutionBase
                 }
                 else
                 {
-                    gateInputs.TryAdd(to, new List<string>());
                     gateInputs[to].Add(token);
                 }
             }
@@ -91,6 +92,6 @@ public sealed class Solution : SolutionBase
     }
 
     private readonly record struct Circuit(
-        Dictionary<string, List<string>> GateInputs,
-        Dictionary<string, string> GateTypes);
+        IDictionary<string, HashSet<string>> GateInputs,
+        IDictionary<string, string> GateTypes);
 }

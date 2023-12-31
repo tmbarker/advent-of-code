@@ -1,3 +1,4 @@
+using Utilities.Collections;
 using Utilities.Graph;
 
 namespace Solutions.Y2017.D07;
@@ -36,17 +37,13 @@ public readonly struct Tower(DirectedGraph<string> graph, Dictionary<string, int
 
     private int GetWeightToBalance(string unbalanced, IDictionary<string, int> weightMemo)
     {
-        var weightCounts = new Dictionary<int, int>();
-        var childWeights = new Dictionary<int, HashSet<string>>();
+        var weightCounts = new DefaultDict<int, int>(defaultValue: 0);
+        var childWeights = new DefaultDict<int, HashSet<string>>(defaultSelector: _ => []);
 
         foreach (var child in Graph.Outgoing[unbalanced])
         {
             var weight = GetWeight(child, weightMemo);
-            
-            weightCounts.TryAdd(weight, 0);
             weightCounts[weight]++;
-
-            childWeights.TryAdd(weight, new HashSet<string>());
             childWeights[weight].Add(child);
         }
         

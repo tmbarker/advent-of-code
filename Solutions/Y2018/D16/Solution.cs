@@ -1,3 +1,4 @@
+using Utilities.Collections;
 using Utilities.Extensions;
 
 namespace Solutions.Y2018.D16;
@@ -46,21 +47,15 @@ public sealed class Solution : SolutionBase
     private static Dictionary<int, Cpu.Opcode> BuildOpcodeMap(Cpu cpu, IEnumerable<Observation> observations)
     {
         var valueMappings = new Dictionary<int, Cpu.Opcode>();
-        var congruences = new Dictionary<int, HashSet<Cpu.Opcode>>();
+        var congruences = new DefaultDict<int, HashSet<Cpu.Opcode>>(defaultSelector: _ => []);
         
         foreach (var observation in observations)
+        foreach (var congruent in GetCongruentOpcodes(cpu, observation))
         {
-            var opcode = observation.Instr[0];
-            var congruentSet = GetCongruentOpcodes(cpu, observation);
-
-            congruences.TryAdd(opcode, new HashSet<Cpu.Opcode>());
-            foreach (var congruent in congruentSet)
-            {
-                congruences[opcode].Add(congruent);
-            }
+            congruences[observation.Instr[0]].Add(congruent);
         }
 
-        while (congruences.Values.Any())
+        while (congruences.Count != 0)
         {
             foreach (var resolvedMapping in congruences.WhereValues(c => c.Count == 1))
             {

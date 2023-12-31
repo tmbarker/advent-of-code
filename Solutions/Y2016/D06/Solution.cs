@@ -1,4 +1,5 @@
 using System.Text;
+using Utilities.Collections;
 
 namespace Solutions.Y2016.D06;
 
@@ -19,28 +20,25 @@ public sealed class Solution : SolutionBase
     {
         var message = new StringBuilder();
         var messages = GetInputLines();
-        var columnCounts = new Dictionary<int, Dictionary<char, int>>();
+        var columnCounts = new DefaultDict<int, DefaultDict<char, int>>(
+            defaultSelector: _ => new DefaultDict<char, int>(defaultValue: 0));
 
-        for (var x = 0; x < messages[0].Length; x++)
+        for (var j = 0; j < messages[0].Length; j++)
+        for (var i = 0; i < messages.Length; i++)
         {
-            columnCounts[x] = new Dictionary<char, int>();
-            foreach (var sequence in messages)
-            {
-                columnCounts[x].TryAdd(sequence[x], 0);
-                columnCounts[x][sequence[x]]++;
-            }
+            columnCounts[j][messages[i][j]]++;
         }
 
-        for (var x = 0; x < messages[0].Length; x++)
+        for (var i = 0; i < messages[0].Length; i++)
         {
-            var counts = columnCounts[x];
+            var counts = columnCounts[i];
             var letter = encoding switch
             {
-                Encoding.MostCommon => counts.Keys.MaxBy(c => counts[c]),
+                Encoding.MostCommon =>  counts.Keys.MaxBy(c => counts[c]),
                 Encoding.LeastCommon => counts.Keys.MinBy(c => counts[c]),
-                _ => throw new ArgumentOutOfRangeException(nameof(encoding))
+                _ => throw new NoSolutionException()
             };
-
+            
             message.Append(letter);
         }
         

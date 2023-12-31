@@ -1,3 +1,4 @@
+using Utilities.Collections;
 using Utilities.Extensions;
 
 namespace Solutions.Y2016.D04;
@@ -22,19 +23,16 @@ public sealed class Solution : SolutionBase
 
         foreach (var line in lines)
         {
-            var counts = new Dictionary<char, int>();
+            var counts = new DefaultDict<char, int>(defaultValue: 0);
             var sectorId = Math.Abs(line.ParseInt());
             var checksum = line[^6..^1];
         
             for (var i = 0; i < line.Length && line[i] != '['; i++)
             {
-                if (!char.IsLetter(line[i]))
+                if (char.IsLetter(line[i]))
                 {
-                    continue;
+                    counts[line[i]]++;
                 }
-            
-                counts.TryAdd(line[i], 0);
-                counts[line[i]]++;
             }
 
             var ordered = counts.OrderByDescending(kvp => 26 * counts[kvp.Key] + 'z' - kvp.Key);

@@ -75,7 +75,7 @@ public sealed class Solution : SolutionBase
             .Where(s => GameData.SpellCosts[s] <= cachedPlayer.Mana)
             .ToArray();
 
-        if (!canCast.Any())
+        if (canCast.Length == 0)
         {
             yield break;
         }

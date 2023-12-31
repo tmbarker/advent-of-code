@@ -1,4 +1,4 @@
-using Utilities.Extensions;
+using Utilities.Collections;
 using Utilities.Geometry.Euclidean;
 
 namespace Solutions.Y2018.D06;
@@ -8,7 +8,7 @@ public sealed class Solution : SolutionBase
 {
     public override object Run(int part)
     {
-        var pois = ParseInputLines(parseFunc: ParsePointOfInterest).ToList();
+        var pois = ParseInputLines(parseFunc: Vector2D.Parse).ToList();
         return part switch
         {
             1 => GetLargestFiniteArea(pois),
@@ -26,7 +26,7 @@ public sealed class Solution : SolutionBase
 
         foreach (var coord in aabb)
         {
-            var distances = new Dictionary<int, IList<Vector2D>>();
+            var distances = new DefaultDict<int, List<Vector2D>>(defaultSelector: _ => []);
             foreach (var poi in pois)
             {
                 var distance = Vector2D.Distance(
@@ -34,7 +34,6 @@ public sealed class Solution : SolutionBase
                     b: poi,
                     metric: Metric.Taxicab);
                 
-                distances.TryAdd(distance, new List<Vector2D>());
                 distances[distance].Add(poi);
             }
 
@@ -47,8 +46,9 @@ public sealed class Solution : SolutionBase
             }
         }
 
-        var finitePointsOfInterest = pois.Where(p => aabb.Contains(p, inclusive: false));
-        return finitePointsOfInterest.Max(poi => areaCounts[poi]);
+        return pois
+            .Where(p => aabb.Contains(p, inclusive: false))
+            .Max(poi => areaCounts[poi]);
     }
 
     private static int GetLargestProximalArea(ICollection<Vector2D> pois, int maxDistance)
@@ -58,13 +58,5 @@ public sealed class Solution : SolutionBase
             a: pos,
             b: poi,
             metric: Metric.Taxicab)) < maxDistance);
-    }
-    
-    private static Vector2D ParsePointOfInterest(string line)
-    {
-        var numbers = line.ParseInts();
-        return new Vector2D(
-            x: numbers[0],
-            y: numbers[1]);
     }
 }

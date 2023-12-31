@@ -1,3 +1,4 @@
+using Utilities.Collections;
 using Utilities.Geometry.Euclidean;
 
 namespace Solutions.Y2019.D20;
@@ -14,7 +15,7 @@ public sealed class Solution : SolutionBase
 
     public override object Run(int part)
     {
-        var maze = ParseMaze();
+        var maze = Maze.MapChars(strings: GetInputLines());
         return part switch
         {
             1 => Traverse(maze, MazeType.Static),
@@ -37,7 +38,7 @@ public sealed class Solution : SolutionBase
         
         var visited = new HashSet<State> { initial };
         var heap = new PriorityQueue<State, int>(new[] { (start: initial, 0) });
-        var costs = new Dictionary<State, int> { { initial, 0 } };
+        var costs = new DefaultDict<State, int>(defaultValue: int.MaxValue / 2) { { initial, 0 } };
 
         while (heap.Count > 0)
         {
@@ -55,20 +56,16 @@ public sealed class Solution : SolutionBase
             
             foreach (var state in possible)
             {
-                if (visited.Contains(state))
+                if (!visited.Add(state))
                 {
                     continue;
                 }
-
-                costs.TryAdd(state, int.MaxValue);
                 
-                var distanceViaCurrent = costs[current] + 1;
-                if (distanceViaCurrent < costs[state])
+                if (costs[current] + 1 < costs[state])
                 {
-                    costs[state] = distanceViaCurrent;
+                    costs[state] = costs[current] + 1;
                 }
-
-                visited.Add(state);
+                
                 heap.Enqueue(state, costs[state]);
             }
         }
@@ -125,7 +122,7 @@ public sealed class Solution : SolutionBase
 
     private static PortalMap BuildPortalMap(Maze maze)
     {
-        var entrances = new Dictionary<PortalKey, IList<PortalEntrance>>();
+        var entrances = new DefaultDict<PortalKey, List<PortalEntrance>>(defaultSelector: _ => []);
         var directions = new HashSet<Vector2D> { Vector2D.Down, Vector2D.Right };
 
         foreach (var pos in maze)
@@ -149,9 +146,8 @@ public sealed class Solution : SolutionBase
                 var entrancePos = PositionValid(maze,pos - dir) 
                     ? pos - dir 
                     : pos + dir + dir;
-                
-                entrances.TryAdd(portal, new List<PortalEntrance>());
-                entrances[portal].Add(new PortalEntrance(
+
+                entrances[portal].Add(item: new PortalEntrance(
                     Pos: entrancePos,
                     Type: entranceType));
                 
@@ -165,10 +161,5 @@ public sealed class Solution : SolutionBase
     private static bool PositionValid(Maze maze, Vector2D pos)
     {
         return maze.Contains(pos) && maze[pos] == Traversable;
-    }
-    
-    private Maze ParseMaze()
-    {
-        return Maze.MapChars(strings: GetInputLines());
     }
 }

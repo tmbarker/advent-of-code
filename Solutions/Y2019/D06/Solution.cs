@@ -1,3 +1,4 @@
+using Utilities.Collections;
 using Utilities.Graph;
 
 namespace Solutions.Y2019.D06;
@@ -18,7 +19,7 @@ public sealed class Solution : SolutionBase
         return part switch
         {
             1 => CountOrbits(map),
-            2 => ComputeTransferCost(map, map[You], map[Santa]),
+            2 => ComputeTransferCost(map, from: map[You], to: map[Santa]),
             _ => ProblemNotSolvedString
         };
     }
@@ -31,17 +32,14 @@ public sealed class Solution : SolutionBase
 
     private static int ComputeTransferCost(OrbitMap map, string from, string to)
     {
-        var adjacencyList = new Dictionary<string, HashSet<string>>();
+        var adjacency = new DefaultDict<string, HashSet<string>>(defaultSelector: _ => []);
         foreach (var (a, b) in map)
         {
-            adjacencyList.TryAdd(a, new HashSet<string>());
-            adjacencyList.TryAdd(b, new HashSet<string>());
-
-            adjacencyList[a].Add(b);
-            adjacencyList[b].Add(a);
+            adjacency[a].Add(b);
+            adjacency[b].Add(a);
         }
 
-        return GraphHelper.DijkstraUnweighted(from, to, adjacencyList);
+        return GraphHelper.DijkstraUnweighted(from, to, adjacency);
     }
     
     private static int CountOrbits(string body, OrbitMap map, Memo memo)
@@ -58,7 +56,7 @@ public sealed class Solution : SolutionBase
     private static OrbitMap ParseOrbitMap(IEnumerable<string> input)
     {
         return input
-            .Select(line => line.Split(')'))
+            .Select(line => line.Split(separator: ')'))
             .ToDictionary(bodies => bodies[1], bodies => bodies[0]);
     }
 }

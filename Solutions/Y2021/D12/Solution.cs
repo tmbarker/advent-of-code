@@ -1,3 +1,5 @@
+using Utilities.Collections;
+
 namespace Solutions.Y2021.D12;
 
 [PuzzleInfo("Passage Pathing", Topics.Graphs|Topics.Recursion, Difficulty.Medium, favourite: true)]
@@ -30,17 +32,14 @@ public sealed class Solution : SolutionBase
         return numPaths;
     }
 
-    private static Dictionary<string, HashSet<string>> ParseAdjacencyMap(IEnumerable<string> lines)
+    private static IDictionary<string, HashSet<string>> ParseAdjacencyMap(IEnumerable<string> lines)
     {
-        var adjacencyMap = new Dictionary<string, HashSet<string>>();
+        var adjacencyMap = new DefaultDict<string, HashSet<string>>(defaultSelector: _ => []);
         foreach (var line in lines)
         {
             var vertices = line.Split(separator: '-');
             var v1 = vertices[0];
             var v2 = vertices[1];
-            
-            adjacencyMap.TryAdd(v1, new HashSet<string>());
-            adjacencyMap.TryAdd(v2, new HashSet<string>());
             
             adjacencyMap[v1].Add(v2);
             adjacencyMap[v2].Add(v1);

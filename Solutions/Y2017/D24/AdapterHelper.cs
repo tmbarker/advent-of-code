@@ -1,9 +1,11 @@
+using Utilities.Collections;
+
 namespace Solutions.Y2017.D24;
 
 public sealed class AdapterHelper
 {
     private readonly Dictionary<string, Adapter> _adapters = new();
-    private readonly Dictionary<int, HashSet<Compatibility>> _compatibilities = new();
+    private readonly DefaultDict<int, HashSet<Compatibility>> _compatibilities = new(defaultSelector: _ => []);
 
     public IReadOnlySet<Compatibility> GetCompatibilities(int port, HashSet<string> used)
     {
@@ -23,8 +25,6 @@ public sealed class AdapterHelper
         var compatibility2 = new Compatibility(ResultingPort: adapter.Port2, ViaAdapter: adapter.Key);
         
         _adapters[adapter.Key] = adapter;
-        _compatibilities.TryAdd(adapter.Port1, new HashSet<Compatibility>());
-        _compatibilities.TryAdd(adapter.Port2, new HashSet<Compatibility>());
         _compatibilities[adapter.Port1].Add(compatibility2);
         _compatibilities[adapter.Port2].Add(compatibility1);
     }

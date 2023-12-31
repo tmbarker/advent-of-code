@@ -1,24 +1,15 @@
 namespace Solutions.Y2021.D12;
 
-public sealed class PathFinder
+public sealed class PathFinder(IDictionary<string, HashSet<string>> adjacencyMap, bool bonusCave)
 {
     private const string StartId = "start";
     private const string EndId = "end";
 
-    private readonly Dictionary<string, HashSet<string>> _adjacencyMap;
-    private readonly bool _bonusSmallCaveVisit;
-
     public event Action? PathFound;
-    
-    public PathFinder(Dictionary<string, HashSet<string>> adjacencyMap, bool bonusSmallCaveVisit)
-    {
-        _adjacencyMap = adjacencyMap;
-        _bonusSmallCaveVisit = bonusSmallCaveVisit;
-    }
 
     public void Run()
     {
-        var visitedCounts = _adjacencyMap.Keys.ToDictionary(k => k, _ => 0);
+        var visitedCounts = adjacencyMap.Keys.ToDictionary(k => k, _ => 0);
         var pathStack = new Stack<string>();
         
         pathStack.Push(StartId);
@@ -35,7 +26,7 @@ public sealed class PathFinder
         }
         
         visitedCounts[current]++;
-        foreach (var neighbor in _adjacencyMap[current])
+        foreach (var neighbor in adjacencyMap[current])
         {
             if (CanVisit(neighbor, visitedCounts))
             {
@@ -55,7 +46,7 @@ public sealed class PathFinder
             return true;
         }
         
-        if (target == StartId || !_bonusSmallCaveVisit)
+        if (target == StartId || !bonusCave)
         {
             return false;
         }

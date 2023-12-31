@@ -2,19 +2,11 @@ using Utilities.Geometry.Euclidean;
 
 namespace Solutions.Y2019.D20;
 
-public sealed class PortalMap
+public sealed class PortalMap(IDictionary<PortalKey, List<PortalEntrance>> entranceMap)
 {
-    private readonly Dictionary<PortalKey, IList<PortalEntrance>> _entranceMap;
-    private readonly Dictionary<Vector2D, EntranceType> _typeMap;
-    private readonly Dictionary<Vector2D, Vector2D> _connectionMap;
-    
-    public PortalMap(Dictionary<PortalKey, IList<PortalEntrance>> entranceMap)
-    {
-        _entranceMap = entranceMap;
-        _typeMap = BuildTypeMap(entranceMap);
-        _connectionMap = BuildConnectionMap(entranceMap);
-    }
-    
+    private readonly IDictionary<Vector2D, EntranceType> _typeMap = BuildTypeMap(entranceMap);
+    private readonly IDictionary<Vector2D, Vector2D> _connectionMap = BuildConnectionMap(entranceMap);
+
     public bool TryTakePortal(Vector2D from, out EntranceType entranceType, out Vector2D exit)
     {
         entranceType = EntranceType.Inner;
@@ -33,11 +25,11 @@ public sealed class PortalMap
     
     public IEnumerable<Vector2D> GetEntrancePositions(PortalKey key)
     {
-        return _entranceMap[key].Select(e => e.Pos);
+        return entranceMap[key].Select(e => e.Pos);
     }
 
     private static Dictionary<Vector2D, EntranceType> BuildTypeMap(
-        Dictionary<PortalKey, IList<PortalEntrance>> entranceMap)
+        IDictionary<PortalKey, List<PortalEntrance>> entranceMap)
     {
         return entranceMap.Values
             .SelectMany(e => e)
@@ -45,7 +37,7 @@ public sealed class PortalMap
     }
     
     private static Dictionary<Vector2D, Vector2D> BuildConnectionMap(
-        Dictionary<PortalKey, IList<PortalEntrance>> entranceMap)
+        IDictionary<PortalKey, List<PortalEntrance>> entranceMap)
     {
         var map = new Dictionary<Vector2D, Vector2D>();
         foreach (var pair in entranceMap.Values.Where(c => c.Count == 2))

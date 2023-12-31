@@ -1,4 +1,5 @@
 using System.Text.RegularExpressions;
+using Utilities.Collections;
 using Utilities.Extensions;
 using Utilities.Graph;
 
@@ -23,7 +24,7 @@ public sealed class Solution : SolutionBase
     private static Tower ParseTower(IEnumerable<string> input)
     {
         var weights = new Dictionary<string, int>();
-        var adjacency = new Dictionary<string, HashSet<string>>();
+        var adjacency = new DefaultDict<string, HashSet<string>>(defaultSelector: _ => []);
         var edges = new List<DirectedGraph<string>.Edge>();
 
         foreach (var line in input)
@@ -36,7 +37,6 @@ public sealed class Solution : SolutionBase
             weights.Add(id, weight);
             foreach (var adj in adjacencies)
             {
-                adjacency.TryAdd(id, []);
                 adjacency[id].Add(adj);
             }
         }

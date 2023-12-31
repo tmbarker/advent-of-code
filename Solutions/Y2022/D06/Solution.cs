@@ -1,3 +1,5 @@
+using Utilities.Collections;
+
 namespace Solutions.Y2022.D06;
 
 [PuzzleInfo("Tuning Trouble", Topics.StringParsing, Difficulty.Easy)]
@@ -16,8 +18,8 @@ public sealed class Solution : SolutionBase
 
     private static int ListenForStartMarker(string datastream, int markerLength)
     {
-        var buffer = new Queue<char>(markerLength);
-        var bufferContentMap = new Dictionary<char, int>(markerLength);
+        var buffer = new Queue<char>(capacity: markerLength);
+        var bufferContentMap = new DefaultDict<char, int>(defaultValue: 0);
 
         for (var i = 0; i < datastream.Length; i++)
         {
@@ -25,15 +27,12 @@ public sealed class Solution : SolutionBase
             if (buffer.Count >= markerLength)
             {
                 var token = buffer.Dequeue();
-
-                bufferContentMap[token]--;
-                if (bufferContentMap[token] <= 0)
+                if (--bufferContentMap[token] <= 0)
                 {
                     bufferContentMap.Remove(token);
                 }
             }
-
-            bufferContentMap.TryAdd(received, 0);
+            
             bufferContentMap[received]++;
             buffer.Enqueue(received);
 

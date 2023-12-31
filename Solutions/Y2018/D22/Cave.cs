@@ -2,7 +2,7 @@ using Utilities.Geometry.Euclidean;
 
 namespace Solutions.Y2018.D22;
 
-public sealed class Cave
+public sealed class Cave(Scan scan)
 {
     public static readonly Dictionary<RegionType, int> RegionRiskLevels = new()
     {
@@ -21,24 +21,13 @@ public sealed class Cave
     private const long GeoIndexCoefficientX = 16807L;
     private const long GeoIndexCoefficientY = 48271L;
     private const long ErosionModulus = 20183L;
-    
-    private readonly Scan _scan;
+
     private readonly Dictionary<Vector2D, Region> _regionMap = new();
 
     public Region this[Vector2D pos] => GetRegionInternal(pos);
 
-    public Cave(Scan scan)
-    {
-        _scan = scan;
-    }
-
     private Region GetRegionInternal(Vector2D pos)
     {
-        if (pos.X < 0 || pos.Y < 0)
-        {
-            throw new NoSolutionException();
-        }
-        
         if (!_regionMap.ContainsKey(pos))
         {
             _regionMap[pos] = FormRegion(pos);
@@ -50,7 +39,7 @@ public sealed class Cave
     private Region FormRegion(Vector2D pos)
     {
         var index = ComputeGeologicIndex(pos);
-        var erosion = (index + _scan.Depth) % ErosionModulus;
+        var erosion = (index + scan.Depth) % ErosionModulus;
         var type = (erosion % 3) switch
         {
             0 => RegionType.Rocky,
@@ -64,7 +53,7 @@ public sealed class Cave
     
     private long ComputeGeologicIndex(Vector2D pos)
     {
-        if (pos == _scan.Mouth || pos == _scan.Target)
+        if (pos == scan.Mouth || pos == scan.Target)
         {
             return 0;
         }
