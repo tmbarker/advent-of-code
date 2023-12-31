@@ -20,7 +20,7 @@ public sealed class Solution : SolutionBase
 
     private int CountScore()
     {
-        return ParseInputLines(parseFunc: ParseCard).Sum(card => ScoreCard(n: card.Wins));
+        return ParseInputLines(parseFunc: ParseCard).Sum(card => (int)Math.Pow(2, card.Wins - 1));
     }
 
     private int CountCards()
@@ -28,20 +28,13 @@ public sealed class Solution : SolutionBase
         var cards = ParseInputLines(parseFunc: ParseCard).ToArray();
         var counts = Enumerable.Repeat(element: 1, count: cards.Length).ToArray();
 
-        for (var n = 1; n <= cards.Length; n++)
-        for (var w = 1; w <= cards[n - 1].Wins; w++)
+        for (var n = 0; n < cards.Length; n++)
+        for (var w = 1; w <= cards[n].Wins; w++)
         {
-            counts[n - 1 + w] += counts[n - 1];
+            counts[n + w] += counts[n];
         }
 
         return counts.Sum();
-    }
-
-    private static int ScoreCard(int n)
-    {
-        return n != 0
-            ? (int)Math.Pow(2, n - 1)
-            : 0;
     }
     
     private static Card ParseCard(string line)

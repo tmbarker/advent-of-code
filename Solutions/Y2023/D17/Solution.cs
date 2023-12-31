@@ -46,7 +46,7 @@ public sealed class Solution : SolutionBase
                 if (grid.Contains(adj.Pos) && cost[state] + grid[adj.Pos] < cost[adj])
                 {
                     cost[adj] = cost[state] + grid[adj.Pos];
-                    heap.Enqueue(adj, cost[adj]);
+                    heap.Enqueue(adj, cost[adj] + Vector2D.Distance(a: adj.Pos, b: goal, Metric.Taxicab));
                 }
             }
         }

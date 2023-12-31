@@ -89,12 +89,9 @@ public sealed class Solution : SolutionBase
                     break;
             }
 
-            foreach (var yield in yields)
+            foreach (var yield in yields.Where(yield => visited.Add(yield)))
             {
-                if (visited.Add(yield))
-                {
-                    queue.Enqueue(yield);
-                }
+                queue.Enqueue(yield);
             }
         }
         

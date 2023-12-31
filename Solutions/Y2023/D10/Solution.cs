@@ -34,7 +34,7 @@ public class Solution : SolutionBase
     private static Map Traverse(Grid2D<char> maze, Vector2D start)
     {
         var queue = new Queue<Vector2D>(collection: [start]);
-        var visited = new HashSet<Vector2D>(collection: queue);
+        var visited = new HashSet<Vector2D>(collection: [start]);
         var depth = -1;
 
         while (queue.Count > 0)

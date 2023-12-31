@@ -2,22 +2,11 @@ using Utilities.Numerics;
 
 namespace Solutions.Y2023.D05;
 
-public readonly struct MapEntry
+public readonly record struct MapEntry(long DestStart, long SourceStart, long RangeLength)
 {
-    private long SourceStart { get; }
-    private long DestStart { get; }
-    private long RangeLength { get; }
-
     public long SourceMin => SourceStart;
     public long SourceMax => SourceStart + RangeLength - 1;
     public Range<long> SourceRange => new (SourceStart, SourceMax);
-
-    public MapEntry(long destStart, long sourceStart, long rangeLength)
-    {
-        DestStart = destStart;
-        SourceStart = sourceStart;
-        RangeLength = rangeLength;
-    }
 
     public Range<long> Apply(Range<long> range)
     {
@@ -29,8 +18,8 @@ public readonly struct MapEntry
     public static MapEntry Default(long min, long max)
     {
         return new MapEntry(
-            destStart: min,
-            sourceStart: min,
-            rangeLength: max - min + 1);
+            DestStart: min,
+            SourceStart: min,
+            RangeLength: max - min + 1);
     }
 }

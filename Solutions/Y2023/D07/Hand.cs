@@ -2,33 +2,26 @@ using Utilities.Collections;
 
 namespace Solutions.Y2023.D07;
 
-public readonly struct Hand : IComparable<Hand>
+public readonly struct Hand(string cards, int bid) : IComparable<Hand>
 {
-    private readonly string _cards;
-    private readonly (int Most, int Next) _counts;
+    private readonly string _cards = cards;
+    private readonly (int Most, int Next) _counts = Count(cards);
 
-    public int Bid { get; }
-
-    public Hand(string cards, int bid)
-    {
-        _cards = cards;
-        _counts = Count(cards);
-        Bid = bid;
-    }
+    public int Bid { get; } = bid;
 
     private static (int Most, int Next) Count(string cards)
     {
         var counts = new DefaultDict<char, int>(defaultValue: 0);
         var jokers = cards.Count(Deck.IsJoker);
 
-        foreach (var c in cards)
+        foreach (var c in cards.Where(c => !Deck.IsJoker(c)))
         {
-            if (!Deck.IsJoker(c)) counts[c]++;
+            counts[c]++;
         }
 
         var ordered = counts.Values
             .OrderDescending()
-            .ToList();
+            .ToArray();
         var most = ordered.FirstOrDefault() + jokers;
         var next = ordered.ElementAtOrDefault(1);
 

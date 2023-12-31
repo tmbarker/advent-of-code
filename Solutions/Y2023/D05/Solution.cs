@@ -25,7 +25,7 @@ public sealed class Solution : SolutionBase
 
         foreach (var map in almanac.Maps)
         {
-            while (inputs.Any())
+            while (inputs.Count != 0)
             {
                 var range = inputs.Dequeue();
                 foreach (var mapping in map.OrderedEntries)

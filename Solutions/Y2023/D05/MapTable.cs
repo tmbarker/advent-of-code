@@ -13,26 +13,11 @@ public sealed class MapTable
     {
         var queue = new Queue<MapEntry>(collection: entries.OrderBy(mapping => mapping.SourceMin));
         var order = new List<MapEntry>();
-        var head = queue.Peek();
-
-        //  Prepend with [0, Min(ranges.Min) - 1]
-        //
-        if (head.SourceMin != 0)
-        {
-            order.Add(item: MapEntry.Default(
-                min: 0,
-                max: head.SourceMin - 1));
-        }
-        else
-        {
-            order.Add(item: queue.Dequeue());
-        }
-            
-        while (queue.Any())
+        var upper = -1L;
+        
+        while (queue.Count != 0)
         {
             var next = queue.Dequeue();
-            var upper = order[^1].SourceMax;
-                
             if (upper + 1 != next.SourceMin)
             {
                 order.Add(item: MapEntry.Default(
@@ -41,6 +26,7 @@ public sealed class MapTable
             }
                 
             order.Add(next);
+            upper = order[^1].SourceMax;
         }
             
         //  Append with [Max(ranges.Max) + 1, long.MaxValue]

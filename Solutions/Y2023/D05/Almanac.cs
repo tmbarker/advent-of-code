@@ -28,8 +28,8 @@ public sealed class Almanac
     {
         var longs = line.ParseLongs();
         return new MapEntry(
-            destStart:   longs[0],
-            sourceStart: longs[1],
-            rangeLength: longs[2]);
+            DestStart:   longs[0],
+            SourceStart: longs[1],
+            RangeLength: longs[2]);
     }
 }
