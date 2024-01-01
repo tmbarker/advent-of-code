@@ -19,7 +19,7 @@ public sealed class Solution : SolutionBase
 
     private static int ComputeMaxProjectileHeight(Aabb2D target)
     {
-        var vY = Math.Abs(target.YMin) - 1;
+        var vY = Math.Abs(target.Min.Y) - 1;
         var height = vY * (vY + 1) / 2;
         
         return height;
@@ -27,11 +27,11 @@ public sealed class Solution : SolutionBase
 
     private static int ComputeNumTrajectories(Aabb2D target)
     {
-        var vMinX = (int)Math.Floor(Math.Sqrt(2 * target.XMin));
-        var vMaxX = target.XMax;
+        var vMinX = (int)Math.Floor(Math.Sqrt(2 * target.Min.X));
+        var vMaxX = target.Max.X;
 
-        var vMinY = target.YMin;
-        var vMaxY = Math.Abs(target.YMin) - 1;
+        var vMinY = target.Min.Y;
+        var vMaxY = Math.Abs(target.Min.Y) - 1;
 
         var count = 0;
         for (var x = vMinX; x <= vMaxX; x++)
@@ -46,13 +46,13 @@ public sealed class Solution : SolutionBase
         return count;
     }
 
-    private static bool CheckTrajectory(Vector2D v, Aabb2D target)
+    private static bool CheckTrajectory(Vector2D vel, Aabb2D target)
     {
         var pos = Vector2D.Zero;
-        while (pos.Y >= target.YMin && pos.X <= target.XMax)
+        while (pos.Y >= target.Min.Y && pos.X <= target.Max.X)
         {
-            pos += v;
-            v = StepVelocity(v);
+            pos += vel;
+            vel = StepVelocity(vel);
             
             if (target.Contains(pos, true))
             {

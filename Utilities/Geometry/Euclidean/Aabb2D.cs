@@ -5,8 +5,20 @@ namespace Utilities.Geometry.Euclidean;
 /// <summary>
 /// A readonly 2D axis aligned bounding box value type
 /// </summary>
-public readonly struct Aabb2D : IEnumerable<Vector2D>, IEquatable<Aabb2D>
+public readonly record struct Aabb2D : IEnumerable<Vector2D>
 {
+    public Aabb2D(Vector2D min, Vector2D max)
+    {
+        Min = min;
+        Max = max;
+    }
+    
+    public Aabb2D(int xMin, int xMax, int yMin, int yMax)
+    {
+        Min = new Vector2D(xMin, yMin);
+        Max = new Vector2D(xMax, yMax);
+    }
+    
     public Aabb2D(ICollection<Vector2D> extents, bool inclusive = true)
     {
         var delta = inclusive ? 0 : 1;
@@ -17,48 +29,31 @@ public readonly struct Aabb2D : IEnumerable<Vector2D>, IEquatable<Aabb2D>
             x: extents.Max(p => p.X) + delta,
             y: extents.Max(p => p.Y) + delta);
     }
-
-    public Aabb2D(Vector2D min, Vector2D max) : this(extents: new[] { min, max })
-    {
-    }
     
-    public Aabb2D(int xMin, int xMax, int yMin, int yMax)
-    {
-        Min = new Vector2D(x: xMin, y: yMin);
-        Max = new Vector2D(x: xMax, y: yMax);
-    }
-
     public Vector2D Min { get; }
     public Vector2D Max { get; }
     
-    public int XMin => Min.X;
-    public int XMax => Max.X;
-    public int YMin => Min.Y;
-    public int YMax => Max.Y;
-    public int Width => XMax - XMin + 1;
-    public int Height => YMax - YMin + 1;
+    public int Width => Max.X - Min.X + 1;
+    public int Height => Max.Y - Min.Y + 1;
     public long Area => (long)Width * Height;
 
-    public static bool Overlap(Aabb2D lhs, Aabb2D rhs, out  Aabb2D overlap)
+    public static bool Overlap(Aabb2D a, Aabb2D b, out  Aabb2D overlap)
     {
         var hasOverlap =
-            lhs.XMax >= rhs.XMin && lhs.XMin <= rhs.XMax &&
-            lhs.YMax >= rhs.YMin && lhs.YMin <= rhs.YMax;
+            a.Max.X >= b.Min.X && a.Min.X <= b.Max.X &&
+            a.Max.Y >= b.Min.Y && a.Min.Y <= b.Max.Y;
 
         if (!hasOverlap)
         {
             overlap = default;
             return false;
         }
-
-        var xLimits = new[] { lhs.XMin, lhs.XMax, rhs.XMin, rhs.XMax }.Order().ToList();
-        var yLimits = new[] { lhs.YMin, lhs.YMax, rhs.YMin, rhs.YMax }.Order().ToList();
-
+        
         overlap = new Aabb2D(
-            xMin: xLimits[1],
-            xMax: xLimits[2],
-            yMin: yLimits[1],
-            yMax: yLimits[2]);
+            xMin: int.Max(a.Min.X, b.Min.X),
+            xMax: int.Min(a.Max.X, b.Max.X),
+            yMin: int.Max(a.Min.Y, b.Min.Y),
+            yMax: int.Min(a.Max.Y, b.Max.Y));
         return true;
     }
     
@@ -72,29 +67,22 @@ public readonly struct Aabb2D : IEnumerable<Vector2D>, IEquatable<Aabb2D>
     private bool ContainsInclusive(Vector2D pos)
     {
         return 
-            pos.X >= XMin && pos.X <= XMax && 
-            pos.Y >= YMin && pos.Y <= YMax;
+            pos.X >= Min.X && pos.X <= Max.X && 
+            pos.Y >= Min.Y && pos.Y <= Max.Y;
     }
     
     private bool ContainsExclusive(Vector2D pos)
     {
         return 
-            pos.X > XMin && pos.X < XMax && 
-            pos.Y > YMin && pos.Y < YMax;
-    }
-
-    public bool Intersects(Aabb2D other)
-    {
-        return
-            XMin <= other.XMax && other.XMin <= XMax &&
-            YMin <= other.YMax && other.YMin <= YMax;
+            pos.X > Min.X && pos.X < Max.X && 
+            pos.Y > Min.Y && pos.Y < Max.Y;
     }
 
     public static Aabb2D operator +(Aabb2D lhs, int amount)
     {
         return amount switch
         {
-            0 => lhs,
+              0 => lhs,
             > 0 => lhs.Expand(amount),
             < 0 => lhs.Contract(-amount)
         };
@@ -104,7 +92,7 @@ public readonly struct Aabb2D : IEnumerable<Vector2D>, IEquatable<Aabb2D>
     {
         return rhs switch
         {
-            0 => lhs,
+              0 => lhs,
             < 0 => lhs.Expand(-rhs),
             > 0 => lhs.Contract(rhs)
         };
@@ -116,46 +104,51 @@ public readonly struct Aabb2D : IEnumerable<Vector2D>, IEquatable<Aabb2D>
     
     private Aabb2D Expand(int amount)
     {
+        if (amount <= 0)
+        {
+            throw new ArgumentOutOfRangeException(nameof(amount), amount,
+                message: "Expansion amount must be a non-zero positive number");
+        }
+        
         return new Aabb2D(
-            xMin: XMin - amount,
-            xMax: XMax + amount,
-            yMin: YMin - amount,
-            yMax: YMax + amount);
+            min: Min - amount * Vector2D.One,
+            max: Max + amount * Vector2D.One);
     }
 
     private Aabb2D Contract(int amount)
     {
-        var width = XMax - XMin;
-        var height = YMax - YMin;
-        
-        if (2 * amount >= width)
+        if (amount <= 0)
         {
             throw new ArgumentOutOfRangeException(nameof(amount), amount,
-                message: $"Contraction amount [{amount}] must be less than half of width [{width}]");
+                message: "Contraction amount must be a non-zero positive number");
         }
         
-        if (2 * amount >= height)
+        if (2 * amount >= Width)
         {
             throw new ArgumentOutOfRangeException(nameof(amount), amount,
-                message: $"Contraction amount [{amount}] must be less than half of height [{height}]");
+                message: $"Contraction amount [{amount}] must be less than half of width [{Width}]");
         }
-
+        
+        if (2 * amount >= Height)
+        {
+            throw new ArgumentOutOfRangeException(nameof(amount), amount,
+                message: $"Contraction amount [{amount}] must be less than half of height [{Height}]");
+        }
+        
         return new Aabb2D(
-            xMin: XMin + amount,
-            xMax: XMax - amount,
-            yMin: YMin + amount,
-            yMax: YMax - amount);
+            min: Min + amount * Vector2D.One,
+            max: Max - amount * Vector2D.One);
     }
     
     public override string ToString()
     {
-        return $"[X={XMin}..{XMax}, Y={YMin}..{YMax}]";
+        return $"[X={Min.X}..{Max.X}, Y={Min.Y}..{Max.X}]";
     }
 
     public IEnumerator<Vector2D> GetEnumerator()
     {
-        for (var x = XMin; x <= XMax; x++)
-        for (var y = YMin; y <= YMax; y++)
+        for (var x = Min.X; x <= Max.X; x++)
+        for (var y = Min.Y; y <= Max.Y; y++)
         {
             yield return new Vector2D(x, y);
         }
@@ -164,30 +157,5 @@ public readonly struct Aabb2D : IEnumerable<Vector2D>, IEquatable<Aabb2D>
     IEnumerator IEnumerable.GetEnumerator()
     {
         return GetEnumerator();
-    }
-
-    public bool Equals(Aabb2D other)
-    {
-        return Min == other.Min && Max == other.Max;
-    }
-
-    public override bool Equals(object? obj)
-    {
-        return obj is Aabb2D other && Equals(other);
-    }
-
-    public override int GetHashCode()
-    {
-        return HashCode.Combine(Min, Max);
-    }
-
-    public static bool operator ==(Aabb2D left, Aabb2D right)
-    {
-        return left.Equals(right);
-    }
-
-    public static bool operator !=(Aabb2D left, Aabb2D right)
-    {
-        return !left.Equals(right);
     }
 }

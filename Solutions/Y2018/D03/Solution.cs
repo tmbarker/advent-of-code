@@ -36,7 +36,7 @@ public sealed class Solution : SolutionBase
     private static int GetNonOverlappedClaim(IList<(int Id, Aabb2D aabb2D)> claims)
     {
         return claims
-            .Single(claim => claims.Count(other => claim.aabb2D.Intersects(other.aabb2D)) == 1).Id;
+            .Single(claim => claims.Count(other => Aabb2D.Overlap(a: claim.aabb2D, b: other.aabb2D, out _)) == 1).Id;
     }
 
     private static (int Id, Aabb2D Aabb) ParseClaim(string line)

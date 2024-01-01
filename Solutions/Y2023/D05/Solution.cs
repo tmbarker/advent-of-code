@@ -41,7 +41,7 @@ public sealed class Solution : SolutionBase
                         //  Because we are sweeping in ascending order, any partial overlap must
                         //  be on the upper bounds of the mapping source range
                         //
-                        inputs.Enqueue(item: new Range<long>(min: mapping.SourceMax + 1, max: range.Max));
+                        inputs.Enqueue(item: new Range<long>(Min: mapping.SourceMax + 1, Max: range.Max));
                         output.Enqueue(item: mapping.Apply(overlap));
                         break;
                     }
@@ -63,6 +63,6 @@ public sealed class Solution : SolutionBase
 
         return values
             .Chunk(size: 2)
-            .Select(pair => new Range<long>(min: pair[0], max: pair[0] + pair[1] - 1));
+            .Select(pair => new Range<long>(Min: pair[0], Max: pair[0] + pair[1] - 1));
     }
 }

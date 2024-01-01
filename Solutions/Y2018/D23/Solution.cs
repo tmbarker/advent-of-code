@@ -77,9 +77,9 @@ public sealed class Solution : SolutionBase
             }
 
             var dist = 0;
-            dist += pos.X < region.XMin ? region.XMin - pos.X : pos.X - region.XMax;
-            dist += pos.Y < region.YMin ? region.YMin - pos.Y : pos.Y - region.YMax;
-            dist += pos.Z < region.ZMin ? region.ZMin - pos.Z : pos.Z - region.ZMax;
+            dist += pos.X < region.Min.X ? region.Min.X - pos.X : pos.X - region.Max.X;
+            dist += pos.Y < region.Min.Y ? region.Min.Y - pos.Y : pos.Y - region.Max.Y;
+            dist += pos.Z < region.Min.Z ? region.Min.Z - pos.Z : pos.Z - region.Max.Z;
 
             if (dist <= range)
             {

@@ -100,10 +100,9 @@ public sealed class Solution : SolutionBase
         var aabb = new Aabb2D(extents: map.Keys);
         var sb = new StringBuilder();
         
-        for (var y = aabb.YMin; y <= aabb.YMax; y++)
-        for (var x = aabb.XMin; x <= aabb.XMax; x++)
+        foreach (var pos in aabb)
         {
-            sb.Append(map[new Vector2D(x, y)]);
+            sb.Append(map[pos]);
         }
 
         return sb.ToString();

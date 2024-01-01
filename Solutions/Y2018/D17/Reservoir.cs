@@ -45,9 +45,9 @@ public sealed class Reservoir
         var aabb = new Aabb2D(
             extents: _positionStates.Keys.Where(p => _positionStates[p] != Terrain.Empty).ToList());
 
-        for (var y = aabb.YMin; y <= aabb.YMax; y++)
+        for (var y = aabb.Min.Y; y <= aabb.Max.Y; y++)
         {
-            for (var x = aabb.XMin - 1; x <= aabb.XMax + 1; x++)
+            for (var x = aabb.Min.X - 1; x <= aabb.Max.X + 1; x++)
             {
                 Console.Write(this[x, y]);
             }

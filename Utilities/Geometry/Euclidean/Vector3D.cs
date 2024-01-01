@@ -5,9 +5,10 @@ namespace Utilities.Geometry.Euclidean;
 /// <summary>
 /// A readonly integral 3D Vector value type
 /// </summary>
-public readonly struct Vector3D(int x, int y, int z) : IEquatable<Vector3D>
+public readonly record struct Vector3D
 {
     public static readonly Vector3D Zero    = new(x:  0, y:  0, z:  0);
+    public static readonly Vector3D One     = new(x:  1, y:  1, z:  1);
     public static readonly Vector3D Up      = new(x:  0, y:  1, z:  0);
     public static readonly Vector3D Down    = new(x:  0, y: -1, z:  0);
     public static readonly Vector3D Left    = new(x: -1, y:  0, z:  0);
@@ -15,11 +16,18 @@ public readonly struct Vector3D(int x, int y, int z) : IEquatable<Vector3D>
     public static readonly Vector3D Forward = new(x:  0, y:  0, z:  1);
     public static readonly Vector3D Back    = new(x:  0, y:  0, z: -1);
     
-    public int X { get; } = x;
-    public int Y { get; } = y;
-    public int Z { get; } = z;
+    public int X { get; }
+    public int Y { get; }
+    public int Z { get; }
     public int this[Axis axis] => GetComponent(axis);
 
+    public Vector3D(int x, int y, int z)
+    {
+        X = x;
+        Y = y;
+        Z = z;
+    }
+    
     public Vector3D(Vector2D xy, int z) : this(xy.X, xy.Y, z)
     {
     }
@@ -66,31 +74,6 @@ public readonly struct Vector3D(int x, int y, int z) : IEquatable<Vector3D>
     public static Vector3D operator *(int k, Vector3D rhs)
     {
         return new Vector3D(x: k * rhs.X, y: k * rhs.Y, z: k * rhs.Z);
-    }
-
-    public static bool operator ==(Vector3D left, Vector3D right)
-    {
-        return left.Equals(right);
-    }
-
-    public static bool operator !=(Vector3D left, Vector3D right)
-    {
-        return !(left == right);
-    }
-    
-    public bool Equals(Vector3D other)
-    {
-        return X == other.X && Y == other.Y && Z == other.Z;
-    }
-
-    public override bool Equals(object? obj)
-    {
-        return obj is Vector3D other && Equals(other);
-    }
-
-    public override int GetHashCode()
-    {
-        return HashCode.Combine(X, Y, Z);
     }
     
     public override string ToString()

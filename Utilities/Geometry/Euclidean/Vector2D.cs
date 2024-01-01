@@ -5,19 +5,26 @@ namespace Utilities.Geometry.Euclidean;
 /// <summary>
 /// A readonly integral 2D Vector value type
 /// </summary>
-public readonly struct Vector2D(int x, int y) : IEquatable<Vector2D>
+public readonly record struct Vector2D
 {
     public static readonly Vector2D Zero  = new(x:  0, y:  0);
+    public static readonly Vector2D One   = new(x:  1, y:  1);
     public static readonly Vector2D Up    = new(x:  0, y:  1);
     public static readonly Vector2D Down  = new(x:  0, y: -1);
     public static readonly Vector2D Left  = new(x: -1, y:  0);
     public static readonly Vector2D Right = new(x:  1, y:  0);
     public static readonly Vector2D PositiveInfinity = new (x: int.MaxValue, y:int.MaxValue);
     
-    public int X { get; } = x;
-    public int Y { get; } = y;
+    public int X { get; }
+    public int Y { get; }
     public int this[Axis axis] => GetComponent(axis);
 
+    public Vector2D(int x, int y)
+    {
+        X = x;
+        Y = y;
+    }
+    
     public int GetComponent(Axis component)
     {
         switch (component)
@@ -96,31 +103,6 @@ public readonly struct Vector2D(int x, int y) : IEquatable<Vector2D>
     public static Vector2D operator /(Vector2D lhs, int k)
     {
         return new Vector2D(x:lhs.X / k, y:lhs.Y / k);
-    }
-
-    public static bool operator ==(Vector2D left, Vector2D right)
-    {
-        return left.Equals(right);
-    }
-
-    public static bool operator !=(Vector2D left, Vector2D right)
-    {
-        return !(left == right);
-    }
-    
-    public bool Equals(Vector2D other)
-    {
-        return X == other.X && Y == other.Y;
-    }
-
-    public override bool Equals(object? obj)
-    {
-        return obj is Vector2D other && Equals(other);
-    }
-
-    public override int GetHashCode()
-    {
-        return HashCode.Combine(X, Y);
     }
     
     public override string ToString()

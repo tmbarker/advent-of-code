@@ -5,23 +5,19 @@ namespace Utilities.Geometry.Euclidean;
 /// <summary>
 /// A readonly 3D AABB value type
 /// </summary>
-public readonly struct Aabb3D : IEnumerable<Vector3D>, IEquatable<Aabb3D>
-{ 
-    public static Aabb3D CubeCenteredAt(Vector3D center, int extent)
+public readonly record struct Aabb3D : IEnumerable<Vector3D>
+{
+    public Aabb3D(Vector3D min, Vector3D max)
     {
-        if (extent < 0)
-        {
-            throw new ArgumentOutOfRangeException(nameof(extent), extent, $"{nameof(extent)} must be positive");
-        }
-
-        return new Aabb3D(
-            xMin: center.X - extent,
-            xMax: center.X + extent,
-            yMin: center.Y - extent,
-            yMax: center.Y + extent,
-            zMin: center.Z - extent,
-            zMax: center.Z + extent);
-    } 
+        Min = min;
+        Max = max;
+    }
+    
+    public Aabb3D(int xMin, int xMax, int yMin, int yMax, int zMin, int zMax)
+    {
+        Min = new Vector3D(xMin, yMin, zMin);
+        Max = new Vector3D(xMax, yMax, zMax);
+    }
     
     public Aabb3D(ICollection<Vector3D> extents, bool inclusive)
     {
@@ -35,59 +31,36 @@ public readonly struct Aabb3D : IEnumerable<Vector3D>, IEquatable<Aabb3D>
             y: extents.Max(p => p.Y) + delta,
             z: extents.Max(p => p.Z) + delta);
     }
-
-    public Aabb3D(int xMin, int xMax, int yMin, int yMax, int zMin, int zMax)
-    {
-        Min = new Vector3D(xMin, yMin, zMin);
-        Max = new Vector3D(xMax, yMax, zMax);
-    }
-
-    public Aabb3D(Vector3D min, Vector3D max)
-    {
-        Min = min;
-        Max = max;
-    }
     
     public Vector3D Min { get; }
     public Vector3D Max { get; }
 
-    public int XMin => Min.X;
-    public int XMax => Max.X;
-    public int YMin => Min.Y;
-    public int YMax => Max.Y;
-    public int ZMin => Min.Z;
-    public int ZMax => Max.Z;
-
-    public int XLength => XMax - XMin + 1;
-    public int YLength => YMax - YMin + 1;
-    public int ZLength => ZMax - ZMin + 1;
+    public int XLength => Max.X - Min.X + 1;
+    public int YLength => Max.Y - Min.Y + 1;
+    public int ZLength => Max.Z - Min.Z + 1;
     public long Volume => (long)XLength * YLength * ZLength;
-    public Vector3D Center => new(x: (XMin + XMax) / 2, y: (YMin + YMax) / 2, z: (ZMin + ZMax) / 2);
+    public Vector3D Center => new(x: (Min.X + Max.X) / 2, y: (Min.Y + Max.Y) / 2, z: (Min.Z + Max.Z) / 2);
     
     public static bool Overlap(Aabb3D a, Aabb3D b, out  Aabb3D overlap)
     {
         var hasOverlap =
-            a.XMax >= b.XMin && a.XMin <= b.XMax &&
-            a.YMax >= b.YMin && a.YMin <= b.YMax &&
-            a.ZMax >= b.ZMin && a.ZMin <= b.ZMax;
+            a.Max.X >= b.Min.X && a.Min.X <= b.Max.X &&
+            a.Max.Y >= b.Min.Y && a.Min.Y <= b.Max.Y &&
+            a.Max.Z >= b.Min.Z && a.Min.Z <= b.Max.Z;
 
         if (!hasOverlap)
         {
             overlap = default;
             return false;
         }
-
-        var xLimits = new[] { a.XMin, a.XMax, b.XMin, b.XMax }.Order().ToList();
-        var yLimits = new[] { a.YMin, a.YMax, b.YMin, b.YMax }.Order().ToList();
-        var zLimits = new[] { a.ZMin, a.ZMax, b.ZMin, b.ZMax }.Order().ToList();
         
         overlap = new Aabb3D(
-            xMin: xLimits[1],
-            xMax: xLimits[2],
-            yMin: yLimits[1],
-            yMax: yLimits[2],
-            zMin: zLimits[1],
-            zMax: zLimits[2]);
+            xMin: int.Max(a.Min.X, b.Min.X),
+            xMax: int.Min(a.Max.X, b.Max.X),
+            yMin: int.Max(a.Min.Y, b.Min.Y),
+            yMax: int.Min(a.Max.Y, b.Max.Y),
+            zMin: int.Max(a.Min.Z, b.Min.Z),
+            zMax: int.Min(a.Max.Z, b.Max.Z));
         return true;
     }
 
@@ -111,29 +84,29 @@ public readonly struct Aabb3D : IEnumerable<Vector3D>, IEquatable<Aabb3D>
     private bool ContainsInclusive(Vector3D pos)
     {
         return 
-            pos.X >= XMin && pos.X <= XMax && 
-            pos.Y >= YMin && pos.Y <= YMax && 
-            pos.Z >= ZMin && pos.Z <= ZMax;
+            pos.X >= Min.X && pos.X <= Max.X && 
+            pos.Y >= Min.Y && pos.Y <= Max.Y && 
+            pos.Z >= Min.Z && pos.Z <= Max.Z;
     }
     
     private bool ContainsExclusive(Vector3D pos)
     {
         return
-            pos.X > XMin && pos.X < XMax &&
-            pos.Y > YMin && pos.Y < YMax &&
-            pos.Z > ZMin && pos.Z < ZMax;
+            pos.X > Min.X && pos.X < Max.X &&
+            pos.Y > Min.Y && pos.Y < Max.Y &&
+            pos.Z > Min.Z && pos.Z < Max.Z;
     }
     
     public override string ToString()
     {
-        return $"[X={XMin}..{XMax}, Y={YMin}..{YMax}, Z={ZMin}..{ZMax}]";
+        return $"[X={Min.X}..{Max.X}, Y={Min.Y}..{Max.Y}, Z={Min.Z}..{Max.Z}]";
     }
 
     public IEnumerator<Vector3D> GetEnumerator()
     {
-        for (var x = XMin; x <= XMax; x++)
-        for (var y = YMin; y <= YMax; y++)
-        for (var z = ZMin; z <= ZMax; z++)
+        for (var x = Min.X; x <= Max.X; x++)
+        for (var y = Min.Y; y <= Max.Y; y++)
+        for (var z = Min.Z; z <= Max.Z; z++)
         {
             yield return new Vector3D(x, y, z);
         }
@@ -142,33 +115,5 @@ public readonly struct Aabb3D : IEnumerable<Vector3D>, IEquatable<Aabb3D>
     IEnumerator IEnumerable.GetEnumerator()
     {
         return GetEnumerator();
-    }
-
-    public bool Equals(Aabb3D other)
-    {
-        return 
-            XMin == other.XMin && XMax == other.XMax && 
-            YMin == other.YMin && YMax == other.YMax &&
-            ZMin == other.ZMin && ZMax == other.ZMax;
-    }
-
-    public override bool Equals(object? obj)
-    {
-        return obj is Aabb3D other && Equals(other);
-    }
-
-    public override int GetHashCode()
-    {
-        return HashCode.Combine(XMin, XMax, YMin, YMax, ZMin, ZMax);
-    }
-
-    public static bool operator ==(Aabb3D left, Aabb3D right)
-    {
-        return left.Equals(right);
-    }
-
-    public static bool operator !=(Aabb3D left, Aabb3D right)
-    {
-        return !left.Equals(right);
     }
 }

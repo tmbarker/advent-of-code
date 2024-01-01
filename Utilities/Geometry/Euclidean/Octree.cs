@@ -16,84 +16,84 @@ public static class Octree
         //      E F  
         
         var set = new HashSet<Aabb3D>();
-        var x1 = aabb.XLength is 1 or 2 ? aabb.XMin : aabb.XMin + aabb.XLength / 2;
-        var x2 = aabb.XLength is 1 or 2 ? aabb.XMax : aabb.XMin + aabb.XLength / 2 + 1;
-        var y1 = aabb.YLength is 1 or 2 ? aabb.YMin : aabb.YMin + aabb.YLength / 2;
-        var y2 = aabb.YLength is 1 or 2 ? aabb.YMax : aabb.YMin + aabb.YLength / 2 + 1;
-        var z1 = aabb.ZLength is 1 or 2 ? aabb.ZMin : aabb.ZMin + aabb.ZLength / 2;
-        var z2 = aabb.ZLength is 1 or 2 ? aabb.ZMax : aabb.ZMin + aabb.ZLength / 2 + 1;
+        var x1 = aabb.XLength is 1 or 2 ? aabb.Min.X : aabb.Min.X + aabb.XLength / 2;
+        var x2 = aabb.XLength is 1 or 2 ? aabb.Max.X : aabb.Min.X + aabb.XLength / 2 + 1;
+        var y1 = aabb.YLength is 1 or 2 ? aabb.Min.Y : aabb.Min.Y + aabb.YLength / 2;
+        var y2 = aabb.YLength is 1 or 2 ? aabb.Max.Y : aabb.Min.Y + aabb.YLength / 2 + 1;
+        var z1 = aabb.ZLength is 1 or 2 ? aabb.Min.Z : aabb.Min.Z + aabb.ZLength / 2;
+        var z2 = aabb.ZLength is 1 or 2 ? aabb.Max .Z: aabb.Min.Z + aabb.ZLength / 2 + 1;
 
         // A
         set.Add(new Aabb3D(
-            xMin: aabb.XMin,
+            xMin: aabb.Min.X,
             xMax: x1,
             yMin: y2,
-            yMax: aabb.YMax,
-            zMin: aabb.ZMin,
+            yMax: aabb.Max.Y,
+            zMin: aabb.Min.Z,
             zMax: z1));
         
         // B
         set.Add(new Aabb3D(
             xMin: x2,
-            xMax: aabb.XMax,
+            xMax: aabb.Max.X,
             yMin: y2,
-            yMax: aabb.YMax,
-            zMin: aabb.ZMin,
+            yMax: aabb.Max.Y,
+            zMin: aabb.Min.Z,
             zMax: z1));
         
         // C
         set.Add(new Aabb3D(
-            xMin: aabb.XMin,
+            xMin: aabb.Min.X,
             xMax: x1,
             yMin: y2,
-            yMax: aabb.YMax,
+            yMax: aabb.Max.Y,
             zMin: z2,
-            zMax: aabb.ZMax));
+            zMax: aabb.Max.Z));
         
         // D
         set.Add(new Aabb3D(
             xMin: x2,
-            xMax: aabb.XMax,
+            xMax: aabb.Max.X,
             yMin: y2,
-            yMax: aabb.YMax,
+            yMax: aabb.Max.Y,
             zMin: z2,
-            zMax: aabb.ZMax));
+            zMax: aabb.Max.Z));
         
         // E
         set.Add(new Aabb3D(
-            xMin: aabb.XMin,
+            xMin: aabb.Min.X,
             xMax: x1,
-            yMin: aabb.YMin,
+            yMin: aabb.Min.Y,
             yMax: y1,
-            zMin: aabb.ZMin,
+            zMin: aabb.Min.Z,
             zMax: z1));
         
         // F
         set.Add(new Aabb3D(
             xMin: x2,
-            xMax: aabb.XMax,
-            yMin: aabb.YMin,
+            xMax: aabb.Max.X,
+            yMin: aabb.Min.Y,
             yMax: y1,
-            zMin: aabb.ZMin,
+            zMin: aabb.Min.Z,
             zMax: z1));
         
         // G
         set.Add(new Aabb3D(
-            xMin: aabb.XMin,
+            xMin: aabb.Min.X,
             xMax: x1,
-            yMin: aabb.YMin,
+            yMin: aabb.Min.Y,
             yMax: y1,
             zMin: z2,
-            zMax: aabb.ZMax));
+            zMax: aabb.Max.Z));
         
         // H
         set.Add(new Aabb3D(
             xMin: x2,
-            xMax: aabb.XMax,
-            yMin: aabb.YMin,
+            xMax: aabb.Max.X,
+            yMin: aabb.Min.Y,
             yMax: y1,
             zMin: z2,
-            zMax: aabb.ZMax));
+            zMax: aabb.Max.Z));
 
         return set;
     }

@@ -25,7 +25,7 @@ public sealed class Solution : SolutionBase
         
         for (var n = 0; n < steps; n++)
         {
-            imageRect += 1;
+            imageRect++;
             litInImage = EnhanceImage(imageRect, litInImage, algorithm, backgroundLit: algorithm[0] && n % 2 == 1);
         }
 

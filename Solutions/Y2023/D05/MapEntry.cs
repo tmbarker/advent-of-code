@@ -11,8 +11,8 @@ public readonly record struct MapEntry(long DestStart, long SourceStart, long Ra
     public Range<long> Apply(Range<long> range)
     {
         return new Range<long>(
-            min: DestStart + range.Min - SourceStart,
-            max: DestStart + range.Max - SourceStart);
+            Min: DestStart + range.Min - SourceStart,
+            Max: DestStart + range.Max - SourceStart);
     }
     
     public static MapEntry Default(long min, long max)

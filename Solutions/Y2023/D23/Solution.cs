@@ -21,8 +21,16 @@ public sealed class Solution : SolutionBase
     {
         var input = GetInputLines();
         var graph = ParseGraph(input, slopes: part == 1, out var start, out var end);
+        var delta = 0;
 
-        return Dfs(graph, goal: end, pos: start, visited: [], n: 0);
+        if (graph[end].Count == 1)
+        {
+            var adj = graph[end].Single();
+            delta = adj.Cost;
+            end = adj.Adj;
+        }
+
+        return Dfs(graph, goal: end, pos: start, visited: [], n: 0) + delta;
     }
     
     private static int Dfs(Graph graph, Vector2D goal, Vector2D pos, HashSet<Vector2D> visited, int n)

@@ -5,16 +5,24 @@ namespace Utilities.Geometry.Euclidean;
 /// <summary>
 /// A readonly integral 4D Vector value type
 /// </summary>
-public readonly struct Vector4D(int x, int y, int z, int w) : IEquatable<Vector4D>
+public readonly record struct Vector4D
 {
     private static readonly Vector4D Zero = new(x:0, y:0, z:0, w:0);
     
-    public int X { get; } = x;
-    public int Y { get; } = y;
-    public int Z { get; } = z;
-    public int W { get; } = w;
+    public int X { get; }
+    public int Y { get; }
+    public int Z { get; }
+    public int W { get; }
     public int this[Axis axis] => GetComponent(axis);
 
+    public Vector4D(int x, int y, int z, int w)
+    {
+        X = x;
+        Y = y;
+        Z = z;
+        W = w;
+    }
+    
     public int GetComponent(Axis component)
     {
         return component switch
@@ -52,31 +60,6 @@ public readonly struct Vector4D(int x, int y, int z, int w) : IEquatable<Vector4
     public static Vector4D operator *(int k, Vector4D rhs)
     {
         return new Vector4D(x: k * rhs.X, y: k * rhs.Y, z: k * rhs.Z, w: k * rhs.W);
-    }
-
-    public static bool operator ==(Vector4D left, Vector4D right)
-    {
-        return left.Equals(right);
-    }
-
-    public static bool operator !=(Vector4D left, Vector4D right)
-    {
-        return !(left == right);
-    }
-    
-    public bool Equals(Vector4D other)
-    {
-        return X == other.X && Y == other.Y && Z == other.Z && W == other.W;
-    }
-
-    public override bool Equals(object? obj)
-    {
-        return obj is Vector4D other && Equals(other);
-    }
-
-    public override int GetHashCode()
-    {
-        return HashCode.Combine(X, Y, Z, W);
     }
     
     public override string ToString()

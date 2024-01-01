@@ -39,10 +39,10 @@ public sealed class Solution : SolutionBase
     {
         return CountAccepted(id: "in", workflows, ratings: new Ratings
         {
-            { "x", new Range<long>(min: 1L, max: 4000L) },
-            { "m", new Range<long>(min: 1L, max: 4000L) },
-            { "a", new Range<long>(min: 1L, max: 4000L) },
-            { "s", new Range<long>(min: 1L, max: 4000L) }
+            { "x", new Range<long>(Min: 1L, Max: 4000L) },
+            { "m", new Range<long>(Min: 1L, Max: 4000L) },
+            { "a", new Range<long>(Min: 1L, Max: 4000L) },
+            { "s", new Range<long>(Min: 1L, Max: 4000L) }
         });
     }
 
@@ -71,12 +71,12 @@ public sealed class Solution : SolutionBase
                 case ">" when range.Min > rhs:
                     return CountAccepted(id: next, workflows, ratings);
                 case ">":
-                    fail = new Range<long>(min: range.Min, max: rhs);
-                    pass = new Range<long>(min: rhs + 1,   max: range.Max);
+                    fail = new Range<long>(Min: range.Min, Max: rhs);
+                    pass = new Range<long>(Min: rhs + 1,   Max: range.Max);
                     break;
                 case "<":
-                    pass = new Range<long>(min: range.Min, max: rhs - 1);
-                    fail = new Range<long>(min: rhs,       max: range.Max);
+                    pass = new Range<long>(Min: range.Min, Max: rhs - 1);
+                    fail = new Range<long>(Min: rhs,       Max: range.Max);
                     break;
             }
             
