@@ -124,7 +124,7 @@ public static class CnfConverter
                     nonTerminals: newNonTerminals);
                 var newProduction = new Production(
                     nonTerminal: currentNonTerminal,
-                    yields: new[] { nonTerminalSequence[i], newNonTerminal });
+                    yields: [nonTerminalSequence[i], newNonTerminal]);
 
                 newNonTerminals.Add(newNonTerminal);
                 newProductions.Add(newProduction);
@@ -133,7 +133,7 @@ public static class CnfConverter
 
             var endProduction = new Production(
                 nonTerminal: currentNonTerminal,
-                yields: new[] { nonTerminalSequence[count - 2], nonTerminalSequence[count - 1] }); 
+                yields: [nonTerminalSequence[count - 2], nonTerminalSequence[count - 1]]); 
             
             newProductions.Add(endProduction);
             newProductions.Remove(initialProduction);
@@ -154,7 +154,7 @@ public static class CnfConverter
             .Where(p => Grammar.IsUnitNonTerminal(p, g.NonTerminals))
             .ToHashSet();
         
-        while (unitProductions.Any())
+        while (unitProductions.Count != 0)
         {
             foreach (var unitProduction in unitProductions)
             {

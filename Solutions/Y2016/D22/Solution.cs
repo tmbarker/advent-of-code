@@ -37,11 +37,11 @@ public sealed class Solution : SolutionBase
             targetData: new Vector2D(x: nodes.Max(node => node.Pos.X), y: 0),
             emptyNodes: initialEmpty);
 
-        var queue = new Queue<State>(new[] { initialState });
-        var visited = new HashSet<State>(new[] { initialState });
+        var queue = new Queue<State>(collection: [initialState]);
+        var visited = new HashSet<State>(collection: [initialState]);
         var depth = 0;
         
-        while (queue.Any())
+        while (queue.Count != 0)
         {
             var nodesAtDepth = queue.Count;
             while (nodesAtDepth-- > 0)

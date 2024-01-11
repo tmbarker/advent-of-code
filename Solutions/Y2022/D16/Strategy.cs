@@ -1,13 +1,7 @@
 namespace Solutions.Y2022.D16;
 
-public readonly struct Strategy
+public readonly struct Strategy(int flow, IEnumerable<string> opened)
 {
-    public Strategy(int flow, IEnumerable<string> opened)
-    {
-        Flow = flow;
-        Opened = new HashSet<string>(opened);
-    }
-    
-    public int Flow { get; }
-    public IReadOnlySet<string> Opened { get; }
+    public int Flow { get; } = flow;
+    public IReadOnlySet<string> Opened { get; } = new HashSet<string>(opened);
 }

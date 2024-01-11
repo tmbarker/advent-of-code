@@ -13,10 +13,9 @@ public static class Origami
     private const char Marked = '#';
     private const char Empty = '.';
 
-    public static void Parse(IEnumerable<string> input, out HashSet<Vector2D> dots, out IList<(FoldType Type, int At)> folds)
+    public static void Parse(IEnumerable<string> input, out HashSet<Vector2D> dots, out List<(FoldType Type, int At)> folds)
     {
-        dots = new HashSet<Vector2D>();
-        folds = new List<(FoldType fold, int foldAt)>();
+        dots = []; folds = [];
         
         var breakFound = false;
         foreach (var line in input)
@@ -55,7 +54,7 @@ public static class Origami
         {
             for (var x = 0; x <= xMax; x++)
             {
-                sb.Append(dots.Contains(new Vector2D(x, y)) ? Marked : Empty);
+                sb.Append(dots.Contains(item: new Vector2D(x, y)) ? Marked : Empty);
             }
             sb.Append('\n');
         }

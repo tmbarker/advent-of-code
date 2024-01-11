@@ -42,11 +42,11 @@ public sealed class Solution : SolutionBase
         var hashProvider = new Md5Provider();
 
         var initial = new State(Pos: Start, Path: string.Empty);
-        var queue = new Queue<State>(new[] { initial });
-        var visited = new HashSet<State> { initial };
+        var queue = new Queue<State>(collection: [initial]);
+        var visited = new HashSet<State>(collection: [initial]);
         var longest = 0;
 
-        while (queue.Any())
+        while (queue.Count != 0)
         {
             var state = queue.Dequeue();
             if (state.Pos == Target)

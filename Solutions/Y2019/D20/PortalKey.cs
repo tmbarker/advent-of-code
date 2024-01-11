@@ -1,15 +1,9 @@
 namespace Solutions.Y2019.D20;
 
-public readonly struct PortalKey : IEquatable<PortalKey>
+public readonly struct PortalKey(char c1, char c2) : IEquatable<PortalKey>
 {
-    private readonly char _c1;
-    private readonly char _c2;
-    
-    public PortalKey(char c1, char c2)
-    {
-        _c1 = c1;
-        _c2 = c2;
-    }
+    private readonly char _c1 = c1;
+    private readonly char _c2 = c2;
 
     public bool Equals(PortalKey other)
     {

@@ -22,8 +22,8 @@ public sealed class Solution : SolutionBase
     {
         ParseRiskMap(GetInputLines(), tilesPerSide, out var riskMap, out var start, out var end);
 
-        var visited = new HashSet<Vector2D> { start };
-        var heap = new PriorityQueue<Vector2D, int>(new[] { (start, 0) });
+        var visited = new HashSet<Vector2D>(collection: [start]);
+        var heap = new PriorityQueue<Vector2D, int>(items: [(start, 0)]);
         var risks = riskMap.ToDictionary(
             keySelector: p => p, 
             elementSelector: p => p == start ? 0 : int.MaxValue);

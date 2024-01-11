@@ -2,16 +2,10 @@ using Utilities.Geometry.Euclidean;
 
 namespace Solutions.Y2019.D12;
 
-public readonly struct StateComp : IEquatable<StateComp>
+public readonly struct StateComp(Axis component, State state) : IEquatable<StateComp>
 {
-    public StateComp(Axis component, State state)
-    {
-        Pos = state.Pos.GetComponent(component);
-        Vel = state.Vel.GetComponent(component);
-    }
-    
-    private int Pos { get; }
-    private int Vel { get; }
+    private int Pos { get; } = state.Pos.GetComponent(component);
+    private int Vel { get; } = state.Vel.GetComponent(component);
 
     public bool Equals(StateComp other)
     {

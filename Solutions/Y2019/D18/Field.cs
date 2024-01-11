@@ -69,7 +69,7 @@ public sealed class Field
     {
         var adjacency = new AdjacencyList();
         var reachable = new EntityMap { { startPos, Start } };
-        var queue = new Queue<Vector2D>(new[] { startPos });
+        var queue = new Queue<Vector2D>(collection:[startPos]);
 
         while (queue.Count > 0)
         {

@@ -33,8 +33,8 @@ public sealed class Solution : SolutionBase
 
     private static int GetMinDistance(Grid2D<char> map, Vector2D start, Vector2D end)
     {
-        var queue = new Queue<Vector2D>(new[] { start });
-        var visited = new HashSet<Vector2D>(new[] { start });
+        var queue = new Queue<Vector2D>(collection: [start]);
+        var visited = new HashSet<Vector2D>(collection: [start]);
         var depth = 0;
         
         while (queue.Count > 0)

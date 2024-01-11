@@ -42,7 +42,7 @@ public sealed class Solution : SolutionBase
     private static int Traverse(Vector2D start, Vector2D end, Storm storm)
     {
         var t = 0;
-        var heads = new HashSet<Vector2D> { start };
+        var heads = new HashSet<Vector2D>(collection: [start]);
 
         while (heads.Count > 0)
         {

@@ -18,7 +18,7 @@ public sealed class Solution : SolutionBase
     private int GetMaxCalories(int num)
     {
         return GetInputLines()
-            .ChunkBy(line => !string.IsNullOrWhiteSpace(line))
+            .ChunkByNonEmpty()
             .Select(chunk => chunk.Sum(int.Parse))
             .OrderDescending()
             .Take(num)

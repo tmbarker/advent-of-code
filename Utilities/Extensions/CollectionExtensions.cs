@@ -29,7 +29,7 @@ public static class CollectionExtensions
     /// </summary>
     public static ICollection<T> Except<T>(this IEnumerable<T> source, T single)
     {
-        return new List<T>(collection: source.Except(new[] { single }));
+        return new List<T>(collection: source.Except([single]));
     }
 
     /// <summary>
@@ -89,7 +89,7 @@ public static class CollectionExtensions
     /// <summary>
     /// Chunk the source based on a <paramref name="takePredicate"/> and an optional <paramref name="skipPredicate"/>
     /// </summary>
-    /// <param name="source"></param>
+    /// <param name="source">The source collection</param>
     /// <param name="takePredicate">Select which elements should be included in a chunk</param>
     /// <param name="skipPredicate">Select which elements to skip between chunks, if not provided
     /// then <paramref name="takePredicate"/> is used and negated</param>
@@ -121,6 +121,16 @@ public static class CollectionExtensions
         }
 
         return chunks;
+    }
+
+    /// <summary>
+    /// Chunk the source between null or whitespace strings
+    /// </summary>
+    /// <param name="source">The source collection</param>
+    /// <returns>An iterator which yields chunk arrays</returns>
+    public static IEnumerable<string[]> ChunkByNonEmpty(this IEnumerable<string> source)
+    {
+        return source.ChunkBy(takePredicate: s => !string.IsNullOrWhiteSpace(s));
     }
 
     /// <summary>

@@ -27,7 +27,7 @@ public sealed class Solution : SolutionBase
     private static int CountDistinctAlone(string steps)
     {
         var pos = Vector2D.Zero;
-        var set = new HashSet<Vector2D> { Vector2D.Zero };
+        var set = new HashSet<Vector2D>(collection: [Vector2D.Zero]);
 
         foreach (var step in steps)
         {
@@ -40,7 +40,7 @@ public sealed class Solution : SolutionBase
     
     private static int CountDistinctPair(string steps)
     {
-        var set = new HashSet<Vector2D> { Vector2D.Zero };
+        var set = new HashSet<Vector2D>(collection: [Vector2D.Zero]);
         var agents = new Dictionary<int, Vector2D>
         {
             { 0, Vector2D.Zero },

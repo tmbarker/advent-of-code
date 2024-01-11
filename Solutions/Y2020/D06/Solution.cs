@@ -11,7 +11,7 @@ public sealed class Solution : SolutionBase
     public override object Run(int part)
     {
         var lines = GetInputLines();
-        var groupAnswers = lines.ChunkBy(line => !string.IsNullOrWhiteSpace(line));
+        var groupAnswers = lines.ChunkByNonEmpty();
         
         return part switch
         {

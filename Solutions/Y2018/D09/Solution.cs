@@ -25,7 +25,7 @@ public sealed class Solution : SolutionBase
             keySelector: p => p,
             elementSelector: _ => 0L);
 
-        var placed = new CircularLinkedList<long>(new[] { 0L });
+        var placed = new CircularLinkedList<long>(collection: [0L]);
         var current = placed.Head;
         
         var turnPlayer = 0;

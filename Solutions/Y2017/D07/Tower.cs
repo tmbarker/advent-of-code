@@ -14,7 +14,7 @@ public readonly struct Tower(DirectedGraph<string> graph, Dictionary<string, int
     {
         var unbalanced = string.Empty;
         var weightMemo = new Dictionary<string, int>();
-        var queue = new Queue<string>(new[] { Root });
+        var queue = new Queue<string>(collection: [Root]);
 
         while (queue.Count != 0)
         {

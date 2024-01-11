@@ -19,7 +19,7 @@ public sealed class Solution : SolutionBase
     private static int FindMinCost(State initial, Field field)
     {
         var costs = new Dictionary<State, int> { { initial, 0 } };
-        var queue = new PriorityQueue<State, int>(new[] { (initial, 0) });
+        var queue = new PriorityQueue<State, int>(items: [(initial, 0)]);
 
         while (queue.Count > 0)
         {

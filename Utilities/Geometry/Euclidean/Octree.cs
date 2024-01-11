@@ -21,7 +21,7 @@ public static class Octree
         var y1 = aabb.YLength is 1 or 2 ? aabb.Min.Y : aabb.Min.Y + aabb.YLength / 2;
         var y2 = aabb.YLength is 1 or 2 ? aabb.Max.Y : aabb.Min.Y + aabb.YLength / 2 + 1;
         var z1 = aabb.ZLength is 1 or 2 ? aabb.Min.Z : aabb.Min.Z + aabb.ZLength / 2;
-        var z2 = aabb.ZLength is 1 or 2 ? aabb.Max .Z: aabb.Min.Z + aabb.ZLength / 2 + 1;
+        var z2 = aabb.ZLength is 1 or 2 ? aabb.Max.Z : aabb.Min.Z + aabb.ZLength / 2 + 1;
 
         // A
         set.Add(new Aabb3D(

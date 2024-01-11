@@ -21,10 +21,13 @@ public sealed class Solution : SolutionBase
     {
         var sum = 0L;
         var reports = ParseInputLines(parseFunc: line => ParseReport(line, factor));
-
+        
         Parallel.ForEach(reports, report =>
         {
-            Interlocked.Add(ref sum, value: CountArrangements(report));
+            if (report.Pattern.Length >= report.Runs.Sum() + report.Runs.Length - 1)
+            {
+                Interlocked.Add(ref sum, value: CountArrangements(report));   
+            }
         });
         
         return sum;
@@ -32,13 +35,10 @@ public sealed class Solution : SolutionBase
     
     private static long CountArrangements(Report report)
     {
-        var memo = new Dictionary<State, long>();
-        var initial = State.Initial(report.Pattern);
-        
-        return CountArrangements(r: report, s: initial, m: memo);
+        return CountArrangements(r: report, s: State.Initial(report.Pattern), m: []);
     }
     
-    private static long CountArrangements(Report r, State s, IDictionary<State, long> m)
+    private static long CountArrangements(Report r, State s, Dictionary<State, long> m)
     {
         if (m.TryGetValue(s, out var cached))
         {
@@ -47,24 +47,25 @@ public sealed class Solution : SolutionBase
             
         if (s.Pos == r.Pattern.Length)
         {
-            var tailRunValid = !s.InRun || s.RunLength == r.Runs[s.RunIndex];
+            var tailRunValid = !s.RunActive || s.RunLength == r.Runs[s.RunIndex];
             var matchSuccess = tailRunValid && s.RunIndex + 1 == r.Runs.Length;
 
             m[s] = matchSuccess ? 1L : 0L;
             return m[s];
         }
 
-        switch (current: s.Current, inRun: s.InRun)
+        switch (current: s.Current, runActive: s.RunActive)
         {
-            case (current: '.', inRun: true)  when s.RunLength != r.Runs[s.RunIndex]:
-            case (current: '#', inRun: true)  when s.RunLength >= r.Runs[s.RunIndex]:
-            case (current: '#', inRun: false) when s.RunIndex + 1 >= r.Runs.Length:
+            case (current: '.', runActive: true)  when s.RunLength != r.Runs[s.RunIndex]:
+            case (current: '#', runActive: true)  when s.RunLength >= r.Runs[s.RunIndex]:
+            case (current: '#', runActive: false) when s.RunIndex + 1 >= r.Runs.Length:
                 m[s] = 0L;
                 break; 
-            case (current: '?', inRun: _):
-                m[s] = CountArrangements(r, s.Replace('.'), m) + CountArrangements(r, s.Replace('#'), m);
+            case (current: '?', runActive: _):
+                m[s] = CountArrangements(r, s.Branch('.'), m) + 
+                       CountArrangements(r, s.Branch('#'), m);
                 break;
-            case (current:  _,  inRun: _):
+            case (current:  _,  runActive: _):
                 m[s] = CountArrangements(r, s.Consume(), m);
                 break;
         }

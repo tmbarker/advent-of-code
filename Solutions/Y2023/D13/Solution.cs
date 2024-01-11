@@ -9,7 +9,7 @@ public sealed class Solution : SolutionBase
     public override object Run(int part)
     {
         var grids = GetInputLines()
-            .ChunkBy(line => !string.IsNullOrWhiteSpace(line))
+            .ChunkByNonEmpty()
             .Select(chunk => Grid2D<char>.MapChars(chunk));
         
         return part switch

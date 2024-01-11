@@ -23,7 +23,7 @@ public class Solution : SolutionBase
             ? values
             : values.Reverse();
         
-        IList<int[]> sequences = new List<int[]> { initial.ToArray() };
+        IList<int[]> sequences = [initial.ToArray()];
         while (sequences[^1].Any(val => val != 0))
         {
             sequences.Add(item: sequences[^1]

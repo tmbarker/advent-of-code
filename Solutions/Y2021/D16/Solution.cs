@@ -76,7 +76,7 @@ public sealed class Solution : SolutionBase
     private static int SumPacketVersionNumbers(Packet root)
     {
         var sum = 0;
-        var stack = new Stack<Packet>(new[] { root });
+        var stack = new Stack<Packet>(collection: [root]);
 
         while (stack.Count > 0)
         {

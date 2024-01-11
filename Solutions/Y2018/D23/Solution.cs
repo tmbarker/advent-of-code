@@ -47,7 +47,7 @@ public sealed class Solution : SolutionBase
 
     private static Vector3D Search(IList<Nanobot> bots, Aabb3D area)
     {
-        var heap = new PriorityQueue<Aabb3D, SearchRanking>(new[] { (area, Rank(area, bots)) });
+        var heap = new PriorityQueue<Aabb3D, SearchRanking>(items: [(area, Rank(area, bots))]);
         while (heap.Count > 0)
         {
             var region = heap.Dequeue();

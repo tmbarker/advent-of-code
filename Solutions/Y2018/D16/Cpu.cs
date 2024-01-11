@@ -27,7 +27,7 @@ public sealed class Cpu
 
     public void ResetRegisters()
     {
-        SetRegisters(new[] { 0, 0, 0, 0 });
+        SetRegisters([0, 0, 0, 0]);
     }
 
     public void Execute(Opcode opcode, int a, int b, int c)

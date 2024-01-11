@@ -6,7 +6,7 @@ public static class KnotHash
     private const int DenseBytes = 16;
     private const int Rounds = 64;
 
-    private static readonly byte[] LengthSuffixValues = { 17, 31, 73, 47, 23 };
+    private static readonly byte[] LengthSuffixValues = [17, 31, 73, 47, 23];
     
     public static string ComputeHash(string input)
     {

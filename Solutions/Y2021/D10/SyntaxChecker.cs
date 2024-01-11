@@ -7,20 +7,12 @@ public sealed class SyntaxChecker
     private readonly Dictionary<char, Rule> _openWithRuleMap = new();
     private readonly Dictionary<char, Rule> _closeWithRuleMap = new();
     
-    public readonly struct Rule
+    public readonly struct Rule(char openWith, char closeWith, int errorPoints, int completionPoints)
     {
-        public Rule(char openWith, char closeWith, int errorPoints, int completionPoints)
-        {
-            OpenWith = openWith;
-            CloseWith = closeWith;
-            ErrorPoints = errorPoints;
-            CompletionPoints = completionPoints;
-        }
-    
-        public char OpenWith { get; }
-        public char CloseWith { get; }
-        public int ErrorPoints { get; }
-        public int CompletionPoints { get; }
+        public char OpenWith { get; } = openWith;
+        public char CloseWith { get; } = closeWith;
+        public int ErrorPoints { get; } = errorPoints;
+        public int CompletionPoints { get; } = completionPoints;
     }
 
     public event Action<long>? SyntaxErrorDetected;

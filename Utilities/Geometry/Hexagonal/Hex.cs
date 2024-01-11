@@ -3,7 +3,7 @@ namespace Utilities.Geometry.Hexagonal;
 /// <summary>
 /// A readonly integral hexagon value type. Represents a 2D hexagon using a 3D cubic coordinate system 
 /// </summary>
-public readonly struct Hex : IEquatable<Hex>
+public readonly record struct Hex
 {
     public static readonly Hex Zero = new(q: 0, r: 0, s: 0);
     public static readonly IReadOnlyDictionary<Enum, Hex> Directions = new Dictionary<Enum, Hex>
@@ -72,31 +72,6 @@ public readonly struct Hex : IEquatable<Hex>
     public static Hex operator -(Hex lhs, Hex rhs)
     {
         return new Hex(lhs.Q - rhs.Q, lhs.R - rhs.R, lhs.S - rhs.S);
-    }
-
-    public static bool operator ==(Hex left, Hex right)
-    {
-        return left.Equals(right);
-    }
-
-    public static bool operator !=(Hex left, Hex right)
-    {
-        return !left.Equals(right);
-    }
-    
-    public bool Equals(Hex other)
-    {
-        return Q == other.Q && R == other.R  && S == other.S;
-    }
-    
-    public override bool Equals(object? obj)
-    {
-        return obj is Hex other && Equals(other);
-    }
-
-    public override int GetHashCode()
-    {
-        return HashCode.Combine(Q, R, S);
     }
     
     public override string ToString()

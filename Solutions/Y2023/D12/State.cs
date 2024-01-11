@@ -1,33 +1,15 @@
 namespace Solutions.Y2023.D12;
 
-public readonly struct State : IEquatable<State>
+public readonly record struct State(string Pattern, int Pos, char Current, bool RunActive, int RunIndex, int RunLength)
 {
-    private readonly string _pattern;
-    
-    public char Current { get; }
-    public bool InRun { get; }
-    public int Pos { get; }
-    public int RunIndex { get; }
-    public int RunLength { get; }
-
-    private State(string pattern, char current, bool inRun, int pos, int runIndex, int runLength)
-    {
-        _pattern = pattern;
-        Current = current;
-        InRun = inRun;
-        Pos = pos;
-        RunIndex = runIndex;
-        RunLength = runLength;
-    }
-
     public static State Initial(string pattern)
     {
-        return new State(pattern: pattern, current: pattern[0], inRun: false, pos: 0, runIndex: -1, runLength: 0);
+        return new State(Pattern: pattern, Pos: 0, Current: pattern[0], RunActive: false, RunIndex: -1, RunLength: 0);
     }
 
-    public State Replace(char c)
+    public State Branch(char c)
     {
-        return new State(pattern: _pattern, current: c, inRun: InRun, pos: Pos, runIndex: RunIndex, runLength: RunLength);
+        return this with { Current = c };
     }
 
     public State Consume()
@@ -39,55 +21,22 @@ public readonly struct State : IEquatable<State>
     
     private State AdvanceWorking()
     {
-        var c = GetNextTokenOrDefault();
-        return new State(pattern: _pattern, current: c, inRun: false, pos: Pos + 1, runIndex: RunIndex, runLength: 0);
+        var c = GetTokenOrDefault(Pos + 1);
+        return new State(Pattern: Pattern, Pos: Pos + 1, Current: c, RunActive: false, RunIndex: RunIndex, RunLength: 0);
     }
     
     private State AdvanceDamaged()
     {
-        var c = GetNextTokenOrDefault();
-        return InRun
-            ? new State(pattern: _pattern, current: c, inRun: true, pos: Pos + 1, runIndex: RunIndex, runLength: RunLength + 1)
-            : new State(pattern: _pattern, current: c, inRun: true, pos: Pos + 1, runIndex: RunIndex + 1, runLength: 1);
+        var c = GetTokenOrDefault(Pos + 1);
+        return RunActive
+            ? new State(Pattern: Pattern, Pos: Pos + 1, Current: c, RunActive: true, RunIndex: RunIndex,     RunLength: RunLength + 1)
+            : new State(Pattern: Pattern, Pos: Pos + 1, Current: c, RunActive: true, RunIndex: RunIndex + 1, RunLength: 1);
     }
 
-    private char GetNextTokenOrDefault()
+    private char GetTokenOrDefault(int pos)
     {
-        var index = Pos + 1;
-        var valid = index >= 0 && index < _pattern.Length;
-
-        return valid
-            ? _pattern[index]
+        return pos < Pattern.Length
+            ? Pattern[pos]
             : '\0';
-    }
-
-    public bool Equals(State other)
-    {
-        return 
-            Current == other.Current && 
-            InRun == other.InRun && 
-            Pos == other.Pos && 
-            RunIndex == other.RunIndex && 
-            RunLength == other.RunLength;
-    }
-
-    public override bool Equals(object? obj)
-    {
-        return obj is State other && Equals(other);
-    }
-
-    public override int GetHashCode()
-    {
-        return HashCode.Combine(Current, InRun, Pos, RunIndex, RunLength);
-    }
-
-    public static bool operator ==(State left, State right)
-    {
-        return left.Equals(right);
-    }
-
-    public static bool operator !=(State left, State right)
-    {
-        return !left.Equals(right);
     }
 }

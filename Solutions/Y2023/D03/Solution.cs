@@ -57,9 +57,9 @@ public sealed class Solution : SolutionBase
             var adjPos = pos.GetAdjacentSet(Metric.Chebyshev);
             var adjNum = schematic.Numbers
                 .Where(num => num.Positions.Any(adjPos.Contains))
-                .ToList();
-
-            if (adjNum.Count == 2)
+                .ToArray();
+            
+            if (adjNum.Length == 2)
             {
                 sum += adjNum[0].Value * adjNum[1].Value;
             }
@@ -86,8 +86,8 @@ public sealed class Solution : SolutionBase
                 symbols[lines[y][x]].Add(item: new Vector2D(x, y));
                 continue;
             }
-            
-            var positions = new HashSet<Vector2D> { new(x, y) };
+
+            var positions = new HashSet<Vector2D>(collection: [new Vector2D(x, y)]);
             var span = 1;
 
             while (x + span < lines[0].Length && char.IsDigit(lines[y][x + span]))
@@ -102,7 +102,7 @@ public sealed class Solution : SolutionBase
             numbers.Add(number);
             x += span - 1;
         }
-
+        
         return new Schematic(numbers, symbols);
     }
 }

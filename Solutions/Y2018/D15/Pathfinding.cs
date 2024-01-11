@@ -8,8 +8,8 @@ public static class Pathfinding
 {
     public static bool FindNearestReachable(Field field, Vector2D start, HashSet<Vector2D> targetPositions, out Vector2D nearest)
     {
-        var queue = new Queue<Vector2D>(new[] { start });
-        var visited = new HashSet<Vector2D>(new[] { start });
+        var queue = new Queue<Vector2D>(collection: [start]);
+        var visited = new HashSet<Vector2D>(collection: [start]);
         var candidates = new HashSet<Vector2D>();
         
         while (queue.Any())
@@ -52,8 +52,8 @@ public static class Pathfinding
     
     public static Vector2D GetStepPos(Field field, Vector2D start, Vector2D goal)
     {
-        var queue = new Queue<Vector2D>(new[] { goal });
-        var visited = new HashSet<Vector2D>(new[] { goal });
+        var queue = new Queue<Vector2D>(collection: [goal]);
+        var visited = new HashSet<Vector2D>(collection: [goal]);
         var candidates = new HashSet<Vector2D>();
         
         while (queue.Any())

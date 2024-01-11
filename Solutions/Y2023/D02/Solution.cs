@@ -18,7 +18,7 @@ public sealed class Solution : SolutionBase
             _ => ProblemNotSolvedString
         };
     }
-
+    
     private int SumPossible()
     {
         var constraint = new Set(Red: 12, Green: 13, Blue: 14);
@@ -36,9 +36,9 @@ public sealed class Solution : SolutionBase
     private static bool IsPossible(Set observed, Set constraint)
     {
         return 
-            observed.Red   <= constraint.Red && 
-            observed.Blue  <= constraint.Blue && 
-            observed.Green <= constraint.Green;
+            observed.Red   <= constraint.Red &&
+            observed.Green <= constraint.Green &&
+            observed.Blue  <= constraint.Blue;
     }
     
     private int SumMinimumPowers()
@@ -65,8 +65,8 @@ public sealed class Solution : SolutionBase
         {
             draws.Add(item: new Set(
                 Red:   Regex.Match(input: setString, pattern: @"(\d+) red").ParseIntOrDefault(),
-                Blue:  Regex.Match(input: setString, pattern: @"(\d+) blue").ParseIntOrDefault(),
-                Green: Regex.Match(input: setString, pattern: @"(\d+) green").ParseIntOrDefault()));
+                Green: Regex.Match(input: setString, pattern: @"(\d+) green").ParseIntOrDefault(),
+                Blue:  Regex.Match(input: setString, pattern: @"(\d+) blue").ParseIntOrDefault()));
         }
 
         return new Game(id, draws);

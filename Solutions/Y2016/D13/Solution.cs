@@ -56,8 +56,8 @@ public sealed class Solution : SolutionBase
     
     private static int Explore(Vector2D start, int favourite, int maxDepth)
     {
-        var queue = new Queue<Vector2D>(new[] { start });
-        var visited = new HashSet<Vector2D>(new[] { start });
+        var queue = new Queue<Vector2D>(collection: [start]);
+        var visited = new HashSet<Vector2D>(collection: [start]);
         var depth = 0;
 
         while (queue.Count > 0 && depth < maxDepth)

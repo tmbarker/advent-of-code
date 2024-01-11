@@ -19,11 +19,11 @@ internal static class Program
             name: "day", 
             description: "The problem day");
         var inputPathOption = new Option<string>(
-            aliases: new[] { "--input", "--path" },
+            aliases: ["--input", "--path"],
             description: "Manually specify the path to the input file",
             getDefaultValue: () => string.Empty);
         var logsOption = new Option<bool>(
-            aliases: new[] { "--logs" },
+            aliases: ["--logs"],
             description: "Some problems emit logs as they run, print any such logs to the console",
             getDefaultValue: () => false);
         

@@ -3,18 +3,19 @@ using Utilities.Geometry.Euclidean;
 
 namespace Solutions.Y2023.D23;
 
+using Pos   = Vector2D;
 using Graph = DefaultDict<Vector2D, HashSet<(Vector2D Adj, int Cost)>>;
 
 [PuzzleInfo("A Long Walk", Topics.Graphs, Difficulty.Medium)]
 public sealed class Solution : SolutionBase
 {
     private const char Forest = '#';
-    private static readonly Dictionary<char, Vector2D> Slopes = new()
+    private static readonly Dictionary<char, Pos> Slopes = new()
     {
-        { '^', Vector2D.Up },
-        { 'v', Vector2D.Down },
-        { '<', Vector2D.Left },
-        { '>', Vector2D.Right }
+        { '^', Pos.Up },
+        { 'v', Pos.Down },
+        { '<', Pos.Left },
+        { '>', Pos.Right }
     };
     
     public override object Run(int part)
@@ -25,37 +26,35 @@ public sealed class Solution : SolutionBase
 
         if (graph[end].Count == 1)
         {
-            var adj = graph[end].Single();
-            delta = adj.Cost;
-            end = adj.Adj;
+            (end, delta) = graph[end].Single();
         }
 
-        return Dfs(graph, goal: end, pos: start, visited: [], n: 0) + delta;
+        return Dfs(graph, goal: end, pos: start, visited: [], max: 0, n: 0) + delta;
     }
     
-    private static int Dfs(Graph graph, Vector2D goal, Vector2D pos, HashSet<Vector2D> visited, int n)
+    private static int Dfs(Graph graph, Pos goal, Pos pos, HashSet<Pos> visited, int max, int n)
     {
         if (pos == goal)
         {
             return n;
         }
-     
-        var max = 0;
+        
         foreach (var (adj, cost) in graph[pos])
         {
             if (visited.Add(adj))
             {
-                max = Math.Max(max, Dfs(graph, goal, adj, visited, n: n + cost));
+                max = Math.Max(max, Dfs(graph, goal, adj, visited, max, n: n + cost));
                 visited.Remove(adj);
             }
         }
+        
         return max;
     }
 
-    private static Graph ParseGraph(IList<string> input, bool slopes, out Vector2D start, out Vector2D end)
+    private static Graph ParseGraph(IList<string> input, bool slopes, out Pos start, out Pos end)
     {
-        start = new Vector2D(x: input[0].IndexOf('.'),  y: input.Count - 1);
-        end =   new Vector2D(x: input[^1].IndexOf('.'), y: 0);
+        start = new Pos(x: input[0].IndexOf('.'),  y: input.Count - 1);
+        end =   new Pos(x: input[^1].IndexOf('.'), y: 0);
         
         var grid = Grid2D<char>.MapChars(input);
         var graph = new Graph(defaultSelector: _ => []);
@@ -67,8 +66,8 @@ public sealed class Solution : SolutionBase
 
         foreach (var node in nodes)
         {
-            var queue = new Queue<Vector2D>(collection: [node]);
-            var visited = new HashSet<Vector2D>(collection: [node]);
+            var queue = new Queue<Pos>(collection: [node]);
+            var visited = new HashSet<Pos>(collection: [node]);
             var cost = 0;
 
             while (queue.Count > 0)
@@ -83,12 +82,9 @@ public sealed class Solution : SolutionBase
                         continue;
                     }
 
-                    foreach (var adj in GetAdjacent(grid, head, slopes))
+                    foreach (var adj in GetAdjacent(grid, head, slopes).Where(adj => visited.Add(adj)))
                     {
-                        if (visited.Add(adj))
-                        {
-                            queue.Enqueue(adj);   
-                        }
+                        queue.Enqueue(adj);
                     }
                 }
                 cost++;
@@ -98,9 +94,9 @@ public sealed class Solution : SolutionBase
         return graph;
     }
     
-    private static HashSet<Vector2D> GetAdjacent(Grid2D<char> grid, Vector2D pos, bool slopes)
+    private static HashSet<Pos> GetAdjacent(Grid2D<char> grid, Pos pos, bool slopes)
     {
-        var candidates = new List<Vector2D>(capacity: 4);
+        var candidates = new List<Pos>(capacity: 4);
         if (slopes && Slopes.TryGetValue(grid[pos], out var dir))
         {
             candidates.Add(item: pos + dir);

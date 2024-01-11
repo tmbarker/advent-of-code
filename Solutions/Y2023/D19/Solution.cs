@@ -14,7 +14,7 @@ public sealed class Solution : SolutionBase
     public override object Run(int part)
     {
         var chunks = GetInputLines()
-            .ChunkBy(line => !string.IsNullOrWhiteSpace(line))
+            .ChunkByNonEmpty()
             .ToArray();
         
         var workflows = ParseWorkflows(lines: chunks[0]);

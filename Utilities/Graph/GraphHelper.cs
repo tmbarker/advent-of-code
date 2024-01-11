@@ -66,7 +66,7 @@ public static class GraphHelper
         IDictionary<T, HashSet<T>> adjacencyList, Predicate<T>? stopPredicate)
         where T : notnull
     {
-        var heap = new PriorityQueue<T, int>(new[] { (start, 0) });
+        var heap = new PriorityQueue<T, int>(items: [(start, 0)]);
         var costs = adjacencyList.Keys.ToDictionary(
             keySelector: n => n,
             elementSelector: n => EqualityComparer<T>.Default.Equals(n, start) ? 0 : int.MaxValue);

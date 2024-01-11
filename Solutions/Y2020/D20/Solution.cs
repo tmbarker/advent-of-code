@@ -127,7 +127,7 @@ public sealed class Solution : SolutionBase
     {
         var firstId = tiles.Keys.First();
         var positions = new Dictionary<int, Vector2D> { { firstId, Vector2D.Zero } };
-        var queue = new Queue<int>(new[] { firstId });
+        var queue = new Queue<int>(collection: [firstId]);
 
         //  Place the first piece arbitrarily, then continuously match all pieces with known congruences to previously
         //  placed pieces. Afterwards, normalize the positions such that the lower left piece has position (0,0)
@@ -178,7 +178,7 @@ public sealed class Solution : SolutionBase
     private static TileMap ParseTiles(IEnumerable<string> input)
     {
         return input
-            .ChunkBy(line => !string.IsNullOrWhiteSpace(line))
+            .ChunkByNonEmpty()
             .ToDictionary(
                 keySelector: chunk => chunk[0].ParseInt(),
                 elementSelector: chunk => ParseTile(chunk[1..]));

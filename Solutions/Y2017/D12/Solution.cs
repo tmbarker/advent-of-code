@@ -22,8 +22,8 @@ public sealed class Solution : SolutionBase
 
     private static int CountElements(IDictionary<int, HashSet<int>> adjacency, int id)
     {
-        var visited = new HashSet<int> { id };
-        var queue = new Queue<int>(new[] { id });
+        var visited = new HashSet<int>(collection: [id]);
+        var queue = new Queue<int>(collection: [id]);
 
         while (queue.Count > 0)
         {

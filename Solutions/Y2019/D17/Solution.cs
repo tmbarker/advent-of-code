@@ -66,7 +66,7 @@ public sealed class Solution : IntCodeSolution
     private static List<string> ComputeCommands(IReadOnlySet<Vector2D> positions, Pose2D pose)
     {
         var commands = new List<string>();
-        var visited = new HashSet<Vector2D> { pose.Pos };
+        var visited = new HashSet<Vector2D>(collection: [pose.Pos]);
 
         while (visited.Count < positions.Count)
         {

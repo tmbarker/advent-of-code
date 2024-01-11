@@ -11,10 +11,10 @@ public static class RegexExtensions
     /// If the <see cref="Match"/> is successful parse it as an <see cref="int"/>, otherwise return
     /// the <paramref name="default"/> value
     /// </summary>
-    public static int ParseIntOrDefault(this Match match, int @default = 0)
+    public static int ParseIntOrDefault(this Match match, int group = 1, int @default = 0)
     {
         return match.Success
-            ? match.ParseInt()
+            ? match.Groups[group].ParseInt()
             : @default;
     }
     

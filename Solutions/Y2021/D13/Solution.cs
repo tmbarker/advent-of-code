@@ -1,4 +1,4 @@
-using Utilities.Extensions;
+using System.Collections.Frozen;
 using Utilities.Geometry.Euclidean;
 
 namespace Solutions.Y2021.D13;
@@ -10,7 +10,7 @@ public sealed class Solution : SolutionBase
     private static readonly Dictionary<FoldType, FoldTransform> FoldTransforms = new()
     {
         { FoldType.Horizontal, HorizontalFoldTransform},
-        { FoldType.Vertical, VerticalFoldTransform}
+        { FoldType.Vertical,   VerticalFoldTransform}
     };
 
     public override object Run(int part)
@@ -38,7 +38,7 @@ public sealed class Solution : SolutionBase
 
     private static HashSet<Vector2D> HorizontalFoldTransform(int foldAt, HashSet<Vector2D> dots)
     {
-        foreach (var point in dots.Freeze())
+        foreach (var point in dots.ToFrozenSet())
         {
             if (point.Y < foldAt)
             {
@@ -54,7 +54,7 @@ public sealed class Solution : SolutionBase
 
     private static HashSet<Vector2D> VerticalFoldTransform(int foldAt, HashSet<Vector2D> dots)
     {
-        foreach (var point in dots.Freeze())
+        foreach (var point in dots.ToFrozenSet())
         {
             if (point.X < foldAt)
             {

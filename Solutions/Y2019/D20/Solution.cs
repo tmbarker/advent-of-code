@@ -30,15 +30,15 @@ public sealed class Solution : SolutionBase
         var adjacencyList = BuildAdjacencyList(maze);
 
         var initial = new State(
-            Pos: portalMap.GetEntrancePositions(Entrance).Single(),
+            Pos: portalMap.GetEntrancePositions(key: Entrance).Single(),
             Depth: 0);
         var target = new State(
-            Pos: portalMap.GetEntrancePositions(Exit).Single(),
+            Pos: portalMap.GetEntrancePositions(key: Exit).Single(),
             Depth: 0);
         
-        var visited = new HashSet<State> { initial };
-        var heap = new PriorityQueue<State, int>(new[] { (start: initial, 0) });
-        var costs = new DefaultDict<State, int>(defaultValue: int.MaxValue / 2) { { initial, 0 } };
+        var visited = new HashSet<State>(collection: [initial]);
+        var heap = new PriorityQueue<State, int>(items: [(initial, 0)]);
+        var costs = new DefaultDict<State, int>(defaultValue: int.MaxValue / 2, items: [(initial, 0)]);
 
         while (heap.Count > 0)
         {
@@ -146,11 +146,10 @@ public sealed class Solution : SolutionBase
                 var entrancePos = PositionValid(maze,pos - dir) 
                     ? pos - dir 
                     : pos + dir + dir;
-
+                
                 entrances[portal].Add(item: new PortalEntrance(
                     Pos: entrancePos,
                     Type: entranceType));
-                
                 break;
             }
         }

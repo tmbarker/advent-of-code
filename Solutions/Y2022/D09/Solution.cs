@@ -29,7 +29,7 @@ public sealed class Solution : SolutionBase
     private static int CountKnotPositions(IEnumerable<Vector2D> steps, int count)
     {
         var knots = new Vector2D[count];
-        var visited = new HashSet<Vector2D> { Vector2D.Zero };
+        var visited = new HashSet<Vector2D>(collection: [Vector2D.Zero]);
 
         foreach (var step in steps)
         {

@@ -1,28 +1,17 @@
 namespace Solutions.Y2015.D22;
 
-public readonly struct State : IEquatable<State>
+public readonly struct State(Wizard player, Boss boss, int manaUsed, Dictionary<Spell, int> activeEffects)
+    : IEquatable<State>
 {
-    private readonly string _key;
-    
-    public Wizard Player { get; }
-    public Boss Boss { get; }
-    public int ManaUsed { get; }
-    public Dictionary<Spell, int> ActiveEffects { get; }
+    private readonly string _key = $"[Player: Hp={player.Hp},M={player.Mana},U={manaUsed}]" +
+                                   $"[Boss: Hp={boss.Hp}]" +
+                                   $"[Effects: {string.Join(',', BuildActiveEffectsHash(activeEffects))}]";
+    public Wizard Player { get; } = player;
+    public Boss Boss { get; } = boss;
+    public int ManaUsed { get; } = manaUsed;
+    public Dictionary<Spell, int> ActiveEffects { get; } = activeEffects;
 
     public bool IsResolved => Player.Hp <= 0 || Boss.Hp <= 0;
-    
-    public State(Wizard player, Boss boss, int manaUsed, Dictionary<Spell, int> activeEffects)
-    {
-        _key =
-            $"[Player: Hp={player.Hp},M={player.Mana},U={manaUsed}]" +
-            $"[Boss: Hp={boss.Hp}]" +
-            $"[Effects: {string.Join(',', BuildActiveEffectsHash(activeEffects))}]";
-        
-        Player = player;
-        Boss = boss;
-        ManaUsed = manaUsed;
-        ActiveEffects = activeEffects;
-    }
 
     public static State Initial(Wizard player, Boss boss)
     {

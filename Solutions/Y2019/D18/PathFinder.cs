@@ -5,8 +5,8 @@ public sealed class PathFinder(Field field)
     public int Run(bool ignoreDoors)
     {
         var initialState = State.Initial(field.StartPos);
-        var queue = new Queue<State>(new[] { initialState });
-        var visited = new HashSet<State>(new[] { initialState });
+        var queue = new Queue<State>(collection: [initialState]);
+        var visited = new HashSet<State>(collection: [initialState]);
         
         while (queue.Count > 0)
         {

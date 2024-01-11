@@ -29,8 +29,8 @@ public sealed class Solution : SolutionBase
             totalVolume: 0); 
         
         var combinations = new HashSet<State>();
-        var queue = new Queue<State>(new[] { initial });
-        var visited = new HashSet<State> { initial };
+        var queue = new Queue<State>(collection: [initial]);
+        var visited = new HashSet<State>(collection:[initial]);
 
         while (queue.Count > 0)
         {

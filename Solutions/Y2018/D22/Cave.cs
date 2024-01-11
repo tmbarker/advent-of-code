@@ -11,11 +11,11 @@ public sealed class Cave(Scan scan)
         { RegionType.Narrow, 2 }
     };
 
-    public static readonly Dictionary<RegionType, IReadOnlySet<EquippedTool>> RegionAllowedTools = new()
+    public static readonly Dictionary<RegionType, HashSet<EquippedTool>> RegionAllowedTools = new()
     {
-        { RegionType.Rocky,  new HashSet<EquippedTool> { EquippedTool.ClimbingGear, EquippedTool.Torch } },
-        { RegionType.Wet,    new HashSet<EquippedTool> { EquippedTool.ClimbingGear, EquippedTool.None } },
-        { RegionType.Narrow, new HashSet<EquippedTool> { EquippedTool.Torch, EquippedTool.None } }
+        { RegionType.Rocky,  [EquippedTool.ClimbingGear, EquippedTool.Torch] },
+        { RegionType.Wet,    [EquippedTool.ClimbingGear, EquippedTool.None] },
+        { RegionType.Narrow, [EquippedTool.Torch,        EquippedTool.None] }
     };
 
     private const long GeoIndexCoefficientX = 16807L;

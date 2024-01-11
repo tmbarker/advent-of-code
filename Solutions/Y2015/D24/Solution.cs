@@ -67,7 +67,7 @@ public sealed class Solution : SolutionBase
 
     private static HashSet<long> BacktrackGroup(State head, IDictionary<State, State> parentMap, IList<long> numbers)
     {
-        var group = new HashSet<long> { numbers[head.Index] };
+        var group = new HashSet<long>(collection: [numbers[head.Index]]);
         var current = head;
         
         while (parentMap.TryGetValue(current, out var parent))

@@ -37,8 +37,8 @@ public sealed class Solution : SolutionBase
         var start =  new State(scan.Mouth, EquippedTool.Torch);
         var target = new State(scan.Target, EquippedTool.Torch);
         
-        var heap = new PriorityQueue<State, int>(items: new[] { (start, 0) });
-        var costs = new DefaultDict<State, int>(defaultValue: int.MaxValue / 2) { { start, 0 } };
+        var heap = new PriorityQueue<State, int>(items: [(start, 0)]);
+        var costs = new DefaultDict<State, int>(defaultValue: int.MaxValue / 2, items: [(start, 0)]);
 
         while (heap.Count > 0)
         {

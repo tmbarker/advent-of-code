@@ -28,7 +28,7 @@ public sealed class Solution : IntCodeSolution
             {
                 var amp = IntCodeVm.Create(
                     program: program,
-                    inputs: new[] { phase, signal });
+                    inputs: [phase, signal]);
                 
                 amp.Run();
                 signal = amp.OutputBuffer.Dequeue();

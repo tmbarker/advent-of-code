@@ -10,8 +10,8 @@ public sealed class DirectedGraph<T> where T : IEquatable<T>
 {
     public readonly record struct Edge(T From, T To);
     
-    public IDictionary<T, HashSet<T>> Incoming { get; } = new DefaultDict<T, HashSet<T>>(defaultSelector: _ => []);
-    public IDictionary<T, HashSet<T>> Outgoing { get; } = new DefaultDict<T, HashSet<T>>(defaultSelector: _ => []);
+    public DefaultDict<T, HashSet<T>> Incoming { get; } = new(defaultSelector: _ => []);
+    public DefaultDict<T, HashSet<T>> Outgoing { get; } = new(defaultSelector: _ => []);
 
     public IEnumerable<T> Sources => Outgoing.Keys.Where(v => Incoming[v].Count == 0);
     public IEnumerable<T> Sinks => Incoming.Keys.Where(v => Outgoing[v].Count == 0);
@@ -32,7 +32,7 @@ public sealed class DirectedGraph<T> where T : IEquatable<T>
     {
         AddEdge(edge.From, edge.To);
     }
-
+    
     public void AddEdge(T from, T to)
     {
         Incoming[to].Add(from);

@@ -79,8 +79,8 @@ public sealed class Solution : SolutionBase
 
     private static Dictionary<Vector2D, int> BuildCosts(Dictionary<Vector2D, char> map, Vector2D start)
     {
-        var visited = new HashSet<Vector2D> { start };
-        var heap = new PriorityQueue<Vector2D, int>(new[] { (start, 0) });
+        var visited = new HashSet<Vector2D>(collection: [start]);
+        var heap = new PriorityQueue<Vector2D, int>(items: [(start, 0)]);
         
         var aabb = new Aabb2D(extents: map.Keys);
         var costs = aabb.ToDictionary(

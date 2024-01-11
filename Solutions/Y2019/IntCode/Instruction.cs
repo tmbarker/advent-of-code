@@ -1,16 +1,10 @@
 namespace Solutions.Y2019.IntCode;
 
-internal readonly struct Instruction
+internal readonly struct Instruction(OpCode opCode, IEnumerable<ParameterMode> paramModes)
 {
-    private IList<ParameterMode> ParamModes { get; }
-    public OpCode OpCode { get; }
+    private IList<ParameterMode> ParamModes { get; } = new List<ParameterMode>(paramModes);
+    public OpCode OpCode { get; } = opCode;
 
-    public Instruction(OpCode opCode, IEnumerable<ParameterMode> paramModes)
-    {
-        OpCode = opCode;
-        ParamModes = new List<ParameterMode>(paramModes);
-    }
-    
     public ParameterMode GetParamMode(int paramIndex)
     {
         return paramIndex < ParamModes.Count 

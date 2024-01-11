@@ -80,7 +80,7 @@ public sealed class Solution : SolutionBase
         };
 
         return new Instruction(
-            Aabb: new Aabb2D(extents: new[] { min, max }),
+            Aabb: new Aabb2D(extents: [min, max]),
             Action: action);
     }
 

@@ -22,8 +22,8 @@ public sealed class Solution : SolutionBase
 
     private static int FindMinMana(State initial, int tickDmg)
     {
-        var visited = new HashSet<State> { initial };
-        var queue = new PriorityQueue<State, int>(new[] { (initial, 0) });
+        var visited = new HashSet<State>(collection: [initial]);
+        var queue = new PriorityQueue<State, int>(items: [(initial, 0)]);
 
         while (queue.Count > 0)
         {

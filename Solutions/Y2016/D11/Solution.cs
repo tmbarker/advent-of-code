@@ -38,8 +38,8 @@ public sealed class Solution : SolutionBase
         }
 
         var initial = new State(elevator: 1, devices); 
-        var queue = new Queue<State>(new[] { initial });
-        var visited = new HashSet<State>(new[] { initial });
+        var queue = new Queue<State>(collection: [initial]);
+        var visited = new HashSet<State>(collection: [initial]);
         var depth = 0;
 
         while (queue.Any())

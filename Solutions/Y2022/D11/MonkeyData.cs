@@ -8,7 +8,7 @@ public static class MonkeyData
     public static Dictionary<int, Monkey> Parse(IEnumerable<string> input, bool applyBoredDivisor)
     {
         var monkeys = new Dictionary<int, Monkey>();
-        var chunks = input.ChunkBy(line => !string.IsNullOrWhiteSpace(line));
+        var chunks = input.ChunkByNonEmpty();
         var divisorsSet = new HashSet<int>();
 
         foreach (var chunk in chunks)

@@ -95,11 +95,11 @@ public sealed class Solution : SolutionBase
 
     private static int ComputeCost(Vector2D from, Vector2D to, IReadOnlyList<string> map)
     {
-        var queue = new Queue<Vector2D>(new[] { from });
-        var visited = new HashSet<Vector2D>(new[] { from });
+        var queue = new Queue<Vector2D>(collection: [from]);
+        var visited = new HashSet<Vector2D>(collection: [from]);
         var depth = 0;
         
-        while (queue.Any())
+        while (queue.Count != 0)
         {
             var nodesAtDepth = queue.Count;
             while (nodesAtDepth-- > 0)

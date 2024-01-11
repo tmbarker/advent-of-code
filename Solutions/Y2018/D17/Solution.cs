@@ -6,6 +6,7 @@ namespace Solutions.Y2018.D17;
 public sealed class Solution : SolutionBase
 {
     private static readonly Vector2D Gravity = new(x: 0, y: 1);
+    private static readonly Vector2D[] Sides = [Vector2D.Left, Vector2D.Right];
 
     public override object Run(int part)
     {
@@ -80,9 +81,8 @@ public sealed class Solution : SolutionBase
     {
         overflows = [];
         var canSettle = true;
-        var sides = new HashSet<Vector2D> { Vector2D.Left, Vector2D.Right };
-        var visited = new HashSet<Vector2D> { searchFrom };
-        var queue = new Queue<Vector2D>(new[] { searchFrom });
+        var visited = new HashSet<Vector2D>(collection: [searchFrom]);
+        var queue = new Queue<Vector2D>(collection: [searchFrom]);
 
         while (queue.Count != 0)
         {
@@ -96,7 +96,7 @@ public sealed class Solution : SolutionBase
                 continue;
             }
 
-            foreach (var direction in sides)
+            foreach (var direction in Sides)
             {
                 var adjacent = pos + direction;
                 var content = reservoir[adjacent];

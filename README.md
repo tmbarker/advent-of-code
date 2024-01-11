@@ -94,21 +94,21 @@ Puzzle | My Solution | Date | Topic(s) | Difficulty
 
 ## Running a Solution
 1. From your terminal, using the .NET CLI
-```
+```bash
 cd Aoc
 dotnet run set-session <session cookie>
 dotnet run solve <year> <day>
 ```
 
 2. From a `.cs` file, using reflective `SolutionRunner`:
-```
+```cs
 using Automation.Runner;
 
 SolutionRunner.SetUserSession(userSession: <session cookie>);
 SolutionRunner.Run(year: <year>, day: <day>);
 ```
 3. From a `.cs` file, directly instantiating a given `Solution`:
-```
+```cs
 using Solutions.Y<year>.D<day>;
 
 var solution = new Solution() { InputPath = <input file path> };
