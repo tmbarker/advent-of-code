@@ -34,7 +34,7 @@ public sealed class Solution : SolutionBase
             .Select(node => node.Pos)
             .ToList();
         var initialState = new State(
-            targetData: new Vector2D(x: nodes.Max(node => node.Pos.X), y: 0),
+            targetData: new Vec2D(x: nodes.Max(node => node.Pos.X), y: 0),
             emptyNodes: initialEmpty);
 
         var queue = new Queue<State>(collection: [initialState]);
@@ -47,7 +47,7 @@ public sealed class Solution : SolutionBase
             while (nodesAtDepth-- > 0)
             {
                 var state = queue.Dequeue();
-                if (state.TargetData == Vector2D.Zero)
+                if (state.TargetData == Vec2D.Zero)
                 {
                     return depth;
                 }
@@ -68,7 +68,7 @@ public sealed class Solution : SolutionBase
         throw new NoSolutionException();
     }
 
-    private static IEnumerable<State> GetAdjacentStates(State state, Dictionary<Vector2D, Node> map)
+    private static IEnumerable<State> GetAdjacentStates(State state, Dictionary<Vec2D, Node> map)
     {
         foreach (var empty in state.EmptyNodes)
         foreach (var adjacent in empty.GetAdjacentSet(Metric.Taxicab))
@@ -88,7 +88,7 @@ public sealed class Solution : SolutionBase
     private static Node ParseNode(string line)
     {
         var numbers = line.ParseInts();
-        var pos = new Vector2D(
+        var pos = new Vec2D(
             x: numbers[0], 
             y: numbers[1]);
 
@@ -99,5 +99,5 @@ public sealed class Solution : SolutionBase
             Avail: numbers[4]);
     }
     
-    private readonly record struct Node(Vector2D Pos, int Size, int Used, int Avail);
+    private readonly record struct Node(Vec2D Pos, int Size, int Used, int Avail);
 }

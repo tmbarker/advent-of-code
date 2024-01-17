@@ -21,7 +21,7 @@ public sealed class Solution : SolutionBase
     private static string TickUntilCrash(IList<string> track, State state)
     {
         var crashed = false;
-        var crashedAt = Vector2D.Zero;
+        var crashedAt = Vec2D.Zero;
         
         while (!crashed)
         {
@@ -50,7 +50,7 @@ public sealed class Solution : SolutionBase
         return $"{final.X},{final.Y}";
     }
 
-    private static bool TickCarts(IList<string> track, State state, CrashResponse crashResponse, out Vector2D crashAt)
+    private static bool TickCarts(IList<string> track, State state, CrashResponse crashResponse, out Vec2D crashAt)
     {
         foreach (var cartId in state.GetCurrentOrder())
         {
@@ -92,7 +92,7 @@ public sealed class Solution : SolutionBase
             state.Facings[cartId] = facing;
         }
         
-        crashAt = Vector2D.Zero;
+        crashAt = Vec2D.Zero;
         return true;
     }
 }

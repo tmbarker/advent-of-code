@@ -107,7 +107,7 @@ public sealed class Solution : SolutionBase
         return false;
     }
 
-    private static Vector3D ScaledPosAtTick(Particle p, int t)
+    private static Vec3D ScaledPosAtTick(Particle p, int t)
     {
         //  To avoid integer division loss of fraction from the quadratic term, we can return a 2x scaled vector
         //
@@ -145,9 +145,9 @@ public sealed class Solution : SolutionBase
     private static Particle ParseParticle(string line)
     {
         var numbers = line.ParseInts();
-        var pos = new Vector3D(x: numbers[0], y: numbers[1], z: numbers[2]);
-        var vel = new Vector3D(x: numbers[3], y: numbers[4], z: numbers[5]);
-        var acc = new Vector3D(x: numbers[6], y: numbers[7], z: numbers[8]);
+        var pos = new Vec3D(x: numbers[0], y: numbers[1], z: numbers[2]);
+        var vel = new Vec3D(x: numbers[3], y: numbers[4], z: numbers[5]);
+        var acc = new Vec3D(x: numbers[6], y: numbers[7], z: numbers[8]);
         
         return new Particle(pos, vel, acc);
     }

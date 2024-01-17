@@ -5,12 +5,12 @@ namespace Solutions.Y2015.D03;
 [PuzzleInfo("Perfectly Spherical Houses in a Vacuum", Topics.Vectors, Difficulty.Easy)]
 public sealed class Solution : SolutionBase
 {
-    private static readonly Dictionary<char, Vector2D> Map = new()
+    private static readonly Dictionary<char, Vec2D> Map = new()
     {
-        { '^', Vector2D.Up },
-        { 'v', Vector2D.Down },
-        { '<', Vector2D.Left },
-        { '>', Vector2D.Right }
+        { '^', Vec2D.Up },
+        { 'v', Vec2D.Down },
+        { '<', Vec2D.Left },
+        { '>', Vec2D.Right }
     };
 
     public override object Run(int part)
@@ -26,8 +26,8 @@ public sealed class Solution : SolutionBase
 
     private static int CountDistinctAlone(string steps)
     {
-        var pos = Vector2D.Zero;
-        var set = new HashSet<Vector2D>(collection: [Vector2D.Zero]);
+        var pos = Vec2D.Zero;
+        var set = new HashSet<Vec2D>(collection: [Vec2D.Zero]);
 
         foreach (var step in steps)
         {
@@ -40,11 +40,11 @@ public sealed class Solution : SolutionBase
     
     private static int CountDistinctPair(string steps)
     {
-        var set = new HashSet<Vector2D>(collection: [Vector2D.Zero]);
-        var agents = new Dictionary<int, Vector2D>
+        var set = new HashSet<Vec2D>(collection: [Vec2D.Zero]);
+        var agents = new Dictionary<int, Vec2D>
         {
-            { 0, Vector2D.Zero },
-            { 1, Vector2D.Zero }
+            { 0, Vec2D.Zero },
+            { 1, Vec2D.Zero }
         };
 
         for (var i = 0; i < steps.Length; i++)

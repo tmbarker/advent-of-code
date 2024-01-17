@@ -5,18 +5,18 @@ using Utilities.Graph;
 
 namespace Solutions.Y2019.D15;
 
-using FieldMap = IDictionary<Vector2D, Tile>;
-using CostsMap = IDictionary<Vector2D, int>;
+using FieldMap = IDictionary<Vec2D, Tile>;
+using CostsMap = IDictionary<Vec2D, int>;
 
 [PuzzleInfo("Oxygen System", Topics.IntCode|Topics.Vectors, Difficulty.Medium)]
 public sealed class Solution : IntCodeSolution
 {
-    private static readonly Dictionary<Vector2D, long> Commands = new()
+    private static readonly Dictionary<Vec2D, long> Commands = new()
     {
-        { Vector2D.Up,    1L },
-        { Vector2D.Down,  2L },
-        { Vector2D.Left,  3L },
-        { Vector2D.Right, 4L }
+        { Vec2D.Up,    1L },
+        { Vec2D.Down,  2L },
+        { Vec2D.Left,  3L },
+        { Vec2D.Right, 4L }
     };
 
     private static readonly Dictionary<long, Tile> StatusCodes = new()
@@ -42,7 +42,7 @@ public sealed class Solution : IntCodeSolution
     private static int ComputeCostToTarget(FieldMap fieldMap)
     {
         var targetPos = fieldMap.Single(kvp => kvp.Value == Tile.Target).Key;
-        var costs = BuildCostsMap(fieldMap, Vector2D.Zero);
+        var costs = BuildCostsMap(fieldMap, Vec2D.Zero);
         
         return costs[targetPos];
     }
@@ -57,8 +57,8 @@ public sealed class Solution : IntCodeSolution
     
     private static FieldMap BuildFieldMap(IntCodeVm droid)
     {
-        var start = Vector2D.Zero;
-        var map = new Dictionary<Vector2D, Tile>
+        var start = Vec2D.Zero;
+        var map = new Dictionary<Vec2D, Tile>
         {
             [start] = Tile.Empty
         };
@@ -66,28 +66,28 @@ public sealed class Solution : IntCodeSolution
         Traverse(
             droid: droid,
             pos: start,
-            moveHistory: new Stack<Vector2D>(),
+            moveHistory: new Stack<Vec2D>(),
             map: map);
 
         return map;
     }
 
-    private static CostsMap BuildCostsMap(FieldMap fieldMap, Vector2D from)
+    private static CostsMap BuildCostsMap(FieldMap fieldMap, Vec2D from)
     {
         var adjacency = fieldMap
             .WhereValues(t => t != Tile.Wall)
             .ToDictionary(kvp => kvp.Key, kvp =>
             {
-                return new HashSet<Vector2D>(kvp.Key.GetAdjacentSet(Metric.Taxicab)
+                return new HashSet<Vec2D>(kvp.Key.GetAdjacentSet(Metric.Taxicab)
                     .Where(p => fieldMap.ContainsKey(p) && fieldMap[p] != Tile.Wall));
             });
 
         return GraphHelper.DijkstraUnweighted(from, adjacency);
     }
 
-    private static void Traverse(IntCodeVm droid, Vector2D pos, Stack<Vector2D> moveHistory, FieldMap map)
+    private static void Traverse(IntCodeVm droid, Vec2D pos, Stack<Vec2D> moveHistory, FieldMap map)
     {
-        var moves = Vector2D.Zero.GetAdjacentSet(Metric.Taxicab);
+        var moves = Vec2D.Zero.GetAdjacentSet(Metric.Taxicab);
         foreach (var move in moves)
         {
             if (map.ContainsKey(pos + move))

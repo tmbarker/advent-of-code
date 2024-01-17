@@ -5,8 +5,8 @@ namespace Solutions.Y2018.D17;
 [PuzzleInfo("Reservoir Research", Topics.Vectors, Difficulty.Medium, favourite: true)]
 public sealed class Solution : SolutionBase
 {
-    private static readonly Vector2D Gravity = new(x: 0, y: 1);
-    private static readonly Vector2D[] Sides = [Vector2D.Left, Vector2D.Right];
+    private static readonly Vec2D Gravity = new(x: 0, y: 1);
+    private static readonly Vec2D[] Sides = [Vec2D.Left, Vec2D.Right];
 
     public override object Run(int part)
     {
@@ -24,7 +24,7 @@ public sealed class Solution : SolutionBase
     private static int Flood(Reservoir reservoir, bool print, params char[] materials)
     {
         var outflowAt = Reservoir.SpringPos + Gravity;
-        var queue = new Queue<Vector2D>(collection: [outflowAt]);
+        var queue = new Queue<Vec2D>(collection: [outflowAt]);
         
         while (queue.Count != 0)
         {
@@ -77,12 +77,12 @@ public sealed class Solution : SolutionBase
         return reservoir.GetMaterialsCount(materials);
     }
 
-    private static bool TrySettle(Reservoir reservoir, Vector2D searchFrom, out HashSet<Vector2D> overflows)
+    private static bool TrySettle(Reservoir reservoir, Vec2D searchFrom, out HashSet<Vec2D> overflows)
     {
         overflows = [];
         var canSettle = true;
-        var visited = new HashSet<Vector2D>(collection: [searchFrom]);
-        var queue = new Queue<Vector2D>(collection: [searchFrom]);
+        var visited = new HashSet<Vec2D>(collection: [searchFrom]);
+        var queue = new Queue<Vec2D>(collection: [searchFrom]);
 
         while (queue.Count != 0)
         {

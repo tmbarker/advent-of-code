@@ -7,24 +7,24 @@ public readonly struct State : IEquatable<State>
     private readonly string _key;
     
     public int Cost { get; }
-    public Dictionary<Vector2D, char> ActorsMap { get; }
+    public Dictionary<Vec2D, char> ActorsMap { get; }
 
-    private State (int cost, IDictionary<Vector2D, char> positions)
+    private State (int cost, IDictionary<Vec2D, char> positions)
     {
         _key = BuildActorsMapHash(positions);
 
         Cost = cost;
-        ActorsMap = new Dictionary<Vector2D, char>(positions);
+        ActorsMap = new Dictionary<Vec2D, char>(positions);
     }
 
-    public static State FromInitialPositions(IDictionary<Vector2D, char> positions)
+    public static State FromInitialPositions(IDictionary<Vec2D, char> positions)
     {
         return new State(cost: 0, positions);
     }
     
     public State AfterMove(Move move)
     {
-        var nextPositions = new Dictionary<Vector2D, char>();
+        var nextPositions = new Dictionary<Vec2D, char>();
         foreach (var (pos, actor) in ActorsMap)
         {
             nextPositions.Add(pos == move.From ? move.To : pos, actor);
@@ -33,7 +33,7 @@ public readonly struct State : IEquatable<State>
         return new State(Cost + move.Cost, nextPositions);
     }
 
-    private static string BuildActorsMapHash(IDictionary<Vector2D, char> positions)
+    private static string BuildActorsMapHash(IDictionary<Vec2D, char> positions)
     {
         var coords = positions
             .Select(kvp => $"{kvp.Value}=({kvp.Key.X},{kvp.Key.Y})")

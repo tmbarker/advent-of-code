@@ -4,10 +4,10 @@ namespace Solutions.Y2018.D13;
 
 public sealed class State
 {
-    private static readonly IComparer<Vector2D> TickOrderComparer = new TickOrderComparer();
+    private static readonly IComparer<Vec2D> TickOrderComparer = new TickOrderComparer();
 
-    public Dictionary<int, Vector2D> Positions { get; }
-    public Dictionary<int, Vector2D> Facings { get; }
+    public Dictionary<int, Vec2D> Positions { get; }
+    public Dictionary<int, Vec2D> Facings { get; }
     public Dictionary<int, int> NextTurns { get; }
 
     public IEnumerable<int> GetCurrentOrder()
@@ -24,8 +24,8 @@ public sealed class State
     
     public static State Parse(IList<string> trackElements)
     {
-        var positions = new Dictionary<int, Vector2D>();
-        var facings = new Dictionary<int, Vector2D>();
+        var positions = new Dictionary<int, Vec2D>();
+        var facings = new Dictionary<int, Vec2D>();
         var nextTurns = new Dictionary<int, int>();
 
         for (var y = 0; y < trackElements.Count; y++)
@@ -39,7 +39,7 @@ public sealed class State
                 continue;
             }
             
-            positions.Add(id, new Vector2D(x, y));
+            positions.Add(id, new Vec2D(x, y));
             facings.Add(id, Track.CartFacings[element]);
             nextTurns.Add(id, 0);
         }
@@ -51,8 +51,8 @@ public sealed class State
     }
 
     private State(
-        Dictionary<int, Vector2D> positions, 
-        Dictionary<int, Vector2D> facings,
+        Dictionary<int, Vec2D> positions, 
+        Dictionary<int, Vec2D> facings,
         Dictionary<int, int> nextTurns)
     {
         Positions = positions;

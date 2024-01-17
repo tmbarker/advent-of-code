@@ -18,7 +18,7 @@ public sealed class Solution : SolutionBase
     private long Expand(long amount)
     {
         var grid = GetInputLines();
-        var pois = new List<Vector2D>();
+        var pois = new List<Vec2D>();
         var rows = Enumerable.Range(start: 0, count: grid.Length).ToHashSet();
         var cols = Enumerable.Range(start: 0, count: grid[0].Length).ToHashSet();
 
@@ -27,7 +27,7 @@ public sealed class Solution : SolutionBase
         {
             if (grid[y][x] == '#')
             {
-                pois.Add(item: new Vector2D(x, y));
+                pois.Add(item: new Vec2D(x, y));
                 cols.Remove(x);
                 rows.Remove(y);
             }
@@ -46,7 +46,7 @@ public sealed class Solution : SolutionBase
             var dx = (amount - 1) * cols.Count(x => x > xMin && x < xMax);
             var dy = (amount - 1) * rows.Count(y => y > yMin && y < yMax);
 
-            sum += Vector2D.Distance(a: pois[i], b: pois[j], Metric.Taxicab) + dx + dy;
+            sum += Vec2D.Distance(a: pois[i], b: pois[j], Metric.Taxicab) + dx + dy;
         }
 
         return sum;

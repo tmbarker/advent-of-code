@@ -8,18 +8,18 @@ namespace Solutions.Y2019.D18;
 /// </summary>
 public readonly struct State : IEquatable<State>
 {
-    public Vector2D Pos { get; }
+    public Vec2D Pos { get; }
     public int Steps { get; }
     private uint KeysMask { get; }
 
-    private State(Vector2D pos, int steps, uint keysMask)
+    private State(Vec2D pos, int steps, uint keysMask)
     {
         Pos = pos;
         Steps = steps;
         KeysMask = keysMask;
     }
 
-    public static State Initial(Vector2D startPos)
+    public static State Initial(Vec2D startPos)
     {
         return new State(
             pos: startPos,
@@ -27,7 +27,7 @@ public readonly struct State : IEquatable<State>
             keysMask: 0U);
     }
 
-    public State AfterStep(Vector2D pos)
+    public State AfterStep(Vec2D pos)
     {
         return new State(
             pos: pos,
@@ -35,7 +35,7 @@ public readonly struct State : IEquatable<State>
             keysMask: KeysMask);
     }
     
-    public State AfterPickup(Vector2D pos, char key)
+    public State AfterPickup(Vec2D pos, char key)
     {
         return new State(
             pos: pos,

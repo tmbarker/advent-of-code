@@ -5,11 +5,11 @@ namespace Solutions.Y2022.D24;
 public class Storm
 {
     private readonly Grid2D<char> _field;
-    private readonly HashSet<Vector2D> _occupiedPositions;
+    private readonly HashSet<Vec2D> _occupiedPositions;
     private readonly List<Blizzard> _blizzards;
     private readonly List<Blizzard> _temp;
     
-    public IReadOnlySet<Vector2D> OccupiedPositions => _occupiedPositions;
+    public IReadOnlySet<Vec2D> OccupiedPositions => _occupiedPositions;
 
     public Storm(Grid2D<char> field, List<Blizzard> blizzards)
     {
@@ -41,14 +41,14 @@ public class Storm
         _blizzards.AddRange(_temp);
     }
     
-    public IEnumerable<Vector2D> GetSafeMoves(Vector2D head)
+    public IEnumerable<Vec2D> GetSafeMoves(Vec2D head)
     {
         return head
             .GetAdjacentSet(Metric.Taxicab)
             .Where(IsPositionSafe);
     }
     
-    private bool IsPositionSafe(Vector2D target)
+    private bool IsPositionSafe(Vec2D target)
     {
         return
             _field.Contains(target) &&

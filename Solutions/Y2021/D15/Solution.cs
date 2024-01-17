@@ -22,8 +22,8 @@ public sealed class Solution : SolutionBase
     {
         ParseRiskMap(GetInputLines(), tilesPerSide, out var riskMap, out var start, out var end);
 
-        var visited = new HashSet<Vector2D>(collection: [start]);
-        var heap = new PriorityQueue<Vector2D, int>(items: [(start, 0)]);
+        var visited = new HashSet<Vec2D>(collection: [start]);
+        var heap = new PriorityQueue<Vec2D, int>(items: [(start, 0)]);
         var risks = riskMap.ToDictionary(
             keySelector: p => p, 
             elementSelector: p => p == start ? 0 : int.MaxValue);
@@ -57,14 +57,14 @@ public sealed class Solution : SolutionBase
         throw new NoSolutionException();
     }
 
-    private static IEnumerable<Vector2D> GetMoves(Vector2D current, Grid2D<int> map)
+    private static IEnumerable<Vec2D> GetMoves(Vec2D current, Grid2D<int> map)
     {
         return current
             .GetAdjacentSet(Metric.Taxicab)
             .Where(map.Contains);
     }
 
-    private static void ParseRiskMap(IList<string> input, int tilesPerSide, out Grid2D<int> map, out Vector2D s, out Vector2D e)
+    private static void ParseRiskMap(IList<string> input, int tilesPerSide, out Grid2D<int> map, out Vec2D s, out Vec2D e)
     {
         var rowsPerTile = input.Count;
         var colsPerTile = input[0].Length;
@@ -72,8 +72,8 @@ public sealed class Solution : SolutionBase
         var totalCols = tilesPerSide * colsPerTile;
 
         map = Grid2D<int>.WithDimensions(totalRows, totalCols);
-        s = new Vector2D(0, totalRows - 1);
-        e = new Vector2D(totalCols - 1, 0);
+        s = new Vec2D(0, totalRows - 1);
+        e = new Vec2D(totalCols - 1, 0);
         
        for (var y = totalRows - 1; y >= 0; y--)
        for (var x = 0; x < totalCols; x++)

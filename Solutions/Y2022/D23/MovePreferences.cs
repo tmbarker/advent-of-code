@@ -4,17 +4,17 @@ namespace Solutions.Y2022.D23;
 
 public static class MovePreferences
 {
-    private static readonly List<(Vector2D target, HashSet<Vector2D> checkSet)> Choices =
+    private static readonly List<(Vec2D target, HashSet<Vec2D> checkSet)> Choices =
     [
-        (target: Vector2D.Up,    checkSet:[new Vector2D(x: -1, y:  1), new Vector2D(x:  0, y:  1), new Vector2D(x:  1, y:  1)]),
-        (target: Vector2D.Down,  checkSet:[new Vector2D(x: -1, y: -1), new Vector2D(x:  0, y: -1), new Vector2D(x:  1, y: -1)]),
-        (target: Vector2D.Left,  checkSet:[new Vector2D(x: -1, y:  1), new Vector2D(x: -1, y:  0), new Vector2D(x: -1, y: -1)]),
-        (target: Vector2D.Right, checkSet:[new Vector2D(x:  1, y:  1), new Vector2D(x:  1, y:  0), new Vector2D(x:  1, y: -1)])
+        (target: Vec2D.Up,    checkSet:[new Vec2D(x: -1, y:  1), new Vec2D(x:  0, y:  1), new Vec2D(x:  1, y:  1)]),
+        (target: Vec2D.Down,  checkSet:[new Vec2D(x: -1, y: -1), new Vec2D(x:  0, y: -1), new Vec2D(x:  1, y: -1)]),
+        (target: Vec2D.Left,  checkSet:[new Vec2D(x: -1, y:  1), new Vec2D(x: -1, y:  0), new Vec2D(x: -1, y: -1)]),
+        (target: Vec2D.Right, checkSet:[new Vec2D(x:  1, y:  1), new Vec2D(x:  1, y:  0), new Vec2D(x:  1, y: -1)])
     ];
 
     public static int Count => Choices.Count;
 
-    public static (Vector2D target, HashSet<Vector2D> checkSet) Get(int i)
+    public static (Vec2D target, HashSet<Vec2D> checkSet) Get(int i)
     {
         return Choices[i % Count];
     }

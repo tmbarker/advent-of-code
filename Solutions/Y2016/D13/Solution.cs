@@ -5,8 +5,8 @@ namespace Solutions.Y2016.D13;
 [PuzzleInfo("A Maze of Twisty Little Cubicles", Topics.Graphs | Topics.BitwiseOperations, Difficulty.Hard)]
 public sealed class Solution : SolutionBase
 {
-    private static readonly Vector2D Start = new (x: 1, y: 1);
-    private static readonly Vector2D Target = new (x: 31, y: 39);
+    private static readonly Vec2D Start = new (x: 1, y: 1);
+    private static readonly Vec2D Target = new (x: 31, y: 39);
     
     public override object Run(int part)
     {
@@ -21,10 +21,10 @@ public sealed class Solution : SolutionBase
         };
     }
 
-    private static int Search(Vector2D start, Vector2D target, int favourite)
+    private static int Search(Vec2D start, Vec2D target, int favourite)
     {
-        var queue = new Queue<Vector2D>([start]);
-        var visited = new HashSet<Vector2D>([start]);
+        var queue = new Queue<Vec2D>([start]);
+        var visited = new HashSet<Vec2D>([start]);
         var depth = 0;
 
         while (queue.Count > 0)
@@ -54,10 +54,10 @@ public sealed class Solution : SolutionBase
         throw new NoSolutionException();
     }
     
-    private static int Explore(Vector2D start, int favourite, int maxDepth)
+    private static int Explore(Vec2D start, int favourite, int maxDepth)
     {
-        var queue = new Queue<Vector2D>(collection: [start]);
-        var visited = new HashSet<Vector2D>(collection: [start]);
+        var queue = new Queue<Vec2D>(collection: [start]);
+        var visited = new HashSet<Vec2D>(collection: [start]);
         var depth = 0;
 
         while (queue.Count > 0 && depth < maxDepth)
@@ -82,7 +82,7 @@ public sealed class Solution : SolutionBase
         return visited.Count;
     }
 
-    private static IEnumerable<Vector2D> GetAdjacentOpen(Vector2D pos, int favourite)
+    private static IEnumerable<Vec2D> GetAdjacentOpen(Vec2D pos, int favourite)
     {
         return pos
             .GetAdjacentSet(Metric.Taxicab)
@@ -90,7 +90,7 @@ public sealed class Solution : SolutionBase
             .Where(adj => IsOpen(adj, favourite));
     }
 
-    private static bool IsOpen(Vector2D pos, int favourite)
+    private static bool IsOpen(Vec2D pos, int favourite)
     {
         var raw = pos.X * pos.X + 3 * pos.X + 2 * pos.X * pos.Y + pos.Y + pos.Y * pos.Y;
         var sum = raw + favourite;

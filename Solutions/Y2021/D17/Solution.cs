@@ -37,7 +37,7 @@ public sealed class Solution : SolutionBase
         for (var x = vMinX; x <= vMaxX; x++)
         for (var y = vMinY; y <= vMaxY; y++)
         {
-            if (CheckTrajectory(new Vector2D(x, y), target))
+            if (CheckTrajectory(new Vec2D(x, y), target))
             {
                 count++;
             }
@@ -46,9 +46,9 @@ public sealed class Solution : SolutionBase
         return count;
     }
 
-    private static bool CheckTrajectory(Vector2D vel, Aabb2D target)
+    private static bool CheckTrajectory(Vec2D vel, Aabb2D target)
     {
-        var pos = Vector2D.Zero;
+        var pos = Vec2D.Zero;
         while (pos.Y >= target.Min.Y && pos.X <= target.Max.X)
         {
             pos += vel;
@@ -63,14 +63,14 @@ public sealed class Solution : SolutionBase
         return false;
     }
 
-    private static Vector2D StepVelocity(Vector2D v)
+    private static Vec2D StepVelocity(Vec2D v)
     {
         var y = v.Y - 1;
         var x = v.X == 0 
             ? v.X 
             : v.X - 1;
 
-        return new Vector2D(x, y);
+        return new Vec2D(x, y);
     }
     
     private Aabb2D ParseTarget()

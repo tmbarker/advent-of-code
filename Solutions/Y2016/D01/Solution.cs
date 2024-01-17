@@ -21,15 +21,15 @@ public sealed class Solution : SolutionBase
 
     private static int GetMinDistance(IEnumerable<string> steps, bool haltOnRepeat)
     {
-        var pose = new Pose2D(pos: Vector2D.Zero, face: Vector2D.Up);
-        var visited = new HashSet<Vector2D>();
+        var pose = new Pose2D(pos: Vec2D.Zero, face: Vec2D.Up);
+        var visited = new HashSet<Vec2D>();
 
         foreach (var step in steps)
         {
             pose = step[0] switch
             {
-                'L' => pose.Turn(Rotation3D.Positive90Z),
-                'R' => pose.Turn(Rotation3D.Negative90Z),
+                'L' => pose.Turn(Rot3D.P90Z),
+                'R' => pose.Turn(Rot3D.N90Z),
                 _ => pose
             };
 

@@ -57,16 +57,16 @@ public sealed class Solution : SolutionBase
                 continue;
             }
             
-            var pos = new Vector2D(x, y);
-            var target = pos + Vector2D.Up;
+            var pos = new Vec2D(x, y);
+            var target = pos + Vec2D.Up;
             
             while (grid.Contains(target) && grid[target] == Void)
             {
-                target += Vector2D.Up;
+                target += Vec2D.Up;
             }
 
             grid[pos] = Void;
-            grid[target + Vector2D.Down] = Rock;
+            grid[target + Vec2D.Down] = Rock;
         }
         
         return grid;

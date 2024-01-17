@@ -2,9 +2,9 @@ using Utilities.Geometry.Euclidean;
 
 namespace Solutions.Y2016.D22;
 
-public sealed class PosComparer : IComparer<Vector2D>
+public sealed class PosComparer : IComparer<Vec2D>
 {
-    public int Compare(Vector2D x, Vector2D y)
+    public int Compare(Vec2D x, Vec2D y)
     {
         var xComparison = x.X.CompareTo(y.X);
         return xComparison != 0 

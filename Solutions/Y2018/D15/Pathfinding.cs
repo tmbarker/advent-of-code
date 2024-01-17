@@ -6,11 +6,11 @@ using Field = Grid2D<char>;
 
 public static class Pathfinding
 {
-    public static bool FindNearestReachable(Field field, Vector2D start, HashSet<Vector2D> targetPositions, out Vector2D nearest)
+    public static bool FindNearestReachable(Field field, Vec2D start, HashSet<Vec2D> targetPositions, out Vec2D nearest)
     {
-        var queue = new Queue<Vector2D>(collection: [start]);
-        var visited = new HashSet<Vector2D>(collection: [start]);
-        var candidates = new HashSet<Vector2D>();
+        var queue = new Queue<Vec2D>(collection: [start]);
+        var visited = new HashSet<Vec2D>(collection: [start]);
+        var candidates = new HashSet<Vec2D>();
         
         while (queue.Any())
         {
@@ -46,15 +46,15 @@ public static class Pathfinding
             }
         }
 
-        nearest = Vector2D.Zero;
+        nearest = Vec2D.Zero;
         return false;
     }
     
-    public static Vector2D GetStepPos(Field field, Vector2D start, Vector2D goal)
+    public static Vec2D GetStepPos(Field field, Vec2D start, Vec2D goal)
     {
-        var queue = new Queue<Vector2D>(collection: [goal]);
-        var visited = new HashSet<Vector2D>(collection: [goal]);
-        var candidates = new HashSet<Vector2D>();
+        var queue = new Queue<Vec2D>(collection: [goal]);
+        var visited = new HashSet<Vec2D>(collection: [goal]);
+        var candidates = new HashSet<Vec2D>();
         
         while (queue.Any())
         {
@@ -62,7 +62,7 @@ public static class Pathfinding
             while (nodesAtDepth-- > 0)
             {
                 var pos = queue.Dequeue();
-                if (Vector2D.IsAdjacent(a: pos, b: start, Metric.Taxicab))
+                if (Vec2D.IsAdjacent(a: pos, b: start, Metric.Taxicab))
                 {
                     candidates.Add(pos);
                     continue;

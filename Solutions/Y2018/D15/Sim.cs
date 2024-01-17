@@ -85,7 +85,7 @@ public static class Sim
         return true;
     }
 
-    private static bool FindTargets(GameState state, int unitId, out IList<Vector2D> targetPositions)
+    private static bool FindTargets(GameState state, int unitId, out IList<Vec2D> targetPositions)
     {
         var unit = state.Units[unitId];
         targetPositions = state.Units.Values
@@ -96,12 +96,12 @@ public static class Sim
         return targetPositions.Any();
     }
     
-    private static bool IsAdjacentToAny(GameState state, int unitId, IEnumerable<Vector2D> targets)
+    private static bool IsAdjacentToAny(GameState state, int unitId, IEnumerable<Vec2D> targets)
     {
-        return targets.Any(pos => Vector2D.IsAdjacent(a: pos, b: state.Units[unitId].Pos, Metric.Taxicab));
+        return targets.Any(pos => Vec2D.IsAdjacent(a: pos, b: state.Units[unitId].Pos, Metric.Taxicab));
     }
     
-    private static bool FindOpenInRange(GameState state, IEnumerable<Vector2D> targetPositions, out HashSet<Vector2D> inRangePositions)
+    private static bool FindOpenInRange(GameState state, IEnumerable<Vec2D> targetPositions, out HashSet<Vec2D> inRangePositions)
     {
         var field = state.Field;
         inRangePositions = targetPositions
@@ -112,7 +112,7 @@ public static class Sim
         return inRangePositions.Any();
     }
     
-    private static bool FindNearestReachable(GameState state, int unitId, HashSet<Vector2D> targetPositions, out Vector2D nearest)
+    private static bool FindNearestReachable(GameState state, int unitId, HashSet<Vec2D> targetPositions, out Vec2D nearest)
     {
         var unit = state.Units[unitId];
         var start = unit.Pos;
@@ -124,7 +124,7 @@ public static class Sim
             nearest: out nearest);
     }
     
-    private static void StepTowardsPos(GameState state, int unitId, Vector2D targetPos)
+    private static void StepTowardsPos(GameState state, int unitId, Vec2D targetPos)
     {
         var unit = state.Units[unitId];
         var pos = unit.Pos;

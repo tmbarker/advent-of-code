@@ -6,7 +6,7 @@ namespace Solutions.Y2018.D23;
 [PuzzleInfo("Experimental Emergency Teleportation", Topics.Vectors, Difficulty.Hard, favourite: true)]
 public sealed class Solution : SolutionBase
 {
-    private readonly record struct Nanobot(Vector3D Pos, int Range);
+    private readonly record struct Nanobot(Vec3D Pos, int Range);
     
     public override object Run(int part)
     {
@@ -22,7 +22,7 @@ public sealed class Solution : SolutionBase
     private static int CountInRangeOfStrongest(IList<Nanobot> bots)
     {
         var strongest = bots.MaxBy(bot => bot.Range);
-        return bots.Count(bot => Vector3D.Distance(
+        return bots.Count(bot => Vec3D.Distance(
             a: strongest.Pos,
             b: bot.Pos,
             metric: Metric.Taxicab) <= strongest.Range);
@@ -34,8 +34,8 @@ public sealed class Solution : SolutionBase
         {
             return new[]
             {
-                new Vector3D(x: bot.Pos.X - bot.Range, y: bot.Pos.Y - bot.Range, z: bot.Pos.Z - bot.Range),
-                new Vector3D(x: bot.Pos.X + bot.Range, y: bot.Pos.Y + bot.Range, z: bot.Pos.Z + bot.Range)
+                new Vec3D(x: bot.Pos.X - bot.Range, y: bot.Pos.Y - bot.Range, z: bot.Pos.Z - bot.Range),
+                new Vec3D(x: bot.Pos.X + bot.Range, y: bot.Pos.Y + bot.Range, z: bot.Pos.Z + bot.Range)
             };
         });
         
@@ -45,7 +45,7 @@ public sealed class Solution : SolutionBase
         return max.Magnitude(Metric.Taxicab);
     }
 
-    private static Vector3D Search(IList<Nanobot> bots, Aabb3D area)
+    private static Vec3D Search(IList<Nanobot> bots, Aabb3D area)
     {
         var heap = new PriorityQueue<Aabb3D, SearchRanking>(items: [(area, Rank(area, bots))]);
         while (heap.Count > 0)
@@ -96,7 +96,7 @@ public sealed class Solution : SolutionBase
     private static Nanobot ParseNanobot(string line)
     {
         var numbers = line.ParseInts();
-        var pos = new Vector3D(
+        var pos = new Vec3D(
             x: numbers[0],
             y: numbers[1],
             z: numbers[2]);

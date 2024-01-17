@@ -6,24 +6,24 @@ namespace Solutions.Y2016.D17;
 [PuzzleInfo("Two Steps Forward", Topics.Vectors|Topics.Graphs, Difficulty.Medium)]
 public sealed class Solution : SolutionBase
 {
-    private static readonly Vector2D Start  = new(x: 0, y: 3);
-    private static readonly Vector2D Target = new(x: 3, y: 0);
+    private static readonly Vec2D Start  = new(x: 0, y: 3);
+    private static readonly Vec2D Target = new(x: 3, y: 0);
     private static readonly HashSet<char> OpenSet = ['b', 'c', 'd', 'e', 'f'];
     
-    private static readonly Dictionary<int, Vector2D> IndicesMap = new()
+    private static readonly Dictionary<int, Vec2D> IndicesMap = new()
     {
-        { 0, Vector2D.Up },
-        { 1, Vector2D.Down },
-        { 2, Vector2D.Left },
-        { 3, Vector2D.Right }
+        { 0, Vec2D.Up },
+        { 1, Vec2D.Down },
+        { 2, Vec2D.Left },
+        { 3, Vec2D.Right }
     };
     
-    private static readonly Dictionary<Vector2D, char> PathCharsMap = new()
+    private static readonly Dictionary<Vec2D, char> PathCharsMap = new()
     {
-        { Vector2D.Up,    'U' },
-        { Vector2D.Down,  'D' },
-        { Vector2D.Left,  'L' },
-        { Vector2D.Right, 'R' }
+        { Vec2D.Up,    'U' },
+        { Vec2D.Down,  'D' },
+        { Vec2D.Left,  'L' },
+        { Vec2D.Right, 'R' }
     };
 
     public override object Run(int part)
@@ -87,7 +87,7 @@ public sealed class Solution : SolutionBase
         return longest.ToString();
     }
 
-    private static bool InBounds(Vector2D pos)
+    private static bool InBounds(Vec2D pos)
     {
         return pos.X is >= 0 and < 4 && pos.Y is >= 0 and < 4;
     }

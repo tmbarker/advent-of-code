@@ -25,12 +25,12 @@ public sealed class Solution : SolutionBase
         };
     }
 
-    private static List<long> Simulate(Grid2D<char> grid, Vector2D start, HashSet<int> sampleAt)
+    private static List<long> Simulate(Grid2D<char> grid, Vec2D start, HashSet<int> sampleAt)
     {
         var ticks = new List<long>(capacity: sampleAt.Count);
-        var heads = new HashSet<Vector2D>(collection: [start]);
-        var after = new HashSet<Vector2D>();
-        var memo =  new Dictionary<Vector2D, ISet<Vector2D>>();
+        var heads = new HashSet<Vec2D>(collection: [start]);
+        var after = new HashSet<Vec2D>();
+        var memo =  new Dictionary<Vec2D, ISet<Vec2D>>();
         
         for (var i = 1; i <= sampleAt.Max(); i++)
         {
@@ -53,7 +53,7 @@ public sealed class Solution : SolutionBase
         return ticks;
     }
     
-    private static long Extrapolate(Grid2D<char> grid, Vector2D start, int n)
+    private static long Extrapolate(Grid2D<char> grid, Vec2D start, int n)
     {
         //  The input has a number of properties which together allow for an analytic
         //  solution without the need for purely naive simulation: 
@@ -86,18 +86,18 @@ public sealed class Solution : SolutionBase
         return a * x * x + b * x + c;
     }
     
-    private static IEnumerable<Vector2D> GetEmptyAdjacent(Grid2D<char> grid, Vector2D pos,
-        IDictionary<Vector2D, ISet<Vector2D>> memo)
+    private static IEnumerable<Vec2D> GetEmptyAdjacent(Grid2D<char> grid, Vec2D pos,
+        IDictionary<Vec2D, ISet<Vec2D>> memo)
     {
         if (memo.TryGetValue(pos, out var cached))
         {
             return cached;
         }
         
-        var set = new HashSet<Vector2D>();
+        var set = new HashSet<Vec2D>();
         foreach (var naive in pos.GetAdjacentSet(Metric.Taxicab))
         {
-            var adj = new Vector2D(
+            var adj = new Vec2D(
                 x: naive.X.Modulo(grid.Width),
                 y: naive.Y.Modulo(grid.Height));
             

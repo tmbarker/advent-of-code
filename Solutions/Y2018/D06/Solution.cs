@@ -8,7 +8,7 @@ public sealed class Solution : SolutionBase
 {
     public override object Run(int part)
     {
-        var pois = ParseInputLines(parseFunc: Vector2D.Parse).ToList();
+        var pois = ParseInputLines(parseFunc: Vec2D.Parse).ToList();
         return part switch
         {
             1 => GetLargestFiniteArea(pois),
@@ -17,7 +17,7 @@ public sealed class Solution : SolutionBase
         };
     }
 
-    private static int GetLargestFiniteArea(ICollection<Vector2D> pois)
+    private static int GetLargestFiniteArea(ICollection<Vec2D> pois)
     {
         var aabb = new Aabb2D(extents: pois);
         var areaCounts = pois.ToDictionary(
@@ -26,10 +26,10 @@ public sealed class Solution : SolutionBase
 
         foreach (var coord in aabb)
         {
-            var distances = new DefaultDict<int, List<Vector2D>>(defaultSelector: _ => []);
+            var distances = new DefaultDict<int, List<Vec2D>>(defaultSelector: _ => []);
             foreach (var poi in pois)
             {
-                var distance = Vector2D.Distance(
+                var distance = Vec2D.Distance(
                     a: coord,
                     b: poi,
                     metric: Metric.Taxicab);
@@ -51,10 +51,10 @@ public sealed class Solution : SolutionBase
             .Max(poi => areaCounts[poi]);
     }
 
-    private static int GetLargestProximalArea(ICollection<Vector2D> pois, int maxDistance)
+    private static int GetLargestProximalArea(ICollection<Vec2D> pois, int maxDistance)
     {
         var aabb = new Aabb2D(extents: pois);
-        return aabb.Count(pos => pois.Sum(poi => Vector2D.Distance(
+        return aabb.Count(pos => pois.Sum(poi => Vec2D.Distance(
             a: pos,
             b: poi,
             metric: Metric.Taxicab)) < maxDistance);

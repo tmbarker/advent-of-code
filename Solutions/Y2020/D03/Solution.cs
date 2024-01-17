@@ -6,9 +6,9 @@ namespace Solutions.Y2020.D03;
 [PuzzleInfo("Toboggan Trajectory", Topics.Vectors|Topics.Math, Difficulty.Easy)]
 public sealed class Solution : SolutionBase
 {
-    private static readonly Vector2D InitialPos = Vector2D.Zero;
-    private static readonly Vector2D Trajectory = new(x: 3, y: 1);
-    private static readonly IList<Vector2D> Trajectories = new List<Vector2D>
+    private static readonly Vec2D InitialPos = Vec2D.Zero;
+    private static readonly Vec2D Trajectory = new(x: 3, y: 1);
+    private static readonly IList<Vec2D> Trajectories = new List<Vec2D>
     {
         new (x: 1, y: 1),
         new (x: 3, y: 1),
@@ -28,12 +28,12 @@ public sealed class Solution : SolutionBase
         };
     }
 
-    private static int GetTreesOnTrajectoriesProduct(Vector2D pos, IEnumerable<Vector2D> trajectories, IList<string> forest)
+    private static int GetTreesOnTrajectoriesProduct(Vec2D pos, IEnumerable<Vec2D> trajectories, IList<string> forest)
     {
         return trajectories.Aggregate(1, (current, trajectory) => current * GetTreesOnTrajectoryCount(pos, trajectory, forest));
     }
     
-    private static int GetTreesOnTrajectoryCount(Vector2D pos, Vector2D trajectory, IList<string> forest)
+    private static int GetTreesOnTrajectoryCount(Vec2D pos, Vec2D trajectory, IList<string> forest)
     {
         var length = forest.Count;
         var width = forest[0].Length;
@@ -46,7 +46,7 @@ public sealed class Solution : SolutionBase
                 count++;
             }
             
-            pos = new Vector2D(
+            pos = new Vec2D(
                 x: (pos.X + trajectory.X).Modulo(width),
                 y: pos.Y + trajectory.Y);
         }

@@ -13,10 +13,10 @@ public sealed class SideRoom
         _depth = depth;
     }
 
-    public Vector2D Top => new(_abscissa, _depth - 1);
-    public Vector2D Bottom => new(_abscissa, 0);
+    public Vec2D Top => new(_abscissa, _depth - 1);
+    public Vec2D Bottom => new(_abscissa, 0);
 
-    public bool Contains(Vector2D pos)
+    public bool Contains(Vec2D pos)
     {
         return pos.X == _abscissa && pos.Y >= 0 && pos.Y < _depth;
     }

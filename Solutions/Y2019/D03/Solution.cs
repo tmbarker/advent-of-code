@@ -3,17 +3,17 @@ using Utilities.Geometry.Euclidean;
 namespace Solutions.Y2019.D03;
 
 using Route = IEnumerable<string>;
-using PathCosts = IDictionary<Vector2D, int>;
+using PathCosts = IDictionary<Vec2D, int>;
 
 [PuzzleInfo("Crossed Wires", Topics.Vectors, Difficulty.Easy, favourite: true)]
 public sealed class Solution : SolutionBase
 {
-    private static readonly Dictionary<char, Vector2D> Directions = new()
+    private static readonly Dictionary<char, Vec2D> Directions = new()
     {
-        {'U', Vector2D.Up},
-        {'D', Vector2D.Down},
-        {'L', Vector2D.Left},
-        {'R', Vector2D.Right}
+        {'U', Vec2D.Up},
+        {'D', Vec2D.Down},
+        {'L', Vec2D.Left},
+        {'R', Vec2D.Right}
     };
 
     public override object Run(int part)
@@ -52,8 +52,8 @@ public sealed class Solution : SolutionBase
     
     private static PathCosts GetPathCosts(Route instructions)
     {
-        var map = new Dictionary<Vector2D, int>();
-        var pos = Vector2D.Zero;
+        var map = new Dictionary<Vec2D, int>();
+        var pos = Vec2D.Zero;
         var cost = 0;
         
         foreach (var instr in instructions)

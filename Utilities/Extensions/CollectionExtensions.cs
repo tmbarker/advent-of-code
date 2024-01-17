@@ -55,9 +55,9 @@ public static class CollectionExtensions
     } 
 
     /// <summary>
-    /// Normalize the values of the collection such that the "smallest" becomes <see cref="Vector2D.Zero"/>
+    /// Normalize the values of the collection such that the "smallest" becomes <see cref="Vec2D.Zero"/>
     /// </summary>
-    public static IEnumerable<Vector2D> Normalize(this IEnumerable<Vector2D> collection)
+    public static IEnumerable<Vec2D> Normalize(this IEnumerable<Vec2D> collection)
     {
         var enumerated = collection.ToList();
         var dx = int.MaxValue;
@@ -69,7 +69,7 @@ public static class CollectionExtensions
             dy = Math.Min(dy, vector.Y);
         }
 
-        var delta = new Vector2D(dx, dy);
+        var delta = new Vec2D(dx, dy);
         foreach (var vector in enumerated)
         {
             yield return vector - delta;

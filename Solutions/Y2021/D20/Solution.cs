@@ -19,7 +19,7 @@ public sealed class Solution : SolutionBase
         };
     }
 
-    private static int EnhanceImage(ISet<Vector2D> litInImage, IList<bool> algorithm, int steps)
+    private static int EnhanceImage(ISet<Vec2D> litInImage, IList<bool> algorithm, int steps)
     {
         var imageRect = new Aabb2D(extents: litInImage);
         
@@ -32,9 +32,9 @@ public sealed class Solution : SolutionBase
         return litInImage.Count;
     }
     
-    private static ISet<Vector2D> EnhanceImage(Aabb2D imageRect, ICollection<Vector2D> litInImage, IList<bool> algorithm, bool backgroundLit)
+    private static ISet<Vec2D> EnhanceImage(Aabb2D imageRect, ICollection<Vec2D> litInImage, IList<bool> algorithm, bool backgroundLit)
     {
-        var litInEnhanced = new HashSet<Vector2D>();
+        var litInEnhanced = new HashSet<Vec2D>();
         
         foreach (var pixel in imageRect)
         {
@@ -50,14 +50,14 @@ public sealed class Solution : SolutionBase
         return litInEnhanced;
     }
 
-    private static int PixelToIndex(Vector2D pixel, Aabb2D imageRect, ICollection<Vector2D> litInInput, bool backgroundLit)
+    private static int PixelToIndex(Vec2D pixel, Aabb2D imageRect, ICollection<Vec2D> litInInput, bool backgroundLit)
     {
         var index = 0;
         
         for (var y = 0; y < WindowSize; y++)
         for (var x = 0; x < WindowSize; x++)
         {
-            var v = new Vector2D(pixel.X + x - 1, pixel.Y + y - 1);
+            var v = new Vec2D(pixel.X + x - 1, pixel.Y + y - 1);
             var bitSet = imageRect.Contains(v, false)
                 ? litInInput.Contains(v)
                 : backgroundLit;
@@ -76,20 +76,20 @@ public sealed class Solution : SolutionBase
         return index;
     }
     
-    private static void ParseInput(IList<string> input, out ISet<Vector2D> litInImage, out IList<bool> algorithm)
+    private static void ParseInput(IList<string> input, out ISet<Vec2D> litInImage, out IList<bool> algorithm)
     {
         var algorithmStr = input[0];
         var imageStr = input.Skip(2).ToList();
 
         algorithm = algorithmStr.Select(c => c == Lit).ToList();
-        litInImage = new HashSet<Vector2D>();
+        litInImage = new HashSet<Vec2D>();
         
         for (var y = 0; y < imageStr.Count; y++)
         for (var x = 0; x < imageStr[0].Length; x++)
         {
             if (imageStr[y][x] == Lit)
             {
-                litInImage.Add(new Vector2D(x, y));
+                litInImage.Add(new Vec2D(x, y));
             }
         }
     }

@@ -19,7 +19,7 @@ public sealed class Solution : SolutionBase
     private static int CountOccupiedAtSteadyState(SeatMap map, Concern concern, int moveThreshold)
     {
         var changed = true;
-        var nextOccupied = new HashSet<Vector2D>();
+        var nextOccupied = new HashSet<Vec2D>();
         
         while (changed)
         {
@@ -49,7 +49,7 @@ public sealed class Solution : SolutionBase
         return map.CountOccupied();
     }
 
-    private static int CountOccupiedOfConcern(Vector2D seat, SeatMap map, Concern concern)
+    private static int CountOccupiedOfConcern(Vec2D seat, SeatMap map, Concern concern)
     {
         return concern switch
         {
@@ -59,17 +59,17 @@ public sealed class Solution : SolutionBase
         };
     }
     
-    private static int CountOccupiedAdjacent(Vector2D seat, SeatMap map)
+    private static int CountOccupiedAdjacent(Vec2D seat, SeatMap map)
     {
         return seat
             .GetAdjacentSet(Metric.Chebyshev)
             .Count(adj => map.SeatExistsAt(adj) && map[adj]);
     }
     
-    private static int CountOccupiedFirstVisible(Vector2D seat, SeatMap map)
+    private static int CountOccupiedFirstVisible(Vec2D seat, SeatMap map)
     {
         var count = 0;
-        var directions = Vector2D.Zero.GetAdjacentSet(Metric.Chebyshev);
+        var directions = Vec2D.Zero.GetAdjacentSet(Metric.Chebyshev);
         
         foreach (var direction in directions)
         {

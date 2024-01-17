@@ -24,9 +24,9 @@ public sealed class Solution : SolutionBase
         return ventMap.Values.Count(v => v > 1);
     }
     
-    private static IDictionary<Vector2D, int> BuildVentMap(IEnumerable<(Vector2D V1, Vector2D V2)> lines, bool ignoreDiagonals)
+    private static IDictionary<Vec2D, int> BuildVentMap(IEnumerable<(Vec2D V1, Vec2D V2)> lines, bool ignoreDiagonals)
     {
-        var map = new DefaultDict<Vector2D, int>(defaultValue: 0);
+        var map = new DefaultDict<Vec2D, int>(defaultValue: 0);
 
         foreach (var (v1, v2) in lines)
         {
@@ -38,7 +38,7 @@ public sealed class Solution : SolutionBase
             map[v2]++;
             
             var current = v1;
-            var step = Vector2D.Normalize(v2 - v1);
+            var step = Vec2D.Normalize(v2 - v1);
 
             while (current != v2)
             {
@@ -50,9 +50,9 @@ public sealed class Solution : SolutionBase
         return map;
     }
 
-    private static (Vector2D V1, Vector2D V2) ParseVertices(string line)
+    private static (Vec2D V1, Vec2D V2) ParseVertices(string line)
     {
         var parts = line.Split(separator: "->");
-        return (V1: Vector2D.Parse(parts[0]), V2: Vector2D.Parse(parts[1]));
+        return (V1: Vec2D.Parse(parts[0]), V2: Vec2D.Parse(parts[1]));
     }
 }

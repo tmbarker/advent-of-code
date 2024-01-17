@@ -8,15 +8,15 @@ namespace Utilities.Geometry.Euclidean;
 /// A 2D grid data structure providing (X,Y) style indexing
 /// </summary>
 /// <typeparam name="T">The type associated with the value at each grid position</typeparam>
-public sealed partial class Grid2D<T> : IEnumerable<Vector2D>
+public sealed partial class Grid2D<T> : IEnumerable<Vec2D>
 {
     /// <summary>
     /// The internal backing array, which is indexed from the bottom left.
     /// <para />When <see cref="_origin"/> is set to <see cref="Origin.Xy"/> the position argument of "Get" and "Set"
-    /// queries will match the array index, e.g. <see cref="Vector2D"/>.<see cref="Vector2D.Zero"/> will index the
+    /// queries will match the array index, e.g. <see cref="Vec2D"/>.<see cref="Vec2D.Zero"/> will index the
     /// bottom left element from the array (i.e. <see cref="_array"/>[0, 0]).
     /// <para />Accordingly, when <see cref="_origin"/> is set to <see cref="Origin.Uv"/> then
-    /// <see cref="Vector2D"/>.<see cref="Vector2D.Zero"/> will index the top left element from the array.
+    /// <see cref="Vec2D"/>.<see cref="Vec2D.Zero"/> will index the top left element from the array.
     /// </summary>
     private T[,] _array;
     private readonly Origin _origin;
@@ -57,7 +57,7 @@ public sealed partial class Grid2D<T> : IEnumerable<Vector2D>
     /// Index the element at <paramref name="position"/>
     /// </summary>
     /// <param name="position">The position to index</param>
-    public T this[Vector2D position]
+    public T this[Vec2D position]
     {
         get => GetElementInternal(position.X, position.Y);
         set => SetElementInternal(position.X, position.Y, value);
@@ -68,7 +68,7 @@ public sealed partial class Grid2D<T> : IEnumerable<Vector2D>
     /// </summary>
     /// <param name="position">The position to check</param>
     /// <returns>A Boolean representing if the position is within the bounds of the <see cref="Grid2D{T}"/></returns>
-    public bool Contains(Vector2D position)
+    public bool Contains(Vec2D position)
     {
         return
             position.X >= 0 && position.X < Width &&
@@ -78,7 +78,7 @@ public sealed partial class Grid2D<T> : IEnumerable<Vector2D>
     /// <summary>
     /// Print the <see cref="Grid2D{T}"/> instance contents to the console
     /// </summary>
-    public void Print(Func<Vector2D, T, string>? elementFormatter = null, int padding = 0)
+    public void Print(Func<Vec2D, T, string>? elementFormatter = null, int padding = 0)
     {
         Console.Write(BuildRepresentativeString(elementFormatter, padding));
     }
@@ -86,7 +86,7 @@ public sealed partial class Grid2D<T> : IEnumerable<Vector2D>
     /// <summary>
     /// Generate a representative string of the <see cref="Grid2D{T}"/> instance based on its current contents
     /// </summary>
-    public string BuildRepresentativeString(Func<Vector2D, T, string>? elementFormatter = null, int padding = 0,
+    public string BuildRepresentativeString(Func<Vec2D, T, string>? elementFormatter = null, int padding = 0,
         string? prepend = null)
     {
         var sb = new StringBuilder();
@@ -105,7 +105,7 @@ public sealed partial class Grid2D<T> : IEnumerable<Vector2D>
             {
                 var element = _array[r, c];
                 var (x, y) = ArrayIndicesToXy(r, c);
-                var pos = new Vector2D(x, y);
+                var pos = new Vec2D(x, y);
                 
                 var elementString = elementFormatter != null
                     ? elementFormatter(pos, element)
@@ -192,12 +192,12 @@ public sealed partial class Grid2D<T> : IEnumerable<Vector2D>
         return GetEnumerator();
     }
     
-    public IEnumerator<Vector2D> GetEnumerator()
+    public IEnumerator<Vec2D> GetEnumerator()
     {
         for (var y = 0; y < Height; y++)
         for (var x = 0; x < Width; x++)
         {
-            yield return new Vector2D(x, y);
+            yield return new Vec2D(x, y);
         }
     }
 }

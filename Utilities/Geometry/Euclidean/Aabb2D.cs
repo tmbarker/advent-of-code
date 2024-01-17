@@ -5,9 +5,9 @@ namespace Utilities.Geometry.Euclidean;
 /// <summary>
 /// A readonly 2D axis aligned bounding box value type
 /// </summary>
-public readonly record struct Aabb2D : IEnumerable<Vector2D>
+public readonly record struct Aabb2D : IEnumerable<Vec2D>
 {
-    public Aabb2D(Vector2D min, Vector2D max)
+    public Aabb2D(Vec2D min, Vec2D max)
     {
         Min = min;
         Max = max;
@@ -15,23 +15,23 @@ public readonly record struct Aabb2D : IEnumerable<Vector2D>
     
     public Aabb2D(int xMin, int xMax, int yMin, int yMax)
     {
-        Min = new Vector2D(xMin, yMin);
-        Max = new Vector2D(xMax, yMax);
+        Min = new Vec2D(xMin, yMin);
+        Max = new Vec2D(xMax, yMax);
     }
     
-    public Aabb2D(ICollection<Vector2D> extents, bool inclusive = true)
+    public Aabb2D(ICollection<Vec2D> extents, bool inclusive = true)
     {
         var delta = inclusive ? 0 : 1;
-        Min = new Vector2D(
+        Min = new Vec2D(
             x: extents.Min(p => p.X) - delta,
             y: extents.Min(p => p.Y) - delta);
-        Max = new Vector2D(
+        Max = new Vec2D(
             x: extents.Max(p => p.X) + delta,
             y: extents.Max(p => p.Y) + delta);
     }
     
-    public Vector2D Min { get; }
-    public Vector2D Max { get; }
+    public Vec2D Min { get; }
+    public Vec2D Max { get; }
     
     public int Width => Max.X - Min.X + 1;
     public int Height => Max.Y - Min.Y + 1;
@@ -57,21 +57,21 @@ public readonly record struct Aabb2D : IEnumerable<Vector2D>
         return true;
     }
     
-    public bool Contains(Vector2D pos, bool inclusive)
+    public bool Contains(Vec2D pos, bool inclusive)
     {
         return inclusive 
             ? ContainsInclusive(pos) 
             : ContainsExclusive(pos);
     }
     
-    private bool ContainsInclusive(Vector2D pos)
+    private bool ContainsInclusive(Vec2D pos)
     {
         return 
             pos.X >= Min.X && pos.X <= Max.X && 
             pos.Y >= Min.Y && pos.Y <= Max.Y;
     }
     
-    private bool ContainsExclusive(Vector2D pos)
+    private bool ContainsExclusive(Vec2D pos)
     {
         return 
             pos.X > Min.X && pos.X < Max.X && 
@@ -111,8 +111,8 @@ public readonly record struct Aabb2D : IEnumerable<Vector2D>
         }
         
         return new Aabb2D(
-            min: Min - amount * Vector2D.One,
-            max: Max + amount * Vector2D.One);
+            min: Min - amount * Vec2D.One,
+            max: Max + amount * Vec2D.One);
     }
 
     private Aabb2D Contract(int amount)
@@ -136,8 +136,8 @@ public readonly record struct Aabb2D : IEnumerable<Vector2D>
         }
         
         return new Aabb2D(
-            min: Min + amount * Vector2D.One,
-            max: Max - amount * Vector2D.One);
+            min: Min + amount * Vec2D.One,
+            max: Max - amount * Vec2D.One);
     }
     
     public override string ToString()
@@ -145,12 +145,12 @@ public readonly record struct Aabb2D : IEnumerable<Vector2D>
         return $"[X={Min.X}..{Max.X}, Y={Min.Y}..{Max.X}]";
     }
 
-    public IEnumerator<Vector2D> GetEnumerator()
+    public IEnumerator<Vec2D> GetEnumerator()
     {
         for (var x = Min.X; x <= Max.X; x++)
         for (var y = Min.Y; y <= Max.Y; y++)
         {
-            yield return new Vector2D(x, y);
+            yield return new Vec2D(x, y);
         }
     }
 

@@ -12,13 +12,13 @@ public sealed class Solution : IntCodeSolution
     private const long Black = 0L;
     private const long White = 1L;
 
-    private static readonly Vector2D InitialRobotPos = Vector2D.Zero;
-    private static readonly Vector2D InitialRobotFacing = Vector2D.Up;
+    private static readonly Vec2D InitialRobotPos = Vec2D.Zero;
+    private static readonly Vec2D InitialRobotFacing = Vec2D.Up;
     
-    private static readonly Dictionary<long, Rotation3D> OutputRotations = new()
+    private static readonly Dictionary<long, Rot3D> OutputRotations = new()
     {
-        { 0L, Rotation3D.Positive90Z },
-        { 1L, Rotation3D.Negative90Z }
+        { 0L, Rot3D.P90Z },
+        { 1L, Rot3D.N90Z }
     };
     private static readonly Dictionary<long, char> DrawChars = new()
     {
@@ -37,10 +37,10 @@ public sealed class Solution : IntCodeSolution
         };
     }
 
-    private static DefaultDict<Vector2D, long> RunRobot(IList<long> intCodeProgram, long startColour)
+    private static DefaultDict<Vec2D, long> RunRobot(IList<long> intCodeProgram, long startColour)
     {
         var robot = IntCodeVm.Create(intCodeProgram);
-        var painted = new DefaultDict<Vector2D, long>(defaultValue: Black) 
+        var painted = new DefaultDict<Vec2D, long>(defaultValue: Black) 
             { { InitialRobotPos, startColour } };
         
         var pos = InitialRobotPos;
@@ -65,7 +65,7 @@ public sealed class Solution : IntCodeSolution
         return painted;
     }
 
-    private static string Draw(IDictionary<Vector2D, long> painted)
+    private static string Draw(IDictionary<Vec2D, long> painted)
     {
         var white = painted.Keys
             .Where(c => painted[c] == White)
@@ -80,7 +80,7 @@ public sealed class Solution : IntCodeSolution
             image.Append('\n');
             for (var x = 0; x < aabb.Width; x++)
             {
-                image.Append(white.Contains(new Vector2D(x, y)) 
+                image.Append(white.Contains(new Vec2D(x, y)) 
                     ? DrawChars[White] 
                     : DrawChars[Black]);
             }

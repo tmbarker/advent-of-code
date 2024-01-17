@@ -7,12 +7,12 @@ namespace Solutions.Y2022.D14;
 public sealed class Solution : SolutionBase
 {
     private const int FloorDelta = 2;
-    private static readonly Vector2D SandOrigin = new(x: 500, y: 0);
-    private static readonly HashSet<Vector2D> FallVectors =
+    private static readonly Vec2D SandOrigin = new(x: 500, y: 0);
+    private static readonly HashSet<Vec2D> FallVectors =
     [
-        new Vector2D(x:  0, y: 1),
-        new Vector2D(x: -1, y: 1),
-        new Vector2D(x:  1, y: 1)
+        new Vec2D(x:  0, y: 1),
+        new Vec2D(x: -1, y: 1),
+        new Vec2D(x:  1, y: 1)
     ];
 
     public override object Run(int part)
@@ -28,7 +28,7 @@ public sealed class Solution : SolutionBase
         };
     }
     
-    private static int CountSandWithAbyss(ISet<Vector2D> rockPositions)
+    private static int CountSandWithAbyss(ISet<Vec2D> rockPositions)
     {
         var sandAtRestCount = 0;
         var abyssThreshold = rockPositions.Max(v => v.Y);
@@ -41,7 +41,7 @@ public sealed class Solution : SolutionBase
         return sandAtRestCount;
     }
     
-    private static int CountSandWithFloor(ISet<Vector2D> rockPositions)
+    private static int CountSandWithFloor(ISet<Vec2D> rockPositions)
     {
         var sandAtRestCount = 0;
         var floorHeight = rockPositions.Max(v => v.Y) + FloorDelta;
@@ -54,7 +54,7 @@ public sealed class Solution : SolutionBase
         return sandAtRestCount;
     }
 
-    private static bool DriveSandToRestWithAbyss(ISet<Vector2D> occupiedPositions, int abyssThreshold)
+    private static bool DriveSandToRestWithAbyss(ISet<Vec2D> occupiedPositions, int abyssThreshold)
     {
         var sandPos = SandOrigin;
         while (sandPos.Y < abyssThreshold)
@@ -80,7 +80,7 @@ public sealed class Solution : SolutionBase
         return false;
     }
 
-    private static bool DriveSandToRestWithFloor(ISet<Vector2D> occupiedPositions, int floorHeight)
+    private static bool DriveSandToRestWithFloor(ISet<Vec2D> occupiedPositions, int floorHeight)
     {
         var sandPos = SandOrigin;
         while (!occupiedPositions.Contains(SandOrigin))
@@ -107,9 +107,9 @@ public sealed class Solution : SolutionBase
         return false;
     }
     
-    private static ISet<Vector2D> FormRockPositionsSet(IEnumerable<string> input)
+    private static ISet<Vec2D> FormRockPositionsSet(IEnumerable<string> input)
     {
-        var set = new HashSet<Vector2D>();
+        var set = new HashSet<Vec2D>();
         foreach (var line in input)
         {
             var numbers = line.ParseInts();
@@ -117,15 +117,15 @@ public sealed class Solution : SolutionBase
 
             for (var i = 1; i < vertices; i++)
             {
-                var from = new Vector2D(
+                var from = new Vec2D(
                     x: numbers[2 * (i - 1)],
                     y: numbers[2 * (i - 1) + 1]);
-                var to = new Vector2D(
+                var to = new Vec2D(
                     x: numbers[2 * i],
                     y: numbers[2 * i + 1]);
 
                 var pos = from;
-                var dir = Vector2D.Normalize(to - from);
+                var dir = Vec2D.Normalize(to - from);
 
                 while (pos != to + dir)
                 {

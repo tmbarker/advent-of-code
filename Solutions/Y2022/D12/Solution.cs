@@ -24,17 +24,17 @@ public sealed class Solution : SolutionBase
         };
     }
 
-    private static int GetFewestStepsFromMinHeight(Grid2D<char> map, Vector2D end)
+    private static int GetFewestStepsFromMinHeight(Grid2D<char> map, Vec2D end)
     {
         return map
             .Where(pos => map[pos] == MinHeight)
             .Min(start => GetMinDistance(map, start, end));
     }
 
-    private static int GetMinDistance(Grid2D<char> map, Vector2D start, Vector2D end)
+    private static int GetMinDistance(Grid2D<char> map, Vec2D start, Vec2D end)
     {
-        var queue = new Queue<Vector2D>(collection: [start]);
-        var visited = new HashSet<Vector2D>(collection: [start]);
+        var queue = new Queue<Vec2D>(collection: [start]);
+        var visited = new HashSet<Vec2D>(collection: [start]);
         var depth = 0;
         
         while (queue.Count > 0)
@@ -67,7 +67,7 @@ public sealed class Solution : SolutionBase
         return int.MaxValue;
     }
     
-    private static Grid2D<char> ParseGrid(IList<string> lines, out Vector2D start, out Vector2D end)
+    private static Grid2D<char> ParseGrid(IList<string> lines, out Vec2D start, out Vec2D end)
     {
         var grid = Grid2D<char>.MapChars(lines);
         

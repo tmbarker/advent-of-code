@@ -7,7 +7,7 @@ public sealed class Solution : SolutionBase
 {
     public override object Run(int part)
     {
-        var surfaceVectors = ParseInputLines(parseFunc: Vector3D.Parse);
+        var surfaceVectors = ParseInputLines(parseFunc: Vec3D.Parse);
         return part switch
         {
             1 => ComputeTotalSurfaceArea(surfaceVectors),
@@ -16,10 +16,10 @@ public sealed class Solution : SolutionBase
         };
     }
 
-    private static int ComputeTotalSurfaceArea(IEnumerable<Vector3D> elements)
+    private static int ComputeTotalSurfaceArea(IEnumerable<Vec3D> elements)
     {
         var totalSurfaceArea = 0;
-        var elementsSet = new HashSet<Vector3D>(elements);
+        var elementsSet = new HashSet<Vec3D>(elements);
         
         foreach (var element in elementsSet)
         {
@@ -30,11 +30,11 @@ public sealed class Solution : SolutionBase
         return totalSurfaceArea;
     }
 
-    private static int ComputeExteriorSurfaceArea(IEnumerable<Vector3D> elements)
+    private static int ComputeExteriorSurfaceArea(IEnumerable<Vec3D> elements)
     {
-        var elementsSet = new HashSet<Vector3D>(elements);
-        var boundingSet = new HashSet<Vector3D>();
-        var queue = new Queue<Vector3D>();
+        var elementsSet = new HashSet<Vec3D>(elements);
+        var boundingSet = new HashSet<Vec3D>();
+        var queue = new Queue<Vec3D>();
         var aabb = new Aabb3D(elementsSet, false);
 
         queue.Enqueue(aabb.Min);

@@ -3,14 +3,14 @@ namespace Utilities.Geometry.Euclidean;
 /// <summary>
 /// A readonly value type representing a 2D pose (Position and Facing vectors)
 /// </summary>
-public readonly struct Pose2D(Vector2D pos, Vector2D face) : IEquatable<Pose2D>
+public readonly struct Pose2D(Vec2D pos, Vec2D face) : IEquatable<Pose2D>
 {
-    public Vector2D Pos { get; } = pos;
-    public Vector2D Face { get; } = face;
-    public Vector2D Ahead => Pos + Face;
-    public Vector2D Behind => Pos - Face;
-    public Vector2D Right => GetSideAdjacent(right: true);
-    public Vector2D Left => GetSideAdjacent(right: false);
+    public Vec2D Pos { get; } = pos;
+    public Vec2D Face { get; } = face;
+    public Vec2D Ahead => Pos + Face;
+    public Vec2D Behind => Pos - Face;
+    public Vec2D Right => GetSideAdjacent(right: true);
+    public Vec2D Left => GetSideAdjacent(right: false);
 
     public Pose2D Step()
     {
@@ -22,18 +22,18 @@ public readonly struct Pose2D(Vector2D pos, Vector2D face) : IEquatable<Pose2D>
         return new Pose2D(pos: Pos + amount * Face, face: Face);
     }
 
-    public Vector2D GetSideAdjacent(bool right)
+    public Vec2D GetSideAdjacent(bool right)
     {
         var dir = right
-            ? Rotation3D.Negative90Z * Face
-            : Rotation3D.Positive90Z * Face;
+            ? Rot3D.N90Z * Face
+            : Rot3D.P90Z * Face;
 
-        return Pos + (Vector2D)dir;
+        return Pos + (Vec2D)dir;
     }
     
-    public Pose2D Turn(Rotation3D rot)
+    public Pose2D Turn(Rot3D rot)
     {
-        if (rot.Axis != Axis.Z && rot != Rotation3D.Zero)
+        if (rot.Axis != Axis.Z && rot != Rot3D.Zero)
         {
             throw new InvalidOperationException(message: $"Invalid axis of rotation [{rot.Axis}]");
         }

@@ -5,17 +5,17 @@ namespace Solutions.Y2023.D10;
 [PuzzleInfo("Pipe Maze", Topics.Graphs, Difficulty.Hard)]
 public class Solution : SolutionBase
 {
-    private readonly record struct Map(HashSet<Vector2D> LoopPositions, int MaxDepth);
+    private readonly record struct Map(HashSet<Vec2D> LoopPositions, int MaxDepth);
     
     private static readonly HashSet<char> CornerPipes = ['L', 'J', '7', 'F'];
-    private static readonly Dictionary<char, HashSet<Vector2D>> PipeAdjacency = new()
+    private static readonly Dictionary<char, HashSet<Vec2D>> PipeAdjacency = new()
     {
-        { '|', [Vector2D.Down,  Vector2D.Up] },
-        { '-', [Vector2D.Right, Vector2D.Left] },
-        { 'L', [Vector2D.Right, Vector2D.Up] },
-        { 'J', [Vector2D.Left,  Vector2D.Up] },
-        { '7', [Vector2D.Down,  Vector2D.Left] },
-        { 'F', [Vector2D.Down,  Vector2D.Right] }
+        { '|', [Vec2D.Down,  Vec2D.Up] },
+        { '-', [Vec2D.Right, Vec2D.Left] },
+        { 'L', [Vec2D.Right, Vec2D.Up] },
+        { 'J', [Vec2D.Left,  Vec2D.Up] },
+        { '7', [Vec2D.Down,  Vec2D.Left] },
+        { 'F', [Vec2D.Down,  Vec2D.Right] }
     };
 
     public override object Run(int part)
@@ -31,10 +31,10 @@ public class Solution : SolutionBase
         };
     }
     
-    private static Map Traverse(Grid2D<char> maze, Vector2D start)
+    private static Map Traverse(Grid2D<char> maze, Vec2D start)
     {
-        var queue = new Queue<Vector2D>(collection: [start]);
-        var visited = new HashSet<Vector2D>(collection: [start]);
+        var queue = new Queue<Vec2D>(collection: [start]);
+        var visited = new HashSet<Vec2D>(collection: [start]);
         var depth = -1;
 
         while (queue.Count > 0)
@@ -57,17 +57,17 @@ public class Solution : SolutionBase
         return new Map(LoopPositions: visited, MaxDepth: depth);
     }
 
-    private static int CountEnclosed(Grid2D<char> maze, Vector2D start)
+    private static int CountEnclosed(Grid2D<char> maze, Vec2D start)
     {
         var map = Traverse(maze, start);
         var loopBounds = new Aabb2D(extents: map.LoopPositions);
-        var enclosed = new HashSet<Vector2D>();
+        var enclosed = new HashSet<Vec2D>();
 
         //  From the top left-most position in the loop, walk the loop in a CW direction. Any
         //  adjacent position on our right not part of the loop itself must be "inside" the loop.
         //
         var topLeft = map.LoopPositions.Where(pos => pos.Y == loopBounds.Max.Y).MinBy(pos => pos.X);
-        var pose = new Pose2D(pos: topLeft, face: Vector2D.Right);
+        var pose = new Pose2D(pos: topLeft, face: Vec2D.Right);
         
         while (pose.Ahead != topLeft)
         {
@@ -97,7 +97,7 @@ public class Solution : SolutionBase
             }
         }
 
-        var queue = new Queue<Vector2D>(collection: enclosed);
+        var queue = new Queue<Vec2D>(collection: enclosed);
         while (queue.Count > 0)
         {
             var pos = queue.Dequeue();
@@ -114,9 +114,9 @@ public class Solution : SolutionBase
         return enclosed.Count;
     }
     
-    private static Grid2D<char> ParseMaze(IList<string> input, out Vector2D start)
+    private static Grid2D<char> ParseMaze(IList<string> input, out Vec2D start)
     {
-        start = Vector2D.PositiveInfinity;
+        start = Vec2D.PositiveInfinity;
         
         var maze = Grid2D<char>.MapChars(input);
         for (var y = 0; y < maze.Height; y++)
@@ -124,13 +124,13 @@ public class Solution : SolutionBase
         {
             if (maze[x, y] == 'S')
             {
-                start = new Vector2D(x, y);
+                start = new Vec2D(x, y);
             }
         }
         
         var adjNaive = start.GetAdjacentSet(Metric.Taxicab);
         var adjPipes = adjNaive.Where(adj => maze.Contains(adj) && PipeAdjacency.ContainsKey(maze[adj]));
-        var adjDirs = new HashSet<Vector2D>();
+        var adjDirs = new HashSet<Vec2D>();
         
         foreach (var pos in adjPipes)
         foreach (var dir in PipeAdjacency[maze[pos]])

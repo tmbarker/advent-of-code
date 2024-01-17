@@ -23,19 +23,19 @@ public sealed class Solution : SolutionBase
 
     private static int ComputeSimplePositionProduct(IEnumerable<(string Command, int Amount)> instructions)
     {
-        var position = Vector2D.Zero;
+        var position = Vec2D.Zero;
         foreach (var instruction in instructions)
         {
             switch (instruction.Command)
             {
                 case Forward:
-                    position += instruction.Amount * Vector2D.Right;
+                    position += instruction.Amount * Vec2D.Right;
                     break;
                 case Down:
-                    position += instruction.Amount * Vector2D.Down;
+                    position += instruction.Amount * Vec2D.Down;
                     break;
                 case Up:
-                    position += instruction.Amount * Vector2D.Up;
+                    position += instruction.Amount * Vec2D.Up;
                     break;
             }
         }
@@ -46,7 +46,7 @@ public sealed class Solution : SolutionBase
     private static int ComputeAimedPositionProduct(IEnumerable<(string Command, int Amount)> instructions)
     {
         var aim = 0;
-        var position = Vector2D.Zero;
+        var position = Vec2D.Zero;
         
         foreach (var instruction in instructions)
         {
@@ -59,8 +59,8 @@ public sealed class Solution : SolutionBase
                     aim -= instruction.Amount;
                     break;
                 case Forward:
-                    position += instruction.Amount * Vector2D.Right;
-                    position += instruction.Amount * aim * Vector2D.Down;
+                    position += instruction.Amount * Vec2D.Right;
+                    position += instruction.Amount * aim * Vec2D.Down;
                     break;
             }
         }

@@ -23,7 +23,7 @@ public sealed class Solution : SolutionBase
         };
     }
 
-    private static int EvolveNaive(Dictionary<Vector2D, char> map, int minutes)
+    private static int EvolveNaive(Dictionary<Vec2D, char> map, int minutes)
     {
         for (var i = 0; i < minutes; i++)
         {
@@ -33,15 +33,15 @@ public sealed class Solution : SolutionBase
         return ComputeResourceValue(map);
     }
     
-    private static int EvolveCycle(Dictionary<Vector2D, char> map, int minutes)
+    private static int EvolveCycle(Dictionary<Vec2D, char> map, int minutes)
     {
-        var copy = new Dictionary<Vector2D, char>(map);
+        var copy = new Dictionary<Vec2D, char>(map);
         var (start, length) = FindCycle(copy);
 
         return EvolveNaive(map, minutes: start + (minutes - start) % length);
     }
 
-    private static (int Start, int Length) FindCycle(Dictionary<Vector2D, char> map)
+    private static (int Start, int Length) FindCycle(Dictionary<Vec2D, char> map)
     {
         var time = 0;
         var stateTimestamps = new Dictionary<string, int>();
@@ -60,9 +60,9 @@ public sealed class Solution : SolutionBase
         }
     }
 
-    private static Dictionary<Vector2D, char> Evolve(Dictionary<Vector2D, char> map)
+    private static Dictionary<Vec2D, char> Evolve(Dictionary<Vec2D, char> map)
     {
-        var next = new Dictionary<Vector2D, char>(capacity: map.Count);
+        var next = new Dictionary<Vec2D, char>(capacity: map.Count);
         var aabb = new Aabb2D(extents: map.Keys);
         
         foreach (var pos in aabb)
@@ -87,7 +87,7 @@ public sealed class Solution : SolutionBase
         return next;
     }
 
-    private static int ComputeResourceValue(Dictionary<Vector2D, char> map)
+    private static int ComputeResourceValue(Dictionary<Vec2D, char> map)
     {
         var trees = map.Keys.Count(p => map[p] == Trees);
         var lumberyards = map.Keys.Count(p => map[p] == Lumberyard);
@@ -95,7 +95,7 @@ public sealed class Solution : SolutionBase
         return trees * lumberyards;
     }
 
-    private static string BuildKey(Dictionary<Vector2D, char> map)
+    private static string BuildKey(Dictionary<Vec2D, char> map)
     {
         var aabb = new Aabb2D(extents: map.Keys);
         var sb = new StringBuilder();
@@ -108,16 +108,16 @@ public sealed class Solution : SolutionBase
         return sb.ToString();
     }
     
-    private static Dictionary<Vector2D, char> ParseResourceMap(IList<string> input)
+    private static Dictionary<Vec2D, char> ParseResourceMap(IList<string> input)
     {
         var rows = input.Count;
         var cols = input[0].Length;
-        var map = new Dictionary<Vector2D, char>(capacity: rows * cols);
+        var map = new Dictionary<Vec2D, char>(capacity: rows * cols);
 
         for (var y = 0; y < rows; y++)
         for (var x = 0; x < cols; x++)
         {
-            map[new Vector2D(x, y)] = input[y][x];
+            map[new Vec2D(x, y)] = input[y][x];
         }
 
         return map;

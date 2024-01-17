@@ -65,7 +65,7 @@ public sealed class Solution : SolutionBase
         return movePool;
     }
 
-    private static IList<Move> FindActorMoves(char actor, Vector2D fromPos, State state, Field field)
+    private static IList<Move> FindActorMoves(char actor, Vec2D fromPos, State state, Field field)
     {
         var atWaitingPos = field.WaitingPositions.Contains(fromPos);
         var destination = field.SideRooms[actor];
@@ -73,8 +73,8 @@ public sealed class Solution : SolutionBase
             .Where(p => !state.ActorsMap.ContainsKey(p))
             .ToList();
 
-        var visited = new HashSet<Vector2D>(freeAdjacent) { fromPos };
-        var queue = new Queue<Vector2D>(freeAdjacent);
+        var visited = new HashSet<Vec2D>(freeAdjacent) { fromPos };
+        var queue = new Queue<Vec2D>(freeAdjacent);
         var moves = new List<Move>();
 
         while (queue.Count > 0)
@@ -105,7 +105,7 @@ public sealed class Solution : SolutionBase
         return moves;
     }
     
-    private static bool CanActorEnterSideRoom(char actor, State state, Field field, out Vector2D enterTo)
+    private static bool CanActorEnterSideRoom(char actor, State state, Field field, out Vec2D enterTo)
     {
         var sideRoom = field.SideRooms[actor];
         var current = sideRoom.Bottom;
@@ -120,18 +120,18 @@ public sealed class Solution : SolutionBase
 
             if (occupant == actor)
             {
-                current += Vector2D.Up;
+                current += Vec2D.Up;
                 continue;
             }
             
             break;
         }
 
-        enterTo = Vector2D.Zero;
+        enterTo = Vec2D.Zero;
         return false;
     }
     
-    private static bool IsActorFinished(char actor, Vector2D pos, State state, Field field)
+    private static bool IsActorFinished(char actor, Vec2D pos, State state, Field field)
     {
         var sideRoom = field.SideRooms[actor];
         if (!sideRoom.Contains(pos))
@@ -147,7 +147,7 @@ public sealed class Solution : SolutionBase
                 return false;
             }
             
-            current += Vector2D.Up;
+            current += Vec2D.Up;
         }
         return true;
     }

@@ -5,7 +5,7 @@ namespace Solutions.Y2021.D04;
 public sealed class BingoCard
 {
     private readonly Grid2D<int> _squares;
-    private readonly Dictionary<int, Vector2D> _numberMap = new();
+    private readonly Dictionary<int, Vec2D> _numberMap = new();
     private readonly HashSet<int> _markedNumbers = new();
 
     public bool HasWon { get; private set; }
@@ -17,7 +17,7 @@ public sealed class BingoCard
         for (var x = 0; x < squares.Width; x++)
         for (var y = 0; y < squares.Height; y++)
         {
-            _numberMap[_squares[x, y]] = new Vector2D(x, y);
+            _numberMap[_squares[x, y]] = new Vec2D(x, y);
         }
     }
 

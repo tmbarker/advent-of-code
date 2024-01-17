@@ -4,24 +4,24 @@ namespace Solutions.Y2022.D17;
 
 public sealed class JetPattern
 {
-    private static readonly Dictionary<char, Vector2D> JetVectorMap = new()
+    private static readonly Dictionary<char, Vec2D> JetVectorMap = new()
     {
-        { '>', Vector2D.Right },
-        { '<', Vector2D.Left }
+        { '>', Vec2D.Right },
+        { '<', Vec2D.Left }
     };
 
 
-    private readonly List<Vector2D> _list;
+    private readonly List<Vec2D> _list;
 
     public int Index { get; private set; }
 
-    private JetPattern(IEnumerable<Vector2D> vectors)
+    private JetPattern(IEnumerable<Vec2D> vectors)
     {
         Index = 0;
-        _list = new List<Vector2D>(vectors);
+        _list = new List<Vec2D>(vectors);
     }
 
-    public Vector2D Next()
+    public Vec2D Next()
     {
         var next = _list[Index % _list.Count];
         Index = (Index + 1) % _list.Count;

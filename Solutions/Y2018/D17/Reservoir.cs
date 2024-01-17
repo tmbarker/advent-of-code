@@ -3,7 +3,7 @@ using Utilities.Geometry.Euclidean;
 
 namespace Solutions.Y2018.D17;
 
-internal delegate IEnumerable<Vector2D> VeinBuilder(int fixedComponent, int variableMin, int variableMax);
+internal delegate IEnumerable<Vec2D> VeinBuilder(int fixedComponent, int variableMin, int variableMax);
 
 public sealed class Reservoir
 {
@@ -13,9 +13,9 @@ public sealed class Reservoir
         { 'x', ParseCol }
     };
 
-    private readonly Dictionary<Vector2D, char> _positionStates = new();
+    private readonly Dictionary<Vec2D, char> _positionStates = new();
 
-    private Reservoir(IEnumerable<Vector2D> clayPositions)
+    private Reservoir(IEnumerable<Vec2D> clayPositions)
     {
         foreach (var position in clayPositions)
         {
@@ -28,13 +28,13 @@ public sealed class Reservoir
         _positionStates[SpringPos] = Terrain.Spring;
     }
 
-    public static Vector2D SpringPos => new (500, 0);
+    public static Vec2D SpringPos => new (500, 0);
     public int MinDepth { get; }
     public int MaxDepth { get; }
     
-    private char this[int x, int y] => this[new Vector2D(x, y)];
+    private char this[int x, int y] => this[new Vec2D(x, y)];
     
-    public char this[Vector2D pos]
+    public char this[Vec2D pos]
     {
         get => _positionStates.ContainsKey(pos) ? _positionStates[pos] : Terrain.Empty;
         set => _positionStates[pos] = value;
@@ -66,7 +66,7 @@ public sealed class Reservoir
         return new Reservoir(clayPositions: input.SelectMany(ParseClayVein));
     }
     
-    private static IEnumerable<Vector2D> ParseClayVein(string line)
+    private static IEnumerable<Vec2D> ParseClayVein(string line)
     {
         var numbers = line.ParseInts();
         return VeinBuilders[line[0]].Invoke(
@@ -75,19 +75,19 @@ public sealed class Reservoir
             variableMax: numbers[2]);
     }
 
-    private static IEnumerable<Vector2D> ParseRow(int y, int xMin, int xMax)
+    private static IEnumerable<Vec2D> ParseRow(int y, int xMin, int xMax)
     {
         for (var x = xMin; x <= xMax; x++)
         {
-            yield return new Vector2D(x, y);
+            yield return new Vec2D(x, y);
         }
     }
     
-    private static IEnumerable<Vector2D> ParseCol(int x, int yMin, int yMax)
+    private static IEnumerable<Vec2D> ParseCol(int x, int yMin, int yMax)
     {
         for (var y = yMin; y <= yMax; y++)
         {
-            yield return new Vector2D(x, y);
+            yield return new Vec2D(x, y);
         }
     }
 }

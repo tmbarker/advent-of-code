@@ -7,7 +7,7 @@ public sealed class OctopusGrid(Grid2D<int> energyLevels)
     private const int ResetTo = 0;
     private const int FlashAt = 10;
 
-    public event Action<Vector2D>? SingleFlashed;
+    public event Action<Vec2D>? SingleFlashed;
     public event Action<int>? AllFlashed;
 
     public void Observe(int steps)
@@ -31,8 +31,8 @@ public sealed class OctopusGrid(Grid2D<int> energyLevels)
 
     private void ExecuteStep(int stepIndex)
     {
-        var flashedSet = new HashSet<Vector2D>();
-        var readyToFlash = new Queue<Vector2D>();
+        var flashedSet = new HashSet<Vec2D>();
+        var readyToFlash = new Queue<Vec2D>();
         
         foreach (var position in energyLevels)
         {
@@ -69,7 +69,7 @@ public sealed class OctopusGrid(Grid2D<int> energyLevels)
         }
     }
 
-    private void IncrementAndEnqueueIfReady(Vector2D pos, Queue<Vector2D> readyToFlashQueue)
+    private void IncrementAndEnqueueIfReady(Vec2D pos, Queue<Vec2D> readyToFlashQueue)
     {
         energyLevels[pos]++;
         if (energyLevels[pos] >= FlashAt)
@@ -78,7 +78,7 @@ public sealed class OctopusGrid(Grid2D<int> energyLevels)
         }
     }
     
-    private void RaiseSingleFlashed(Vector2D position)
+    private void RaiseSingleFlashed(Vec2D position)
     {
         SingleFlashed?.Invoke(position);
     }

@@ -6,8 +6,8 @@ namespace Solutions.Y2023.D03;
 [PuzzleInfo("Gear Ratios", Topics.Vectors, Difficulty.Easy, favourite: true)]
 public sealed class Solution : SolutionBase
 {
-    private readonly record struct Number(int Value, HashSet<Vector2D> Positions);
-    private readonly record struct Schematic(List<Number> Numbers, DefaultDict<char, HashSet<Vector2D>> Symbols);
+    private readonly record struct Number(int Value, HashSet<Vec2D> Positions);
+    private readonly record struct Schematic(List<Number> Numbers, DefaultDict<char, HashSet<Vec2D>> Symbols);
     
     private const char Void = '.';
     private const char Gear = '*';
@@ -70,7 +70,7 @@ public sealed class Solution : SolutionBase
     
     private static Schematic BuildSchematic(IReadOnlyList<string> lines)
     {
-        var symbols = new DefaultDict<char, HashSet<Vector2D>>(defaultSelector: _ => []);
+        var symbols = new DefaultDict<char, HashSet<Vec2D>>(defaultSelector: _ => []);
         var numbers = new List<Number>();
 
         for (var y = 0; y < lines.Count; y++)
@@ -83,16 +83,16 @@ public sealed class Solution : SolutionBase
             
             if (!char.IsDigit(lines[y][x]))
             {
-                symbols[lines[y][x]].Add(item: new Vector2D(x, y));
+                symbols[lines[y][x]].Add(item: new Vec2D(x, y));
                 continue;
             }
 
-            var positions = new HashSet<Vector2D>(collection: [new Vector2D(x, y)]);
+            var positions = new HashSet<Vec2D>(collection: [new Vec2D(x, y)]);
             var span = 1;
 
             while (x + span < lines[0].Length && char.IsDigit(lines[y][x + span]))
             {
-                positions.Add(item: new Vector2D(x: x + span, y));
+                positions.Add(item: new Vec2D(x: x + span, y));
                 span++;
             }
 

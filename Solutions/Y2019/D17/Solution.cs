@@ -9,19 +9,19 @@ public sealed class Solution : IntCodeSolution
 {
     private const char Scaffold = '#';
     
-    private static readonly Dictionary<char, Vector2D> Directions = new()
+    private static readonly Dictionary<char, Vec2D> Directions = new()
     {
-        //  NOTE: The UV coordinate system is used for this problem, while the Vector2D static vectors are XY
+        //  NOTE: The UV coordinate system is used for this problem, while the Vec2D static vectors are XY
         // 
-        { 'v', Vector2D.Up },
-        { '^', Vector2D.Down },
-        { '<', Vector2D.Left },
-        { '>', Vector2D.Right }
+        { 'v', Vec2D.Up },
+        { '^', Vec2D.Down },
+        { '<', Vec2D.Left },
+        { '>', Vec2D.Right }
     };
-    private static readonly Dictionary<char, Rotation3D> TurnCommands = new()
+    private static readonly Dictionary<char, Rot3D> TurnCommands = new()
     {
-        { 'L', Rotation3D.Negative90Z },
-        { 'R', Rotation3D.Positive90Z }
+        { 'L', Rot3D.N90Z },
+        { 'R', Rot3D.P90Z }
     };
 
     public override object Run(int part)
@@ -37,14 +37,14 @@ public sealed class Solution : IntCodeSolution
         };
     }
 
-    private static int SumAlignmentParams(IReadOnlySet<Vector2D> positions)
+    private static int SumAlignmentParams(IReadOnlySet<Vec2D> positions)
     {
         return positions
             .Where(p => p.GetAdjacentSet(Metric.Taxicab).Count(positions.Contains) == 4)
             .Aggregate(0, (sum, pos) => sum + pos.X * pos.Y);
     }
 
-    private long GetCollectedDust(IReadOnlySet<Vector2D> positions, Pose2D pose)
+    private long GetCollectedDust(IReadOnlySet<Vec2D> positions, Pose2D pose)
     {
         var robot = IntCodeVm.Create(LoadRobotProgram());
         var commands = ComputeCommands(positions, pose);
@@ -63,10 +63,10 @@ public sealed class Solution : IntCodeSolution
             : throw new NoSolutionException(message: $"Invalid VM exit code [{ec}]");
     }
 
-    private static List<string> ComputeCommands(IReadOnlySet<Vector2D> positions, Pose2D pose)
+    private static List<string> ComputeCommands(IReadOnlySet<Vec2D> positions, Pose2D pose)
     {
         var commands = new List<string>();
-        var visited = new HashSet<Vector2D>(collection: [pose.Pos]);
+        var visited = new HashSet<Vec2D>(collection: [pose.Pos]);
 
         while (visited.Count < positions.Count)
         {
@@ -98,8 +98,8 @@ public sealed class Solution : IntCodeSolution
 
     private static State ParseCameraOutput(string ascii)
     {
-        var scaffolding = new HashSet<Vector2D>();
-        var robotPose = new Pose2D(pos:Vector2D.Zero, face:Vector2D.Zero);
+        var scaffolding = new HashSet<Vec2D>();
+        var robotPose = new Pose2D(pos:Vec2D.Zero, face:Vec2D.Zero);
 
         var rows = ascii.Split('\n', StringSplitOptions.RemoveEmptyEntries);
         var cols = rows[0].Length;
@@ -108,7 +108,7 @@ public sealed class Solution : IntCodeSolution
         for (var x = 0; x < cols; x++)
         {
             var chr = rows[y][x];
-            var pos = new Vector2D(x, y);
+            var pos = new Vec2D(x, y);
 
             if (Directions.TryGetValue(chr, out var direction))
             {

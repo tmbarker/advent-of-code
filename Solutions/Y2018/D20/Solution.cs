@@ -6,13 +6,13 @@ namespace Solutions.Y2018.D20;
 [PuzzleInfo("A Regular Map", Topics.Vectors|Topics.Graphs|Topics.StringParsing, Difficulty.Hard)]
 public sealed class Solution : SolutionBase
 {
-    private static readonly Vector2D Start = Vector2D.Zero;
-    private static readonly Dictionary<char, Vector2D> Directions = new()
+    private static readonly Vec2D Start = Vec2D.Zero;
+    private static readonly Dictionary<char, Vec2D> Directions = new()
     {
-        { 'N', Vector2D.Up },
-        { 'S', Vector2D.Down },
-        { 'W', Vector2D.Left },
-        { 'E', Vector2D.Right }
+        { 'N', Vec2D.Up },
+        { 'S', Vec2D.Down },
+        { 'W', Vec2D.Left },
+        { 'E', Vec2D.Right }
     };
 
     public override object Run(int part)
@@ -29,11 +29,11 @@ public sealed class Solution : SolutionBase
         };
     }
 
-    private static Dictionary<Vector2D, char> BuildMap(string regex, Vector2D start)
+    private static Dictionary<Vec2D, char> BuildMap(string regex, Vec2D start)
     {
-        var map = new Dictionary<Vector2D, char> { { start, MapChars.Start } };
+        var map = new Dictionary<Vec2D, char> { { start, MapChars.Start } };
         var pos = start;
-        var backtrack = new Stack<Vector2D>();
+        var backtrack = new Stack<Vec2D>();
 
         foreach (var step in regex)
         {
@@ -66,7 +66,7 @@ public sealed class Solution : SolutionBase
         return map;
     }
 
-    private static Vector2D StepAndPlot(Vector2D pos, char step, IDictionary<Vector2D, char> map)
+    private static Vec2D StepAndPlot(Vec2D pos, char step, IDictionary<Vec2D, char> map)
     {
         var dir = Directions[step];
         var moveTo = pos + 2 * dir;
@@ -77,10 +77,10 @@ public sealed class Solution : SolutionBase
         return moveTo;
     }
 
-    private static Dictionary<Vector2D, int> BuildCosts(Dictionary<Vector2D, char> map, Vector2D start)
+    private static Dictionary<Vec2D, int> BuildCosts(Dictionary<Vec2D, char> map, Vec2D start)
     {
-        var visited = new HashSet<Vector2D>(collection: [start]);
-        var heap = new PriorityQueue<Vector2D, int>(items: [(start, 0)]);
+        var visited = new HashSet<Vec2D>(collection: [start]);
+        var heap = new PriorityQueue<Vec2D, int>(items: [(start, 0)]);
         
         var aabb = new Aabb2D(extents: map.Keys);
         var costs = aabb.ToDictionary(

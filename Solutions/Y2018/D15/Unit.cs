@@ -8,11 +8,11 @@ public sealed class Unit
     public char Team { get; }
     public int Dmg { get; }
     public int Hp { get; private set; }
-    public Vector2D Pos { get; set; }
+    public Vec2D Pos { get; set; }
 
     public bool Dead => Hp <= 0;
     
-    public Unit(int id, char team, int dmg, int hp, Vector2D pos)
+    public Unit(int id, char team, int dmg, int hp, Vec2D pos)
     {
         Id = id;
         Team = team;

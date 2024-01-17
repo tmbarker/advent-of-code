@@ -9,7 +9,7 @@ public sealed class Solution : SolutionBase
     private const int SpawnHeight = 3;
     private const int SpawnOffset = 2;
 
-    private static readonly Vector2D Gravity = Vector2D.Down;
+    private static readonly Vec2D Gravity = Vec2D.Down;
 
     public override object Run(int part)
     {
@@ -24,7 +24,7 @@ public sealed class Solution : SolutionBase
     private long GetHeightNaive(long numRocks)
     {
         var height = 0;
-        var pile = new HashSet<Vector2D>(collection: GetFloorPositions());
+        var pile = new HashSet<Vec2D>(collection: GetFloorPositions());
         var jetPattern = JetPattern.Parse(sequence: GetInputText());
 
         for (var i = 0; i < numRocks; i++)
@@ -41,7 +41,7 @@ public sealed class Solution : SolutionBase
 
     private long GetHeightCycle(long numRocks)
     {
-        var pile = new HashSet<Vector2D>(collection: GetFloorPositions());
+        var pile = new HashSet<Vec2D>(collection: GetFloorPositions());
         var jetPattern = JetPattern.Parse(sequence: GetInputText());
         
         var count = 0;
@@ -69,13 +69,13 @@ public sealed class Solution : SolutionBase
         return numCycles * cycleHeight + GetHeightNaive(remainder);
     }
 
-    private static string HashState(int rockIndex, int jetIndex, int height, IReadOnlySet<Vector2D> pile)
+    private static string HashState(int rockIndex, int jetIndex, int height, IReadOnlySet<Vec2D> pile)
     {
         var profile = new int[ChamberWidth];
         for (var x = 0; x < ChamberWidth; x++)
         {
             var depth = 0;
-            while (!pile.Contains(new Vector2D(x, y: height - depth)))
+            while (!pile.Contains(new Vec2D(x, y: height - depth)))
             {
                 depth++;
             }
@@ -89,12 +89,12 @@ public sealed class Solution : SolutionBase
             $"[Jet: {jetIndex}]";
     }
     
-    private static Vector2D GetSpawnPos(int pileHeight)
+    private static Vec2D GetSpawnPos(int pileHeight)
     {
-        return new Vector2D(x: SpawnOffset, y: SpawnHeight + pileHeight + 1);
+        return new Vec2D(x: SpawnOffset, y: SpawnHeight + pileHeight + 1);
     }
     
-    private static int AddRockAndMeasure(Rock rock, Vector2D pos, HashSet<Vector2D> pile, JetPattern pattern)
+    private static int AddRockAndMeasure(Rock rock, Vec2D pos, HashSet<Vec2D> pile, JetPattern pattern)
     {
         while (true)
         {
@@ -117,14 +117,14 @@ public sealed class Solution : SolutionBase
         return pile.Max(item => item.Y);
     }
     
-    private static bool CanMove(Rock rock, Vector2D pos, Vector2D desiredMove, IReadOnlySet<Vector2D> rockPile)
+    private static bool CanMove(Rock rock, Vec2D pos, Vec2D desiredMove, IReadOnlySet<Vec2D> rockPile)
     {
         return rock.Shape
             .Select(p => pos + desiredMove + p)
             .All(p => p.X is >= 0 and < ChamberWidth && !rockPile.Contains(p));
     }
 
-    private static void AddToPile(Rock rock, Vector2D pos, ISet<Vector2D> rockPile)
+    private static void AddToPile(Rock rock, Vec2D pos, ISet<Vec2D> rockPile)
     {
         foreach (var position in rock.Shape.Select(p => pos + p))
         {
@@ -132,11 +132,11 @@ public sealed class Solution : SolutionBase
         }
     }
 
-    private static IEnumerable<Vector2D> GetFloorPositions()
+    private static IEnumerable<Vec2D> GetFloorPositions()
     {
         for (var x = 0; x < ChamberWidth; x++)
         {
-            yield return new Vector2D(x, y: 0);
+            yield return new Vec2D(x, y: 0);
         }
     }
 }

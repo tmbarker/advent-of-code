@@ -8,28 +8,28 @@ public static class Track
     public const char Left = '\\';
     public const char Right = '/';
     
-    public static readonly Dictionary<char, Vector2D> CartFacings = new()
+    public static readonly Dictionary<char, Vec2D> CartFacings = new()
     {
-        { '<', Vector2D.Left },
-        { '>', Vector2D.Right },
-        { '^', Vector2D.Down },
-        { 'v', Vector2D.Up }
+        { '<', Vec2D.Left },
+        { '>', Vec2D.Right },
+        { '^', Vec2D.Down },
+        { 'v', Vec2D.Up }
     };
 
-    public static readonly Dictionary<int, Rotation3D> TurnChoices = new()
+    public static readonly Dictionary<int, Rot3D> TurnChoices = new()
     {
-        { 0, Rotation3D.Negative90Z },
-        { 1, Rotation3D.Zero },
-        { 2, Rotation3D.Positive90Z }
+        { 0, Rot3D.N90Z },
+        { 1, Rot3D.Zero },
+        { 2, Rot3D.P90Z }
     };
     
-    public static Vector2D TurnForCorner(char corner, Vector2D face)
+    public static Vec2D TurnForCorner(char corner, Vec2D face)
     {
-        var eastOrWest = face == Vector2D.Left || face == Vector2D.Right;
+        var eastOrWest = face == Vec2D.Left || face == Vec2D.Right;
         var rot = corner switch
         {
-            Left  => eastOrWest ? Rotation3D.Positive90Z : Rotation3D.Negative90Z,
-            Right => eastOrWest ? Rotation3D.Negative90Z : Rotation3D.Positive90Z,
+            Left  => eastOrWest ? Rot3D.P90Z : Rot3D.N90Z,
+            Right => eastOrWest ? Rot3D.N90Z : Rot3D.P90Z,
             _ => throw new ArgumentOutOfRangeException(nameof(corner))
         };
 

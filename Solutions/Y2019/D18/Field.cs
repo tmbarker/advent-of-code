@@ -3,8 +3,8 @@ using Utilities.Geometry.Euclidean;
 
 namespace Solutions.Y2019.D18;
 
-using AdjacencyList = Dictionary<Vector2D, HashSet<Vector2D>>;
-using EntityMap = Dictionary<Vector2D, char>;
+using AdjacencyList = Dictionary<Vec2D, HashSet<Vec2D>>;
+using EntityMap = Dictionary<Vec2D, char>;
 
 public sealed class Field
 {
@@ -17,9 +17,9 @@ public sealed class Field
     private readonly HashSet<char> _keys;
     private readonly HashSet<char> _doors;
 
-    public Vector2D StartPos { get; }
+    public Vec2D StartPos { get; }
 
-    private Field(AdjacencyList adjacency, EntityMap entities, Vector2D startPos)
+    private Field(AdjacencyList adjacency, EntityMap entities, Vec2D startPos)
     {
         _adjacency = adjacency;
         _entities = entities;
@@ -34,17 +34,17 @@ public sealed class Field
         return _keys.All(state.HasKey);
     }
     
-    public IEnumerable<Vector2D> GetAdj(Vector2D pos)
+    public IEnumerable<Vec2D> GetAdj(Vec2D pos)
     {
         return _adjacency[pos];
     }
 
-    public bool CheckForDoorAt(Vector2D pos, out char door)
+    public bool CheckForDoorAt(Vec2D pos, out char door)
     {
         return _entities.TryGetValue(pos, out door) && _doors.Contains(door);
     }
     
-    public bool CheckForKeyAt(Vector2D pos, out char key)
+    public bool CheckForKeyAt(Vec2D pos, out char key)
     {
         return _entities.TryGetValue(pos, out key) && _keys.Contains(key);
     }
@@ -65,11 +65,11 @@ public sealed class Field
         }
     }
 
-    private static Field BuildField(Grid2D<char> grid, Vector2D startPos)
+    private static Field BuildField(Grid2D<char> grid, Vec2D startPos)
     {
         var adjacency = new AdjacencyList();
         var reachable = new EntityMap { { startPos, Start } };
-        var queue = new Queue<Vector2D>(collection:[startPos]);
+        var queue = new Queue<Vec2D>(collection:[startPos]);
 
         while (queue.Count > 0)
         {
@@ -106,12 +106,12 @@ public sealed class Field
             startPos: startPos);
     }
 
-    private static bool IsTraversable(Vector2D pos, Grid2D<char> grid)
+    private static bool IsTraversable(Vec2D pos, Grid2D<char> grid)
     {
         return grid.Contains(pos) && grid[pos] != Wall;
     }
     
-    private static void ApplyInputOverrides(Grid2D<char> grid, Vector2D startPos)
+    private static void ApplyInputOverrides(Grid2D<char> grid, Vec2D startPos)
     {
         foreach (var adj in startPos.GetAdjacentSet(Metric.Chebyshev))
         {

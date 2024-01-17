@@ -5,7 +5,7 @@ namespace Solutions.Y2020.D20;
 
 using TileMap = IDictionary<int, Tile>;
 using CongruenceMap = IDictionary<int, List<Tile.Congruence>>;
-using PositionsMap = IDictionary<int, Vector2D>;
+using PositionsMap = IDictionary<int, Vec2D>;
 
 [PuzzleInfo("Jurassic Jigsaw", Topics.Vectors, Difficulty.Hard, favourite: true)]
 public sealed class Solution : SolutionBase
@@ -89,7 +89,7 @@ public sealed class Solution : SolutionBase
             for (var y = 0; y < image.Height - SeaMonster.Height; y++)
             for (var x = 0; x < image.Width  - SeaMonster.Width;  x++)
             {
-                if (SeaMonster.Pattern.All(v => image[new Vector2D(x, y) + v] == SeaMonster.Chr))
+                if (SeaMonster.Pattern.All(v => image[new Vec2D(x, y) + v] == SeaMonster.Chr))
                 {
                     foundCount++;
                 }
@@ -126,7 +126,7 @@ public sealed class Solution : SolutionBase
     private static PositionsMap AssembleTiles(TileMap tiles, CongruenceMap congruences)
     {
         var firstId = tiles.Keys.First();
-        var positions = new Dictionary<int, Vector2D> { { firstId, Vector2D.Zero } };
+        var positions = new Dictionary<int, Vec2D> { { firstId, Vec2D.Zero } };
         var queue = new Queue<int>(collection: [firstId]);
 
         //  Place the first piece arbitrarily, then continuously match all pieces with known congruences to previously
@@ -168,7 +168,7 @@ public sealed class Solution : SolutionBase
             dy = Math.Min(dy, vector.Y);
         }
         
-        var delta = new Vector2D(x: dx, y: dy);
+        var delta = new Vec2D(x: dx, y: dy);
         foreach (var key in map.Keys)
         {
             map[key] -= delta;

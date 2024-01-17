@@ -56,7 +56,7 @@ public sealed class Solution : IntCodeSolution
         return screen.Score;
     }
 
-    private static long ComputeJoystickInput(Vector2D ball, Vector2D paddle)
+    private static long ComputeJoystickInput(Vec2D ball, Vec2D paddle)
     {
         if (ball.X == paddle.X)
         {

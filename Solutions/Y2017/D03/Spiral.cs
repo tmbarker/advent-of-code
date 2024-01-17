@@ -5,14 +5,14 @@ namespace Solutions.Y2017.D03;
 
 public sealed class Spiral
 {
-    private readonly DefaultDict<Vector2D, int> _memory;
-    private Vector2D _dir = Vector2D.Right;
+    private readonly DefaultDict<Vec2D, int> _memory;
+    private Vec2D _dir = Vec2D.Right;
 
     public int LastVal { get; private set; }
-    public Vector2D LastPos { get; private set; }
-    public Vector2D NextPos => LastPos + _dir;
+    public Vec2D LastPos { get; private set; }
+    public Vec2D NextPos => LastPos + _dir;
 
-    public int this[Vector2D pos]
+    public int this[Vec2D pos]
     {
         get => _memory[pos];
         private set => StoreValue(pos, value);
@@ -20,8 +20,8 @@ public sealed class Spiral
     
     public Spiral()
     {
-        _memory = new DefaultDict<Vector2D, int>(defaultValue: 0);
-        StoreValue(pos: Vector2D.Zero, value: 1);
+        _memory = new DefaultDict<Vec2D, int>(defaultValue: 0);
+        StoreValue(pos: Vec2D.Zero, value: 1);
     }
 
     public void Build(Func<Spiral, int> valueFunc, Predicate<Spiral> stopFunc)
@@ -34,7 +34,7 @@ public sealed class Spiral
         {
             if (stepsSinceLastTurn == stepsBeforeTurn)
             {
-                _dir = Rotation3D.Positive90Z * _dir;
+                _dir = Rot3D.P90Z * _dir;
                 stepsSinceLastTurn = 0;
                 turnsSinceStepIncrement++;
             }
@@ -50,7 +50,7 @@ public sealed class Spiral
         }
     }
 
-    private void StoreValue(Vector2D pos, int value)
+    private void StoreValue(Vec2D pos, int value)
     {
         _memory[pos] = value;
         LastVal = value;

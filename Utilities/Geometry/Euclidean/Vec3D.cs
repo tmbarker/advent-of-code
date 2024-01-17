@@ -5,30 +5,30 @@ namespace Utilities.Geometry.Euclidean;
 /// <summary>
 /// A readonly integral 3D Vector value type
 /// </summary>
-public readonly record struct Vector3D
+public readonly record struct Vec3D
 {
-    public static readonly Vector3D Zero    = new(x:  0, y:  0, z:  0);
-    public static readonly Vector3D One     = new(x:  1, y:  1, z:  1);
-    public static readonly Vector3D Up      = new(x:  0, y:  1, z:  0);
-    public static readonly Vector3D Down    = new(x:  0, y: -1, z:  0);
-    public static readonly Vector3D Left    = new(x: -1, y:  0, z:  0);
-    public static readonly Vector3D Right   = new(x:  1, y:  0, z:  0);
-    public static readonly Vector3D Forward = new(x:  0, y:  0, z:  1);
-    public static readonly Vector3D Back    = new(x:  0, y:  0, z: -1);
+    public static readonly Vec3D Zero    = new(x:  0, y:  0, z:  0);
+    public static readonly Vec3D One     = new(x:  1, y:  1, z:  1);
+    public static readonly Vec3D Up      = new(x:  0, y:  1, z:  0);
+    public static readonly Vec3D Down    = new(x:  0, y: -1, z:  0);
+    public static readonly Vec3D Left    = new(x: -1, y:  0, z:  0);
+    public static readonly Vec3D Right   = new(x:  1, y:  0, z:  0);
+    public static readonly Vec3D Forward = new(x:  0, y:  0, z:  1);
+    public static readonly Vec3D Back    = new(x:  0, y:  0, z: -1);
     
     public int X { get; }
     public int Y { get; }
     public int Z { get; }
     public int this[Axis axis] => GetComponent(axis);
 
-    public Vector3D(int x, int y, int z)
+    public Vec3D(int x, int y, int z)
     {
         X = x;
         Y = y;
         Z = z;
     }
     
-    public Vector3D(Vector2D xy, int z) : this(xy.X, xy.Y, z)
+    public Vec3D(Vec2D xy, int z) : this(xy.X, xy.Y, z)
     {
     }
     
@@ -44,36 +44,36 @@ public readonly record struct Vector3D
                 return Z;
             case Axis.W:
             default:
-                throw VectorThrowHelper<Vector3D>.InvalidComponent(component);
+                throw VecThrowHelper<Vec3D>.InvalidComponent(component);
         }
     }
 
-    public static int Distance(Vector3D a, Vector3D b, Metric metric)
+    public static int Distance(Vec3D a, Vec3D b, Metric metric)
     {
         return metric switch
         {
             Metric.Chebyshev => ChebyshevDistance(a, b),
             Metric.Taxicab => TaxicabDistance(a, b),
-            _ => throw VectorThrowHelper<Vector3D>.InvalidMetric(metric)
+            _ => throw VecThrowHelper<Vec3D>.InvalidMetric(metric)
         };
     }
 
-    public static implicit operator Vector3D(Vector2D v) => new(v.X, v.Y, z: 0);
-    public static implicit operator Vector3D(Vector4D v) => new(v.X, v.Y, v.Z);
+    public static implicit operator Vec3D(Vec2D v) => new(v.X, v.Y, z: 0);
+    public static implicit operator Vec3D(Vec4D v) => new(v.X, v.Y, v.Z);
     
-    public static Vector3D operator +(Vector3D lhs, Vector3D rhs)
+    public static Vec3D operator +(Vec3D lhs, Vec3D rhs)
     {
-        return new Vector3D(x: lhs.X + rhs.X, y: lhs.Y + rhs.Y, z: lhs.Z + rhs.Z);
+        return new Vec3D(x: lhs.X + rhs.X, y: lhs.Y + rhs.Y, z: lhs.Z + rhs.Z);
     }
 
-    public static Vector3D operator -(Vector3D lhs, Vector3D rhs)
+    public static Vec3D operator -(Vec3D lhs, Vec3D rhs)
     {
-        return new Vector3D(x: lhs.X - rhs.X, y: lhs.Y - rhs.Y, z: lhs.Z - rhs.Z);
+        return new Vec3D(x: lhs.X - rhs.X, y: lhs.Y - rhs.Y, z: lhs.Z - rhs.Z);
     }
 
-    public static Vector3D operator *(int k, Vector3D rhs)
+    public static Vec3D operator *(int k, Vec3D rhs)
     {
-        return new Vector3D(x: k * rhs.X, y: k * rhs.Y, z: k * rhs.Z);
+        return new Vec3D(x: k * rhs.X, y: k * rhs.Y, z: k * rhs.Z);
     }
     
     public override string ToString()
@@ -86,17 +86,17 @@ public readonly record struct Vector3D
         return Distance(a: this, b: Zero, metric);
     }
     
-    public ISet<Vector3D> GetAdjacentSet(Metric metric)
+    public ISet<Vec3D> GetAdjacentSet(Metric metric)
     {
         return metric switch
         {
             Metric.Chebyshev => GetChebyshevAdjacentSet(),
             Metric.Taxicab => GetTaxicabAdjacentSet(),
-            _ => throw VectorThrowHelper<Vector3D>.InvalidMetric(metric)
+            _ => throw VecThrowHelper<Vec3D>.InvalidMetric(metric)
         };
     }
     
-    private HashSet<Vector3D> GetTaxicabAdjacentSet()
+    private HashSet<Vec3D> GetTaxicabAdjacentSet()
     {
         return
         [
@@ -109,15 +109,15 @@ public readonly record struct Vector3D
         ];
     }
     
-    private HashSet<Vector3D> GetChebyshevAdjacentSet()
+    private HashSet<Vec3D> GetChebyshevAdjacentSet()
     {
-        var set = new HashSet<Vector3D>();
+        var set = new HashSet<Vec3D>();
         
         for (var dx = -1; dx <= 1; dx++)
         for (var dy = -1; dy <= 1; dy++)
         for (var dz = -1; dz <= 1; dz++)
         {
-            set.Add(new Vector3D(
+            set.Add(new Vec3D(
                 x: X + dx,
                 y: Y + dy,
                 z: Z + dz));
@@ -127,7 +127,7 @@ public readonly record struct Vector3D
         return set;
     }
     
-    private static int ChebyshevDistance(Vector3D a, Vector3D b)
+    private static int ChebyshevDistance(Vec3D a, Vec3D b)
     {
         var dx = Math.Abs(a.X - b.X);
         var dy = Math.Abs(a.Y - b.Y);
@@ -136,7 +136,7 @@ public readonly record struct Vector3D
         return new[] { dx, dy, dz }.Max();
     }
 
-    private static int TaxicabDistance(Vector3D a, Vector3D b)
+    private static int TaxicabDistance(Vec3D a, Vec3D b)
     {
         var dx = Math.Abs(a.X - b.X);
         var dy = Math.Abs(a.Y - b.Y);
@@ -145,13 +145,13 @@ public readonly record struct Vector3D
         return dx + dy + dz;
     }
 
-    public static Vector3D Parse(string s)
+    public static Vec3D Parse(string s)
     {
         var numbers = s.ParseInts();
-        return new Vector3D(x: numbers[0], y: numbers[1], z: numbers[2]);
+        return new Vec3D(x: numbers[0], y: numbers[1], z: numbers[2]);
     }
     
-    public static bool TryParse(string? s, out Vector3D result)
+    public static bool TryParse(string? s, out Vec3D result)
     {
         var numbers = s?.ParseInts() ?? Array.Empty<int>();
         if (numbers.Length < 3)
@@ -160,7 +160,7 @@ public readonly record struct Vector3D
             return false;
         }
     
-        result = new Vector3D(x: numbers[0], y: numbers[1], z: numbers[2]);
+        result = new Vec3D(x: numbers[0], y: numbers[1], z: numbers[2]);
         return true;
     }
 }

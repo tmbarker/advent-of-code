@@ -15,15 +15,15 @@ public sealed class Solution : SolutionBase
     private const char Left = 'L';
     private const char Right = 'R';
 
-    private static readonly Vector2D InitialShipPos = Vector2D.Zero;
-    private static readonly Vector2D InitialShipFacing = Vector2D.Right;
-    private static readonly Vector2D InitialWaypointPos = new(10, 1);
-    private static readonly Dictionary<char, Vector2D> DirectionVectors = new()
+    private static readonly Vec2D InitialShipPos = Vec2D.Zero;
+    private static readonly Vec2D InitialShipFacing = Vec2D.Right;
+    private static readonly Vec2D InitialWaypointPos = new(10, 1);
+    private static readonly Dictionary<char, Vec2D> DirectionVectors = new()
     {
-        { North, Vector2D.Up },
-        { South, Vector2D.Down },
-        { East, Vector2D.Right },
-        { West, Vector2D.Left }
+        { North, Vec2D.Up },
+        { South, Vec2D.Down },
+        { East, Vec2D.Right },
+        { West, Vec2D.Left }
     };
 
     public override object Run(int part)
@@ -56,15 +56,15 @@ public sealed class Solution : SolutionBase
                     pos += amount * facing;
                     continue;
                 case Left:
-                    facing = new Rotation3D(Axis.Z, amount) * facing;
+                    facing = new Rot3D(Axis.Z, amount) * facing;
                     continue;
                 case Right:
-                    facing = new Rotation3D(Axis.Z, -amount) * facing;
+                    facing = new Rot3D(Axis.Z, -amount) * facing;
                     continue;
             }
         }
 
-        return Vector2D.Distance(InitialShipPos, pos, Metric.Taxicab);
+        return Vec2D.Distance(InitialShipPos, pos, Metric.Taxicab);
     }
     
     private static int NavigateWaypoint(IEnumerable<Instruction> instructions)
@@ -86,15 +86,15 @@ public sealed class Solution : SolutionBase
                     shipPos += amount * waypointPos;
                     continue;
                 case Left:
-                    waypointPos = new Rotation3D(Axis.Z, amount) * waypointPos;
+                    waypointPos = new Rot3D(Axis.Z, amount) * waypointPos;
                     continue;
                 case Right:
-                    waypointPos = new Rotation3D(Axis.Z, -amount) * waypointPos;
+                    waypointPos = new Rot3D(Axis.Z, -amount) * waypointPos;
                     continue;
             }
         }
 
-        return Vector2D.Distance(InitialShipPos, shipPos, Metric.Taxicab);
+        return Vec2D.Distance(InitialShipPos, shipPos, Metric.Taxicab);
     }
 
     private static Instruction ParseInstruction(string line)

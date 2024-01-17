@@ -9,12 +9,12 @@ public sealed class Solution : SolutionBase
     
     private static readonly IReadOnlySet<ScannerTransform> ScannerTransforms = new HashSet<ScannerTransform>
     {
-        new(Rotation3D.Zero,         Rotation3D.RotationsAroundAxis(Axis.X)), // +x -> +x
-        new(Rotation3D.Positive180Y, Rotation3D.RotationsAroundAxis(Axis.X)), // +x -> -x
-        new(Rotation3D.Positive90Y,  Rotation3D.RotationsAroundAxis(Axis.Z)), // +x -> +z
-        new(Rotation3D.Negative90Y,  Rotation3D.RotationsAroundAxis(Axis.Z)), // +x -> -z
-        new(Rotation3D.Positive90Z,  Rotation3D.RotationsAroundAxis(Axis.Y)), // +x -> +y
-        new(Rotation3D.Negative90Z,  Rotation3D.RotationsAroundAxis(Axis.Y))  // +x -> -y
+        new(Rot3D.Zero,         Rot3D.RotationsAroundAxis(Axis.X)), // +x -> +x
+        new(Rot3D.P180Y, Rot3D.RotationsAroundAxis(Axis.X)), // +x -> -x
+        new(Rot3D.P90Y,  Rot3D.RotationsAroundAxis(Axis.Z)), // +x -> +z
+        new(Rot3D.N90Y,  Rot3D.RotationsAroundAxis(Axis.Z)), // +x -> -z
+        new(Rot3D.P90Z,  Rot3D.RotationsAroundAxis(Axis.Y)), // +x -> +y
+        new(Rot3D.N90Z,  Rot3D.RotationsAroundAxis(Axis.Y))  // +x -> -y
     };
 
     public override object Run(int part)
@@ -74,7 +74,7 @@ public sealed class Solution : SolutionBase
 
                 var absolutePositions = transformedPositions.Select(p => p + offset);
                 map.KnownScanners.Add(reporting.ScannerId, offset);
-                map.KnownBeacons.Add(reporting.ScannerId, new HashSet<Vector3D>(absolutePositions));
+                map.KnownBeacons.Add(reporting.ScannerId, new HashSet<Vec3D>(absolutePositions));
 
                 LogMatch(reporting.ScannerId, knownScannerId, offset);
                 return true;
@@ -86,7 +86,7 @@ public sealed class Solution : SolutionBase
         return false;
     }
 
-    private static bool TryFindOffset(ISet<Vector3D> known, IList<Vector3D> reported, out Vector3D offset)
+    private static bool TryFindOffset(ISet<Vec3D> known, IList<Vec3D> reported, out Vec3D offset)
     {
         foreach (var knownPos in known)
         {
@@ -104,21 +104,21 @@ public sealed class Solution : SolutionBase
             }
         }
 
-        offset = Vector3D.Zero;
+        offset = Vec3D.Zero;
         return false;
     }
 
-    private static IEnumerable<(Rotation3D r1, Rotation3D r2)> GetTransformations()
+    private static IEnumerable<(Rot3D r1, Rot3D r2)> GetTransformations()
     {
         return ScannerTransforms.SelectMany(transform => transform.GetRotations());
     }
 
-    private static IList<Vector3D> TransformPositions(IEnumerable<Vector3D> pos, Rotation3D r1, Rotation3D r2)
+    private static IList<Vec3D> TransformPositions(IEnumerable<Vec3D> pos, Rot3D r1, Rot3D r2)
     {
         return pos.Select(p => r2 * (r1 * p)).ToList();
     }
 
-    private void LogMatch(int found, int against, Vector3D pos)
+    private void LogMatch(int found, int against, Vec3D pos)
     {
         if (LogsEnabled)
         {

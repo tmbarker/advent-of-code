@@ -22,7 +22,7 @@ public sealed class Solution : SolutionBase
 
     private static long ExecuteBoolean(IEnumerable<Instruction> instructions)
     {
-        var map = new DefaultDict<Vector2D, bool>(defaultValue: false);
+        var map = new DefaultDict<Vec2D, bool>(defaultValue: false);
         
         foreach (var (aabb, action) in instructions)
         foreach (var pos in aabb)
@@ -41,7 +41,7 @@ public sealed class Solution : SolutionBase
     
     private static long ExecuteIntegral(IEnumerable<Instruction> instructions)
     {
-        var map = new DefaultDict<Vector2D, int>(defaultValue: 0);
+        var map = new DefaultDict<Vec2D, int>(defaultValue: 0);
         
         foreach (var (aabb, action) in instructions)
         foreach (var pos in aabb)
@@ -68,8 +68,8 @@ public sealed class Solution : SolutionBase
     private static Instruction ParseInstruction(string line)
     {
         var numbers = line.ParseInts();
-        var min = new Vector2D(x: numbers[0], y: numbers[1]);
-        var max = new Vector2D(x: numbers[2], y: numbers[3]);
+        var min = new Vec2D(x: numbers[0], y: numbers[1]);
+        var max = new Vec2D(x: numbers[2], y: numbers[3]);
 
         var action = line switch
         {

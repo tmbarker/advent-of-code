@@ -3,19 +3,18 @@ using Utilities.Geometry.Euclidean;
 
 namespace Solutions.Y2023.D23;
 
-using Pos   = Vector2D;
-using Graph = DefaultDict<Vector2D, HashSet<(Vector2D Adj, int Cost)>>;
+using Graph = DefaultDict<Vec2D, HashSet<(Vec2D Adj, int Cost)>>;
 
 [PuzzleInfo("A Long Walk", Topics.Graphs, Difficulty.Medium)]
 public sealed class Solution : SolutionBase
 {
     private const char Forest = '#';
-    private static readonly Dictionary<char, Pos> Slopes = new()
+    private static readonly Dictionary<char, Vec2D> Slopes = new()
     {
-        { '^', Pos.Up },
-        { 'v', Pos.Down },
-        { '<', Pos.Left },
-        { '>', Pos.Right }
+        { '^', Vec2D.Up },
+        { 'v', Vec2D.Down },
+        { '<', Vec2D.Left },
+        { '>', Vec2D.Right }
     };
     
     public override object Run(int part)
@@ -32,7 +31,7 @@ public sealed class Solution : SolutionBase
         return Dfs(graph, goal: end, pos: start, visited: [], max: 0, n: 0) + delta;
     }
     
-    private static int Dfs(Graph graph, Pos goal, Pos pos, HashSet<Pos> visited, int max, int n)
+    private static int Dfs(Graph graph, Vec2D goal, Vec2D pos, HashSet<Vec2D> visited, int max, int n)
     {
         if (pos == goal)
         {
@@ -51,10 +50,10 @@ public sealed class Solution : SolutionBase
         return max;
     }
 
-    private static Graph ParseGraph(IList<string> input, bool slopes, out Pos start, out Pos end)
+    private static Graph ParseGraph(IList<string> input, bool slopes, out Vec2D start, out Vec2D end)
     {
-        start = new Pos(x: input[0].IndexOf('.'),  y: input.Count - 1);
-        end =   new Pos(x: input[^1].IndexOf('.'), y: 0);
+        start = new Vec2D(x: input[0].IndexOf('.'),  y: input.Count - 1);
+        end =   new Vec2D(x: input[^1].IndexOf('.'), y: 0);
         
         var grid = Grid2D<char>.MapChars(input);
         var graph = new Graph(defaultSelector: _ => []);
@@ -66,8 +65,8 @@ public sealed class Solution : SolutionBase
 
         foreach (var node in nodes)
         {
-            var queue = new Queue<Pos>(collection: [node]);
-            var visited = new HashSet<Pos>(collection: [node]);
+            var queue = new Queue<Vec2D>(collection: [node]);
+            var visited = new HashSet<Vec2D>(collection: [node]);
             var cost = 0;
 
             while (queue.Count > 0)
@@ -94,9 +93,9 @@ public sealed class Solution : SolutionBase
         return graph;
     }
     
-    private static HashSet<Pos> GetAdjacent(Grid2D<char> grid, Pos pos, bool slopes)
+    private static HashSet<Vec2D> GetAdjacent(Grid2D<char> grid, Vec2D pos, bool slopes)
     {
-        var candidates = new List<Pos>(capacity: 4);
+        var candidates = new List<Vec2D>(capacity: 4);
         if (slopes && Slopes.TryGetValue(grid[pos], out var dir))
         {
             candidates.Add(item: pos + dir);

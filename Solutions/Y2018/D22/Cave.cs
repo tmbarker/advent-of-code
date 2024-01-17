@@ -22,11 +22,11 @@ public sealed class Cave(Scan scan)
     private const long GeoIndexCoefficientY = 48271L;
     private const long ErosionModulus = 20183L;
 
-    private readonly Dictionary<Vector2D, Region> _regionMap = new();
+    private readonly Dictionary<Vec2D, Region> _regionMap = new();
 
-    public Region this[Vector2D pos] => GetRegionInternal(pos);
+    public Region this[Vec2D pos] => GetRegionInternal(pos);
 
-    private Region GetRegionInternal(Vector2D pos)
+    private Region GetRegionInternal(Vec2D pos)
     {
         if (!_regionMap.ContainsKey(pos))
         {
@@ -36,7 +36,7 @@ public sealed class Cave(Scan scan)
         return _regionMap[pos];
     }
     
-    private Region FormRegion(Vector2D pos)
+    private Region FormRegion(Vec2D pos)
     {
         var index = ComputeGeologicIndex(pos);
         var erosion = (index + scan.Depth) % ErosionModulus;
@@ -51,7 +51,7 @@ public sealed class Cave(Scan scan)
         return new Region(erosion, type);
     }
     
-    private long ComputeGeologicIndex(Vector2D pos)
+    private long ComputeGeologicIndex(Vec2D pos)
     {
         if (pos == scan.Mouth || pos == scan.Target)
         {
@@ -68,8 +68,8 @@ public sealed class Cave(Scan scan)
             return GeoIndexCoefficientY * pos.Y;
         }
 
-        var p1 = new Vector2D(x: pos.X - 1, y: pos.Y);
-        var p2 = new Vector2D(x: pos.X, y: pos.Y - 1);
+        var p1 = new Vec2D(x: pos.X - 1, y: pos.Y);
+        var p2 = new Vec2D(x: pos.X, y: pos.Y - 1);
         var r1 = GetRegionInternal(p1);
         var r2 = GetRegionInternal(p2);
 

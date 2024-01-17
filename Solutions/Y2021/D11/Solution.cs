@@ -21,7 +21,7 @@ public sealed class Solution : SolutionBase
         var flashes = 0;
         var octopusGrid = new OctopusGrid(GetInitialState());
 
-        void OnSingleFlashed(Vector2D flashPos)
+        void OnSingleFlashed(Vec2D flashPos)
         {
             flashes++;
         }

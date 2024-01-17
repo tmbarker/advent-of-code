@@ -84,7 +84,7 @@ public sealed class GameState
             var id = unitMap.Count;
             var team = input[y][x];
             var dmgBuff = teamDmgBuffs.TryGetValue(team, out var buff) ? buff : 0;
-            var pos = new Vector2D(x, y);
+            var pos = new Vec2D(x, y);
 
             unitMap.Add(
                 key: id,

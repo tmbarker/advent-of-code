@@ -15,7 +15,7 @@ public sealed class Solution : SolutionBase
     {
         var input = GetInputLines();
         var map = Grid2D<char>.MapChars(input);
-        var start = new Vector2D(
+        var start = new Vec2D(
             x: input[0].IndexOf('|'),
             y: map.Height - 1);
 
@@ -27,11 +27,11 @@ public sealed class Solution : SolutionBase
         };
     }
 
-    private static PathSummary Traverse(Grid2D<char> map, Vector2D start)
+    private static PathSummary Traverse(Grid2D<char> map, Vec2D start)
     {
         var letters = new StringBuilder();
         var steps = 1;
-        var pose = new Pose2D(pos: start, face: Vector2D.Down);
+        var pose = new Pose2D(pos: start, face: Vec2D.Down);
 
         while (CanMoveTo(map, pos: pose.Ahead))
         {
@@ -45,9 +45,9 @@ public sealed class Solution : SolutionBase
 
             if (map[pose.Pos] == Junction)
             {
-                pose = CanMoveTo(map, pose.Pos + (Vector2D)(Rotation3D.Positive90Z * pose.Face))
-                    ? pose.Turn(Rotation3D.Positive90Z)
-                    : pose.Turn(Rotation3D.Negative90Z);
+                pose = CanMoveTo(map, pose.Pos + (Vec2D)(Rot3D.P90Z * pose.Face))
+                    ? pose.Turn(Rot3D.P90Z)
+                    : pose.Turn(Rot3D.N90Z);
             }
         }
 
@@ -56,7 +56,7 @@ public sealed class Solution : SolutionBase
             Steps: steps);
     }
 
-    private static bool CanMoveTo(Grid2D<char> map, Vector2D pos)
+    private static bool CanMoveTo(Grid2D<char> map, Vec2D pos)
     {
         return map.Contains(pos) && (Traversable.Contains(map[pos]) || char.IsLetter(map[pos]));
     }

@@ -5,12 +5,12 @@ namespace Solutions.Y2022.D09;
 [PuzzleInfo("Rope Bridge", Topics.Vectors, Difficulty.Medium, favourite: true)]
 public sealed class Solution : SolutionBase
 {
-    private static readonly Dictionary<string, Vector2D> VectorMap = new()
+    private static readonly Dictionary<string, Vec2D> VectorMap = new()
     {
-        { "U", Vector2D.Up },
-        { "D", Vector2D.Down },
-        { "L", Vector2D.Left },
-        { "R", Vector2D.Right }
+        { "U", Vec2D.Up },
+        { "D", Vec2D.Down },
+        { "L", Vec2D.Left },
+        { "R", Vec2D.Right }
     };
 
     public override object Run(int part)
@@ -26,19 +26,19 @@ public sealed class Solution : SolutionBase
         };
     }
 
-    private static int CountKnotPositions(IEnumerable<Vector2D> steps, int count)
+    private static int CountKnotPositions(IEnumerable<Vec2D> steps, int count)
     {
-        var knots = new Vector2D[count];
-        var visited = new HashSet<Vector2D>(collection: [Vector2D.Zero]);
+        var knots = new Vec2D[count];
+        var visited = new HashSet<Vec2D>(collection: [Vec2D.Zero]);
 
         foreach (var step in steps)
         {
             knots[0] += step;
             for (var i = 1; i < count; i++)
             {
-                if (!Vector2D.IsAdjacent(a: knots[i], b: knots[i - 1], Metric.Chebyshev))
+                if (!Vec2D.IsAdjacent(a: knots[i], b: knots[i - 1], Metric.Chebyshev))
                 {
-                    knots[i] += Vector2D.Normalize(knots[i - 1] - knots[i]);
+                    knots[i] += Vec2D.Normalize(knots[i - 1] - knots[i]);
                 }
             }
             
@@ -48,7 +48,7 @@ public sealed class Solution : SolutionBase
         return visited.Count;
     }
     
-    private static IEnumerable<Vector2D> ParseHeadMovements(IEnumerable<string> lines)
+    private static IEnumerable<Vec2D> ParseHeadMovements(IEnumerable<string> lines)
     {
         foreach (var line in lines)
         {

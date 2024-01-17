@@ -70,7 +70,7 @@ public sealed class Solution : SolutionBase
         var nextPoses = new Dictionary<Moon, State>();
         foreach (var (moon, state) in bodies)
         {
-            var nextVel = new Vector3D(
+            var nextVel = new Vec3D(
                 x: StepVelocityComponent(Axis.X, moon, bodies),
                 y: StepVelocityComponent(Axis.Y, moon, bodies),
                 z: StepVelocityComponent(Axis.Z, moon, bodies));
@@ -120,10 +120,10 @@ public sealed class Solution : SolutionBase
     {
         return new Dictionary<Moon, State>
         {
-            { Moon.Io,       new State(Pos: Vector3D.Parse(input[0]), Vel: Vector3D.Zero)},
-            { Moon.Europa,   new State(Pos: Vector3D.Parse(input[1]), Vel: Vector3D.Zero)},
-            { Moon.Ganymede, new State(Pos: Vector3D.Parse(input[2]), Vel: Vector3D.Zero)},
-            { Moon.Callisto, new State(Pos: Vector3D.Parse(input[3]), Vel: Vector3D.Zero)}
+            { Moon.Io,       new State(Pos: Vec3D.Parse(input[0]), Vel: Vec3D.Zero)},
+            { Moon.Europa,   new State(Pos: Vec3D.Parse(input[1]), Vel: Vec3D.Zero)},
+            { Moon.Ganymede, new State(Pos: Vec3D.Parse(input[2]), Vel: Vec3D.Zero)},
+            { Moon.Callisto, new State(Pos: Vec3D.Parse(input[3]), Vel: Vec3D.Zero)}
         };
     }
 }

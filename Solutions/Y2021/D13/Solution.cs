@@ -6,7 +6,7 @@ namespace Solutions.Y2021.D13;
 [PuzzleInfo("Transparent Origami", Topics.Vectors, Difficulty.Easy, favourite: true)]
 public sealed class Solution : SolutionBase
 {
-    private delegate HashSet<Vector2D> FoldTransform(int foldAt, HashSet<Vector2D> dots);
+    private delegate HashSet<Vec2D> FoldTransform(int foldAt, HashSet<Vec2D> dots);
     private static readonly Dictionary<FoldType, FoldTransform> FoldTransforms = new()
     {
         { FoldType.Horizontal, HorizontalFoldTransform},
@@ -24,19 +24,19 @@ public sealed class Solution : SolutionBase
         };
     }
 
-    private static string GetOrigamiPrintout(HashSet<Vector2D> dots, IEnumerable<(FoldType Type, int At)> folds)
+    private static string GetOrigamiPrintout(HashSet<Vec2D> dots, IEnumerable<(FoldType Type, int At)> folds)
     {
         return Origami.FormPrintout(PerformFolds(dots, folds));
     } 
     
-    private static HashSet<Vector2D> PerformFolds(HashSet<Vector2D> dots, IEnumerable<(FoldType Type, int At)> folds)
+    private static HashSet<Vec2D> PerformFolds(HashSet<Vec2D> dots, IEnumerable<(FoldType Type, int At)> folds)
     {
         return folds.Aggregate(
             seed: dots,
             func: (current, fold) => FoldTransforms[fold.Type](fold.At, current));
     }
 
-    private static HashSet<Vector2D> HorizontalFoldTransform(int foldAt, HashSet<Vector2D> dots)
+    private static HashSet<Vec2D> HorizontalFoldTransform(int foldAt, HashSet<Vec2D> dots)
     {
         foreach (var point in dots.ToFrozenSet())
         {
@@ -46,13 +46,13 @@ public sealed class Solution : SolutionBase
             }
 
             dots.Remove(point);
-            dots.Add(new Vector2D(point.X, 2 * foldAt - point.Y));
+            dots.Add(new Vec2D(point.X, 2 * foldAt - point.Y));
         }
 
         return dots;
     }
 
-    private static HashSet<Vector2D> VerticalFoldTransform(int foldAt, HashSet<Vector2D> dots)
+    private static HashSet<Vec2D> VerticalFoldTransform(int foldAt, HashSet<Vec2D> dots)
     {
         foreach (var point in dots.ToFrozenSet())
         {
@@ -62,7 +62,7 @@ public sealed class Solution : SolutionBase
             }
 
             dots.Remove(point);
-            dots.Add(new Vector2D(2 * foldAt - point.X, point.Y));
+            dots.Add(new Vec2D(2 * foldAt - point.X, point.Y));
         }
 
         return dots;

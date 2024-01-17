@@ -6,34 +6,34 @@ namespace Solutions.Y2016.D02;
 [PuzzleInfo("Bathroom Security", Topics.Vectors, Difficulty.Easy)]
 public sealed class Solution : SolutionBase
 {
-    private static readonly Dictionary<Vector2D, char> Square = new()
+    private static readonly Dictionary<Vec2D, char> Square = new()
     {
-        { new Vector2D(x: -1, y:  1), '1' },
-        { new Vector2D(x:  0, y:  1), '2' },
-        { new Vector2D(x:  1, y:  1), '3' },
-        { new Vector2D(x: -1, y:  0), '4' },
-        { new Vector2D(x:  0, y:  0), '5' },
-        { new Vector2D(x:  1, y:  0), '6' },
-        { new Vector2D(x: -1, y: -1), '7' },
-        { new Vector2D(x:  0, y: -1), '8' },
-        { new Vector2D(x:  1, y: -1), '9' }
+        { new Vec2D(x: -1, y:  1), '1' },
+        { new Vec2D(x:  0, y:  1), '2' },
+        { new Vec2D(x:  1, y:  1), '3' },
+        { new Vec2D(x: -1, y:  0), '4' },
+        { new Vec2D(x:  0, y:  0), '5' },
+        { new Vec2D(x:  1, y:  0), '6' },
+        { new Vec2D(x: -1, y: -1), '7' },
+        { new Vec2D(x:  0, y: -1), '8' },
+        { new Vec2D(x:  1, y: -1), '9' }
     };
     
-    private static readonly Dictionary<Vector2D, char> Diamond = new()
+    private static readonly Dictionary<Vec2D, char> Diamond = new()
     {
-        { new Vector2D(x:  0, y:  2), '1' },
-        { new Vector2D(x: -1, y:  1), '2' },
-        { new Vector2D(x:  0, y:  1), '3' },
-        { new Vector2D(x:  1, y:  1), '4' },
-        { new Vector2D(x: -2, y:  0), '5' },
-        { new Vector2D(x: -1, y:  0), '6' },
-        { new Vector2D(x:  0, y:  0), '7' },
-        { new Vector2D(x:  1, y:  0), '8' },
-        { new Vector2D(x:  2, y:  0), '9' },
-        { new Vector2D(x: -1, y: -1), 'A' },
-        { new Vector2D(x:  0, y: -1), 'B' },
-        { new Vector2D(x:  1, y: -1), 'C' },
-        { new Vector2D(x:  0, y: -2), 'D' }
+        { new Vec2D(x:  0, y:  2), '1' },
+        { new Vec2D(x: -1, y:  1), '2' },
+        { new Vec2D(x:  0, y:  1), '3' },
+        { new Vec2D(x:  1, y:  1), '4' },
+        { new Vec2D(x: -2, y:  0), '5' },
+        { new Vec2D(x: -1, y:  0), '6' },
+        { new Vec2D(x:  0, y:  0), '7' },
+        { new Vec2D(x:  1, y:  0), '8' },
+        { new Vec2D(x:  2, y:  0), '9' },
+        { new Vec2D(x: -1, y: -1), 'A' },
+        { new Vec2D(x:  0, y: -1), 'B' },
+        { new Vec2D(x:  1, y: -1), 'C' },
+        { new Vec2D(x:  0, y: -2), 'D' }
     };
     
     
@@ -41,13 +41,13 @@ public sealed class Solution : SolutionBase
     {
         return part switch
         {
-            1 => BuildCode(pos: new Vector2D(x:  0, y: 0), map: Square),
-            2 => BuildCode(pos: new Vector2D(x: -2, y: 0), map: Diamond),
+            1 => BuildCode(pos: new Vec2D(x:  0, y: 0), map: Square),
+            2 => BuildCode(pos: new Vec2D(x: -2, y: 0), map: Diamond),
             _ => ProblemNotSolvedString
         };
     }
 
-    private string BuildCode(Vector2D pos, IReadOnlyDictionary<Vector2D, char> map)
+    private string BuildCode(Vec2D pos, IReadOnlyDictionary<Vec2D, char> map)
     {
         var instructions = GetInputLines();
         var sb = new StringBuilder();
@@ -58,10 +58,10 @@ public sealed class Solution : SolutionBase
             {
                 var move = step switch
                 {
-                    'U' => Vector2D.Up,
-                    'D' => Vector2D.Down,
-                    'L' => Vector2D.Left,
-                    'R' => Vector2D.Right,
+                    'U' => Vec2D.Up,
+                    'D' => Vec2D.Down,
+                    'L' => Vec2D.Left,
+                    'R' => Vec2D.Right,
                     _ => throw new NoSolutionException()
                 };
 

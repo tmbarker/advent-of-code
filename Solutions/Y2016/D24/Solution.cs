@@ -53,9 +53,9 @@ public sealed class Solution : SolutionBase
         return min;
     }
     
-    private static Dictionary<int, Vector2D> CollectPois(IReadOnlyList<string> map)
+    private static Dictionary<int, Vec2D> CollectPois(IReadOnlyList<string> map)
     {
-        var pois = new Dictionary<int, Vector2D>();
+        var pois = new Dictionary<int, Vec2D>();
         var rows = map.Count;
         var cols = map[0].Length;
 
@@ -64,14 +64,14 @@ public sealed class Solution : SolutionBase
         {
             if (char.IsNumber(map[y][x]))
             {
-                pois[map[y][x].AsDigit()] = new Vector2D(x, y);
+                pois[map[y][x].AsDigit()] = new Vec2D(x, y);
             }
         }
 
         return pois;
     }
 
-    private static Dictionary<(int, int), int> BuildCostLookup(IReadOnlyList<string> map, Dictionary<int, Vector2D> pois)
+    private static Dictionary<(int, int), int> BuildCostLookup(IReadOnlyList<string> map, Dictionary<int, Vec2D> pois)
     {
         var lookup = new Dictionary<(int, int), int>();
         var poiKeys = pois.Keys;
@@ -93,10 +93,10 @@ public sealed class Solution : SolutionBase
         return lookup;
     }
 
-    private static int ComputeCost(Vector2D from, Vector2D to, IReadOnlyList<string> map)
+    private static int ComputeCost(Vec2D from, Vec2D to, IReadOnlyList<string> map)
     {
-        var queue = new Queue<Vector2D>(collection: [from]);
-        var visited = new HashSet<Vector2D>(collection: [from]);
+        var queue = new Queue<Vec2D>(collection: [from]);
+        var visited = new HashSet<Vec2D>(collection: [from]);
         var depth = 0;
         
         while (queue.Count != 0)
@@ -128,7 +128,7 @@ public sealed class Solution : SolutionBase
         throw new NoSolutionException();
     }
 
-    private static bool PositionValid(Vector2D pos, IReadOnlyList<string> map)
+    private static bool PositionValid(Vec2D pos, IReadOnlyList<string> map)
     {
         return
             pos.Y >= 0 && pos.Y < map.Count &&

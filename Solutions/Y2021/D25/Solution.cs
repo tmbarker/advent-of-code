@@ -3,15 +3,15 @@ using Utilities.Geometry.Euclidean;
 
 namespace Solutions.Y2021.D25;
 
-using Herds = Dictionary<Vector2D, ISet<Vector2D>>;
+using Herds = Dictionary<Vec2D, ISet<Vec2D>>;
 
 [PuzzleInfo("Sea Cucumber", Topics.Vectors|Topics.Simulation, Difficulty.Medium)]
 public sealed class Solution : SolutionBase
 {
-    private static readonly Dictionary<char, Vector2D> HerdDirections = new()
+    private static readonly Dictionary<char, Vec2D> HerdDirections = new()
     {
-        { '>', Vector2D.Right },
-        { 'v', Vector2D.Down }
+        { '>', Vec2D.Right },
+        { 'v', Vec2D.Down }
     };
     
     public override int Parts => 1;
@@ -65,12 +65,12 @@ public sealed class Solution : SolutionBase
         return moved;
     }
 
-    private static bool TryStepMember(Vector2D memberAt, Vector2D heading, ICollection<Vector2D> occupied, Aabb2D bounds, out Vector2D movedTo)
+    private static bool TryStepMember(Vec2D memberAt, Vec2D heading, ICollection<Vec2D> occupied, Aabb2D bounds, out Vec2D movedTo)
     {
         movedTo = memberAt + heading;
         if (!bounds.Contains(movedTo, true))
         {
-            movedTo = new Vector2D(
+            movedTo = new Vec2D(
                 x: movedTo.X.Modulo(bounds.Width),
                 y: movedTo.Y.Modulo(bounds.Height));
         }
@@ -78,27 +78,27 @@ public sealed class Solution : SolutionBase
         return !occupied.Contains(movedTo);
     }
 
-    private static ICollection<Vector2D> FlattenHerds(Herds herds)
+    private static ICollection<Vec2D> FlattenHerds(Herds herds)
     {
-        return new List<Vector2D>(herds.Values.SelectMany(m => m));
+        return new List<Vec2D>(herds.Values.SelectMany(m => m));
     }
 
-    private static void ParseInput(IList<string> input, out Dictionary<Vector2D, ISet<Vector2D>> herds, out Aabb2D bounds)
+    private static void ParseInput(IList<string> input, out Dictionary<Vec2D, ISet<Vec2D>> herds, out Aabb2D bounds)
     {
         var rows = input.Count;
         var cols = input[0].Length;
 
         bounds = new Aabb2D(xMin: 0, xMax: cols - 1, yMin: 0, yMax: rows - 1);
-        herds = HerdDirections.Values.ToDictionary<Vector2D, Vector2D, ISet<Vector2D>>(
+        herds = HerdDirections.Values.ToDictionary<Vec2D, Vec2D, ISet<Vec2D>>(
             keySelector: d => d,
-            elementSelector: _ => new HashSet<Vector2D>());
+            elementSelector: _ => new HashSet<Vec2D>());
 
         for (var y = 0; y < rows; y++)
         for (var x = 0; x < cols; x++)
         {
             if (HerdDirections.TryGetValue(input[y][x], out var direction))
             {
-                herds[direction].Add(new Vector2D(x, rows - y - 1));
+                herds[direction].Add(new Vec2D(x, rows - y - 1));
             }
         }
     }

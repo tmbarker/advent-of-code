@@ -17,7 +17,7 @@ public sealed class Solution : SolutionBase
         };
     }
     
-    private static HashSet<Vector2D> Simulate(HashSet<Vector2D> positions, int rounds)
+    private static HashSet<Vec2D> Simulate(HashSet<Vec2D> positions, int rounds)
     {
         for (var i = 0; i < rounds; i++)
         {
@@ -27,7 +27,7 @@ public sealed class Solution : SolutionBase
         return positions;
     }
 
-    private static int SimulateToSteadyState(HashSet<Vector2D> positions)
+    private static int SimulateToSteadyState(HashSet<Vec2D> positions)
     {
         var index = 0;
         for (;; index++)
@@ -41,10 +41,10 @@ public sealed class Solution : SolutionBase
         return index + 1;
     }
     
-    private static int Diffuse(HashSet<Vector2D> positions, int roundIndex)
+    private static int Diffuse(HashSet<Vec2D> positions, int roundIndex)
     {
-        var targetsMap = new Dictionary<Vector2D, Vector2D>();
-        var targetsCount = new DefaultDict<Vector2D, int>(defaultValue: 0);
+        var targetsMap = new Dictionary<Vec2D, Vec2D>();
+        var targetsCount = new DefaultDict<Vec2D, int>(defaultValue: 0);
 
         foreach (var actor in positions)
         {
@@ -85,7 +85,7 @@ public sealed class Solution : SolutionBase
         return numMoves;
     }
 
-    private static int EmptyPositionsInBoundingBox(ICollection<Vector2D> positions)
+    private static int EmptyPositionsInBoundingBox(ICollection<Vec2D> positions)
     {
         var aabb = new Aabb2D(extents: positions);
         var emptyCount = aabb.Area - positions.Count;
@@ -93,16 +93,16 @@ public sealed class Solution : SolutionBase
         return (int)emptyCount;
     }
 
-    private static HashSet<Vector2D> ParsePositions(IList<string> input)
+    private static HashSet<Vec2D> ParsePositions(IList<string> input)
     {
-        var set = new HashSet<Vector2D>();
+        var set = new HashSet<Vec2D>();
         
         for (var y = 0; y < input.Count; y++)
         for (var x = 0; x < input[y].Length; x++)
         {
             if (input[input.Count - y - 1][x] == '#')
             {
-                set.Add(new Vector2D(x, y));
+                set.Add(new Vec2D(x, y));
             }
         }
 

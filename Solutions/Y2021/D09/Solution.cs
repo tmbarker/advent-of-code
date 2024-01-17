@@ -34,10 +34,10 @@ public sealed class Solution : SolutionBase
             .Aggregate((i, j) => i * j);
     }
 
-    private static int MeasureBasinSize(Grid2D<int> grid, Vector2D lowPoint)
+    private static int MeasureBasinSize(Grid2D<int> grid, Vec2D lowPoint)
     {
-        var queue = new Queue<Vector2D>();
-        var visited = new HashSet<Vector2D>();
+        var queue = new Queue<Vec2D>();
+        var visited = new HashSet<Vec2D>();
             
         queue.Enqueue(lowPoint);
         visited.Add(lowPoint);
@@ -69,14 +69,14 @@ public sealed class Solution : SolutionBase
         return visited.Count;
     }
     
-    private static IEnumerable<Vector2D> GetLowPoints(Grid2D<int> grid)
+    private static IEnumerable<Vec2D> GetLowPoints(Grid2D<int> grid)
     {
-        var lowPoints = new List<Vector2D>();
+        var lowPoints = new List<Vec2D>();
         
         for (var x = 0; x < grid.Width; x++)
         for (var y = 0; y < grid.Height; y++)
         {
-            var pos = new Vector2D(x, y);
+            var pos = new Vec2D(x, y);
             var height = grid[pos];
             var lowerThanNeighbors = pos
                 .GetAdjacentSet(Metric.Taxicab)

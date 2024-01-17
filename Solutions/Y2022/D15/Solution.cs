@@ -25,8 +25,8 @@ public sealed class Solution : SolutionBase
 
     private static int CountBeaconExcludedPositions(IList<Reporting> reportings)
     {
-        var beaconExcludedPositions = new HashSet<Vector2D>();
-        var occupiedPositions = new HashSet<Vector2D>();
+        var beaconExcludedPositions = new HashSet<Vec2D>();
+        var occupiedPositions = new HashSet<Vec2D>();
         
         foreach (var reporting in reportings)
         {
@@ -45,8 +45,8 @@ public sealed class Solution : SolutionBase
             //  Only sweep the minimum number of positions
             //
             var maxDxInRange = reporting.Range - dy;
-            var sweepStart = new Vector2D(x: reporting.SensorPos.X - maxDxInRange, y: Row);
-            var sweepEnd = new Vector2D(x: reporting.SensorPos.X + maxDxInRange, y: Row);
+            var sweepStart = new Vec2D(x: reporting.SensorPos.X - maxDxInRange, y: Row);
+            var sweepEnd = new Vec2D(x: reporting.SensorPos.X + maxDxInRange, y: Row);
             
             var sweepPos = sweepStart;
             while (sweepPos.X <= sweepEnd.X)
@@ -55,19 +55,19 @@ public sealed class Solution : SolutionBase
                 {
                     beaconExcludedPositions.Add(sweepPos);
                 }
-                sweepPos += Vector2D.Right;
+                sweepPos += Vec2D.Right;
             }
         }
         
         return beaconExcludedPositions.Count;
     }
 
-    private static long CalculateTuningFrequency(Vector2D beaconPos)
+    private static long CalculateTuningFrequency(Vec2D beaconPos)
     {
         return beaconPos.X * TuningFrequencyMultiplier + beaconPos.Y;
     }
     
-    private static Vector2D FindDistressBeacon(IList<Reporting> reportings)
+    private static Vec2D FindDistressBeacon(IList<Reporting> reportings)
     {
         foreach (var r1 in reportings)
         foreach (var pos in GetBoundaryPositionsInSearchArea(r1.SensorPos, r1.Range))
@@ -75,7 +75,7 @@ public sealed class Solution : SolutionBase
             var posInRangeOfSensor = false;
             foreach (var r2 in reportings)
             {
-                if (Vector2D.Distance(r2.SensorPos, pos, Metric.Taxicab) <= r2.Range)
+                if (Vec2D.Distance(r2.SensorPos, pos, Metric.Taxicab) <= r2.Range)
                 {
                     posInRangeOfSensor = true;
                     break;
@@ -91,15 +91,15 @@ public sealed class Solution : SolutionBase
         throw new NoSolutionException();
     }
 
-    private static HashSet<Vector2D> GetBoundaryPositionsInSearchArea(Vector2D sensorPos, int range)
+    private static HashSet<Vec2D> GetBoundaryPositionsInSearchArea(Vec2D sensorPos, int range)
     {
-        var positionSet = new HashSet<Vector2D>();
-        var vertices = new List<Vector2D>
+        var positionSet = new HashSet<Vec2D>();
+        var vertices = new List<Vec2D>
         {
-            sensorPos + (range + 1) * Vector2D.Up,
-            sensorPos + (range + 1) * Vector2D.Right,
-            sensorPos + (range + 1) * Vector2D.Down,
-            sensorPos + (range + 1) * Vector2D.Left
+            sensorPos + (range + 1) * Vec2D.Up,
+            sensorPos + (range + 1) * Vec2D.Right,
+            sensorPos + (range + 1) * Vec2D.Down,
+            sensorPos + (range + 1) * Vec2D.Left
         };
 
         //  Trace a square immediately outside of the sensor range by lerping between the vertices of the smallest
@@ -109,7 +109,7 @@ public sealed class Solution : SolutionBase
         {
             var fromVertex = vertices[i];
             var toVertex = vertices[i + 1];
-            var step = Vector2D.Normalize(toVertex - fromVertex);
+            var step = Vec2D.Normalize(toVertex - fromVertex);
             var current = fromVertex;
             
             while (current != toVertex + step)
@@ -125,7 +125,7 @@ public sealed class Solution : SolutionBase
         return positionSet;
     }
 
-    private static bool IsPositionInSearchArea(Vector2D pos)
+    private static bool IsPositionInSearchArea(Vec2D pos)
     {
         return pos is { X: >= 0, Y: >= 0 } and { X: <= SearchAreaDimension, Y: <= SearchAreaDimension };
     }
@@ -139,7 +139,7 @@ public sealed class Solution : SolutionBase
         var beaconY = numbers[3];
 
         return new Reporting(
-            sensorPos: new Vector2D(sensorX, sensorY),
-            beaconPos: new Vector2D(beaconX, beaconY));
+            sensorPos: new Vec2D(sensorX, sensorY),
+            beaconPos: new Vec2D(beaconX, beaconY));
     }
 }

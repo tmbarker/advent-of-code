@@ -19,13 +19,13 @@ public sealed class Solution : SolutionBase
 
     private int CountConstellations()
     {
-        var points = ParseInputLines(parseFunc: Vector4D.Parse).ToList();
-        var disjointSet = new DisjointSet<Vector4D>();
-        var adjacency = new Dictionary<Vector4D, IEnumerable<Vector4D>>();
+        var points = ParseInputLines(parseFunc: Vec4D.Parse).ToList();
+        var disjointSet = new DisjointSet<Vec4D>();
+        var adjacency = new Dictionary<Vec4D, IEnumerable<Vec4D>>();
         
         foreach (var point in points)
         {
-            adjacency[point] = points.Where(p => Vector4D.Distance(
+            adjacency[point] = points.Where(p => Vec4D.Distance(
                 a: p, 
                 b: point, 
                 metric: Metric.Taxicab) <= 3);

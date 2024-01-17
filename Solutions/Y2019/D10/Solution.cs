@@ -23,13 +23,13 @@ public sealed class Solution : SolutionBase
         };
     }
 
-    private static int FindMaxDetectable(HashSet<Vector2D> asteroids, out Vector2D pos)
+    private static int FindMaxDetectable(HashSet<Vec2D> asteroids, out Vec2D pos)
     {
-        pos = Vector2D.Zero;
+        pos = Vec2D.Zero;
         
         var max = 0;
-        var memo = new Dictionary<Vector2D, Vector2D>();
-        var linesOfSight = new HashSet<Vector2D>();
+        var memo = new Dictionary<Vec2D, Vec2D>();
+        var linesOfSight = new HashSet<Vec2D>();
         
         foreach (var candidate in asteroids)
         {
@@ -39,7 +39,7 @@ public sealed class Solution : SolutionBase
                 var view = other - candidate;
                 if (!memo.ContainsKey(view))
                 {
-                    memo[view] = Vector2D.MinCollinear(view);
+                    memo[view] = Vec2D.MinCollinear(view);
                 }
 
                 linesOfSight.Add(memo[view]);
@@ -57,16 +57,16 @@ public sealed class Solution : SolutionBase
         return max;
     }
 
-    private static int FindNthDestroyed(IEnumerable<Vector2D> asteroids, Vector2D laser, Func<Vector2D, Vector2D> transform)
+    private static int FindNthDestroyed(IEnumerable<Vec2D> asteroids, Vec2D laser, Func<Vec2D, Vec2D> transform)
     {
-        var destroyed = new List<Vector2D>();
+        var destroyed = new List<Vec2D>();
         var others = asteroids.Except(laser).ToHashSet();
 
         var collinearSetsMap = others
-            .GroupBy(asteroid => Vector2D.MinCollinear(asteroid - laser))
+            .GroupBy(asteroid => Vec2D.MinCollinear(asteroid - laser))
             .ToDictionary(g => g.Key, g => BuildDistanceQueue(laser, g));
-        var laserSteps = new Queue<Vector2D>(collinearSetsMap.Keys
-            .OrderBy(v => Vector2D.AngleBetweenDeg(Vector2D.Up, v).Modulo(360)));
+        var laserSteps = new Queue<Vec2D>(collinearSetsMap.Keys
+            .OrderBy(v => Vec2D.AngleBetweenDeg(Vec2D.Up, v).Modulo(360)));
 
         while (destroyed.Count < TargetCount)
         {
@@ -86,27 +86,27 @@ public sealed class Solution : SolutionBase
         return 100 * transformed.X + transformed.Y;
     }
 
-    private static Queue<Vector2D> BuildDistanceQueue(Vector2D from, IEnumerable<Vector2D> to)
+    private static Queue<Vec2D> BuildDistanceQueue(Vec2D from, IEnumerable<Vec2D> to)
     {
-        return new Queue<Vector2D>(to.OrderBy(v => Vector2D.Distance(v, from, Metric.Taxicab)));
+        return new Queue<Vec2D>(to.OrderBy(v => Vec2D.Distance(v, from, Metric.Taxicab)));
     }
     
-    private static HashSet<Vector2D> ParseAsteroids(IList<string> input, out Func<Vector2D, Vector2D> transform)
+    private static HashSet<Vec2D> ParseAsteroids(IList<string> input, out Func<Vec2D, Vec2D> transform)
     {
         var rows = input.Count;
         var cols = input[0].Length;
-        var asteroids = new HashSet<Vector2D>();
+        var asteroids = new HashSet<Vec2D>();
 
         for (var y = 0; y < rows; y++)
         for (var x = 0; x < cols; x++)
         {
             if (input[rows - y - 1][x] == Asteroid)
             {
-                asteroids.Add(new Vector2D(x, y));
+                asteroids.Add(new Vec2D(x, y));
             }
         }
 
-        transform = v => new Vector2D(v.X, rows - 1 - v.Y);
+        transform = v => new Vec2D(v.X, rows - 1 - v.Y);
         return asteroids;
     }
 }

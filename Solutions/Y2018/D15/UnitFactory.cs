@@ -4,7 +4,7 @@ namespace Solutions.Y2018.D15;
 
 public static class UnitFactory
 {
-    public static Unit Build(int id, char team, int dmgBuff, Vector2D pos)
+    public static Unit Build(int id, char team, int dmgBuff, Vec2D pos)
     {
         return new Unit(
             id: id,

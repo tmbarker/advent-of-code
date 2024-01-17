@@ -26,20 +26,20 @@ public sealed class Field
         {Desert, 8}
     };
 
-    private readonly Dictionary<(Vector2D, Vector2D), int> _moveDistances;
+    private readonly Dictionary<(Vec2D, Vec2D), int> _moveDistances;
 
     public Dictionary<char, SideRoom> SideRooms { get; }
-    public Dictionary<Vector2D, HashSet<Vector2D>> AdjacencyList { get; }
-    public IReadOnlySet<Vector2D> WaitingPositions { get; }
+    public Dictionary<Vec2D, HashSet<Vec2D>> AdjacencyList { get; }
+    public IReadOnlySet<Vec2D> WaitingPositions { get; }
 
     public Field(int sideRoomDepth)
     {
-        var allPositions = new List<Vector2D>();
-        var hallwayPositions = new List<Vector2D>();
+        var allPositions = new List<Vec2D>();
+        var hallwayPositions = new List<Vec2D>();
         
         for (var x = 0; x < HallwayLength; x++)
         {
-            var position = new Vector2D(x, sideRoomDepth);
+            var position = new Vec2D(x, sideRoomDepth);
             
             allPositions.Add(position);
             hallwayPositions.Add(position);
@@ -48,17 +48,17 @@ public sealed class Field
         var destinations = new Dictionary<char, SideRoom>();
         foreach (var (actor, abscissa) in SideRoomAbscissas)
         {
-            var positions = new List<Vector2D>();
+            var positions = new List<Vec2D>();
             for (var y = 0; y < sideRoomDepth; y++)
             {
-                positions.Add(new Vector2D(abscissa, y));
+                positions.Add(new Vec2D(abscissa, y));
             }
 
             allPositions.AddRange(positions);
             destinations.Add(actor, new SideRoom(abscissa, sideRoomDepth));
         }
 
-        var adjacencyList = new Dictionary<Vector2D, HashSet<Vector2D>>();
+        var adjacencyList = new Dictionary<Vec2D, HashSet<Vec2D>>();
         foreach (var position in allPositions)
         {
             var adjacencies = position
@@ -74,7 +74,7 @@ public sealed class Field
         WaitingPositions = hallwayPositions.Where(p => !SideRoomAbscissas.ContainsValue(p.X)).ToHashSet();
     }
     
-    public Move FormMove(char actor, Vector2D from, Vector2D to)
+    public Move FormMove(char actor, Vec2D from, Vec2D to)
     {
         return new Move(
             From: from,

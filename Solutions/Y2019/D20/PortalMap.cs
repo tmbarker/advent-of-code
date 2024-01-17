@@ -4,13 +4,13 @@ namespace Solutions.Y2019.D20;
 
 public sealed class PortalMap(IDictionary<PortalKey, List<PortalEntrance>> entranceMap)
 {
-    private readonly IDictionary<Vector2D, EntranceType> _typeMap = BuildTypeMap(entranceMap);
-    private readonly IDictionary<Vector2D, Vector2D> _connectionMap = BuildConnectionMap(entranceMap);
+    private readonly IDictionary<Vec2D, EntranceType> _typeMap = BuildTypeMap(entranceMap);
+    private readonly IDictionary<Vec2D, Vec2D> _connectionMap = BuildConnectionMap(entranceMap);
 
-    public bool TryTakePortal(Vector2D from, out EntranceType entranceType, out Vector2D exit)
+    public bool TryTakePortal(Vec2D from, out EntranceType entranceType, out Vec2D exit)
     {
         entranceType = EntranceType.Inner;
-        exit = Vector2D.Zero;
+        exit = Vec2D.Zero;
 
         if (!_connectionMap.ContainsKey(from))
         {
@@ -23,12 +23,12 @@ public sealed class PortalMap(IDictionary<PortalKey, List<PortalEntrance>> entra
         return true;
     }
     
-    public IEnumerable<Vector2D> GetEntrancePositions(PortalKey key)
+    public IEnumerable<Vec2D> GetEntrancePositions(PortalKey key)
     {
         return entranceMap[key].Select(e => e.Pos);
     }
 
-    private static Dictionary<Vector2D, EntranceType> BuildTypeMap(
+    private static Dictionary<Vec2D, EntranceType> BuildTypeMap(
         IDictionary<PortalKey, List<PortalEntrance>> entranceMap)
     {
         return entranceMap.Values
@@ -36,10 +36,10 @@ public sealed class PortalMap(IDictionary<PortalKey, List<PortalEntrance>> entra
             .ToDictionary(entrance => entrance.Pos, entrance => entrance.Type);
     }
     
-    private static Dictionary<Vector2D, Vector2D> BuildConnectionMap(
+    private static Dictionary<Vec2D, Vec2D> BuildConnectionMap(
         IDictionary<PortalKey, List<PortalEntrance>> entranceMap)
     {
-        var map = new Dictionary<Vector2D, Vector2D>();
+        var map = new Dictionary<Vec2D, Vec2D>();
         foreach (var pair in entranceMap.Values.Where(c => c.Count == 2))
         {
             var n1 = pair.First();

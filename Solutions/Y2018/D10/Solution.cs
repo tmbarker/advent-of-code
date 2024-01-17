@@ -47,14 +47,14 @@ public sealed class Solution : SolutionBase
             message.Append('\n');
             for (var x = 0; x < alignedAabb.Width; x++)
             {
-                message.Append(alignedPos.Contains(new Vector2D(x, y)) ? '#' : '.');
+                message.Append(alignedPos.Contains(new Vec2D(x, y)) ? '#' : '.');
             }
         }
 
         return (message.ToString(), time);
     }
 
-    private static void StepForwards(IList<Vector2D> pos, IList<Vector2D> vel)
+    private static void StepForwards(IList<Vec2D> pos, IList<Vec2D> vel)
     {
         for (var i = 0; i < pos.Count; i++)
         {
@@ -62,7 +62,7 @@ public sealed class Solution : SolutionBase
         }
     }
     
-    private static void StepBackwards(IList<Vector2D> pos, IList<Vector2D> vel)
+    private static void StepBackwards(IList<Vec2D> pos, IList<Vec2D> vel)
     {
         for (var i = 0; i < pos.Count; i++)
         {
@@ -70,21 +70,21 @@ public sealed class Solution : SolutionBase
         }
     }
 
-    private (Vector2D[] Pos, Vector2D[] Vel) GetInitialPoses()
+    private (Vec2D[] Pos, Vec2D[] Vel) GetInitialPoses()
     {
         var input = GetInputLines();
         var count = input.Length;
         
-        var pos = new Vector2D[count];
-        var vel = new Vector2D[count];
+        var pos = new Vec2D[count];
+        var vel = new Vec2D[count];
 
         for (var i = 0; i < count; i++)
         {
             var numbers = input[i].ParseInts();
-            pos[i] = new Vector2D(
+            pos[i] = new Vec2D(
                 x: numbers[0],
                 y: numbers[1]);
-            vel[i] = new Vector2D(
+            vel[i] = new Vec2D(
                 x: numbers[2],
                 y: numbers[3]);
         }

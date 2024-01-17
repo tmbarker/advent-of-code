@@ -3,15 +3,15 @@ using Utilities.Geometry.Euclidean;
 
 namespace Solutions.Y2016.D22;
 
-public readonly struct State(Vector2D targetData, ICollection<Vector2D> emptyNodes) : IEquatable<State>
+public readonly struct State(Vec2D targetData, ICollection<Vec2D> emptyNodes) : IEquatable<State>
 {
     private static readonly PosComparer PosComparer = new();
     private readonly string _key = BuildKey(targetData, emptyNodes);
     
-    public Vector2D TargetData { get; } = targetData;
-    public HashSet<Vector2D> EmptyNodes { get; } = emptyNodes.ToHashSet();
+    public Vec2D TargetData { get; } = targetData;
+    public HashSet<Vec2D> EmptyNodes { get; } = emptyNodes.ToHashSet();
 
-    public State AfterDataMove(Vector2D from, Vector2D to)
+    public State AfterDataMove(Vec2D from, Vec2D to)
     {
         var resultingEmpty = EmptyNodes
             .Except(to)
@@ -23,7 +23,7 @@ public readonly struct State(Vector2D targetData, ICollection<Vector2D> emptyNod
             emptyNodes: resultingEmpty);
     }
     
-    private static string BuildKey(Vector2D targetData, IEnumerable<Vector2D> emptyNodes)
+    private static string BuildKey(Vec2D targetData, IEnumerable<Vec2D> emptyNodes)
     {
         var ordered = emptyNodes.Order(PosComparer);
         return $"<target data: {targetData}><empty nodes: {string.Join(string.Empty, ordered)}>";

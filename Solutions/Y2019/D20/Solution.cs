@@ -4,7 +4,7 @@ using Utilities.Geometry.Euclidean;
 namespace Solutions.Y2019.D20;
 
 using Maze = Grid2D<char>;
-using AdjacencyList = Dictionary<Vector2D, HashSet<Vector2D>>;
+using AdjacencyList = Dictionary<Vec2D, HashSet<Vec2D>>;
 
 [PuzzleInfo("Donut Maze", Topics.Graphs, Difficulty.Hard, favourite: true)]
 public sealed class Solution : SolutionBase
@@ -123,7 +123,7 @@ public sealed class Solution : SolutionBase
     private static PortalMap BuildPortalMap(Maze maze)
     {
         var entrances = new DefaultDict<PortalKey, List<PortalEntrance>>(defaultSelector: _ => []);
-        var directions = new HashSet<Vector2D> { Vector2D.Down, Vector2D.Right };
+        var directions = new HashSet<Vec2D> { Vec2D.Down, Vec2D.Right };
 
         foreach (var pos in maze)
         {
@@ -157,7 +157,7 @@ public sealed class Solution : SolutionBase
         return new PortalMap(entrances);
     }
     
-    private static bool PositionValid(Maze maze, Vector2D pos)
+    private static bool PositionValid(Maze maze, Vec2D pos)
     {
         return maze.Contains(pos) && maze[pos] == Traversable;
     }

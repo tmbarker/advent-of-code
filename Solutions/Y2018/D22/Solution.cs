@@ -24,7 +24,7 @@ public sealed class Solution : SolutionBase
         };
     }
 
-    private static long SumAreaRisks(Cave cave, Vector2D min, Vector2D max)
+    private static long SumAreaRisks(Cave cave, Vec2D min, Vec2D max)
     {
         var aabb = new Aabb2D(min, max);
         var regions = aabb.Select(pos => cave[pos].Type);
@@ -94,7 +94,7 @@ public sealed class Solution : SolutionBase
     {
         return new Scan(
             Depth: input[0].ParseInt(),
-            Mouth: Vector2D.Zero,
-            Target: Vector2D.Parse(input[1]));
+            Mouth: Vec2D.Zero,
+            Target: Vec2D.Parse(input[1]));
     }
 }

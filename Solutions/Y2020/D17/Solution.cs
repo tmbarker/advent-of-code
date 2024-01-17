@@ -20,7 +20,7 @@ public sealed class Solution : SolutionBase
 
     private static int Cycle3D(IList<string> input, int cycles)
     {
-        var active = ParseInitial(input, (x, y) => new Vector3D(x, y, z: 0));
+        var active = ParseInitial(input, (x, y) => new Vec3D(x, y, z: 0));
         for (var i = 0; i < cycles; i++)
         {
             active = Cycle3D(active);
@@ -31,7 +31,7 @@ public sealed class Solution : SolutionBase
     
     private static int Cycle4D(IList<string> input, int cycles)
     {
-        var active = ParseInitial(input, (x, y) => new Vector4D(x, y, z: 0, w: 0));
+        var active = ParseInitial(input, (x, y) => new Vec4D(x, y, z: 0, w: 0));
         for (var i = 0; i < cycles; i++)
         {
             active = Cycle4D(active);
@@ -40,9 +40,9 @@ public sealed class Solution : SolutionBase
         return active.Count;
     }
 
-    private static ISet<Vector3D> Cycle3D(ICollection<Vector3D> active)
+    private static ISet<Vec3D> Cycle3D(ICollection<Vec3D> active)
     {
-        var nextActive = new HashSet<Vector3D>();
+        var nextActive = new HashSet<Vec3D>();
         foreach (var pos in new Aabb3D(active, inclusive: false))
         {
             var activeAdjCount = pos
@@ -54,9 +54,9 @@ public sealed class Solution : SolutionBase
         return nextActive;
     }
     
-    private static ISet<Vector4D> Cycle4D(ICollection<Vector4D> active)
+    private static ISet<Vec4D> Cycle4D(ICollection<Vec4D> active)
     {
-        var nextActive = new HashSet<Vector4D>();
+        var nextActive = new HashSet<Vec4D>();
         foreach (var pos in new Aabb4D(active, inclusive: false))
         {
             var activeAdjCount = pos

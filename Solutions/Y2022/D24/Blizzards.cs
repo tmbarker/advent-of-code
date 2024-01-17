@@ -2,13 +2,13 @@ using Utilities.Geometry.Euclidean;
 
 namespace Solutions.Y2022.D24;
 
-public readonly struct Blizzard(Vector2D pos, Vector2D vel, Vector2D respawnAt)
+public readonly struct Blizzard(Vec2D pos, Vec2D vel, Vec2D respawnAt)
 {
-    private Vector2D Vel { get; } = vel;
+    private Vec2D Vel { get; } = vel;
     
-    public Vector2D Pos { get; } = pos;
-    public Vector2D RespawnAt { get; } = respawnAt;
-    public Vector2D Ahead => Pos + Vel;
+    public Vec2D Pos { get; } = pos;
+    public Vec2D RespawnAt { get; } = respawnAt;
+    public Vec2D Ahead => Pos + Vel;
     
     public Blizzard Step()
     {

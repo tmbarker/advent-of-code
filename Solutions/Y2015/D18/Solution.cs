@@ -22,18 +22,18 @@ public sealed class Solution : SolutionBase
         var cols = input[0].Length;
         
         var aabb = new Aabb2D(
-            min: new Vector2D(x: 0, y: 0),
-            max: new Vector2D(x: cols - 1, y: rows - 1));
+            min: new Vec2D(x: 0, y: 0),
+            max: new Vec2D(x: cols - 1, y: rows - 1));
         
-        var on = new HashSet<Vector2D>();
-        var next = new HashSet<Vector2D>();
+        var on = new HashSet<Vec2D>();
+        var next = new HashSet<Vec2D>();
 
         for (var y = 0; y < rows; y++)
         for (var x = 0; x < cols; x++)
         {
             if (input[rows - y - 1][x] == '#')
             {
-                on.Add(new Vector2D(x, y));
+                on.Add(new Vec2D(x, y));
             }
         }
 
@@ -67,11 +67,11 @@ public sealed class Solution : SolutionBase
         return on.Count;
     }
 
-    private static void SetCorners(ISet<Vector2D> on, int rows, int cols)
+    private static void SetCorners(ISet<Vec2D> on, int rows, int cols)
     {
-        on.Add(new Vector2D(x: 0, y: 0));
-        on.Add(new Vector2D(x: 0, y: rows - 1));
-        on.Add(new Vector2D(x: cols - 1, y: rows - 1));
-        on.Add(new Vector2D(x: cols - 1, y: 0));
+        on.Add(new Vec2D(x: 0, y: 0));
+        on.Add(new Vec2D(x: 0, y: rows - 1));
+        on.Add(new Vec2D(x: cols - 1, y: rows - 1));
+        on.Add(new Vec2D(x: cols - 1, y: 0));
     }
 }

@@ -28,7 +28,7 @@ public sealed class Solution : SolutionBase
     {
         var pose = new Pose2D(
             pos: FindStartPos(board),
-            face: Vector2D.Right);
+            face: Vec2D.Right);
 
         pose = instructions.Aggregate(
             seed: pose,
@@ -49,7 +49,7 @@ public sealed class Solution : SolutionBase
             }
         }
 
-        return pose.Turn(instr.Rotation);
+        return pose.Turn(instr.Rot);
     }
 
     private static bool TryMove2D(Pose2D pose, Grid2D<Square> board, out Pose2D result)
@@ -111,14 +111,14 @@ public sealed class Solution : SolutionBase
         return MapData.RowFactor * row + MapData.ColFactor * col + MapData.FacingOffset[pose.Face];
     }
     
-    private static Vector2D FindStartPos(Grid2D<Square> board)
+    private static Vec2D FindStartPos(Grid2D<Square> board)
     {
         for (var y = board.Height - 1; y >= 0; y--)
         for (var x = 0; x < board.Width; x++)
         {
             if (board[x, y] == Square.Free)
             {
-                return new Vector2D(x, y);
+                return new Vec2D(x, y);
             }
         }
 

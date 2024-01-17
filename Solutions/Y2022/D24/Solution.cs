@@ -6,12 +6,12 @@ namespace Solutions.Y2022.D24;
 [PuzzleInfo("Blizzard Basin", Topics.Vectors|Topics.Simulation, Difficulty.Medium)]
 public sealed class Solution : SolutionBase
 {
-    private static readonly Dictionary<char, Vector2D> VelMap = new()
+    private static readonly Dictionary<char, Vec2D> VelMap = new()
     {
-        {'^', Vector2D.Up},
-        {'v', Vector2D.Down},
-        {'<', Vector2D.Left},
-        {'>', Vector2D.Right}
+        {'^', Vec2D.Up},
+        {'v', Vec2D.Down},
+        {'<', Vec2D.Left},
+        {'>', Vec2D.Right}
     };
 
     public override object Run(int part)
@@ -30,7 +30,7 @@ public sealed class Solution : SolutionBase
         };
     }
 
-    private static int Navigate(Vector2D start, Vector2D end, Storm storm)
+    private static int Navigate(Vec2D start, Vec2D end, Storm storm)
     {
         var sum = 0;
         sum += Traverse(start, end, storm);
@@ -39,10 +39,10 @@ public sealed class Solution : SolutionBase
         return sum;
     }
     
-    private static int Traverse(Vector2D start, Vector2D end, Storm storm)
+    private static int Traverse(Vec2D start, Vec2D end, Storm storm)
     {
         var t = 0;
-        var heads = new HashSet<Vector2D>(collection: [start]);
+        var heads = new HashSet<Vec2D>(collection: [start]);
 
         while (heads.Count > 0)
         {
@@ -71,12 +71,12 @@ public sealed class Solution : SolutionBase
     }
     
     private static void ParseInput(IList<string> input,
-        out Vector2D start, 
-        out Vector2D end, 
+        out Vec2D start, 
+        out Vec2D end, 
         out Storm storm)
     {
-        start = new Vector2D(x: input[0].IndexOf(Terrain.Void),  y: input.Count - 1);
-        end =   new Vector2D(x: input[^1].IndexOf(Terrain.Void), y: 0);
+        start = new Vec2D(x: input[0].IndexOf(Terrain.Void),  y: input.Count - 1);
+        end =   new Vec2D(x: input[^1].IndexOf(Terrain.Void), y: 0);
         
         var field = Grid2D<char>.MapChars(input);
         var blizzards = new List<Blizzard>();
@@ -89,7 +89,7 @@ public sealed class Solution : SolutionBase
                 continue;
             }
 
-            var pos = new Vector2D(x, y);
+            var pos = new Vec2D(x, y);
             field[x, y] = Terrain.Void;
             blizzards.Add(item: new Blizzard(
                 pos: pos,
@@ -100,7 +100,7 @@ public sealed class Solution : SolutionBase
         storm = new Storm(field, blizzards);
     }
 
-    private static Vector2D CalculateRespawnPos(Vector2D pos, Vector2D vel, Grid2D<char> field)
+    private static Vec2D CalculateRespawnPos(Vec2D pos, Vec2D vel, Grid2D<char> field)
     {
         var target = pos;
         while (field[target] != Terrain.Wall)

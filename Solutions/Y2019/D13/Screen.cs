@@ -4,7 +4,7 @@ namespace Solutions.Y2019.D13;
 
 public sealed class Screen
 {
-    private static readonly Vector2D ScoreKey = new(-1, 0);
+    private static readonly Vec2D ScoreKey = new(-1, 0);
     private static readonly Dictionary<long, GameObject> GobCodes = new()
     {
         { 0L, GameObject.Empty },
@@ -14,11 +14,11 @@ public sealed class Screen
         { 4L, GameObject.Ball }
     };
 
-    private readonly Dictionary<Vector2D, GameObject> _pixels = new();
+    private readonly Dictionary<Vec2D, GameObject> _pixels = new();
 
     public long Score { get; private set; }
-    public Vector2D Ball { get; private set; } = Vector2D.Zero;
-    public Vector2D Paddle { get; private set; } = Vector2D.Zero;
+    public Vec2D Ball { get; private set; } = Vec2D.Zero;
+    public Vec2D Paddle { get; private set; } = Vec2D.Zero;
 
     public Screen(Queue<long> machineOutput)
     {
@@ -40,7 +40,7 @@ public sealed class Screen
 
     private void ParsePixel(Queue<long> machineOutput)
     {
-        var pos = new Vector2D(
+        var pos = new Vec2D(
             x: (int)machineOutput.Dequeue(),
             y: (int)machineOutput.Dequeue());
 

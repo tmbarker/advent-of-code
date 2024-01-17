@@ -24,7 +24,7 @@ public sealed class Solution : SolutionBase
 
     private static int CountVisibleTrees(Grid2D<int> trees)
     {
-        var visibleSet = new HashSet<Vector2D>();
+        var visibleSet = new HashSet<Vec2D>();
         var linesOfSight = GetLinesOfSight(trees);
 
         foreach (var lineOfSight in linesOfSight)
@@ -35,16 +35,16 @@ public sealed class Solution : SolutionBase
         return visibleSet.Count;
     }
 
-    private static List<IEnumerable<Vector2D>> GetLinesOfSight(Grid2D<int> trees)
+    private static List<IEnumerable<Vec2D>> GetLinesOfSight(Grid2D<int> trees)
     {
-        var los = new List<IEnumerable<Vector2D>>();
+        var los = new List<IEnumerable<Vec2D>>();
         
         // Horizontal
         //
         for (var y = 0; y < trees.Height; y++)
         {
             var row = y;
-            var positions = Enumerable.Range(start: 0, count: trees.Width).Select(x => new Vector2D(x, y: row));
+            var positions = Enumerable.Range(start: 0, count: trees.Width).Select(x => new Vec2D(x, y: row));
             var enumerated = positions.ToArray();
             
             los.Add(enumerated);
@@ -56,7 +56,7 @@ public sealed class Solution : SolutionBase
         for (var x = 0; x < trees.Width; x++)
         {
             var col = x;
-            var positions = Enumerable.Range(start: 0, count: trees.Height).Select(y => new Vector2D(x: col, y));
+            var positions = Enumerable.Range(start: 0, count: trees.Height).Select(y => new Vec2D(x: col, y));
             var enumerated = positions.ToArray();
             
             los.Add(enumerated);
@@ -66,7 +66,7 @@ public sealed class Solution : SolutionBase
         return los;
     }
     
-    private static void EvaluateLineOfSight(Grid2D<int> trees, IEnumerable<Vector2D> positions, ISet<Vector2D> visible)
+    private static void EvaluateLineOfSight(Grid2D<int> trees, IEnumerable<Vec2D> positions, ISet<Vec2D> visible)
     {
         var max = MinHeight - 1;
         foreach (var position in positions)
@@ -94,26 +94,26 @@ public sealed class Solution : SolutionBase
         for (var j = 1; j < trees.Height - 1; j++)
         for (var i = 1; i < trees.Width - 1; i++)
         {
-            maxScore = Math.Max(maxScore, GetScenicScore(trees, new Vector2D(i, j)));
+            maxScore = Math.Max(maxScore, GetScenicScore(trees, new Vec2D(i, j)));
         }
 
         return maxScore;
     }
     
-    private static int GetScenicScore(Grid2D<int> trees, Vector2D position)
+    private static int GetScenicScore(Grid2D<int> trees, Vec2D position)
     {
         return 
-            GetViewingDistance(trees, position, Vector2D.Up) *
-            GetViewingDistance(trees, position, Vector2D.Down) *
-            GetViewingDistance(trees, position, Vector2D.Left) *
-            GetViewingDistance(trees, position, Vector2D.Right);
+            GetViewingDistance(trees, position, Vec2D.Up) *
+            GetViewingDistance(trees, position, Vec2D.Down) *
+            GetViewingDistance(trees, position, Vec2D.Left) *
+            GetViewingDistance(trees, position, Vec2D.Right);
     }
 
-    private static int GetViewingDistance(Grid2D<int> trees, Vector2D position, Vector2D viewingVector)
+    private static int GetViewingDistance(Grid2D<int> trees, Vec2D position, Vec2D viewingVec)
     {
         var viewingDistance = 0;
         var viewingHeight = trees[position];
-        var nextPosition = position + viewingVector;
+        var nextPosition = position + viewingVec;
 
         while (trees.Contains(nextPosition))
         {
@@ -125,7 +125,7 @@ public sealed class Solution : SolutionBase
                 break;
             }
 
-            nextPosition += viewingVector;
+            nextPosition += viewingVec;
         }
 
         return viewingDistance;

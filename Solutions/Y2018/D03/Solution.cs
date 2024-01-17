@@ -22,7 +22,7 @@ public sealed class Solution : SolutionBase
 
     private static int CountClaimOverlaps(IEnumerable<Aabb2D> claimAabbs)
     {
-        var map = new DefaultDict<Vector2D, int>(defaultValue: 0);
+        var map = new DefaultDict<Vec2D, int>(defaultValue: 0);
         
         foreach (var aabb in claimAabbs)
         foreach (var position in aabb)

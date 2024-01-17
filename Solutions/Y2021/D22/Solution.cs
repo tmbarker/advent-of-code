@@ -20,10 +20,10 @@ public sealed class Solution : SolutionBase
 
     private static int Init(IEnumerable<(bool On, Aabb3D Aabb)> instructions)
     {
-        var onSet = new HashSet<Vector3D>();
+        var onSet = new HashSet<Vec3D>();
         var initRegion = new Aabb3D(
-            min: Vector3D.Zero - 50 * Vector3D.One,
-            max: Vector3D.Zero + 50 * Vector3D.One);
+            min: Vec3D.Zero - 50 * Vec3D.One,
+            max: Vec3D.Zero + 50 * Vec3D.One);
 
         foreach (var step in instructions)
         {
