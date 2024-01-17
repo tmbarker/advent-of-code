@@ -96,22 +96,20 @@ Puzzle | My Solution | Date | Topic(s) | Difficulty
 1. From your terminal, using the .NET CLI
 ```bash
 cd Aoc
-dotnet run set-session <session cookie>
-dotnet run solve <year> <day>
+dotnet run solve <year> <day> --input <path to input>
 ```
 
 2. From a `.cs` file, using reflective `SolutionRunner`:
 ```cs
 using Automation.Runner;
 
-SolutionRunner.SetUserSession(userSession: <session cookie>);
-SolutionRunner.Run(year: <year>, day: <day>);
+SolutionRunner.Run(year: <year>, day: <day>, inputPath: <path to input>);
 ```
 3. From a `.cs` file, directly instantiating a given `Solution`:
 ```cs
 using Solutions.Y<year>.D<day>;
 
-var solution = new Solution() { InputPath = <input file path> };
+var solution = new Solution { InputPath = <path to input> };
 var p1 = solution.Run(part: 1);
 var p2 = solution.Run(part: 2);
 ```
