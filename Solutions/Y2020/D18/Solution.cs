@@ -49,7 +49,7 @@ public sealed class Solution : SolutionBase
 
     private static long EvaluateTokenStacks(Stack<char> operators, Stack<long> literals)
     {
-        while (operators.Any())
+        while (operators.Count != 0)
         {
             literals.Push(Operators.Delegates[operators.Pop()](
                 lhs: literals.Pop(),
@@ -60,7 +60,7 @@ public sealed class Solution : SolutionBase
 
     private static void HandleOperatorToken(char token, Stack<char> operators, Stack<long> literals, Precedences precedences)
     {
-        while (operators.Any() && precedences[operators.Peek()] <= precedences[token])
+        while (operators.Count != 0 && precedences[operators.Peek()] <= precedences[token])
         {
             literals.Push(Operators.Delegates[operators.Pop()](
                 lhs: literals.Pop(),

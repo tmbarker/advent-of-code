@@ -3,7 +3,7 @@ using System.Collections;
 namespace Utilities.Geometry.Euclidean;
 
 /// <summary>
-/// A readonly 4D AABB value type
+///     A readonly 4D AABB value type
 /// </summary>
 public readonly record struct Aabb4D : IEnumerable<Vec4D>
 {
@@ -18,7 +18,7 @@ public readonly record struct Aabb4D : IEnumerable<Vec4D>
         Min = new Vec4D(xMin, yMin, zMin, wMin);
         Max = new Vec4D(xMax, yMax, zMax, wMax);
     }
-    
+
     public Aabb4D(ICollection<Vec4D> extents, bool inclusive)
     {
         var delta = inclusive ? 0 : 1;
@@ -33,11 +33,11 @@ public readonly record struct Aabb4D : IEnumerable<Vec4D>
             z: extents.Max(p => p.Z) + delta,
             w: extents.Max(p => p.W) + delta);
     }
-    
+
     public Vec4D Min { get; }
     public Vec4D Max { get; }
-    
-    public static bool Overlap(Aabb4D a, Aabb4D b, out  Aabb4D overlap)
+
+    public static bool Overlap(Aabb4D a, Aabb4D b, out Aabb4D overlap)
     {
         var hasOverlap =
             a.Max.X >= b.Min.X && a.Min.X <= b.Max.X &&
@@ -50,7 +50,7 @@ public readonly record struct Aabb4D : IEnumerable<Vec4D>
             overlap = default;
             return false;
         }
-        
+
         overlap = new Aabb4D(
             xMin: int.Max(a.Min.X, b.Min.X),
             xMax: int.Min(a.Max.X, b.Max.X),
@@ -62,23 +62,23 @@ public readonly record struct Aabb4D : IEnumerable<Vec4D>
             wMax: int.Min(a.Max.W, b.Max.W));
         return true;
     }
-    
+
     public bool Contains(Vec4D pos, bool inclusive)
     {
         return inclusive
             ? ContainsInclusive(pos)
             : ContainsExclusive(pos);
     }
-    
+
     private bool ContainsInclusive(Vec4D pos)
     {
-        return 
-            pos.X >= Min.X && pos.X <= Max.X && 
-            pos.Y >= Min.Y && pos.Y <= Max.Y && 
+        return
+            pos.X >= Min.X && pos.X <= Max.X &&
+            pos.Y >= Min.Y && pos.Y <= Max.Y &&
             pos.Z >= Min.Z && pos.Z <= Max.Z &&
             pos.W >= Min.W && pos.W <= Max.W;
     }
-    
+
     private bool ContainsExclusive(Vec4D pos)
     {
         return
@@ -92,7 +92,7 @@ public readonly record struct Aabb4D : IEnumerable<Vec4D>
     {
         return $"[X={Min.X}..{Max.X}, Y={Min.Y}..{Max.Y}, Z={Min.Z}..{Max.Z}, W={Min.W}..{Max.W}]";
     }
-    
+
     public IEnumerator<Vec4D> GetEnumerator()
     {
         for (var x = Min.X; x <= Max.X; x++)

@@ -16,7 +16,7 @@ public sealed class Md5Provider
     {
         var bytes = Encoding.UTF8.GetBytes(input);
         var hash = _hashProvider.ComputeHash(bytes);
-        
+
         return Convert.ToHexString(hash).ToLower();
     }
 }

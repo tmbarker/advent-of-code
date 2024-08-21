@@ -5,27 +5,32 @@ using System.Text;
 namespace Utilities.Geometry.Euclidean;
 
 /// <summary>
-/// A 2D grid data structure providing (X,Y) style indexing
+///     A 2D grid data structure providing (X,Y) style indexing
 /// </summary>
 /// <typeparam name="T">The type associated with the value at each grid position</typeparam>
 public sealed partial class Grid2D<T> : IEnumerable<Vec2D>
 {
     /// <summary>
-    /// The internal backing array, which is indexed from the bottom left.
-    /// <para />When <see cref="_origin"/> is set to <see cref="Origin.Xy"/> the position argument of "Get" and "Set"
-    /// queries will match the array index, e.g. <see cref="Vec2D"/>.<see cref="Vec2D.Zero"/> will index the
-    /// bottom left element from the array (i.e. <see cref="_array"/>[0, 0]).
-    /// <para />Accordingly, when <see cref="_origin"/> is set to <see cref="Origin.Uv"/> then
-    /// <see cref="Vec2D"/>.<see cref="Vec2D.Zero"/> will index the top left element from the array.
+    ///     The internal backing array, which is indexed from the bottom left.
+    ///     <para />
+    ///     When <see cref="_origin" /> is set to <see cref="Origin.Xy" /> the position argument of "Get" and "Set"
+    ///     queries will match the array index, e.g. <see cref="Vec2D" />.<see cref="Vec2D.Zero" /> will index the
+    ///     bottom left element from the array (i.e. <see cref="_array" />[0, 0]).
+    ///     <para />
+    ///     Accordingly, when <see cref="_origin" /> is set to <see cref="Origin.Uv" /> then
+    ///     <see cref="Vec2D" />.<see cref="Vec2D.Zero" /> will index the top left element from the array.
     /// </summary>
     private T[,] _array;
+
     private readonly Origin _origin;
-    
+
     /// <summary>
-    /// Internal constructor
+    ///     Internal constructor
     /// </summary>
-    /// <param name="array">The 2D array which will back the Grid instance, it should be populated such that the bottom
-    /// left element of the <see cref="Grid2D{T}"/> is indexed at [0,0] when using the <see cref="Origin.Xy"/> origin</param>
+    /// <param name="array">
+    ///     The 2D array which will back the Grid instance, it should be populated such that the bottom
+    ///     left element of the <see cref="Grid2D{T}" /> is indexed at [0,0] when using the <see cref="Origin.Xy" /> origin
+    /// </param>
     /// <param name="origin">Which origin to use</param>
     private Grid2D(T[,] array, Origin origin)
     {
@@ -34,16 +39,17 @@ public sealed partial class Grid2D<T> : IEnumerable<Vec2D>
     }
 
     /// <summary>
-    /// The number of columns in the <see cref="Grid2D{T}"/> instance
+    ///     The number of columns in the <see cref="Grid2D{T}" /> instance
     /// </summary>
     public int Width => _array.GetLength(dimension: 1);
+
     /// <summary>
-    /// The number of rows in the <see cref="Grid2D{T}"/> instance
+    ///     The number of rows in the <see cref="Grid2D{T}" /> instance
     /// </summary>
     public int Height => _array.GetLength(dimension: 0);
 
     /// <summary>
-    /// Index the element at position (<paramref name="x"/>, <paramref name="y"/>)
+    ///     Index the element at position (<paramref name="x" />, <paramref name="y" />)
     /// </summary>
     /// <param name="x">The column index</param>
     /// <param name="y">The row index</param>
@@ -54,7 +60,7 @@ public sealed partial class Grid2D<T> : IEnumerable<Vec2D>
     }
 
     /// <summary>
-    /// Index the element at <paramref name="position"/>
+    ///     Index the element at <paramref name="position" />
     /// </summary>
     /// <param name="position">The position to index</param>
     public T this[Vec2D position]
@@ -64,19 +70,19 @@ public sealed partial class Grid2D<T> : IEnumerable<Vec2D>
     }
 
     /// <summary>
-    /// Check if a position is within the bounds of the <see cref="Grid2D{T}"/> instance
+    ///     Check if a position is within the bounds of the <see cref="Grid2D{T}" /> instance
     /// </summary>
     /// <param name="position">The position to check</param>
-    /// <returns>A Boolean representing if the position is within the bounds of the <see cref="Grid2D{T}"/></returns>
+    /// <returns>A Boolean representing if the position is within the bounds of the <see cref="Grid2D{T}" /></returns>
     public bool Contains(Vec2D position)
     {
         return
             position.X >= 0 && position.X < Width &&
             position.Y >= 0 && position.Y < Height;
     }
-    
+
     /// <summary>
-    /// Print the <see cref="Grid2D{T}"/> instance contents to the console
+    ///     Print the <see cref="Grid2D{T}" /> instance contents to the console
     /// </summary>
     public void Print(Func<Vec2D, T, string>? elementFormatter = null, int padding = 0)
     {
@@ -84,21 +90,21 @@ public sealed partial class Grid2D<T> : IEnumerable<Vec2D>
     }
 
     /// <summary>
-    /// Generate a representative string of the <see cref="Grid2D{T}"/> instance based on its current contents
+    ///     Generate a representative string of the <see cref="Grid2D{T}" /> instance based on its current contents
     /// </summary>
     public string BuildRepresentativeString(Func<Vec2D, T, string>? elementFormatter = null, int padding = 0,
         string? prepend = null)
     {
         var sb = new StringBuilder();
-        var paddingStr = padding > 0 
-            ? new string(c: ' ', padding) 
+        var paddingStr = padding > 0
+            ? new string(c: ' ', padding)
             : string.Empty;
 
         if (!string.IsNullOrEmpty(prepend))
         {
             sb.Append(prepend);
         }
-        
+
         for (var r = Height - 1; r >= 0; r--)
         {
             for (var c = 0; c < Width; c++)
@@ -106,21 +112,22 @@ public sealed partial class Grid2D<T> : IEnumerable<Vec2D>
                 var element = _array[r, c];
                 var (x, y) = ArrayIndicesToXy(r, c);
                 var pos = new Vec2D(x, y);
-                
+
                 var elementString = elementFormatter != null
                     ? elementFormatter(pos, element)
                     : element?.ToString();
-                    
+
                 sb.Append($"{elementString}{paddingStr}");
             }
+
             sb.Append('\n');
         }
 
         return sb.ToString();
     }
-    
+
     /// <summary>
-    /// Extract a row from the grid
+    ///     Extract a row from the grid
     /// </summary>
     /// <param name="rowIndex">The 0-based row index</param>
     /// <returns>The elements of the row, starting with the 0-index column element</returns>
@@ -131,9 +138,9 @@ public sealed partial class Grid2D<T> : IEnumerable<Vec2D>
             yield return GetElementInternal(x, y: rowIndex);
         }
     }
-    
+
     /// <summary>
-    /// Extract a column from the grid
+    ///     Extract a column from the grid
     /// </summary>
     /// <param name="colIndex">The 0-based column index</param>
     /// <returns>The elements of the column, starting with the 0-index row element</returns>
@@ -150,7 +157,7 @@ public sealed partial class Grid2D<T> : IEnumerable<Vec2D>
         var (row, col) = XyToArrayIndices(x, y);
         return _array[row, col];
     }
-    
+
     private void SetElementInternal(int x, int y, T value)
     {
         var (row, col) = XyToArrayIndices(x, y);
@@ -158,7 +165,7 @@ public sealed partial class Grid2D<T> : IEnumerable<Vec2D>
     }
 
     /// <summary>
-    /// Convert the abstracted XY position of a grid element to indices of the backing array
+    ///     Convert the abstracted XY position of a grid element to indices of the backing array
     /// </summary>
     /// <param name="x">The X component of the abstracted grid element position</param>
     /// <param name="y">The y component of the abstracted grid element position</param>
@@ -171,9 +178,9 @@ public sealed partial class Grid2D<T> : IEnumerable<Vec2D>
 
         return (row, col);
     }
-    
+
     /// <summary>
-    /// Convert backing array indices to the corresponding abstracted XY position of a grid element
+    ///     Convert backing array indices to the corresponding abstracted XY position of a grid element
     /// </summary>
     /// <param name="row">The row index in the backing array</param>
     /// <param name="col">The col index in the backing array</param>
@@ -186,12 +193,12 @@ public sealed partial class Grid2D<T> : IEnumerable<Vec2D>
 
         return (x, y);
     }
-    
+
     IEnumerator IEnumerable.GetEnumerator()
     {
         return GetEnumerator();
     }
-    
+
     public IEnumerator<Vec2D> GetEnumerator()
     {
         for (var y = 0; y < Height; y++)

@@ -3,7 +3,7 @@ namespace Utilities.Graph;
 public static class GraphHelper
 {
     /// <summary>
-    /// Execute the Floyd-Warshall algorithm to find the shortest path from each vertex to all other vertices
+    ///     Execute the Floyd-Warshall algorithm to find the shortest path from each vertex to all other vertices
     /// </summary>
     public static Dictionary<(T, T), int> FloydWarshallUnweighted<T>(
         IDictionary<T, HashSet<T>> adjacencyList) where T : notnull
@@ -11,7 +11,7 @@ public static class GraphHelper
         const int inf = int.MaxValue / 2 - 1;
         var vertices = adjacencyList.Keys;
         var costs = vertices.ToDictionary(vertex => (vertex, vertex), _ => 0);
-        
+
         foreach (var i in vertices)
         {
             var adjacencies = adjacencyList[i];
@@ -20,7 +20,7 @@ public static class GraphHelper
                 costs.Add((i, j), adjacencies.Contains(j) ? 1 : inf);
             }
         }
-        
+
         foreach (var k in vertices)
         foreach (var i in vertices)
         foreach (var j in vertices)
@@ -33,10 +33,10 @@ public static class GraphHelper
 
         return costs;
     }
-    
+
     /// <summary>
-    /// Execute Dijkstra's algorithm to find the shortest path from the <paramref name="start"/> vertex to all
-    /// other vertices
+    ///     Execute Dijkstra's algorithm to find the shortest path from the <paramref name="start" /> vertex to all
+    ///     other vertices
     /// </summary>
     public static Dictionary<T, int> DijkstraUnweighted<T>(T start,
         IDictionary<T, HashSet<T>> adjacencyList) where T : notnull
@@ -46,12 +46,12 @@ public static class GraphHelper
             adjacencyList: adjacencyList,
             stopPredicate: null);
     }
-    
+
     /// <summary>
-    /// Execute Dijkstra's algorithm to find the shortest path from the <paramref name="start"/> vertex to
-    /// the <paramref name="end"/> vertex
+    ///     Execute Dijkstra's algorithm to find the shortest path from the <paramref name="start" /> vertex to
+    ///     the <paramref name="end" /> vertex
     /// </summary>
-    public static int DijkstraUnweighted<T>(T start, T end, 
+    public static int DijkstraUnweighted<T>(T start, T end,
         IDictionary<T, HashSet<T>> adjacencyList) where T : notnull
     {
         var costs = DijkstraUnweighted(
@@ -78,7 +78,7 @@ public static class GraphHelper
             {
                 break;
             }
-            
+
             foreach (var neighbor in adjacencyList[current])
             {
                 if (costs[current] + 1 < costs[neighbor])

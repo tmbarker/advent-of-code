@@ -3,20 +3,21 @@ using Utilities.Graph;
 namespace Utilities.Language.ContextFree;
 
 /// <summary>
-/// A parser which executes the Cocke-Younger-Kasami (CYK) recognition algorithm
+///     A parser which executes the Cocke-Younger-Kasami (CYK) recognition algorithm
 /// </summary>
 public class CykParser
 {
     private readonly Grammar _grammar;
     private readonly Production[] _units;
     private readonly Production[] _bins;
-    
+
     /// <summary>
-    /// Instantiate a <see cref="CykParser"/> specific to the provided CNF <paramref name="grammar"/>.
+    ///     Instantiate a <see cref="CykParser" /> specific to the provided CNF <paramref name="grammar" />.
     /// </summary>
-    /// <param name="grammar">A CNF <see cref="Grammar"/> instance</param>
-    /// <exception cref="ArgumentException">The specified <paramref name="grammar"/> must be in Chomsky Normal
-    /// Form (CNF)
+    /// <param name="grammar">A CNF <see cref="Grammar" /> instance</param>
+    /// <exception cref="ArgumentException">
+    ///     The specified <paramref name="grammar" /> must be in Chomsky Normal
+    ///     Form (CNF)
     /// </exception>
     public CykParser(Grammar grammar)
     {
@@ -31,9 +32,9 @@ public class CykParser
         _units = grammar.Productions.Where(p => Grammar.IsUnitTerminal(p, grammar.Terminals)).ToArray();
         _bins = grammar.Productions.Where(p => Grammar.IsBinaryNonTerminal(p, grammar.NonTerminals)).ToArray();
     }
-    
+
     /// <summary>
-    /// Execute the Cocke-Younger-Kasami (CYK) algorithm to attempt to parse the input using the provided grammar
+    ///     Execute the Cocke-Younger-Kasami (CYK) algorithm to attempt to parse the input using the provided grammar
     /// </summary>
     /// <param name="sentence">The input to attempt to parse</param>
     /// <returns>A boolean representing if the input is recognized as part of the grammar</returns>
@@ -46,7 +47,7 @@ public class CykParser
     }
 
     /// <summary>
-    /// Execute the Cocke-Younger-Kasami (CYK) algorithm to attempt to parse the input using the provided grammar
+    ///     Execute the Cocke-Younger-Kasami (CYK) algorithm to attempt to parse the input using the provided grammar
     /// </summary>
     /// <param name="sentence">The input to attempt to parse</param>
     /// <param name="parseTree">A tree representing a single valid parse if the input is recognized</param>
@@ -60,20 +61,22 @@ public class CykParser
     }
 
     /// <summary>
-    /// Execute the Cocke-Younger-Kasami (CYK) algorithm to attempt to parse the input using the provided grammar
+    ///     Execute the Cocke-Younger-Kasami (CYK) algorithm to attempt to parse the input using the provided grammar
     /// </summary>
     /// <param name="sentence">The input to attempt to parse</param>
     /// <param name="buildParseTree">Attempt to build a parse parseTreeRoot when set</param>
-    /// <param name="parseTree">A tree representing a single valid parse if the input is recognized
-    /// and <paramref name="buildParseTree"/> is set</param>
+    /// <param name="parseTree">
+    ///     A tree representing a single valid parse if the input is recognized
+    ///     and <paramref name="buildParseTree" /> is set
+    /// </param>
     /// <returns>A boolean representing if the input is recognized as part of the grammar</returns>
-    private bool RecognizeInternal(IReadOnlyList<string> sentence, 
+    private bool RecognizeInternal(IReadOnlyList<string> sentence,
         bool buildParseTree,
         out BinaryTree<string>? parseTree)
     {
         var n = sentence.Count;
         var table = new CykTable();
-        
+
         for (var s = 0; s < n; s++)
         {
             foreach (var unit in _units)
@@ -82,12 +85,12 @@ public class CykParser
                 {
                     table.P[(1, s, unit.NonTerminal)] = true;
                 }
-            }   
+            }
         }
 
-        for (var l = 2; l <= n; l++)        // Length of span
-        for (var s = 0; s <= n - l; s++)    // Start of span
-        for (var p = 1; p < l; p++)         // Partition of span
+        for (var l = 2; l <= n; l++) // Length of span
+        for (var s = 0; s <= n - l; s++) // Start of span
+        for (var p = 1; p < l; p++) // Partition of span
         {
             foreach (var bin in _bins)
             {
@@ -105,20 +108,20 @@ public class CykParser
         parseTree = recognize && buildParseTree
             ? new BinaryTree<string>(root: BuildParseTree(nt: _grammar.Start, s: 0, l: n, t: table, i: sentence))
             : null;
-        
+
         return recognize;
     }
-    
+
     /// <summary>
-    /// Build a single valid parse parse tree.
+    ///     Build a single valid parse parse tree.
     /// </summary>
     /// <param name="nt">The non-terminal to parse</param>
     /// <param name="s">The substring start position</param>
     /// <param name="l">The substring length</param>
-    /// <param name="t">The populated <see cref="CykTable"/></param>
+    /// <param name="t">The populated <see cref="CykTable" /></param>
     /// <param name="i">The input sentence</param>
     /// <returns>A valid parse tree</returns>
-    private static BinaryTreeNode<string> BuildParseTree(string nt, int s, int l, CykTable t, IReadOnlyList<string> i) 
+    private static BinaryTreeNode<string> BuildParseTree(string nt, int s, int l, CykTable t, IReadOnlyList<string> i)
     {
         var node = new BinaryTreeNode<string>(value: nt);
         if (l == 1)

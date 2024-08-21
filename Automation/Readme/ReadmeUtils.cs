@@ -9,7 +9,7 @@ public static class ReadmeUtils
     {
         UpdateFavouritePuzzlesSection();
     }
-    
+
     private static void UpdateFavouritePuzzlesSection()
     {
         if (!ResolveReadmeFilepath(out var readmeFilepath))
@@ -21,13 +21,13 @@ public static class ReadmeUtils
         var readmeLines = File
             .ReadAllLines(readmeFilepath)
             .ToList();
-        
+
         FavouriteTableBuilder.Run(readmeLines);
         File.WriteAllLines(readmeFilepath, readmeLines);
 
         Log($"{ReadmeFilename} updated", ConsoleColor.Green);
     }
-    
+
     private static bool ResolveReadmeFilepath(out string filepath)
     {
         var directory = new DirectoryInfo(AppDomain.CurrentDomain.BaseDirectory);
@@ -38,19 +38,19 @@ public static class ReadmeUtils
                 .Select(f => f.FullName)
                 .ToList();
 
-            if (candidates.Any())
+            if (candidates.Count != 0)
             {
                 filepath = candidates.First();
                 return true;
             }
-            
+
             directory = directory.Parent;
         }
 
         filepath = string.Empty;
         return false;
     }
-    
+
     private static void Log(string log, ConsoleColor consoleColor)
     {
         Console.ForegroundColor = consoleColor;

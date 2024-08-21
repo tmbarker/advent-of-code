@@ -4,9 +4,9 @@ using JetBrains.Annotations;
 namespace Utilities.Collections;
 
 /// <summary>
-/// Represents a collection of keys and values. Querying a value using a key which is not in the collection
-/// returns a default value. This default value can be static, or generated using a delegate specified during
-/// construction.
+///     Represents a collection of keys and values. Querying a value using a key which is not in the collection
+///     returns a default value. This default value can be static, or generated using a delegate specified during
+///     construction.
 /// </summary>
 /// <typeparam name="TKey">The type of the keys in the dictionary</typeparam>
 /// <typeparam name="TValue">The type of the values in the dictionary</typeparam>
@@ -19,7 +19,7 @@ public sealed class DefaultDict<TKey, TValue>(Func<TKey, TValue> defaultSelector
     public int Count => _dictionary.Count;
     public ICollection<TKey> Keys => _dictionary.Keys;
     public ICollection<TValue> Values => _dictionary.Values;
-    
+
     [CollectionAccess(CollectionAccessType.UpdatedContent)]
     public TValue this[TKey key]
     {
@@ -43,17 +43,17 @@ public sealed class DefaultDict<TKey, TValue>(Func<TKey, TValue> defaultSelector
     {
         _dictionary.Add(key, value);
     }
-    
+
     public void Add(KeyValuePair<TKey, TValue> item)
     {
         _dictionary[item.Key] = item.Value;
     }
-    
+
     public bool Remove(TKey key)
     {
         return _dictionary.Remove(key);
     }
-    
+
     public bool Remove(KeyValuePair<TKey, TValue> item)
     {
         return _dictionary.Remove(item.Key);
@@ -63,10 +63,10 @@ public sealed class DefaultDict<TKey, TValue>(Func<TKey, TValue> defaultSelector
     {
         return _dictionary.ContainsKey(key);
     }
-    
+
     public bool Contains(KeyValuePair<TKey, TValue> item)
     {
-        return _dictionary.Contains(item);
+        return _dictionary.TryGetValue(item.Key, out var value) && Equals(value, item.Value);
     }
 
     public bool TryGetValue(TKey key, out TValue value)
@@ -74,7 +74,7 @@ public sealed class DefaultDict<TKey, TValue>(Func<TKey, TValue> defaultSelector
         value = this[key];
         return true;
     }
-    
+
     public void Clear()
     {
         _dictionary.Clear();
@@ -84,7 +84,7 @@ public sealed class DefaultDict<TKey, TValue>(Func<TKey, TValue> defaultSelector
     {
         ((ICollection<KeyValuePair<TKey, TValue>>)_dictionary).CopyTo(array, arrayIndex);
     }
-    
+
     public IEnumerator<KeyValuePair<TKey, TValue>> GetEnumerator()
     {
         return _dictionary.GetEnumerator();
@@ -105,7 +105,7 @@ public sealed class DefaultDict<TKey, TValue>(Func<TKey, TValue> defaultSelector
         _dictionary[key] = defaultSelector.Invoke(key);
         return _dictionary[key];
     }
-    
+
     IEnumerator IEnumerable.GetEnumerator()
     {
         return ((IEnumerable)_dictionary).GetEnumerator();

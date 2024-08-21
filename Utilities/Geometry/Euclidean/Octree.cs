@@ -1,20 +1,20 @@
 namespace Utilities.Geometry.Euclidean;
 
 /// <summary>
-/// An Octree utility exposing <see cref="Subdivide"/>
+///     An Octree utility exposing <see cref="Subdivide" />
 /// </summary>
 public static class Octree
 {
     /// <summary>
-    /// Subdivide the provided <see cref="Aabb3D"/> into octants
+    ///     Subdivide the provided <see cref="Aabb3D" /> into octants
     /// </summary>
     public static IEnumerable<Aabb3D> Subdivide(Aabb3D aabb)
-    { 
+    {
         // TOP: C D
         //      A B
         // BOT: G H
         //      E F  
-        
+
         var set = new HashSet<Aabb3D>();
         var x1 = aabb.XLength is 1 or 2 ? aabb.Min.X : aabb.Min.X + aabb.XLength / 2;
         var x2 = aabb.XLength is 1 or 2 ? aabb.Max.X : aabb.Min.X + aabb.XLength / 2 + 1;
@@ -31,7 +31,7 @@ public static class Octree
             yMax: aabb.Max.Y,
             zMin: aabb.Min.Z,
             zMax: z1));
-        
+
         // B
         set.Add(new Aabb3D(
             xMin: x2,
@@ -40,7 +40,7 @@ public static class Octree
             yMax: aabb.Max.Y,
             zMin: aabb.Min.Z,
             zMax: z1));
-        
+
         // C
         set.Add(new Aabb3D(
             xMin: aabb.Min.X,
@@ -49,7 +49,7 @@ public static class Octree
             yMax: aabb.Max.Y,
             zMin: z2,
             zMax: aabb.Max.Z));
-        
+
         // D
         set.Add(new Aabb3D(
             xMin: x2,
@@ -58,7 +58,7 @@ public static class Octree
             yMax: aabb.Max.Y,
             zMin: z2,
             zMax: aabb.Max.Z));
-        
+
         // E
         set.Add(new Aabb3D(
             xMin: aabb.Min.X,
@@ -67,7 +67,7 @@ public static class Octree
             yMax: y1,
             zMin: aabb.Min.Z,
             zMax: z1));
-        
+
         // F
         set.Add(new Aabb3D(
             xMin: x2,
@@ -76,7 +76,7 @@ public static class Octree
             yMax: y1,
             zMin: aabb.Min.Z,
             zMax: z1));
-        
+
         // G
         set.Add(new Aabb3D(
             xMin: aabb.Min.X,
@@ -85,7 +85,7 @@ public static class Octree
             yMax: y1,
             zMin: z2,
             zMax: aabb.Max.Z));
-        
+
         // H
         set.Add(new Aabb3D(
             xMin: x2,

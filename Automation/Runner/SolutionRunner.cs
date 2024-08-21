@@ -7,7 +7,7 @@ using Solutions.Common;
 namespace Automation.Runner;
 
 /// <summary>
-/// A reflective utility class for running puzzle solutions
+///     A reflective utility class for running puzzle solutions
 /// </summary>
 public static class SolutionRunner
 {
@@ -16,16 +16,19 @@ public static class SolutionRunner
     private const string UserSessionEnvVar = "aoc_user_session";
 
     /// <summary>
-    /// Instantiate the puzzle solution associated with the specified <paramref name="year"/> and
-    /// <paramref name="day"/>. If the input file path is not provided, try to get it from the cache, downloading
-    /// first if necessary. Next, run and log the puzzle solution.
+    ///     Instantiate the puzzle solution associated with the specified <paramref name="year"/> and
+    ///     <paramref name="day"/>. If the input file path is not provided, try to get it from the cache, downloading
+    ///     first if necessary. Next, run and log the puzzle solution.
     /// </summary>
     /// <param name="year">The year associated with the puzzle</param>
     /// <param name="day">The day associated with the puzzle</param>
-    /// <param name="inputPath">Used to manually specify the input file path, if unset the <see cref="SolutionRunner"/>
-    /// will attempt to get the input from the cache</param>
-    /// <param name="showLogs">Some solutions emit logs as they run, when set they will be printed to the
-    /// console</param>
+    /// <param name="inputPath">
+    ///     Used to manually specify the input file path, if unset the <see cref="SolutionRunner"/>
+    ///     will attempt to get the input from the cache
+    /// </param>
+    /// <param name="showLogs">
+    ///     Some solutions emit logs as they run, when set they will be printed to the console
+    /// </param>
     public static async Task Run(int year, int day, string inputPath = "", bool showLogs = false)
     {
         if (!TryCreateSolutionInstance(year, day, out var solution))

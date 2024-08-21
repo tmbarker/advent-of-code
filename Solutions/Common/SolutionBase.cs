@@ -7,18 +7,18 @@ using JetBrains.Annotations;
 namespace Solutions.Common;
 
 [UsedImplicitly(ImplicitUseTargetFlags.Default | ImplicitUseTargetFlags.WithInheritors)]
-public abstract class SolutionBase 
+public abstract class SolutionBase
 {
     public const string DayStringFormat = "{0:D2}";
     public const string ProblemNotSolvedString = "Problem not solved!";
-    
+
     public virtual int Parts => 2;
-    
+
     public bool LogsEnabled { get; set; }
     public string InputPath { get; set; } = string.Empty;
 
     /// <summary>
-    /// Run the specified Solution <paramref name="part"/>
+    ///     Run the specified Solution <paramref name="part" />
     /// </summary>
     /// <param name="part">The one-based solution part</param>
     /// <returns>The solution part result</returns>
@@ -26,12 +26,9 @@ public abstract class SolutionBase
 
     protected void Log(string log)
     {
-        if (LogsEnabled)
-        {
-            Console.WriteLine(log);
-        }
+        if (LogsEnabled) Console.WriteLine(log);
     }
-    
+
     protected string[] GetInputLines()
     {
         AssertInputExists();
@@ -53,7 +50,7 @@ public abstract class SolutionBase
     {
         Debug.Assert(condition: InputFileExists(), message: $"Input file does not exist [{InputPath}]");
     }
-    
+
     private bool InputFileExists()
     {
         return File.Exists(InputPath);

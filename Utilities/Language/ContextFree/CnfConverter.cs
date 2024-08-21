@@ -4,13 +4,13 @@ using System.Text.RegularExpressions;
 namespace Utilities.Language.ContextFree;
 
 /// <summary>
-/// A CNF converter exposing <see cref="Convert"/>
+///     A CNF converter exposing <see cref="Convert" />
 /// </summary>
-[SuppressMessage(category:"ReSharper", checkId:"InconsistentNaming")]
+[SuppressMessage(category: "ReSharper", checkId: "InconsistentNaming")]
 public static class CnfConverter
 {
     /// <summary>
-    /// An ordered set of transforms to convert any CFG to CNF
+    ///     An ordered set of transforms to convert any CFG to CNF
     /// </summary>
     private static readonly List<Func<Grammar, Grammar>> _orderedTransforms =
     [
@@ -19,26 +19,26 @@ public static class CnfConverter
         BIN,
         UNIT
     ];
-    
+
     /// <summary>
-    /// Convert a Context Free <see cref="Grammar"/> to Chomsky Normal Form (CNF)
+    ///     Convert a Context Free <see cref="Grammar" /> to Chomsky Normal Form (CNF)
     /// </summary>
-    /// <param name="original">The <see cref="Grammar"/> to convert</param>
-    /// <returns>A <see cref="Grammar"/> instance, where all <see cref="Production"/> rules are in CNF</returns>
+    /// <param name="original">The <see cref="Grammar" /> to convert</param>
+    /// <returns>A <see cref="Grammar" /> instance, where all <see cref="Production" /> rules are in CNF</returns>
     public static Grammar Convert(Grammar original)
     {
         if (original.IsInCnf)
         {
             return original;
         }
-        
+
         return _orderedTransforms.Aggregate(
             seed: original,
             func: (grammar, transform) => transform.Invoke(grammar));
     }
 
     /// <summary>
-    /// Eliminate the start symbol from the right-hand sides
+    ///     Eliminate the start symbol from the right-hand sides
     /// </summary>
     private static Grammar START(Grammar g)
     {
@@ -54,9 +54,9 @@ public static class CnfConverter
             start: s0,
             productions: g.Productions.Prepend(p0));
     }
-    
+
     /// <summary>
-    /// Eliminate productions with non-solitary terminals
+    ///     Eliminate productions with non-solitary terminals
     /// </summary>
     private static Grammar TERM(Grammar g)
     {
@@ -70,7 +70,7 @@ public static class CnfConverter
         {
             var nonTerminal = nonSolitaryProduction.NonTerminal;
             var newYieldedSymbols = new List<string>();
-            
+
             foreach (var symbol in nonSolitaryProduction.Yields)
             {
                 if (g.NonTerminals.Contains(symbol))
@@ -83,7 +83,7 @@ public static class CnfConverter
                 var newUnitProduction = new Production(
                     nonTerminal: newNonTerminal,
                     yields: symbol);
-                
+
                 newProductions.Add(newUnitProduction);
                 newNonTerminals.Add(newNonTerminal);
                 newYieldedSymbols.Add(newNonTerminal);
@@ -94,14 +94,14 @@ public static class CnfConverter
                 nonTerminal: nonTerminal,
                 yields: newYieldedSymbols));
         }
-        
+
         return new Grammar(
-            start: g.Start, 
+            start: g.Start,
             productions: newProductions);
     }
-    
+
     /// <summary>
-    /// Eliminate right-hand sides with more than 2 non-terminals
+    ///     Eliminate right-hand sides with more than 2 non-terminals
     /// </summary>
     private static Grammar BIN(Grammar g)
     {
@@ -110,13 +110,13 @@ public static class CnfConverter
         var supraBinaries = g.Productions
             .Where(p => Grammar.IsSupraBinaryNonTerminal(p, g.NonTerminals))
             .ToHashSet();
-        
+
         foreach (var initialProduction in supraBinaries)
         {
             var currentNonTerminal = initialProduction.NonTerminal;
             var nonTerminalSequence = initialProduction.Yields;
             var count = nonTerminalSequence.Count;
-            
+
             for (var i = 0; i < count - 2; i++)
             {
                 var newNonTerminal = GetNewNonTerminal(
@@ -133,19 +133,19 @@ public static class CnfConverter
 
             var endProduction = new Production(
                 nonTerminal: currentNonTerminal,
-                yields: [nonTerminalSequence[count - 2], nonTerminalSequence[count - 1]]); 
-            
+                yields: [nonTerminalSequence[count - 2], nonTerminalSequence[count - 1]]);
+
             newProductions.Add(endProduction);
             newProductions.Remove(initialProduction);
         }
 
         return new Grammar(
-            start: g.Start, 
+            start: g.Start,
             productions: newProductions);
     }
-    
+
     /// <summary>
-    /// Eliminate unit productions
+    ///     Eliminate unit productions
     /// </summary>
     private static Grammar UNIT(Grammar g)
     {
@@ -153,7 +153,7 @@ public static class CnfConverter
         var unitProductions = newProductions
             .Where(p => Grammar.IsUnitNonTerminal(p, g.NonTerminals))
             .ToHashSet();
-        
+
         while (unitProductions.Count != 0)
         {
             foreach (var unitProduction in unitProductions)
@@ -162,22 +162,22 @@ public static class CnfConverter
                 var associatedProductions = newProductions
                     .Where(p => p.NonTerminal == yieldedNonTerminal)
                     .ToHashSet();
-                
+
                 newProductions.Remove(unitProduction);
                 newProductions.AddRange(associatedProductions.Select(associate =>
                     new Production(nonTerminal: unitProduction.NonTerminal, yields: associate.Yields)));
             }
-            
+
             unitProductions = newProductions
                 .Where(p => Grammar.IsUnitNonTerminal(p, g.NonTerminals))
                 .ToHashSet();
         }
-        
+
         return new Grammar(
             start: g.Start,
             productions: newProductions);
     }
-    
+
     private static string GetNewNonTerminal(string prefix, IReadOnlySet<string> nonTerminals)
     {
         //  Try to prevent unnecessarily appending digits to non-terminals which are already of the form ABC123
@@ -187,7 +187,7 @@ public static class CnfConverter
         {
             prefix = match.Groups["prefix"].Value;
         }
-        
+
         var suffix = 0;
         var nonTerminal = $"{prefix}{suffix}";
 

@@ -6,17 +6,23 @@ namespace Solutions.Y2021.D19;
 public sealed class Solution : SolutionBase
 {
     private const int IntersectionThreshold = 12;
-    
-    private static readonly IReadOnlySet<ScannerTransform> ScannerTransforms = new HashSet<ScannerTransform>
-    {
-        new(Rot3D.Zero,         Rot3D.RotationsAroundAxis(Axis.X)), // +x -> +x
-        new(Rot3D.P180Y, Rot3D.RotationsAroundAxis(Axis.X)), // +x -> -x
-        new(Rot3D.P90Y,  Rot3D.RotationsAroundAxis(Axis.Z)), // +x -> +z
-        new(Rot3D.N90Y,  Rot3D.RotationsAroundAxis(Axis.Z)), // +x -> -z
-        new(Rot3D.P90Z,  Rot3D.RotationsAroundAxis(Axis.Y)), // +x -> +y
-        new(Rot3D.N90Z,  Rot3D.RotationsAroundAxis(Axis.Y))  // +x -> -y
-    };
 
+    private static readonly List<(Rot3D r1, Rot3D r2)> TransformPermutations;
+    private static readonly ScannerTransform[] ScannerTransforms =
+    [
+        new ScannerTransform(Rot3D.Zero,  Rot3D.RotationsAroundAxis(Axis.X)), // +x -> +x
+        new ScannerTransform(Rot3D.P180Y, Rot3D.RotationsAroundAxis(Axis.X)), // +x -> -x
+        new ScannerTransform(Rot3D.P90Y,  Rot3D.RotationsAroundAxis(Axis.Z)), // +x -> +z
+        new ScannerTransform(Rot3D.N90Y,  Rot3D.RotationsAroundAxis(Axis.Z)), // +x -> -z
+        new ScannerTransform(Rot3D.P90Z,  Rot3D.RotationsAroundAxis(Axis.Y)), // +x -> +y
+        new ScannerTransform(Rot3D.N90Z,  Rot3D.RotationsAroundAxis(Axis.Y))  // +x -> -y
+    ];
+
+    static Solution()
+    {
+        TransformPermutations = EvaluateTransformPermutations();
+    }
+    
     public override object Run(int part)
     {
         var reportings = Report.Parse(GetInputLines());
@@ -46,7 +52,7 @@ public sealed class Solution : SolutionBase
                 unmatchedReportings.RemoveAt(i);
             }
 
-            if (unmatchedReportings.Any())
+            if (unmatchedReportings.Count != 0)
             {
                 i = ++i % unmatchedReportings.Count;
             }
@@ -64,7 +70,7 @@ public sealed class Solution : SolutionBase
                 continue;
             }
             
-            foreach (var (r1, r2) in GetTransformations())
+            foreach (var (r1, r2) in TransformPermutations)
             {
                 var transformedPositions = TransformPositions(reporting.Beacons, r1, r2);
                 if (!TryFindOffset(knownBeacons, transformedPositions, out var offset))
@@ -88,16 +94,17 @@ public sealed class Solution : SolutionBase
 
     private static bool TryFindOffset(ISet<Vec3D> known, IList<Vec3D> reported, out Vec3D offset)
     {
+        int matched;
+        
         foreach (var knownPos in known)
+        foreach (var reportedPos in reported)
         {
-            foreach (var reportedPos in reported)
+            offset = knownPos - reportedPos;
+            matched = 0;
+            
+            for (var i = 0; i < reported.Count; i++)
             {
-                offset = knownPos - reportedPos;
-                
-                var offsetNoClosure = offset;
-                var shifted = reported.Select(p => p + offsetNoClosure);
-
-                if (known.Intersect(shifted).Count() >= IntersectionThreshold)
+                if (known.Contains(reported[i] + offset) && ++matched >= IntersectionThreshold)
                 {
                     return true;
                 }
@@ -108,12 +115,14 @@ public sealed class Solution : SolutionBase
         return false;
     }
 
-    private static IEnumerable<(Rot3D r1, Rot3D r2)> GetTransformations()
+    private static List<(Rot3D r1, Rot3D r2)> EvaluateTransformPermutations()
     {
-        return ScannerTransforms.SelectMany(transform => transform.GetRotations());
+        return ScannerTransforms
+            .SelectMany(transform => transform.GetRotations())
+            .ToList();
     }
 
-    private static IList<Vec3D> TransformPositions(IEnumerable<Vec3D> pos, Rot3D r1, Rot3D r2)
+    private static List<Vec3D> TransformPositions(IEnumerable<Vec3D> pos, Rot3D r1, Rot3D r2)
     {
         return pos.Select(p => r2 * (r1 * p)).ToList();
     }

@@ -24,22 +24,22 @@ public static class StringExtensions
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static int ParseInt(this string s) => ParseNumber<int>(s);
-    
+
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static long ParseLong(this string s) => ParseNumber<long>(s);
-    
+
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static int[] ParseInts(this string s) => ParseNumbers<int>(s);
-    
+
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static IList<long> ParseLongs(this string s) => ParseNumbers<long>(s);
-    
+
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static int AsDigit(this char c)
     {
         return c - '0';
     }
-    
+
     public static string RemoveWhitespace(this string str)
     {
         return WhitespaceRegex.Replace(input: str, replacement: string.Empty);

@@ -1,8 +1,9 @@
 namespace Utilities.Graph;
 
 /// <summary>
-/// A utility class for printing <see cref="BinaryTreeNode{T}"/>s to the console. Printing a <see cref="BinaryTree{T}"/>
-/// <see cref="BinaryTree{T}.Root"/> node will print the entire tree.
+///     A utility class for printing <see cref="BinaryTreeNode{T}" />'s to the console. Printing a
+///     <see cref="BinaryTree{T}" />
+///     <see cref="BinaryTree{T}.Root" /> node will print the entire tree.
 /// </summary>
 public static class BinaryTreePrinter
 {
@@ -11,19 +12,20 @@ public static class BinaryTreePrinter
         public required BinaryTreeNode<TNode> LogicalNode { get; init; }
         public required string Text { get; init; }
         public int StartPos { get; set; }
-        public int EndPos 
-        { 
+
+        public int EndPos
+        {
             get => StartPos + Text.Length;
             set => StartPos = value - Text.Length;
         }
-        
+
         public VisualNodeInfo<TNode>? Parent { get; set; }
         public VisualNodeInfo<TNode>? Left { get; set; }
         public VisualNodeInfo<TNode>? Right { get; set; }
     }
-    
+
     /// <summary>
-    /// Print the <see cref="BinaryTreeNode{T}"/> and it's children to the console.
+    ///     Print the <see cref="BinaryTreeNode{T}" /> and it's children to the console.
     /// </summary>
     /// <param name="root">The node to start printing from</param>
     /// <param name="formatter">When not specified nodes are printed using the default ToString implementation</param>
@@ -36,7 +38,7 @@ public static class BinaryTreePrinter
         var rootTop = Console.CursorTop + topMargin;
         var last = new List<VisualNodeInfo<TNode>>();
         var next = root;
-        
+
         for (var level = 0; next != null; level++)
         {
             var item = new VisualNodeInfo<TNode>
@@ -44,7 +46,7 @@ public static class BinaryTreePrinter
                 LogicalNode = next,
                 Text = formatter?.Invoke(next.Value) ?? next.Value?.ToString() ?? "null"
             };
-            
+
             if (level < last.Count)
             {
                 item.StartPos = last[level].EndPos + spacing;
@@ -55,6 +57,7 @@ public static class BinaryTreePrinter
                 item.StartPos = leftMargin;
                 last.Add(item);
             }
+
             if (level > 0)
             {
                 item.Parent = last[level - 1];
@@ -69,6 +72,7 @@ public static class BinaryTreePrinter
                     item.StartPos = Math.Max(item.StartPos, item.Parent.EndPos + 1);
                 }
             }
+
             next = next.Left ?? next.Right;
             for (; next == null; item = item.Parent)
             {
@@ -79,11 +83,13 @@ public static class BinaryTreePrinter
                     Print(s: "/", top + 1, item.Left.EndPos);
                     Print(s: "_", top, item.Left.EndPos + 1, item.StartPos);
                 }
+
                 if (item.Right != null)
                 {
                     Print(s: "_", top, item.EndPos, item.Right.StartPos - 1);
                     Print(s: "\\", top + 1, item.Right.StartPos - 1);
                 }
+
                 if (--level < 0) break;
                 if (item == item.Parent!.Left)
                 {
@@ -94,7 +100,7 @@ public static class BinaryTreePrinter
                 {
                     if (item.Parent.Left == null)
                     {
-                        item.Parent.EndPos = item.StartPos - 1;    
+                        item.Parent.EndPos = item.StartPos - 1;
                     }
                     else
                     {
@@ -106,16 +112,16 @@ public static class BinaryTreePrinter
 
         Console.SetCursorPosition(left: 0, top: rootTop + 2 * last.Count - 1);
     }
-    
+
     private static void Print(string s, int top, int left, int right = -1)
     {
         Console.SetCursorPosition(left, top);
-        
+
         if (right < 0)
         {
             right = left + s.Length;
         }
-        
+
         while (Console.CursorLeft < right)
         {
             Console.Write(s);

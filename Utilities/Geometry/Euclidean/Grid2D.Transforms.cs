@@ -6,10 +6,10 @@ namespace Utilities.Geometry.Euclidean;
 public sealed partial class Grid2D<T>
 {
     /// <summary>
-    /// Flip the grid about the specified axis.
+    ///     Flip the grid about the specified axis.
     /// </summary>
     /// <param name="about">The axis about which to flip the grid</param>
-    /// <exception cref="ArgumentOutOfRangeException"><see cref="Axis.X"/> and <see cref="Axis.Y"/> axes only</exception>
+    /// <exception cref="ArgumentOutOfRangeException"><see cref="Axis.X" /> and <see cref="Axis.Y" /> axes only</exception>
     public void Flip(Axis about)
     {
         _array = about switch
@@ -19,9 +19,9 @@ public sealed partial class Grid2D<T>
             _ => throw ThrowHelper.InvalidFlipAxis(about)
         };
     }
-    
+
     /// <summary>
-    /// Rotate the grid by the given argument.
+    ///     Rotate the grid by the given argument.
     /// </summary>
     /// <param name="deg">The integral number of degrees to rotate the grid</param>
     public void Rotate(int deg)
@@ -43,9 +43,9 @@ public sealed partial class Grid2D<T>
                 throw ThrowHelper.InvalidRotationAmount(deg);
         }
     }
-    
+
     /// <summary>
-    /// Rotate the array 180 degrees.
+    ///     Rotate the array 180 degrees.
     /// </summary>
     private void Rotate180()
     {
@@ -70,33 +70,33 @@ public sealed partial class Grid2D<T>
     }
 
     /// <summary>
-    /// Rotate the array +90 degrees (CCW).
+    ///     Rotate the array +90 degrees (CCW).
     /// </summary>
     private void RotatePositive90()
     {
-        _array = Height == Width 
-            ? TransposeInPlace(src: _array) 
+        _array = Height == Width
+            ? TransposeInPlace(src: _array)
             : TransposeToArray(src: _array);
         _array = FlipHorizontal(arr: _array);
     }
-    
+
     /// <summary>
-    /// Rotate the array -90 degrees (CW).
+    ///     Rotate the array -90 degrees (CW).
     /// </summary>
     private void RotateNegative90()
     {
-        _array = Height == Width 
-            ? TransposeInPlace(src: _array) 
+        _array = Height == Width
+            ? TransposeInPlace(src: _array)
             : TransposeToArray(src: _array);
         _array = FlipVertical(arr: _array);
     }
 
     /// <summary>
-    /// Transpose the <paramref name="src"/> array in place, must be square.
+    ///     Transpose the <paramref name="src" /> array in place, must be square.
     /// </summary>
     private static T[,] TransposeInPlace(T[,] src)
     {
-        for (var i = 0; i < src.GetLength(dimension:0); i++)
+        for (var i = 0; i < src.GetLength(dimension: 0); i++)
         for (var j = 0; j < i; j++)
         {
             SwapElements(arr: src, r1: i, c1: j, r2: j, c2: i);
@@ -104,17 +104,17 @@ public sealed partial class Grid2D<T>
 
         return src;
     }
-    
+
     /// <summary>
-    /// Transpose the source array into a newly allocated destination array. If the source array is square
-    /// invoke <see cref="TransposeInPlace"/> isntead to avoid an unnecessary array allocation.
+    ///     Transpose the source array into a newly allocated destination array. If the source array is square
+    ///     invoke <see cref="TransposeInPlace" /> isntead to avoid an unnecessary array allocation.
     /// </summary>
     private static T[,] TransposeToArray(T[,] src)
     {
         var rows = src.GetLength(dimension: 0);
         var cols = src.GetLength(dimension: 1);
         var dst = new T[cols, rows];
-        
+
         for (var i = 0; i < rows; i++)
         for (var j = 0; j < cols; j++)
         {
@@ -123,15 +123,15 @@ public sealed partial class Grid2D<T>
 
         return dst;
     }
-    
+
     /// <summary>
-    /// Flip the array in place about the <see cref="Axis.X"/> axis.
+    ///     Flip the array in place about the <see cref="Axis.X" /> axis.
     /// </summary>
     private static T[,] FlipVertical(T[,] arr)
     {
         var rows = arr.GetLength(dimension: 0);
         var cols = arr.GetLength(dimension: 1);
-        
+
         for (var c = 0; c < cols; c++)
         for (var r = 0; r < rows / 2; r++)
         {
@@ -140,15 +140,15 @@ public sealed partial class Grid2D<T>
 
         return arr;
     }
-    
+
     /// <summary>
-    /// Flip the array in place about the <see cref="Axis.Y"/> axis.
+    ///     Flip the array in place about the <see cref="Axis.Y" /> axis.
     /// </summary>
     private static T[,] FlipHorizontal(T[,] arr)
     {
         var rows = arr.GetLength(dimension: 0);
         var cols = arr.GetLength(dimension: 1);
-        
+
         for (var r = 0; r < rows; r++)
         for (var c = 0; c < cols / 2; c++)
         {
@@ -157,9 +157,9 @@ public sealed partial class Grid2D<T>
 
         return arr;
     }
-    
+
     /// <summary>
-    /// Swap two array elements in place.
+    ///     Swap two array elements in place.
     /// </summary>
     /// <param name="r1">The row index of element 1</param>
     /// <param name="c1">The col index of element 1</param>
@@ -171,20 +171,22 @@ public sealed partial class Grid2D<T>
     {
         (arr[r1, c1], arr[r2, c2]) = (arr[r2, c2], arr[r1, c1]);
     }
-    
+
     /// <summary>
-    /// Internal throw helper for <see cref="Grid2D{T}"/>
+    ///     Internal throw helper for <see cref="Grid2D{T}" />
     /// </summary>
     private static class ThrowHelper
     {
         private const string InvalidFlipAxisError = $"{nameof(Grid2D<T>)} can only be flipped about the X and Y axis";
-        private const string InvalidRotAmountError = $"{nameof(Grid2D<T>)} can only be rotated integral multiples of 90 degrees";
+
+        private const string InvalidRotAmountError =
+            $"{nameof(Grid2D<T>)} can only be rotated integral multiples of 90 degrees";
 
         internal static Exception InvalidFlipAxis(Axis about)
         {
             throw new ArgumentOutOfRangeException(nameof(about), about, message: InvalidFlipAxisError);
         }
-        
+
         internal static Exception InvalidRotationAmount(int amount)
         {
             throw new ArgumentOutOfRangeException(nameof(amount), amount, message: InvalidRotAmountError);

@@ -6,20 +6,20 @@ using Utilities.Extensions;
 namespace Utilities.Numerics;
 
 /// <summary>
-/// A generic readonly interval value type
+///     A generic readonly interval value type
 /// </summary>
 public readonly record struct Range<T>(T Min, T Max) : IEnumerable<T> where T : IBinaryNumber<T>
 {
     public T Length => Max - Min + T.One;
-    
-    public static bool Overlap(Range<T> a, Range<T> b, out  Range<T> overlap)
+
+    public static bool Overlap(Range<T> a, Range<T> b, out Range<T> overlap)
     {
         if (a.Min > b.Max || b.Min > a.Max)
         {
             overlap = default;
             return false;
         }
-        
+
         overlap = new Range<T>(
             Min: T.Max(a.Min, b.Min),
             Max: T.Min(a.Max, b.Max));
@@ -30,7 +30,7 @@ public readonly record struct Range<T>(T Min, T Max) : IEnumerable<T> where T : 
     {
         return new Range<T>(Min: value, Max: value);
     }
-    
+
     public static Range<T> Parse(string s)
     {
         //  Ranges are often written as "<min>-<max>", we can use a regex to attempt to match this pattern first
@@ -43,16 +43,16 @@ public readonly record struct Range<T>(T Min, T Max) : IEnumerable<T> where T : 
                 Min: match.Groups["Min"].Value.ParseNumber<T>(),
                 Max: match.Groups["Max"].Value.ParseNumber<T>());
         }
-        
+
         var numbers = s.ParseNumbers<T>();
         return new Range<T>(Min: numbers[0], Max: numbers[1]);
     }
-    
+
     public bool Contains(Range<T> a)
     {
         return Contains(a.Min) && Contains(a.Max);
     }
-    
+
     public bool Contains(T value)
     {
         return value >= Min && value <= Max;

@@ -1,7 +1,78 @@
 ﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
 	<s:String x:Key="/Default/CodeInspection/Highlighting/InspectionSeverities/=NullableWarningSuppressionIsUsed/@EntryIndexedValue">HINT</s:String>
 	<s:String x:Key="/Default/CodeInspection/Highlighting/SweaWarningsMode/@EntryValue">ShowAndRun</s:String>
+	<s:String x:Key="/Default/CodeStyle/CodeCleanup/Profiles/=Custom_003A_0020Format_0020XML/@EntryIndexedValue">&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;Profile name="Custom: Format XML"&gt;&lt;XAMLCollapseEmptyTags&gt;False&lt;/XAMLCollapseEmptyTags&gt;&lt;CSharpFormatDocComments&gt;True&lt;/CSharpFormatDocComments&gt;&lt;CSOptimizeUsings&gt;&lt;/CSOptimizeUsings&gt;&lt;IDEA_SETTINGS&gt;&amp;lt;profile version="1.0"&amp;gt;&#xD;
+  &amp;lt;option name="myName" value="Custom: Format XML" /&amp;gt;&#xD;
+  &amp;lt;inspection_tool class="ES6ShorthandObjectProperty" enabled="false" level="WARNING" enabled_by_default="false" /&amp;gt;&#xD;
+  &amp;lt;inspection_tool class="JSArrowFunctionBracesCanBeRemoved" enabled="false" level="WARNING" enabled_by_default="false" /&amp;gt;&#xD;
+  &amp;lt;inspection_tool class="JSRemoveUnnecessaryParentheses" enabled="false" level="WARNING" enabled_by_default="false" /&amp;gt;&#xD;
+  &amp;lt;inspection_tool class="JSUnnecessarySemicolon" enabled="false" level="WARNING" enabled_by_default="false" /&amp;gt;&#xD;
+  &amp;lt;inspection_tool class="UnnecessaryContinueJS" enabled="false" level="WARNING" enabled_by_default="false" /&amp;gt;&#xD;
+  &amp;lt;inspection_tool class="UnnecessaryLabelJS" enabled="false" level="WARNING" enabled_by_default="false" /&amp;gt;&#xD;
+  &amp;lt;inspection_tool class="UnnecessaryLabelOnBreakStatementJS" enabled="false" level="WARNING" enabled_by_default="false" /&amp;gt;&#xD;
+  &amp;lt;inspection_tool class="UnnecessaryLabelOnContinueStatementJS" enabled="false" level="WARNING" enabled_by_default="false" /&amp;gt;&#xD;
+  &amp;lt;inspection_tool class="UnnecessaryReturnJS" enabled="false" level="WARNING" enabled_by_default="false" /&amp;gt;&#xD;
+  &amp;lt;inspection_tool class="WrongPropertyKeyValueDelimiter" enabled="false" level="WEAK WARNING" enabled_by_default="false" /&amp;gt;&#xD;
+&amp;lt;/profile&amp;gt;&lt;/IDEA_SETTINGS&gt;&lt;RIDER_SETTINGS&gt;&amp;lt;profile&amp;gt;&#xD;
+  &amp;lt;Language id="CSS"&amp;gt;&#xD;
+    &amp;lt;Rearrange&amp;gt;false&amp;lt;/Rearrange&amp;gt;&#xD;
+    &amp;lt;Reformat&amp;gt;false&amp;lt;/Reformat&amp;gt;&#xD;
+  &amp;lt;/Language&amp;gt;&#xD;
+  &amp;lt;Language id="EditorConfig"&amp;gt;&#xD;
+    &amp;lt;Reformat&amp;gt;false&amp;lt;/Reformat&amp;gt;&#xD;
+  &amp;lt;/Language&amp;gt;&#xD;
+  &amp;lt;Language id="HTML"&amp;gt;&#xD;
+    &amp;lt;Rearrange&amp;gt;false&amp;lt;/Rearrange&amp;gt;&#xD;
+    &amp;lt;OptimizeImports&amp;gt;false&amp;lt;/OptimizeImports&amp;gt;&#xD;
+    &amp;lt;Reformat&amp;gt;false&amp;lt;/Reformat&amp;gt;&#xD;
+  &amp;lt;/Language&amp;gt;&#xD;
+  &amp;lt;Language id="HTTP Request"&amp;gt;&#xD;
+    &amp;lt;Reformat&amp;gt;false&amp;lt;/Reformat&amp;gt;&#xD;
+  &amp;lt;/Language&amp;gt;&#xD;
+  &amp;lt;Language id="Handlebars"&amp;gt;&#xD;
+    &amp;lt;Reformat&amp;gt;false&amp;lt;/Reformat&amp;gt;&#xD;
+  &amp;lt;/Language&amp;gt;&#xD;
+  &amp;lt;Language id="Ini"&amp;gt;&#xD;
+    &amp;lt;Reformat&amp;gt;false&amp;lt;/Reformat&amp;gt;&#xD;
+  &amp;lt;/Language&amp;gt;&#xD;
+  &amp;lt;Language id="JSON"&amp;gt;&#xD;
+    &amp;lt;Reformat&amp;gt;false&amp;lt;/Reformat&amp;gt;&#xD;
+  &amp;lt;/Language&amp;gt;&#xD;
+  &amp;lt;Language id="Jade"&amp;gt;&#xD;
+    &amp;lt;Reformat&amp;gt;false&amp;lt;/Reformat&amp;gt;&#xD;
+  &amp;lt;/Language&amp;gt;&#xD;
+  &amp;lt;Language id="JavaScript"&amp;gt;&#xD;
+    &amp;lt;Rearrange&amp;gt;false&amp;lt;/Rearrange&amp;gt;&#xD;
+    &amp;lt;OptimizeImports&amp;gt;false&amp;lt;/OptimizeImports&amp;gt;&#xD;
+    &amp;lt;Reformat&amp;gt;false&amp;lt;/Reformat&amp;gt;&#xD;
+  &amp;lt;/Language&amp;gt;&#xD;
+  &amp;lt;Language id="Markdown"&amp;gt;&#xD;
+    &amp;lt;Reformat&amp;gt;false&amp;lt;/Reformat&amp;gt;&#xD;
+  &amp;lt;/Language&amp;gt;&#xD;
+  &amp;lt;Language id="Properties"&amp;gt;&#xD;
+    &amp;lt;Reformat&amp;gt;false&amp;lt;/Reformat&amp;gt;&#xD;
+  &amp;lt;/Language&amp;gt;&#xD;
+  &amp;lt;Language id="RELAX-NG"&amp;gt;&#xD;
+    &amp;lt;Reformat&amp;gt;false&amp;lt;/Reformat&amp;gt;&#xD;
+  &amp;lt;/Language&amp;gt;&#xD;
+  &amp;lt;Language id="SQL"&amp;gt;&#xD;
+    &amp;lt;Reformat&amp;gt;false&amp;lt;/Reformat&amp;gt;&#xD;
+  &amp;lt;/Language&amp;gt;&#xD;
+  &amp;lt;Language id="VueExpr"&amp;gt;&#xD;
+    &amp;lt;Reformat&amp;gt;false&amp;lt;/Reformat&amp;gt;&#xD;
+  &amp;lt;/Language&amp;gt;&#xD;
+  &amp;lt;Language id="XML"&amp;gt;&#xD;
+    &amp;lt;Rearrange&amp;gt;false&amp;lt;/Rearrange&amp;gt;&#xD;
+    &amp;lt;OptimizeImports&amp;gt;false&amp;lt;/OptimizeImports&amp;gt;&#xD;
+    &amp;lt;Reformat&amp;gt;true&amp;lt;/Reformat&amp;gt;&#xD;
+  &amp;lt;/Language&amp;gt;&#xD;
+  &amp;lt;Language id="yaml"&amp;gt;&#xD;
+    &amp;lt;Reformat&amp;gt;false&amp;lt;/Reformat&amp;gt;&#xD;
+  &amp;lt;/Language&amp;gt;&#xD;
+&amp;lt;/profile&amp;gt;&lt;/RIDER_SETTINGS&gt;&lt;/Profile&gt;</s:String>
     <s:String x:Key="/Default/CodeStyle/Naming/CSharpNaming/PredefinedNamingRules/=LocalFunctions/@EntryIndexedValue">&lt;Policy Inspect="True" Prefix="" Suffix="" Style="AaBb" /&gt;</s:String>
+	<s:String x:Key="/Default/CodeStyle/Naming/CSharpNaming/UserRules/=76f79b1e_002Dece7_002D4df2_002Da322_002D1bd7fea25eb7/@EntryIndexedValue">&lt;Policy&gt;&lt;Descriptor Staticness="Any" AccessRightKinds="Any" Description="Local functions"&gt;&lt;ElementKinds&gt;&lt;Kind Name="LOCAL_FUNCTION" /&gt;&lt;/ElementKinds&gt;&lt;/Descriptor&gt;&lt;Policy Inspect="True" Prefix="" Suffix="" Style="AaBb" /&gt;&lt;/Policy&gt;</s:String>
+	<s:Boolean x:Key="/Default/Environment/SettingsMigration/IsMigratorApplied/=JetBrains_002EReSharper_002EPsi_002ECSharp_002ECodeStyle_002ESettingsUpgrade_002EPredefinedNamingRulesToUserRulesUpgrade/@EntryIndexedValue">True</s:Boolean>
 	<s:Boolean x:Key="/Default/ReSpeller/DontCheckVerbatimStrings/@EntryValue">True</s:Boolean>
 	<s:Boolean x:Key="/Default/UserDictionary/Words/=aaaa/@EntryIndexedValue">True</s:Boolean>
 	<s:Boolean x:Key="/Default/UserDictionary/Words/=adjacencies/@EntryIndexedValue">True</s:Boolean>

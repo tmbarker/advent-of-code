@@ -3,13 +3,13 @@ using Utilities.Collections;
 namespace Utilities.Graph;
 
 /// <summary>
-/// A primitive directed graph template 
+///     A primitive directed graph template
 /// </summary>
 /// <typeparam name="T">The type of value associated with each vertex</typeparam>
 public sealed class DirectedGraph<T> where T : IEquatable<T>
 {
     public readonly record struct Edge(T From, T To);
-    
+
     public DefaultDict<T, HashSet<T>> Incoming { get; } = new(defaultSelector: _ => []);
     public DefaultDict<T, HashSet<T>> Outgoing { get; } = new(defaultSelector: _ => []);
 
@@ -19,7 +19,7 @@ public sealed class DirectedGraph<T> where T : IEquatable<T>
     public DirectedGraph()
     {
     }
-    
+
     public DirectedGraph(IEnumerable<Edge> edges)
     {
         foreach (var edge in edges)
@@ -32,7 +32,7 @@ public sealed class DirectedGraph<T> where T : IEquatable<T>
     {
         AddEdge(edge.From, edge.To);
     }
-    
+
     public void AddEdge(T from, T to)
     {
         Incoming[to].Add(from);
@@ -43,7 +43,7 @@ public sealed class DirectedGraph<T> where T : IEquatable<T>
     {
         RemoveEdge(edge.From, edge.To);
     }
-    
+
     public void RemoveEdge(T from, T to)
     {
         Incoming[to].Remove(from);

@@ -14,7 +14,7 @@ public static class FavouriteTableFormatter
     {
         return $"### {year}";
     }
-    
+
     public static string FormEntry(FavouriteEntry entry)
     {
         return string.Join(" | ",
@@ -43,8 +43,8 @@ public static class FavouriteTableFormatter
 
     private static string FormTopics(Topics topics)
     {
-        var topicStrings = 
-            from topic in Enum.GetValues<Topics>() 
+        var topicStrings =
+            from topic in Enum.GetValues<Topics>()
             where (topics & topic) > 0
             select CamelCaseRegex.Replace(topic.ToString(), " $1");
 

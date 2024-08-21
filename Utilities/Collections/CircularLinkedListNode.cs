@@ -1,9 +1,9 @@
 namespace Utilities.Collections;
 
 /// <summary>
-/// A node in a <see cref="CircularLinkedList{T}"/>
+///     A node in a <see cref="CircularLinkedList{T}" />
 /// </summary>
-/// <typeparam name="T">The type of the encapsulated <see cref="Value"/></typeparam>
+/// <typeparam name="T">The type of the encapsulated <see cref="Value" /></typeparam>
 public sealed class CircularLinkedListNode<T>
 {
     public CircularLinkedList<T>? List { get; internal set; }

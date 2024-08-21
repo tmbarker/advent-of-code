@@ -6,7 +6,7 @@ namespace Utilities.Extensions;
 public static class CollectionExtensions
 {
     /// <summary>
-    /// Filter the dictionary entries using a Value Predicate
+    ///     Filter the dictionary entries using a Value Predicate
     /// </summary>
     public static Dictionary<TKey, TValue> WhereValues<TKey, TValue>(this IDictionary<TKey, TValue> dictionary,
         Predicate<TValue> predicate) where TKey : notnull
@@ -15,17 +15,17 @@ public static class CollectionExtensions
             .Where(kvp => predicate(kvp.Value))
             .ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
     }
-    
+
     /// <summary>
-    /// Initialize a <see cref="IReadOnlyCollection{T}"/> using the elements from <paramref name="source"/>
+    ///     Initialize a <see cref="IReadOnlyCollection{T}" /> using the elements from <paramref name="source" />
     /// </summary>
     public static IReadOnlyCollection<T> Freeze<T>(this IEnumerable<T> source)
     {
         return new List<T>(source);
     }
-    
+
     /// <summary>
-    /// Remove a single element from <paramref name="source"/>, if it exists
+    ///     Remove a single element from <paramref name="source" />, if it exists
     /// </summary>
     public static ICollection<T> Except<T>(this IEnumerable<T> source, T single)
     {
@@ -33,7 +33,7 @@ public static class CollectionExtensions
     }
 
     /// <summary>
-    /// Find the intersection of multiple collections
+    ///     Find the intersection of multiple collections
     /// </summary>
     /// <param name="collections">The collections to intersect</param>
     /// <returns>A set containing the elements which are present in all provided collections</returns>
@@ -52,10 +52,10 @@ public static class CollectionExtensions
             );
 
         return presentInAll;
-    } 
+    }
 
     /// <summary>
-    /// Normalize the values of the collection such that the "smallest" becomes <see cref="Vec2D.Zero"/>
+    ///     Normalize the values of the collection such that the "smallest" becomes <see cref="Vec2D.Zero" />
     /// </summary>
     public static IEnumerable<Vec2D> Normalize(this IEnumerable<Vec2D> collection)
     {
@@ -77,7 +77,7 @@ public static class CollectionExtensions
     }
 
     /// <summary>
-    /// Return the mode of the collection, i.e. the element with the highest frequency, 
+    ///     Return the mode of the collection, i.e. the element with the highest frequency,
     /// </summary>
     public static T Mode<T>(this IEnumerable<T> collection) where T : notnull
     {
@@ -85,14 +85,16 @@ public static class CollectionExtensions
             .GroupBy(e => e)
             .MaxBy(g => g.Count())!.Key;
     }
-    
+
     /// <summary>
-    /// Chunk the source based on a <paramref name="takePredicate"/> and an optional <paramref name="skipPredicate"/>
+    ///     Chunk the source based on a <paramref name="takePredicate" /> and an optional <paramref name="skipPredicate" />
     /// </summary>
     /// <param name="source">The source collection</param>
     /// <param name="takePredicate">Select which elements should be included in a chunk</param>
-    /// <param name="skipPredicate">Select which elements to skip between chunks, if not provided
-    /// then <paramref name="takePredicate"/> is used and negated</param>
+    /// <param name="skipPredicate">
+    ///     Select which elements to skip between chunks, if not provided
+    ///     then <paramref name="takePredicate" /> is used and negated
+    /// </param>
     /// <typeparam name="T">The type associated with each element in the source</typeparam>
     /// <returns>An iterator which yields chunk arrays</returns>
     public static IEnumerable<T[]> ChunkBy<T>(this IEnumerable<T> source, Predicate<T> takePredicate,
@@ -100,7 +102,7 @@ public static class CollectionExtensions
     {
         var chunks = new List<T[]>();
         var enumerable = source as IList<T> ?? source.ToArray();
-        
+
         for (var i = 0; i < enumerable.Count;)
         {
             var chunk = enumerable
@@ -110,9 +112,9 @@ public static class CollectionExtensions
 
             if (chunk.Length > 0)
             {
-                chunks.Add(chunk);   
+                chunks.Add(chunk);
             }
-            
+
             i += chunk.Length;
             i += enumerable
                 .Skip(i)
@@ -124,7 +126,7 @@ public static class CollectionExtensions
     }
 
     /// <summary>
-    /// Chunk the source between null or whitespace strings
+    ///     Chunk the source between null or whitespace strings
     /// </summary>
     /// <param name="source">The source collection</param>
     /// <returns>An iterator which yields chunk arrays</returns>
@@ -134,11 +136,11 @@ public static class CollectionExtensions
     }
 
     /// <summary>
-    /// Apply an action to each element in the <paramref name="source"/> collection.
+    ///     Apply an action to each element in the <paramref name="source" /> collection.
     /// </summary>
     /// <param name="source">The source collection to act upon</param>
-    /// <param name="action">The <see cref="Action{T}"/> to apply to each element</param>
-    /// <typeparam name="T">The type associated with each element in the <paramref name="source"/> collection</typeparam>
+    /// <param name="action">The <see cref="Action{T}" /> to apply to each element</param>
+    /// <typeparam name="T">The type associated with each element in the <paramref name="source" /> collection</typeparam>
     public static void ForEach<T>(this IEnumerable<T> source, Action<T> action)
     {
         foreach (var element in source)
@@ -148,7 +150,7 @@ public static class CollectionExtensions
     }
 
     /// <summary>
-    /// Returns all permutations of the source sequence elements
+    ///     Returns all permutations of the source sequence elements
     /// </summary>
     public static IEnumerable<IEnumerable<T>> Permute<T>(this IEnumerable<T> elements)
     {
@@ -175,7 +177,7 @@ public static class CollectionExtensions
     }
 
     /// <summary>
-    /// Return all combinations of the source sequence elements of size <paramref name="k"/>
+    ///     Return all combinations of the source sequence elements of size <paramref name="k" />
     /// </summary>
     /// <param name="elements">The source sequence</param>
     /// <param name="k">The number of elements in each returned combination</param>
@@ -192,14 +194,14 @@ public static class CollectionExtensions
         }
 
         var enumerated = elements as T[] ?? elements.ToArray();
-        return 
+        return
             from combination in Combinations(n: enumerated.Length, k)
             select enumerated.ZipWhere(combination);
     }
-    
+
     /// <summary>
-    /// Takes two numbers non-negative numbers, <paramref name="n"/> and <paramref name="k"/>, and
-    /// produces all sequences of n bits with k true bits and n-k false bits.
+    ///     Takes two numbers non-negative numbers, <paramref name="n" /> and <paramref name="k" />, and
+    ///     produces all sequences of n bits with k true bits and n-k false bits.
     /// </summary>
     /// <param name="n">The total number of bits in each sequence</param>
     /// <param name="k">The number of set bits in each sequence</param>
@@ -211,10 +213,10 @@ public static class CollectionExtensions
             yield return ImmutableStack<bool>.Empty;
             yield break;
         }
-        
+
         if (n < k)
         {
-            yield break;   
+            yield break;
         }
 
         //  First produce all the sequences that start with true,
@@ -236,14 +238,14 @@ public static class CollectionExtensions
             yield return r.Push(false);
         }
     }
-    
+
     private static IEnumerable<T> ZipWhere<T>(this IEnumerable<T> items, IEnumerable<bool> selectors)
     {
         if (items == null)
         {
             throw new ArgumentNullException(nameof(items));
         }
-            
+
         if (selectors == null)
         {
             throw new ArgumentNullException(nameof(selectors));
@@ -251,7 +253,7 @@ public static class CollectionExtensions
 
         return ZipWhereIterator(items, selectors);
     }
-    
+
     private static IEnumerable<T> ZipWhereIterator<T>(IEnumerable<T> items, IEnumerable<bool> selectors)
     {
         using var itemEnumerator = items.GetEnumerator();
@@ -261,7 +263,7 @@ public static class CollectionExtensions
         {
             if (selectorEnumerator.Current)
             {
-                yield return itemEnumerator.Current;   
+                yield return itemEnumerator.Current;
             }
         }
     }

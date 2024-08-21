@@ -1,7 +1,7 @@
 namespace Utilities.Geometry.Euclidean;
 
 /// <summary>
-/// Throw helper for common Vector exceptions.
+///     Throw helper for common Vector exceptions.
 /// </summary>
 /// <typeparam name="TVec">The type of the Vector consumer, used to add detail to exception messages</typeparam>
 public abstract class VecThrowHelper<TVec>
@@ -11,7 +11,7 @@ public abstract class VecThrowHelper<TVec>
         return new ArgumentException(
             message: $"The {component} component does not exist in {nameof(TVec)} space");
     }
-        
+
     public static Exception InvalidMetric(Metric metric)
     {
         return new ArgumentException(

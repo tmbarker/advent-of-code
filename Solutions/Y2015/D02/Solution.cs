@@ -9,7 +9,7 @@ public sealed class Solution : SolutionBase
     {
         var input = GetInputLines();
         var boxes = input.Select(ParseBox);
-        
+
         return part switch
         {
             1 => boxes.Sum(box => box.PaperReq),

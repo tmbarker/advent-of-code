@@ -1,9 +1,9 @@
 namespace Utilities.Graph;
 
 /// <summary>
-/// A generic binary tree.
+///     A generic binary tree.
 /// </summary>
-/// <param name="root">The node to set as the <see cref="Root"/></param>
+/// <param name="root">The node to set as the <see cref="Root" /></param>
 /// <typeparam name="T">The type associated with each node value</typeparam>
 public sealed class BinaryTree<T>(BinaryTreeNode<T> root)
 {
@@ -12,9 +12,9 @@ public sealed class BinaryTree<T>(BinaryTreeNode<T> root)
     public BinaryTree(T rootValue) : this(root: new BinaryTreeNode<T>(value: rootValue))
     {
     }
-    
+
     /// <summary>
-    /// Print the <see cref="BinaryTree{T}"/> to the console, starting at the <see cref="Root"/>. 
+    ///     Print the <see cref="BinaryTree{T}" /> to the console, starting at the <see cref="Root" />.
     /// </summary>
     /// <param name="formatter">When not specified nodes are printed using the default ToString implementation</param>
     /// <param name="spacing">The minimum spacing between each run of formatted node text</param>

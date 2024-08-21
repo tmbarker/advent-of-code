@@ -1,7 +1,7 @@
 namespace Utilities.Language.ContextFree;
 
 /// <summary>
-/// Represents a Context Free Grammar
+///     Represents a Context Free Grammar
 /// </summary>
 public sealed partial class Grammar
 {
@@ -36,7 +36,7 @@ public sealed partial class Grammar
             throw new ArgumentException(message: "Terminals and non-terminals must be disjoint");
         }
     }
-    
+
     public void Print()
     {
         Console.WriteLine($"{nameof(Start)}: {Start}");

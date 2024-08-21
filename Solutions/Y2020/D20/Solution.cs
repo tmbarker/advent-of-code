@@ -132,7 +132,7 @@ public sealed class Solution : SolutionBase
         //  Place the first piece arbitrarily, then continuously match all pieces with known congruences to previously
         //  placed pieces. Afterwards, normalize the positions such that the lower left piece has position (0,0)
         //
-        while (queue.Any())
+        while (queue.Count != 0)
         {
             var placedTileId = queue.Dequeue();
             var placedTile = tiles[placedTileId];

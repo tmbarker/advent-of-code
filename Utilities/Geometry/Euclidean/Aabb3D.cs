@@ -3,7 +3,7 @@ using System.Collections;
 namespace Utilities.Geometry.Euclidean;
 
 /// <summary>
-/// A readonly 3D AABB value type
+///     A readonly 3D AABB value type
 /// </summary>
 public readonly record struct Aabb3D : IEnumerable<Vec3D>
 {
@@ -12,13 +12,13 @@ public readonly record struct Aabb3D : IEnumerable<Vec3D>
         Min = min;
         Max = max;
     }
-    
+
     public Aabb3D(int xMin, int xMax, int yMin, int yMax, int zMin, int zMax)
     {
         Min = new Vec3D(xMin, yMin, zMin);
         Max = new Vec3D(xMax, yMax, zMax);
     }
-    
+
     public Aabb3D(ICollection<Vec3D> extents, bool inclusive)
     {
         var delta = inclusive ? 0 : 1;
@@ -31,7 +31,7 @@ public readonly record struct Aabb3D : IEnumerable<Vec3D>
             y: extents.Max(p => p.Y) + delta,
             z: extents.Max(p => p.Z) + delta);
     }
-    
+
     public Vec3D Min { get; }
     public Vec3D Max { get; }
 
@@ -40,8 +40,8 @@ public readonly record struct Aabb3D : IEnumerable<Vec3D>
     public int ZLength => Max.Z - Min.Z + 1;
     public long Volume => (long)XLength * YLength * ZLength;
     public Vec3D Center => new(x: (Min.X + Max.X) / 2, y: (Min.Y + Max.Y) / 2, z: (Min.Z + Max.Z) / 2);
-    
-    public static bool Overlap(Aabb3D a, Aabb3D b, out  Aabb3D overlap)
+
+    public static bool Overlap(Aabb3D a, Aabb3D b, out Aabb3D overlap)
     {
         var hasOverlap =
             a.Max.X >= b.Min.X && a.Min.X <= b.Max.X &&
@@ -53,7 +53,7 @@ public readonly record struct Aabb3D : IEnumerable<Vec3D>
             overlap = default;
             return false;
         }
-        
+
         overlap = new Aabb3D(
             xMin: int.Max(a.Min.X, b.Min.X),
             xMax: int.Min(a.Max.X, b.Max.X),
@@ -68,7 +68,7 @@ public readonly record struct Aabb3D : IEnumerable<Vec3D>
     {
         return new Aabb3D(min: Min + amount, max: Max + amount);
     }
-    
+
     public long GetSurfaceArea()
     {
         return 2L * (ZLength * XLength + YLength * XLength + YLength * ZLength);
@@ -80,15 +80,15 @@ public readonly record struct Aabb3D : IEnumerable<Vec3D>
             ? ContainsInclusive(pos)
             : ContainsExclusive(pos);
     }
-    
+
     private bool ContainsInclusive(Vec3D pos)
     {
-        return 
-            pos.X >= Min.X && pos.X <= Max.X && 
-            pos.Y >= Min.Y && pos.Y <= Max.Y && 
+        return
+            pos.X >= Min.X && pos.X <= Max.X &&
+            pos.Y >= Min.Y && pos.Y <= Max.Y &&
             pos.Z >= Min.Z && pos.Z <= Max.Z;
     }
-    
+
     private bool ContainsExclusive(Vec3D pos)
     {
         return
@@ -96,7 +96,7 @@ public readonly record struct Aabb3D : IEnumerable<Vec3D>
             pos.Y > Min.Y && pos.Y < Max.Y &&
             pos.Z > Min.Z && pos.Z < Max.Z;
     }
-    
+
     public override string ToString()
     {
         return $"[X={Min.X}..{Max.X}, Y={Min.Y}..{Max.Y}, Z={Min.Z}..{Max.Z}]";

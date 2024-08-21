@@ -1,7 +1,7 @@
 namespace Utilities.Graph;
 
 /// <summary>
-/// A generic node in a <see cref="BinaryTree{T}"/> instance.
+///     A generic node in a <see cref="BinaryTree{T}" /> instance.
 /// </summary>
 /// <param name="value">The node value</param>
 /// <typeparam name="T">The type associated with node value</typeparam>
@@ -12,7 +12,7 @@ public sealed class BinaryTreeNode<T>(T value)
     public BinaryTreeNode<T>? Right { get; set; }
 
     /// <summary>
-    /// Print the <see cref="BinaryTreeNode{T}"/> and it's children to the console. 
+    ///     Print the <see cref="BinaryTreeNode{T}" /> and it's children to the console.
     /// </summary>
     /// <param name="formatter">When not specified nodes are printed using the default ToString implementation</param>
     /// <param name="spacing">The minimum spacing between each run of formatted node text</param>

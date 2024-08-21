@@ -1,7 +1,7 @@
 namespace Utilities.Geometry.Hexagonal;
 
 /// <summary>
-/// A readonly integral hexagon value type. Represents a 2D hexagon using a 3D cubic coordinate system 
+///     A readonly integral hexagon value type. Represents a 2D hexagon using a 3D cubic coordinate system
 /// </summary>
 public readonly record struct Hex
 {
@@ -41,7 +41,7 @@ public readonly record struct Hex
         R = r;
         S = s;
     }
-    
+
     public ISet<Hex> GetAdjacentSet()
     {
         return new HashSet<Hex>
@@ -54,7 +54,7 @@ public readonly record struct Hex
             this + Directions[Flat.Nw]
         };
     }
-    
+
     public static int Distance(Hex a, Hex b)
     {
         var dq = Math.Abs(a.Q - b.Q);
@@ -63,7 +63,7 @@ public readonly record struct Hex
 
         return (dq + dr + ds) / 2;
     }
-    
+
     public static Hex operator +(Hex lhs, Hex rhs)
     {
         return new Hex(lhs.Q + rhs.Q, lhs.R + rhs.R, lhs.S + rhs.S);
@@ -73,7 +73,7 @@ public readonly record struct Hex
     {
         return new Hex(lhs.Q - rhs.Q, lhs.R - rhs.R, lhs.S - rhs.S);
     }
-    
+
     public override string ToString()
     {
         return $"[q={Q},r={R},s={S}]";

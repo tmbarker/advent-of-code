@@ -38,8 +38,8 @@ public sealed class Solution : SolutionBase
         var cfg = new Grammar(StartSymbol, productions);
         var cnf = CnfConverter.Convert(cfg);
         var cyk = new CykParser(cnf);
-        
-        return sentences.Count(s => cyk.Recognize(s));
+
+        return sentences.Count(cyk.Recognize);
     }
 
     private static IEnumerable<Production> ParseRule(string ruleStr, bool useOverrides)

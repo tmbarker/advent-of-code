@@ -316,7 +316,7 @@ public sealed class CircularLinkedList<T>
          current = next!;
       }
       
-      while (queue.Any())
+      while (queue.Count != 0)
       {
          var insertBefore = removeAfter.Next!;
          var insertNode = queue.Dequeue();
