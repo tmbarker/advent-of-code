@@ -27,7 +27,7 @@ public sealed class Solution : SolutionBase
         {
             1 => FindMin(places, lookup),
             2 => FindMax(places, lookup),
-            _ => ProblemNotSolvedString
+            _ => PuzzleNotSolvedString
         };
     }
 

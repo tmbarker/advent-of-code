@@ -17,7 +17,7 @@ public sealed class Solution : SolutionBase
         {
             1 => groupAnswers.Sum(GetUniqueGroupAnswers),
             2 => groupAnswers.Sum(GetUnanimousGroupAnswers),
-            _ => ProblemNotSolvedString
+            _ => PuzzleNotSolvedString
         };
     }
 

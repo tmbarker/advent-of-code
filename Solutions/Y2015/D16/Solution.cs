@@ -14,7 +14,7 @@ public sealed class Solution : SolutionBase
         {
             1 => Find(predicate: IsValidExact),
             2 => Find(predicate: IsValidRange),
-            _ => ProblemNotSolvedString
+            _ => PuzzleNotSolvedString
         };
     }
 

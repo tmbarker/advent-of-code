@@ -15,7 +15,7 @@ public sealed class Solution : SolutionBase
         {
             1 => Spin(steps, insertions: 2017),
             2 => Watch(steps, insertions: 50000000),
-            _ => ProblemNotSolvedString
+            _ => PuzzleNotSolvedString
         };
     }
 

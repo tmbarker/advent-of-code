@@ -20,7 +20,7 @@ public sealed class Solution : SolutionBase
         {
             1 => SumAreaRisks(cave, min: scan.Mouth, max: scan.Target),
             2 => Traverse(cave, scan),
-            _ => ProblemNotSolvedString
+            _ => PuzzleNotSolvedString
         };
     }
 

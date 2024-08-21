@@ -10,7 +10,7 @@ public sealed class Solution : SolutionBase
         {
             1 => masses.Sum(GetNaiveFuelRequirement),
             2 => masses.Sum(GetIterativeFuelRequirement),
-            _ => ProblemNotSolvedString
+            _ => PuzzleNotSolvedString
         };
     }
 

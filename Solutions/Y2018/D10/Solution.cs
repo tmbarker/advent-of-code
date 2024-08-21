@@ -13,7 +13,7 @@ public sealed class Solution : SolutionBase
         {
             1 => WaitForMessage().Message,
             2 => WaitForMessage().Time,
-            _ => ProblemNotSolvedString
+            _ => PuzzleNotSolvedString
         };
     }
 

@@ -16,7 +16,7 @@ public sealed class Solution : SolutionBase
         {
             1 => ComputeFuelCost(1, reactions),
             2 => ComputeMaxFuelOutput(OreFunds, reactions),
-            _ => ProblemNotSolvedString
+            _ => PuzzleNotSolvedString
         };
     }
 

@@ -24,7 +24,7 @@ public sealed class Solution : SolutionBase
         {
             1 => CountNonSupported(bricks.Keys, supportGraph),
             2 => CountAllSupported(bricks.Keys, supportGraph),
-            _ => ProblemNotSolvedString
+            _ => PuzzleNotSolvedString
         };
     }
 

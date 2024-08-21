@@ -11,7 +11,7 @@ public sealed class Solution : SolutionBase
         {
             1 => FindDelay(extraDisk: false),
             2 => FindDelay(extraDisk: true),
-            _ => ProblemNotSolvedString
+            _ => PuzzleNotSolvedString
         };
     }
 

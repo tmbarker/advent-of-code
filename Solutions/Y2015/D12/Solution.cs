@@ -12,7 +12,7 @@ public sealed class Solution : SolutionBase
         {
             1 => SumJsonOmitPropertyValue(json, value: null),
             2 => SumJsonOmitPropertyValue(json, value: "red"),
-            _ => ProblemNotSolvedString
+            _ => PuzzleNotSolvedString
         };
     }
     

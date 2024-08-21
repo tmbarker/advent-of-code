@@ -14,7 +14,7 @@ public sealed class Solution : SolutionBase
         {
             1 => CountScore(),
             2 => CountCards(),
-            _ => ProblemNotSolvedString
+            _ => PuzzleNotSolvedString
         };
     }
 

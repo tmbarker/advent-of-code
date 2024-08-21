@@ -13,7 +13,7 @@ public sealed class Solution : SolutionBase
         return part switch
         {
             1 => CrackEncryption(ParsePublicKeys(GetInputLines())),
-            _ => ProblemNotSolvedString
+            _ => PuzzleNotSolvedString
         };
     }
 

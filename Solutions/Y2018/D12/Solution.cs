@@ -14,7 +14,7 @@ public sealed class Solution : SolutionBase
         {
             1 => Generate(state, rules, generations: 20L),
             2 => Generate(state, rules, generations: 50000000000L),
-            _ => ProblemNotSolvedString
+            _ => PuzzleNotSolvedString
         };
     }
 

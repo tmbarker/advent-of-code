@@ -50,7 +50,7 @@ public sealed class Solution : IntCodeSolution
         {
             1 => RunSpringdroid(WalkScript),
             2 => RunSpringdroid(RunScript),
-            _ => ProblemNotSolvedString
+            _ => PuzzleNotSolvedString
         };
     }
 
@@ -66,6 +66,6 @@ public sealed class Solution : IntCodeSolution
 
 
         Log($"Failure:\n{output}");
-        return ProblemNotSolvedString;
+        return PuzzleNotSolvedString;
     }
 }

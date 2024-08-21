@@ -17,7 +17,7 @@ public sealed class Solution : SolutionBase
         {
             1 => ComputeSimplePositionProduct(instructions),
             2 => ComputeAimedPositionProduct(instructions),
-            _ => ProblemNotSolvedString
+            _ => PuzzleNotSolvedString
         };
     }
 

@@ -12,7 +12,7 @@ public sealed class Solution : SolutionBase
         {
             1 => SumMetadata(buffer),
             2 => GetNodeValue(buffer),
-            _ => ProblemNotSolvedString
+            _ => PuzzleNotSolvedString
         };
     }
 

@@ -17,7 +17,7 @@ public sealed class Solution : SolutionBase
         {
             1 => Flood(reservoir, print: LogsEnabled, materials: [Water.Flowing, Water.Settled]),
             2 => Flood(reservoir, print: LogsEnabled, materials: [Water.Settled]),
-            _ => ProblemNotSolvedString
+            _ => PuzzleNotSolvedString
         };
     }
 

@@ -14,7 +14,7 @@ public sealed class Solution : SolutionBase
         {
             1 => boxes.Sum(box => box.PaperReq),
             2 => boxes.Sum(box => box.RibbonReq),
-            _ => ProblemNotSolvedString
+            _ => PuzzleNotSolvedString
         };
     }
 

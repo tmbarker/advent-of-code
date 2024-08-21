@@ -13,7 +13,7 @@ public sealed class Solution : SolutionBase
         {
             1 => HashSimple(input),
             2 => HashFull(input),
-            _ => ProblemNotSolvedString
+            _ => PuzzleNotSolvedString
         };
     }
 

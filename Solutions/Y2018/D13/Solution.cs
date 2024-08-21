@@ -14,7 +14,7 @@ public sealed class Solution : SolutionBase
         {
             1 => TickUntilCrash(track, state),
             2 => TickUntilLastRemaining(track, state),
-            _ => ProblemNotSolvedString
+            _ => PuzzleNotSolvedString
         };
     }
 

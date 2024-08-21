@@ -12,7 +12,7 @@ public sealed class Solution : IntCodeSolution
         {
             1 => FindMaxSignalLinear(minPhase: 0, maxPhase: 4),
             2 => FindMaxSignalLooped(minPhase: 5, maxPhase: 9),
-            _ => ProblemNotSolvedString
+            _ => PuzzleNotSolvedString
         };
     }
 

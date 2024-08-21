@@ -14,7 +14,7 @@ public sealed class Solution : IntCodeSolution
         {
             1 => networkAwaiter.WaitForMessage(targetRecipient: 255).Result,
             2 => networkAwaiter.WaitForRepeatedNatMessage().Result,
-            _ => ProblemNotSolvedString
+            _ => PuzzleNotSolvedString
         };
     }
 }

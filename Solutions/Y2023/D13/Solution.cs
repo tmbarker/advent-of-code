@@ -16,7 +16,7 @@ public sealed class Solution : SolutionBase
         {
             1 => grids.Sum(grid => ScoreSymmetry(grid, exceptions: 0)),
             2 => grids.Sum(grid => ScoreSymmetry(grid, exceptions: 1)),
-            _ => ProblemNotSolvedString
+            _ => PuzzleNotSolvedString
         };
     }
     

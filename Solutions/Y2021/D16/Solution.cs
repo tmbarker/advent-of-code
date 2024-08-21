@@ -32,7 +32,7 @@ public sealed class Solution : SolutionBase
         {
             1 => SumPacketVersionNumbers(packet),
             2 => packet.Evaluate(),
-            _ => ProblemNotSolvedString
+            _ => PuzzleNotSolvedString
         };
     }
 

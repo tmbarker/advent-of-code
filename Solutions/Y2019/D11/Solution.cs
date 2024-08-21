@@ -33,7 +33,7 @@ public sealed class Solution : IntCodeSolution
         {
             1 => RunRobot(program, startColour: Black).Count,
             2 => Draw(RunRobot(program, startColour: White)),
-            _ => ProblemNotSolvedString
+            _ => PuzzleNotSolvedString
         };
     }
 

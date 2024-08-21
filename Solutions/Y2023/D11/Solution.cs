@@ -11,7 +11,7 @@ public sealed class Solution : SolutionBase
         {
             1 => Expand(amount: 2L),
             2 => Expand(amount: 1000000L),
-            _ => ProblemNotSolvedString
+            _ => PuzzleNotSolvedString
         };
     }
 

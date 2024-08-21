@@ -10,7 +10,7 @@ public sealed class Solution : SolutionBase
         {
             1 => FollowInstructions(instructions, basement: false),
             2 => FollowInstructions(instructions, basement: true),
-            _ => ProblemNotSolvedString
+            _ => PuzzleNotSolvedString
         };
     }
 

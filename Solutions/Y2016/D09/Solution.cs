@@ -14,7 +14,7 @@ public sealed class Solution : SolutionBase
         {
             1 => Decompress(buffer, recurse: false),
             2 => Decompress(buffer, recurse: true),
-            _ => ProblemNotSolvedString
+            _ => PuzzleNotSolvedString
         };
     }
 

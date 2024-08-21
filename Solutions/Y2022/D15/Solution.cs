@@ -19,7 +19,7 @@ public sealed class Solution : SolutionBase
         {
             1 => CountBeaconExcludedPositions(reportings),
             2 => CalculateTuningFrequency(FindDistressBeacon(reportings)),
-            _ => ProblemNotSolvedString
+            _ => PuzzleNotSolvedString
         };
     }
 

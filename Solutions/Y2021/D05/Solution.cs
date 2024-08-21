@@ -12,7 +12,7 @@ public sealed class Solution : SolutionBase
         {
             1 => CountDangerousLocations(ignoreDiagonals: true),
             2 => CountDangerousLocations(ignoreDiagonals: false),
-            _ => ProblemNotSolvedString
+            _ => PuzzleNotSolvedString
         };
     }
 

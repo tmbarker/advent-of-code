@@ -15,7 +15,7 @@ public sealed class Solution : SolutionBase
         {
             1 => Intersect2D(rays, aabb: new Aabb2(Min: 2e14m, Max: 4e14m)),
             2 => Intersect3D(rays),
-            _ => ProblemNotSolvedString
+            _ => PuzzleNotSolvedString
         };
     }
 

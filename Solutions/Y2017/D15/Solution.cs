@@ -23,7 +23,7 @@ public sealed class Solution : SolutionBase
         {
             1 => Count(seeds.A, seeds.B, predA: True, predB: True, rounds: 40000000UL),
             2 => Count(seeds.A, seeds.B, predA: Div4, predB: Div8, rounds: 5000000UL),
-            _ => ProblemNotSolvedString
+            _ => PuzzleNotSolvedString
         };
     }
 

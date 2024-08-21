@@ -14,7 +14,7 @@ public sealed class Solution : SolutionBase
         {
             1 => FindLeastRiskyPath(tilesPerSide: 1),
             2 => FindLeastRiskyPath(tilesPerSide: 5),
-            _ => ProblemNotSolvedString
+            _ => PuzzleNotSolvedString
         };
     }
 

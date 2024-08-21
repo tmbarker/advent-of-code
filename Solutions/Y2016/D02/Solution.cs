@@ -43,7 +43,7 @@ public sealed class Solution : SolutionBase
         {
             1 => BuildCode(pos: new Vec2D(x:  0, y: 0), map: Square),
             2 => BuildCode(pos: new Vec2D(x: -2, y: 0), map: Diamond),
-            _ => ProblemNotSolvedString
+            _ => PuzzleNotSolvedString
         };
     }
 

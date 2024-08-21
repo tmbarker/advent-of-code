@@ -20,7 +20,7 @@ public sealed class Solution : SolutionBase
         {
             1 => ComputePassword(board, instructions, MoveMode.Planar),
             2 => ComputePassword(board, instructions, MoveMode.Cubic),
-            _ => ProblemNotSolvedString
+            _ => PuzzleNotSolvedString
         };
     }
 

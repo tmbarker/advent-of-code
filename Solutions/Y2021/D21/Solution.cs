@@ -23,7 +23,7 @@ public sealed class Solution : SolutionBase
         {
             1 => PlayDeterministicGame(initialState),
             2 => PlayQuantumGame(initialState),
-            _ => ProblemNotSolvedString
+            _ => PuzzleNotSolvedString
         };
     }
     

@@ -21,7 +21,7 @@ public sealed class Solution : SolutionBase
         {
             1 => NavigateSingle(dirs, nodes),
             2 => NavigateMany(dirs, nodes),
-            _ => ProblemNotSolvedString
+            _ => PuzzleNotSolvedString
         };
     }
 

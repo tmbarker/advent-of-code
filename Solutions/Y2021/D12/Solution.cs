@@ -11,7 +11,7 @@ public sealed class Solution : SolutionBase
         {
             1 => CountPaths(bonusSmallCaveVisit: false),
             2 => CountPaths(bonusSmallCaveVisit: true),
-            _ => ProblemNotSolvedString
+            _ => PuzzleNotSolvedString
         };
     }
 

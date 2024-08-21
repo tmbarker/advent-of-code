@@ -22,7 +22,7 @@ public sealed class Solution : SolutionBase
         {
             1 => EvaluateExpression(id: Root, expressions),
             2 => SolveForUnknown(equationId: Root, Unknown, expressions),
-            _ => ProblemNotSolvedString
+            _ => PuzzleNotSolvedString
         };
     }
 

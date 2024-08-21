@@ -11,7 +11,7 @@ public sealed class Solution : IntCodeSolution
     
     private static readonly Dictionary<char, Vec2D> Directions = new()
     {
-        //  NOTE: The UV coordinate system is used for this problem, while the Vec2D static vectors are XY
+        //  NOTE: The UV coordinate system is used for this puzzle, while the Vec2D static vectors are XY
         // 
         { 'v', Vec2D.Up },
         { '^', Vec2D.Down },
@@ -33,7 +33,7 @@ public sealed class Solution : IntCodeSolution
         {
             1 => SumAlignmentParams(state.Scaffolding),
             2 => GetCollectedDust(state.Scaffolding, state.Robot),
-            _ => ProblemNotSolvedString
+            _ => PuzzleNotSolvedString
         };
     }
 

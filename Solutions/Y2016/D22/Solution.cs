@@ -15,7 +15,7 @@ public sealed class Solution : SolutionBase
         {
             1 => CountViable(nodes),
             2 => MoveData(nodes),
-            _ => ProblemNotSolvedString
+            _ => PuzzleNotSolvedString
         };
     }
 

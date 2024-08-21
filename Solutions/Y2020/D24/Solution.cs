@@ -29,7 +29,7 @@ public sealed class Solution : SolutionBase
         {
             1 => floor.Count,
             2 => Simulate(floor, days: 100).Count,
-            _ => ProblemNotSolvedString
+            _ => PuzzleNotSolvedString
         };
     }
 

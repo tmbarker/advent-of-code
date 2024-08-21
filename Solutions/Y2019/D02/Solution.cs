@@ -15,7 +15,7 @@ public sealed class Solution : IntCodeSolution
         {
             1 => RunProgram(program),
             2 => FindPartsOfSpeech(program),
-            _ => ProblemNotSolvedString
+            _ => PuzzleNotSolvedString
         };
     }
 

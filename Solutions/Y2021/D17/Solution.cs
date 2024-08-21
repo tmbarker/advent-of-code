@@ -13,7 +13,7 @@ public sealed class Solution : SolutionBase
         {
             1 => ComputeMaxProjectileHeight(target),
             2 => ComputeNumTrajectories(target),
-            _ => ProblemNotSolvedString
+            _ => PuzzleNotSolvedString
         };
     }
 

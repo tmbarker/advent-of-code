@@ -13,7 +13,7 @@ public sealed class Solution : SolutionBase
         {
             1 => EmptyPositionsInBoundingBox(Simulate(positions, rounds: 10)),
             2 => SimulateToSteadyState(positions),
-            _ => ProblemNotSolvedString
+            _ => PuzzleNotSolvedString
         };
     }
     

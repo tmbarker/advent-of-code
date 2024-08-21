@@ -26,7 +26,7 @@ public sealed class Solution : SolutionBase
         {
             1 => EvaluateStrategyGuide1(),
             2 => EvaluateStrategyGuide2(),
-            _ => ProblemNotSolvedString
+            _ => PuzzleNotSolvedString
         };
     }
 

@@ -16,7 +16,7 @@ public sealed class Solution : SolutionBase
         {
             1 => LookAndSay(sequence, rounds: 40),
             2 => LookAndSay(sequence, rounds: 50),
-            _ => ProblemNotSolvedString
+            _ => PuzzleNotSolvedString
         };
     }
 

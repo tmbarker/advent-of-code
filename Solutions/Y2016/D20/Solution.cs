@@ -13,7 +13,7 @@ public sealed class Solution : SolutionBase
         {
             1 => Search(target: Target.LowestValid),
             2 => Search(target: Target.TotalAllowed),
-            _ => ProblemNotSolvedString
+            _ => PuzzleNotSolvedString
         };
     }
 

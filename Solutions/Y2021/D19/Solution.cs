@@ -32,7 +32,7 @@ public sealed class Solution : SolutionBase
         {
             1 => map.GetDistinctBeaconCount(),
             2 => map.GetMaxScannerDistance(Metric.Taxicab),
-            _ => ProblemNotSolvedString
+            _ => PuzzleNotSolvedString
         };
     }
 

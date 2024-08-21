@@ -10,7 +10,7 @@ public sealed class Solution : SolutionBase
         return part switch
         {
             1 => GetLowestSatisfactoryInput(),
-            _ => ProblemNotSolvedString
+            _ => PuzzleNotSolvedString
         };
     }
 

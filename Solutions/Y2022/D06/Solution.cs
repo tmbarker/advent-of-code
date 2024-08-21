@@ -12,7 +12,7 @@ public sealed class Solution : SolutionBase
         {
             1 => ListenForStartMarker(datastream, markerLength: 4),
             2 => ListenForStartMarker(datastream, markerLength: 14),
-            _ => ProblemNotSolvedString
+            _ => PuzzleNotSolvedString
         };
     }
 

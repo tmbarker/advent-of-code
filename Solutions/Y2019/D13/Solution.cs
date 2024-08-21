@@ -12,7 +12,7 @@ public sealed class Solution : IntCodeSolution
         {
             1 => CountGameObjects(type: GameObject.Block),
             2 => GetWinningScore(print: LogsEnabled),
-            _ => ProblemNotSolvedString
+            _ => PuzzleNotSolvedString
         };
     }
 

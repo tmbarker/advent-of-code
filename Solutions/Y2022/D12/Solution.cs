@@ -20,7 +20,7 @@ public sealed class Solution : SolutionBase
         {
             1 => GetMinDistance(map, start, end),
             2 => GetFewestStepsFromMinHeight(map, end),
-            _ => ProblemNotSolvedString
+            _ => PuzzleNotSolvedString
         };
     }
 

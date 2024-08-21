@@ -18,7 +18,7 @@ public sealed class Solution : SolutionBase
         {
             1 => CountVisibleTrees(trees),
             2 => GetMaxScenicScore(trees),
-            _ => ProblemNotSolvedString
+            _ => PuzzleNotSolvedString
         };
     }
 

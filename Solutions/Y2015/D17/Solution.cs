@@ -17,7 +17,7 @@ public sealed class Solution : SolutionBase
                 .OrderBy(group => group.Key)
                 .First()
                 .Count(),
-            _ => ProblemNotSolvedString
+            _ => PuzzleNotSolvedString
         };
     }
 

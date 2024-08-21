@@ -26,7 +26,7 @@ public sealed class Solution : SolutionBase
         return part switch
         {
             1 => DecimalToSnafu(SumSnafuNumbers(GetInputLines())),
-            _ => ProblemNotSolvedString
+            _ => PuzzleNotSolvedString
         };
     }
 

@@ -20,7 +20,7 @@ public sealed class Solution : SolutionBase
         {
             1 => PerformFolds(dots, folds.Take(1)).Count,
             2 => GetOrigamiPrintout(dots, folds),
-            _ => ProblemNotSolvedString
+            _ => PuzzleNotSolvedString
         };
     }
 

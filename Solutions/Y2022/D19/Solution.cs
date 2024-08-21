@@ -18,7 +18,7 @@ public sealed class Solution : SolutionBase
         {
             1 => ComputeQualityLevels(blueprints, timeLimit: 24),
             2 => ComputeGeodeProducts(blueprints.Take(count: 3), timeLimit: 32),
-            _ => ProblemNotSolvedString
+            _ => PuzzleNotSolvedString
         };
     }
 

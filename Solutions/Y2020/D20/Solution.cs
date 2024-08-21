@@ -19,7 +19,7 @@ public sealed class Solution : SolutionBase
         {
             1 => GetCornerProduct(congruences),
             2 => FindSeaMonsters(tiles, congruences),
-            _ => ProblemNotSolvedString
+            _ => PuzzleNotSolvedString
         };
     }
 

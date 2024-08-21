@@ -24,7 +24,7 @@ public sealed class Solution : SolutionBase
         {
             1 => GetTreesOnTrajectoryCount(InitialPos, Trajectory, forest),
             2 => GetTreesOnTrajectoriesProduct(InitialPos, Trajectories, forest),
-            _ => ProblemNotSolvedString
+            _ => PuzzleNotSolvedString
         };
     }
 

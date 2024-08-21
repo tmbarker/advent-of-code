@@ -23,7 +23,7 @@ public sealed class Solution : SolutionBase
         {
             1 => ComputeMinLayerProduct(layers),
             2 => BuildResultingImage(layers),
-            _ => ProblemNotSolvedString
+            _ => PuzzleNotSolvedString
         };
     }
 

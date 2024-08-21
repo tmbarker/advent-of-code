@@ -23,7 +23,7 @@ public sealed class Solution : SolutionBase
         {
             1 => CountSafeTiles(seedRow, rows: 40),
             2 => CountSafeTiles(seedRow, rows: 400000),
-            _ => ProblemNotSolvedString
+            _ => PuzzleNotSolvedString
         };
     }
 

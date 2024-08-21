@@ -10,7 +10,7 @@ public sealed class Solution : SolutionBase
         {
             1 => GetSumPairProduct(targetSum: 2020, numbers),
             2 => GetSumTripletProduct(targetSum: 2020, numbers),
-            _ => ProblemNotSolvedString
+            _ => PuzzleNotSolvedString
         };
     }
 

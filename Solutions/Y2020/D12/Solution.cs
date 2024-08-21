@@ -33,7 +33,7 @@ public sealed class Solution : SolutionBase
         {
             1 => NavigateSimple(instructions),
             2 => NavigateWaypoint(instructions),
-            _ => ProblemNotSolvedString
+            _ => PuzzleNotSolvedString
         };
     }
 

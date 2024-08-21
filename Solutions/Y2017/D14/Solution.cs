@@ -17,7 +17,7 @@ public sealed class Solution : SolutionBase
         {
             1 => CountSquares(memory),
             2 => CountRegions(memory),
-            _ => ProblemNotSolvedString
+            _ => PuzzleNotSolvedString
         };
     }
 

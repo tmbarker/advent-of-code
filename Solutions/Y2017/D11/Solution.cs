@@ -24,7 +24,7 @@ public sealed class Solution : SolutionBase
         {
             1 => GetEndDistance(steps),
             2 => GetMaxDistance(steps),
-            _ => ProblemNotSolvedString
+            _ => PuzzleNotSolvedString
         };
     }
 

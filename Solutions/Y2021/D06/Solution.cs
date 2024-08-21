@@ -12,7 +12,7 @@ public sealed class Solution : SolutionBase
         {
             1 => ModelLanternFish(GetInitialState(), days: 80),
             2 => ModelLanternFish(GetInitialState(), days: 256),
-            _ => ProblemNotSolvedString
+            _ => PuzzleNotSolvedString
         };
     }
 

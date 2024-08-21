@@ -16,7 +16,7 @@ public sealed class Solution : SolutionBase
         {
             1 => instr.Sum(Hash),
             2 => Install(instr, boxes),
-            _ => ProblemNotSolvedString
+            _ => PuzzleNotSolvedString
         };
     }
     

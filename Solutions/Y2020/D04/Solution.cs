@@ -26,7 +26,7 @@ public sealed class Solution : SolutionBase
         {
             1 => passports.Count(ValidateFieldPresence),
             2 => passports.Count(ValidateFieldData),
-            _ => ProblemNotSolvedString
+            _ => PuzzleNotSolvedString
         };
     }
 

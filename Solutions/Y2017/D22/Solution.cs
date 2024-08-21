@@ -24,7 +24,7 @@ public sealed class Solution : SolutionBase
         {
             1 => CountInfected(grid, pose, strength: 2, bursts: 10000),
             2 => CountInfected(grid, pose, strength: 1, bursts: 10000000),
-            _ => ProblemNotSolvedString
+            _ => PuzzleNotSolvedString
         };
     }
 

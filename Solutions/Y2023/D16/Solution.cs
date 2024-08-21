@@ -14,7 +14,7 @@ public sealed class Solution : SolutionBase
         {
             1 => GetDefaultEnergized(grid),
             2 => GetMaxEnergized(grid),
-            _ => ProblemNotSolvedString
+            _ => PuzzleNotSolvedString
         };
     }
 

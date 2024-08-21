@@ -9,7 +9,7 @@ public sealed class Solution : SolutionBase
         {
             1 => Emulate(a: 0L),
             2 => Emulate(a: 1L),
-            _ => ProblemNotSolvedString
+            _ => PuzzleNotSolvedString
         };
     }
 

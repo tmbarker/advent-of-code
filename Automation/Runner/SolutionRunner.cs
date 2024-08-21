@@ -33,7 +33,7 @@ public static class SolutionRunner
     {
         if (!TryCreateSolutionInstance(year, day, out var solution))
         {
-            Log(log: SolutionBase.ProblemNotSolvedString, ConsoleColor.Red);
+            Log(log: SolutionBase.PuzzleNotSolvedString, ConsoleColor.Red);
             return;
         }
         

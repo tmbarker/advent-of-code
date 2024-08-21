@@ -13,7 +13,7 @@ public sealed class Solution : SolutionBase
         {
             1 => Optimize(total: 100, calorieReq: null),
             2 => Optimize(total: 100, calorieReq: 500),
-            _ => ProblemNotSolvedString
+            _ => PuzzleNotSolvedString
         };
     }
 

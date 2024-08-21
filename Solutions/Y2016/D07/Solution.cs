@@ -17,7 +17,7 @@ public sealed class Solution : SolutionBase
         {
             1 => ipAddresses.Count(SupportsTls),
             2 => ipAddresses.Count(SupportsSsl),
-            _ => ProblemNotSolvedString
+            _ => PuzzleNotSolvedString
         };
     }
 

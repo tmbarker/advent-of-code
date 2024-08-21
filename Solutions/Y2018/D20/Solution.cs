@@ -25,7 +25,7 @@ public sealed class Solution : SolutionBase
         {
             1 => costs.Values.Max(),
             2 => costs.Values.Count(c => c >= 1000),
-            _ => ProblemNotSolvedString
+            _ => PuzzleNotSolvedString
         };
     }
 

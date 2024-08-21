@@ -18,7 +18,7 @@ public sealed class Solution : SolutionBase
         {
             1 => CountBagsThatCanContain(targetColour: ShinyGold, map),
             2 => CountBagsInside(targetColour: ShinyGold, map),
-            _ => ProblemNotSolvedString
+            _ => PuzzleNotSolvedString
         };
     }
 

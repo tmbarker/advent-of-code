@@ -39,7 +39,7 @@ public sealed class Solution : SolutionBase
         {
             1 => CountUniqueSegmentDigitOccurrences(notes),
             2 => SumDecodedOutputs(notes),
-            _ => ProblemNotSolvedString
+            _ => PuzzleNotSolvedString
         };
     }
 

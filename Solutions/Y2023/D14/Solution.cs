@@ -17,7 +17,7 @@ public sealed class Solution : SolutionBase
         {
             1 => ComputeLoad(grid: Tilt(grid)),
             2 => ComputeLoad(grid: Spin(grid, n: 1000000000L)),
-            _ => ProblemNotSolvedString
+            _ => PuzzleNotSolvedString
         };
     }
     

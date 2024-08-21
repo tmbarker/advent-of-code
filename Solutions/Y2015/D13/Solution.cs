@@ -15,7 +15,7 @@ public sealed class Solution : SolutionBase
         {
             1 => GetMax(you: false),
             2 => GetMax(you: true),
-            _ => ProblemNotSolvedString
+            _ => PuzzleNotSolvedString
         };
     }
 

@@ -11,7 +11,7 @@ public sealed class Solution : IntCodeSolution
         {
             1 => RunBoostProgram(input: 1L),
             2 => RunBoostProgram(input: 2L),
-            _ => ProblemNotSolvedString
+            _ => PuzzleNotSolvedString
         };
     }
 

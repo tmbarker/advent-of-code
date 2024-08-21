@@ -12,7 +12,7 @@ public sealed class Solution : SolutionBase
         {
             1 => PlaySimpleGame(decks.P1, decks.P2),
             2 => PlayRecursiveGame(decks.P1, decks.P2).WinningScore,
-            _ => ProblemNotSolvedString
+            _ => PuzzleNotSolvedString
         };
     }
 

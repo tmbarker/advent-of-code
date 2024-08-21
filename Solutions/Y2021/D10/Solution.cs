@@ -18,7 +18,7 @@ public sealed class Solution : SolutionBase
         {
             1 => SumCorruptedLineSyntaxErrors(lines),
             2 => GetMedianCompletionStringScore(lines),
-            _ => ProblemNotSolvedString
+            _ => PuzzleNotSolvedString
         };
     }
 

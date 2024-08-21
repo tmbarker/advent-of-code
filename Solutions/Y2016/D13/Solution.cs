@@ -17,7 +17,7 @@ public sealed class Solution : SolutionBase
         {
             1 => Search(Start, Target, favourite),
             2 => Explore(Start, favourite, maxDepth: 50),
-            _ => ProblemNotSolvedString
+            _ => PuzzleNotSolvedString
         };
     }
 

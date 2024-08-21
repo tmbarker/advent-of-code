@@ -12,7 +12,7 @@ public sealed class Solution : SolutionBase
         {
             1 => CountFlashes(steps: 100),
             2 => WaitForAllFlashed().Result, 
-            _ => ProblemNotSolvedString
+            _ => PuzzleNotSolvedString
         };
     }
 

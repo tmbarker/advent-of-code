@@ -19,7 +19,7 @@ public sealed class Solution : SolutionBase
         {
             1 => EvolveNaive(map, minutes: 10),
             2 => EvolveCycle(map, minutes: 1000000000),
-            _ => ProblemNotSolvedString
+            _ => PuzzleNotSolvedString
         };
     }
 

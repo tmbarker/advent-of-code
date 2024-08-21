@@ -14,7 +14,7 @@ public sealed class Solution : SolutionBase
         {
             1 => Init(instructions),
             2 => Reboot(instructions),
-            _ => ProblemNotSolvedString
+            _ => PuzzleNotSolvedString
         };
     }
 

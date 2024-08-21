@@ -10,7 +10,7 @@ public sealed class Solution : SolutionBase
         {
             1 => CountSteps(offsets, offsetModifier: offset => offset + 1),
             2 => CountSteps(offsets, offsetModifier: offset => offset >= 3 ? offset - 1 : offset + 1),
-            _ => ProblemNotSolvedString
+            _ => PuzzleNotSolvedString
         };
     }
 

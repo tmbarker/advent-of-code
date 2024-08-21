@@ -16,7 +16,7 @@ public sealed class Solution : SolutionBase
         {
             1 => CountCongruentOpcodes(observations, threshold: 3),
             2 => ExecuteProgram(observations, program),
-            _ => ProblemNotSolvedString
+            _ => PuzzleNotSolvedString
         };
     }
 

@@ -17,7 +17,7 @@ public sealed class Solution : SolutionBase
         {
             1 => GetDistanceToOrigin(value),
             2 => GetFirstLargerValue(value),
-            _ => ProblemNotSolvedString
+            _ => PuzzleNotSolvedString
         };
     }
 

@@ -9,7 +9,7 @@ public sealed class Solution : SolutionBase
         {
             1 => FindShortestPath(applyInputOverrides: false, ignoreDoors: false),
             2 => FindShortestPath(applyInputOverrides: true,  ignoreDoors: true),
-            _ => ProblemNotSolvedString
+            _ => PuzzleNotSolvedString
         };
     }
 

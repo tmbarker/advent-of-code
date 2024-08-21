@@ -16,7 +16,7 @@ public sealed class Solution : SolutionBase
         {
             1 => FindMinMana(state, tickDmg: 0),
             2 => FindMinMana(state, tickDmg: 1),
-            _ => ProblemNotSolvedString
+            _ => PuzzleNotSolvedString
         };
     }
 

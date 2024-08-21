@@ -20,7 +20,7 @@ public sealed class Solution : SolutionBase
         {
             1 => CountOrbits(map),
             2 => ComputeTransferCost(map, from: map[You], to: map[Santa]),
-            _ => ProblemNotSolvedString
+            _ => PuzzleNotSolvedString
         };
     }
 

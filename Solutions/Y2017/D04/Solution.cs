@@ -12,7 +12,7 @@ public sealed class Solution : SolutionBase
         {
             1 => CountValidDistinctWords(passphrases),
             2 => CountValidNoAnagrams(passphrases),
-            _ => ProblemNotSolvedString
+            _ => PuzzleNotSolvedString
         };
     }
 

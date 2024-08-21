@@ -12,7 +12,7 @@ public sealed class Solution : SolutionBase
         {
             1 => FindHashSeed(key, zeroes: 5),
             2 => FindHashSeed(key, zeroes: 6),
-            _ => ProblemNotSolvedString
+            _ => PuzzleNotSolvedString
         };
     }
 

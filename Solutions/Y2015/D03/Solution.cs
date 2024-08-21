@@ -20,7 +20,7 @@ public sealed class Solution : SolutionBase
         {
             1 => CountDistinctAlone(steps),
             2 => CountDistinctPair(steps),
-            _ => ProblemNotSolvedString
+            _ => PuzzleNotSolvedString
         };
     }
 

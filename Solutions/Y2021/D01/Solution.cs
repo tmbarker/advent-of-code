@@ -9,7 +9,7 @@ public sealed class Solution : SolutionBase
         {
             1 => CountDepthIncreases(windowSize: 1),
             2 => CountDepthIncreases(windowSize: 3),
-            _ => ProblemNotSolvedString
+            _ => PuzzleNotSolvedString
         };
     }
 

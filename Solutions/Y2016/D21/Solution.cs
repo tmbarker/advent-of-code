@@ -13,7 +13,7 @@ public sealed class Solution : SolutionBase
         {
             1 => Scramble(seed: @"abcdefgh", steps),
             2 => Unscramble(result: @"fbgdceah", steps),
-            _ => ProblemNotSolvedString
+            _ => PuzzleNotSolvedString
         };
     }
 

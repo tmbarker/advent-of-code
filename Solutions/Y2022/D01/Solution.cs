@@ -11,7 +11,7 @@ public sealed class Solution : SolutionBase
         {
             1 => GetMaxCalories(num: 1),
             2 => GetMaxCalories(num: 3),
-            _ => ProblemNotSolvedString
+            _ => PuzzleNotSolvedString
         };
     }
 

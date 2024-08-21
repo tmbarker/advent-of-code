@@ -10,7 +10,7 @@ public sealed class Solution : SolutionBase
         {
             1 => GetNextDeparture(timestamp, busIds),
             2 => GetFirstIncrementalDeparture(busIds),
-            _ => ProblemNotSolvedString
+            _ => PuzzleNotSolvedString
         };
     }
 

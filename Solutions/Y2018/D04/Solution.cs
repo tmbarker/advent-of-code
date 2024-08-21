@@ -23,7 +23,7 @@ public sealed class Solution : SolutionBase
         {
             1 => EvaluateStrategy1(map),
             2 => EvaluateStrategy2(map),
-            _ => ProblemNotSolvedString
+            _ => PuzzleNotSolvedString
         };
     }
 

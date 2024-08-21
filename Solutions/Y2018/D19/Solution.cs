@@ -15,7 +15,7 @@ public sealed class Solution : SolutionBase
         {
             1 => Execute(ipAdr, program, r0: 0, enableOptimizations: true),
             2 => Execute(ipAdr, program, r0: 1, enableOptimizations: true),
-            _ => ProblemNotSolvedString
+            _ => PuzzleNotSolvedString
         };
     }
 

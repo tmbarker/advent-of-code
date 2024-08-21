@@ -13,7 +13,7 @@ public sealed class Solution : SolutionBase
         {
             1 => SumArrangements(factor: 1),
             2 => SumArrangements(factor: 5),
-            _ => ProblemNotSolvedString
+            _ => PuzzleNotSolvedString
         };
     }
     

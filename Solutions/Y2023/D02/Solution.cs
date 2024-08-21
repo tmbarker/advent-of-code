@@ -15,7 +15,7 @@ public sealed class Solution : SolutionBase
         {
             1 => SumPossible(),
             2 => SumMinimumPowers(),
-            _ => ProblemNotSolvedString
+            _ => PuzzleNotSolvedString
         };
     }
     

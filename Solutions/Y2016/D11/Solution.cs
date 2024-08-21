@@ -26,7 +26,7 @@ public sealed class Solution : SolutionBase
         {
             1 => Search(devices, extra: false),
             2 => Search(devices, extra: true),
-            _ => ProblemNotSolvedString
+            _ => PuzzleNotSolvedString
         };
     }
 

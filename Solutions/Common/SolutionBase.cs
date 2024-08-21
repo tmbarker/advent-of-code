@@ -10,7 +10,7 @@ namespace Solutions.Common;
 public abstract class SolutionBase
 {
     public const string DayStringFormat = "{0:D2}";
-    public const string ProblemNotSolvedString = "Problem not solved!";
+    public const string PuzzleNotSolvedString = "Puzzle not solved!";
 
     public virtual int Parts => 2;
 

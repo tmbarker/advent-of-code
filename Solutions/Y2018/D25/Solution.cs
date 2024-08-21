@@ -13,7 +13,7 @@ public sealed class Solution : SolutionBase
         return part switch
         {
             1 => CountConstellations(),
-            _ => ProblemNotSolvedString
+            _ => PuzzleNotSolvedString
         };
     }
 

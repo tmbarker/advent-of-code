@@ -22,7 +22,7 @@ public sealed class Solution : SolutionBase
         {
             1 => CountKnotPositions(steps, count: 2),
             2 => CountKnotPositions(steps, count: 10),
-            _ => ProblemNotSolvedString
+            _ => PuzzleNotSolvedString
         };
     }
 

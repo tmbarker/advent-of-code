@@ -12,7 +12,7 @@ public sealed class Solution : IntCodeSolution
         {
             1 => CountBeamPoints(searchDimension: 50),
             2 => FindShip(shipSize: 100),
-            _ => ProblemNotSolvedString
+            _ => PuzzleNotSolvedString
         };
     }
 

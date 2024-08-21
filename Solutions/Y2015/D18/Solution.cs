@@ -11,7 +11,7 @@ public sealed class Solution : SolutionBase
         {
             1 => Simulate(cornersAlwaysOn: false),
             2 => Simulate(cornersAlwaysOn: true),
-            _ => ProblemNotSolvedString
+            _ => PuzzleNotSolvedString
         };
     }
 

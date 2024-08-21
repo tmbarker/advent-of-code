@@ -10,7 +10,7 @@ public sealed class Solution : SolutionBase
         {
             1 => boardingPasses.Max(GetSeatId),
             2 => FindMissingSeat(boardingPasses),
-            _ => ProblemNotSolvedString
+            _ => PuzzleNotSolvedString
         };
     }
 

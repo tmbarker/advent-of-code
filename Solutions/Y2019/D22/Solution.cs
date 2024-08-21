@@ -17,7 +17,7 @@ public sealed class Solution : SolutionBase
         {
             1 => FollowCard(card: 2019L, deckSize: 10007L),
             2 => TraceCard(index: 2020L, deckSize: 119315717514047L, numShuffles: 101741582076661L),
-            _ => ProblemNotSolvedString
+            _ => PuzzleNotSolvedString
         };
     }
 

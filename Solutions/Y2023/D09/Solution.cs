@@ -12,7 +12,7 @@ public class Solution : SolutionBase
         {
             1 => input.Sum(line => Extrapolate(report: line, forwards: true)),
             2 => input.Sum(line => Extrapolate(report: line, forwards: false)),
-            _ => ProblemNotSolvedString
+            _ => PuzzleNotSolvedString
         };
     }
 

@@ -9,7 +9,7 @@ public sealed class Solution : SolutionBase
         {
             1 => GetChecksum(ids: GetInputLines(), c1: 2, c2: 3),
             2 => GetCommonCorrectLetters(ids: GetInputLines()),
-            _ => ProblemNotSolvedString
+            _ => PuzzleNotSolvedString
         };
     }
 

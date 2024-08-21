@@ -11,20 +11,20 @@ internal static class Program
     {
         var solveCommand = new Command(
             name: "solve", 
-            description: "Run the specified problem solution, if it exists");
+            description: "Run the specified puzzle solution, if it exists");
         var yearArg = new Argument<int>(
             name: "year", 
-            description: "The year the problem belongs to");
+            description: "The year the puzzle belongs to");
         var dayArg = new Argument<int>(
             name: "day", 
-            description: "The problem day");
+            description: "The puzzle day");
         var inputPathOption = new Option<string>(
             aliases: ["--input", "--path"],
             description: "Manually specify the path to the input file",
             getDefaultValue: () => string.Empty);
         var logsOption = new Option<bool>(
             aliases: ["--logs"],
-            description: "Some problems emit logs as they run, print any such logs to the console",
+            description: "Some solutions emit logs as they run, print any such logs to the console",
             getDefaultValue: () => false);
         
         solveCommand.AddArgument(yearArg);

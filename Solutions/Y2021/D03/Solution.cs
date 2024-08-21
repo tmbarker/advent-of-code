@@ -13,7 +13,7 @@ public sealed class Solution : SolutionBase
         {
             1 => ComputeConsumptionRate(numberStrings),
             2 => ComputeLifeSupportRating(numberStrings),
-            _ => ProblemNotSolvedString
+            _ => PuzzleNotSolvedString
         };
     }
 

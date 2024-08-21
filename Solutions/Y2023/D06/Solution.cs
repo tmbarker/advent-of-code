@@ -13,7 +13,7 @@ public sealed class Solution : SolutionBase
         {
             1 => AggregateStrategies(trimInput: false),
             2 => AggregateStrategies(trimInput: true),
-            _ => ProblemNotSolvedString
+            _ => PuzzleNotSolvedString
         };
     }
     

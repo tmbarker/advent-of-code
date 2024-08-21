@@ -16,7 +16,7 @@ public sealed class Solution : SolutionBase
         {
             1 => TopologicalSort(graph),
             2 => TopologicalSortTimed(graph, baseStepTime: 60, agents: 5),
-            _ => ProblemNotSolvedString
+            _ => PuzzleNotSolvedString
         };
     }
 

@@ -10,7 +10,7 @@ public sealed class Solution : SolutionBase
         {
             1 => GetFirstWinningCardScore(draw!, cards!),
             2 => GetLastWinningCardScore(draw!, cards!),
-            _ => ProblemNotSolvedString
+            _ => PuzzleNotSolvedString
         };
     }
 

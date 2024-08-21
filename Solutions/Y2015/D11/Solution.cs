@@ -12,7 +12,7 @@ public sealed class Solution : SolutionBase
         {
             1 => FindNextValid(password),
             2 => FindNextValid(FindNextValid(password)),
-            _ => ProblemNotSolvedString
+            _ => PuzzleNotSolvedString
         };
     }
 

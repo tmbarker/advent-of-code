@@ -16,7 +16,7 @@ public sealed class Solution : SolutionBase
         {
             1 => GetTopCratesAfterPlan(plan!, PickupMode.OneAtATime),
             2 => GetTopCratesAfterPlan(plan!, PickupMode.ManyAtATime),
-            _ => ProblemNotSolvedString
+            _ => PuzzleNotSolvedString
         };
     }
 

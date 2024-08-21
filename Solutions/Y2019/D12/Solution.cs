@@ -13,7 +13,7 @@ public sealed class Solution : SolutionBase
         {
             1 => ComputeEnergyAfterSteps(bodies, steps: 1000),
             2 => ComputeFirstSystemCycle(bodies),
-            _ => ProblemNotSolvedString
+            _ => PuzzleNotSolvedString
         };
     }
 

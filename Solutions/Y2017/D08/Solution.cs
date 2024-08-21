@@ -12,7 +12,7 @@ public sealed class Solution : SolutionBase
         {
             1 => GetMaxRegister(instructions, Scope.Halted),
             2 => GetMaxRegister(instructions, Scope.Lifetime),
-            _ => ProblemNotSolvedString
+            _ => PuzzleNotSolvedString
         };
     }
 

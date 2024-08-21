@@ -20,7 +20,7 @@ public sealed class Solution : SolutionBase
         {
             1 => FindNode(map, v1: 61, v2: 17),
             2 => ComputeOutputProduct(map, outputIds: [0, 1, 2]),
-            _ => ProblemNotSolvedString
+            _ => PuzzleNotSolvedString
         };
     }
 

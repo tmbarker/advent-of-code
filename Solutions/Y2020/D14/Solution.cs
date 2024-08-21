@@ -10,7 +10,7 @@ public sealed class Solution : SolutionBase
         { 
             1 => Machine.RunV1(program),
             2 => Machine.RunV2(program),
-            _ => ProblemNotSolvedString
+            _ => PuzzleNotSolvedString
         };
     }
 }

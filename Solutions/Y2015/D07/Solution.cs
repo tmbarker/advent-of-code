@@ -26,7 +26,7 @@ public sealed class Solution : SolutionBase
         {
             1 => target,
             2 => EvaluateSignal(circuit, memo: new Memo { { "b", target } }, gate: "a"),
-            _ => ProblemNotSolvedString
+            _ => PuzzleNotSolvedString
         };
     }
 

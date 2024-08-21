@@ -12,7 +12,7 @@ public sealed class Solution : SolutionBase
         {
             1 => CountOccupiedAtSteadyState(seatMap, Concern.Adjacent, moveThreshold: 4),
             2 => CountOccupiedAtSteadyState(seatMap, Concern.Visible, moveThreshold: 5),
-            _ => ProblemNotSolvedString
+            _ => PuzzleNotSolvedString
         };
     }
 

@@ -16,7 +16,7 @@ public sealed class Solution : SolutionBase
         {
             1 => CountElements(adjacency, id: 0),
             2 => CountSetPartitions(adjacency),
-            _ => ProblemNotSolvedString
+            _ => PuzzleNotSolvedString
         };
     }
 

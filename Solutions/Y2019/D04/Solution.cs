@@ -14,7 +14,7 @@ public sealed class Solution : SolutionBase
         {
             1 => CountValidPasswords(range, minRun: 2, maxRun: 6),
             2 => CountValidPasswords(range, minRun: 2, maxRun: 2),
-            _ => ProblemNotSolvedString
+            _ => PuzzleNotSolvedString
         };
     }
 

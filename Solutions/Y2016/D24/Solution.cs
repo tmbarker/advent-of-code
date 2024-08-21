@@ -12,7 +12,7 @@ public sealed class Solution : SolutionBase
         {
             1 => Search(loop: false),
             2 => Search(loop: true),
-            _ => ProblemNotSolvedString
+            _ => PuzzleNotSolvedString
         };
     }
 

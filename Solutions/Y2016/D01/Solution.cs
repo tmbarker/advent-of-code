@@ -15,7 +15,7 @@ public sealed class Solution : SolutionBase
         {
             1 => GetMinDistance(steps, haltOnRepeat: false),
             2 => GetMinDistance(steps, haltOnRepeat: true),
-            _ => ProblemNotSolvedString
+            _ => PuzzleNotSolvedString
         };
     }
 

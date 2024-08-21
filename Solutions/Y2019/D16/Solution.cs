@@ -19,7 +19,7 @@ public sealed class Solution : SolutionBase
         {
             1 => Execute(data: initialData),
             2 => ExecuteFast(input: initialData, inputRepetitions: 10000, messageOffset: 7), 
-            _ => ProblemNotSolvedString
+            _ => PuzzleNotSolvedString
         };
     }
 

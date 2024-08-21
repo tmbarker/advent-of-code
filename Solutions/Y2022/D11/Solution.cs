@@ -9,7 +9,7 @@ public sealed class Solution : SolutionBase
         {
             1 => QuantifyMonkeyBusiness(rounds: 20,    applyBoredDivisor: true),
             2 => QuantifyMonkeyBusiness(rounds: 10000, applyBoredDivisor: false),
-            _ => ProblemNotSolvedString
+            _ => PuzzleNotSolvedString
         };
     }
 

@@ -15,7 +15,7 @@ public sealed class Solution : SolutionBase
         {
             1 => CountValidPoliciesWithRange(policies),
             2 => CountValidPoliciesWithIndices(policies),
-            _ => ProblemNotSolvedString
+            _ => PuzzleNotSolvedString
         };
     }
 

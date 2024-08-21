@@ -12,7 +12,7 @@ public sealed class Solution : SolutionBase
         {
             1 => GetChecksum(table),
             2 => GetDivisorSum(table),
-            _ => ProblemNotSolvedString
+            _ => PuzzleNotSolvedString
         };
     }
 

@@ -17,7 +17,7 @@ public sealed class Solution : SolutionBase
         {
             1 => GetScoreSequence(startAt: number, numScores: 10),
             2 => GetCountBeforeSequence(sequenceStr: input),
-            _ => ProblemNotSolvedString
+            _ => PuzzleNotSolvedString
         };
     }
 

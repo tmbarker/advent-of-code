@@ -15,7 +15,7 @@ public sealed class Solution : SolutionBase
         {
             1 => CalculateSignalStrength(instructions),
             2 => RenderCrt(instructions),
-            _ => ProblemNotSolvedString
+            _ => PuzzleNotSolvedString
         };
     }
 

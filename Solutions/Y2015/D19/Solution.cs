@@ -11,7 +11,7 @@ public sealed class Solution : SolutionBase
         {
             1 => CountProductions(),
             2 => GetMinDerivationDepth(),
-            _ => ProblemNotSolvedString
+            _ => PuzzleNotSolvedString
         };
     }
     

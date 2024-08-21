@@ -14,7 +14,7 @@ public sealed class Solution : SolutionBase
         {
             1 => FindKeys(salt, stretches: 0000, count: 64),
             2 => FindKeys(salt, stretches: 2016, count: 64),
-            _ => ProblemNotSolvedString
+            _ => PuzzleNotSolvedString
         };
     }
 

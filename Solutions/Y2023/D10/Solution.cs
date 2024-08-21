@@ -27,7 +27,7 @@ public class Solution : SolutionBase
         {
             1 => Traverse(maze, start).MaxDepth,
             2 => CountEnclosed(maze, start),
-            _ => ProblemNotSolvedString
+            _ => PuzzleNotSolvedString
         };
     }
     

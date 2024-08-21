@@ -26,7 +26,7 @@ public sealed class Solution : SolutionBase
         {
             1 => Traverse(start, end, storm),
             2 => Navigate(start, end, storm),
-            _ => ProblemNotSolvedString
+            _ => PuzzleNotSolvedString
         };
     }
 

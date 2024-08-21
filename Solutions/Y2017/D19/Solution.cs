@@ -23,7 +23,7 @@ public sealed class Solution : SolutionBase
         {
             1 => Traverse(map, start).Letters,
             2 => Traverse(map, start).Steps,
-            _ => ProblemNotSolvedString
+            _ => PuzzleNotSolvedString
         };
     }
 

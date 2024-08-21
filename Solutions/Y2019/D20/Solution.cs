@@ -20,7 +20,7 @@ public sealed class Solution : SolutionBase
         {
             1 => Traverse(maze, MazeType.Static),
             2 => Traverse(maze, MazeType.Recursive),
-            _ => ProblemNotSolvedString
+            _ => PuzzleNotSolvedString
         };
     }
 

@@ -12,7 +12,7 @@ public sealed class Solution : SolutionBase
         {
             1 => SumDigits(stream, steps: 1),
             2 => SumDigits(stream, steps: stream.Length / 2),
-            _ => ProblemNotSolvedString
+            _ => PuzzleNotSolvedString
         };
     }
 

@@ -17,7 +17,7 @@ public sealed class Solution : SolutionBase
         {
             1 => ComputeMagnitude(SumSfNumbers(numbers)),
             2 => ComputeMaxPairSumMagnitude(numbers),
-            _ => ProblemNotSolvedString
+            _ => PuzzleNotSolvedString
         };
     }
 

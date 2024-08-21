@@ -22,7 +22,7 @@ public sealed class Solution : SolutionBase
         return part switch
         {
             1 => CountStepsTillSteadyState(herds, bounds),
-            _ => ProblemNotSolvedString
+            _ => PuzzleNotSolvedString
         };
     }
 

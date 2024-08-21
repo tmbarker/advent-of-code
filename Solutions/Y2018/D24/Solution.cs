@@ -12,7 +12,7 @@ public sealed class Solution : SolutionBase
         {
             1 => GetDefaultScore(initialState),
             2 => GetBoostedScore(initialState),
-            _ => ProblemNotSolvedString
+            _ => PuzzleNotSolvedString
         };
     }
 

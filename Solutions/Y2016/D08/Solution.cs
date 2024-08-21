@@ -18,7 +18,7 @@ public sealed class Solution : SolutionBase
         {
             1 => CountOn(screen),
             2 => BuildRepresentativeString(screen),
-            _ => ProblemNotSolvedString
+            _ => PuzzleNotSolvedString
         };
     }
 

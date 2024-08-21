@@ -17,7 +17,7 @@ public sealed class Solution : SolutionBase
         {
             1 => Search(weights, target: weights.Sum() / 3),
             2 => Search(weights, target: weights.Sum() / 4),
-            _ => ProblemNotSolvedString
+            _ => PuzzleNotSolvedString
         };
     }
 

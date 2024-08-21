@@ -12,7 +12,7 @@ public sealed class Solution : SolutionBase
         {
             1 => SumValid(),
             2 => Decrypt(),
-            _ => ProblemNotSolvedString
+            _ => PuzzleNotSolvedString
         };
     }
 

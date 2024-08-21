@@ -10,7 +10,7 @@ public sealed class Solution : SolutionBase
         {
             1 => PlayDefaultGame(input, print: LogsEnabled),
             2 => PlayBuffedGame(input, print: LogsEnabled),
-            _ => ProblemNotSolvedString
+            _ => PuzzleNotSolvedString
         };
     }
 

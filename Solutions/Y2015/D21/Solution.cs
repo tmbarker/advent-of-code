@@ -14,7 +14,7 @@ public sealed class Solution : SolutionBase
         {
             1 => GetMinWinningCost(enemy, playerHp: 100),
             2 => GetMaxLosingCost(enemy, playerHp: 100),
-            _ => ProblemNotSolvedString
+            _ => PuzzleNotSolvedString
         };
     }
 

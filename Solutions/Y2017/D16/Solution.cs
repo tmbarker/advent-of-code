@@ -19,7 +19,7 @@ public sealed class Solution : SolutionBase
         {
             1 => Execute(instructions, findCycle: false, rounds: 1),
             2 => Execute(instructions, findCycle: true,  rounds: 1000000000),
-            _ => ProblemNotSolvedString
+            _ => PuzzleNotSolvedString
         };
     }
 

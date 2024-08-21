@@ -12,7 +12,7 @@ public sealed class Solution : SolutionBase
         {
             1 => enumerated.Sum(),
             2 => GetFirstRepeatedFrequency(enumerated),
-            _ => ProblemNotSolvedString
+            _ => PuzzleNotSolvedString
         };
     }
 

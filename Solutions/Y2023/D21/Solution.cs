@@ -21,7 +21,7 @@ public sealed class Solution : SolutionBase
         {
             1 => Simulate(grid, start, sampleAt: [64])[0],
             2 => Extrapolate(grid, start, n: 26501365),
-            _ => ProblemNotSolvedString
+            _ => PuzzleNotSolvedString
         };
     }
 

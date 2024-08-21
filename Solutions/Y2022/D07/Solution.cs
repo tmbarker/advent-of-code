@@ -13,7 +13,7 @@ public sealed class Solution : SolutionBase
         {
             1 => SumDirectoriesUnderSize(sizeIndex, thresholdSize: 100000),
             2 => FreeUpSpace(sizeIndex, systemVolume: 70000000, requiredSpace: 30000000),
-            _ => ProblemNotSolvedString
+            _ => PuzzleNotSolvedString
         };
     }
 

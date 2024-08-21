@@ -14,7 +14,7 @@ public sealed class Solution : SolutionBase
         {
             1 => GetMaxDistance(reindeer, time: 2503),
             2 => GetMaxScore(reindeer, time: 2503),
-            _ => ProblemNotSolvedString
+            _ => PuzzleNotSolvedString
         };
     }
 

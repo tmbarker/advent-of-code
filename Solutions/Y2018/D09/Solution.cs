@@ -15,7 +15,7 @@ public sealed class Solution : SolutionBase
         {
             1 => GetWinningScore(gameParams.NumPlayers, numMarbles: gameParams.LastMarbleWorth),
             2 => GetWinningScore(gameParams.NumPlayers, numMarbles: 100 * gameParams.LastMarbleWorth),
-            _ => ProblemNotSolvedString
+            _ => PuzzleNotSolvedString
         };
     }
 

@@ -12,7 +12,7 @@ public sealed class Solution : SolutionBase
         {
             1 => ParseMessage(encoding: Encoding.MostCommon),
             2 => ParseMessage(encoding: Encoding.LeastCommon),
-            _ => ProblemNotSolvedString
+            _ => PuzzleNotSolvedString
         };
     }
 

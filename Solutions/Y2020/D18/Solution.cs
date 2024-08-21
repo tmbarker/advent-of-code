@@ -15,7 +15,7 @@ public sealed class Solution : SolutionBase
         {
             1 => expressions.Sum(tokens => Evaluate(tokens, Operators.EqualPrecedence)),
             2 => expressions.Sum(tokens => Evaluate(tokens, Operators.AddPrecedence)),
-            _ => ProblemNotSolvedString
+            _ => PuzzleNotSolvedString
         };
     }
 

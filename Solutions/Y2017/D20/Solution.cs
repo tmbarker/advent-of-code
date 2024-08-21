@@ -21,7 +21,7 @@ public sealed class Solution : SolutionBase
         {
             1 => GetLongTermClosest(particles),
             2 => CountCollisions(particles),
-            _ => ProblemNotSolvedString
+            _ => PuzzleNotSolvedString
         };
     }
 

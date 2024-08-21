@@ -13,7 +13,7 @@ public sealed class Solution : SolutionBase
         {
             1 => GetLargestFiniteArea(pois),
             2 => GetLargestProximalArea(pois, maxDistance: 10000),
-            _ => ProblemNotSolvedString
+            _ => PuzzleNotSolvedString
         };
     }
 

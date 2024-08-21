@@ -12,7 +12,7 @@ public sealed class Solution : SolutionBase
         {
             1 => strings.Sum(raw => raw.Length - ToInMemory(raw).Length),
             2 => strings.Sum(raw => ToEscaped(raw).Length - raw.Length),
-            _ => ProblemNotSolvedString
+            _ => PuzzleNotSolvedString
         };
     }
     

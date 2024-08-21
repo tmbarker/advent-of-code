@@ -11,7 +11,7 @@ public sealed class Solution : SolutionBase
         {
             1 => CountValidHorizontal(),
             2 => CountValidVertical(),
-            _ => ProblemNotSolvedString
+            _ => PuzzleNotSolvedString
         };
     }
 

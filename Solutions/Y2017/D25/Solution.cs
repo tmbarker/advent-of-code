@@ -12,7 +12,7 @@ public sealed class Solution : SolutionBase
         return part switch
         {
             1 => Simulate(),
-            _ => ProblemNotSolvedString
+            _ => PuzzleNotSolvedString
         };
     }
 

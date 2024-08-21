@@ -11,7 +11,7 @@ public sealed class Solution : SolutionBase
         {
             1 => GetMaxStrength(bridgeComparer: new StrengthComparer()),
             2 => GetMaxStrength(bridgeComparer: new LengthComparer()),
-            _ => ProblemNotSolvedString
+            _ => PuzzleNotSolvedString
         };
     }
 

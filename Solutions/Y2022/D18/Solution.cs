@@ -12,7 +12,7 @@ public sealed class Solution : SolutionBase
         {
             1 => ComputeTotalSurfaceArea(surfaceVectors),
             2 => ComputeExteriorSurfaceArea(surfaceVectors),
-            _ => ProblemNotSolvedString
+            _ => PuzzleNotSolvedString
         };
     }
 

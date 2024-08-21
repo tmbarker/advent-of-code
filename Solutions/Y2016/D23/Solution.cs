@@ -15,7 +15,7 @@ public sealed class Solution : SolutionBase
         {
             1 => RunProgram(tokens, numEggs: 7L),
             2 => RunProgramOptimized(tokens, numEggs: 12L),
-            _ => ProblemNotSolvedString
+            _ => PuzzleNotSolvedString
         };
     }
     

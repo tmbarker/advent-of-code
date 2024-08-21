@@ -12,7 +12,7 @@ public sealed class Solution : SolutionBase
         {
             1 => FindMinCost(State.FromInitialPositions(Input.Part1), new Field(sideRoomDepth: 2)),
             2 => FindMinCost(State.FromInitialPositions(Input.Part2), new Field(sideRoomDepth: 4)),
-            _ => ProblemNotSolvedString
+            _ => PuzzleNotSolvedString
         };
     }
 

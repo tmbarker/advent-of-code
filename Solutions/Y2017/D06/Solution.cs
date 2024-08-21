@@ -14,7 +14,7 @@ public sealed class Solution : SolutionBase
         {
             1 => GetCycle(state),
             2 => GetLoopLength(state),
-            _ => ProblemNotSolvedString
+            _ => PuzzleNotSolvedString
         };
     }
 

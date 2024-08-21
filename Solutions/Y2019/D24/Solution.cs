@@ -24,7 +24,7 @@ public sealed class Solution : SolutionBase
         {
             1 => GetFirstRepeatedRating(initialBugs, GridType.Static),
             2 => CountBugsAfterSteps(steps: 200, initialBugs, GridType.Recursive),
-            _ => ProblemNotSolvedString
+            _ => PuzzleNotSolvedString
         };
     }
 

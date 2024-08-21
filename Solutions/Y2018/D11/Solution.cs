@@ -12,7 +12,7 @@ public sealed class Solution : SolutionBase
         {
             1 => GetMaxPowerFixed(serial, gridSize: 300, sqrSize: 3),
             2 => GetMaxPowerVariable(serial, gridSize: 300),
-            _ => ProblemNotSolvedString
+            _ => PuzzleNotSolvedString
         };
     }
 

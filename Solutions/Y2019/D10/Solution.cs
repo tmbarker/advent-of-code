@@ -19,7 +19,7 @@ public sealed class Solution : SolutionBase
         {
             1 => visible,
             2 => FindNthDestroyed(asteroids, pos, transform),
-            _ => ProblemNotSolvedString
+            _ => PuzzleNotSolvedString
         };
     }
 

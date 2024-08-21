@@ -15,7 +15,7 @@ public sealed class Solution : SolutionBase
         {
             1 => EnhanceImage(litInImage, algorithm, steps: 2),
             2 => EnhanceImage(litInImage, algorithm, steps: 50),
-            _ => ProblemNotSolvedString
+            _ => PuzzleNotSolvedString
         };
     }
 

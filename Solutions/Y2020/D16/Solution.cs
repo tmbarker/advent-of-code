@@ -24,7 +24,7 @@ public sealed class Solution : SolutionBase
         {
             1 => SumCompletelyInvalidFields(validators, others),
             2 => ComputeTicketFieldsProduct(yours, fields, BuildFieldMap(yours, others, validators)),
-            _ => ProblemNotSolvedString
+            _ => PuzzleNotSolvedString
         };
     }
 

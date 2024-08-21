@@ -17,7 +17,7 @@ public sealed class Solution : SolutionBase
         {
             1 => GetHeightNaive(numRocks: 2022L),
             2 => GetHeightCycle(numRocks: 1000000000000L),
-            _ => ProblemNotSolvedString
+            _ => PuzzleNotSolvedString
         };
     }
 

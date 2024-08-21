@@ -15,7 +15,7 @@ public sealed class Solution : SolutionBase
         {
             1 => Measure(hex: false),
             2 => Measure(hex: true),
-            _ => ProblemNotSolvedString
+            _ => PuzzleNotSolvedString
         };
     }
 

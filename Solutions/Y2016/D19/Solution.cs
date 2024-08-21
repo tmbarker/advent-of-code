@@ -14,7 +14,7 @@ public sealed class Solution : SolutionBase
         {
             1 => FindWinnerAdjacent(count),
             2 => FindWinnerAcross(count),
-            _ => ProblemNotSolvedString
+            _ => PuzzleNotSolvedString
         };
     }
 

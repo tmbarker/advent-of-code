@@ -15,7 +15,7 @@ public sealed class Solution : SolutionBase
         {
             1 => ComputeAdapterDifferencesProduct(sortedAdapters),
             2 => CountValidAdapterArrangements(sortedAdapters),
-            _ => ProblemNotSolvedString
+            _ => PuzzleNotSolvedString
         };
     }
 

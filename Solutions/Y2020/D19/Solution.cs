@@ -20,7 +20,7 @@ public sealed class Solution : SolutionBase
         {
             1 => CountRecognitions(useOverrides: false),
             2 => CountRecognitions(useOverrides: true),
-            _ => ProblemNotSolvedString
+            _ => PuzzleNotSolvedString
         };
     }
 

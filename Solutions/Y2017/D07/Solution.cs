@@ -17,7 +17,7 @@ public sealed class Solution : SolutionBase
         {
             1 => tower.Root,
             2 => tower.Balance(),
-            _ => ProblemNotSolvedString
+            _ => PuzzleNotSolvedString
         };
     }
 

@@ -14,7 +14,7 @@ public sealed class Solution : SolutionBase
         {
             1 => Cycle3D(GetInputLines(), cycles: 6),
             2 => Cycle4D(GetInputLines(), cycles: 6),
-            _ => ProblemNotSolvedString
+            _ => PuzzleNotSolvedString
         };
     }
 

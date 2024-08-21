@@ -12,7 +12,7 @@ public sealed class Solution : SolutionBase
         {
             1 => CountExecutions(),
             2 => RunDisassembled(),
-            _ => ProblemNotSolvedString
+            _ => PuzzleNotSolvedString
         };
     }
     

@@ -14,7 +14,7 @@ public sealed class Solution : IntCodeSolution
         return part switch
         {
             1 => PlayGame(),
-            _ => ProblemNotSolvedString
+            _ => PuzzleNotSolvedString
         };
     }
 

@@ -12,7 +12,7 @@ public sealed class Solution : SolutionBase
         {
             1 => FindFirstHouse(threshold, factor: 10, limit: int.MaxValue),
             2 => FindFirstHouse(threshold, factor: 11, limit: 50),
-            _ => ProblemNotSolvedString
+            _ => PuzzleNotSolvedString
         };
     }
 

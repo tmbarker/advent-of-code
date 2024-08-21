@@ -10,7 +10,7 @@ public sealed class Solution : SolutionBase
         {
             1 => GetNthSpokenNumber(initialNumbers, n: 2020),
             2 => GetNthSpokenNumber(initialNumbers, n: 30000000),
-            _ => ProblemNotSolvedString
+            _ => PuzzleNotSolvedString
         };
     }
 

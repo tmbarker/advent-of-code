@@ -11,7 +11,7 @@ public sealed class Solution : SolutionBase
         {
             1 => CalculateMinCumulativeCost(n => n),
             2 => CalculateMinCumulativeCost(n => n * (n + 1)/2),
-            _ => ProblemNotSolvedString
+            _ => PuzzleNotSolvedString
         };
     }
 

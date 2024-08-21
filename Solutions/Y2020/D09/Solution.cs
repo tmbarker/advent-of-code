@@ -12,7 +12,7 @@ public sealed class Solution : SolutionBase
         {
             1 => FindWeakness(numbers),
             2 => ExploitWeakness(numbers),
-            _ => ProblemNotSolvedString
+            _ => PuzzleNotSolvedString
         };
     }
 

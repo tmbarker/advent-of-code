@@ -10,7 +10,7 @@ public static class FavouriteTableBuilder
     private const string SectionStart = "## My Favourite Puzzles and Solutions";
     private const string SectionEnd =   "## Running a Solution";
 
-    private static readonly Regex ProblemRegex = new(@"Solutions.Y(?<Year>\d{4}).D(?<Day>\d{2})");
+    private static readonly Regex SolutionRegex = new(@"Solutions.Y(?<Year>\d{4}).D(?<Day>\d{2})");
 
     public static void Run(List<string> readmeLines)
     {
@@ -77,7 +77,7 @@ public static class FavouriteTableBuilder
                 continue;
             }
             
-            var match = ProblemRegex.Match(puzzle.FullName!);
+            var match = SolutionRegex.Match(puzzle.FullName!);
             var year = match.Groups["Year"].ParseInt();
             var day = match.Groups["Day"].ParseInt();
 

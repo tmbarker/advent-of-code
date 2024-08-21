@@ -14,7 +14,7 @@ public sealed class Solution : SolutionBase
         {
             1 => GetSeverity(scanners, delay: 0),
             2 => FindDelay(scanners),
-            _ => ProblemNotSolvedString
+            _ => PuzzleNotSolvedString
         };
     }
 

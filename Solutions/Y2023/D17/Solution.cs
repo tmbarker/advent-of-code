@@ -20,7 +20,7 @@ public sealed class Solution : SolutionBase
         {
             1 => Search(grid, constraint: new Range<int>(Min: 1, Max: 3)),
             2 => Search(grid, constraint: new Range<int>(Min: 4, Max: 10)),
-            _ => ProblemNotSolvedString
+            _ => PuzzleNotSolvedString
         };
     }
     

@@ -12,7 +12,7 @@ public sealed class Solution : SolutionBase
         {
             1 => GetMaxFlowAlone(strategyFinder),
             2 => GetMaxFlowWithHelp(strategyFinder),
-            _ => ProblemNotSolvedString
+            _ => PuzzleNotSolvedString
         };
     }
 

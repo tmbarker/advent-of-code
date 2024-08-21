@@ -20,7 +20,7 @@ public sealed class Solution : SolutionBase
         {
             1 => Decode(encryptedNumbers, mixes:  1, key: 1L),
             2 => Decode(encryptedNumbers, mixes: 10, key: 811589153L),
-            _ => ProblemNotSolvedString
+            _ => PuzzleNotSolvedString
         };
     }
 

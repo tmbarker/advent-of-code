@@ -16,7 +16,7 @@ public sealed class Solution : SolutionBase
         {
             1 => ExecuteBoolean(instructions),
             2 => ExecuteIntegral(instructions),
-            _ => ProblemNotSolvedString
+            _ => PuzzleNotSolvedString
         };
     }
 

@@ -24,7 +24,7 @@ public sealed class Solution : SolutionBase
         {
             1 => SumAccepted(parts, workflows),
             2 => CountCombinations(workflows),
-            _ => ProblemNotSolvedString
+            _ => PuzzleNotSolvedString
         };
     }
 

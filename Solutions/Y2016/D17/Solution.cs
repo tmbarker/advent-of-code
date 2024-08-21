@@ -32,7 +32,7 @@ public sealed class Solution : SolutionBase
         {
             1 => Traverse(criteria: PathCriteria.Shortest),
             2 => Traverse(criteria: PathCriteria.Longest),
-            _ => ProblemNotSolvedString
+            _ => PuzzleNotSolvedString
         };
     }
 

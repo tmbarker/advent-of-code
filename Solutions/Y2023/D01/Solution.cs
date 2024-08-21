@@ -24,7 +24,7 @@ public sealed class Solution : SolutionBase
         {
             1 => Sum(ParseNaive),
             2 => Sum(ParseInterpreted),
-            _ => ProblemNotSolvedString
+            _ => PuzzleNotSolvedString
         };
     }
 

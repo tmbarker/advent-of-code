@@ -15,7 +15,7 @@ public sealed class Solution : SolutionBase
         {
             1 => CountAllergenFreeIngredients(allergens, foods),
             2 => FormAllergensList(allergens),
-            _ => ProblemNotSolvedString
+            _ => PuzzleNotSolvedString
         };
     }
 

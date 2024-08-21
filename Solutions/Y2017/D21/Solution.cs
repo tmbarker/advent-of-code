@@ -30,7 +30,7 @@ public sealed class Solution : SolutionBase
         {
             1 => Enhance(pattern: Initial, rules: rules, iterations: 5).On,
             2 => Enhance(pattern: Initial, rules: rules, iterations: 18).On,
-            _ => ProblemNotSolvedString
+            _ => PuzzleNotSolvedString
         };
     }
 

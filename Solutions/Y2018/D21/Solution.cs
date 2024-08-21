@@ -15,7 +15,7 @@ public sealed class Solution : SolutionBase
         {
             1 => GetEarliestHaltValue(ipAdr, program),
             2 => GetLatestHaltValue(ipAdr, program),
-            _ => ProblemNotSolvedString
+            _ => PuzzleNotSolvedString
         };
     }
 

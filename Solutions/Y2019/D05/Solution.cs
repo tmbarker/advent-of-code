@@ -12,7 +12,7 @@ public sealed class Solution : IntCodeSolution
         {
             1 => RunTestProgram(program, systemId: 1),
             2 => RunTestProgram(program, systemId: 5),
-            _ => ProblemNotSolvedString
+            _ => PuzzleNotSolvedString
         };
     }
 

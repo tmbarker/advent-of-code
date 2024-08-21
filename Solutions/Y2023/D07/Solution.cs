@@ -11,7 +11,7 @@ public sealed class Solution : SolutionBase
         {
             1 => ScoreHands(jokers: false),
             2 => ScoreHands(jokers: true),
-            _ => ProblemNotSolvedString
+            _ => PuzzleNotSolvedString
         };
     }
 

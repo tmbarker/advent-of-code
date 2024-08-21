@@ -14,7 +14,7 @@ public sealed class Solution : SolutionBase
         {
             1 => AggregatePulses(network, b: 1000),
             2 => GetFirstRxSignal(network),
-            _ => ProblemNotSolvedString
+            _ => PuzzleNotSolvedString
         };
     }
 

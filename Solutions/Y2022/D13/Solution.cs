@@ -12,7 +12,7 @@ public sealed class Solution : SolutionBase
         {
             1 => SumOrderedPacketIndices(PacketParser.ParsePairs(GetInputLines())),
             2 => CalculateDecoderKey(PacketParser.ParsePackets(GetInputLines())),
-            _ => ProblemNotSolvedString
+            _ => PuzzleNotSolvedString
         };
     }
 

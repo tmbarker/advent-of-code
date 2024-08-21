@@ -12,7 +12,7 @@ public sealed class Solution : SolutionBase
         {
             1 => CountEncapsulating(assignments),
             2 => CountIntersecting(assignments),
-            _ => ProblemNotSolvedString
+            _ => PuzzleNotSolvedString
         };
     }
 

@@ -16,7 +16,7 @@ public sealed class Solution : SolutionBase
         {
             1 => CountClaimOverlaps(claims.Select(c => c.Aabb)),
             2 => GetNonOverlappedClaim(claims.ToList()),
-            _ => ProblemNotSolvedString
+            _ => PuzzleNotSolvedString
         };
     }
 

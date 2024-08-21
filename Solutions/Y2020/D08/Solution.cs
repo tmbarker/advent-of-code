@@ -12,7 +12,7 @@ public sealed class Solution : SolutionBase
         {
             1 => GetAccumulatorBeforeFirstLoop(instructions).Result,
             2 => GetResultAfterInstructionFixup(instructions).Result,
-            _ => ProblemNotSolvedString
+            _ => PuzzleNotSolvedString
         };
     }
 

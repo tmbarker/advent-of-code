@@ -14,7 +14,7 @@ public sealed class Solution : SolutionBase
         {
             1 => Process(stream).Score,
             2 => Process(stream).Garbage,
-            _ => ProblemNotSolvedString
+            _ => PuzzleNotSolvedString
         };
     }
 

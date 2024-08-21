@@ -119,7 +119,7 @@ public sealed class Solution : SolutionBase
         {
             1 => ValidateModelNumber(monadProgram: GetInputLines(), modelNumber: MaxModelNumber),
             2 => ValidateModelNumber(monadProgram: GetInputLines(), modelNumber: MinModelNumber),
-            _ => ProblemNotSolvedString
+            _ => PuzzleNotSolvedString
         };
     }
 
@@ -130,6 +130,6 @@ public sealed class Solution : SolutionBase
 
         return result == 0
             ? modelNumber
-            : ProblemNotSolvedString;
+            : PuzzleNotSolvedString;
     }
 }

@@ -15,7 +15,7 @@ public sealed class Solution : SolutionBase
         {
             1 => CountInRangeOfStrongest(nanobots),
             2 => MaximizeBotsInRange(nanobots),
-            _ => ProblemNotSolvedString
+            _ => PuzzleNotSolvedString
         };
     }
 

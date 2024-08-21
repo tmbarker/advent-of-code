@@ -14,7 +14,7 @@ public sealed class Solution : SolutionBase
         {
             1 => GetMaxExtendedVariance(polymer, rules, steps: 10),
             2 => GetMaxExtendedVariance(polymer, rules, steps: 40),
-            _ => ProblemNotSolvedString
+            _ => PuzzleNotSolvedString
         };
     }
 

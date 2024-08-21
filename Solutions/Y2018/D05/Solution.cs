@@ -9,7 +9,7 @@ public sealed class Solution : SolutionBase
         {
             1 => ReactSimple(),
             2 => ReactFindShortest(),
-            _ => ProblemNotSolvedString
+            _ => PuzzleNotSolvedString
         };
     }
 

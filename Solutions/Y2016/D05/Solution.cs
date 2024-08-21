@@ -13,7 +13,7 @@ public sealed class Solution : SolutionBase
         {
             1 => FindOrderedPassword(),
             2 => FindPositionalPassword(),
-            _ => ProblemNotSolvedString
+            _ => PuzzleNotSolvedString
         };
     }
 

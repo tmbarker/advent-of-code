@@ -35,7 +35,7 @@ public sealed class Solution : IntCodeSolution
         {
             1 => ComputeCostToTarget(map),
             2 => ComputeMaxCostFromTarget(map),
-            _ => ProblemNotSolvedString
+            _ => PuzzleNotSolvedString
         };
     }
 

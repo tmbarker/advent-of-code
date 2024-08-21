@@ -15,7 +15,7 @@ public sealed class Solution : SolutionBase
         {
             1 => strings.Count(NiceA.IsMatch),
             2 => strings.Count(NiceB.IsMatch),
-            _ => ProblemNotSolvedString
+            _ => PuzzleNotSolvedString
         };
     }
 }

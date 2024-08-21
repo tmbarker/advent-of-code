@@ -26,7 +26,7 @@ public sealed class Solution : SolutionBase
         {
             1 => FindClosestWireIntersection(costs),
             2 => FindCheapestIntersection(costs),
-            _ => ProblemNotSolvedString
+            _ => PuzzleNotSolvedString
         };
     }
 

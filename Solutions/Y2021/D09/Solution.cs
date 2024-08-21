@@ -16,7 +16,7 @@ public sealed class Solution : SolutionBase
         {
             1 => SumRiskLevel(grid),
             2 => MeasureLargestBasins(grid),
-            _ => ProblemNotSolvedString
+            _ => PuzzleNotSolvedString
         };
     }
 

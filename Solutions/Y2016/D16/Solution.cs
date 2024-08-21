@@ -12,7 +12,7 @@ public sealed class Solution : SolutionBase
         {
             1 => Validate(data, length: 272),
             2 => Validate(data, length: 35651584),
-            _ => ProblemNotSolvedString
+            _ => PuzzleNotSolvedString
         };
     }
 

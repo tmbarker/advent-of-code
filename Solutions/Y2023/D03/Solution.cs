@@ -21,7 +21,7 @@ public sealed class Solution : SolutionBase
         {
             1 => SumPartNumbers(schematic),
             2 => SumGearRatios(schematic),
-            _ => ProblemNotSolvedString
+            _ => PuzzleNotSolvedString
         };
     }
 

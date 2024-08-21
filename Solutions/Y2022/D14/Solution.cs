@@ -24,7 +24,7 @@ public sealed class Solution : SolutionBase
         {
             1 => CountSandWithAbyss(rocks),
             2 => CountSandWithFloor(rocks),
-            _ => ProblemNotSolvedString
+            _ => PuzzleNotSolvedString
         };
     }
     

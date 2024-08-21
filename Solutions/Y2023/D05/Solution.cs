@@ -14,7 +14,7 @@ public sealed class Solution : SolutionBase
         {
             1 => FindMin(almanac, pairs: false),
             2 => FindMin(almanac, pairs: true),
-            _ => ProblemNotSolvedString
+            _ => PuzzleNotSolvedString
         };
     }
     

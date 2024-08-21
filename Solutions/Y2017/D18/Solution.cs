@@ -11,7 +11,7 @@ public sealed class Solution : SolutionBase
         {
             1 => RecoverFrequency(),
             2 => CountTransmissions(),
-            _ => ProblemNotSolvedString
+            _ => PuzzleNotSolvedString
         };
     }
 

@@ -12,7 +12,7 @@ public sealed class Solution : SolutionBase
         {
             1 => GetDuplicateItemPrioritySum(),
             2 => GetBadgeItemPrioritySum(),
-            _ => ProblemNotSolvedString
+            _ => PuzzleNotSolvedString
         };
     }
 
