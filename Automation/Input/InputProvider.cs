@@ -44,7 +44,7 @@ public class InputProvider(IConfiguration configuration)
                 return true;
             }
 
-            Log($"Request error: {responseMessage.StatusCode}", ConsoleColor.Red);
+            Log($"Request error [{responseMessage.StatusCode}]", ConsoleColor.Red);
             return false;
         }
         catch (Exception e)

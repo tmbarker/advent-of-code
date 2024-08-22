@@ -13,7 +13,7 @@ public static class AocHttpClient
     /// </summary>
     public const string Domain = "https://adventofcode.com";
     
-    private const string LastRequestEnvVar = "aoc_last_request";
+    private const string LastRequestFileName = "last_http_request.txt";
     private const string UserSessionName = "session";
     private const string UserAgentName = "user-agent";
     private const string UserAgentValue = $".NET/8.0 (github.com/tmbarker/advent-of-code via {nameof(AocHttpClient)}.cs)";
@@ -52,20 +52,22 @@ public static class AocHttpClient
 
     private static void SetLastRequestTime(DateTime time)
     {
-        Environment.SetEnvironmentVariable(
-            variable: LastRequestEnvVar, 
-            value: time.ToString(CultureInfo.InvariantCulture),
-            target: EnvironmentVariableTarget.User);
+        File.WriteAllText(path: LastRequestFileName, contents: time.ToString(CultureInfo.InvariantCulture));
     }
     
     private static DateTime GetLastRequestTime()
     {
-        var lastRequestString = Environment.GetEnvironmentVariable(
-            variable: LastRequestEnvVar,
-            target: EnvironmentVariableTarget.User);
+        if (!File.Exists(path: LastRequestFileName))
+        {
+            return DateTime.UnixEpoch;
+        }
+        
+        var contents = File.ReadAllText(path: LastRequestFileName);
+        if (string.IsNullOrWhiteSpace(contents) || !DateTime.TryParse(contents, out var lastRequestTime))
+        {
+            return DateTime.UnixEpoch;
+        }
 
-        return !string.IsNullOrWhiteSpace(lastRequestString) && DateTime.TryParse(lastRequestString, out var time)
-            ? time
-            : DateTime.UnixEpoch;
+        return lastRequestTime;
     }
 }
