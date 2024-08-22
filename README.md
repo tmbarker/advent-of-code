@@ -93,23 +93,32 @@ Puzzle | My Solution | Date | Topic(s) | Difficulty
 [Infinite Elves and Infinite Houses](https://adventofcode.com/2015/day/20) | [Solution](https://github.com/tmbarker/advent-of-code/blob/main/Solutions/Y2015/D20/Solution.cs) | 2015-20 | Math | :yellow_circle: Medium
 
 ## Running a Solution
-1. From your terminal, using the .NET CLI
-```bash
-cd Aoc
-dotnet run solve <year> <day> --input <path to input>
-```
+There are a number of ways to run the solutions in this repository:
+1. From your terminal, automatically downloading and caching your input files. First, configure your user session cookie and the input cache directory in `appsettings.json`:
+       
+   ```json
+   {
+       "UserSession": "<user session cookie>",
+       "InputCachePath": "<input cache directory path>"
+   }
+   ```
+   Next, run the desired solution from your terminal:
+    ```bash
+    cd Aoc
+    dotnet run solve <year> <day>
+    ```
 
-2. From a `.cs` file, using reflective `SolutionRunner`:
-```cs
-using Automation.Runner;
+2. From your terminal, explicitly providing an input file path:
+    ```bash
+    cd Aoc
+    dotnet run solve <year> <day> --input <path to input>
+    ```
 
-SolutionRunner.Run(year: <year>, day: <day>, inputPath: <path to input>);
-```
 3. From a `.cs` file, directly instantiating a given `Solution`:
-```cs
-using Solutions.Y<year>.D<day>;
-
-var solution = new Solution { InputPath = <path to input> };
-var p1 = solution.Run(part: 1);
-var p2 = solution.Run(part: 2);
-```
+    ```cs
+    using Solutions.Y<year>.D<day>;
+    
+    var solution = new Solution { InputPath = <path to input> };
+    var p1 = solution.Run(part: 1);
+    var p2 = solution.Run(part: 2);
+    ```

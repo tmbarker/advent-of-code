@@ -1,23 +1,24 @@
 using Automation.Client;
+using Microsoft.Extensions.Configuration;
 
 namespace Automation.Input;
 
 /// <summary>
 ///     A utility which manages downloading, caching, and providing puzzle input files
 /// </summary>
-public static class InputProvider
+public class InputProvider(IConfiguration configuration)
 {
-    private const string InputsCacheEnvVar = "aoc_inputs_cache";
+    private const string InputCachePathKey = "InputCachePath";
     private const string InputRequestRouteFormat = "{0}/day/{1}/input";
     private const string DefaultInputDirectoryName = "Inputs";
     private const string DefaultInputFileNameFormat = "{0:D2}.txt";
-
-    public static bool CheckCacheForInput(int year, int day)
+    
+    public bool CheckCacheForInput(int year, int day)
     {
         return File.Exists(FormCachedInputFilePath(year, day));
     }
 
-    public static async Task<bool> TryDownloadInputToCache(int year, int day, string userSession)
+    public async Task<bool> TryDownloadInputToCache(int year, int day, string userSession)
     {
         var dirPath = FormInputDirectoryPath(year);
         var filePath = FormCachedInputFilePath(year, day);
@@ -53,7 +54,7 @@ public static class InputProvider
         }
     }
 
-    public static string FormCachedInputFilePath(int year, int day)
+    public string FormCachedInputFilePath(int year, int day)
     {
         var dirPath = FormInputDirectoryPath(year);
         var fileName = FormInputFileName(day);
@@ -61,29 +62,9 @@ public static class InputProvider
         return Path.Combine(dirPath, fileName);
     }
 
-    public static void SetCachePath(string path)
+    private string GetCachePath()
     {
-        try
-        {
-            var fullPath = Path.GetFullPath(path);
-            Environment.SetEnvironmentVariable(
-                variable: InputsCacheEnvVar,
-                value: fullPath,
-                target: EnvironmentVariableTarget.User);
-            Log($"Input cache set [{fullPath}]", ConsoleColor.Green);
-        }
-        catch (Exception e)
-        {
-            Log($"Error setting input cache, invalid path:\n{e}", ConsoleColor.Red);
-        }
-    }
-
-    private static string GetCachePath()
-    {
-        var fullPath = Environment.GetEnvironmentVariable(
-            variable: InputsCacheEnvVar,
-            EnvironmentVariableTarget.User);
-
+        var fullPath = configuration[InputCachePathKey];
         return string.IsNullOrWhiteSpace(fullPath)
             ? GetDefaultCachePath()
             : fullPath;
@@ -96,7 +77,7 @@ public static class InputProvider
             DefaultInputDirectoryName);
     }
 
-    private static string FormInputDirectoryPath(int year)
+    private string FormInputDirectoryPath(int year)
     {
         var cacheDirPath = GetCachePath();
         var yearDirName = year.ToString();

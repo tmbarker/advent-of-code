@@ -1,6 +1,8 @@
 using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 using System.Text;
 using Automation.Input;
+using Microsoft.Extensions.Configuration;
 using Solutions.Attributes;
 using Solutions.Common;
 
@@ -9,11 +11,11 @@ namespace Automation.Runner;
 /// <summary>
 ///     A reflective utility class for running puzzle solutions
 /// </summary>
-public static class SolutionRunner
+public class SolutionRunner(IConfiguration configuration, InputProvider inputProvider)
 {
     private const string QualifiedSolutionTypeNameFormat = "{0}.Y{1}.D{2}.{3}";
     private const string SolutionTypeName = "Solution";
-    private const string UserSessionEnvVar = "aoc_user_session";
+    private const string UserSessionKey = "UserSession";
 
     /// <summary>
     ///     Instantiate the puzzle solution associated with the specified <paramref name="year"/> and
@@ -29,7 +31,7 @@ public static class SolutionRunner
     /// <param name="showLogs">
     ///     Some solutions emit logs as they run, when set they will be printed to the console
     /// </param>
-    public static async Task Run(int year, int day, string inputPath = "", bool showLogs = false)
+    public async Task Run(int year, int day, string inputPath = "", bool showLogs = false)
     {
         if (!TryCreateSolutionInstance(year, day, out var solution))
         {
@@ -45,29 +47,28 @@ public static class SolutionRunner
                 return;
             }
             
-            RunInternal(solution!, year, day, inputPath, showLogs);
+            RunInternal(solution, year, day, inputPath, showLogs);
             return;
         }
         
-        inputPath = InputProvider.FormCachedInputFilePath(year, day);
-        if (InputProvider.CheckCacheForInput(year, day))
+        inputPath = inputProvider.FormCachedInputFilePath(year, day);
+        if (inputProvider.CheckCacheForInput(year, day))
         {
             Log(log: $"Input found in cache [{inputPath}]", ConsoleColor.Gray);
-            RunInternal(solution!, year, day, inputPath, showLogs);
+            RunInternal(solution, year, day, inputPath, showLogs);
             return;
         }
         
-        var userSession = GetUserSession();
-        if (string.IsNullOrWhiteSpace(userSession))
+        if (!TryGetUserSession(out var userSession))
         {
             Log(log: "Cannot download input file, user session not set", ConsoleColor.Red);
             return;
         }
         
-        var downloadSuccess = await InputProvider.TryDownloadInputToCache(year, day, userSession);
+        var downloadSuccess = await inputProvider.TryDownloadInputToCache(year, day, userSession);
         if (downloadSuccess)
         {
-            RunInternal(solution!, year, day, inputPath, showLogs);
+            RunInternal(solution, year, day, inputPath, showLogs);
         }
     }
 
@@ -106,21 +107,6 @@ public static class SolutionRunner
             stopwatch.Stop();
         }
     }
-
-    public static void SetUserSession(string userSession)
-    {
-        if (string.IsNullOrWhiteSpace(userSession))
-        {
-            Log("Invalid session cookie [NULL]", ConsoleColor.Red);
-            return;
-        }
-
-        Environment.SetEnvironmentVariable(
-            variable: UserSessionEnvVar,
-            value: userSession,
-            target: EnvironmentVariableTarget.User);
-        Log($"User session set [{userSession}]", ConsoleColor.Green);
-    }
     
     private static bool CheckSolutionInputSpecific(SolutionBase instance, out string message)
     {
@@ -136,8 +122,8 @@ public static class SolutionRunner
 
         return attr != null;
     }
-    
-    private static bool TryCreateSolutionInstance(int year, int day, out SolutionBase? instance)
+
+    private static bool TryCreateSolutionInstance(int year, int day, [NotNullWhen(true)] out SolutionBase? instance)
     {
         try
         {
@@ -168,18 +154,10 @@ public static class SolutionRunner
             SolutionTypeName);
     }
 
-    private static string GetUserSession()
+    private bool TryGetUserSession(out string userSession)
     {
-        var userSession = Environment.GetEnvironmentVariable(
-            variable: UserSessionEnvVar,
-            EnvironmentVariableTarget.User);
-
-        if (string.IsNullOrWhiteSpace(userSession))
-        {
-            throw new Exception(message: "User session cookie missing/not set");
-        }
-
-        return userSession;
+        userSession = configuration[UserSessionKey] ?? string.Empty;
+        return !string.IsNullOrWhiteSpace(userSession);
     }
     
     private static string FormElapsedString(TimeSpan elapsed)

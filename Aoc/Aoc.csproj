@@ -9,11 +9,24 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <!-- Ensure appsettings.json and appsettings.Development.json are copied to the output directory -->
+        <Content Include="appsettings.json">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
+        <Content Include="appsettings.Development.json">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
+    </ItemGroup>
+    
+    <ItemGroup>
         <ProjectReference Include="..\Automation\Automation.csproj"/>
         <ProjectReference Include="..\Solutions\Solutions.csproj"/>
     </ItemGroup>
-
+    
     <ItemGroup>
+        <PackageReference Include="Microsoft.Extensions.Configuration" Version="9.0.0-preview.7.24405.7" />
+        <PackageReference Include="Microsoft.Extensions.Configuration.EnvironmentVariables" Version="9.0.0-preview.7.24405.7" />
+        <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="9.0.0-preview.7.24405.7" />
         <PackageReference Include="System.CommandLine" Version="2.0.0-beta4.22272.1"/>
     </ItemGroup>
 

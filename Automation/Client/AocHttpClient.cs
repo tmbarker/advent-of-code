@@ -9,7 +9,7 @@ namespace Automation.Client;
 public static class AocHttpClient
 {
     /// <summary>
-    /// The Advent of Code domain that all requests this utility makes are relative to
+    /// The Advent of Code domain, all requests that this utility makes are to this domain.
     /// </summary>
     public const string Domain = "https://adventofcode.com";
     
@@ -20,7 +20,7 @@ public static class AocHttpClient
     
     private static readonly Uri DomainUri = new (Domain);
     private static readonly TimeSpan RateLimit = TimeSpan.FromMinutes(1);
-    
+
     /// <summary>
     /// Send an HTTP request to Advent of Code [<see cref="Domain"/>]
     /// </summary>

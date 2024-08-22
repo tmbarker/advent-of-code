@@ -2,6 +2,7 @@
 using Automation.Input;
 using Automation.Readme;
 using Automation.Runner;
+using Microsoft.Extensions.Configuration;
 
 namespace Aoc;
 
@@ -9,6 +10,15 @@ internal static class Program
 {
     public static async Task<int> Main(string[] args)
     {
+        var configuration = new ConfigurationManager()
+            .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
+            .AddJsonFile("appsettings.Development.json", optional: true, reloadOnChange: true)
+            .AddEnvironmentVariables()
+            .Build();
+        
+        var inputProvider = new InputProvider(configuration);
+        var solutionRunner = new SolutionRunner(configuration, inputProvider);
+        
         var solveCommand = new Command(
             name: "solve", 
             description: "Run the specified puzzle solution, if it exists");
@@ -32,7 +42,7 @@ internal static class Program
         solveCommand.AddOption(logsOption);
         solveCommand.AddOption(inputPathOption);
         solveCommand.SetHandler(
-            handle: async (year, day, inputPath, showLogs) => await SolutionRunner.Run(year, day, inputPath, showLogs),
+            handle: async (year, day, inputPath, showLogs) => await solutionRunner.Run(year, day, inputPath, showLogs),
             symbol1: yearArg,
             symbol2: dayArg,
             symbol3: inputPathOption,
@@ -44,30 +54,6 @@ internal static class Program
         
         updateReadmeCommand.SetHandler(ReadmeUtils.UpdateReadme);
 
-        var setUserSessionCommand = new Command(
-            name: "set-session",
-            description: "Set the user session cookie, needed to fetch inputs");
-        var sessionArg = new Argument<string>(
-            name: "user-session-cookie", 
-            description: "The user session cookie string");
-        
-        setUserSessionCommand.AddArgument(sessionArg);
-        setUserSessionCommand.SetHandler(
-            handle: SolutionRunner.SetUserSession,
-            symbol: sessionArg);
-        
-        var setInputCacheCommand = new Command(
-            name: "set-cache",
-            description: "Set the input files cache directory, where downloaded inputs will be cached");
-        var cacheArg = new Argument<string>(
-            name: "inputs-cache-path",
-            description: "The directory path to store input files");
-        
-        setInputCacheCommand.AddArgument(cacheArg);
-        setInputCacheCommand.SetHandler(
-            handle: InputProvider.SetCachePath,
-            symbol: cacheArg);
-
         var scratchCommand = new Command(
             name: "scratch",
             description: $"Execute the {nameof(ScratchPad)}");
@@ -77,8 +63,6 @@ internal static class Program
         var rootCommand = new RootCommand(description: "CLI entry point for running AoC puzzle solutions");
         rootCommand.AddCommand(solveCommand);
         rootCommand.AddCommand(updateReadmeCommand);
-        rootCommand.AddCommand(setUserSessionCommand);
-        rootCommand.AddCommand(setInputCacheCommand);
         rootCommand.AddCommand(scratchCommand);
         
         return await rootCommand.InvokeAsync(args);
