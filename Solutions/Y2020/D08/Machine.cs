@@ -6,15 +6,16 @@ public sealed class Machine
     public const string Jmp = "jmp";
     private const string Acc = "acc";
 
-    public event Action<int>? LoopDetected;
-
-    public Task<int> Run(IList<(string Op, int Arg)> instructions, CancellationToken token)
+    public readonly record struct Result(int Acc, bool Looped);
+    
+    public static Result Run(List<(string Op, int Arg)> instructions)
     {
+        var looped = false;
         var acc = 0;
         var pc = 0;
         var pcValueSet = new HashSet<int>([0]);
 
-        while (pc < instructions.Count && !token.IsCancellationRequested)
+        while (pc < instructions.Count)
         {
             var (op, arg) = instructions[pc];
             switch (op)
@@ -33,15 +34,11 @@ public sealed class Machine
             
             if (!pcValueSet.Add(pc))
             {
-                RaiseLoopDetected(acc);
+                looped = true;
+                break;
             }
         }
 
-        return Task.FromResult(acc);
-    }
-    
-    private void RaiseLoopDetected(int acc)
-    {
-        LoopDetected?.Invoke(acc);
+        return new Result(acc, looped);
     }
 }

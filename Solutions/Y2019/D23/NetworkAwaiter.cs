@@ -4,9 +4,9 @@ public sealed class NetworkAwaiter
 {
     private readonly Network _network;
     private readonly CancellationTokenSource _cts = new();
-    private readonly TaskCompletionSource<long> _tcs = new();
     
     private int _targetRecipient = -1;
+    private long _result = -1L;
     private long _prevNatMessage = -1L;
 
     public NetworkAwaiter(IList<long> firmware)
@@ -15,24 +15,39 @@ public sealed class NetworkAwaiter
         _network.PacketTransmitted += OnNetworkPacketObserved;
     }
 
-    public Task<long> WaitForMessage(int targetRecipient)
+    public async Task<long> WaitForMessage(int targetRecipient)
     {
         _targetRecipient = targetRecipient;
-        _network.RunAsync(_cts.Token);
-        return _tcs.Task;
+
+        try
+        {
+            await _network.RunAsync(_cts.Token);
+        }
+        catch (OperationCanceledException)
+        {
+        }
+        
+        return _result;
     }
     
-    public Task<long> WaitForRepeatedNatMessage()
+    public async Task<long> WaitForRepeatedNatMessage()
     {
-        _network.RunAsync(_cts.Token);
-        return _tcs.Task;
+        try
+        {
+            await _network.RunAsync(_cts.Token);
+        }
+        catch (OperationCanceledException)
+        {
+        }
+        
+        return _result;  
     }
     
     private void OnNetworkPacketObserved(object? sender, PacketEventArgs e)
     {
         if (e.Payload.RecipientId == _targetRecipient)
         {
-            SetResult(e.Payload.Y);
+            HaltWithResult(e.Payload.Y);
             return;
         }
 
@@ -46,15 +61,15 @@ public sealed class NetworkAwaiter
     {
         if (packet.Y == _prevNatMessage)
         {
-            SetResult(packet.Y);
+            HaltWithResult(packet.Y);
         }
 
         _prevNatMessage = packet.Y;
     }
 
-    private void SetResult(long result)
+    private void HaltWithResult(long result)
     {
+        _result = result;
         _cts.Cancel();
-        _tcs.SetResult(result);
     }
 }

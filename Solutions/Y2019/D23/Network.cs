@@ -17,22 +17,21 @@ public sealed class Network
     {
         for (var i = 0; i < NumNodes; i++)
         {
-            _computers.Add(i, new Computer(id: i, firmware: firmware));
+            _computers.Add(i, new Computer(id: i, firmware));
             _computers[i].PacketEmitted += OnComputerPacketEmitted;
         }
     }
 
-    public async void RunAsync(CancellationToken token)
-    {
-        await Task.Run(() => Run(token), token);
-    }
-
-    private void Run(CancellationToken token)
+    public Task RunAsync(CancellationToken token)
     {
         while (!token.IsCancellationRequested)
         {
             Tick();
         }
+
+        return token.IsCancellationRequested
+            ? Task.FromCanceled(token)
+            : Task.CompletedTask;
     }
 
     private void Tick()

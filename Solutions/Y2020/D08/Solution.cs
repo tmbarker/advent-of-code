@@ -1,82 +1,58 @@
 namespace Solutions.Y2020.D08;
 
-using Instructions = IList<(string Op, int Arg)>;
+using Instructions = List<(string Op, int Arg)>;
 
 [PuzzleInfo("Handheld Halting", Topics.Assembly|Topics.Simulation, Difficulty.Medium)]
 public sealed class Solution : SolutionBase
 {
     public override object Run(int part)
     {
-        var instructions = ParseInstructions(GetInputLines());
+        var input = GetInputLines();
+        var instructions = ParseInstructions(input);
+        
         return part switch
         {
-            1 => GetAccumulatorBeforeFirstLoop(instructions).Result,
-            2 => GetResultAfterInstructionFixup(instructions).Result,
+            1 => Machine.Run(instructions).Acc,
+            2 => GetTerminatedResult(instructions),
             _ => PuzzleNotSolvedString
         };
     }
-
-    private static async Task<int> GetAccumulatorBeforeFirstLoop(Instructions instructions)
+    
+    private static int GetTerminatedResult(Instructions instructions)
     {
-        var machine = new Machine();
-        var accAtLoop = 0;
-        
-        var cts = new CancellationTokenSource();
-        void OnLoopDetected(int acc)
+        for (var i = 0; i < instructions.Count; i++)
         {
-            cts.Cancel();
-            accAtLoop = acc;
-        }
-        
-        machine.LoopDetected += OnLoopDetected;
-        await machine.Run(instructions, cts.Token);
-        
-        return accAtLoop;
-    }
+            var modified = ModifyProgram(i, instructions);
+            var result = Machine.Run(modified);
 
-    private static async Task<int> GetResultAfterInstructionFixup(Instructions instructions)
-    {
-        var machine = new Machine();
-        var result = 0;
-        var loopDetected = true;
-
-        for (var i = 0; i < instructions.Count && loopDetected; i++)
-        {
-            var cts = new CancellationTokenSource();
-            void OnLoopDetected(int acc)
+            if (!result.Looped)
             {
-                loopDetected = true;
-                cts.Cancel();
+                return result.Acc;
             }
-
-            loopDetected = false;
-            machine.LoopDetected -= OnLoopDetected;
-            machine.LoopDetected += OnLoopDetected;
-            
-            result = await machine.Run(ModifyInstructions(i, instructions), cts.Token);
         }
 
-        return result;
+        throw new NoSolutionException();
     }
     
-    private static Instructions ModifyInstructions(int at, Instructions instructions)
+    private static Instructions ModifyProgram(int i, Instructions instructions)
     {
-        var modifiedInstructions = new List<(string Op, int Arg)>(instructions);
-        var targetInstruction = modifiedInstructions[at];
+        var modified = new Instructions(instructions);
+        var target = modified[i];
 
-        modifiedInstructions[at] = targetInstruction.Op switch
+        modified[i] = target.Op switch
         {
-            Machine.Jmp => (Machine.Nop, targetInstruction.Arg),
-            Machine.Nop => (Machine.Jmp, targetInstruction.Arg),
-            _ => modifiedInstructions[at]
+            Machine.Jmp => (Machine.Nop, target.Arg),
+            Machine.Nop => (Machine.Jmp, target.Arg),
+            _ => modified[i]
         };
 
-        return modifiedInstructions;
+        return modified;
     }
     
     private static Instructions ParseInstructions(IEnumerable<string> program)
     {
-        var instructions = new List<(string, int)>();
+        var instructions = new Instructions();
+        
         foreach (var line in program)
         {
             var elements = line.Split(' ');

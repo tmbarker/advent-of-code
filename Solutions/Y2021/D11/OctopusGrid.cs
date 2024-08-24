@@ -2,89 +2,85 @@ using Utilities.Geometry.Euclidean;
 
 namespace Solutions.Y2021.D11;
 
-public sealed class OctopusGrid(Grid2D<int> energyLevels)
+public sealed class OctopusGrid(Grid2D<int> energyMap)
 {
     private const int ResetTo = 0;
     private const int FlashAt = 10;
 
-    public event Action<Vec2D>? SingleFlashed;
-    public event Action<int>? AllFlashed;
-
-    public void Observe(int steps)
+    public enum FlashType
     {
-        for (var i = 0; i < steps; i++)
-        {
-            ExecuteStep(i);
-        }
+        Single,
+        All
     }
 
-    public Task ObserveContinuously(CancellationToken cancellationToken)
+    public int CountFlashes(int steps, FlashType type)
     {
-        var stepsCounter = 0;
-        while (!cancellationToken.IsCancellationRequested)
-        {
-            ExecuteStep(stepsCounter++);
-        }
-
-        return Task.CompletedTask;
+        return Enumerable
+            .Range(1, steps)
+            .Sum(_ => Step(type));
     }
 
-    private void ExecuteStep(int stepIndex)
+    public int CountStepsUntilFlash(FlashType type)
     {
-        var flashedSet = new HashSet<Vec2D>();
-        var readyToFlash = new Queue<Vec2D>();
+        var stepIndex = 1;
         
-        foreach (var position in energyLevels)
+        while (Step(target: type) == 0)
         {
-            IncrementAndEnqueueIfReady(position, readyToFlash);
+            stepIndex++;
         }
 
-        while (readyToFlash.Count > 0)
+        return stepIndex;
+    }
+
+    private int Step(FlashType target)
+    {
+        var count = 0;
+        var flashedPositions = new HashSet<Vec2D>();
+        var readyPositions = new Queue<Vec2D>();
+        
+        foreach (var position in energyMap)
         {
-            var flashedPos = readyToFlash.Dequeue();
-            if (!flashedSet.Add(flashedPos))
+            IncrementAndEnqueueIfReady(position, readyPositions);
+        }
+
+        while (readyPositions.Count > 0)
+        {
+            var flashedPos = readyPositions.Dequeue();
+            if (!flashedPositions.Add(flashedPos))
             {
                 continue;
             }
 
-            RaiseSingleFlashed(flashedPos);
-            
-            foreach (var adjacent in flashedPos.GetAdjacentSet(Metric.Chebyshev))
+            if (target == FlashType.Single)
             {
-                if (energyLevels.Contains(adjacent))
-                {
-                    IncrementAndEnqueueIfReady(adjacent, readyToFlash);
-                }
+                count++;
+            }
+            
+            foreach (var adjacent in flashedPos.GetAdjacentSet(Metric.Chebyshev).Where(energyMap.Contains))
+            {
+                IncrementAndEnqueueIfReady(adjacent, readyPositions);
             }
         }
 
-        if (flashedSet.Count == energyLevels.Width * energyLevels.Height)
+        if (target == FlashType.All && flashedPositions.Count == energyMap.Width * energyMap.Height)
         {
-            RaiseAllFlashed(stepIndex + 1);
+            count++;
         }
         
-        foreach (var position in flashedSet)
+        foreach (var position in flashedPositions)
         {
-            energyLevels[position] = ResetTo;
+            energyMap[position] = ResetTo;
         }
+
+        return count;
     }
 
     private void IncrementAndEnqueueIfReady(Vec2D pos, Queue<Vec2D> readyToFlashQueue)
     {
-        energyLevels[pos]++;
-        if (energyLevels[pos] >= FlashAt)
+        energyMap[pos]++;
+        if (energyMap[pos] >= FlashAt)
         {
             readyToFlashQueue.Enqueue(pos);
         }
-    }
-    
-    private void RaiseSingleFlashed(Vec2D position)
-    {
-        SingleFlashed?.Invoke(position);
-    }
-
-    private void RaiseAllFlashed(int stepNumber)
-    {
-        AllFlashed?.Invoke(stepNumber);
     }
 }

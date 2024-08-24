@@ -8,50 +8,15 @@ public sealed class Solution : SolutionBase
 {
     public override object Run(int part)
     {
+        var input = GetInputLines();
+        var state = Grid2D<int>.MapChars(strings: input, elementFunc:StringExtensions.AsDigit);
+        var grid = new OctopusGrid(state);
+        
         return part switch
         {
-            1 => CountFlashes(steps: 100),
-            2 => WaitForAllFlashed().Result, 
+            1 => grid.CountFlashes(steps: 100, type: OctopusGrid.FlashType.Single),
+            2 => grid.CountStepsUntilFlash(type: OctopusGrid.FlashType.All), 
             _ => PuzzleNotSolvedString
         };
-    }
-
-    private int CountFlashes(int steps)
-    {
-        var flashes = 0;
-        var octopusGrid = new OctopusGrid(GetInitialState());
-
-        void OnSingleFlashed(Vec2D flashPos)
-        {
-            flashes++;
-        }
-
-        octopusGrid.SingleFlashed += OnSingleFlashed;
-        octopusGrid.Observe(steps);
-
-        return flashes;
-    }
-    
-    private async Task<int> WaitForAllFlashed()
-    {
-        var firstAllFlashedStep = 0;
-        var cts = new CancellationTokenSource();
-        var octopusGrid = new OctopusGrid(GetInitialState());
-
-        void OnAllFlashed(int stepNumber)
-        {
-            firstAllFlashedStep = stepNumber;
-            cts.Cancel();
-        }
-
-        octopusGrid.AllFlashed += OnAllFlashed;
-        await octopusGrid.ObserveContinuously(cts.Token);
-
-        return firstAllFlashedStep;
-    }
-
-    private Grid2D<int> GetInitialState()
-    {
-        return Grid2D<int>.MapChars(strings: GetInputLines(), elementFunc:StringExtensions.AsDigit);
     }
 }
