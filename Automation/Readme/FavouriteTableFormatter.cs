@@ -15,7 +15,7 @@ public static class FavouriteTableFormatter
         return $"### {year}";
     }
 
-    public static string FormEntry(FavouriteEntry entry)
+    public static string FormEntry(FavouriteTable.Entry entry)
     {
         return string.Join(" | ",
             FormPuzzleLink(entry.Title, entry.Year, entry.Day),

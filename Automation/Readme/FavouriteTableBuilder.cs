@@ -44,7 +44,7 @@ public static class FavouriteTableBuilder
         readmeLines.AddRange(favouriteLines);
     }
 
-    private static IEnumerable<FavouriteTable> GroupIntoTables(IEnumerable<FavouriteEntry> entries)
+    private static IEnumerable<FavouriteTable> GroupIntoTables(IEnumerable<FavouriteTable.Entry> entries)
     {
         var grouped = entries
             .GroupBy(f => f.Year)
@@ -61,7 +61,7 @@ public static class FavouriteTableBuilder
         }
     }
 
-    private static IEnumerable<FavouriteEntry> ResolveEntries()
+    private static IEnumerable<FavouriteTable.Entry> ResolveEntries()
     {
         var puzzleAttributeType = typeof(PuzzleInfoAttribute);
         var puzzlesAssembly = puzzleAttributeType.Assembly;
@@ -81,12 +81,12 @@ public static class FavouriteTableBuilder
             var year = match.Groups["Year"].ParseInt();
             var day = match.Groups["Day"].ParseInt();
 
-            yield return new FavouriteEntry(
-                title: attributeInstance.Title,
-                year: year,
-                day: day,
-                topics: attributeInstance.Topics,
-                difficulty: attributeInstance.Difficulty);
+            yield return new FavouriteTable.Entry(
+                Title: attributeInstance.Title,
+                Year: year,
+                Day: day,
+                Topics: attributeInstance.Topics,
+                Difficulty: attributeInstance.Difficulty);
         }
     }
 
