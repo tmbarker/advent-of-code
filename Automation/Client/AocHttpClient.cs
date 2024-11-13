@@ -16,7 +16,7 @@ public static class AocHttpClient
     private const string LastRequestFileName = "last_http_request.txt";
     private const string UserSessionName = "session";
     private const string UserAgentName = "user-agent";
-    private const string UserAgentValue = $".NET/8.0 (github.com/tmbarker/advent-of-code via {nameof(AocHttpClient)}.cs)";
+    private const string UserAgentValue = $"[.NET 9] github.com/tmbarker/advent-of-code via {nameof(AocHttpClient)}.cs";
     
     private static readonly Uri DomainUri = new (Domain);
     private static readonly TimeSpan RateLimit = TimeSpan.FromMinutes(1);
