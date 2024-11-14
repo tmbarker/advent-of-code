@@ -18,7 +18,7 @@ public sealed class JetPattern
     private JetPattern(IEnumerable<Vec2D> vectors)
     {
         Index = 0;
-        _list = new List<Vec2D>(vectors);
+        _list = [..vectors];
     }
 
     public Vec2D Next()

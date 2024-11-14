@@ -2,9 +2,6 @@ using Utilities.Extensions;
 
 namespace Solutions.Y2020.D06;
 
-/// <summary>
-/// Custom Customs: https://adventofcode.com/2020/day/6
-/// </summary>
 [PuzzleInfo("Custom Customs", Topics.StringParsing, Difficulty.Easy)]
 public sealed class Solution : SolutionBase
 {

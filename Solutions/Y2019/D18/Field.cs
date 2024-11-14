@@ -23,8 +23,8 @@ public sealed class Field
     {
         _adjacency = adjacency;
         _entities = entities;
-        _keys  = new HashSet<char>(entities.Values.Where(char.IsLower));
-        _doors = new HashSet<char>(entities.Values.Where(char.IsUpper));
+        _keys  = [..entities.Values.Where(char.IsLower)];
+        _doors = [..entities.Values.Where(char.IsUpper)];
 
         StartPos = startPos;
     }

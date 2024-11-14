@@ -2,9 +2,6 @@ using Utilities.Geometry.Euclidean;
 
 namespace Solutions.Y2017.D03;
 
-/// <summary>
-/// Spiral Memory: https://adventofcode.com/2017/day/3
-/// </summary>
 [PuzzleInfo("Spiral Memory", Topics.Vectors, Difficulty.Medium)]
 public sealed class Solution : SolutionBase
 {

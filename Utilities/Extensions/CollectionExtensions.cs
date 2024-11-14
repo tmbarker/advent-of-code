@@ -157,7 +157,7 @@ public static class CollectionExtensions
         var enumerated = elements.ToArray();
         if (enumerated.Length == 0)
         {
-            yield return Enumerable.Empty<T>();
+            yield return [];
             yield break;
         }
 

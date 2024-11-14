@@ -3,7 +3,7 @@ using Utilities.Extensions;
 namespace Utilities.Geometry.Euclidean;
 
 /// <summary>
-/// A readonly value type which provides integral 90 degree rotations over <see cref="Vec3D"/> instances 
+///     A readonly value type which provides integral 90 degree rotations over <see cref="Vec3D" /> instances
 /// </summary>
 public readonly struct Rot3D : IEquatable<Rot3D>
 {
@@ -115,9 +115,9 @@ public readonly struct Rot3D : IEquatable<Rot3D>
     {
         return $"R({Axis}): {ThetaDeg}°";
     }
-    
+
     /// <summary>
-    /// Internal throw helper for <see cref="Rot3D"/>
+    ///     Internal throw helper for <see cref="Rot3D" />
     /// </summary>
     private static class ThrowHelper
     {

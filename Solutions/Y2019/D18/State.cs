@@ -3,8 +3,8 @@ using Utilities.Geometry.Euclidean;
 namespace Solutions.Y2019.D18;
 
 /// <summary>
-/// Represents the state of a robot in the tunnels. Note that <see cref="Steps"/> is not
-/// considered in <see cref="State"/> equality comparisons
+///     Represents the state of a robot in the tunnels. Note that <see cref="Steps" /> is not
+///     considered in <see cref="State" /> equality comparisons
 /// </summary>
 public readonly struct State : IEquatable<State>
 {

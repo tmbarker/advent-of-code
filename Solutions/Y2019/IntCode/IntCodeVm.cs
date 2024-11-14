@@ -37,7 +37,7 @@ public partial class IntCodeVm
                     Mul(instr);
                     break;
                 case OpCode.Inp:
-                    if (!InputBuffer.Any())
+                    if (InputBuffer.Count == 0)
                     {
                         AwaitingInput?.Invoke(this, EventArgs.Empty);
                         return ExitCode.AwaitingInput;

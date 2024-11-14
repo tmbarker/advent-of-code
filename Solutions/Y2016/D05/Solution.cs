@@ -19,9 +19,9 @@ public sealed class Solution : SolutionBase
 
     private string FindOrderedPassword()
     {
+        using var hashProvider = new Md5Provider();
         var input = GetInputText();
         var pass = new StringBuilder();
-        var hashProvider = new Md5Provider();
 
         for (var i = 0; pass.Length < 8; i++)
         {
@@ -42,10 +42,10 @@ public sealed class Solution : SolutionBase
     
     private string FindPositionalPassword()
     {
+        using var hashProvider = new Md5Provider();
         var input = GetInputText();
         var pass = new char[8];
         var unset = Enumerable.Range(start: 0, count: 8).ToHashSet();
-        var hashProvider = new Md5Provider();
 
         for (var i = 0; unset.Count > 0; i++)
         {

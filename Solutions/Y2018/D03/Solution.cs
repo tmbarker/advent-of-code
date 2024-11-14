@@ -4,9 +4,7 @@ using Utilities.Geometry.Euclidean;
 
 namespace Solutions.Y2018.D03;
 
-/// <summary>
-/// No Matter How You Slice It: https://adventofcode.com/2018/day/3
-/// </summary>
+[PuzzleInfo("No Matter How You Slice It", Topics.Vectors, Difficulty.Easy)]
 public sealed class Solution : SolutionBase
 {
     public override object Run(int part)

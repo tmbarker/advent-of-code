@@ -1,46 +1,27 @@
 ﻿namespace Solutions.Y2021.D16;
 
-public abstract class Packet
+public abstract class Packet(int version, IEnumerable<Packet> subPackets)
 {
-    protected Packet(int version, IEnumerable<Packet> subPackets)
-    {
-        Version = version;
-        SubPackets = new List<Packet>(subPackets);
-    }
-    
-    public int Version { get; }
-    public IReadOnlyList<Packet> SubPackets { get; }
+    public int Version { get; } = version;
+    public IReadOnlyList<Packet> SubPackets { get; } = new List<Packet>(subPackets);
 
     public abstract long Evaluate();
 }
 
-public sealed class LiteralPacket : Packet
+public sealed class LiteralPacket(int version, long value) : Packet(version, subPackets: [])
 {
-    private readonly long _value;
-    
-    public LiteralPacket(int version, long value) : base(version, Enumerable.Empty<Packet>())
-    {
-        _value = value;
-    }
-
     public override long Evaluate()
     {
-        return _value;
+        return value;
     }
 }
 
-public sealed class OperatorPacket : Packet
+public sealed class OperatorPacket(int version, Operator @operator, IEnumerable<Packet> subPackets)
+    : Packet(version, subPackets)
 {
-    private readonly Operator _operator;
-    
-    public OperatorPacket(int version, Operator @operator, IEnumerable<Packet> subPackets) : base(version, subPackets)
-    {
-        _operator = @operator;
-    }
-
     public override long Evaluate()
     {
-        switch (_operator)
+        switch (@operator)
         {
             case Operator.Sum:
                 return SubPackets.Sum(p => p.Evaluate());

@@ -2,11 +2,11 @@ using Utilities.Hashing;
 
 namespace Solutions.Y2016.D14;
 
-public sealed class HashSequence
+public sealed class HashSequence : IDisposable
 {
     private readonly string _salt;
     private readonly int _stretches;
-    private readonly List<string> _hashes = new();
+    private readonly List<string> _hashes = [];
     private readonly Md5Provider _md5Provider = new();
     
     public string this[int i] => GetHashInternal(i);
@@ -38,5 +38,10 @@ public sealed class HashSequence
             
             _hashes.Add(hash);
         }
+    }
+
+    public void Dispose()
+    {
+        _md5Provider.Dispose();
     }
 }

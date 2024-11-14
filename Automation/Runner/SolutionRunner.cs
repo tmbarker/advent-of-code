@@ -18,14 +18,14 @@ public class SolutionRunner(IConfiguration configuration, InputProvider inputPro
     private const string UserSessionKey = "UserSession";
 
     /// <summary>
-    ///     Instantiate the puzzle solution associated with the specified <paramref name="year"/> and
-    ///     <paramref name="day"/>. If the input file path is not provided, try to get it from the cache, downloading
+    ///     Instantiate the puzzle solution associated with the specified <paramref name="year" /> and
+    ///     <paramref name="day" />. If the input file path is not provided, try to get it from the cache, downloading
     ///     first if necessary. Next, run and log the puzzle solution.
     /// </summary>
     /// <param name="year">The year associated with the puzzle</param>
     /// <param name="day">The day associated with the puzzle</param>
     /// <param name="inputPath">
-    ///     Used to manually specify the input file path, if unset the <see cref="SolutionRunner"/>
+    ///     Used to manually specify the input file path, if unset the <see cref="SolutionRunner" />
     ///     will attempt to get the input from the cache
     /// </param>
     /// <param name="showLogs">

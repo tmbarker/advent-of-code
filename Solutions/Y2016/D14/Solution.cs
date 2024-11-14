@@ -20,8 +20,8 @@ public sealed class Solution : SolutionBase
 
     private static int FindKeys(string salt, int stretches, int count)
     {
+        using var hashes = new HashSequence(salt, stretches, count: 1000);
         var indices = new List<int>();
-        var hashes = new HashSequence(salt, stretches, count: 1000);
 
         for (var i = 0; indices.Count < count; i++)
         {
@@ -34,7 +34,7 @@ public sealed class Solution : SolutionBase
             }
 
             var repeat = match.Groups["C"].Value.Single();
-            var need = new string(repeat, 5);
+            var need = new string(repeat, count: 5);
             
             for (var j = 1; j <= 1000; j++)
             {

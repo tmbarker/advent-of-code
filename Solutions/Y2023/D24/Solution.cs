@@ -19,12 +19,12 @@ public sealed class Solution : SolutionBase
         };
     }
 
-    private static long Intersect2D(IReadOnlyList<Ray3> rays, Aabb2 aabb)
+    private static long Intersect2D(Ray3[] rays, Aabb2 aabb)
     {
         var n = 0L;
         
-        for (var i = 0; i < rays.Count - 1; i++)
-        for (var j = i + 1; j < rays.Count; j++)
+        for (var i = 0; i < rays.Length - 1; i++)
+        for (var j = i + 1; j < rays.Length; j++)
         {
             if (Ray3.Intersect2D(a: rays[i], b: rays[j], out var p) && aabb.Contains(p))
             {
@@ -35,7 +35,7 @@ public sealed class Solution : SolutionBase
         return n;
     }
 
-    private static decimal Intersect3D(IReadOnlyList<Ray3> rays)
+    private static decimal Intersect3D(Ray3[] rays)
     {
         //  Let:
         //    <p_rock>(t) = <X,Y,Z> + t <DX,DY,DZ> 

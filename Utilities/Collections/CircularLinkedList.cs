@@ -1,10 +1,10 @@
 namespace Utilities.Collections;
 
 /// <summary>
-/// A doubly linked circular linked list. The implementation/members are the same as the .NET standard library
-/// <see cref="LinkedList{T}"/>, except it is circular
+///     A doubly linked circular linked list. The implementation/members are the same as the .NET standard library
+///     <see cref="LinkedList{T}" />, except it is circular
 /// </summary>
-/// <typeparam name="T">The type of the value encapsulated in each <see cref="CircularLinkedListNode{T}"/></typeparam>
+/// <typeparam name="T">The type of the value encapsulated in each <see cref="CircularLinkedListNode{T}" /></typeparam>
 public sealed class CircularLinkedList<T>
 {
    public CircularLinkedList()
@@ -31,7 +31,7 @@ public sealed class CircularLinkedList<T>
    }
 
    /// <summary>
-   /// Add each element in the <see cref="collection"/> one by one in front of the <see cref="Head"/>  
+   ///     Add each element in the <see cref="collection" /> one by one in front of the <see cref="Head" />
    /// </summary>
    /// <param name="collection"></param>
    public void AddRange(IEnumerable<T> collection)
@@ -81,7 +81,7 @@ public sealed class CircularLinkedList<T>
    }
 
    /// <summary>
-   /// Add the value to the <see cref="CircularLinkedList{T}"/>, it will become the <see cref="Head"/>
+   ///     Add the value to the <see cref="CircularLinkedList{T}" />, it will become the <see cref="Head" />
    /// </summary>
    public CircularLinkedListNode<T> AddFirst(T value)
    {
@@ -99,7 +99,7 @@ public sealed class CircularLinkedList<T>
    }
 
    /// <summary>
-   /// Add the value to the <see cref="CircularLinkedList{T}"/>, it will become the <see cref="Tail"/>
+   ///     Add the value to the <see cref="CircularLinkedList{T}" />, it will become the <see cref="Tail" />
    /// </summary>
    public CircularLinkedListNode<T> AddLast(T value)
    {
@@ -116,7 +116,7 @@ public sealed class CircularLinkedList<T>
    }
 
    /// <summary>
-   /// Linearly traverse from the <see cref="Head"/> node
+   ///     Linearly traverse from the <see cref="Head" /> node
    /// </summary>
    public CircularLinkedListNode<T> GetNode(int index)
    {
@@ -135,7 +135,7 @@ public sealed class CircularLinkedList<T>
    }
 
    /// <summary>
-   /// Linearly search from the <see cref="Head"/> node
+   ///     Linearly search from the <see cref="Head" /> node
    /// </summary>
    public CircularLinkedListNode<T>? FindNode(T value, out int index)
    {
@@ -204,13 +204,13 @@ public sealed class CircularLinkedList<T>
    }
 
    /// <summary>
-   /// Reverse a sub-range of the list, note that <see cref="Head"/> is preserved
+   ///     Reverse a sub-range of the list, note that <see cref="Head" /> is preserved
    /// </summary>
    /// <param name="start">The first node in the reversed segment of the list</param>
    /// <param name="count">The number of nodes to be reversed</param>
-   /// <param name="preserveHead">Do not modify the <see cref="Head"/> reference</param>
+   /// <param name="preserveHead">Do not modify the <see cref="Head" /> reference</param>
    /// <exception cref="ArgumentOutOfRangeException"><paramref name="count"></paramref> is negative</exception>
-   /// <exception cref="ArgumentException"><paramref name="count"/> is greater than the length of the list</exception>
+   /// <exception cref="ArgumentException"><paramref name="count" /> is greater than the length of the list</exception>
    public void ReverseRange(CircularLinkedListNode<T> start, int count, bool preserveHead)
    {
       if (count < 0)

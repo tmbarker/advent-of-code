@@ -17,7 +17,7 @@ public sealed class CircularBuffer<T> : IEnumerable<T>
     public bool IsEmpty => Count == 0;
     public bool IsFull => Count == Capacity;
 
-    public CircularBuffer(int capacity) : this(capacity, items: Array.Empty<T>())
+    public CircularBuffer(int capacity) : this(capacity, items: [])
     {
     }
 
@@ -219,7 +219,7 @@ public sealed class CircularBuffer<T> : IEnumerable<T>
     {
         if (IsEmpty)
         {
-            return new ArraySegment<T>(Array.Empty<T>());
+            return new ArraySegment<T>(array: []);
         }
 
         return _readIndex < _writeIndex
@@ -232,7 +232,7 @@ public sealed class CircularBuffer<T> : IEnumerable<T>
         private const string EmptyMessage = "Cannot access an empty buffer";
         private const string ItemsNullMessage = "Items must be non-null";
         private const string CapacityInvalidMessage = "Capacity must be a positive, non-zero number";
-        private const string CapacityExceededMessage = "Capacity exceeded: {0} is greater than the buffer size of {1}";
+        private const string CapacityExceededFormat = "Capacity exceeded: {0} is greater than the buffer size of {1}";
         private const string IndexInvalidFormat = "Cannot access index {0}, buffer size is {1}";
 
         public static Exception BufferEmpty()
@@ -252,7 +252,7 @@ public sealed class CircularBuffer<T> : IEnumerable<T>
 
         public static Exception CapacityExceeded(int length, int capacity)
         {
-            return new ArgumentException(message: string.Format(CapacityExceededMessage, length, capacity));
+            return new ArgumentException(message: string.Format(CapacityExceededFormat, length, capacity));
         }
 
         public static Exception IndexInvalid(int index, int count)

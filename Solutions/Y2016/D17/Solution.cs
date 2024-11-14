@@ -38,8 +38,8 @@ public sealed class Solution : SolutionBase
 
     private string Traverse(PathCriteria criteria)
     {
+        using var hashProvider = new Md5Provider();
         var passcode = GetInputText();
-        var hashProvider = new Md5Provider();
 
         var initial = new State(Pos: Start, Path: string.Empty);
         var queue = new Queue<State>(collection: [initial]);

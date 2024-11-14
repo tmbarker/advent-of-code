@@ -6,8 +6,7 @@ public static class Cheats
 {
     public const string TestInventoryCommand = "north";
     public static readonly Regex PasscodeRegex = new(@"(\d+)");
-    public static readonly Queue<string> AutomationCommands = new(new[]
-    { 
+    public static readonly Queue<string> AutomationCommands = new([
         "west",
         "take semiconductor",
         "west",
@@ -38,7 +37,7 @@ public static class Cheats
         "north",
         "east",
         "inv"
-    });
+    ]);
     public static readonly IReadOnlyList<string> InventoryItems = new List<string>
     {
         "semiconductor",

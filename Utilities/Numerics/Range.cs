@@ -6,9 +6,9 @@ using Utilities.Extensions;
 namespace Utilities.Numerics;
 
 /// <summary>
-///     A generic readonly interval value type
+///     A generic readonly integral interval value type
 /// </summary>
-public readonly record struct Range<T>(T Min, T Max) : IEnumerable<T> where T : IBinaryNumber<T>
+public readonly record struct Range<T>(T Min, T Max) : IEnumerable<T> where T : INumber<T>
 {
     public T Length => Max - Min + T.One;
 

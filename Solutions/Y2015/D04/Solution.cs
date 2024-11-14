@@ -18,7 +18,7 @@ public sealed class Solution : SolutionBase
 
     private static int FindHashSeed(string key, int zeroes)
     {
-        var provider = new Md5Provider();
+        using var provider = new Md5Provider();
         var hash = string.Empty;
         var target = new string(c: '0', zeroes);
         var value = 0;

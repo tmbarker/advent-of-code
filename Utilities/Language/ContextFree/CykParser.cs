@@ -113,7 +113,7 @@ public class CykParser
     }
 
     /// <summary>
-    ///     Build a single valid parse parse tree.
+    ///     Build a single valid parse tree.
     /// </summary>
     /// <param name="nt">The non-terminal to parse</param>
     /// <param name="s">The substring start position</param>

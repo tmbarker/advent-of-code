@@ -3,7 +3,7 @@ using Utilities.Extensions;
 namespace Utilities.Geometry.Euclidean;
 
 /// <summary>
-/// A readonly integral 3D Vector value type
+///     A readonly integral 3D Vector value type
 /// </summary>
 public readonly record struct Vec3D
 {
@@ -153,7 +153,7 @@ public readonly record struct Vec3D
     
     public static bool TryParse(string? s, out Vec3D result)
     {
-        var numbers = s?.ParseInts() ?? Array.Empty<int>();
+        var numbers = s?.ParseInts() ?? [];
         if (numbers.Length < 3)
         {
             result = Zero;

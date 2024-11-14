@@ -200,7 +200,7 @@ public sealed class Solution : SolutionBase
     }
 
     /// <summary>
-    /// Filter the dictionary entries so only Key-Value pairs with a distinct Value are returned
+    ///     Filter the dictionary entries so only Key-Value pairs with a distinct Value are returned
     /// </summary>
     private static Dictionary<TKey, TValue> FilterByDistinctValues<TKey, TValue>(IDictionary<TKey, TValue> dictionary)
         where TKey : notnull

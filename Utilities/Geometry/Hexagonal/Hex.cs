@@ -8,19 +8,19 @@ public readonly record struct Hex
     public static readonly Hex Zero = new(q: 0, r: 0, s: 0);
     public static readonly IReadOnlyDictionary<Enum, Hex> Directions = new Dictionary<Enum, Hex>
     {
-        { Flat.N,  new(q:  0, r: -1, s:  1) },
-        { Flat.Ne, new(q:  1, r: -1, s:  0) },
-        { Flat.Se, new(q:  1, r:  0, s: -1) },
-        { Flat.S,  new(q:  0, r:  1, s: -1) },
-        { Flat.Sw, new(q: -1, r:  1, s:  0) },
-        { Flat.Nw, new(q: -1, r:  0, s:  1) },
+        { Flat.N,  new Hex(q:  0, r: -1, s:  1) },
+        { Flat.Ne, new Hex(q:  1, r: -1, s:  0) },
+        { Flat.Se, new Hex(q:  1, r:  0, s: -1) },
+        { Flat.S,  new Hex(q:  0, r:  1, s: -1) },
+        { Flat.Sw, new Hex(q: -1, r:  1, s:  0) },
+        { Flat.Nw, new Hex(q: -1, r:  0, s:  1) },
 
-        { Pointy.Nw, new(q:  0, r: -1, s:  1) },
-        { Pointy.Ne, new(q:  1, r: -1, s:  0) },
-        { Pointy.E,  new(q:  1, r:  0, s: -1) },
-        { Pointy.Se, new(q:  0, r:  1, s: -1) },
-        { Pointy.Sw, new(q: -1, r:  1, s:  0) },
-        { Pointy.W,  new(q: -1, r:  0, s:  1) }
+        { Pointy.Nw, new Hex(q:  0, r: -1, s:  1) },
+        { Pointy.Ne, new Hex(q:  1, r: -1, s:  0) },
+        { Pointy.E,  new Hex(q:  1, r:  0, s: -1) },
+        { Pointy.Se, new Hex(q:  0, r:  1, s: -1) },
+        { Pointy.Sw, new Hex(q: -1, r:  1, s:  0) },
+        { Pointy.W,  new Hex(q: -1, r:  0, s:  1) }
     };
     
     public int Q { get; }

@@ -87,9 +87,9 @@ public sealed class Solution : SolutionBase
 
         return asLong;
     }
-    
+
     /// <summary>
-    /// Execute the Extended Euclidean Algorithm (EEA) to obtain the modular multiplicative inverse of a mod m
+    ///     Execute the Extended Euclidean Algorithm (EEA) to obtain the modular multiplicative inverse of a mod m
     /// </summary>
     private static BigInteger ModInverse(BigInteger a, BigInteger modulus)
     {

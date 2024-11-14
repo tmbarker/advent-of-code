@@ -4,12 +4,12 @@ using System.Net;
 namespace Automation.Client;
 
 /// <summary>
-/// A utility class for sending HTTP requests to Advent of Code [<see cref="Domain"/>]
+///     A utility class for sending HTTP requests to Advent of Code [<see cref="Domain" />]
 /// </summary>
 public static class AocHttpClient
 {
     /// <summary>
-    /// The Advent of Code domain, all requests that this utility makes are to this domain.
+    ///     The Advent of Code domain, all requests that this utility makes are to this domain.
     /// </summary>
     public const string Domain = "https://adventofcode.com";
     
@@ -22,9 +22,9 @@ public static class AocHttpClient
     private static readonly TimeSpan RateLimit = TimeSpan.FromMinutes(1);
 
     /// <summary>
-    /// Send an HTTP request to Advent of Code [<see cref="Domain"/>]
+    ///     Send an HTTP request to Advent of Code [<see cref="Domain" />]
     /// </summary>
-    /// <param name="route">The request route, relative to the Advent of Code <see cref="Domain"/></param>
+    /// <param name="route">The request route, relative to the Advent of Code <see cref="Domain" /></param>
     /// <param name="userSession">The user session cookie value</param>
     /// <returns>The request response</returns>
     public static async Task<HttpResponseMessage> SendRequest(string route, string userSession)
