@@ -5,37 +5,32 @@ namespace Utilities.Language.ContextFree;
 /// </summary>
 public readonly struct Production : IEquatable<Production>
 {
-    private const char YieldDelimiter = ',';
-    private readonly string _yieldHash;
-
     public string NonTerminal { get; }
     public IReadOnlyList<string> Yields { get; }
 
     public Production(string nonTerminal, IEnumerable<string> yields)
     {
         NonTerminal = nonTerminal;
-        Yields = new List<string>(collection: yields);
+        Yields = yields.ToArray();
 
         if (Yields.Count == 0)
         {
             throw new ArgumentException($"{nameof(Production)} must yield at least one terminal or non-terminal");
         }
 
-        if (Yields.Any(v => v.Contains(YieldDelimiter)))
+        if (Yields.Any(string.IsNullOrWhiteSpace))
         {
-            throw new ArgumentException("Yield delimiter cannot appear in the production outputs");
+            throw new ArgumentException($"{nameof(Production)}s cannot contain null or empty yields");
         }
-
-        _yieldHash = string.Join(YieldDelimiter, Yields);
     }
 
-    public Production(string nonTerminal, string yields) : this(nonTerminal, yields: Enumerable.Repeat(yields, 1))
+    public Production(string nonTerminal, string yields) : this(nonTerminal, yields: [yields])
     {
     }
 
     public bool Equals(Production other)
     {
-        return NonTerminal == other.NonTerminal && _yieldHash == other._yieldHash;
+        return NonTerminal == other.NonTerminal && Yields.SequenceEqual(other.Yields);
     }
 
     public override bool Equals(object? obj)
@@ -45,7 +40,13 @@ public readonly struct Production : IEquatable<Production>
 
     public override int GetHashCode()
     {
-        return HashCode.Combine(NonTerminal, _yieldHash);
+        var hash = new HashCode();
+        hash.Add(NonTerminal);
+        foreach (var yield in Yields)
+        {
+            hash.Add(yield);
+        }
+        return hash.ToHashCode();
     }
 
     public static bool operator ==(Production left, Production right)
@@ -56,5 +57,10 @@ public readonly struct Production : IEquatable<Production>
     public static bool operator !=(Production left, Production right)
     {
         return !left.Equals(right);
+    }
+
+    public override string ToString()
+    {
+        return $"{NonTerminal} -> {string.Join(" ", Yields)}";
     }
 }

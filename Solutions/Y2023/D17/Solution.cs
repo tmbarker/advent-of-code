@@ -18,8 +18,8 @@ public sealed class Solution : SolutionBase
         
         return part switch
         {
-            1 => Search(grid, constraint: new Range<int>(Min: 1, Max: 3)),
-            2 => Search(grid, constraint: new Range<int>(Min: 4, Max: 10)),
+            1 => Search(grid, constraint: new Range<int>(min: 1, max: 3)),
+            2 => Search(grid, constraint: new Range<int>(min: 4, max: 10)),
             _ => PuzzleNotSolvedString
         };
     }

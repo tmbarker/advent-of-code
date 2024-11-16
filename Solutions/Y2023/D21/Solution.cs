@@ -71,11 +71,11 @@ public sealed class Solution : SolutionBase
         //  Solve a system of equations to obtain the quadratic coefficients a, b, and c:
         //  (1) c = y0, (2) a + b + c = y1, (3) 4a + 2b + c = y2
         //
-        var coefficients = LinearSolver.Solve(a: new double[,]
+        var coefficients = LinearSolver.Solve(epsilon: double.Epsilon, a: new double[,]
         {
-            { 4, 2, 1, ys[2]},
-            { 1, 1, 1, ys[1]},
-            { 0, 0, 1, ys[0]}
+            { 4, 2, 1, ys[2] },
+            { 1, 1, 1, ys[1] },
+            { 0, 0, 1, ys[0] }
         });
 
         var a = (long)coefficients[0];

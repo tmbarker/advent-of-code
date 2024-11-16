@@ -1,17 +1,12 @@
 namespace Solutions.Y2022.D13;
 
-public sealed class IntegerPacketElement : PacketElement
+public sealed class IntegerPacketElement(int value) : PacketElement
 {
-    public IntegerPacketElement(int value)
-    {
-        Value = value;
-    }
-    
-    public int Value { get; }
+    public int Value { get; } = value;
 
     public ListPacketElement AsList()
     {
-        return new ListPacketElement(Enumerable.Repeat(this, 1));
+        return new ListPacketElement(elements: [this]);
     }
 
     public override string ToString()

@@ -103,11 +103,11 @@ public sealed class Solution : SolutionBase
             var match = Regex.Match(input[i], @"([a-z ]+): (\d+)-(\d+) or (\d+)-(\d+)");
             var field = match.Groups[1].Value;
             var r1 = new Range<int>(
-                Min: match.Groups[2].ParseInt(),
-                Max: match.Groups[3].ParseInt());
+                min: match.Groups[2].ParseInt(),
+                max: match.Groups[3].ParseInt());
             var r2 = new Range<int>(
-                Min: match.Groups[4].ParseInt(),
-                Max: match.Groups[5].ParseInt());
+                min: match.Groups[4].ParseInt(),
+                max: match.Groups[5].ParseInt());
 
             fieldValidators.Add(
                 key: field,

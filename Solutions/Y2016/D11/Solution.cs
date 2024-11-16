@@ -6,15 +6,15 @@ namespace Solutions.Y2016.D11;
 [PuzzleInfo("Radioisotope Thermoelectric Generators", Topics.Graphs, Difficulty.Hard)]
 public sealed class Solution : SolutionBase
 {
-    private static readonly Regex MicrochipRegex = new(pattern: @"([a-z]+)-compatible microchip");
-    private static readonly Regex GeneratorRegex = new(pattern: @"([a-z]+) generator");
+    private static readonly Regex MicrochipRegex = new(pattern: "([a-z]+)-compatible microchip");
+    private static readonly Regex GeneratorRegex = new(pattern: "([a-z]+) generator");
 
     private static readonly List<Device> ExtraDevices =
     [
-        new Device(Type: DeviceType.Generator, Element: "elerium",   Floor: 1),
-        new Device(Type: DeviceType.Microchip, Element: "elerium",   Floor: 1),
-        new Device(Type: DeviceType.Generator, Element: "dilithium", Floor: 1),
-        new Device(Type: DeviceType.Microchip, Element: "dilithium", Floor: 1)
+        new(Type: DeviceType.Generator, Element: "elerium",   Floor: 1),
+        new(Type: DeviceType.Microchip, Element: "elerium",   Floor: 1),
+        new(Type: DeviceType.Generator, Element: "dilithium", Floor: 1),
+        new(Type: DeviceType.Microchip, Element: "dilithium", Floor: 1)
     ];
     
     public override object Run(int part)
@@ -42,7 +42,7 @@ public sealed class Solution : SolutionBase
         var visited = new HashSet<State>(collection: [initial]);
         var depth = 0;
 
-        while (queue.Any())
+        while (queue.Count != 0)
         {
             var nodesAtDepth = queue.Count;
             while (nodesAtDepth-- > 0)
@@ -89,11 +89,11 @@ public sealed class Solution : SolutionBase
         }
     }
 
-    private static IEnumerable<IList<Device>> GetCombinations(IList<Device> devices)
+    private static List<IList<Device>> GetCombinations(List<Device> devices)
     {
         if (devices.Count == 1)
         {
-            return Enumerable.Repeat(devices, 1);
+            return [devices];
         }
 
         var choices = new List<IList<Device>>();
@@ -130,7 +130,7 @@ public sealed class Solution : SolutionBase
                 .Where(device => device.Type == DeviceType.Generator && device.Floor == microchip.Floor)
                 .ToList();
 
-            if (generatorsOnFloor.Any() && generatorsOnFloor.All(generator => generator.Element != microchip.Element))
+            if (generatorsOnFloor.Count != 0 && generatorsOnFloor.All(generator => generator.Element != microchip.Element))
             {
                 return false;
             }
@@ -139,10 +139,10 @@ public sealed class Solution : SolutionBase
         return true;
     }
     
-    private static List<Device> ParseDevices(IList<string> input)
+    private static List<Device> ParseDevices(string[] input)
     {
         var devices = new List<Device>();
-        for (var i = 0; i < input.Count; i++)
+        for (var i = 0; i < input.Length; i++)
         {
             var microchips = MicrochipRegex.Matches(input[i]).SelectCaptures(group: 1);
             var generators = GeneratorRegex.Matches(input[i]).SelectCaptures(group: 1);

@@ -4,7 +4,7 @@ namespace Solutions.Y2022.D13;
 
 public sealed class ListPacketElement : PacketElement
 {
-    private readonly List<PacketElement> _elements = new ();
+    private readonly List<PacketElement> _elements = [];
     
     public ListPacketElement(IEnumerable<PacketElement>? elements)
     {

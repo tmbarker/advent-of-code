@@ -1,51 +1,52 @@
-using System.Runtime.CompilerServices;
-
 namespace Utilities.Language.ContextFree;
 
 public sealed partial class Grammar
 {
     /// <summary>
+    ///     Does this production yield the empty string?
+    /// </summary>
+    public bool IsEpsilon(Production p)
+    {
+        return Epsilon != null && p.Yields.Count == 1 && p.Yields[0] == Epsilon;
+    }
+    
+    /// <summary>
     ///     Does this production yield exactly one terminal?
     /// </summary>
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static bool IsUnitTerminal(Production p, IReadOnlySet<string> t)
+    public bool IsUnitTerminal(Production p)
     {
-        return p.Yields.Count == 1 && t.Contains(p.Yields[0]);
+        return p.Yields.Count == 1 && Terminals.Contains(p.Yields[0]);
     }
 
     /// <summary>
     ///     Does this production yield exactly two non-terminals?
     /// </summary>
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static bool IsBinaryNonTerminal(Production p, IReadOnlySet<string> nt)
+    public bool IsBinaryNonTerminal(Production p)
     {
-        return p.Yields.Count == 2 && nt.Contains(p.Yields[0]) && nt.Contains(p.Yields[1]);
+        return p.Yields.Count == 2 && p.Yields.All(NonTerminals.Contains);
     }
 
     /// <summary>
     ///     Does this production yield both terminals and non-terminals?
     /// </summary>
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static bool IsNonSolitary(Production p, IReadOnlySet<string> nt, IReadOnlySet<string> t)
+    public bool IsNonSolitary(Production p)
     {
-        return p.Yields.Any(nt.Contains) && p.Yields.Any(t.Contains);
+        return p.Yields.Any(NonTerminals.Contains) && p.Yields.Any(Terminals.Contains);
     }
 
     /// <summary>
     ///     Does this production yield more than two non-terminals?
     /// </summary>
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static bool IsSupraBinaryNonTerminal(Production p, IReadOnlySet<string> nt)
+    public bool IsSupraBinaryNonTerminal(Production p)
     {
-        return p.Yields.Count > 2 && p.Yields.All(nt.Contains);
+        return p.Yields.Count > 2 && p.Yields.All(NonTerminals.Contains);
     }
 
     /// <summary>
     ///     Does this production yield exactly one non-terminals?
     /// </summary>
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static bool IsUnitNonTerminal(Production p, IReadOnlySet<string> nt)
+    public bool IsUnitNonTerminal(Production p)
     {
-        return p.Yields.Count == 1 && nt.Contains(p.Yields[0]);
+        return p.Yields.Count == 1 && NonTerminals.Contains(p.Yields[0]);
     }
 }

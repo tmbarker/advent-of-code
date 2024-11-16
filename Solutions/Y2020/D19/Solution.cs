@@ -1,3 +1,4 @@
+using Utilities.Extensions;
 using Utilities.Language.ContextFree;
 
 namespace Solutions.Y2020.D19;
@@ -26,19 +27,19 @@ public sealed class Solution : SolutionBase
 
     private int CountRecognitions(bool useOverrides)
     {
-        var input = GetInputLines();
-        var sentences = input
-            .SkipWhile(line => string.IsNullOrWhiteSpace(line) || !char.IsLetter(line[0]))
+        var input = GetInputLines()
+            .ChunkByNonEmpty()
+            .ToArray();
+        var productions = input[0]
+            .SelectMany(line => ParseRule(line, useOverrides));
+        var sentences = input[1]
             .Select(Tokenize)
             .AsParallel();
-        var productions = input
-            .TakeWhile(line => !string.IsNullOrWhiteSpace(line))
-            .SelectMany(line => ParseRule(line, useOverrides));
 
         var cfg = new Grammar(StartSymbol, productions);
         var cnf = CnfConverter.Convert(cfg);
         var cyk = new CykParser(cnf);
-
+        
         return sentences.Count(cyk.Recognize);
     }
 

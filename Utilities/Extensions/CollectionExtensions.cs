@@ -187,11 +187,8 @@ public static class CollectionExtensions
         {
             throw new InvalidOperationException();
         }
-
-        if (elements == null)
-        {
-            throw new ArgumentNullException(nameof(elements));
-        }
+        
+        ArgumentNullException.ThrowIfNull(elements);
 
         var enumerated = elements as T[] ?? elements.ToArray();
         return
@@ -239,18 +236,11 @@ public static class CollectionExtensions
         }
     }
 
-    private static IEnumerable<T> ZipWhere<T>(this IEnumerable<T> items, IEnumerable<bool> selectors)
+    public static IEnumerable<T> ZipWhere<T>(this IEnumerable<T> items, IEnumerable<bool> selectors)
     {
-        if (items == null)
-        {
-            throw new ArgumentNullException(nameof(items));
-        }
-
-        if (selectors == null)
-        {
-            throw new ArgumentNullException(nameof(selectors));
-        }
-
+        ArgumentNullException.ThrowIfNull(items);
+        ArgumentNullException.ThrowIfNull(selectors);
+        
         return ZipWhereIterator(items, selectors);
     }
 

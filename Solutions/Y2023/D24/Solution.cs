@@ -79,7 +79,7 @@ public sealed class Solution : SolutionBase
         FillRow(matrix, row: 5, vals: Coefficients3(a: rays[0], b: rays[2]));
 
         return LinearSolver
-            .Solve(a: matrix)
+            .Solve(a: matrix, epsilon: 1e-12m)
             .Take(3)
             .Select(v => Math.Round(v))
             .Sum();

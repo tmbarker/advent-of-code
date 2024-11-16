@@ -1,10 +1,12 @@
+using System.Collections.Immutable;
 using System.Diagnostics.CodeAnalysis;
 using System.Text.RegularExpressions;
+using Utilities.Extensions;
 
 namespace Utilities.Language.ContextFree;
 
 /// <summary>
-///     A CNF converter exposing <see cref="Convert" />
+///     A CNF converter exposing <see cref="Convert" />.
 /// </summary>
 [SuppressMessage(category: "ReSharper", checkId: "InconsistentNaming")]
 public static class CnfConverter
@@ -17,6 +19,7 @@ public static class CnfConverter
         START,
         TERM,
         BIN,
+        DEL,
         UNIT
     ];
 
@@ -52,18 +55,19 @@ public static class CnfConverter
 
         return new Grammar(
             start: s0,
+            epsilon: g.Epsilon,
             productions: g.Productions.Prepend(p0));
     }
 
     /// <summary>
-    ///     Eliminate productions with non-solitary terminals
+    ///     Eliminate rules with non-solitary terminals
     /// </summary>
     private static Grammar TERM(Grammar g)
     {
         var newNonTerminals = new HashSet<string>(g.NonTerminals);
-        var newProductions = new List<Production>(g.Productions);
+        var newProductions = new HashSet<Production>(g.Productions);
         var nonSolitaries = g.Productions
-            .Where(p => Grammar.IsNonSolitary(p, nt: g.NonTerminals, t: g.Terminals))
+            .Where(g.IsNonSolitary)
             .ToHashSet();
 
         foreach (var nonSolitaryProduction in nonSolitaries)
@@ -97,6 +101,7 @@ public static class CnfConverter
 
         return new Grammar(
             start: g.Start,
+            epsilon: g.Epsilon,
             productions: newProductions);
     }
 
@@ -106,9 +111,9 @@ public static class CnfConverter
     private static Grammar BIN(Grammar g)
     {
         var newNonTerminals = new HashSet<string>(g.NonTerminals);
-        var newProductions = new List<Production>(g.Productions);
+        var newProductions = new HashSet<Production>(g.Productions);
         var supraBinaries = g.Productions
-            .Where(p => Grammar.IsSupraBinaryNonTerminal(p, g.NonTerminals))
+            .Where(g.IsSupraBinaryNonTerminal)
             .ToHashSet();
 
         foreach (var initialProduction in supraBinaries)
@@ -141,17 +146,92 @@ public static class CnfConverter
 
         return new Grammar(
             start: g.Start,
+            epsilon: g.Epsilon,
             productions: newProductions);
     }
 
     /// <summary>
-    ///     Eliminate unit productions
+    ///     Eliminate ε-rules
+    /// </summary>
+    private static Grammar DEL(Grammar g)
+    {
+        if (g.Epsilon == null)
+        {
+            return g;
+        }
+
+        var epsilons = g.Productions
+            .Where(p => g.IsEpsilon(p) && p.NonTerminal != g.Start)
+            .ToHashSet();
+        var nullables = epsilons
+            .Select(p => p.NonTerminal)
+            .ToHashSet();
+        var candidates = g.Productions
+            .Where(p => p.Yields.All(g.NonTerminals.Contains))
+            .ToArray();
+        var foundNew = nullables.Count != 0;
+
+        while (foundNew)
+        {
+            foundNew = candidates.Any(
+                candidate => candidate.Yields.All(nullables.Contains) && nullables.Add(candidate.NonTerminal));
+        }
+
+        var newProductions = new HashSet<Production>();
+        if (nullables.Contains(g.Start))
+        {
+            newProductions.Add(new Production(nonTerminal: g.Start, yields: g.Epsilon));
+        }
+        
+        foreach (var oldProduction in g.Productions)
+        {
+            if (epsilons.Contains(oldProduction))
+            {
+                continue;
+            }
+            
+            var length = oldProduction.Yields.Count;
+            var seed = (0, ImmutableQueue<bool>.Empty);
+            var queue = new Queue<(int, ImmutableQueue<bool>)>([seed]);
+
+            while (queue.Count != 0)
+            {
+                var (pos, omitMask) = queue.Dequeue();
+                if (pos >= length)
+                {
+                    var yields = oldProduction.Yields
+                        .ZipWhere(omitMask)
+                        .ToArray();
+                    
+                    if (yields.Length > 0)
+                    {
+                        newProductions.Add(new Production(oldProduction.NonTerminal, yields));
+                    }
+                    continue;
+                }
+                
+                queue.Enqueue((pos + 1, omitMask.Enqueue(true)));
+                if (nullables.Contains(oldProduction.Yields[pos]))
+                {
+                    queue.Enqueue((pos + 1, omitMask.Enqueue(false)));
+                }
+            }
+        }
+        
+        return new Grammar(
+            start: g.Start,
+            epsilon: g.Epsilon,
+            productions: newProductions);
+    }
+    
+    /// <summary>
+    ///     Eliminate unit rules
     /// </summary>
     private static Grammar UNIT(Grammar g)
     {
         var newProductions = new List<Production>(g.Productions);
         var unitProductions = newProductions
-            .Where(p => Grammar.IsUnitNonTerminal(p, g.NonTerminals))
+            .Where(g.IsUnitNonTerminal)
             .ToHashSet();
 
         while (unitProductions.Count != 0)
@@ -169,12 +249,13 @@ public static class CnfConverter
             }
 
             unitProductions = newProductions
-                .Where(p => Grammar.IsUnitNonTerminal(p, g.NonTerminals))
+                .Where(g.IsUnitNonTerminal)
                 .ToHashSet();
         }
 
         return new Grammar(
             start: g.Start,
+            epsilon: g.Epsilon,
             productions: newProductions);
     }
 
@@ -182,15 +263,16 @@ public static class CnfConverter
     {
         //  Try to prevent unnecessarily appending digits to non-terminals which are already of the form ABC123
         //
-        var match = Regex.Match(prefix, pattern: @"^(?<prefix>[^\d]*)[\d]+$");
+        var match = Regex.Match(prefix, pattern: @"^(?<prefix>[^\d]*)(?<suffix>[\d])+$");
+        var suffix = 0;
+        
         if (match.Success)
         {
             prefix = match.Groups["prefix"].Value;
+            suffix = match.Groups["suffix"].ParseInt();
         }
-
-        var suffix = 0;
+        
         var nonTerminal = $"{prefix}{suffix}";
-
         while (nonTerminals.Contains(nonTerminal))
         {
             nonTerminal = $"{prefix}{++suffix}";

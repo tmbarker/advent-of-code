@@ -47,6 +47,11 @@ public sealed class CircularBuffer<T> : IEnumerable<T>
         Array.Copy(sourceArray: items, destinationArray: _buffer, items.Length);
     }
 
+    /// <summary>
+    ///     Index into the buffer at the specified position.
+    /// </summary>
+    /// <param name="index">The position to index</param>
+    /// <exception cref="IndexOutOfRangeException">The provided index is out of range of the buffer</exception>
     public T this[int index]
     {
         get

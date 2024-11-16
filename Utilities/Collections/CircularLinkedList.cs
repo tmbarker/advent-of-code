@@ -2,15 +2,22 @@ namespace Utilities.Collections;
 
 /// <summary>
 ///     A doubly linked circular linked list. The implementation/members are the same as the .NET standard library
-///     <see cref="LinkedList{T}" />, except it is circular
+///     <see cref="LinkedList{T}" />, except it is circular.
 /// </summary>
 /// <typeparam name="T">The type of the value encapsulated in each <see cref="CircularLinkedListNode{T}" /></typeparam>
 public sealed class CircularLinkedList<T>
 {
+   /// <summary>
+   ///     Create a new, empty, list.
+   /// </summary>
    public CircularLinkedList()
    {
    }
 
+   /// <summary>
+   ///     Create a new list using the provided values. The first value in the collection will become the head.
+   /// </summary>
+   /// <param name="collection"></param>
    public CircularLinkedList(IEnumerable<T> collection)
    {
       AddRange(collection);
@@ -20,20 +27,24 @@ public sealed class CircularLinkedList<T>
    public CircularLinkedListNode<T>? Head { get; private set; }
    public CircularLinkedListNode<T>? Tail => Head?.Prev;
    
+   /// <summary>
+   ///     Update the head reference to the specified node.
+   /// </summary>
+   /// <param name="newHead">The new node to mark as the head</param>
+   /// <exception cref="InvalidOperationException">The provided does not belong to this list</exception>
    public void MarkHead(CircularLinkedListNode<T> newHead)
    {
+      if (newHead.List != this)
+      {
+         throw new InvalidOperationException("Cannot update head reference, it belongs to a different list");
+      }
+      
       Head = newHead;
    }
    
-   public void Add(T value)
-   {
-      AddLast(value);
-   }
-
    /// <summary>
-   ///     Add each element in the <see cref="collection" /> one by one in front of the <see cref="Head" />
+   ///     Add each element in the <see cref="collection" /> one by one in front of the <see cref="Head" />.
    /// </summary>
-   /// <param name="collection"></param>
    public void AddRange(IEnumerable<T> collection)
    {
       foreach (var value in collection)
@@ -42,6 +53,12 @@ public sealed class CircularLinkedList<T>
       }
    }
    
+   /// <summary>
+   ///     Insert a new node using the provided value, after the specified node.
+   /// </summary>
+   /// <param name="node">The node the new node will be inserted after</param>
+   /// <param name="value">The value that will be associated with the new node</param>
+   /// <returns>The newly added node</returns>
    public CircularLinkedListNode<T> AddAfter(CircularLinkedListNode<T> node, T value)
    {
       var newNode = new CircularLinkedListNode<T>(node.List!, value);
@@ -49,6 +66,13 @@ public sealed class CircularLinkedList<T>
       return newNode;
    }
 
+   /// <summary>
+   ///     Insert an existing node into the list, after the specified node.
+   /// </summary>
+   /// <param name="node">The node to insert the new node after</param>
+   /// <param name="newNode">The new node to insert</param>
+   /// <returns>The new node</returns>
+   /// <exception cref="InvalidOperationException">The provided new node already belongs to a list</exception>
    public CircularLinkedListNode<T> AddAfter(CircularLinkedListNode<T> node, CircularLinkedListNode<T> newNode)
    {
       if (newNode.List != null)
@@ -61,6 +85,12 @@ public sealed class CircularLinkedList<T>
       return newNode;
    }
 
+   /// <summary>
+   ///     Insert a new node using the provided value, before the specified node.
+   /// </summary>
+   /// <param name="node">The node the new node will be inserted before</param>
+   /// <param name="value">The value that will be associated with the new node</param>
+   /// <returns>The newly added node</returns>
    public CircularLinkedListNode<T> AddBefore(CircularLinkedListNode<T> node, T value)
    {
       var newNode = new CircularLinkedListNode<T>(node.List!, value);
@@ -68,6 +98,13 @@ public sealed class CircularLinkedList<T>
       return newNode;
    }
    
+   /// <summary>
+   ///     Insert an existing node into the list, before the specified node.
+   /// </summary>
+   /// <param name="node">The node to insert the new node before</param>
+   /// <param name="newNode">The new node to insert</param>
+   /// <returns>The new node</returns>
+   /// <exception cref="InvalidOperationException">The provided new node already belongs to a list</exception>
    public CircularLinkedListNode<T> AddBefore(CircularLinkedListNode<T> node, CircularLinkedListNode<T> newNode)
    {
       if (newNode.List != null)
@@ -155,11 +192,19 @@ public sealed class CircularLinkedList<T>
       return null;
    }
 
+   /// <summary>
+   ///     Attempt to remove the specified node
+   /// </summary>
+   /// <param name="node">The node to remove</param>
    public void Remove(CircularLinkedListNode<T> node)
    {
       InternalRemoveNode(node);
    }
 
+   /// <summary>
+   ///     Remove the head node from the list, if it has a successor, that node will become the head node.
+   /// </summary>
+   /// <exception cref="InvalidOperationException">The list is empty</exception>
    public void RemoveHead()
    {
       if (Head == null)
@@ -170,6 +215,9 @@ public sealed class CircularLinkedList<T>
       InternalRemoveNode(Head);
    }
 
+   /// <summary>
+   ///     Remove all nodes from the list
+   /// </summary>
    public void Clear()
    {
       var current = Head;
@@ -184,6 +232,10 @@ public sealed class CircularLinkedList<T>
       Count = 0;
    }
 
+   /// <summary>
+   ///     Reverse the entire list.
+   /// </summary>
+   /// <param name="preserveHead">Do not modify the <see cref="Head"/> reference</param>
    public void Reverse(bool preserveHead)
    {
       var temp = default(CircularLinkedListNode<T>?);
@@ -204,7 +256,7 @@ public sealed class CircularLinkedList<T>
    }
 
    /// <summary>
-   ///     Reverse a sub-range of the list, note that <see cref="Head" /> is preserved
+   ///     Reverse a sub-range of the list.
    /// </summary>
    /// <param name="start">The first node in the reversed segment of the list</param>
    /// <param name="count">The number of nodes to be reversed</param>
@@ -241,11 +293,22 @@ public sealed class CircularLinkedList<T>
       }
    }
 
+   /// <summary>
+   ///     Invokes <see cref="BuildRepresentativeString"/>, and prints the value to the console.
+   /// </summary>
+   /// <param name="separator">How to join the string representation of each node</param>
+   /// <param name="nodeFormatter">How to format the string associated with each node</param>
    public void Print(string separator = ", ", Func<T, string>? nodeFormatter = null)
    {
       Console.WriteLine(BuildRepresentativeString(separator, nodeFormatter));
    }
    
+   /// <summary>
+   ///     Build a representative string of the list, formatting nodes as specified.
+   /// </summary>
+   /// <param name="separator">How to join the string representation of each node</param>
+   /// <param name="nodeFormatter">How to format the string associated with each node</param>
+   /// <returns>A string representation of the list</returns>
    public string BuildRepresentativeString(string separator = ", ", Func<T, string>? nodeFormatter = null)
    {
       var elements = new List<string>();

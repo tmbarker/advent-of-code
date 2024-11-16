@@ -1,15 +1,23 @@
+using System.Diagnostics.CodeAnalysis;
+using Utilities.Collections;
 using Utilities.Graph;
 
 namespace Utilities.Language.ContextFree;
 
+using Triple = (int, int, string);
+using BackRef = (int, string, string);
+
 /// <summary>
-///     A parser which executes the Cocke-Younger-Kasami (CYK) recognition algorithm
+///     A parser which executes the Cocke-Younger-Kasami (CYK) recognition algorithm.
 /// </summary>
+[SuppressMessage("ReSharper", "ForCanBeConvertedToForeach")]
+[SuppressMessage("ReSharper", "InvertIf")]
 public class CykParser
 {
     private readonly Grammar _grammar;
     private readonly Production[] _units;
     private readonly Production[] _bins;
+    private readonly Dictionary<string, int> _index;
 
     /// <summary>
     ///     Instantiate a <see cref="CykParser" /> specific to the provided CNF <paramref name="grammar" />.
@@ -29,10 +37,16 @@ public class CykParser
         }
 
         _grammar = grammar;
-        _units = grammar.Productions.Where(p => Grammar.IsUnitTerminal(p, grammar.Terminals)).ToArray();
-        _bins = grammar.Productions.Where(p => Grammar.IsBinaryNonTerminal(p, grammar.NonTerminals)).ToArray();
-    }
+        _units = [..grammar.Productions.Where(grammar.IsUnitTerminal)];
+        _bins = [..grammar.Productions.Where(grammar.IsBinaryNonTerminal)];
+        _index = new Dictionary<string, int>(capacity: grammar.NonTerminals.Count);
 
+        foreach (var nonTerminal in grammar.NonTerminals)
+        {
+            _index[nonTerminal] = _index.Count;
+        }
+    }
+    
     /// <summary>
     ///     Execute the Cocke-Younger-Kasami (CYK) algorithm to attempt to parse the input using the provided grammar
     /// </summary>
@@ -75,38 +89,46 @@ public class CykParser
         out BinaryTree<string>? parseTree)
     {
         var n = sentence.Count;
-        var table = new CykTable();
-
+        var r = _grammar.NonTerminals.Count;
+        var table = new bool[n + 1, n, r];
+        var back = new DefaultDict<Triple, HashSet<BackRef>>(defaultSelector: _ => []);
+        
         for (var s = 0; s < n; s++)
+        for (var i = 0; i <_units.Length; i++)  // Productions of the form A -> b
         {
-            foreach (var unit in _units)
+            var nt = _units[i].NonTerminal;
+            var t = _units[i].Yields[0];
+            
+            if (sentence[s] == t)
             {
-                if (unit.Yields[0] == sentence[s])
+                table[1, s, _index[nt]] = true;
+            }
+        }
+
+        for (var l = 2; l <= n;     l++)  // Length of span (l)
+        for (var s = 0; s <= n - l; s++)  // Start of span (s)
+        for (var p = 1; p <= l - 1; p++)  // Partition of span (p)
+        {
+            foreach (var bin in _bins)  // Productions of the form Ra -> Rb Rc
+            {
+                var a = bin.NonTerminal;
+                var b = bin.Yields[0];
+                var c = bin.Yields[1];
+                
+                if (table[p, s, _index[b]] && table[l - p, s + p, _index[c]])
                 {
-                    table.P[(1, s, unit.NonTerminal)] = true;
+                    table[l, s, _index[a]] = true;
+                    if (buildParseTree)
+                    {
+                        back[(l, s, a)].Add((p, b, c));
+                    }
                 }
             }
         }
 
-        for (var l = 2; l <= n; l++) // Length of span
-        for (var s = 0; s <= n - l; s++) // Start of span
-        for (var p = 1; p < l; p++) // Partition of span
-        {
-            foreach (var bin in _bins)
-            {
-                if (!table.P[(p, s, bin.Yields[0])] || !table.P[(l - p, s + p, bin.Yields[1])])
-                {
-                    continue;
-                }
-
-                table.P[(l, s, bin.NonTerminal)] = true;
-                table.B[(l, s, bin.NonTerminal)].Add((p, bin.Yields[0], bin.Yields[1]));
-            }
-        }
-
-        var recognize = table.P[(n, 0, _grammar.Start)];
+        var recognize = table[n, 0, _index[_grammar.Start]];
         parseTree = recognize && buildParseTree
-            ? new BinaryTree<string>(root: BuildParseTree(nt: _grammar.Start, s: 0, l: n, t: table, i: sentence))
+            ? new BinaryTree<string>(root: BuildParseTree(nt: _grammar.Start, s: 0, l: n, back, sentence))
             : null;
 
         return recognize;
@@ -116,34 +138,26 @@ public class CykParser
     ///     Build a single valid parse tree.
     /// </summary>
     /// <param name="nt">The non-terminal to parse</param>
-    /// <param name="s">The substring start position</param>
+    /// <param name="s">The substring start index</param>
     /// <param name="l">The substring length</param>
-    /// <param name="t">The populated <see cref="CykTable" /></param>
-    /// <param name="i">The input sentence</param>
+    /// <param name="back">The populated back-reference table</param>
+    /// <param name="sentence">The input sentence</param>
     /// <returns>A valid parse tree</returns>
-    private static BinaryTreeNode<string> BuildParseTree(string nt, int s, int l, CykTable t, IReadOnlyList<string> i)
+    private static BinaryTreeNode<string> BuildParseTree(string nt, int s, int l, 
+        DefaultDict<Triple, HashSet<BackRef>> back,
+        IReadOnlyList<string> sentence)
     {
         var node = new BinaryTreeNode<string>(value: nt);
         if (l == 1)
         {
-            node.Left = new BinaryTreeNode<string>(value: i[s]);
+            node.Left = new BinaryTreeNode<string>(value: sentence[s]);
             return node;
         }
 
-        foreach (var (p, lhs, rhs) in t.B[(l, s, nt)])
+        foreach (var (p, lhs, rhs) in back[(l, s, nt)])
         {
-            node.Left = BuildParseTree(
-                nt: lhs,
-                s: s,
-                l: p,
-                t: t,
-                i: i);
-            node.Right = BuildParseTree(
-                nt: rhs,
-                s: s + p,
-                l: l - p,
-                t: t,
-                i: i);
+            node.Left =  BuildParseTree(nt: lhs, s: s,     l: p,     back, sentence);
+            node.Right = BuildParseTree(nt: rhs, s: s + p, l: l - p, back, sentence);
 
             //  Stop after the first valid parse
             //

@@ -8,11 +8,7 @@ public abstract class PacketElement : IComparable<PacketElement>
     
     public int CompareTo(PacketElement? other)
     {
-        if (other == null)
-        {
-            throw new ArgumentNullException(nameof(other));
-        }
-
+        ArgumentNullException.ThrowIfNull(other);
         return (int)PacketComparator.CompareElements(this, other);
     }
 }

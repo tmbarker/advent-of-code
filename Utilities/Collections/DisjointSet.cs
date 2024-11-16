@@ -9,14 +9,34 @@ public sealed class DisjointSet<T> where T : IEquatable<T>
 {
     private readonly Dictionary<T, DisjointSetNode<T>> _nodes = new();
 
+    /// <summary>
+    ///     The number of total elements (nodes) in the set.
+    /// </summary>
     public int ElementsCount => _nodes.Count;
+    
+    /// <summary>
+    ///     The number of partitions (components) in the set.
+    /// </summary>
     public int PartitionsCount { get; private set; }
 
+    /// <summary>
+    ///     Check if the disjoint set contains the specified element. 
+    /// </summary>
+    /// <param name="element">The element to query membership of</param>
+    /// <returns>A <see cref="bool"/> representing the success of the operation</returns>
     public bool ContainsElement(T element)
     {
         return _nodes.ContainsKey(element);
     }
 
+    /// <summary>
+    ///     Attempt to add the provided element to the set.
+    /// </summary>
+    /// <param name="element">The element to add</param>
+    /// <returns>
+    ///     A <see cref="bool" /> representing the success of the operation. Returns false if the element is already in
+    ///     the disjoint set
+    /// </returns>
     public bool MakeSet(T element)
     {
         if (ContainsElement(element))
@@ -29,6 +49,12 @@ public sealed class DisjointSet<T> where T : IEquatable<T>
         return true;
     }
 
+    /// <summary>
+    ///     Attempt to merge two sets.
+    /// </summary>
+    /// <param name="elementA">Element of set a</param>
+    /// <param name="elementB">Element of set b</param>
+    /// <returns>A <see cref="bool"/> representing the success of the operation</returns>
     public bool Union(T elementA, T elementB)
     {
         var parentA = FindSet(_nodes[elementA]);
@@ -57,11 +83,19 @@ public sealed class DisjointSet<T> where T : IEquatable<T>
         return true;
     }
 
+    /// <summary>
+    ///     Find the set representative for the specified element.
+    /// </summary>
+    /// <param name="element">The element to find the set representative for</param>
+    /// <returns>The representative of the set the element belongs to</returns>
     public T FindSet(T element)
     {
         return FindSet(_nodes[element]).Element;
     }
 
+    /// <summary>
+    ///     Clear all nodes from the set.
+    /// </summary>
     public void Clear()
     {
         _nodes.Clear();
