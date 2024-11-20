@@ -110,7 +110,7 @@ public sealed partial class Grid2D<T> : IEnumerable<Vec2D>
             for (var c = 0; c < Width; c++)
             {
                 var element = _array[r, c];
-                var (x, y) = ArrayIndicesToXy(r, c);
+                var (x, y) = ArrayIndicesToXy(row: r, col: c);
                 var pos = new Vec2D(x, y);
 
                 var elementString = elementFormatter != null

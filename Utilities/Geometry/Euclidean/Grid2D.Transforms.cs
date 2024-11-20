@@ -21,7 +21,7 @@ public sealed partial class Grid2D<T>
     }
 
     /// <summary>
-    ///     Rotate the grid by the given argument.
+    ///     Rotate the grid by the given argument. A positive argument represents a CCW rotation.
     /// </summary>
     /// <param name="deg">The integral number of degrees to rotate the grid</param>
     public void Rotate(int deg)
