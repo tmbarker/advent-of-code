@@ -75,7 +75,7 @@ public sealed class Solution : SolutionBase
         for (var x = 0; x < ChamberWidth; x++)
         {
             var depth = 0;
-            while (!pile.Contains(new Vec2D(x, y: height - depth)))
+            while (!pile.Contains(new Vec2D(x, Y: height - depth)))
             {
                 depth++;
             }
@@ -91,7 +91,7 @@ public sealed class Solution : SolutionBase
     
     private static Vec2D GetSpawnPos(int pileHeight)
     {
-        return new Vec2D(x: SpawnOffset, y: SpawnHeight + pileHeight + 1);
+        return new Vec2D(X: SpawnOffset, Y: SpawnHeight + pileHeight + 1);
     }
     
     private static int AddRockAndMeasure(Rock rock, Vec2D pos, HashSet<Vec2D> pile, JetPattern pattern)
@@ -136,7 +136,7 @@ public sealed class Solution : SolutionBase
     {
         for (var x = 0; x < ChamberWidth; x++)
         {
-            yield return new Vec2D(x, y: 0);
+            yield return new Vec2D(x, Y: 0);
         }
     }
 }

@@ -71,9 +71,9 @@ public sealed class Solution : SolutionBase
         foreach (var (moon, state) in bodies)
         {
             var nextVel = new Vec3D(
-                x: StepVelocityComponent(Axis.X, moon, bodies),
-                y: StepVelocityComponent(Axis.Y, moon, bodies),
-                z: StepVelocityComponent(Axis.Z, moon, bodies));
+                X: StepVelocityComponent(Axis.X, moon, bodies),
+                Y: StepVelocityComponent(Axis.Y, moon, bodies),
+                Z: StepVelocityComponent(Axis.Z, moon, bodies));
                 
             nextPoses.Add(moon, new State(
                 Pos: state.Pos + nextVel, 
@@ -84,8 +84,8 @@ public sealed class Solution : SolutionBase
 
     private static int StepVelocityComponent(Axis component, Moon target, Dictionary<Moon, State> bodies)
     {
-        var pos = bodies[target].Pos.GetComponent(component);
-        var vel = bodies[target].Vel.GetComponent(component);
+        var pos = bodies[target].Pos[component];
+        var vel = bodies[target].Vel[component];
         
         foreach (var (otherMoon, otherState) in bodies)
         {
@@ -94,7 +94,7 @@ public sealed class Solution : SolutionBase
                 continue;
             }
 
-            var otherPos = otherState.Pos.GetComponent(component); 
+            var otherPos = otherState.Pos[component]; 
             if (otherPos > pos)
             {
                 vel++;

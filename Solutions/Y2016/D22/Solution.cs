@@ -34,7 +34,7 @@ public sealed class Solution : SolutionBase
             .Select(node => node.Pos)
             .ToList();
         var initialState = new State(
-            targetData: new Vec2D(x: nodes.Max(node => node.Pos.X), y: 0),
+            targetData: new Vec2D(X: nodes.Max(node => node.Pos.X), Y: 0),
             emptyNodes: initialEmpty);
 
         var queue = new Queue<State>(collection: [initialState]);
@@ -89,8 +89,8 @@ public sealed class Solution : SolutionBase
     {
         var numbers = line.ParseInts();
         var pos = new Vec2D(
-            x: numbers[0], 
-            y: numbers[1]);
+            X: numbers[0], 
+            Y: numbers[1]);
 
         return new Node(
             Pos: pos,

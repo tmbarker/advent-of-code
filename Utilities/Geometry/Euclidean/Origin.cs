@@ -9,7 +9,6 @@ public enum Origin
     ///     Y increases as you move upwards
     /// </summary>
     Xy,
-
     /// <summary>
     ///     Y increases as you move downwards
     /// </summary>

@@ -8,32 +8,32 @@ public sealed class Solution : SolutionBase
 {
     private static readonly Dictionary<Vec2D, char> Square = new()
     {
-        { new Vec2D(x: -1, y:  1), '1' },
-        { new Vec2D(x:  0, y:  1), '2' },
-        { new Vec2D(x:  1, y:  1), '3' },
-        { new Vec2D(x: -1, y:  0), '4' },
-        { new Vec2D(x:  0, y:  0), '5' },
-        { new Vec2D(x:  1, y:  0), '6' },
-        { new Vec2D(x: -1, y: -1), '7' },
-        { new Vec2D(x:  0, y: -1), '8' },
-        { new Vec2D(x:  1, y: -1), '9' }
+        { new Vec2D(X: -1, Y:  1), '1' },
+        { new Vec2D(X:  0, Y:  1), '2' },
+        { new Vec2D(X:  1, Y:  1), '3' },
+        { new Vec2D(X: -1, Y:  0), '4' },
+        { new Vec2D(X:  0, Y:  0), '5' },
+        { new Vec2D(X:  1, Y:  0), '6' },
+        { new Vec2D(X: -1, Y: -1), '7' },
+        { new Vec2D(X:  0, Y: -1), '8' },
+        { new Vec2D(X:  1, Y: -1), '9' }
     };
     
     private static readonly Dictionary<Vec2D, char> Diamond = new()
     {
-        { new Vec2D(x:  0, y:  2), '1' },
-        { new Vec2D(x: -1, y:  1), '2' },
-        { new Vec2D(x:  0, y:  1), '3' },
-        { new Vec2D(x:  1, y:  1), '4' },
-        { new Vec2D(x: -2, y:  0), '5' },
-        { new Vec2D(x: -1, y:  0), '6' },
-        { new Vec2D(x:  0, y:  0), '7' },
-        { new Vec2D(x:  1, y:  0), '8' },
-        { new Vec2D(x:  2, y:  0), '9' },
-        { new Vec2D(x: -1, y: -1), 'A' },
-        { new Vec2D(x:  0, y: -1), 'B' },
-        { new Vec2D(x:  1, y: -1), 'C' },
-        { new Vec2D(x:  0, y: -2), 'D' }
+        { new Vec2D(X:  0, Y:  2), '1' },
+        { new Vec2D(X: -1, Y:  1), '2' },
+        { new Vec2D(X:  0, Y:  1), '3' },
+        { new Vec2D(X:  1, Y:  1), '4' },
+        { new Vec2D(X: -2, Y:  0), '5' },
+        { new Vec2D(X: -1, Y:  0), '6' },
+        { new Vec2D(X:  0, Y:  0), '7' },
+        { new Vec2D(X:  1, Y:  0), '8' },
+        { new Vec2D(X:  2, Y:  0), '9' },
+        { new Vec2D(X: -1, Y: -1), 'A' },
+        { new Vec2D(X:  0, Y: -1), 'B' },
+        { new Vec2D(X:  1, Y: -1), 'C' },
+        { new Vec2D(X:  0, Y: -2), 'D' }
     };
     
     
@@ -41,8 +41,8 @@ public sealed class Solution : SolutionBase
     {
         return part switch
         {
-            1 => BuildCode(pos: new Vec2D(x:  0, y: 0), map: Square),
-            2 => BuildCode(pos: new Vec2D(x: -2, y: 0), map: Diamond),
+            1 => BuildCode(pos: new Vec2D(X:  0, Y: 0), map: Square),
+            2 => BuildCode(pos: new Vec2D(X: -2, Y: 0), map: Diamond),
             _ => PuzzleNotSolvedString
         };
     }

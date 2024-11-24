@@ -26,8 +26,8 @@ public sealed class Solution : SolutionBase
     
     private static int Search(Grid2D<int> grid, Range<int> constraint)
     {
-        var start = new Vec2D(x: 0, y: grid.Height - 1);
-        var goal = new Vec2D(x: grid.Width - 1, y: 0);
+        var start = new Vec2D(X: 0, Y: grid.Height - 1);
+        var goal = new Vec2D(X: grid.Width - 1, Y: 0);
         var init = new State(Pos: start, Face: Vec2D.Right, Count: 0);
 
         var cost = new DefaultDict<State, int>(defaultValue: Inf, items: [(init, 0)]);

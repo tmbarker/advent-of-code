@@ -71,8 +71,8 @@ public sealed class Solution : SolutionBase
         if (!bounds.Contains(movedTo, true))
         {
             movedTo = new Vec2D(
-                x: movedTo.X.Modulo(bounds.Width),
-                y: movedTo.Y.Modulo(bounds.Height));
+                X: movedTo.X.Modulo(bounds.Width),
+                Y: movedTo.Y.Modulo(bounds.Height));
         }
 
         return !occupied.Contains(movedTo);

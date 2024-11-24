@@ -18,7 +18,7 @@ public sealed class Solution : SolutionBase
     {
         var input = GetInputLines();
         var grid = ParseGrid(input);
-        var pose = new Pose2D(pos: Vec2D.Zero, face: Vec2D.Up);
+        var pose = new Pose2D(Pos: Vec2D.Zero, Face: Vec2D.Up);
         
         return part switch
         {
@@ -61,7 +61,7 @@ public sealed class Solution : SolutionBase
         for (var y = 0; y < height; y++)
         for (var x = 0; x < width; x++)
         {
-            grid[new Vec2D(x: x - xOffset, y: y - yOffset)] =
+            grid[new Vec2D(X: x - xOffset, Y: y - yOffset)] =
                 input[height - y - 1][x] == '#' ? State.Infected : State.Clean;
         }
         

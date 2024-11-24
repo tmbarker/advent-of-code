@@ -20,7 +20,7 @@ public sealed class Solution : SolutionBase
 
     private static int Cycle3D(IList<string> input, int cycles)
     {
-        var active = ParseInitial(input, (x, y) => new Vec3D(x, y, z: 0));
+        var active = ParseInitial(input, (x, y) => new Vec3D(x, y, Z: 0));
         for (var i = 0; i < cycles; i++)
         {
             active = Cycle3D(active);
@@ -31,7 +31,7 @@ public sealed class Solution : SolutionBase
     
     private static int Cycle4D(IList<string> input, int cycles)
     {
-        var active = ParseInitial(input, (x, y) => new Vec4D(x, y, z: 0, w: 0));
+        var active = ParseInitial(input, (x, y) => new Vec4D(x, y, Z: 0, W: 0));
         for (var i = 0; i < cycles; i++)
         {
             active = Cycle4D(active);

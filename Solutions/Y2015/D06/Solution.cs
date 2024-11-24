@@ -68,8 +68,8 @@ public sealed class Solution : SolutionBase
     private static Instruction ParseInstruction(string line)
     {
         var numbers = line.ParseInts();
-        var min = new Vec2D(x: numbers[0], y: numbers[1]);
-        var max = new Vec2D(x: numbers[2], y: numbers[3]);
+        var min = new Vec2D(X: numbers[0], Y: numbers[1]);
+        var max = new Vec2D(X: numbers[2], Y: numbers[3]);
 
         var action = line switch
         {

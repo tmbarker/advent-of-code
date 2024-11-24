@@ -75,8 +75,8 @@ public sealed class Solution : SolutionBase
         out Vec2D end, 
         out Storm storm)
     {
-        start = new Vec2D(x: input[0].IndexOf(Terrain.Void),  y: input.Count - 1);
-        end =   new Vec2D(x: input[^1].IndexOf(Terrain.Void), y: 0);
+        start = new Vec2D(X: input[0].IndexOf(Terrain.Void),  Y: input.Count - 1);
+        end =   new Vec2D(X: input[^1].IndexOf(Terrain.Void), Y: 0);
         
         var field = Grid2D<char>.MapChars(input);
         var blizzards = new List<Blizzard>();

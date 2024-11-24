@@ -34,8 +34,8 @@ public sealed class Solution : SolutionBase
         {
             return new[]
             {
-                new Vec3D(x: bot.Pos.X - bot.Range, y: bot.Pos.Y - bot.Range, z: bot.Pos.Z - bot.Range),
-                new Vec3D(x: bot.Pos.X + bot.Range, y: bot.Pos.Y + bot.Range, z: bot.Pos.Z + bot.Range)
+                new Vec3D(X: bot.Pos.X - bot.Range, Y: bot.Pos.Y - bot.Range, Z: bot.Pos.Z - bot.Range),
+                new Vec3D(X: bot.Pos.X + bot.Range, Y: bot.Pos.Y + bot.Range, Z: bot.Pos.Z + bot.Range)
             };
         });
         
@@ -97,9 +97,9 @@ public sealed class Solution : SolutionBase
     {
         var numbers = line.ParseInts();
         var pos = new Vec3D(
-            x: numbers[0],
-            y: numbers[1],
-            z: numbers[2]);
+            X: numbers[0],
+            Y: numbers[1],
+            Z: numbers[2]);
 
         return new Nanobot(pos, numbers[3]);
     }

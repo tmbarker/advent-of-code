@@ -41,7 +41,7 @@ public sealed class Solution : SolutionBase
     
     private static int CountEnergized(Grid2D<char> grid, int x, int y, Vec2D face)
     {
-        var start = new Pose2D(pos: new Vec2D(x, y), face: face);
+        var start = new Pose2D(Pos: new Vec2D(x, y), Face: face);
         var queue = new Queue<Pose2D>(collection: [start]);
         var visited = new HashSet<Pose2D>();
 
@@ -62,27 +62,27 @@ public sealed class Solution : SolutionBase
             {
                 case (entity: '\\', X:  0, Y:  1):
                 case (entity: '/',  X:  0, Y: -1):
-                    yields.Add(item: new Pose2D(pos: ahead, face: Vec2D.Left));
+                    yields.Add(item: new Pose2D(Pos: ahead, Face: Vec2D.Left));
                     break;
                 case (entity: '\\', X:  0, Y: -1):
                 case (entity: '/',  X:  0, Y:  1):
-                    yields.Add(item: new Pose2D(pos: ahead, face: Vec2D.Right));
+                    yields.Add(item: new Pose2D(Pos: ahead, Face: Vec2D.Right));
                     break;
                 case (entity: '\\', X: -1, Y:  0):
                 case (entity: '/',  X:  1, Y:  0):
-                    yields.Add(item: new Pose2D(pos: ahead, face: Vec2D.Up));
+                    yields.Add(item: new Pose2D(Pos: ahead, Face: Vec2D.Up));
                     break;
                 case (entity: '\\', X:  1, Y:  0):
                 case (entity: '/',  X: -1, Y:  0):
-                    yields.Add(item: new Pose2D(pos: ahead, face: Vec2D.Down));
+                    yields.Add(item: new Pose2D(Pos: ahead, Face: Vec2D.Down));
                     break;
                 case (entity: '-',  X: 0, Y: _):
-                    yields.Add(item: new Pose2D(pos: ahead, face: Vec2D.Left));
-                    yields.Add(item: new Pose2D(pos: ahead, face: Vec2D.Right));
+                    yields.Add(item: new Pose2D(Pos: ahead, Face: Vec2D.Left));
+                    yields.Add(item: new Pose2D(Pos: ahead, Face: Vec2D.Right));
                     break;
                 case (entity: '|',  X: _, Y: 0):
-                    yields.Add(item: new Pose2D(pos: ahead, face: Vec2D.Up));
-                    yields.Add(item: new Pose2D(pos: ahead, face: Vec2D.Down));
+                    yields.Add(item: new Pose2D(Pos: ahead, Face: Vec2D.Up));
+                    yields.Add(item: new Pose2D(Pos: ahead, Face: Vec2D.Down));
                     break;
                 case (entity: _,  X: _, Y: _):
                     yields.Add(item: pose.Step());

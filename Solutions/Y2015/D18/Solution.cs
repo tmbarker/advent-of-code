@@ -22,8 +22,8 @@ public sealed class Solution : SolutionBase
         var cols = input[0].Length;
         
         var aabb = new Aabb2D(
-            min: new Vec2D(x: 0, y: 0),
-            max: new Vec2D(x: cols - 1, y: rows - 1));
+            min: new Vec2D(X: 0, Y: 0),
+            max: new Vec2D(X: cols - 1, Y: rows - 1));
         
         var on = new HashSet<Vec2D>();
         var next = new HashSet<Vec2D>();
@@ -69,9 +69,9 @@ public sealed class Solution : SolutionBase
 
     private static void SetCorners(ISet<Vec2D> on, int rows, int cols)
     {
-        on.Add(new Vec2D(x: 0, y: 0));
-        on.Add(new Vec2D(x: 0, y: rows - 1));
-        on.Add(new Vec2D(x: cols - 1, y: rows - 1));
-        on.Add(new Vec2D(x: cols - 1, y: 0));
+        on.Add(new Vec2D(X: 0, Y: 0));
+        on.Add(new Vec2D(X: 0, Y: rows - 1));
+        on.Add(new Vec2D(X: cols - 1, Y: rows - 1));
+        on.Add(new Vec2D(X: cols - 1, Y: 0));
     }
 }

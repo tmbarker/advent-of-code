@@ -11,12 +11,12 @@ public sealed class Solution : SolutionBase
 {
     private static readonly Dictionary<string, Hex> Adjacencies = new()
     {
-        { "e",  Hex.Directions[Pointy.E]  },
-        { "w",  Hex.Directions[Pointy.W]  },
-        { "ne", Hex.Directions[Pointy.Ne] },
-        { "nw", Hex.Directions[Pointy.Nw] },
-        { "se", Hex.Directions[Pointy.Se] },
-        { "sw", Hex.Directions[Pointy.Sw] }
+        { "e",  Hex.Directions[Hex.Pointy.E]  },
+        { "w",  Hex.Directions[Hex.Pointy.W]  },
+        { "ne", Hex.Directions[Hex.Pointy.Ne] },
+        { "nw", Hex.Directions[Hex.Pointy.Nw] },
+        { "se", Hex.Directions[Hex.Pointy.Se] },
+        { "sw", Hex.Directions[Hex.Pointy.Sw] }
     };
 
     public override object Run(int part)

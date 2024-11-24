@@ -23,11 +23,11 @@ public readonly record struct Aabb2D : IEnumerable<Vec2D>
     {
         var delta = inclusive ? 0 : 1;
         Min = new Vec2D(
-            x: extents.Min(p => p.X) - delta,
-            y: extents.Min(p => p.Y) - delta);
+            X: extents.Min(p => p.X) - delta,
+            Y: extents.Min(p => p.Y) - delta);
         Max = new Vec2D(
-            x: extents.Max(p => p.X) + delta,
-            y: extents.Max(p => p.Y) + delta);
+            X: extents.Max(p => p.X) + delta,
+            Y: extents.Max(p => p.Y) + delta);
     }
 
     public Vec2D Min { get; }

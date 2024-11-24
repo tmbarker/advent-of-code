@@ -168,7 +168,7 @@ public sealed class Solution : SolutionBase
             dy = Math.Min(dy, vector.Y);
         }
         
-        var delta = new Vec2D(x: dx, y: dy);
+        var delta = new Vec2D(X: dx, Y: dy);
         foreach (var key in map.Keys)
         {
             map[key] -= delta;

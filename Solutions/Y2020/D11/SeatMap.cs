@@ -50,7 +50,7 @@ public sealed class SeatMap : IEnumerable<KeyValuePair<Vec2D, bool>>
         {
             if (input[y][x] == 'L')
             {
-                occupancyMap[new Vec2D(x, y: rows - y - 1)] = false;
+                occupancyMap[new Vec2D(x, Y: rows - y - 1)] = false;
             }
         }
 

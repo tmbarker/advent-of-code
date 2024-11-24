@@ -3,46 +3,23 @@ using Utilities.Extensions;
 namespace Utilities.Geometry.Euclidean;
 
 /// <summary>
-///     A readonly integral 2D Vector value type
+///     A readonly integral 2D Vector value type.
 /// </summary>
-public readonly record struct Vec2D
+public readonly record struct Vec2D(int X, int Y)
 {
-    public static readonly Vec2D Zero  = new(x:  0, y:  0);
-    public static readonly Vec2D One   = new(x:  1, y:  1);
-    public static readonly Vec2D Up    = new(x:  0, y:  1);
-    public static readonly Vec2D Down  = new(x:  0, y: -1);
-    public static readonly Vec2D Left  = new(x: -1, y:  0);
-    public static readonly Vec2D Right = new(x:  1, y:  0);
-    public static readonly Vec2D PositiveInfinity = new (x: int.MaxValue, y:int.MaxValue);
-    
-    public int X { get; }
-    public int Y { get; }
-    public int this[Axis axis] => GetComponent(axis);
+    public static readonly Vec2D Zero  = new(X:  0, Y:  0);
+    public static readonly Vec2D One   = new(X:  1, Y:  1);
+    public static readonly Vec2D Up    = new(X:  0, Y:  1);
+    public static readonly Vec2D Down  = new(X:  0, Y: -1);
+    public static readonly Vec2D Left  = new(X: -1, Y:  0);
+    public static readonly Vec2D Right = new(X:  1, Y:  0);
+    public static readonly Vec2D PositiveInfinity = new (X: int.MaxValue, Y:int.MaxValue);
 
-    public Vec2D(int x, int y)
-    {
-        X = x;
-        Y = y;
-    }
-    
-    public int GetComponent(Axis component)
-    {
-        switch (component)
-        {
-            case Axis.X:
-                return X;
-            case Axis.Y:
-                return Y;
-            case Axis.Z:
-            case Axis.W:
-            default:
-                throw VecThrowHelper<Vec2D>.InvalidComponent(component);
-        }
-    }
-    
+    public int this[Axis component] => GetComponent(component);
+
     public static Vec2D Normalize(Vec2D vec)
     {
-        return new Vec2D(x: Math.Sign(vec.X), y: Math.Sign(vec.Y));
+        return new Vec2D(X: Math.Sign(vec.X), Y: Math.Sign(vec.Y));
     }
 
     public static int Distance(Vec2D a, Vec2D b, Metric metric)
@@ -87,22 +64,22 @@ public readonly record struct Vec2D
     
     public static Vec2D operator +(Vec2D lhs, Vec2D rhs)
     {
-        return new Vec2D(x: lhs.X + rhs.X, y: lhs.Y + rhs.Y);
+        return new Vec2D(X: lhs.X + rhs.X, Y: lhs.Y + rhs.Y);
     }
 
     public static Vec2D operator -(Vec2D lhs, Vec2D rhs)
     {
-        return new Vec2D(x: lhs.X - rhs.X, y: lhs.Y - rhs.Y);
+        return new Vec2D(X: lhs.X - rhs.X, Y: lhs.Y - rhs.Y);
     }
 
     public static Vec2D operator *(int k, Vec2D rhs)
     {
-        return new Vec2D(x: k * rhs.X, y: k * rhs.Y);
+        return new Vec2D(X: k * rhs.X, Y: k * rhs.Y);
     }
     
     public static Vec2D operator /(Vec2D lhs, int k)
     {
-        return new Vec2D(x:lhs.X / k, y:lhs.Y / k);
+        return new Vec2D(X:lhs.X / k, Y:lhs.Y / k);
     }
     
     public override string ToString()
@@ -144,8 +121,8 @@ public readonly record struct Vec2D
         for (var dy = -1; dy <= 1; dy++)
         {
             set.Add(new Vec2D(
-                x: X + dx,
-                y: Y + dy));
+                X: X + dx,
+                Y: Y + dy));
         }
 
         set.Remove(item:this);
@@ -167,11 +144,26 @@ public readonly record struct Vec2D
 
         return dx + dy;
     }
-
+    
+    private int GetComponent(Axis component)
+    {
+        switch (component)
+        {
+            case Axis.X:
+                return X;
+            case Axis.Y:
+                return Y;
+            case Axis.Z:
+            case Axis.W:
+            default:
+                throw VecThrowHelper<Vec2D>.InvalidComponent(component);
+        }
+    }
+    
     public static Vec2D Parse(string s)
     {
         var numbers = s.ParseInts();
-        return new Vec2D(x: numbers[0], y: numbers[1]);
+        return new Vec2D(X: numbers[0], Y: numbers[1]);
     }
     
     public static bool TryParse(string? s, out Vec2D result)
@@ -183,7 +175,7 @@ public readonly record struct Vec2D
             return false;
         }
     
-        result = new Vec2D(x: numbers[0], y: numbers[1]);
+        result = new Vec2D(X: numbers[0], Y: numbers[1]);
         return true;
     }
 }

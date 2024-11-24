@@ -8,7 +8,7 @@ public sealed class Solution : SolutionBase
 {
     private const int Size = 5;
 
-    private static readonly Vec2D CenterTile = new(x: 2, y: 2);
+    private static readonly Vec2D CenterTile = new(X: 2, Y: 2);
     private static readonly Aabb2D TileAabb = new(
         xMin: 0, 
         yMin: 0, 
@@ -160,9 +160,9 @@ public sealed class Solution : SolutionBase
             if (input[y][x] == '#')
             {
                 bugs.Add(new Vec3D(
-                    x: x,
-                    y: y,
-                    z: 0));
+                    X: x,
+                    Y: y,
+                    Z: 0));
             }
         }
 

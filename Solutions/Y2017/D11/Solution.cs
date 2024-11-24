@@ -7,12 +7,12 @@ public sealed class Solution : SolutionBase
 {
     private static readonly Dictionary<string, Hex> Directions = new()
     {
-        { "n",  Hex.Directions[Flat.N]  },
-        { "ne", Hex.Directions[Flat.Ne] },
-        { "se", Hex.Directions[Flat.Se] },
-        { "s",  Hex.Directions[Flat.S]  },
-        { "sw", Hex.Directions[Flat.Sw] },
-        { "nw", Hex.Directions[Flat.Nw] }
+        { "n",  Hex.Directions[Hex.Flat.N]  },
+        { "ne", Hex.Directions[Hex.Flat.Ne] },
+        { "se", Hex.Directions[Hex.Flat.Se] },
+        { "s",  Hex.Directions[Hex.Flat.S]  },
+        { "sw", Hex.Directions[Hex.Flat.Sw] },
+        { "nw", Hex.Directions[Hex.Flat.Nw] }
     };
 
     public override object Run(int part)

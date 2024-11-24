@@ -99,7 +99,7 @@ public sealed class Solution : IntCodeSolution
     private static State ParseCameraOutput(string ascii)
     {
         var scaffolding = new HashSet<Vec2D>();
-        var robotPose = new Pose2D(pos:Vec2D.Zero, face:Vec2D.Zero);
+        var robotPose = new Pose2D(Pos:Vec2D.Zero, Face:Vec2D.Zero);
 
         var rows = ascii.Split('\n', StringSplitOptions.RemoveEmptyEntries);
         var cols = rows[0].Length;

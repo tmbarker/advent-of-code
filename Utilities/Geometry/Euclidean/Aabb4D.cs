@@ -23,15 +23,15 @@ public readonly record struct Aabb4D : IEnumerable<Vec4D>
     {
         var delta = inclusive ? 0 : 1;
         Min = new Vec4D(
-            x: extents.Min(p => p.X) - delta,
-            y: extents.Min(p => p.Y) - delta,
-            z: extents.Min(p => p.Z) - delta,
-            w: extents.Min(p => p.W) - delta);
+            X: extents.Min(p => p.X) - delta,
+            Y: extents.Min(p => p.Y) - delta,
+            Z: extents.Min(p => p.Z) - delta,
+            W: extents.Min(p => p.W) - delta);
         Max = new Vec4D(
-            x: extents.Max(p => p.X) + delta,
-            y: extents.Max(p => p.Y) + delta,
-            z: extents.Max(p => p.Z) + delta,
-            w: extents.Max(p => p.W) + delta);
+            X: extents.Max(p => p.X) + delta,
+            Y: extents.Max(p => p.Y) + delta,
+            Z: extents.Max(p => p.Z) + delta,
+            W: extents.Max(p => p.W) + delta);
     }
 
     public Vec4D Min { get; }

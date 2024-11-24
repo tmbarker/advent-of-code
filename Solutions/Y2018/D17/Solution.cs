@@ -5,7 +5,7 @@ namespace Solutions.Y2018.D17;
 [PuzzleInfo("Reservoir Research", Topics.Vectors, Difficulty.Medium, favourite: true)]
 public sealed class Solution : SolutionBase
 {
-    private static readonly Vec2D Gravity = new(x: 0, y: 1);
+    private static readonly Vec2D Gravity = new(X: 0, Y: 1);
     private static readonly Vec2D[] Sides = [Vec2D.Left, Vec2D.Right];
 
     public override object Run(int part)

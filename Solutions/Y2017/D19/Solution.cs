@@ -16,8 +16,8 @@ public sealed class Solution : SolutionBase
         var input = GetInputLines();
         var map = Grid2D<char>.MapChars(input);
         var start = new Vec2D(
-            x: input[0].IndexOf('|'),
-            y: map.Height - 1);
+            X: input[0].IndexOf('|'),
+            Y: map.Height - 1);
 
         return part switch
         {
@@ -31,7 +31,7 @@ public sealed class Solution : SolutionBase
     {
         var letters = new StringBuilder();
         var steps = 1;
-        var pose = new Pose2D(pos: start, face: Vec2D.Down);
+        var pose = new Pose2D(Pos: start, Face: Vec2D.Down);
 
         while (CanMoveTo(map, pos: pose.Ahead))
         {

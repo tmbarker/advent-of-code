@@ -68,8 +68,8 @@ public sealed class Cave(Scan scan)
             return GeoIndexCoefficientY * pos.Y;
         }
 
-        var p1 = new Vec2D(x: pos.X - 1, y: pos.Y);
-        var p2 = new Vec2D(x: pos.X, y: pos.Y - 1);
+        var p1 = new Vec2D(X: pos.X - 1, Y: pos.Y);
+        var p2 = new Vec2D(X: pos.X, Y: pos.Y - 1);
         var r1 = GetRegionInternal(p1);
         var r2 = GetRegionInternal(p2);
 

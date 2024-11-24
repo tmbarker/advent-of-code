@@ -4,8 +4,8 @@ namespace Solutions.Y2019.D12;
 
 public readonly struct StateComp(Axis component, State state) : IEquatable<StateComp>
 {
-    private int Pos { get; } = state.Pos.GetComponent(component);
-    private int Vel { get; } = state.Vel.GetComponent(component);
+    private int Pos { get; } = state.Pos[component];
+    private int Vel { get; } = state.Vel[component];
 
     public bool Equals(StateComp other)
     {

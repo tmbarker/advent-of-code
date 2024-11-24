@@ -52,8 +52,8 @@ public sealed class Solution : SolutionBase
 
     private static Graph ParseGraph(IList<string> input, bool slopes, out Vec2D start, out Vec2D end)
     {
-        start = new Vec2D(x: input[0].IndexOf('.'),  y: input.Count - 1);
-        end =   new Vec2D(x: input[^1].IndexOf('.'), y: 0);
+        start = new Vec2D(X: input[0].IndexOf('.'),  Y: input.Count - 1);
+        end =   new Vec2D(X: input[^1].IndexOf('.'), Y: 0);
         
         var grid = Grid2D<char>.MapChars(input);
         var graph = new Graph(defaultSelector: _ => []);

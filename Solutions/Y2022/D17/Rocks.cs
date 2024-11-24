@@ -13,10 +13,10 @@ public sealed class HorizontalLine : Rock
     {
         Shape =
         [
-            new(x: 0, y: 0),
-            new(x: 1, y: 0),
-            new(x: 2, y: 0),
-            new(x: 3, y: 0)
+            new(X: 0, Y: 0),
+            new(X: 1, Y: 0),
+            new(X: 2, Y: 0),
+            new(X: 3, Y: 0)
         ];
     }
     
@@ -29,11 +29,11 @@ public sealed class Plus : Rock
     {
         Shape =
         [
-            new(x: 1, y: 0),
-            new(x: 1, y: 1),
-            new(x: 1, y: 2),
-            new(x: 0, y: 1),
-            new(x: 2, y: 1)
+            new(X: 1, Y: 0),
+            new(X: 1, Y: 1),
+            new(X: 1, Y: 2),
+            new(X: 0, Y: 1),
+            new(X: 2, Y: 1)
         ];
     }
     
@@ -46,11 +46,11 @@ public sealed class L : Rock
     {
         Shape =
         [
-            new(x: 0, y: 0),
-            new(x: 1, y: 0),
-            new(x: 2, y: 0),
-            new(x: 2, y: 1),
-            new(x: 2, y: 2)
+            new(X: 0, Y: 0),
+            new(X: 1, Y: 0),
+            new(X: 2, Y: 0),
+            new(X: 2, Y: 1),
+            new(X: 2, Y: 2)
         ];
     }
     
@@ -63,10 +63,10 @@ public sealed class VerticalLine : Rock
     {
         Shape =
         [
-            new(x: 0, y: 0),
-            new(x: 0, y: 1),
-            new(x: 0, y: 2),
-            new(x: 0, y: 3)
+            new(X: 0, Y: 0),
+            new(X: 0, Y: 1),
+            new(X: 0, Y: 2),
+            new(X: 0, Y: 3)
         ];
     }
     
@@ -79,10 +79,10 @@ public sealed class Square : Rock
     {
         Shape =
         [
-            new(x: 0, y: 0),
-            new(x: 0, y: 1),
-            new(x: 1, y: 0),
-            new(x: 1, y: 1)
+            new(X: 0, Y: 0),
+            new(X: 0, Y: 1),
+            new(X: 1, Y: 0),
+            new(X: 1, Y: 1)
         ];
     }
     

@@ -7,12 +7,12 @@ namespace Solutions.Y2022.D14;
 public sealed class Solution : SolutionBase
 {
     private const int FloorDelta = 2;
-    private static readonly Vec2D SandOrigin = new(x: 500, y: 0);
+    private static readonly Vec2D SandOrigin = new(X: 500, Y: 0);
     private static readonly HashSet<Vec2D> FallVectors =
     [
-        new Vec2D(x:  0, y: 1),
-        new Vec2D(x: -1, y: 1),
-        new Vec2D(x:  1, y: 1)
+        new Vec2D(X:  0, Y: 1),
+        new Vec2D(X: -1, Y: 1),
+        new Vec2D(X:  1, Y: 1)
     ];
 
     public override object Run(int part)
@@ -118,11 +118,11 @@ public sealed class Solution : SolutionBase
             for (var i = 1; i < vertices; i++)
             {
                 var from = new Vec2D(
-                    x: numbers[2 * (i - 1)],
-                    y: numbers[2 * (i - 1) + 1]);
+                    X: numbers[2 * (i - 1)],
+                    Y: numbers[2 * (i - 1) + 1]);
                 var to = new Vec2D(
-                    x: numbers[2 * i],
-                    y: numbers[2 * i + 1]);
+                    X: numbers[2 * i],
+                    Y: numbers[2 * i + 1]);
 
                 var pos = from;
                 var dir = Vec2D.Normalize(to - from);

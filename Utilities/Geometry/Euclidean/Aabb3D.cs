@@ -23,13 +23,13 @@ public readonly record struct Aabb3D : IEnumerable<Vec3D>
     {
         var delta = inclusive ? 0 : 1;
         Min = new Vec3D(
-            x: extents.Min(p => p.X) - delta,
-            y: extents.Min(p => p.Y) - delta,
-            z: extents.Min(p => p.Z) - delta);
+            X: extents.Min(p => p.X) - delta,
+            Y: extents.Min(p => p.Y) - delta,
+            Z: extents.Min(p => p.Z) - delta);
         Max = new Vec3D(
-            x: extents.Max(p => p.X) + delta,
-            y: extents.Max(p => p.Y) + delta,
-            z: extents.Max(p => p.Z) + delta);
+            X: extents.Max(p => p.X) + delta,
+            Y: extents.Max(p => p.Y) + delta,
+            Z: extents.Max(p => p.Z) + delta);
     }
 
     public Vec3D Min { get; }
@@ -39,7 +39,7 @@ public readonly record struct Aabb3D : IEnumerable<Vec3D>
     public int YLength => Max.Y - Min.Y + 1;
     public int ZLength => Max.Z - Min.Z + 1;
     public long Volume => (long)XLength * YLength * ZLength;
-    public Vec3D Center => new(x: (Min.X + Max.X) / 2, y: (Min.Y + Max.Y) / 2, z: (Min.Z + Max.Z) / 2);
+    public Vec3D Center => new(X: (Min.X + Max.X) / 2, Y: (Min.Y + Max.Y) / 2, Z: (Min.Z + Max.Z) / 2);
 
     public static bool Overlap(Aabb3D a, Aabb3D b, out Aabb3D overlap)
     {

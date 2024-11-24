@@ -6,7 +6,7 @@ namespace Solutions.Y2023.D22;
 [PuzzleInfo("Sand Slabs", Topics.Vectors|Topics.Graphs, Difficulty.Medium)]
 public sealed class Solution : SolutionBase
 {
-    private static readonly Vec3D Gravity = new(x: 0, y: 0, z: -1);
+    private static readonly Vec3D Gravity = new(X: 0, Y: 0, Z: -1);
     
     public override object Run(int part)
     {

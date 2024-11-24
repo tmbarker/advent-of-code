@@ -82,11 +82,11 @@ public sealed class Solution : SolutionBase
         {
             var numbers = input[i].ParseInts();
             pos[i] = new Vec2D(
-                x: numbers[0],
-                y: numbers[1]);
+                X: numbers[0],
+                Y: numbers[1]);
             vel[i] = new Vec2D(
-                x: numbers[2],
-                y: numbers[3]);
+                X: numbers[2],
+                Y: numbers[3]);
         }
 
         return (pos, vel);

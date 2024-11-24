@@ -5,7 +5,7 @@ namespace Utilities.Geometry.Euclidean;
 /// <summary>
 ///     A readonly value type which provides integral 90 degree rotations over <see cref="Vec3D" /> instances
 /// </summary>
-public readonly struct Rot3D : IEquatable<Rot3D>
+public readonly record struct Rot3D
 {
     public static readonly Rot3D Zero  = new(axis: Axis.X, thetaDeg: Degrees.Zero);
     public static readonly Rot3D N90X  = new(axis: Axis.X, thetaDeg: Degrees.N90);
@@ -18,6 +18,11 @@ public readonly struct Rot3D : IEquatable<Rot3D>
     public static readonly Rot3D P90Z  = new(axis: Axis.Z, thetaDeg: Degrees.P90);
     public static readonly Rot3D P180Z = new(axis: Axis.Z, thetaDeg: Degrees.P180);
 
+    private readonly double _thetaRad;
+    
+    public Axis Axis { get; }
+    public int ThetaDeg { get; }
+    
     public Rot3D(Axis axis, int thetaDeg)
     {
         if (axis is not (Axis.X or Axis.Y or Axis.Z))
@@ -32,12 +37,9 @@ public readonly struct Rot3D : IEquatable<Rot3D>
 
         Axis = axis;
         ThetaDeg = thetaDeg.Modulo(Degrees.P360);
-        ThetaRad = DegToRad(thetaDeg);
+        
+        _thetaRad = DegToRad(ThetaDeg);
     }
-
-    public Axis Axis { get; }
-    public int ThetaDeg { get; }
-    private double ThetaRad { get; }
 
     public static Vec3D operator *(Rot3D r, Vec3D v)
     {
@@ -67,48 +69,23 @@ public readonly struct Rot3D : IEquatable<Rot3D>
     
     private static Vec3D RotateAboutX(Rot3D r, Vec3D v)
     {
-        var y = v.Y * Math.Cos(r.ThetaRad) - v.Z * Math.Sin(r.ThetaRad);
-        var z = v.Y * Math.Sin(r.ThetaRad) + v.Z * Math.Cos(r.ThetaRad);
-        return new Vec3D(v.X, y: (int)Math.Round(y), z: (int)Math.Round(z));
+        var y = v.Y * Math.Cos(r._thetaRad) - v.Z * Math.Sin(r._thetaRad);
+        var z = v.Y * Math.Sin(r._thetaRad) + v.Z * Math.Cos(r._thetaRad);
+        return new Vec3D(v.X, Y: (int)Math.Round(y), Z: (int)Math.Round(z));
     }
     
     private static Vec3D RotateAboutY(Rot3D r, Vec3D v)
     {
-        var x = v.X * Math.Cos(r.ThetaRad) + v.Z * Math.Sin(r.ThetaRad);
-        var z = v.Z * Math.Cos(r.ThetaRad) - v.X * Math.Sin(r.ThetaRad);
-        return new Vec3D(x: (int)Math.Round(x), v.Y, z: (int)Math.Round(z));
+        var x = v.X * Math.Cos(r._thetaRad) + v.Z * Math.Sin(r._thetaRad);
+        var z = v.Z * Math.Cos(r._thetaRad) - v.X * Math.Sin(r._thetaRad);
+        return new Vec3D(X: (int)Math.Round(x), v.Y, Z: (int)Math.Round(z));
     }
     
     private static Vec3D RotateAboutZ(Rot3D r, Vec3D v)
     {
-        var x = v.X * Math.Cos(r.ThetaRad) - v.Y * Math.Sin(r.ThetaRad);
-        var y = v.X * Math.Sin(r.ThetaRad) + v.Y * Math.Cos(r.ThetaRad);
-        return new Vec3D(x: (int)Math.Round(x), y: (int)Math.Round(y), v.Z);
-    }
-    
-    public static bool operator ==(Rot3D lhs, Rot3D rhs)
-    {
-        return lhs.Equals(rhs);
-    }
-
-    public static bool operator !=(Rot3D lhs, Rot3D rhs)
-    {
-        return !lhs.Equals(rhs);
-    }
-
-    public bool Equals(Rot3D other)
-    {
-        return ThetaDeg == other.ThetaDeg && Axis == other.Axis;
-    }
-
-    public override bool Equals(object? obj)
-    {
-        return obj is Rot3D other && Equals(other);
-    }
-
-    public override int GetHashCode()
-    {
-        return HashCode.Combine(Axis, ThetaDeg);
+        var x = v.X * Math.Cos(r._thetaRad) - v.Y * Math.Sin(r._thetaRad);
+        var y = v.X * Math.Sin(r._thetaRad) + v.Y * Math.Cos(r._thetaRad);
+        return new Vec3D(X: (int)Math.Round(x), Y: (int)Math.Round(y), v.Z);
     }
 
     public override string ToString()
@@ -122,7 +99,7 @@ public readonly struct Rot3D : IEquatable<Rot3D>
     private static class ThrowHelper
     {
         private const string ThetaOutOfRangeError = "Theta must be an integer multiple of 90 degrees";
-        private const string AxisOutOfRangeError = "Axis must be a 3D Eucliedean axis (X, Y, or Z)";
+        private const string AxisOutOfRangeError = "Axis must be a 3D Euclidean axis (X, Y, or Z)";
 
         internal static Exception InvalidTheta(int theta)
         {

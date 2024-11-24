@@ -7,14 +7,14 @@ namespace Solutions.Y2020.D03;
 public sealed class Solution : SolutionBase
 {
     private static readonly Vec2D InitialPos = Vec2D.Zero;
-    private static readonly Vec2D Trajectory = new(x: 3, y: 1);
+    private static readonly Vec2D Trajectory = new(X: 3, Y: 1);
     private static readonly IList<Vec2D> Trajectories = new List<Vec2D>
     {
-        new (x: 1, y: 1),
-        new (x: 3, y: 1),
-        new (x: 5, y: 1),
-        new (x: 7, y: 1),
-        new (x: 1, y: 2)
+        new (X: 1, Y: 1),
+        new (X: 3, Y: 1),
+        new (X: 5, Y: 1),
+        new (X: 7, Y: 1),
+        new (X: 1, Y: 2)
     };
 
     public override object Run(int part)
@@ -47,8 +47,8 @@ public sealed class Solution : SolutionBase
             }
             
             pos = new Vec2D(
-                x: (pos.X + trajectory.X).Modulo(width),
-                y: pos.Y + trajectory.Y);
+                X: (pos.X + trajectory.X).Modulo(width),
+                Y: pos.Y + trajectory.Y);
         }
 
         return count;

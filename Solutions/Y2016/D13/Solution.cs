@@ -5,8 +5,8 @@ namespace Solutions.Y2016.D13;
 [PuzzleInfo("A Maze of Twisty Little Cubicles", Topics.Graphs | Topics.BitwiseOperations, Difficulty.Hard)]
 public sealed class Solution : SolutionBase
 {
-    private static readonly Vec2D Start = new (x: 1, y: 1);
-    private static readonly Vec2D Target = new (x: 31, y: 39);
+    private static readonly Vec2D Start = new (X: 1, Y: 1);
+    private static readonly Vec2D Target = new (X: 31, Y: 39);
     
     public override object Run(int part)
     {

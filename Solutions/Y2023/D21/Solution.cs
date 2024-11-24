@@ -98,8 +98,8 @@ public sealed class Solution : SolutionBase
         foreach (var naive in pos.GetAdjacentSet(Metric.Taxicab))
         {
             var adj = new Vec2D(
-                x: naive.X.Modulo(grid.Width),
-                y: naive.Y.Modulo(grid.Height));
+                X: naive.X.Modulo(grid.Width),
+                Y: naive.Y.Modulo(grid.Height));
             
             if (grid.Contains(adj) && grid[adj] == Empty)
             {

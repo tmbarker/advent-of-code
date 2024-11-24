@@ -3,49 +3,23 @@ using Utilities.Extensions;
 namespace Utilities.Geometry.Euclidean;
 
 /// <summary>
-///     A readonly integral 3D Vector value type
+///     A readonly integral 3D Vector value type.
 /// </summary>
-public readonly record struct Vec3D
+public readonly record struct Vec3D(int X, int Y, int Z)
 {
-    public static readonly Vec3D Zero    = new(x:  0, y:  0, z:  0);
-    public static readonly Vec3D One     = new(x:  1, y:  1, z:  1);
-    public static readonly Vec3D Up      = new(x:  0, y:  1, z:  0);
-    public static readonly Vec3D Down    = new(x:  0, y: -1, z:  0);
-    public static readonly Vec3D Left    = new(x: -1, y:  0, z:  0);
-    public static readonly Vec3D Right   = new(x:  1, y:  0, z:  0);
-    public static readonly Vec3D Forward = new(x:  0, y:  0, z:  1);
-    public static readonly Vec3D Back    = new(x:  0, y:  0, z: -1);
-    
-    public int X { get; }
-    public int Y { get; }
-    public int Z { get; }
-    public int this[Axis axis] => GetComponent(axis);
+    public static readonly Vec3D Zero    = new(X:  0, Y:  0, Z:  0);
+    public static readonly Vec3D One     = new(X:  1, Y:  1, Z:  1);
+    public static readonly Vec3D Up      = new(X:  0, Y:  1, Z:  0);
+    public static readonly Vec3D Down    = new(X:  0, Y: -1, Z:  0);
+    public static readonly Vec3D Left    = new(X: -1, Y:  0, Z:  0);
+    public static readonly Vec3D Right   = new(X:  1, Y:  0, Z:  0);
+    public static readonly Vec3D Forward = new(X:  0, Y:  0, Z:  1);
+    public static readonly Vec3D Back    = new(X:  0, Y:  0, Z: -1);
 
-    public Vec3D(int x, int y, int z)
-    {
-        X = x;
-        Y = y;
-        Z = z;
-    }
-    
+    public int this[Axis component] => GetComponent(component);
+
     public Vec3D(Vec2D xy, int z) : this(xy.X, xy.Y, z)
     {
-    }
-    
-    public int GetComponent(Axis component)
-    {
-        switch (component)
-        {
-            case Axis.X:
-                return X;
-            case Axis.Y:
-                return Y;
-            case Axis.Z:
-                return Z;
-            case Axis.W:
-            default:
-                throw VecThrowHelper<Vec3D>.InvalidComponent(component);
-        }
     }
 
     public static int Distance(Vec3D a, Vec3D b, Metric metric)
@@ -58,22 +32,22 @@ public readonly record struct Vec3D
         };
     }
 
-    public static implicit operator Vec3D(Vec2D v) => new(v.X, v.Y, z: 0);
+    public static implicit operator Vec3D(Vec2D v) => new(v.X, v.Y, Z: 0);
     public static implicit operator Vec3D(Vec4D v) => new(v.X, v.Y, v.Z);
     
     public static Vec3D operator +(Vec3D lhs, Vec3D rhs)
     {
-        return new Vec3D(x: lhs.X + rhs.X, y: lhs.Y + rhs.Y, z: lhs.Z + rhs.Z);
+        return new Vec3D(X: lhs.X + rhs.X, Y: lhs.Y + rhs.Y, Z: lhs.Z + rhs.Z);
     }
 
     public static Vec3D operator -(Vec3D lhs, Vec3D rhs)
     {
-        return new Vec3D(x: lhs.X - rhs.X, y: lhs.Y - rhs.Y, z: lhs.Z - rhs.Z);
+        return new Vec3D(X: lhs.X - rhs.X, Y: lhs.Y - rhs.Y, Z: lhs.Z - rhs.Z);
     }
 
     public static Vec3D operator *(int k, Vec3D rhs)
     {
-        return new Vec3D(x: k * rhs.X, y: k * rhs.Y, z: k * rhs.Z);
+        return new Vec3D(X: k * rhs.X, Y: k * rhs.Y, Z: k * rhs.Z);
     }
     
     public override string ToString()
@@ -118,9 +92,9 @@ public readonly record struct Vec3D
         for (var dz = -1; dz <= 1; dz++)
         {
             set.Add(new Vec3D(
-                x: X + dx,
-                y: Y + dy,
-                z: Z + dz));
+                X: X + dx,
+                Y: Y + dy,
+                Z: Z + dz));
         }
 
         set.Remove(item:this);
@@ -133,7 +107,7 @@ public readonly record struct Vec3D
         var dy = Math.Abs(a.Y - b.Y);
         var dz = Math.Abs(a.Z - b.Z);
 
-        return new[] { dx, dy, dz }.Max();
+        return Math.Max(dx, Math.Max(dy, dz));
     }
 
     private static int TaxicabDistance(Vec3D a, Vec3D b)
@@ -144,11 +118,27 @@ public readonly record struct Vec3D
 
         return dx + dy + dz;
     }
-
+    
+    private int GetComponent(Axis component)
+    {
+        switch (component)
+        {
+            case Axis.X:
+                return X;
+            case Axis.Y:
+                return Y;
+            case Axis.Z:
+                return Z;
+            case Axis.W:
+            default:
+                throw VecThrowHelper<Vec3D>.InvalidComponent(component);
+        }
+    }
+    
     public static Vec3D Parse(string s)
     {
         var numbers = s.ParseInts();
-        return new Vec3D(x: numbers[0], y: numbers[1], z: numbers[2]);
+        return new Vec3D(X: numbers[0], Y: numbers[1], Z: numbers[2]);
     }
     
     public static bool TryParse(string? s, out Vec3D result)
@@ -160,7 +150,7 @@ public readonly record struct Vec3D
             return false;
         }
     
-        result = new Vec3D(x: numbers[0], y: numbers[1], z: numbers[2]);
+        result = new Vec3D(X: numbers[0], Y: numbers[1], Z: numbers[2]);
         return true;
     }
 }

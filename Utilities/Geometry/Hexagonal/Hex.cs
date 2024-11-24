@@ -1,10 +1,36 @@
 namespace Utilities.Geometry.Hexagonal;
 
 /// <summary>
-///     A readonly integral hexagon value type. Represents a 2D hexagon using a 3D cubic coordinate system
+///     A readonly integral hexagon value type. Represents a 2D hexagon using a 3D cubic coordinate system.
 /// </summary>
 public readonly record struct Hex
 {
+    /// <summary>
+    ///     Represents directions in a hexagon oriented such that the top and bottom are flat.
+    /// </summary>
+    public enum Flat
+    {
+        N = 0,
+        Ne,
+        Se,
+        S,
+        Sw,
+        Nw
+    }
+
+    /// <summary>
+    ///     Represents directions in a hexagon oriented such that the top and bottom are pointy.
+    /// </summary>
+    public enum Pointy
+    {
+        Ne = 6,
+        E,
+        Se,
+        Sw,
+        W,
+        Nw
+    }
+    
     public static readonly Hex Zero = new(q: 0, r: 0, s: 0);
     public static readonly IReadOnlyDictionary<Enum, Hex> Directions = new Dictionary<Enum, Hex>
     {

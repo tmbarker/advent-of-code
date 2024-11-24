@@ -45,8 +45,8 @@ public sealed class Solution : SolutionBase
             //  Only sweep the minimum number of positions
             //
             var maxDxInRange = reporting.Range - dy;
-            var sweepStart = new Vec2D(x: reporting.SensorPos.X - maxDxInRange, y: Row);
-            var sweepEnd = new Vec2D(x: reporting.SensorPos.X + maxDxInRange, y: Row);
+            var sweepStart = new Vec2D(X: reporting.SensorPos.X - maxDxInRange, Y: Row);
+            var sweepEnd = new Vec2D(X: reporting.SensorPos.X + maxDxInRange, Y: Row);
             
             var sweepPos = sweepStart;
             while (sweepPos.X <= sweepEnd.X)

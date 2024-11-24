@@ -145,9 +145,9 @@ public sealed class Solution : SolutionBase
     private static Particle ParseParticle(string line)
     {
         var numbers = line.ParseInts();
-        var pos = new Vec3D(x: numbers[0], y: numbers[1], z: numbers[2]);
-        var vel = new Vec3D(x: numbers[3], y: numbers[4], z: numbers[5]);
-        var acc = new Vec3D(x: numbers[6], y: numbers[7], z: numbers[8]);
+        var pos = new Vec3D(X: numbers[0], Y: numbers[1], Z: numbers[2]);
+        var vel = new Vec3D(X: numbers[3], Y: numbers[4], Z: numbers[5]);
+        var acc = new Vec3D(X: numbers[6], Y: numbers[7], Z: numbers[8]);
         
         return new Particle(pos, vel, acc);
     }

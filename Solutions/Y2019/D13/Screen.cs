@@ -41,8 +41,8 @@ public sealed class Screen
     private void ParsePixel(Queue<long> machineOutput)
     {
         var pos = new Vec2D(
-            x: (int)machineOutput.Dequeue(),
-            y: (int)machineOutput.Dequeue());
+            X: (int)machineOutput.Dequeue(),
+            Y: (int)machineOutput.Dequeue());
 
         if (pos == ScoreKey)
         {

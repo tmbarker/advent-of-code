@@ -21,7 +21,7 @@ public sealed class Solution : SolutionBase
 
     private static int GetMinDistance(IEnumerable<string> steps, bool haltOnRepeat)
     {
-        var pose = new Pose2D(pos: Vec2D.Zero, face: Vec2D.Up);
+        var pose = new Pose2D(Pos: Vec2D.Zero, Face: Vec2D.Up);
         var visited = new HashSet<Vec2D>();
 
         foreach (var step in steps)

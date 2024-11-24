@@ -67,7 +67,7 @@ public class Solution : SolutionBase
         //  adjacent position on our right not part of the loop itself must be "inside" the loop.
         //
         var topLeft = map.LoopPositions.Where(pos => pos.Y == loopBounds.Max.Y).MinBy(pos => pos.X);
-        var pose = new Pose2D(pos: topLeft, face: Vec2D.Right);
+        var pose = new Pose2D(Pos: topLeft, Face: Vec2D.Right);
         
         while (pose.Ahead != topLeft)
         {
@@ -92,8 +92,8 @@ public class Solution : SolutionBase
             if (CornerPipes.Contains(maze[pose.Pos]))
             {
                 pose = new Pose2D(
-                    pos: pose.Pos,
-                    face: PipeAdjacency[maze[pose.Pos]].Single(adj => pose.Pos + adj != pose.Behind));
+                    Pos: pose.Pos,
+                    Face: PipeAdjacency[maze[pose.Pos]].Single(adj => pose.Pos + adj != pose.Behind));
             }
         }
 

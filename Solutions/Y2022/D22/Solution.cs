@@ -27,8 +27,8 @@ public sealed class Solution : SolutionBase
     private static int ComputePassword(Grid2D<Square> board, IEnumerable<Instruction> instructions, MoveMode mode)
     {
         var pose = new Pose2D(
-            pos: FindStartPos(board),
-            face: Vec2D.Right);
+            Pos: FindStartPos(board),
+            Face: Vec2D.Right);
 
         pose = instructions.Aggregate(
             seed: pose,
@@ -83,7 +83,7 @@ public sealed class Solution : SolutionBase
             return false;
         }
 
-        result = new Pose2D(pos: targetPos + pose.Face, face: pose.Face);
+        result = new Pose2D(Pos: targetPos + pose.Face, Face: pose.Face);
         return true;
     }
     

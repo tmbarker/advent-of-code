@@ -75,8 +75,8 @@ public sealed class Tile
         foreach (var (edgeId, edgeDirection) in EdgeDirections)
         {
             EdgeDirections[edgeId] = new Vec2D(
-                x: -edgeDirection.X,
-                y: edgeDirection.Y);
+                X: -edgeDirection.X,
+                Y: edgeDirection.Y);
         }
     }
 

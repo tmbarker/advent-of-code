@@ -92,7 +92,7 @@ public sealed class Solution : SolutionBase
 
             while (x + span < lines[0].Length && char.IsDigit(lines[y][x + span]))
             {
-                positions.Add(item: new Vec2D(x: x + span, y));
+                positions.Add(item: new Vec2D(X: x + span, y));
                 span++;
             }
 

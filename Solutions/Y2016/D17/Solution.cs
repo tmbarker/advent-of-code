@@ -6,8 +6,8 @@ namespace Solutions.Y2016.D17;
 [PuzzleInfo("Two Steps Forward", Topics.Vectors|Topics.Graphs, Difficulty.Medium)]
 public sealed class Solution : SolutionBase
 {
-    private static readonly Vec2D Start  = new(x: 0, y: 3);
-    private static readonly Vec2D Target = new(x: 3, y: 0);
+    private static readonly Vec2D Start  = new(X: 0, Y: 3);
+    private static readonly Vec2D Target = new(X: 3, Y: 0);
     private static readonly HashSet<char> OpenSet = ['b', 'c', 'd', 'e', 'f'];
     
     private static readonly Dictionary<int, Vec2D> IndicesMap = new()

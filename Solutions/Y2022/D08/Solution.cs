@@ -44,7 +44,7 @@ public sealed class Solution : SolutionBase
         for (var y = 0; y < trees.Height; y++)
         {
             var row = y;
-            var positions = Enumerable.Range(start: 0, count: trees.Width).Select(x => new Vec2D(x, y: row));
+            var positions = Enumerable.Range(start: 0, count: trees.Width).Select(x => new Vec2D(x, Y: row));
             var enumerated = positions.ToArray();
             
             los.Add(enumerated);
@@ -56,7 +56,7 @@ public sealed class Solution : SolutionBase
         for (var x = 0; x < trees.Width; x++)
         {
             var col = x;
-            var positions = Enumerable.Range(start: 0, count: trees.Height).Select(y => new Vec2D(x: col, y));
+            var positions = Enumerable.Range(start: 0, count: trees.Height).Select(y => new Vec2D(X: col, y));
             var enumerated = positions.ToArray();
             
             los.Add(enumerated);
