@@ -6,7 +6,7 @@ namespace Utilities.Extensions;
 public static class CollectionExtensions
 {
     /// <summary>
-    ///     Filter the dictionary entries using a Value Predicate
+    ///     Filter the dictionary entries using a Value Predicate.
     /// </summary>
     public static Dictionary<TKey, TValue> WhereValues<TKey, TValue>(this IDictionary<TKey, TValue> dictionary,
         Predicate<TValue> predicate) where TKey : notnull
@@ -17,7 +17,7 @@ public static class CollectionExtensions
     }
 
     /// <summary>
-    ///     Initialize a <see cref="IReadOnlyCollection{T}" /> using the elements from <paramref name="source" />
+    ///     Initialize a <see cref="IReadOnlyCollection{T}" /> using the elements from <paramref name="source" />.
     /// </summary>
     public static IReadOnlyCollection<T> Freeze<T>(this IEnumerable<T> source)
     {
@@ -25,7 +25,7 @@ public static class CollectionExtensions
     }
 
     /// <summary>
-    ///     Remove a single element from <paramref name="source" />, if it exists
+    ///     Remove a single element from <paramref name="source" />, if it exists.
     /// </summary>
     public static ICollection<T> Except<T>(this IEnumerable<T> source, T single)
     {
@@ -33,7 +33,7 @@ public static class CollectionExtensions
     }
 
     /// <summary>
-    ///     Find the intersection of multiple collections
+    ///     Find the intersection of multiple collections.
     /// </summary>
     /// <param name="collections">The collections to intersect</param>
     /// <returns>A set containing the elements which are present in all provided collections</returns>
@@ -55,7 +55,7 @@ public static class CollectionExtensions
     }
 
     /// <summary>
-    ///     Normalize the values of the collection such that the "smallest" becomes <see cref="Vec2D.Zero" />
+    ///     Normalize the values of the collection such that the "smallest" becomes <see cref="Vec2D.Zero" />.
     /// </summary>
     public static IEnumerable<Vec2D> Normalize(this IEnumerable<Vec2D> collection)
     {
@@ -77,7 +77,7 @@ public static class CollectionExtensions
     }
 
     /// <summary>
-    ///     Return the mode of the collection, i.e. the element with the highest frequency,
+    ///     Return the mode of the collection, i.e. the element with the highest occurence frequency.
     /// </summary>
     public static T Mode<T>(this IEnumerable<T> collection) where T : notnull
     {
@@ -87,7 +87,8 @@ public static class CollectionExtensions
     }
 
     /// <summary>
-    ///     Chunk the source based on a <paramref name="takePredicate" /> and an optional <paramref name="skipPredicate" />
+    ///     Chunk the source based on a <paramref name="takePredicate" /> and an
+    ///     optional <paramref name="skipPredicate" />.
     /// </summary>
     /// <param name="source">The source collection</param>
     /// <param name="takePredicate">Select which elements should be included in a chunk</param>
@@ -126,7 +127,7 @@ public static class CollectionExtensions
     }
 
     /// <summary>
-    ///     Chunk the source between null or whitespace strings
+    ///     Chunk the source between null or whitespace strings.
     /// </summary>
     /// <param name="source">The source collection</param>
     /// <returns>An iterator which yields chunk arrays</returns>
@@ -150,7 +151,7 @@ public static class CollectionExtensions
     }
 
     /// <summary>
-    ///     Returns all permutations of the source sequence elements
+    ///     Returns all permutations of the source sequence elements.
     /// </summary>
     public static IEnumerable<IEnumerable<T>> Permute<T>(this IEnumerable<T> elements)
     {
@@ -177,7 +178,7 @@ public static class CollectionExtensions
     }
 
     /// <summary>
-    ///     Return all combinations of the source sequence elements of size <paramref name="k" />
+    ///     Return all combinations of the source sequence elements of size <paramref name="k" />.
     /// </summary>
     /// <param name="elements">The source sequence</param>
     /// <param name="k">The number of elements in each returned combination</param>
@@ -202,7 +203,6 @@ public static class CollectionExtensions
     /// </summary>
     /// <param name="n">The total number of bits in each sequence</param>
     /// <param name="k">The number of set bits in each sequence</param>
-    /// <returns></returns>
     private static IEnumerable<ImmutableStack<bool>> Combinations(int n, int k)
     {
         if (k == 0 && n == 0)
@@ -236,6 +236,19 @@ public static class CollectionExtensions
         }
     }
 
+    /// <summary>
+    ///     Filters a sequence of items based on a corresponding sequence of boolean selectors.
+    /// </summary>
+    /// <typeparam name="T">The type of elements in the <paramref name="items" /> sequence</typeparam>
+    /// <param name="items">The sequence of items to filter</param>
+    /// <param name="selectors">
+    ///     A sequence of boolean values that determines whether each corresponding element in <paramref name="items" />
+    ///     is included in the result. An element is included if the corresponding selector is <c>true</c>
+    /// </param>
+    /// <returns>
+    ///     An <see cref="IEnumerable{T}" /> containing elements from <paramref name="items" /> where the corresponding
+    ///     value in <paramref name="selectors" /> is <c>true</c>
+    /// </returns>
     public static IEnumerable<T> ZipWhere<T>(this IEnumerable<T> items, IEnumerable<bool> selectors)
     {
         ArgumentNullException.ThrowIfNull(items);

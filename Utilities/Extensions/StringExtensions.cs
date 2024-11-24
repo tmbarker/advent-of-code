@@ -10,9 +10,19 @@ public static class StringExtensions
     private static readonly Regex NumberRegex = new(pattern: @"(-?\d+)", Options);
     private static readonly Regex WhitespaceRegex = new(pattern: @"\s+", Options);
 
+    /// <summary>
+    ///     Parse the provided string, returning the first found number.
+    /// </summary>
+    /// <param name="s">The string to parse</param>
+    /// <typeparam name="T">The type of number to parse</typeparam>
+    /// <returns>The first parsed number</returns>
+    /// <exception cref="FormatException">When at least one number cannot be parsed</exception>
     public static T ParseNumber<T>(this string s) where T : INumber<T>
     {
-        return ParseNumbers<T>(s)[0];
+        var numbers = ParseNumbers<T>(s);
+        return numbers.Length != 0
+            ? numbers[0]
+            : throw new FormatException($"Invalid number format [{s}]");
     }
 
     public static T[] ParseNumbers<T>(this string s) where T : INumber<T>
