@@ -16,7 +16,7 @@ public static class Track
         { 'v', Vec2D.Up }
     };
 
-    public static readonly Dictionary<int, Rot3D> TurnChoices = new()
+    public static readonly Dictionary<int, Quaternion> TurnChoices = new()
     {
         { 0, Rot3D.N90Z },
         { 1, Rot3D.Zero },
@@ -33,6 +33,6 @@ public static class Track
             _ => throw new ArgumentOutOfRangeException(nameof(corner))
         };
 
-        return rot * face;
+        return rot.Transform(face);
     }
 }

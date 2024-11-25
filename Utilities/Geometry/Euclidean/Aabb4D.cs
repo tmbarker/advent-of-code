@@ -3,7 +3,7 @@ using System.Collections;
 namespace Utilities.Geometry.Euclidean;
 
 /// <summary>
-///     A readonly 4D AABB value type
+///     A readonly 4D AABB value type.
 /// </summary>
 public readonly record struct Aabb4D : IEnumerable<Vec4D>
 {

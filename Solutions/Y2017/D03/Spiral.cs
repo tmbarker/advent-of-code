@@ -34,7 +34,7 @@ public sealed class Spiral
         {
             if (stepsSinceLastTurn == stepsBeforeTurn)
             {
-                _dir = Rot3D.P90Z * _dir;
+                _dir = Rot3D.P90Z.Transform(_dir);
                 stepsSinceLastTurn = 0;
                 turnsSinceStepIncrement++;
             }

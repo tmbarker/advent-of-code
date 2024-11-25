@@ -40,7 +40,7 @@ public readonly record struct Vec4D(int X, int Y, int Z, int W)
     
     public override string ToString()
     {
-        return $"[{X},{Y},{Z},{W}]";
+        return $"<{X},{Y},{Z},{W}>";
     }
     
     private static int ChebyshevDistance(Vec4D a, Vec4D b)

@@ -84,7 +84,7 @@ public readonly record struct Vec2D(int X, int Y)
     
     public override string ToString()
     {
-        return $"[{X},{Y}]";
+        return $"<{X},{Y}>";
     }
     
     public int Magnitude(Metric metric)

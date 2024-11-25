@@ -3,7 +3,7 @@ using System.Collections;
 namespace Utilities.Geometry.Euclidean;
 
 /// <summary>
-///     A readonly 2D axis aligned bounding box value type
+///     A readonly 2D axis aligned bounding box value type.
 /// </summary>
 public readonly record struct Aabb2D : IEnumerable<Vec2D>
 {

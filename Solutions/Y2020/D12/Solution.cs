@@ -56,10 +56,10 @@ public sealed class Solution : SolutionBase
                     pos += amount * facing;
                     continue;
                 case Left:
-                    facing = new Rot3D(Axis.Z, amount) * facing;
+                    facing = Rot3D.FromAxisAngle(Axis.Z, amount).Transform(facing);
                     continue;
                 case Right:
-                    facing = new Rot3D(Axis.Z, -amount) * facing;
+                    facing = Rot3D.FromAxisAngle(Axis.Z, -amount).Transform(facing);
                     continue;
             }
         }
@@ -86,10 +86,10 @@ public sealed class Solution : SolutionBase
                     shipPos += amount * waypointPos;
                     continue;
                 case Left:
-                    waypointPos = new Rot3D(Axis.Z, amount) * waypointPos;
+                    waypointPos = Rot3D.FromAxisAngle(Axis.Z, amount).Transform(waypointPos);
                     continue;
                 case Right:
-                    waypointPos = new Rot3D(Axis.Z, -amount) * waypointPos;
+                    waypointPos = Rot3D.FromAxisAngle(Axis.Z, -amount).Transform(waypointPos);
                     continue;
             }
         }

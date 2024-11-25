@@ -5,12 +5,12 @@ namespace Solutions.Y2021.D19;
 public sealed class Map
 {
     public Dictionary<int, Vec3D> KnownScanners { get; } = new();
-    public Dictionary<int, ISet<Vec3D>> KnownBeacons { get; } = new();
+    public Dictionary<int, HashSet<Vec3D>> KnownBeacons { get; } = new();
 
     public Map(Reporting referenceReporting)
     {
         KnownScanners.Add(referenceReporting.ScannerId, Vec3D.Zero);
-        KnownBeacons.Add(referenceReporting.ScannerId, new HashSet<Vec3D>(referenceReporting.Beacons));
+        KnownBeacons.Add(referenceReporting.ScannerId, [..referenceReporting.Beacons]);
     }
     
     public int GetDistinctBeaconCount()
@@ -21,7 +21,7 @@ public sealed class Map
             .Count();
     }
 
-    public int GetMaxScannerDistance(Metric metric)
+    public int GetMaxScannerDistance()
     {
         var max = 0;
         var scanners = KnownScanners.Values.ToList();
@@ -32,7 +32,7 @@ public sealed class Map
         {
             if (i != j)
             {
-                max = Math.Max(max, Vec3D.Distance(scanners[i], scanners[j], metric));
+                max = Math.Max(max, Vec3D.Distance(scanners[i], scanners[j], metric: Metric.Taxicab));
             }
         }
 

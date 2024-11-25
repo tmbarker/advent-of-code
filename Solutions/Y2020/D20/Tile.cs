@@ -4,6 +4,15 @@ namespace Solutions.Y2020.D20;
 
 public sealed class Tile
 {
+    public readonly record struct Congruence(EdgeId FromEdge, EdgeId ToEdge, int ToTile);
+    public enum EdgeId
+    {
+        A,
+        B,
+        C,
+        D
+    }
+    
     private const int BorderWidth = 1;
     private readonly Grid2D<char> _pixels;
     private readonly Dictionary<Vec2D, Func<string>> _edgeStringGetters;
@@ -26,10 +35,10 @@ public sealed class Tile
         };
         EdgeFingerprints = new Dictionary<EdgeId, EdgeFingerprint>
         {
-            { EdgeId.A, new(GetEdgeString(EdgeId.A)) },
-            { EdgeId.B, new(GetEdgeString(EdgeId.B)) },
-            { EdgeId.C, new(GetEdgeString(EdgeId.C)) },
-            { EdgeId.D, new(GetEdgeString(EdgeId.D)) }
+            { EdgeId.A, new EdgeFingerprint(GetEdgeString(EdgeId.A)) },
+            { EdgeId.B, new EdgeFingerprint(GetEdgeString(EdgeId.B)) },
+            { EdgeId.C, new EdgeFingerprint(GetEdgeString(EdgeId.C)) },
+            { EdgeId.D, new EdgeFingerprint(GetEdgeString(EdgeId.D)) }
         };
     }
 
@@ -40,7 +49,7 @@ public sealed class Tile
         var requiredEdgeDir = -1 * onOtherTile.EdgeDirections[toOtherEdge];
         while (EdgeDirections[matchEdge] != requiredEdgeDir)
         {
-            Rotate(rot: Rot3D.P90Z);
+            Rotate(thetaDeg: Degrees.P90);
         }
         
         if (GetEdgeString(matchEdge) == onOtherTile.GetEdgeString(toOtherEdge))
@@ -51,7 +60,7 @@ public sealed class Tile
         Flip();
         while (EdgeDirections[matchEdge] != requiredEdgeDir)
         {
-            Rotate(rot: Rot3D.P90Z);
+            Rotate(thetaDeg: Degrees.P90);
         }
     }
 
@@ -60,12 +69,12 @@ public sealed class Tile
         return _edgeStringGetters[EdgeDirections[edge]].Invoke();
     }
     
-    private void Rotate(Rot3D rot)
+    private void Rotate(int thetaDeg)
     {
-        _pixels.Rotate(rot.ThetaDeg);
+        _pixels.Rotate(thetaDeg);
         foreach (var (edgeId, edgeDirection) in EdgeDirections)
         {
-            EdgeDirections[edgeId] = rot * edgeDirection;
+            EdgeDirections[edgeId] = Rot3D.FromAxisAngle(Axis.Z, thetaDeg).Transform(edgeDirection);
         }
     }
     
@@ -74,9 +83,7 @@ public sealed class Tile
         _pixels.Flip(about: Axis.Y);
         foreach (var (edgeId, edgeDirection) in EdgeDirections)
         {
-            EdgeDirections[edgeId] = new Vec2D(
-                X: -edgeDirection.X,
-                Y: edgeDirection.Y);
+            EdgeDirections[edgeId] = edgeDirection with { X = -edgeDirection.X };
         }
     }
 
@@ -89,14 +96,5 @@ public sealed class Tile
             {Vec2D.Left,  () => string.Concat(_pixels.EnumerateCol(0))},
             {Vec2D.Right, () => string.Concat(_pixels.EnumerateCol(_pixels.Width - 1))}
         };
-    }
-    
-    public readonly record struct Congruence(EdgeId FromEdge, EdgeId ToEdge, int ToTile);
-    public enum EdgeId
-    {
-        A,
-        B,
-        C,
-        D
     }
 }

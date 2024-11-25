@@ -3,7 +3,7 @@ using System.Collections;
 namespace Utilities.Geometry.Euclidean;
 
 /// <summary>
-///     A readonly 3D AABB value type
+///     A readonly 3D AABB value type.
 /// </summary>
 public readonly record struct Aabb3D : IEnumerable<Vec3D>
 {

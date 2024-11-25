@@ -58,8 +58,8 @@ public sealed class Solution : SolutionBase
     {
         if (state.Count >= constraint.Min)
         {
-            var l = (Vec2D)(Rot3D.P90Z * state.Face);
-            var r = (Vec2D)(Rot3D.N90Z * state.Face);
+            var l = Rot3D.P90Z.Transform(state.Face);
+            var r = Rot3D.N90Z.Transform(state.Face);
             
             yield return new State(Pos: state.Pos + l, Face: l, Count: 1);
             yield return new State(Pos: state.Pos + r, Face: r, Count: 1);

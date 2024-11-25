@@ -15,7 +15,7 @@ public sealed class Solution : IntCodeSolution
     private static readonly Vec2D InitialRobotPos = Vec2D.Zero;
     private static readonly Vec2D InitialRobotFacing = Vec2D.Up;
     
-    private static readonly Dictionary<long, Rot3D> OutputRotations = new()
+    private static readonly Dictionary<long, Quaternion> OutputRotations = new()
     {
         { 0L, Rot3D.P90Z },
         { 1L, Rot3D.N90Z }
@@ -58,7 +58,7 @@ public sealed class Solution : IntCodeSolution
             var rotKey = robot.OutputBuffer.Dequeue();
 
             painted[pos] = color;
-            facing = OutputRotations[rotKey] * facing;
+            facing = OutputRotations[rotKey].Transform(facing);
             pos += facing;
         }
 

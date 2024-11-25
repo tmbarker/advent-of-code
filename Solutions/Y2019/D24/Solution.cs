@@ -137,7 +137,7 @@ public sealed class Solution : SolutionBase
             //
             const int radius = Size / 2;
             var fixedOffset = -radius * direction;
-            var variableOffset = (Vec2D)(Rot3D.P90Z * direction);
+            var variableOffset = Rot3D.P90Z.Transform(direction);
 
             for (var i = -radius; i <= radius; i++)
             {

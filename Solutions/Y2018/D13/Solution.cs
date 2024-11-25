@@ -80,7 +80,7 @@ public sealed class Solution : SolutionBase
             switch (element)
             {
                 case Track.Junction:
-                    facing = Track.TurnChoices[state.NextTurns[cartId]] * facing;
+                    facing = Track.TurnChoices[state.NextTurns[cartId]].Transform(facing);
                     state.NextTurns[cartId] = (state.NextTurns[cartId] + 1) % Track.TurnChoices.Count;
                     break;
                 case Track.Left or Track.Right:

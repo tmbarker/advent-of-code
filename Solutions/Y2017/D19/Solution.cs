@@ -45,7 +45,7 @@ public sealed class Solution : SolutionBase
 
             if (map[pose.Pos] == Junction)
             {
-                pose = CanMoveTo(map, pose.Pos + (Vec2D)(Rot3D.P90Z * pose.Face))
+                pose = CanMoveTo(map, pose.Pos + Rot3D.P90Z.Transform(pose.Face))
                     ? pose.Turn(Rot3D.P90Z)
                     : pose.Turn(Rot3D.N90Z);
             }

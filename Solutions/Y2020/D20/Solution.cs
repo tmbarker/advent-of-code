@@ -3,9 +3,9 @@ using Utilities.Geometry.Euclidean;
 
 namespace Solutions.Y2020.D20;
 
-using TileMap = IDictionary<int, Tile>;
-using CongruenceMap = IDictionary<int, List<Tile.Congruence>>;
-using PositionsMap = IDictionary<int, Vec2D>;
+using TileMap = Dictionary<int, Tile>;
+using CongruenceMap = Dictionary<int, List<Tile.Congruence>>;
+using PositionsMap = Dictionary<int, Vec2D>;
 
 [PuzzleInfo("Jurassic Jigsaw", Topics.Vectors, Difficulty.Hard, favourite: true)]
 public sealed class Solution : SolutionBase

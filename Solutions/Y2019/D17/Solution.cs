@@ -18,7 +18,7 @@ public sealed class Solution : IntCodeSolution
         { '<', Vec2D.Left },
         { '>', Vec2D.Right }
     };
-    private static readonly Dictionary<char, Rot3D> TurnCommands = new()
+    private static readonly Dictionary<char, Quaternion> TurnCommands = new()
     {
         { 'L', Rot3D.N90Z },
         { 'R', Rot3D.P90Z }
