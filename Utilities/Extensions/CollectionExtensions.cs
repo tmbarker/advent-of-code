@@ -1,4 +1,5 @@
 using System.Collections.Immutable;
+using System.Diagnostics.CodeAnalysis;
 using Utilities.Geometry.Euclidean;
 
 namespace Utilities.Extensions;
@@ -269,5 +270,26 @@ public static class CollectionExtensions
                 yield return itemEnumerator.Current;
             }
         }
+    }
+    
+    /// <summary>
+    ///     Determines whether the sequence contains exactly one element that matches the specified predicate.
+    /// </summary>
+    /// <param name="source">The source collection</param>
+    /// <param name="predicate">The predicate to invoke on each source element</param>
+    /// <param name="element">When successful, the single element which passes the predicate</param>
+    /// <returns>A <see cref="bool"/> representing the success of the query</returns>
+    public static bool HasExactlyOne<T>(this IEnumerable<T> source, Func<T, bool> predicate,
+        [NotNullWhen(returnValue: true)] out T? element)
+    {
+        var candidates = source.Where(predicate).Take(2).ToArray();
+        if (candidates.Length == 1)
+        {
+            element = candidates.Single()!;
+            return true;
+        }
+        
+        element = default;
+        return false;
     }
 }

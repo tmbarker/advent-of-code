@@ -38,6 +38,14 @@ public sealed class DefaultDict<TKey, TValue>(Func<TKey, TValue> defaultSelector
             Add(key: item.Key, value: item.Value);
         }
     }
+    
+    public DefaultDict(TValue defaultValue, IEnumerable<KeyValuePair<TKey, TValue>> items) : this(defaultValue)
+    {
+        foreach (var item in items)
+        {
+            Add(key: item.Key, value: item.Value);
+        }
+    }
 
     public void Add(TKey key, TValue value)
     {

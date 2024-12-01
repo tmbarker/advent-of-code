@@ -25,7 +25,7 @@ public sealed partial class Grid2D<T>
     public static Grid2D<T> MapChars(IList<string> strings, Func<char, T> elementFunc, Origin origin = Origin.Xy)
     {
         var rows = strings.Count;
-        var cols = strings[0].Length;
+        var cols = strings.Max(s => s.Length);
         var array = new T[rows, cols];
 
         for (var row = 0; row < rows; row++)
@@ -35,7 +35,7 @@ public sealed partial class Grid2D<T>
             //  is populated into the bottom left element of the array. Once the Grid2D instance is constructed,
             //  position indexing (i.e. abstracted array indexing) will be subject to the origin convention used.
             //
-            var chr = strings[rows - row - 1][col];
+            var chr = strings[rows - row - 1].ElementAtOrDefault(col);
             var element = elementFunc(chr);
 
             array[row, col] = element;
