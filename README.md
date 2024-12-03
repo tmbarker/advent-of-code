@@ -2,6 +2,11 @@
 
 ## My Favourite Puzzles and Solutions
 
+### 2024
+Puzzle | My Solution | Date | Topic(s) | Difficulty
+:--- | :---: | :---: | :--- | :---
+[Mull It Over](https://adventofcode.com/2024/day/3) | [Solution](https://github.com/tmbarker/advent-of-code/blob/main/Solutions/Y2024/D03/Solution.cs) | 2024-03 | Regular Expressions | :green_circle: Easy
+
 ### 2023
 Puzzle | My Solution | Date | Topic(s) | Difficulty
 :--- | :---: | :---: | :--- | :---
