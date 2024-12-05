@@ -28,8 +28,7 @@ public sealed class Solution : SolutionBase
     private int CountRecognitions(bool useOverrides)
     {
         var input = GetInputLines()
-            .ChunkByNonEmpty()
-            .ToArray();
+            .ChunkByNonEmpty();
         var productions = input[0]
             .SelectMany(line => ParseRule(line, useOverrides));
         var sentences = input[1]

@@ -99,7 +99,7 @@ public static class CollectionExtensions
     /// </param>
     /// <typeparam name="T">The type associated with each element in the source</typeparam>
     /// <returns>An iterator which yields chunk arrays</returns>
-    public static IEnumerable<T[]> ChunkBy<T>(this IEnumerable<T> source, Predicate<T> takePredicate,
+    public static IList<T[]> ChunkBy<T>(this IEnumerable<T> source, Predicate<T> takePredicate,
         Predicate<T>? skipPredicate = null)
     {
         var chunks = new List<T[]>();
@@ -132,7 +132,7 @@ public static class CollectionExtensions
     /// </summary>
     /// <param name="source">The source collection</param>
     /// <returns>An iterator which yields chunk arrays</returns>
-    public static IEnumerable<string[]> ChunkByNonEmpty(this IEnumerable<string> source)
+    public static IList<string[]> ChunkByNonEmpty(this IEnumerable<string> source)
     {
         return source.ChunkBy(takePredicate: s => !string.IsNullOrWhiteSpace(s));
     }
