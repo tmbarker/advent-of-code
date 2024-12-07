@@ -42,7 +42,7 @@ public static class StringExtensions
     public static int[] ParseInts(this string s) => ParseNumbers<int>(s);
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static IList<long> ParseLongs(this string s) => ParseNumbers<long>(s);
+    public static long[] ParseLongs(this string s) => ParseNumbers<long>(s);
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static int AsDigit(this char c)
