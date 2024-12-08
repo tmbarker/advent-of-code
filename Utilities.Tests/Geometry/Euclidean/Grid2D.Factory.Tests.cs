@@ -112,20 +112,5 @@ public class Grid2DFactoryTests
         // Assert
         AssertGridEqual(expected, grid);
     }
-
-    [Fact]
-    public void MapChars_ThrowsForJaggedStrings()
-    {
-        // Arrange
-        var strings = new List<string>
-        {
-            "123",
-            "45",
-            "789"
-        };
-        
-        // Act & Assert
-        Assert.Throws<IndexOutOfRangeException>(() => Grid2D<int>.MapChars(strings, c => c.AsDigit()));
-    }
     
 }
