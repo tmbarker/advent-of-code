@@ -20,6 +20,26 @@ public sealed class DisjointSet<T> where T : IEquatable<T>
     public int PartitionsCount { get; private set; }
 
     /// <summary>
+    ///     Initialize an empty <see cref="DisjointSet{T}"/>.
+    /// </summary>
+    public DisjointSet()
+    {
+    }
+
+    /// <summary>
+    ///     Initialize a <see cref="DisjointSet{T}"/> with a set for each element in the
+    ///     specified <paramref name="collection"/>.
+    /// </summary>
+    /// <param name="collection">The elements to make a set with</param>
+    public DisjointSet(IEnumerable<T> collection)
+    {
+        foreach (var element in collection)
+        {
+            MakeSet(element);
+        }
+    }
+    
+    /// <summary>
     ///     Check if the disjoint set contains the specified element. 
     /// </summary>
     /// <param name="element">The element to query membership of</param>
