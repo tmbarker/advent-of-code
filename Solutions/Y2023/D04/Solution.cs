@@ -25,7 +25,7 @@ public sealed class Solution : SolutionBase
 
     private int CountCards()
     {
-        var cards = ParseInputLines(parseFunc: ParseCard).ToArray();
+        var cards = ParseInputLines(parseFunc: ParseCard);
         var counts = Enumerable.Repeat(element: 1, count: cards.Length).ToArray();
 
         for (var n = 0; n < cards.Length; n++)

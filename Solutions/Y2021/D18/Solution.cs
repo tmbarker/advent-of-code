@@ -12,7 +12,7 @@ public sealed class Solution : SolutionBase
 
     public override object Run(int part)
     {
-        var numbers = ParseInputLines(parseFunc: SnailfishParser.Parse).ToList();
+        var numbers = ParseInputLines(parseFunc: SnailfishParser.Parse);
         return part switch
         {
             1 => ComputeMagnitude(SumSfNumbers(numbers)),

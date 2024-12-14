@@ -19,7 +19,7 @@ public sealed class Solution : SolutionBase
 
     private int CountConstellations()
     {
-        var points = ParseInputLines(parseFunc: Vec4D.Parse).ToList();
+        var points = ParseInputLines(parseFunc: Vec4D.Parse);
         var disjointSet = new DisjointSet<Vec4D>();
         var adjacency = new Dictionary<Vec4D, IEnumerable<Vec4D>>();
         

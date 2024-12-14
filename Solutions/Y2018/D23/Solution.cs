@@ -10,7 +10,7 @@ public sealed class Solution : SolutionBase
     
     public override object Run(int part)
     {
-        var nanobots = ParseInputLines(parseFunc: ParseNanobot).ToList();
+        var nanobots = ParseInputLines(parseFunc: ParseNanobot);
         return part switch
         {
             1 => CountInRangeOfStrongest(nanobots),

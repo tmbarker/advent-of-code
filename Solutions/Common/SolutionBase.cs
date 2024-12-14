@@ -41,9 +41,9 @@ public abstract class SolutionBase
         return File.ReadAllText(InputPath).TrimEnd();
     }
 
-    protected IEnumerable<T> ParseInputLines<T>(Func<string, T> parseFunc)
+    protected T[] ParseInputLines<T>(Func<string, T> parseFunc)
     {
-        return GetInputLines().Select(parseFunc);
+        return GetInputLines().Select(parseFunc).ToArray();
     }
 
     private void AssertInputExists()

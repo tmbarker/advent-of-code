@@ -7,7 +7,7 @@ public sealed class Solution : SolutionBase
     
     public override object Run(int part)
     {
-        var numbers = ParseInputLines(parseFunc: long.Parse).ToList();
+        var numbers = ParseInputLines(parseFunc: long.Parse);
         return part switch
         {
             1 => FindWeakness(numbers),

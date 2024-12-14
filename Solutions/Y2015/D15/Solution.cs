@@ -19,7 +19,7 @@ public sealed class Solution : SolutionBase
 
     private long Optimize(int total, int? calorieReq = null)
     {
-        var props = ParseInputLines(parseFunc: ParseIngredient).ToArray();
+        var props = ParseInputLines(parseFunc: ParseIngredient);
         var max = 0L;
         
         for (var i = 0; i <= total;         i++)

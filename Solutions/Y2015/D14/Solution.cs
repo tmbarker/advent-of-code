@@ -9,7 +9,7 @@ public sealed class Solution : SolutionBase
     
     public override object Run(int part)
     {
-        var reindeer = ParseInputLines(parseFunc: ParseReindeer).ToList();
+        var reindeer = ParseInputLines(parseFunc: ParseReindeer);
         return part switch
         {
             1 => GetMaxDistance(reindeer, time: 2503),

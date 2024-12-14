@@ -5,7 +5,7 @@ public sealed class Solution : SolutionBase
 {
     public override object Run(int part)
     {
-        var offsets = ParseInputLines(parseFunc: int.Parse).ToList();
+        var offsets = ParseInputLines(parseFunc: int.Parse);
         return part switch
         {
             1 => CountSteps(offsets, offsetModifier: offset => offset + 1),

@@ -8,7 +8,7 @@ public sealed class Solution : SolutionBase
 {
     public override object Run(int part)
     {
-        var pois = ParseInputLines(parseFunc: Vec2D.Parse).ToList();
+        var pois = ParseInputLines(parseFunc: Vec2D.Parse);
         return part switch
         {
             1 => GetLargestFiniteArea(pois),
