@@ -67,7 +67,7 @@ public sealed class Solution : SolutionBase
         return on.Count;
     }
 
-    private static void SetCorners(ISet<Vec2D> on, int rows, int cols)
+    private static void SetCorners(HashSet<Vec2D> on, int rows, int cols)
     {
         on.Add(new Vec2D(X: 0, Y: 0));
         on.Add(new Vec2D(X: 0, Y: rows - 1));

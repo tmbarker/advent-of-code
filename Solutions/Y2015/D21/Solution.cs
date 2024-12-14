@@ -80,7 +80,7 @@ public sealed class Solution : SolutionBase
         }
     }
 
-    private static Unit ParseEnemy(IList<string> input)
+    private static Unit ParseEnemy(string[] input)
     {
         return Unit.Spawn(
             hp: input[0].ParseInt(),

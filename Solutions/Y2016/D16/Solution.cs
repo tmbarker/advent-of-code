@@ -16,7 +16,7 @@ public sealed class Solution : SolutionBase
         };
     }
 
-    private static string Validate(IList<bool> data, int length)
+    private static string Validate(List<bool> data, int length)
     {
         while (data.Count < length)
         {
@@ -34,7 +34,7 @@ public sealed class Solution : SolutionBase
         return string.Concat(checksum.Select(b => b ? '1' : '0'));
     }
     
-    private static IList<bool> Generate(IList<bool> data)
+    private static List<bool> Generate(IList<bool> data)
     {
         var b = data
             .Reverse()
@@ -46,7 +46,7 @@ public sealed class Solution : SolutionBase
             .ToList();
     }
 
-    private static IList<bool> Checksum(IList<bool> data)
+    private static List<bool> Checksum(List<bool> data)
     {
         var checksum = new List<bool>();
         for (var i = 0; i < data.Count; i += 2)

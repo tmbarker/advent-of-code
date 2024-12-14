@@ -52,7 +52,7 @@ public sealed class Solution : SolutionBase
         return bugs.Count;
     }
 
-    private static HashSet<Vec3D> StepBugs(IReadOnlySet<Vec3D> bugs, GridType gridType)
+    private static HashSet<Vec3D> StepBugs(HashSet<Vec3D> bugs, GridType gridType)
     {
         var nextBugs = new HashSet<Vec3D>();
         var candidateTiles = GetCandidateTiles(bugs, gridType);
@@ -108,7 +108,7 @@ public sealed class Solution : SolutionBase
         yield return tile + Vec3D.Right;
     }
 
-    private static IEnumerable<Vec3D> GetRecursiveAdjacencies(Vec3D tile)
+    private static List<Vec3D> GetRecursiveAdjacencies(Vec3D tile)
     {
         var adjacent = new List<Vec3D>();
         var depth = tile.Z;
@@ -150,7 +150,7 @@ public sealed class Solution : SolutionBase
         return adjacent;
     }
 
-    private static HashSet<Vec3D> ParseInitialBugs(IList<string> input)
+    private static HashSet<Vec3D> ParseInitialBugs(string[] input)
     {
         var bugs = new HashSet<Vec3D>();
         

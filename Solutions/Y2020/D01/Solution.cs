@@ -14,7 +14,7 @@ public sealed class Solution : SolutionBase
         };
     }
 
-    private static int GetSumPairProduct(int targetSum, IReadOnlySet<int> numbers)
+    private static int GetSumPairProduct(int targetSum, HashSet<int> numbers)
     {
         foreach (var n1 in numbers)
         {
@@ -28,7 +28,7 @@ public sealed class Solution : SolutionBase
         throw new NoSolutionException();
     }
     
-    private static int GetSumTripletProduct(int targetSum, IReadOnlySet<int> numbers)
+    private static int GetSumTripletProduct(int targetSum, HashSet<int> numbers)
     {
         foreach (var n1 in numbers)
         foreach (var n2 in numbers)

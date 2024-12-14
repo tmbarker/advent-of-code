@@ -240,27 +240,27 @@ public sealed class CircularBuffer<T> : IEnumerable<T>
         private const string CapacityExceededFormat = "Capacity exceeded: {0} is greater than the buffer size of {1}";
         private const string IndexInvalidFormat = "Cannot access index {0}, buffer size is {1}";
 
-        public static Exception BufferEmpty()
+        public static InvalidOperationException BufferEmpty()
         {
             return new InvalidOperationException(message: EmptyMessage);
         }
 
-        public static Exception ItemsNull()
+        public static ArgumentException ItemsNull()
         {
             return new ArgumentException(message: ItemsNullMessage);
         }
 
-        public static Exception CapacityInvalid()
+        public static ArgumentException CapacityInvalid()
         {
             return new ArgumentException(message: CapacityInvalidMessage);
         }
 
-        public static Exception CapacityExceeded(int length, int capacity)
+        public static ArgumentException CapacityExceeded(int length, int capacity)
         {
             return new ArgumentException(message: string.Format(CapacityExceededFormat, length, capacity));
         }
 
-        public static Exception IndexInvalid(int index, int count)
+        public static IndexOutOfRangeException IndexInvalid(int index, int count)
         {
             return new IndexOutOfRangeException(message: string.Format(IndexInvalidFormat, index, count));
         }

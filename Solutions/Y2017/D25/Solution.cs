@@ -26,7 +26,7 @@ public sealed class Solution : SolutionBase
         return count;
     }
     
-    private static void ParseInput(IReadOnlyList<string> input, 
+    private static void ParseInput(string[] input, 
         out char state, out Dictionary<char, TuringMachine.State> rules, out int steps)
     {
         state = input[0][^2];

@@ -168,8 +168,9 @@ public static class MapData
             board[x, rows - y - 1] = square;
         }
     }
-    
-    private static void ParsePositionsFromLine(string line, int y, ISet<Vec2D> freePosSet, ISet<Vec2D> blockedPosSet)
+
+    private static void ParsePositionsFromLine(string line, int y, 
+        HashSet<Vec2D> freePosSet, HashSet<Vec2D> blockedPosSet)
     {
         for (var x = 0; x < line.Length; x++)
         {

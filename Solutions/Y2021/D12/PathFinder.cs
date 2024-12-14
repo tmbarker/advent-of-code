@@ -39,7 +39,7 @@ public sealed class PathFinder(IDictionary<string, HashSet<string>> adjacencyMap
         visitedCounts[current]--;
     }
 
-    private bool CanVisit(string target, IReadOnlyDictionary<string, int> visitedCounts)
+    private bool CanVisit(string target, Dictionary<string, int> visitedCounts)
     {
         if (target == EndId || target.All(char.IsUpper) || visitedCounts[target] == 0)
         {

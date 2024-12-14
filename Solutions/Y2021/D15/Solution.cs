@@ -64,9 +64,9 @@ public sealed class Solution : SolutionBase
             .Where(map.Contains);
     }
 
-    private static void ParseRiskMap(IList<string> input, int tilesPerSide, out Grid2D<int> map, out Vec2D s, out Vec2D e)
+    private static void ParseRiskMap(string[] input, int tilesPerSide, out Grid2D<int> map, out Vec2D s, out Vec2D e)
     {
-        var rowsPerTile = input.Count;
+        var rowsPerTile = input.Length;
         var colsPerTile = input[0].Length;
         var totalRows = tilesPerSide * rowsPerTile;
         var totalCols = tilesPerSide * colsPerTile;

@@ -60,7 +60,7 @@ public sealed class Solution : SolutionBase
         return time;
     }
     
-    private static void ParseInput(IList<string> input, out int timestamp, out IList<string> busIds)
+    private static void ParseInput(string[] input, out int timestamp, out IList<string> busIds)
     {
         timestamp = int.Parse(input[0]);
         busIds = new List<string>(input[1].Split(separator: ','));

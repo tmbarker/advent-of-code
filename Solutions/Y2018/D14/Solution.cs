@@ -58,7 +58,7 @@ public sealed class Solution : SolutionBase
         }
     }
 
-    private static void TickRecipes(List<int> recipes, IList<int> elves)
+    private static void TickRecipes(List<int> recipes, List<int> elves)
     {
         var sum = elves.Sum(e => recipes[e]);
         var newRecipes = GetDigits(sum);
@@ -74,7 +74,7 @@ public sealed class Solution : SolutionBase
         }
     }
     
-    private static bool TryMatchSequence(IReadOnlyList<int> recipes, IEnumerable<int> sequence, int start)
+    private static bool TryMatchSequence(List<int> recipes, IEnumerable<int> sequence, int start)
     {
         return !sequence.Where((t, i) => recipes[start + i] != t).Any();
     }

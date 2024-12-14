@@ -2,8 +2,8 @@ using Utilities.Geometry.Euclidean;
 
 namespace Solutions.Y2019.D03;
 
-using Route = IEnumerable<string>;
-using PathCosts = IDictionary<Vec2D, int>;
+using Route = string[];
+using PathCosts = Dictionary<Vec2D, int>;
 
 [PuzzleInfo("Crossed Wires", Topics.Vectors, Difficulty.Easy, favourite: true)]
 public sealed class Solution : SolutionBase
@@ -52,7 +52,7 @@ public sealed class Solution : SolutionBase
     
     private static PathCosts GetPathCosts(Route instructions)
     {
-        var map = new Dictionary<Vec2D, int>();
+        var map = new PathCosts();
         var pos = Vec2D.Zero;
         var cost = 0;
         
@@ -73,7 +73,7 @@ public sealed class Solution : SolutionBase
         return map;
     }
 
-    private static (Route W1, Route W2) ParseWireRoutes(IList<string> input)
+    private static (Route W1, Route W2) ParseWireRoutes(string[] input)
     {
         var w1 = input[0].Split(separator: ',');
         var w2 = input[1].Split(separator: ',');

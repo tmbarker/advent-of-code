@@ -14,12 +14,12 @@ public sealed class Solution : SolutionBase
         };
     }
 
-    private static int CountSteps(IList<int> offsets, Func<int, int> offsetModifier)
+    private static int CountSteps(int[] offsets, Func<int, int> offsetModifier)
     {
         var ip = 0;
         var steps = 0;
         
-        while (ip >= 0 && ip < offsets.Count)
+        while (ip >= 0 && ip < offsets.Length)
         {
             var jumpTo = ip + offsets[ip];
             offsets[ip] = offsetModifier(offsets[ip]);

@@ -87,7 +87,7 @@ public sealed class Solution : SolutionBase
     }
     
     private static IEnumerable<Vec2D> GetEmptyAdjacent(Grid2D<char> grid, Vec2D pos,
-        IDictionary<Vec2D, ISet<Vec2D>> memo)
+        Dictionary<Vec2D, ISet<Vec2D>> memo)
     {
         if (memo.TryGetValue(pos, out var cached))
         {

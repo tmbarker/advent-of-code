@@ -4,8 +4,8 @@ namespace Solutions.Y2019.D20;
 
 public sealed class PortalMap(IDictionary<PortalKey, List<PortalEntrance>> entranceMap)
 {
-    private readonly IDictionary<Vec2D, EntranceType> _typeMap = BuildTypeMap(entranceMap);
-    private readonly IDictionary<Vec2D, Vec2D> _connectionMap = BuildConnectionMap(entranceMap);
+    private readonly Dictionary<Vec2D, EntranceType> _typeMap = BuildTypeMap(entranceMap);
+    private readonly Dictionary<Vec2D, Vec2D> _connectionMap = BuildConnectionMap(entranceMap);
 
     public bool TryTakePortal(Vec2D from, out EntranceType entranceType, out Vec2D exit)
     {

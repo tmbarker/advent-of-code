@@ -85,7 +85,7 @@ public sealed class Solution : SolutionBase
         return numMoves;
     }
 
-    private static int EmptyPositionsInBoundingBox(ICollection<Vec2D> positions)
+    private static int EmptyPositionsInBoundingBox(HashSet<Vec2D> positions)
     {
         var aabb = new Aabb2D(extents: positions);
         var emptyCount = aabb.Area - positions.Count;
@@ -93,14 +93,14 @@ public sealed class Solution : SolutionBase
         return (int)emptyCount;
     }
 
-    private static HashSet<Vec2D> ParsePositions(IList<string> input)
+    private static HashSet<Vec2D> ParsePositions(string[] input)
     {
         var set = new HashSet<Vec2D>();
         
-        for (var y = 0; y < input.Count; y++)
+        for (var y = 0; y < input.Length; y++)
         for (var x = 0; x < input[y].Length; x++)
         {
-            if (input[input.Count - y - 1][x] == '#')
+            if (input[input.Length - y - 1][x] == '#')
             {
                 set.Add(new Vec2D(x, y));
             }

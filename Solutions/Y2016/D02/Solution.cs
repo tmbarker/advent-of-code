@@ -47,7 +47,7 @@ public sealed class Solution : SolutionBase
         };
     }
 
-    private string BuildCode(Vec2D pos, IReadOnlyDictionary<Vec2D, char> map)
+    private string BuildCode(Vec2D pos, Dictionary<Vec2D, char> map)
     {
         var instructions = GetInputLines();
         var sb = new StringBuilder();

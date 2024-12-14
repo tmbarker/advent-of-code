@@ -46,7 +46,7 @@ public sealed class Solution : SolutionBase
             .Max(seating => Score(seating, costs));
     }
 
-    private static int Score(IEnumerable<string> seats, IDictionary<(string, string), int> costs)
+    private static int Score(IEnumerable<string> seats, Dictionary<(string, string), int> costs)
     {
         var score = 0;
         var circle = new CircularLinkedList<string>(seats);

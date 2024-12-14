@@ -7,7 +7,7 @@ public static class Sim
     private static readonly IComparer<Group> TargetPriorityComparer = new TargetPriorityComparer();
     private static readonly IComparer<Group> AttackPriorityComparer = new AttackPriorityComparer();
     
-    private static readonly IReadOnlyDictionary<Team, Team> EnemiesMap = new Dictionary<Team, Team>
+    private static readonly Dictionary<Team, Team> EnemiesMap = new()
     {
         { Team.Infection, Team.ImmuneSystem },
         { Team.ImmuneSystem, Team.Infection }

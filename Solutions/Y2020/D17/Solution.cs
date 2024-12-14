@@ -40,7 +40,7 @@ public sealed class Solution : SolutionBase
         return active.Count;
     }
 
-    private static ISet<Vec3D> Cycle3D(ICollection<Vec3D> active)
+    private static HashSet<Vec3D> Cycle3D(ICollection<Vec3D> active)
     {
         var nextActive = new HashSet<Vec3D>();
         foreach (var pos in new Aabb3D(active, inclusive: false))
@@ -54,7 +54,7 @@ public sealed class Solution : SolutionBase
         return nextActive;
     }
     
-    private static ISet<Vec4D> Cycle4D(ICollection<Vec4D> active)
+    private static HashSet<Vec4D> Cycle4D(ICollection<Vec4D> active)
     {
         var nextActive = new HashSet<Vec4D>();
         foreach (var pos in new Aabb4D(active, inclusive: false))
@@ -80,7 +80,7 @@ public sealed class Solution : SolutionBase
         }
     }
     
-    private static ISet<T> ParseInitial<T>(IList<string> input, Func<int,int, T> parseFunc)
+    private static HashSet<T> ParseInitial<T>(IList<string> input, Func<int,int, T> parseFunc)
     {
         var set = new HashSet<T>();
         var rows = input.Count;

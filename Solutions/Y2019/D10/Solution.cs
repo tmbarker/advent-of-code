@@ -91,9 +91,9 @@ public sealed class Solution : SolutionBase
         return new Queue<Vec2D>(to.OrderBy(v => Vec2D.Distance(v, from, Metric.Taxicab)));
     }
     
-    private static HashSet<Vec2D> ParseAsteroids(IList<string> input, out Func<Vec2D, Vec2D> transform)
+    private static HashSet<Vec2D> ParseAsteroids(string[] input, out Func<Vec2D, Vec2D> transform)
     {
-        var rows = input.Count;
+        var rows = input.Length;
         var cols = input[0].Length;
         var asteroids = new HashSet<Vec2D>();
 
@@ -106,7 +106,7 @@ public sealed class Solution : SolutionBase
             }
         }
 
-        transform = v => new Vec2D(v.X, rows - 1 - v.Y);
+        transform = v => v with { Y = rows - 1 - v.Y };
         return asteroids;
     }
 }

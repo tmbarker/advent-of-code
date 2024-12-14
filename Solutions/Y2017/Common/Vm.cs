@@ -6,7 +6,7 @@ public sealed class Vm
 {
     private readonly DefaultDict<string, long> _registers;
     private readonly Dictionary<string, Action> _listeners;
-    private readonly IList<string[]> _instructions;
+    private readonly List<string[]> _instructions;
     private long _ip;
 
     public event Action<long>? DataTransmitted; 

@@ -51,17 +51,17 @@ public static class KnotHash
         return buffer;
     }
 
-    private static void ReverseSegment(IList<byte> buffer, int start, int count)
+    private static void ReverseSegment(byte[] buffer, int start, int count)
     {
         var stack = new Stack<byte>();
         for (var i = 0; i < count; i++)
         {
-            stack.Push(buffer[(start + i) % buffer.Count]);
+            stack.Push(buffer[(start + i) % buffer.Length]);
         }
 
         for (var i = 0; i < count; i++)
         {
-            buffer[(start + i) % buffer.Count] = stack.Pop();
+            buffer[(start + i) % buffer.Length] = stack.Pop();
         }
     }
 }

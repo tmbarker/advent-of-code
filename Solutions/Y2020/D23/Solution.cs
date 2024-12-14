@@ -64,12 +64,12 @@ public sealed class Solution : SolutionBase
         return nextCupMap;
     }
     
-    private static string FormWrappingString(IReadOnlyList<int> nextCupMap)
+    private static string FormWrappingString(int[] nextCupMap)
     {
         var next = 1;
         var sb = new StringBuilder();
         
-        for (var i = 0; i < nextCupMap.Count - 2; i++)
+        for (var i = 0; i < nextCupMap.Length - 2; i++)
         {
             next = nextCupMap[next];
             sb.Append(next);
@@ -78,14 +78,14 @@ public sealed class Solution : SolutionBase
         return sb.ToString();
     }
 
-    private static long ComputeProduct(IReadOnlyList<int> nextCupMap)
+    private static long ComputeProduct(int[] nextCupMap)
     {
         var nc1 = nextCupMap[1];
         var nc2 = nextCupMap[nc1];
         return (long)nc1 * nc2;
     }
     
-    private static IList<int> Pad(IList<int> numbers, int length)
+    private static List<int> Pad(List<int> numbers, int length)
     {
         var padded = new List<int>(Enumerable.Range(1, length));
         for (var i = 0; i < numbers.Count; i++)

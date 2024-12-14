@@ -5,8 +5,8 @@ using Utilities.Graph;
 
 namespace Solutions.Y2019.D15;
 
-using FieldMap = IDictionary<Vec2D, Tile>;
-using CostsMap = IDictionary<Vec2D, int>;
+using FieldMap = Dictionary<Vec2D, Tile>;
+using CostsMap = Dictionary<Vec2D, int>;
 
 [PuzzleInfo("Oxygen System", Topics.IntCode|Topics.Vectors, Difficulty.Medium)]
 public sealed class Solution : IntCodeSolution

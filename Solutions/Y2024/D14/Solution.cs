@@ -20,9 +20,9 @@ public class Solution : SolutionBase
             return new Robot(pos, vel);
         }
 
-        public void Tick(Aabb2D aabb)
+        public void Tick(Aabb2D aabb, int k)
         {
-            var naive = Pos + Vel;
+            var naive = Pos + k * Vel;
             Pos = new Vec2D(naive.X.Modulo(aabb.Width), naive.Y.Modulo(aabb.Height));
         }
     }
@@ -42,10 +42,9 @@ public class Solution : SolutionBase
     
     private static int GetSafetyFactor(Robot[] robots, Aabb2D aabb)
     {
-        for (var t = 0; t < 100; t++)
         for (var i = 0; i < robots.Length; i++)
         {
-            robots[i].Tick(aabb);
+            robots[i].Tick(aabb, k: 100);
         }
 
         return robots.Count(r => r.Pos is { X: < Width / 2, Y: < Height / 2 }) *
@@ -63,11 +62,11 @@ public class Solution : SolutionBase
         {
             for (var i = 0; i < robots.Length; i++)
             {
-                robots[i].Tick(aabb);
+                robots[i].Tick(aabb, k: 1);
             }
 
             var center = robots.Aggregate(seed: Vec2D.Zero, (sum, r) => sum + r.Pos) / robots.Length;
-            var weight = robots.Sum(r => Vec2D.Distance(r.Pos, center, Metric.Taxicab));
+            var weight = robots.Sum(robot => Vec2D.Distance(robot.Pos, center, Metric.Taxicab));
             
             if (weight < maxDensity)
             {

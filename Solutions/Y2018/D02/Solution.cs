@@ -20,9 +20,9 @@ public sealed class Solution : SolutionBase
             ids.Count(id => HasExactCountOfAnyLetter(id, c2));
     }
 
-    private static string GetCommonCorrectLetters(IList<string> ids)
+    private static string GetCommonCorrectLetters(string[] ids)
     {
-        var numIds = ids.Count;
+        var numIds = ids.Length;
         var idLength = ids[0].Length;
         
         for (var i = 0; i < numIds; i++)

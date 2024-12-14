@@ -127,7 +127,7 @@ public sealed class Solution : SolutionBase
         return decodedSegmentsMap;
     }
 
-    private static int DecodeOutputDigits(IList<string> outputDigitSegments, IReadOnlyDictionary<char, char> map)
+    private static int DecodeOutputDigits(List<string> outputDigitSegments, Dictionary<char, char> map)
     {
         const int decimalBase = 10;
         var output = 0;
@@ -160,7 +160,7 @@ public sealed class Solution : SolutionBase
         return distinct.Keys;
     }
 
-    private static IDictionary<char, int> FormExpectedSegmentFrequencyMap()
+    private static Dictionary<char, int> FormExpectedSegmentFrequencyMap()
     {
         var frequencyMap = RequiredSegmentsMap[8].ToDictionary(c => c, _ => 0);
         
@@ -173,7 +173,7 @@ public sealed class Solution : SolutionBase
         return frequencyMap;
     }
 
-    private static IDictionary<char, int> FormObservedSegmentFrequencyMap(IEnumerable<string> observations)
+    private static DefaultDict<char, int> FormObservedSegmentFrequencyMap(IEnumerable<string> observations)
     {
         var frequencyMap = new DefaultDict<char, int>(defaultValue: 0);
         

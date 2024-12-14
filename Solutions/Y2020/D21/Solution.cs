@@ -73,7 +73,7 @@ public sealed class Solution : SolutionBase
             .Select(allergen => allergensMap[allergen]));
     }
     
-    private static IList<Food> ParseFoods(IEnumerable<string> input)
+    private static List<Food> ParseFoods(IEnumerable<string> input)
     {
         var regex = new Regex(@"(?:([a-z]+)+\s)+\(contains(?: ([a-z]+)(?:,|\)))+");
         return input

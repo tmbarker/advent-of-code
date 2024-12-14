@@ -21,7 +21,7 @@ public sealed class Solution : SolutionBase
         };
     }
 
-    private static long Search(IList<long> numbers, long target)
+    private static long Search(long[] numbers, long target)
     {
         var initial = new State(Index: -1, Include: false, Sum: 0, Remaining: numbers.Sum());
         var parentMap = new Dictionary<State, State>();
@@ -37,7 +37,7 @@ public sealed class Solution : SolutionBase
                 continue;
             }
 
-            if (state.Sum > target || state.Remaining < target - state.Sum || state.Index >= numbers.Count - 1)
+            if (state.Sum > target || state.Remaining < target - state.Sum || state.Index >= numbers.Length - 1)
             {
                 continue;
             }

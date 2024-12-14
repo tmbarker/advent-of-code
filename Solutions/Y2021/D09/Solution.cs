@@ -69,7 +69,7 @@ public sealed class Solution : SolutionBase
         return visited.Count;
     }
     
-    private static IEnumerable<Vec2D> GetLowPoints(Grid2D<int> grid)
+    private static List<Vec2D> GetLowPoints(Grid2D<int> grid)
     {
         var lowPoints = new List<Vec2D>();
         

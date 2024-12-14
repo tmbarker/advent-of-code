@@ -33,9 +33,9 @@ public sealed class Solution : SolutionBase
         return FormOutputString(data.Take(MessageLength));
     }
     
-    private static string ExecuteFast(IReadOnlyList<int> input, int inputRepetitions, int messageOffset)
+    private static string ExecuteFast(int[] input, int inputRepetitions, int messageOffset)
     {
-        var inputLength = input.Count * inputRepetitions;
+        var inputLength = input.Length * inputRepetitions;
         var digitsToSkip = Enumerable
             .Range(0, messageOffset)
             .Sum(n => (int)Math.Pow(10, n) * input[messageOffset - n - 1]);
@@ -53,7 +53,7 @@ public sealed class Solution : SolutionBase
 
         for (var i = 0; i < outputLength; i++)
         {
-            data[i] = input[(i + digitsToSkip) % input.Count];
+            data[i] = input[(i + digitsToSkip) % input.Length];
         }
         
         // In the second half of the datastream, each pattern digit is always '1', this means that each output digit
@@ -77,9 +77,9 @@ public sealed class Solution : SolutionBase
         return FormOutputString(data.Take(MessageLength));
     }
     
-    private static int[] Phase(IReadOnlyList<int> data)
+    private static int[] Phase(int[] data)
     {
-        var length = data.Count;
+        var length = data.Length;
         var output = new int[length];
         
         for (var i = 0; i < length; i++)

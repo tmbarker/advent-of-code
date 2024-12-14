@@ -17,7 +17,7 @@ public sealed class Solution : SolutionBase
         };
     }
 
-    private static long ComputeConsumptionRate(IList<string> numbers)
+    private static long ComputeConsumptionRate(string[] numbers)
     {
         var numBits = numbers[0].Length;
         var setBitsCountMap = new Dictionary<int, int>(numBits);
@@ -32,7 +32,7 @@ public sealed class Solution : SolutionBase
 
         for (var i = 0; i < numBits; i++)
         {
-            if (setBitsCountMap[i] > numbers.Count / 2)
+            if (setBitsCountMap[i] > numbers.Length / 2)
             {
                 gamma += SetBitToDecimal(i);
             }

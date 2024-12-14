@@ -50,9 +50,9 @@ public sealed class Solution : SolutionBase
         return max;
     }
 
-    private static Graph ParseGraph(IList<string> input, bool slopes, out Vec2D start, out Vec2D end)
+    private static Graph ParseGraph(string[] input, bool slopes, out Vec2D start, out Vec2D end)
     {
-        start = new Vec2D(X: input[0].IndexOf('.'),  Y: input.Count - 1);
+        start = new Vec2D(X: input[0].IndexOf('.'),  Y: input.Length - 1);
         end =   new Vec2D(X: input[^1].IndexOf('.'), Y: 0);
         
         var grid = Grid2D<char>.MapChars(input);

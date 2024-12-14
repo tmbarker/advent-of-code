@@ -69,13 +69,13 @@ public sealed class Solution : SolutionBase
         operators.Push(token);
     }
 
-    private static IEnumerable<Queue<char>> ParseExpressions(IEnumerable<string> input)
+    private static List<Tokens> ParseExpressions(IEnumerable<string> input)
     {
-        return new List<Queue<char>>(input.Select(ParseTokens));
+        return [..input.Select(ParseTokens)];
     }
     
-    private static Queue<char> ParseTokens(string expression)
+    private static Tokens ParseTokens(string expression)
     {
-        return new Queue<char>(expression.RemoveWhitespace());
+        return new Tokens(expression.RemoveWhitespace());
     }
 }

@@ -78,14 +78,14 @@ public sealed class Solution : SolutionBase
         return !occupied.Contains(movedTo);
     }
 
-    private static ICollection<Vec2D> FlattenHerds(Herds herds)
+    private static List<Vec2D> FlattenHerds(Herds herds)
     {
-        return new List<Vec2D>(herds.Values.SelectMany(m => m));
+        return [..herds.Values.SelectMany(m => m)];
     }
 
-    private static void ParseInput(IList<string> input, out Dictionary<Vec2D, ISet<Vec2D>> herds, out Aabb2D bounds)
+    private static void ParseInput(string[] input, out Herds herds, out Aabb2D bounds)
     {
-        var rows = input.Count;
+        var rows = input.Length;
         var cols = input[0].Length;
 
         bounds = new Aabb2D(xMin: 0, xMax: cols - 1, yMin: 0, yMax: rows - 1);

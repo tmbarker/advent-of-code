@@ -25,7 +25,7 @@ public sealed class Solution : SolutionBase
         return s.Aggregate(seed: 0, func: (val, c) => (val + c) * 17 % 256);
     }
     
-    private static int Install(IEnumerable<string> instructions, IDictionary<int, Box> boxes)
+    private static int Install(IEnumerable<string> instructions, DefaultDict<int, Box> boxes)
     {
         foreach (var instr in instructions)
         {

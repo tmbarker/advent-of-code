@@ -68,12 +68,12 @@ public sealed class Solution : SolutionBase
         return sum;
     }
     
-    private static Schematic BuildSchematic(IReadOnlyList<string> lines)
+    private static Schematic BuildSchematic(string[] lines)
     {
         var symbols = new DefaultDict<char, HashSet<Vec2D>>(defaultSelector: _ => []);
         var numbers = new List<Number>();
 
-        for (var y = 0; y < lines.Count; y++)
+        for (var y = 0; y < lines.Length; y++)
         for (var x = 0; x < lines[0].Length; x++)
         {
             if (lines[y][x] == Void)

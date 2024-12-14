@@ -107,7 +107,7 @@ public sealed class Solution : SolutionBase
         return false;
     }
     
-    private static ISet<Vec2D> FormRockPositionsSet(IEnumerable<string> input)
+    private static HashSet<Vec2D> FormRockPositionsSet(IEnumerable<string> input)
     {
         var set = new HashSet<Vec2D>();
         foreach (var line in input)

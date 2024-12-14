@@ -98,10 +98,10 @@ public sealed class Solution : SolutionBase
         return congruences;
     }
 
-    private static IEnumerable<IList<int>> ParseProgram(IReadOnlyList<string> input)
+    private static IEnumerable<IList<int>> ParseProgram(string[] input)
     {
         var reversedInstr = new List<IList<int>>();
-        for (var i = input.Count - 1; i >= 0 && !string.IsNullOrWhiteSpace(input[i]); i--)
+        for (var i = input.Length - 1; i >= 0 && !string.IsNullOrWhiteSpace(input[i]); i--)
         {
             reversedInstr.Add(input[i].ParseInts());
         }
@@ -117,7 +117,7 @@ public sealed class Solution : SolutionBase
         }
     }
 
-    private static Observation ParseObservation(IList<string> chunk)
+    private static Observation ParseObservation(string[] chunk)
     {
         return new Observation(
             Before: chunk[0].ParseInts(),

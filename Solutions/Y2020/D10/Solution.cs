@@ -19,7 +19,7 @@ public sealed class Solution : SolutionBase
         };
     }
 
-    private static int ComputeAdapterDifferencesProduct(IReadOnlyList<int> sortedAdapters)
+    private static int ComputeAdapterDifferencesProduct(List<int> sortedAdapters)
     {
         var differences = DifferencesOfInterest.ToDictionary(
             keySelector: d => d,

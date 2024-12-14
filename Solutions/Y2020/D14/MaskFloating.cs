@@ -3,7 +3,7 @@ namespace Solutions.Y2020.D14;
 public readonly struct MaskFloating
 {
     private readonly ulong _setMask;
-    private readonly IList<int> _floatingBitIndices;
+    private readonly List<int> _floatingBitIndices;
 
     public MaskFloating(string maskStr)
     {
@@ -57,7 +57,7 @@ public readonly struct MaskFloating
         }
     }
     
-    private static IList<bool> GetBitsLsbFirst(ulong value, int padToLength)
+    private static List<bool> GetBitsLsbFirst(ulong value, int padToLength)
     {
         var bits = new List<bool>();
         while (value > 0 || bits.Count < padToLength)

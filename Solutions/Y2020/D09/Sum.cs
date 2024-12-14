@@ -3,7 +3,7 @@ namespace Solutions.Y2020.D09;
 public sealed class Sum
 {
     public long Value { get; private set; }
-    private IList<long> Elements { get; } = new List<long>();
+    private List<long> Elements { get; } = [];
 
     public Sum(long initial)
     {

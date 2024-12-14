@@ -75,9 +75,9 @@ public sealed class Solution : SolutionBase
         return lastValue;
     }
 
-    private static IList<Cpu.Instruction> ParseInstructions(IEnumerable<string> lines)
+    private static List<Cpu.Instruction> ParseInstructions(IEnumerable<string> lines)
     {
-        return new List<Cpu.Instruction>(lines.Select(ParseInstruction));
+        return [..lines.Select(ParseInstruction)];
     }
 
     private static Cpu.Instruction ParseInstruction(string line)

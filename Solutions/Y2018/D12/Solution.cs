@@ -53,7 +53,7 @@ public sealed class Solution : SolutionBase
         return (step, s1, s2 - s1);
     }
 
-    private static HashSet<long> Step(IReadOnlySet<long> state, IReadOnlyDictionary<uint, bool> rules)
+    private static HashSet<long> Step(HashSet<long> state, IReadOnlyDictionary<uint, bool> rules)
     {
         var next = new HashSet<long>();
         var min = state.Min() - 2;

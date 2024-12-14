@@ -54,17 +54,17 @@ public sealed class Solution : SolutionBase
         return (message.ToString(), time);
     }
 
-    private static void StepForwards(IList<Vec2D> pos, IList<Vec2D> vel)
+    private static void StepForwards(Vec2D[] pos, Vec2D[] vel)
     {
-        for (var i = 0; i < pos.Count; i++)
+        for (var i = 0; i < pos.Length; i++)
         {
             pos[i] += vel[i];
         }
     }
     
-    private static void StepBackwards(IList<Vec2D> pos, IList<Vec2D> vel)
+    private static void StepBackwards(Vec2D[] pos, Vec2D[] vel)
     {
-        for (var i = 0; i < pos.Count; i++)
+        for (var i = 0; i < pos.Length; i++)
         {
             pos[i] -= vel[i];
         }

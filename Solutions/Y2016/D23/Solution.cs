@@ -26,7 +26,7 @@ public sealed class Solution : SolutionBase
         return vm["a"];
     }
     
-    private static long RunProgramOptimized(IList<string[]> program, long numEggs)
+    private static long RunProgramOptimized(List<string[]> program, long numEggs)
     {
         //  This calculation was determined by analyzing the assembly. The program
         //  (after all toggles have been executed) returns the sum of the factorial

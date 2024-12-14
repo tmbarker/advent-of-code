@@ -9,7 +9,7 @@ public sealed class Solution : SolutionBase
     {
         var input = GetInputLines();
         var ipAdr = input[0].ParseInt();
-        var program = ParseInstructions(input[1..]);
+        var program = input[1..].Select(ParseInstruction).ToArray();
 
         return part switch
         {
@@ -25,11 +25,6 @@ public sealed class Solution : SolutionBase
         var ec = cpu.Run(program, enableOptimizations);
 
         return ec;
-    }
-
-    private static IList<Cpu.Instruction> ParseInstructions(IEnumerable<string> lines)
-    {
-        return new List<Cpu.Instruction>(lines.Select(ParseInstruction));
     }
 
     private static Cpu.Instruction ParseInstruction(string line)

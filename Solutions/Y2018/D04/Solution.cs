@@ -27,7 +27,7 @@ public sealed class Solution : SolutionBase
         };
     }
 
-    private static IDictionary<int, List<int>> BuildSleepMap(IEnumerable<LogEntry> logs)
+    private static DefaultDict<int, List<int>> BuildSleepMap(IEnumerable<LogEntry> logs)
     {
         var sleepMap = new DefaultDict<int, List<int>>(defaultSelector: _ => []);
         var ordered = logs

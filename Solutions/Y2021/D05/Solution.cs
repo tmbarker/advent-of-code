@@ -24,7 +24,7 @@ public sealed class Solution : SolutionBase
         return ventMap.Values.Count(v => v > 1);
     }
     
-    private static IDictionary<Vec2D, int> BuildVentMap(IEnumerable<(Vec2D V1, Vec2D V2)> lines, bool ignoreDiagonals)
+    private static DefaultDict<Vec2D, int> BuildVentMap(IEnumerable<(Vec2D V1, Vec2D V2)> lines, bool ignoreDiagonals)
     {
         var map = new DefaultDict<Vec2D, int>(defaultValue: 0);
 

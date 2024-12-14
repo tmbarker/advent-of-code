@@ -32,7 +32,7 @@ public sealed class Solution : SolutionBase
         return numPaths;
     }
 
-    private static IDictionary<string, HashSet<string>> ParseAdjacencyMap(IEnumerable<string> lines)
+    private static DefaultDict<string, HashSet<string>> ParseAdjacencyMap(IEnumerable<string> lines)
     {
         var adjacencyMap = new DefaultDict<string, HashSet<string>>(defaultSelector: _ => []);
         foreach (var line in lines)

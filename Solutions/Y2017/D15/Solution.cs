@@ -54,7 +54,7 @@ public sealed class Solution : SolutionBase
         return count;
     }
 
-    private static (ulong A, ulong B) ParseSeeds(IList<string> input)
+    private static (ulong A, ulong B) ParseSeeds(string[] input)
     {
         var seedA = (ulong)input[0].ParseInt();
         var seedB = (ulong)input[1].ParseInt();

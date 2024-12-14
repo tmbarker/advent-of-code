@@ -3,8 +3,8 @@ using Utilities.Graph;
 
 namespace Solutions.Y2019.D06;
 
-using OrbitMap = IDictionary<string, string>;
-using Memo = IDictionary<string, int>;
+using OrbitMap = Dictionary<string, string>;
+using Memo = Dictionary<string, int>;
 
 [PuzzleInfo("Universal Orbit Map", Topics.Graphs|Topics.Recursion, Difficulty.Easy, favourite: true)]
 public sealed class Solution : SolutionBase
@@ -26,7 +26,7 @@ public sealed class Solution : SolutionBase
 
     private static int CountOrbits(OrbitMap orbits)
     {
-        var memo = new Dictionary<string, int> { { Com, 0 } };
+        var memo = new Memo { { Com, 0 } };
         return orbits.Keys.Sum(body => CountOrbits(body, orbits, memo));
     }
 

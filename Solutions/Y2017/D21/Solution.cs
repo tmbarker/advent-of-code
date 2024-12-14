@@ -4,7 +4,7 @@ using Utilities.Extensions;
 namespace Solutions.Y2017.D21;
 
 using Transform = Func<Pattern, Pattern>;
-using Rules = IReadOnlyDictionary<string, string>;
+using Rules = Dictionary<string, string>;
 
 [PuzzleInfo("Fractal Art", Topics.Vectors, Difficulty.Medium, favourite: true)]
 public sealed class Solution : SolutionBase
@@ -75,8 +75,8 @@ public sealed class Solution : SolutionBase
 
     private static Rules ParseEnhancementRules(IEnumerable<string> lines)
     {
-        var regex = new Regex(@"(?<Input>[.#/]+) => (?<Output>[.#/]+)");
-        var map = new Dictionary<string, string>();
+        var regex = new Regex("(?<Input>[.#/]+) => (?<Output>[.#/]+)");
+        var map = new Rules();
         
         foreach (var line in lines)
         {

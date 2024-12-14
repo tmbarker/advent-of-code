@@ -116,7 +116,7 @@ public sealed class Solution : SolutionBase
         return potential * kinematic;
     }
 
-    private static Dictionary<Moon, State> ParseInitialStates(IList<string> input)
+    private static Dictionary<Moon, State> ParseInitialStates(string[] input)
     {
         return new Dictionary<Moon, State>
         {

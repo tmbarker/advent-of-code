@@ -85,8 +85,9 @@ public sealed class Solution : SolutionBase
             ? EvaluateArithmeticOperation(op, lhs: known, rhs: equals)
             : EvaluateArithmeticOperation(InverseOperators[op], lhs: equals, rhs: known);
     }
-    
-    private static Queue<AlgebraicOperation> GetOperations(string expressionId, string unknown, IDictionary<string, Expression> expressions, IDictionary<string, long> results)
+
+    private static Queue<AlgebraicOperation> GetOperations(string expressionId, string unknown,
+        Dictionary<string, Expression> expressions, Dictionary<string, long> results)
     {
         var operations = new Queue<AlgebraicOperation>();
         var currentExpId = expressionId;
@@ -162,7 +163,7 @@ public sealed class Solution : SolutionBase
             .ToDictionary(identity => identity.Id, identity => identity.Value);
     }
     
-    private static IList<Expression> ParseExpressions(IEnumerable<string> lines)
+    private static List<Expression> ParseExpressions(IEnumerable<string> lines)
     {
         return lines.Select(ExpressionFactory.Parse).ToList();
     }

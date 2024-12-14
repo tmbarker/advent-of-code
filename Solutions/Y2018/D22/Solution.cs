@@ -90,7 +90,7 @@ public sealed class Solution : SolutionBase
         }
     }
 
-    private static Scan ParseInput(IList<string> input)
+    private static Scan ParseInput(string[] input)
     {
         return new Scan(
             Depth: input[0].ParseInt(),

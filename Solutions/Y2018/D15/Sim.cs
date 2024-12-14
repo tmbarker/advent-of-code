@@ -39,7 +39,7 @@ public static class Sim
         return result;
     }
 
-    private static IList<int> GetTurnOrder(GameState state)
+    private static List<int> GetTurnOrder(GameState state)
     {
         return state.Units.Values
             .Where(unit => !unit.Dead)

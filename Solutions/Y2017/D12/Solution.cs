@@ -57,7 +57,7 @@ public sealed class Solution : SolutionBase
         return disjointSet.PartitionsCount;
     }
 
-    private static IDictionary<int, HashSet<int>> ParseAdjacency(IEnumerable<string> input)
+    private static Dictionary<int, HashSet<int>> ParseAdjacency(IEnumerable<string> input)
     {
         var regex = new Regex(@"(?<Id>\d+) <->(?: (?<Adj>\d+),?)+");
         var adjacency = new Dictionary<int, HashSet<int>>();

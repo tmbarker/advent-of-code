@@ -31,8 +31,9 @@ public sealed class Solution : SolutionBase
 
         return litInImage.Count;
     }
-    
-    private static ISet<Vec2D> EnhanceImage(Aabb2D imageRect, ICollection<Vec2D> litInImage, IList<bool> algorithm, bool backgroundLit)
+
+    private static HashSet<Vec2D> EnhanceImage(Aabb2D imageRect, ICollection<Vec2D> litInImage, IList<bool> algorithm,
+        bool backgroundLit)
     {
         var litInEnhanced = new HashSet<Vec2D>();
         
@@ -76,7 +77,7 @@ public sealed class Solution : SolutionBase
         return index;
     }
     
-    private static void ParseInput(IList<string> input, out ISet<Vec2D> litInImage, out IList<bool> algorithm)
+    private static void ParseInput(string[] input, out ISet<Vec2D> litInImage, out IList<bool> algorithm)
     {
         var algorithmStr = input[0];
         var imageStr = input.Skip(2).ToList();

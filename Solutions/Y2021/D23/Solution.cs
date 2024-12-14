@@ -65,7 +65,7 @@ public sealed class Solution : SolutionBase
         return movePool;
     }
 
-    private static IList<Move> FindActorMoves(char actor, Vec2D fromPos, State state, Field field)
+    private static List<Move> FindActorMoves(char actor, Vec2D fromPos, State state, Field field)
     {
         var atWaitingPos = field.WaitingPositions.Contains(fromPos);
         var destination = field.SideRooms[actor];

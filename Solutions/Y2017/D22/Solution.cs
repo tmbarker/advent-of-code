@@ -28,7 +28,7 @@ public sealed class Solution : SolutionBase
         };
     }
 
-    private static int CountInfected(IDictionary<Vec2D, State> grid, Pose2D pose, int strength, int bursts)
+    private static int CountInfected(DefaultDict<Vec2D, State> grid, Pose2D pose, int strength, int bursts)
     {
         var count = 0;
         for (var i = 0; i < bursts; i++)
@@ -49,10 +49,10 @@ public sealed class Solution : SolutionBase
         return count;
     }
     
-    private static DefaultDict<Vec2D, State> ParseGrid(IReadOnlyList<string> input)
+    private static DefaultDict<Vec2D, State> ParseGrid(string[] input)
     {
         var grid = new DefaultDict<Vec2D, State>(defaultValue: State.Clean);
-        var height = input.Count;
+        var height = input.Length;
         var width = input[0].Length;
 
         var yOffset = height / 2;

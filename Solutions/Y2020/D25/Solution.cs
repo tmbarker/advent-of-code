@@ -51,7 +51,7 @@ public sealed class Solution : SolutionBase
         return value * subject % Mod;
     }
     
-    private static (long Key1, long Key2) ParsePublicKeys(IList<string> input)
+    private static (long Key1, long Key2) ParsePublicKeys(string[] input)
     {
         return (long.Parse(input[0]), long.Parse(input[1]));
     }

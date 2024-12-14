@@ -100,7 +100,7 @@ public sealed class Solution : SolutionBase
         return player;
     }
 
-    private static (int P1, int P2) ParseInitialPositions(IList<string> input)
+    private static (int P1, int P2) ParseInitialPositions(string[] input)
     {
         var p1 = input[0].ParseInts()[1];
         var p2 = input[1].ParseInts()[1];

@@ -21,12 +21,12 @@ public sealed class Solution : SolutionBase
         };
     }
 
-    private static int ComputeMaxPairSumMagnitude(IList<SfNumber> numbers)
+    private static int ComputeMaxPairSumMagnitude(SfNumber[] numbers)
     {
         var max = 0;
         
-        for (var i = 0; i < numbers.Count; i++)
-        for (var j = 0; j < numbers.Count; j++)
+        for (var i = 0; i < numbers.Length; i++)
+        for (var j = 0; j < numbers.Length; j++)
         {
             if (i == j)
             {
@@ -76,10 +76,10 @@ public sealed class Solution : SolutionBase
         }
     }
 
-    private static IEnumerable<Element> SumSfNumbers(IList<SfNumber> numbers)
+    private static SfNumber SumSfNumbers(SfNumber[] numbers)
     {
         var sum = numbers.First();
-        for (var i = 1; i < numbers.Count; i++)
+        for (var i = 1; i < numbers.Length; i++)
         {
             sum = Add(sum, numbers[i]);
         }
@@ -162,7 +162,7 @@ public sealed class Solution : SolutionBase
         return false;
     }
 
-    private static bool TrySplit(IList<Element> elements)
+    private static bool TrySplit(SfNumber elements)
     {
         for (var i = 0; i < elements.Freeze().Count; i++)
         {

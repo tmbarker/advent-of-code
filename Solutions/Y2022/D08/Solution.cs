@@ -66,7 +66,7 @@ public sealed class Solution : SolutionBase
         return los;
     }
     
-    private static void EvaluateLineOfSight(Grid2D<int> trees, IEnumerable<Vec2D> positions, ISet<Vec2D> visible)
+    private static void EvaluateLineOfSight(Grid2D<int> trees, IEnumerable<Vec2D> positions, HashSet<Vec2D> visible)
     {
         var max = MinHeight - 1;
         foreach (var position in positions)

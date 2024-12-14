@@ -123,7 +123,7 @@ public sealed class Solution : SolutionBase
         return mask;
     }
 
-    private static bool CanAffordToBuild(Dictionary<Materials, int> costs, IReadOnlyDictionary<Materials, int> funds)
+    private static bool CanAffordToBuild(Dictionary<Materials, int> costs, Dictionary<Materials, int> funds)
     {
         foreach (var (material, cost) in costs)
         {

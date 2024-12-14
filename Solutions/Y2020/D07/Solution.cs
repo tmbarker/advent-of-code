@@ -3,8 +3,8 @@ using Utilities.Extensions;
 
 namespace Solutions.Y2020.D07;
 
-using ContentMap = IReadOnlyDictionary<string, IList<BagContent>>;
-using Memo = IDictionary<(string, string), bool>;
+using ContentMap = Dictionary<string, IList<BagContent>>;
+using Memo = Dictionary<(string, string), bool>;
 
 [PuzzleInfo("Handy Haversacks", Topics.Graphs|Topics.Recursion, Difficulty.Medium, favourite: true)]
 public sealed class Solution : SolutionBase
@@ -59,7 +59,7 @@ public sealed class Solution : SolutionBase
     
     private static ContentMap ParseCapacityMap(IEnumerable<string> input)
     {
-        var capacityMap = new Dictionary<string, IList<BagContent>>();
+        var capacityMap = new ContentMap();
         foreach (var line in input)
         {
             var colour = Regex.Match(line, @"([a-z ]+) bags contain").Groups[1].Value;

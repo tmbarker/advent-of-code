@@ -69,7 +69,7 @@ public sealed class Solution : SolutionBase
         return numCycles * cycleHeight + GetHeightNaive(remainder);
     }
 
-    private static string HashState(int rockIndex, int jetIndex, int height, IReadOnlySet<Vec2D> pile)
+    private static string HashState(int rockIndex, int jetIndex, int height, HashSet<Vec2D> pile)
     {
         var profile = new int[ChamberWidth];
         for (var x = 0; x < ChamberWidth; x++)
@@ -117,14 +117,14 @@ public sealed class Solution : SolutionBase
         return pile.Max(item => item.Y);
     }
     
-    private static bool CanMove(Rock rock, Vec2D pos, Vec2D desiredMove, IReadOnlySet<Vec2D> rockPile)
+    private static bool CanMove(Rock rock, Vec2D pos, Vec2D desiredMove, HashSet<Vec2D> rockPile)
     {
         return rock.Shape
             .Select(p => pos + desiredMove + p)
             .All(p => p.X is >= 0 and < ChamberWidth && !rockPile.Contains(p));
     }
 
-    private static void AddToPile(Rock rock, Vec2D pos, ISet<Vec2D> rockPile)
+    private static void AddToPile(Rock rock, Vec2D pos, HashSet<Vec2D> rockPile)
     {
         foreach (var position in rock.Shape.Select(p => pos + p))
         {

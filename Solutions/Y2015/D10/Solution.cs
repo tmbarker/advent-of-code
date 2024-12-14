@@ -20,7 +20,7 @@ public sealed class Solution : SolutionBase
         };
     }
 
-    private static int LookAndSay(IList<int> sequence, int rounds)
+    private static int LookAndSay(List<int> sequence, int rounds)
     {
         for (var i = 0; i < rounds; i++)
         {
@@ -30,7 +30,7 @@ public sealed class Solution : SolutionBase
         return sequence.Count;
     }
 
-    private static IList<int> LookAndSay(IList<int> sequence)
+    private static List<int> LookAndSay(List<int> sequence)
     {
         var next = new List<int>();
         var prev = sequence[0];

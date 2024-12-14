@@ -108,9 +108,9 @@ public sealed class Solution : SolutionBase
         return sb.ToString();
     }
     
-    private static Dictionary<Vec2D, char> ParseResourceMap(IList<string> input)
+    private static Dictionary<Vec2D, char> ParseResourceMap(string[] input)
     {
-        var rows = input.Count;
+        var rows = input.Length;
         var cols = input[0].Length;
         var map = new Dictionary<Vec2D, char>(capacity: rows * cols);
 

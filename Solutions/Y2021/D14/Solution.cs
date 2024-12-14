@@ -18,7 +18,7 @@ public sealed class Solution : SolutionBase
         };
     }
 
-    private static long GetMaxExtendedVariance(IList<char> polymer, IList<Rule> rules, int steps)
+    private static long GetMaxExtendedVariance(List<char> polymer, IList<Rule> rules, int steps)
     {
         var extendedPolymer = ExtendPolymer(polymer, rules, steps);
         var maxVariance = ComputeMaxFrequencyVariance(extendedPolymer, polymer[0], polymer[^1]);
@@ -49,7 +49,7 @@ public sealed class Solution : SolutionBase
         return sortedFrequencies[^1] - sortedFrequencies[0];
     }
 
-    private static IDictionary<(char, char), long> ExtendPolymer(IList<char> polymer, IList<Rule> rules, int steps)
+    private static DefaultDict<(char, char), long> ExtendPolymer(List<char> polymer, IList<Rule> rules, int steps)
     {
         var pairCounts = new DefaultDict<(char, char), long>(defaultValue: 0L);
         for (var i = 0; i < polymer.Count - 1; i++)
@@ -65,7 +65,7 @@ public sealed class Solution : SolutionBase
         return pairCounts;
     }
 
-    private static void ExtendPolymer(IDictionary<(char, char), long> pairCounts, IList<Rule> rules)
+    private static void ExtendPolymer(DefaultDict<(char, char), long> pairCounts, IList<Rule> rules)
     {
         var deltas = new DefaultDict<(char, char), long>(defaultValue: 0L);
         foreach (var (lhs, rhs) in pairCounts.Keys.Freeze())
@@ -84,7 +84,7 @@ public sealed class Solution : SolutionBase
         }
     }
 
-    private static void Parse(IList<string> input, out List<char> polymer, out List<Rule> rules)
+    private static void Parse(string[] input, out List<char> polymer, out List<Rule> rules)
     {
         polymer = [..input[0]];
         rules = input.Skip(2).Select(ParseRule).ToList();

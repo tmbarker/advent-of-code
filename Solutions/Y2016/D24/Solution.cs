@@ -53,10 +53,10 @@ public sealed class Solution : SolutionBase
         return min;
     }
     
-    private static Dictionary<int, Vec2D> CollectPois(IReadOnlyList<string> map)
+    private static Dictionary<int, Vec2D> CollectPois(string[] map)
     {
         var pois = new Dictionary<int, Vec2D>();
-        var rows = map.Count;
+        var rows = map.Length;
         var cols = map[0].Length;
 
         for (var y = 0; y < rows; y++)

@@ -12,7 +12,7 @@ public class ConsoleParser
     public const string RootDirectoryPath = RootCmd;
     
     private Stack<string> CurrentDirectory { get; } = new ();
-    private IDictionary<string, int> DirectorySizeIndex { get; } = new DefaultDict<string, int>(defaultValue: 0);
+    private DefaultDict<string, int> DirectorySizeIndex { get; } = new(defaultValue: 0);
 
     public IDictionary<string, int> BuildDirectoryMap(IEnumerable<string> consoleOutput)
     {

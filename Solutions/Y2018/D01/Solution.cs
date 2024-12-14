@@ -6,17 +6,15 @@ public sealed class Solution : SolutionBase
     public override object Run(int part)
     {
         var numbers = ParseInputLines(int.Parse);
-        var enumerated = numbers.ToList();
-        
         return part switch
         {
-            1 => enumerated.Sum(),
-            2 => GetFirstRepeatedFrequency(enumerated),
+            1 => numbers.Sum(),
+            2 => GetFirstRepeatedFrequency(numbers),
             _ => PuzzleNotSolvedString
         };
     }
 
-    private static int GetFirstRepeatedFrequency(IList<int> numbers)
+    private static int GetFirstRepeatedFrequency(int[] numbers)
     {
         var i = 0;
         var freq = 0;
@@ -25,7 +23,7 @@ public sealed class Solution : SolutionBase
         while (seen.Add(freq))
         {
             freq += numbers[i];
-            i = (i + 1) % numbers.Count;
+            i = (i + 1) % numbers.Length;
         }
 
         return freq;

@@ -21,7 +21,7 @@ public static class MonkeyData
         return monkeys;
     }
 
-    private static (int, Monkey) ParseMonkey(IList<string> chunk, bool applyBoredDivisor, ISet<int> divisors)
+    private static (int, Monkey) ParseMonkey(string[] chunk, bool applyBoredDivisor, HashSet<int> divisors)
     {
         var index   = chunk[0].ParseInt();
         var divisor = chunk[3].ParseInt();

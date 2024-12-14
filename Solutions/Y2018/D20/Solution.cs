@@ -66,7 +66,7 @@ public sealed class Solution : SolutionBase
         return map;
     }
 
-    private static Vec2D StepAndPlot(Vec2D pos, char step, IDictionary<Vec2D, char> map)
+    private static Vec2D StepAndPlot(Vec2D pos, char step, Dictionary<Vec2D, char> map)
     {
         var dir = Directions[step];
         var moveTo = pos + 2 * dir;

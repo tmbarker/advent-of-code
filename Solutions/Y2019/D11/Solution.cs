@@ -65,7 +65,7 @@ public sealed class Solution : IntCodeSolution
         return painted;
     }
 
-    private static string Draw(IDictionary<Vec2D, long> painted)
+    private static string Draw(DefaultDict<Vec2D, long> painted)
     {
         var white = painted.Keys
             .Where(c => painted[c] == White)

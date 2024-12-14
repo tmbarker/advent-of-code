@@ -4,9 +4,9 @@ using Utilities.Numerics;
 
 namespace Solutions.Y2020.D16;
 
-using Ticket = IList<int>;
-using FieldMap = IDictionary<string, int>;
-using FieldValidators = IDictionary<string, Predicate<int>>;
+using Ticket = int[];
+using FieldMap = Dictionary<string, int>;
+using FieldValidators = Dictionary<string, Predicate<int>>;
 
 [PuzzleInfo("Ticket Translation", Topics.StringParsing, Difficulty.Medium)]
 public sealed class Solution : SolutionBase
@@ -86,19 +86,20 @@ public sealed class Solution : SolutionBase
         return fields.Aggregate(1L, (current, field) => current * ticket[fieldIndices[field]]);
     }
 
-    private static void ParseInput(IList<string> input, out Ticket yourTicket, out IList<Ticket> otherTickets,
+    private static void ParseInput(string[] input, out Ticket yourTicket, out IList<Ticket> otherTickets,
         out FieldValidators fieldValidators, out IList<string> departureFields)
     {
-        yourTicket = ParseTicket(input[input.IndexOf("your ticket:") + 1]);
-        otherTickets = input
-            .Skip(input.IndexOf("nearby tickets:") + 1)
-            .Select(ParseTicket)
+        var chunks = input.ChunkByNonEmpty();
+        
+        yourTicket = chunks[1][^1].ParseInts();
+        otherTickets = chunks[^1][1..]
+            .Select(line => line.ParseInts())
             .ToList();
         
         fieldValidators = new Dictionary<string, Predicate<int>>();
         departureFields = new List<string>();
         
-        for (var i = 0; !string.IsNullOrWhiteSpace(input[i]); i++)
+        for (var i = 0; i < chunks[0].Length; i++)
         {
             var match = Regex.Match(input[i], @"([a-z ]+): (\d+)-(\d+) or (\d+)-(\d+)");
             var field = match.Groups[1].Value;
@@ -118,10 +119,5 @@ public sealed class Solution : SolutionBase
                 departureFields.Add(field);
             }
         }
-    }
-
-    private static Ticket ParseTicket(string line)
-    {
-        return new List<int>(line.Split(separator: ',').Select(int.Parse));
     }
 }
