@@ -3,6 +3,7 @@ global using Solutions.Common;
 
 using System.Diagnostics;
 using JetBrains.Annotations;
+using Utilities.Extensions;
 
 namespace Solutions.Common;
 
@@ -33,6 +34,11 @@ public abstract class SolutionBase
     {
         AssertInputExists();
         return File.ReadAllLines(InputPath);
+    }
+
+    protected IList<string[]> ChunkInputByNonEmpty()
+    {
+        return GetInputLines().ChunkByNonEmpty();
     }
 
     protected string GetInputText()
