@@ -7,7 +7,7 @@ namespace Solutions.Y2024.D16;
 using Path = ImmutableStack<Vec2D>;
 
 [PuzzleInfo("Reindeer Maze", Topics.Vectors|Topics.Graphs, Difficulty.Easy)]
-public class Solution : SolutionBase
+public sealed class Solution : SolutionBase
 {
     private readonly record struct Result(int MinScore, List<Path> BestPaths);
     private readonly record struct State(Pose2D Pose, int Score, Path Path)

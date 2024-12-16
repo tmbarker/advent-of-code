@@ -3,7 +3,7 @@ using Utilities.Geometry.Euclidean;
 namespace Solutions.Y2024.D15;
 
 [PuzzleInfo("Warehouse Woes", Topics.Vectors, Difficulty.Medium)]
-public class Solution : SolutionBase
+public sealed class Solution : SolutionBase
 {
     private static readonly Dictionary<char, Vec2D> MoveDirs = new()
     {

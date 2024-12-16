@@ -5,7 +5,7 @@ using Utilities.Geometry.Euclidean;
 namespace Solutions.Y2024.D14;
 
 [PuzzleInfo("Restroom Redoubt", Topics.Vectors, Difficulty.Easy, favourite: true)]
-public class Solution : SolutionBase
+public sealed class Solution : SolutionBase
 {
     private const int Width = 101;
     private const int Height = 103;
