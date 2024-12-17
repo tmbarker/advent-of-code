@@ -151,6 +151,11 @@ public static class CollectionExtensions
         }
     }
 
+    public static bool AddRange<T>(this ISet<T> set, IEnumerable<T> items)
+    {
+        return items.Aggregate(true, (success, item) => set.Add(item) && success);
+    }
+    
     /// <summary>
     ///     Returns all permutations of the source sequence elements.
     /// </summary>

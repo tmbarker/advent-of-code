@@ -14,7 +14,7 @@ compared to r5. When they are equal, i.e. r1 is a divisor of
 r5, it is added to r0.
 
 Therefore, the program can be replaced with the following
-pseudo code:
+pseudocode:
 
 P1: r0 = SumOfDivisors(n) // n is r5 after INIT1
 P2: r0 = SumOfDivisors(n) // n is r5 after INIT1 & INIT2

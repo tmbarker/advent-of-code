@@ -1,0 +1,11 @@
+============================================================
+Annotated assembly
+============================================================
+   0    opcode: 2 (bst)  operand: 4  //  B = A AND 0b111
+   2    opcode: 1 (bxl)  operand: 1  //  B = B XOR 0b001
+   4    opcode: 7 (cdv)  operand: 5  //  C = A >> B
+   6    opcode: 0 (adv)  operand: 3  //  A = A >> 3
+   8    opcode: 1 (bxl)  operand: 4  //  B = B XOR 0b100
+  10    opcode: 4 (bxc)  operand: 5  //  B = B XOR C
+  12    opcode: 5 (out)  operand: 5  //  out B AND 0b111
+  14    opcode: 3 (jnz)  operand: 0  //  if (A) LOOP 

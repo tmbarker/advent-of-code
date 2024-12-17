@@ -1,6 +1,6 @@
 namespace Solutions.Y2015.D23;
 
-public  class Vm
+public class Vm
 {
     private readonly Dictionary<char, long> _registers = new();
 
