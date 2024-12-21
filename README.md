@@ -8,6 +8,7 @@ Puzzle | My Solution | Date | Topic(s) | Difficulty
 [Mull It Over](https://adventofcode.com/2024/day/3) | [Solution](https://github.com/tmbarker/advent-of-code/blob/main/Solutions/Y2024/D03/Solution.cs) | 2024-03 | Regular Expressions | :green_circle: Easy
 [Disk Fragmenter](https://adventofcode.com/2024/day/9) | [Solution](https://github.com/tmbarker/advent-of-code/blob/main/Solutions/Y2024/D09/Solution.cs) | 2024-09 | Simulation | :yellow_circle: Medium
 [Restroom Redoubt](https://adventofcode.com/2024/day/14) | [Solution](https://github.com/tmbarker/advent-of-code/blob/main/Solutions/Y2024/D14/Solution.cs) | 2024-14 | Vectors | :green_circle: Easy
+[Keypad Conundrum](https://adventofcode.com/2024/day/21) | [Solution](https://github.com/tmbarker/advent-of-code/blob/main/Solutions/Y2024/D21/Solution.cs) | 2024-21 | Recursion | :red_circle: Hard
 
 ### 2023
 Puzzle | My Solution | Date | Topic(s) | Difficulty
