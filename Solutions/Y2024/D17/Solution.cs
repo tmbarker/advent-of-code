@@ -4,7 +4,7 @@ using Utilities.Extensions;
 namespace Solutions.Y2024.D17;
 
 [InputSpecificSolution]
-[PuzzleInfo("Chronospatial Computer", Topics.Assembly, Difficulty.Hard)]
+[PuzzleInfo("Chronospatial Computer", Topics.Assembly, Difficulty.Hard, favourite: true)]
 public sealed class Solution : SolutionBase
 {
     public override object Run(int part)

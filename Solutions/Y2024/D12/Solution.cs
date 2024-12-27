@@ -3,7 +3,7 @@ using Utilities.Geometry.Euclidean;
 
 namespace Solutions.Y2024.D12;
 
-[PuzzleInfo("Garden Groups", Topics.Vectors, Difficulty.Medium)]
+[PuzzleInfo("Garden Groups", Topics.Vectors, Difficulty.Medium, favourite: true)]
 public sealed class Solution : SolutionBase
 {
     public override object Run(int part)
