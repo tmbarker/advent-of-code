@@ -6,31 +6,33 @@ namespace Solutions.Y2024.D21;
 [PuzzleInfo("Keypad Conundrum", Topics.Recursion, Difficulty.Hard, favourite: true)]
 public sealed class Solution : SolutionBase
 {
-    private static readonly Pad Numpad = Pad.Parse(flat: "*0A123456789", cols: 3, skip: '*');
-    private static readonly Pad Dirpad = Pad.Parse(flat: "<v>*^A",       cols: 3, skip: '*');
-    private static readonly Dictionary<(Vec2D, Vec2D, int), long> Memo = new();
+    private static readonly Pad NumPad = Pad.Parse(flat: "!0A123456789", cols: 3, omit: '!');
+    private static readonly Pad DirPad = Pad.Parse(flat: "<v>!^A",       cols: 3, omit: '!');
+    private static readonly Dictionary<(Vec2D, Vec2D, int), long> DirMemo = new();
     
     private readonly record struct State(Vec2D Pos, string Sequence)
     {
-        public State Up()    => new(Pos + Vec2D.Up,    $"{Sequence}^");
-        public State Down()  => new(Pos + Vec2D.Down,  $"{Sequence}v");
-        public State Left()  => new(Pos + Vec2D.Left,  $"{Sequence}<");
-        public State Right() => new(Pos + Vec2D.Right, $"{Sequence}>");
+        public State Step(Vec2D dir, char key)
+        {
+            return new State(Pos: Pos + dir, Sequence: Sequence + key);
+        }
     }
     
     public override object Run(int part)
     {
-        return ParseInputLines(code => GetComplexity(code, numDirPads: part == 1 ? 2 : 25)).Sum();
+        var pads = part == 1 ? 2 : 25;
+        var seqs = GetInputLines();
+        return seqs.Sum(seq => GetComplexity(seq, pads));
     }
     
     private static long GetComplexity(string sequence, int numDirPads)
     {
         var total = 0L;
-        var start = Numpad.KeyMap['A'];
+        var start = NumPad.KeyMap['A'];
         
-        foreach (var end in sequence.Select(key => Numpad.KeyMap[key]))
+        foreach (var end in sequence.Select(key => NumPad.KeyMap[key]))
         {
-            total += GetSequenceCost(start, end, pad: Numpad, robot: numDirPads);
+            total += GetSequenceCost(start, end, pad: NumPad, robot: numDirPads);
             start = end;
         }
 
@@ -39,7 +41,7 @@ public sealed class Solution : SolutionBase
     
     private static long GetSequenceCost(Vec2D start, Vec2D end, Pad pad, int robot)
     {
-        if (pad == Dirpad && Memo.TryGetValue((start, end, robot), out var cached))
+        if (pad == DirPad && DirMemo.TryGetValue((start, end, robot), out var cached))
         {
             return cached;
         }
@@ -57,24 +59,29 @@ public sealed class Solution : SolutionBase
             
             if (state.Pos == end)
             {
-                var remote = pad == Dirpad;
-                var target = remote ? robot - 1 : robot;
+                var target = pad == NumPad
+                    ? robot
+                    : robot - 1;
                 
-                result = long.Min(result, CalculateRobotCost($"{state.Sequence}A", robot: target));
+                result = long.Min(result, GetRobotCost($"{state.Sequence}A", robot: target));
                 continue;
             }
 
-            if (state.Pos.Y < end.Y) queue.Enqueue(state.Up());
-            if (state.Pos.Y > end.Y) queue.Enqueue(state.Down());
-            if (state.Pos.X < end.X) queue.Enqueue(state.Right());
-            if (state.Pos.X > end.X) queue.Enqueue(state.Left());
+            if (state.Pos.Y < end.Y) queue.Enqueue(state.Step(dir: Vec2D.Up,    key: '^'));
+            if (state.Pos.Y > end.Y) queue.Enqueue(state.Step(dir: Vec2D.Down,  key: 'v'));
+            if (state.Pos.X < end.X) queue.Enqueue(state.Step(dir: Vec2D.Right, key: '>'));
+            if (state.Pos.X > end.X) queue.Enqueue(state.Step(dir: Vec2D.Left,  key: '<'));
         }
 
-        if (pad == Dirpad) Memo[(start, end, robot)] = result;
+        if (pad == DirPad)
+        {
+            DirMemo[(start, end, robot)] = result;
+        }
+        
         return result;
     }
     
-    private static long CalculateRobotCost(string sequence, int robot)
+    private static long GetRobotCost(string sequence, int robot)
     {
         if (robot == 0)
         {
@@ -82,11 +89,11 @@ public sealed class Solution : SolutionBase
         }
         
         var total = 0L;
-        var start = Dirpad.KeyMap['A'];
+        var start = DirPad.KeyMap['A'];
 
-        foreach (var end in sequence.Select(key => Dirpad.KeyMap[key]))
+        foreach (var end in sequence.Select(key => DirPad.KeyMap[key]))
         {
-            total += GetSequenceCost(start, end, pad: Dirpad, robot);
+            total += GetSequenceCost(start, end, pad: DirPad, robot);
             start = end;
         }
         

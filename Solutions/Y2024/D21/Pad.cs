@@ -15,7 +15,7 @@ public class Pad
          elementSelector: kvp => kvp.Key);
    }
    
-   public static Pad Parse(string flat, int cols, char skip)
+   public static Pad Parse(string flat, int cols, char omit)
    {
       var keys = new Dictionary<Vec2D, char>();
       var rows = flat.Length / cols;
@@ -26,7 +26,7 @@ public class Pad
          var pos = new Vec2D(x, y);
          var key = flat[y * cols + x];
 
-         if (key != skip)
+         if (key != omit)
          {
             keys[pos] = key;
          }
