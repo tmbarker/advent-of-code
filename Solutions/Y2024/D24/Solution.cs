@@ -19,13 +19,13 @@ public class Solution : SolutionBase
         
         return part switch
         {
-            1 => Output(cx, inputs: cs[0]),
+            1 => Compute(cx, inputs: cs[0]),
             2 => Repair(cx),
             _ => PuzzleNotSolvedString
         };
     }
 
-    private static long Output(Circuit cx, string[] inputs)
+    private static long Compute(Circuit cx, string[] inputs)
     {
         var vs = new Values();
         foreach (var line in inputs)
@@ -33,11 +33,7 @@ public class Solution : SolutionBase
             var elements = line.Split(": ");
             vs[elements[0]] = int.Parse(elements[1]);
         }
-        return Compute(cx, vs);
-    }
 
-    private static long Compute(Circuit cx, Values vs)
-    {
         return cx.Keys
             .Where(wire => wire.StartsWith('z'))
             .Select(wire => (long)Math.Pow(2, int.Parse(wire[1..])) * GetBit(wire, vs, cx))
@@ -49,45 +45,25 @@ public class Solution : SolutionBase
         var problems = new HashSet<string>();
         foreach (var (@out, (inA, op, inB)) in cx)
         {
-            var hasXIn  = inA.StartsWith('x') || inB.StartsWith('x');
-            var hasYIn  = inA.StartsWith('y') || inB.StartsWith('y');
-            var hasZOut = @out.StartsWith('z');
+            var isFinal = @out is "z45";
+            var isFirst = inA is "x00" && inB is "y00";
+            var isOutput = @out[0] is 'z';
+            var isInput = inA[0] is 'x' or 'y' && inB[0] is 'x' or 'y';
 
-            var first = inA == "x00" && inB == "y00";
-            var last  = @out == "z45";
-            
-            if (hasZOut && !last && op != "XOR")
-            {
-                problems.Add(@out);
-            }
-            
-            if (!hasZOut && (!hasXIn || !hasYIn) && op == "XOR")
-            {
-                problems.Add(@out);
-            }
-
-            if (!first && op == "XOR" && hasXIn  && hasYIn)
-            {
-                if (!cx.Keys.Except([@out]).Any(other => 
-                        cx[other].Op == "XOR" && 
-                        (cx[other].InA == @out || cx[other].InB == @out)))
-                {
-                    problems.Add(@out);
-                }
-            }
-            
-            if (!first && op == "AND")
-            {
-                if (!cx.Keys.Except([@out]).Any(other =>
-                        cx[other].Op == "OR" &&
-                        (cx[other].InA == @out || cx[other].InB == @out)))
-                {
-                    problems.Add(@out);
-                }
-            }
+            if ( isOutput && !isFinal && op != "XOR") problems.Add(@out);
+            if (!isOutput && !isInput && op == "XOR") problems.Add(@out);
+            if (!isFirst  &&  isInput && op == "XOR" && !FindUsages(cx, @out, "XOR")) problems.Add(@out);
+            if (!isFirst              && op == "AND" && !FindUsages(cx, @out, "OR"))  problems.Add(@out);
         }
 
         return string.Join(',', problems.Order());
+    }
+
+    private static bool FindUsages(Circuit cx, string ofWire, string withOp)
+    {
+        return cx.Keys
+            .Except([ofWire])
+            .Any(other => cx[other].Op == withOp && (cx[other].InA == ofWire || cx[other].InB == ofWire));
     }
     
     private static int GetBit(string id, Values vals, Circuit cx)
