@@ -82,6 +82,23 @@ public sealed partial class Grid2D<T> : IEnumerable<Vec2D>
     }
 
     /// <summary>
+    ///     Check if a position is exactly on the edge of the <see cref="Grid2D{T}" /> instance
+    /// </summary>
+    /// <param name="position">The position to check</param>
+    /// <returns>A Boolean representing if the position is exactly on the edge of the <see cref="Grid2D{T}" /></returns>
+    public bool EdgeContains(Vec2D position)
+    {
+        if (!Contains(position))
+        {
+            return false;
+        }
+
+        return
+            position.X == 0 || position.Y == 0 ||
+            position.X == Width - 1 || position.Y == Height - 1;
+    }
+    
+    /// <summary>
     ///     Print the <see cref="Grid2D{T}" /> instance contents to the console
     /// </summary>
     public void Print(Func<Vec2D, T, string>? elementFormatter = null, int padding = 0)
