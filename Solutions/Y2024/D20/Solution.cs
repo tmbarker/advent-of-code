@@ -25,8 +25,8 @@ public sealed class Solution : SolutionBase
     {
         var grid = Grid2D<char>.MapChars(strings: GetInputLines());
         var cost = EvaluateCosts(grid,
-            start: grid.Single(p => grid[p] == 'S'),
-            end:   grid.Single(p => grid[p] == 'E'));
+            start: grid.Find('S'),
+            end:   grid.Find('E'));
 
         var path = cost.Keys.ToHashSet();
         return path

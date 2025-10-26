@@ -71,8 +71,8 @@ public sealed class Solution : SolutionBase
     {
         var grid = Grid2D<char>.MapChars(lines);
         
-        start = grid.Single(pos => grid[pos] == StartMarker);
-        end = grid.Single(pos => grid[pos] == EndMarker);
+        start = grid.Find(StartMarker);
+        end = grid.Find(EndMarker);
         
         grid[start] = StartHeight;
         grid[end] = EndHeight;

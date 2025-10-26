@@ -31,8 +31,8 @@ public sealed class Solution : SolutionBase
     private int Simulate(bool wide)
     {
         var input = ChunkInputByNonEmpty();
-        var grid = wide ? ParseGrid(input[0]) : Grid2D<char>.MapChars(input[0]); 
-        var robot = grid.Single(pos => grid[pos] == '@');
+        var grid = wide ? ParseGrid(input[0]) : Grid2D<char>.MapChars(input[0]);
+        var robot = grid.Find('@');
 
         foreach (var move in string.Concat(input[1]).Select(c => MoveDirs[c]))
         {

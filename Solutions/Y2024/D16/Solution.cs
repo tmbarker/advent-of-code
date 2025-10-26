@@ -33,7 +33,7 @@ public sealed class Solution : SolutionBase
     
     private static Result Navigate(Grid2D<char> grid)
     {
-        var pose = new Pose2D(Pos: grid.Single(pos => grid[pos] == 'S'), Face: Vec2D.Right);
+        var pose = new Pose2D(Pos: grid.Find('S'), Face: Vec2D.Right);
         var seed = new State(pose, Score: 0, Path: [pose.Pos]);
         var queue = new Queue<State>([seed]);
         

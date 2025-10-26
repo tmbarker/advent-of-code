@@ -12,7 +12,7 @@ public sealed class Solution : SolutionBase
     {
         var lines = GetInputLines();
         var grid = Grid2D<char>.MapChars(lines);
-        var start = grid.Single(pos => grid[pos] == Start);
+        var start = grid.Find(Start);
         var path = Navigate(grid, start);
         
         return part switch

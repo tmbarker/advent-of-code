@@ -13,7 +13,7 @@ public sealed class Solution : SolutionBase
     public override object Run(int part)
     {
         var grid = Grid2D<char>.MapChars(strings: GetInputLines());
-        var start = grid.Single(pos => grid[pos] == Start);
+        var start = grid.Find(Start);
         
         grid[start] = Empty;
         
