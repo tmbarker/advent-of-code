@@ -12,7 +12,7 @@ public sealed class Solution : SolutionBase
         
         return part switch
         {
-            1 => Machine.Run(instructions).Acc,
+            1 => Machine.Run(instructions).Accumulator,
             2 => GetTerminatedResult(instructions),
             _ => PuzzleNotSolvedString
         };
@@ -27,7 +27,7 @@ public sealed class Solution : SolutionBase
 
             if (!result.Looped)
             {
-                return result.Acc;
+                return result.Accumulator;
             }
         }
 

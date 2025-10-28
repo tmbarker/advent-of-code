@@ -44,4 +44,72 @@ public sealed class NumericsTests
         // Assert
         Assert.Equal(expected, actual);
     }
+    
+    public static TheoryData<int, int, int, int> ModAddTestData => new()
+    {
+        {  7,  3, 10,  0 },
+        {  5,  8, 12,  1 },
+        { 15, 17,  7,  4 },
+        { 23, 18, 13,  2 },
+        {  9, 14, 20,  3 }
+    };
+    
+    [Theory]
+    [MemberData(nameof(ModAddTestData))]
+    public void ModAdd_ShouldReturnExpectedValue(int a, int b, int m, int expected)
+    {
+        // Act
+        var actual = Utilities.Numerics.Numerics.ModAdd(a, b, m);
+        
+        // Assert
+        Assert.Equal(expected, actual);
+    }
+    
+    public static TheoryData<int, int, int, int> ModMultiplyTestData => new()
+    {
+        {  3,  4, 11,  1 },
+        {  7,  8, 13,  4 },
+        { 12, 15, 17, 10 },
+        {  5,  9, 23, 22 },
+        { 14, 11, 19,  2 }
+    };
+    
+    [Theory]
+    [MemberData(nameof(ModMultiplyTestData))]
+    public void ModMultiply_ShouldReturnExpectedValue(int a, int b, int m, int expected)
+    {
+        // Act
+        var actual = Utilities.Numerics.Numerics.ModMultiply(a, b, m);
+        
+        // Assert
+        Assert.Equal(expected, actual);
+    }
+    
+    public static TheoryData<int, int, int> ModInverseTestData => new()
+    {
+        {  3, 11,  4 },
+        {  7, 13,  2 },
+        {  5, 17,  7 },
+        {  9, 23, 18 },
+        { 15, 19, 14 }
+    };
+    
+    [Theory]
+    [MemberData(nameof(ModInverseTestData))]
+    public void ModInverse_ShouldReturnExpectedValue(int a, int m, int expected)
+    {
+        // Act
+        var actual = Utilities.Numerics.Numerics.ModInverse(a, m);
+        
+        // Assert
+        Assert.Equal(expected, actual);
+    }
+    
+    [Fact]
+    public void ModInverse_ShouldThrowWhenInverseDoesNotExist()
+    {
+        // Act & Assert
+        Assert.Throws<InvalidOperationException>(() => 
+            Utilities.Numerics.Numerics.ModInverse(6, 9));
+    }
 }

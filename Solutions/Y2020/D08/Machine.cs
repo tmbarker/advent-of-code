@@ -1,12 +1,12 @@
 namespace Solutions.Y2020.D08;
 
-public sealed class Machine
+public static class Machine
 {
     public const string Nop = "nop";
     public const string Jmp = "jmp";
     private const string Acc = "acc";
 
-    public readonly record struct Result(int Acc, bool Looped);
+    public readonly record struct Result(int Accumulator, bool Looped);
     
     public static Result Run(List<(string Op, int Arg)> instructions)
     {
