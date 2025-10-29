@@ -1,5 +1,17 @@
 # advent-of-code
 
+## Setup
+
+This solution depends on a separate `puzzle-utils` library. To use this `advent-of-code` solution:
+
+1. Clone both repositories:
+   ```bash
+   git clone https://github.com/tmbarker/puzzle-utils.git
+   git clone https://github.com/tmbarker/advent-of-code.git
+   ```
+
+2. Ensure both repositories are in the same parent directory or update the project references accordingly.
+
 ## My Favourite Puzzles and Solutions
 
 ### 2024
