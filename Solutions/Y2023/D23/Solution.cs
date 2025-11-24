@@ -55,7 +55,7 @@ public sealed class Solution : SolutionBase
         start = new Vec2D(X: input[0].IndexOf('.'),  Y: input.Length - 1);
         end =   new Vec2D(X: input[^1].IndexOf('.'), Y: 0);
         
-        var grid = Grid2D<char>.MapChars(input);
+        var grid = input.ToGrid();
         var graph = new Graph(defaultSelector: _ => []);
         var nodes = grid
             .Where(pos => grid[pos] != Forest)

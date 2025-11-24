@@ -117,8 +117,8 @@ public class Solution : SolutionBase
     private static Grid2D<char> ParseMaze(IList<string> input, out Vec2D start)
     {
         start = Vec2D.PositiveInfinity;
-        
-        var maze = Grid2D<char>.MapChars(input);
+
+        var maze = input.ToGrid();
         for (var y = 0; y < maze.Height; y++)
         for (var x = 0; x < maze.Width; x++)
         {

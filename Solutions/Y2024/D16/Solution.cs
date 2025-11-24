@@ -19,8 +19,7 @@ public sealed class Solution : SolutionBase
     
     public override object Run(int part)
     {
-        var lines = GetInputLines();
-        var grid = Grid2D<char>.MapChars(lines);
+        var grid = GetInputGrid();
         var result = Navigate(grid);
 
         return part == 1

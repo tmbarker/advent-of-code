@@ -21,7 +21,7 @@ public sealed class Solution : SolutionBase
 
     private static IEnumerable<HashSet<Vec2D>> CollectPlots(string[] input)
     {
-        var grid = Grid2D<char>.MapChars(input);
+        var grid = input.ToGrid();
         var sets = new DisjointSet<Vec2D>(collection: grid);
 
         foreach (var pos in grid)

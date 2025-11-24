@@ -62,9 +62,7 @@ public sealed class GameState
     
     private static Field BuildField(IList<string> input)
     {
-        return Field.MapChars(
-            strings: input,
-            origin: Origin.Uv);
+        return input.ToGrid(origin: Origin.Uv);
     }
     
     private static UnitMap BuildUnitMap(IList<string> input, IDictionary<char, int> teamDmgBuffs)

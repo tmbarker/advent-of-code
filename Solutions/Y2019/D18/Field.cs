@@ -51,7 +51,7 @@ public sealed class Field
     
     public static IEnumerable<Field> Parse(IList<string> input, bool applyInputOverrides)
     {
-        var grid = Grid2D<char>.MapChars(input);
+        var grid = input.ToGrid();
         var start = grid.Find(Start);
         
         if (applyInputOverrides)

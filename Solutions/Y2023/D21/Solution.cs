@@ -12,7 +12,7 @@ public sealed class Solution : SolutionBase
     
     public override object Run(int part)
     {
-        var grid = Grid2D<char>.MapChars(strings: GetInputLines());
+        var grid = GetInputGrid();
         var start = grid.Find(Start);
         
         grid[start] = Empty;

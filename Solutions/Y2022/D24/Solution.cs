@@ -78,7 +78,7 @@ public sealed class Solution : SolutionBase
         start = new Vec2D(X: input[0].IndexOf(Terrain.Void),  Y: input.Length - 1);
         end =   new Vec2D(X: input[^1].IndexOf(Terrain.Void), Y: 0);
         
-        var field = Grid2D<char>.MapChars(input);
+        var field = input.ToGrid();
         var blizzards = new List<Blizzard>();
         
         for (var y = 0; y < field.Height; y++)

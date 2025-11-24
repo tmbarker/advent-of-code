@@ -15,7 +15,7 @@ public sealed class Solution : SolutionBase
 
     public override object Run(int part)
     {
-        var maze = Maze.MapChars(strings: GetInputLines());
+        var maze = GetInputGrid();
         return part switch
         {
             1 => Traverse(maze, MazeType.Static),

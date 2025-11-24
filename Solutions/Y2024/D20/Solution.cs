@@ -23,7 +23,7 @@ public sealed class Solution : SolutionBase
     
     private int CountCheats(int duration)
     {
-        var grid = Grid2D<char>.MapChars(strings: GetInputLines());
+        var grid = GetInputGrid();
         var cost = EvaluateCosts(grid,
             start: grid.Find('S'),
             end:   grid.Find('E'));

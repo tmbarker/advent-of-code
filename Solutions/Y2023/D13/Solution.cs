@@ -10,7 +10,7 @@ public sealed class Solution : SolutionBase
     {
         var grids = GetInputLines()
             .ChunkByNonEmpty()
-            .Select(chunk => Grid2D<char>.MapChars(chunk));
+            .Select(chunk => chunk.ToGrid());
         
         return part switch
         {

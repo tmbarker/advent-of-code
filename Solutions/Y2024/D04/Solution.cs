@@ -11,9 +11,7 @@ public sealed class Solution : SolutionBase
     
     public override object Run(int part)
     {
-        var lines = GetInputLines();
-        var grid = Grid2D<char>.MapChars(lines);
-        
+        var grid = GetInputGrid();
         return part switch
         {
             1 => CountLinear(grid),

@@ -4,6 +4,7 @@ global using Solutions.Common;
 using System.Diagnostics;
 using JetBrains.Annotations;
 using Utilities.Extensions;
+using Utilities.Geometry.Euclidean;
 
 namespace Solutions.Common;
 
@@ -52,6 +53,12 @@ public abstract class SolutionBase
         return GetInputLines().Select(parseFunc).ToArray();
     }
 
+    protected Grid2D<char> GetInputGrid(Origin origin = Origin.Xy)
+    {
+        var lines = GetInputLines();
+        return lines.ToGrid(origin);
+    }
+    
     private void AssertInputExists()
     {
         Debug.Assert(condition: InputFileExists(), message: $"Input file does not exist [{InputPath}]");

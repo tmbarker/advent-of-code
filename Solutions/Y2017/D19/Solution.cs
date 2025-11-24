@@ -14,7 +14,7 @@ public sealed class Solution : SolutionBase
     public override object Run(int part)
     {
         var input = GetInputLines();
-        var map = Grid2D<char>.MapChars(input);
+        var map = GetInputGrid();
         var start = new Vec2D(
             X: input[0].IndexOf('|'),
             Y: map.Height - 1);

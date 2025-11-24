@@ -69,7 +69,7 @@ public sealed class Solution : SolutionBase
     
     private static Grid2D<char> ParseGrid(IList<string> lines, out Vec2D start, out Vec2D end)
     {
-        var grid = Grid2D<char>.MapChars(lines);
+        var grid = lines.ToGrid();
         
         start = grid.Find(StartMarker);
         end = grid.Find(EndMarker);

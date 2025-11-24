@@ -7,8 +7,7 @@ public sealed class Solution : SolutionBase
 {
     public override object Run(int part)
     {
-        var lines = GetInputLines();
-        var map = Grid2D<char>.MapChars(lines);
+        var map = GetInputGrid();
         var antennas = map
             .Where(pos => map[pos] != '.')
             .GroupBy(pos => map[pos])

@@ -186,6 +186,6 @@ public sealed class Solution : SolutionBase
 
     private static Tile ParseTile(IList<string> rows)
     {
-        return new Tile(pixels: Grid2D<char>.MapChars(strings: rows));
+        return new Tile(pixels: rows.ToGrid());
     }
 }
