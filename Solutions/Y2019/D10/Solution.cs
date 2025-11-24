@@ -60,13 +60,15 @@ public sealed class Solution : SolutionBase
     private static int FindNthDestroyed(IEnumerable<Vec2D> asteroids, Vec2D laser, Func<Vec2D, Vec2D> transform)
     {
         var destroyed = new List<Vec2D>();
-        var others = asteroids.Except(laser).ToHashSet();
+        var others = asteroids
+            .Except([laser])
+            .ToHashSet();
 
         var collinearSetsMap = others
             .GroupBy(asteroid => Vec2D.MinCollinear(asteroid - laser))
             .ToDictionary(g => g.Key, g => BuildDistanceQueue(laser, g));
         var laserSteps = new Queue<Vec2D>(collinearSetsMap.Keys
-            .OrderBy(v => Vec2D.AngleBetweenDeg(Vec2D.Up, v).Modulo(360)));
+            .OrderBy(v => Vec2D.AngleBetweenDeg(Vec2D.Up, v).Modulo(Degrees.P360)));
 
         while (destroyed.Count < TargetCount)
         {

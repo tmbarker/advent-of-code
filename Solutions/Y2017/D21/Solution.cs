@@ -1,5 +1,4 @@
 using System.Text.RegularExpressions;
-using Utilities.Extensions;
 
 namespace Solutions.Y2017.D21;
 
@@ -9,7 +8,7 @@ using Rules = Dictionary<string, string>;
 [PuzzleInfo("Fractal Art", Topics.Vectors, Difficulty.Medium, favourite: true)]
 public sealed class Solution : SolutionBase
 {
-    private static readonly Pattern Initial = new(size: 3, buffer: @".#./..#/###");
+    private static readonly Pattern Initial = new(size: 3, buffer: ".#./..#/###");
     private static readonly IReadOnlyList<Transform> Transforms = new List<Transform>
     {
         p => p.Rotate(),
@@ -28,8 +27,8 @@ public sealed class Solution : SolutionBase
         
         return part switch
         {
-            1 => Enhance(pattern: Initial, rules: rules, iterations: 5).On,
-            2 => Enhance(pattern: Initial, rules: rules, iterations: 18).On,
+            1 => Enhance(pattern: Initial, rules, iterations: 5).On,
+            2 => Enhance(pattern: Initial, rules, iterations: 18).On,
             _ => PuzzleNotSolvedString
         };
     }
@@ -89,10 +88,10 @@ public sealed class Solution : SolutionBase
         
         //  Precompute the transformations of each enhancement key
         //
-        foreach (var nominalKey in map.Keys.Freeze())
-        foreach (var transformedKey in GetTransformedKeys(nominalKey))
+        foreach (var initialKey in map.Keys.ToList())
+        foreach (var transformedKey in GetTransformedKeys(initialKey))
         {
-            map[transformedKey] = map[nominalKey];
+            map[transformedKey] = map[initialKey];
         }
 
         return map;

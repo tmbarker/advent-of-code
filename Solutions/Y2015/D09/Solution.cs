@@ -1,4 +1,4 @@
-using Utilities.Extensions;
+using System.Collections.Immutable;
 
 namespace Solutions.Y2015.D09;
 
@@ -15,7 +15,7 @@ public sealed class Solution : SolutionBase
         var lookup = new Dictionary<(string, string), int>();
         var places = routes
             .SelectMany(route => new[] { route.From, route.To })
-            .ToHashSet();
+            .ToImmutableHashSet();
         
         foreach (var route in routes)
         {
@@ -31,7 +31,7 @@ public sealed class Solution : SolutionBase
         };
     }
 
-    private static int FindMin(HashSet<string> places, IDictionary<(string, string), int> lookup)
+    private static int FindMin(ImmutableHashSet<string> places, IDictionary<(string, string), int> lookup)
     {
         var min = int.MaxValue;
         foreach (var place in places)
@@ -39,14 +39,14 @@ public sealed class Solution : SolutionBase
             min = Math.Min(min, FindMin(
                 current: place,
                 cost: 0,
-                unvisited: places.Except(place).ToHashSet(),
+                unvisited: places.Remove(place),
                 lookup: lookup));
         }
 
         return min;
     }
     
-    private static int FindMax(HashSet<string> places, IDictionary<(string, string), int> lookup)
+    private static int FindMax(ImmutableHashSet<string> places, IDictionary<(string, string), int> lookup)
     {
         var max = int.MinValue;
         foreach (var place in places)
@@ -54,14 +54,14 @@ public sealed class Solution : SolutionBase
             max = Math.Max(max, FindMax(
                 current: place,
                 cost: 0,
-                unvisited: places.Except(place).ToHashSet(),
+                unvisited: places.Remove(place),
                 lookup: lookup));
         }
 
         return max;
     }
 
-    private static int FindMin(string current, int cost, HashSet<string> unvisited,
+    private static int FindMin(string current, int cost, ImmutableHashSet<string> unvisited,
         IDictionary<(string, string), int> lookup)
     {
         if (unvisited.Count == 0)
@@ -75,14 +75,14 @@ public sealed class Solution : SolutionBase
             min = Math.Min(min, FindMin(
                 current: place,
                 cost: cost + lookup[(current, place)],
-                unvisited: unvisited.Except(place).ToHashSet(),
+                unvisited: unvisited.Remove(place),
                 lookup: lookup));
         }
 
         return min;
     }
     
-    private static int FindMax(string current, int cost, HashSet<string> unvisited,
+    private static int FindMax(string current, int cost, ImmutableHashSet<string> unvisited,
         IDictionary<(string, string), int> lookup)
     {
         if (unvisited.Count == 0)
@@ -96,7 +96,7 @@ public sealed class Solution : SolutionBase
             max = Math.Max(max, FindMax(
                 current: place,
                 cost: cost + lookup[(current, place)],
-                unvisited: unvisited.Except(place).ToHashSet(),
+                unvisited: unvisited.Remove(place),
                 lookup: lookup));
         }
 

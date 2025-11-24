@@ -69,6 +69,7 @@ public sealed class Solution : IntCodeSolution
     {
         var white = painted.Keys
             .Where(c => painted[c] == White)
+            .ToList()
             .Normalize()
             .ToHashSet();
 

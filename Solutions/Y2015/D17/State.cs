@@ -1,4 +1,4 @@
-using Utilities.Extensions;
+using System.Collections.Immutable;
 
 namespace Solutions.Y2015.D17;
 
@@ -6,11 +6,11 @@ public readonly struct State : IEquatable<State>
 {
     private readonly string _key;
     
-    public HashSet<Cup> Unused { get; }
+    public ImmutableHashSet<Cup> Unused { get; }
     public int NumUsed { get; }
     public int TotalVolume { get; }
     
-    public State(HashSet<Cup> unused, int numUsed, int totalVolume)
+    public State(ImmutableHashSet<Cup> unused, int numUsed, int totalVolume)
     {
         _key = string.Join(',', unused.OrderBy(c => c.Id));
         Unused = unused;
@@ -21,7 +21,7 @@ public readonly struct State : IEquatable<State>
     public State AfterUsing(Cup cup)
     {
         return new State(
-            unused: Unused.Except(cup).ToHashSet(),
+            unused: Unused.Remove(cup),
             numUsed: NumUsed + 1,
             totalVolume: TotalVolume + cup.Size);
     }

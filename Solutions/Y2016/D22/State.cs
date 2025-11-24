@@ -1,4 +1,4 @@
-using Utilities.Extensions;
+using System.Collections.Immutable;
 using Utilities.Geometry.Euclidean;
 
 namespace Solutions.Y2016.D22;
@@ -9,12 +9,12 @@ public readonly struct State(Vec2D targetData, ICollection<Vec2D> emptyNodes) : 
     private readonly string _key = BuildKey(targetData, emptyNodes);
     
     public Vec2D TargetData { get; } = targetData;
-    public HashSet<Vec2D> EmptyNodes { get; } = emptyNodes.ToHashSet();
+    public ImmutableHashSet<Vec2D> EmptyNodes { get; } = [..emptyNodes];
 
     public State AfterDataMove(Vec2D from, Vec2D to)
     {
         var resultingEmpty = EmptyNodes
-            .Except(to)
+            .Remove(to)
             .Append(from)
             .ToList();
         

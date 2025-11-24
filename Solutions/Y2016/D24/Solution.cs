@@ -1,3 +1,4 @@
+using System.Collections.Immutable;
 using Utilities.Extensions;
 using Utilities.Geometry.Euclidean;
 
@@ -25,12 +26,12 @@ public sealed class Solution : SolutionBase
         return GetMinCost(
             cost: 0,
             pos: 0,
-            unvisited: pois.Keys.Except(single: 0).ToHashSet(),
+            unvisited: pois.Keys.ToImmutableHashSet().Remove(0),
             costs: costs,
             loop: loop);
     }
 
-    private static int GetMinCost(int cost, int pos, HashSet<int> unvisited, IReadOnlyDictionary<(int, int), int> costs, bool loop)
+    private static int GetMinCost(int cost, int pos, ImmutableHashSet<int> unvisited, IReadOnlyDictionary<(int, int), int> costs, bool loop)
     {
         if (unvisited.Count == 0)
         {
@@ -45,7 +46,7 @@ public sealed class Solution : SolutionBase
             min = Math.Min(min, GetMinCost(
                 cost: cost + costs[(pos, poi)],
                 pos: poi,
-                unvisited: unvisited.Except(poi).ToHashSet(),
+                unvisited: unvisited.Remove(poi),
                 costs: costs,
                 loop: loop));
         }

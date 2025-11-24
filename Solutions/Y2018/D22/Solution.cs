@@ -64,9 +64,7 @@ public sealed class Solution : SolutionBase
     private static IEnumerable<Transition> GetPossibleTransitions(State state, Cave cave)
     {
         var region = cave[state.Pos].Type;
-        var swapTo = Cave.RegionAllowedTools[region]
-            .Except(state.Tool)
-            .Single();
+        var swapTo = Cave.RegionAllowedTools[region].First(tool => state.Tool != tool);
 
         yield return new Transition(
             NextState: state with { Tool = swapTo },

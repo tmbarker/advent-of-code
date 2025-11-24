@@ -1,4 +1,3 @@
-using Utilities.Extensions;
 using Utilities.Geometry.Euclidean;
 
 namespace Solutions.Y2019.D24;
@@ -87,7 +86,9 @@ public sealed class Solution : SolutionBase
         }
 
         var candidates = new List<Vec3D>();
-        var tileXyPositions = TileAabb.Except(CenterTile);
+        var tileXyPositions = TileAabb
+            .Where(pos => pos != CenterTile)
+            .ToHashSet();
 
         var min = depths.Min() - 1;
         var max = depths.Max() + 1;

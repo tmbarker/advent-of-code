@@ -1,32 +1,25 @@
-using Utilities.Extensions;
+using System.Collections.Immutable;
 
 namespace Solutions.Y2022.D16;
 
-public sealed class StrategyFinder
+public sealed class StrategyFinder(ValveData valveData)
 {
-    private readonly ValveData _valveData;
-
-    public event Action<Strategy>? StrategyFound; 
-
-    public StrategyFinder(ValveData valveData)
-    {
-        _valveData = valveData;
-    }
+    public event Action<Strategy>? StrategyFound;
 
     public void Run(string start, int timeLimit)
     {
         Search(
-            t: timeLimit, 
-            f: 0, 
-            pos: start, 
-            unopened: new HashSet<string>(_valveData.Valves));
+            t: timeLimit,
+            f: 0,
+            pos: start,
+            unopened: [..valveData.Valves]);
     }
 
-    private void Search(int t, int f, string pos, ICollection<string> unopened)
+    private void Search(int t, int f, string pos, ImmutableHashSet<string> unopened)
     {
         RaiseStrategyFound(f, unopened);
         
-        foreach (var valve in unopened.Freeze())
+        foreach (var valve in unopened)
         {
             var travelAndOpenTime = GetTravelTime(pos, valve) + 1;
             var timeAtNextValve = t - travelAndOpenTime;
@@ -40,24 +33,24 @@ public sealed class StrategyFinder
                 t: timeAtNextValve,
                 f: f + GetFlowRate(valve) * timeAtNextValve,
                 pos: valve,
-                unopened: unopened.Except(valve));
+                unopened: unopened.Remove(valve));
         }
     }
 
     private int GetTravelTime(string from, string to)
     {
-        return _valveData.TravelTimesLookup[(from, to)];
+        return valveData.TravelTimesLookup[(from, to)];
     }
 
     private int GetFlowRate(string valve)
     {
-        return _valveData.FlowRates[valve];
+        return valveData.FlowRates[valve];
     }
 
     private void RaiseStrategyFound(int flow, IEnumerable<string> unopened)
     {
         StrategyFound?.Invoke(new Strategy(
             flow: flow,
-            opened: _valveData.Valves.Except(unopened)));
+            opened: valveData.Valves.Except(unopened)));
     }
 }
