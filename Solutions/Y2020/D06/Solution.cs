@@ -7,9 +7,7 @@ public sealed class Solution : SolutionBase
 {
     public override object Run(int part)
     {
-        var lines = GetInputLines();
-        var groupAnswers = lines.ChunkByNonEmpty();
-        
+        var groupAnswers = ChunkInputByNonEmpty();
         return part switch
         {
             1 => groupAnswers.Sum(GetUniqueGroupAnswers),
@@ -18,12 +16,12 @@ public sealed class Solution : SolutionBase
         };
     }
 
-    private static int GetUniqueGroupAnswers(IList<string> groupAnswers)
+    private static int GetUniqueGroupAnswers(string[] groupAnswers)
     {
         return groupAnswers.SelectMany(g => g).Distinct().Count();
     }
 
-    private static int GetUnanimousGroupAnswers(IList<string> groupAnswers)
+    private static int GetUnanimousGroupAnswers(string[] groupAnswers)
     {
         return groupAnswers.IntersectAll().Count;
     }

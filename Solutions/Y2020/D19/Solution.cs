@@ -1,4 +1,3 @@
-using Utilities.Extensions;
 using Utilities.Language.ContextFree;
 
 namespace Solutions.Y2020.D19;
@@ -27,8 +26,7 @@ public sealed class Solution : SolutionBase
 
     private int CountRecognitions(bool useOverrides)
     {
-        var input = GetInputLines()
-            .ChunkByNonEmpty();
+        var input = ChunkInputByNonEmpty();
         var productions = input[0]
             .SelectMany(line => ParseRule(line, useOverrides));
         var sentences = input[1]

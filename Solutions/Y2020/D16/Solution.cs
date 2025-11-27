@@ -96,7 +96,7 @@ public sealed class Solution : SolutionBase
             .Select(line => line.ParseInts())
             .ToList();
         
-        fieldValidators = new Dictionary<string, Predicate<int>>();
+        fieldValidators = new FieldValidators();
         departureFields = new List<string>();
         
         for (var i = 0; i < chunks[0].Length; i++)

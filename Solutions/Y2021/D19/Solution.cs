@@ -125,8 +125,7 @@ public sealed class Solution : SolutionBase
     
     private Reporting[] ParseReportings()
     {
-        return GetInputLines()
-            .ChunkByNonEmpty()
+        return ChunkInputByNonEmpty()
             .Select(chunk => new Reporting(
                 ScannerId: chunk[0].ParseInt(),
                 Beacons:   chunk[1..].Select(Vec3D.Parse).ToArray()))

@@ -1,4 +1,3 @@
-using Utilities.Extensions;
 using Utilities.Geometry.Euclidean;
 
 namespace Solutions.Y2023.D13;
@@ -8,8 +7,7 @@ public sealed class Solution : SolutionBase
 {
     public override object Run(int part)
     {
-        var grids = GetInputLines()
-            .ChunkByNonEmpty()
+        var grids = ChunkInputByNonEmpty()
             .Select(chunk => chunk.ToGrid());
         
         return part switch

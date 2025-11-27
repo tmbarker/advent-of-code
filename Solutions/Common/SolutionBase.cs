@@ -37,7 +37,7 @@ public abstract class SolutionBase
         return File.ReadAllLines(InputPath);
     }
 
-    protected IList<string[]> ChunkInputByNonEmpty()
+    protected List<string[]> ChunkInputByNonEmpty()
     {
         return GetInputLines().ChunkByNonEmpty();
     }

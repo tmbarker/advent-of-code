@@ -8,8 +8,7 @@ public sealed class Solution : SolutionBase
 {
     public override object Run(int part)
     {
-        var input = GetInputLines();
-        var chunks = input.ChunkByNonEmpty();
+        var chunks = ChunkInputByNonEmpty();
         var graph = new DirectedGraph<int>();
         var total = 0;
 

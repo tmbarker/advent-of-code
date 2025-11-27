@@ -1,5 +1,3 @@
-using Utilities.Extensions;
-
 namespace Solutions.Y2022.D01;
 
 [PuzzleInfo("Calorie Counting", Topics.None, Difficulty.Easy)]
@@ -17,8 +15,7 @@ public sealed class Solution : SolutionBase
 
     private int GetMaxCalories(int num)
     {
-        return GetInputLines()
-            .ChunkByNonEmpty()
+        return ChunkInputByNonEmpty()
             .Select(chunk => chunk.Sum(int.Parse))
             .OrderDescending()
             .Take(num)

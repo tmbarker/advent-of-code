@@ -13,9 +13,7 @@ public sealed class Solution : SolutionBase
 {
     public override object Run(int part)
     {
-        var chunks = GetInputLines()
-            .ChunkByNonEmpty();
-        
+        var chunks = ChunkInputByNonEmpty();
         var workflows = ParseWorkflows(lines: chunks[0]);
         var parts = ParseParts(lines: chunks[1]);
         

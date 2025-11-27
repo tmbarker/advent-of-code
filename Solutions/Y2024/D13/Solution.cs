@@ -27,7 +27,7 @@ public sealed class Solution : SolutionBase
 
     private long Part1(long delta)
     {
-        var chunks = GetInputLines().ChunkByNonEmpty();
+        var chunks = ChunkInputByNonEmpty();
         var tokens = 0L;
 
         foreach (var chunk in chunks)
