@@ -41,6 +41,6 @@ public sealed class Solution : SolutionBase
             }
         }
         
-        return disjointSet.PartitionsCount;
+        return disjointSet.ComponentsCount;
     }
 }
