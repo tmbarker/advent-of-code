@@ -14,6 +14,11 @@ This solution depends on a separate `puzzle-utils` library. To use this `advent-
 
 ## My Favourite Puzzles and Solutions
 
+### 2025
+Puzzle | My Solution | Date | Topic(s) | Difficulty
+:--- | :---: | :---: | :--- | :---
+[Playground](https://adventofcode.com/2025/day/8) | [Solution](https://github.com/tmbarker/advent-of-code/blob/main/Solutions/Y2025/D08/Solution.cs) | 2025-08 | Vectors | :yellow_circle: Medium
+
 ### 2024
 Puzzle | My Solution | Date | Topic(s) | Difficulty
 :--- | :---: | :---: | :--- | :---
