@@ -59,7 +59,7 @@ public sealed class Solution : SolutionBase
         for (var x = 0; x < WindowSize; x++)
         {
             var v = new Vec2D(pixel.X + x - 1, pixel.Y + y - 1);
-            var bitSet = imageRect.Contains(v, false)
+            var bitSet = imageRect.ContainsExclusive(v)
                 ? litInInput.Contains(v)
                 : backgroundLit;
 

@@ -51,7 +51,7 @@ public sealed class Solution : SolutionBase
     private static bool TryNavigate(Vec2D[] bytes, out int steps)
     {
         var exit = new Vec2D(X: 70, Y: 70);
-        var aabb = new Aabb2D(min: Vec2D.Zero, max: exit);
+        var aabb = new Aabb2D(v1: Vec2D.Zero, v2: exit);
         
         var queue = new Queue<Vec2D>([Vec2D.Zero]);
         var visited = new HashSet<Vec2D>([Vec2D.Zero]);

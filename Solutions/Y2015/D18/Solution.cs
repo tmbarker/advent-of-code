@@ -22,8 +22,8 @@ public sealed class Solution : SolutionBase
         var cols = input[0].Length;
         
         var aabb = new Aabb2D(
-            min: new Vec2D(X: 0, Y: 0),
-            max: new Vec2D(X: cols - 1, Y: rows - 1));
+            v1: new Vec2D(X: 0, Y: 0),
+            v2: new Vec2D(X: cols - 1, Y: rows - 1));
         
         var on = new HashSet<Vec2D>();
         var next = new HashSet<Vec2D>();

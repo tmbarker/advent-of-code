@@ -68,7 +68,7 @@ public sealed class Solution : SolutionBase
     private static bool TryStepMember(Vec2D memberAt, Vec2D heading, ICollection<Vec2D> occupied, Aabb2D bounds, out Vec2D movedTo)
     {
         movedTo = memberAt + heading;
-        if (!bounds.Contains(movedTo, true))
+        if (!bounds.ContainsInclusive(movedTo))
         {
             movedTo = new Vec2D(
                 X: movedTo.X.Modulo(bounds.Width),

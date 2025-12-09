@@ -22,8 +22,8 @@ public sealed class Solution : SolutionBase
     {
         var onSet = new HashSet<Vec3D>();
         var initRegion = new Aabb3D(
-            min: Vec3D.Zero - 50 * Vec3D.One,
-            max: Vec3D.Zero + 50 * Vec3D.One);
+            v1: Vec3D.Zero - 50 * Vec3D.One,
+            v2: Vec3D.Zero + 50 * Vec3D.One);
 
         foreach (var step in instructions)
         {

@@ -54,7 +54,7 @@ public sealed class Solution : SolutionBase
             pos += vel;
             vel = StepVelocity(vel);
             
-            if (target.Contains(pos, true))
+            if (target.ContainsInclusive(pos))
             {
                 return true;
             }

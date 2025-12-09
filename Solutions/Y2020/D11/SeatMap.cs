@@ -31,7 +31,7 @@ public sealed class SeatMap : IEnumerable<KeyValuePair<Vec2D, bool>>
     
     public bool IsPosInBounds(Vec2D pos)
     {
-        return _bounds.Contains(pos, inclusive: true);
+        return _bounds.ContainsInclusive(pos);
     }
     
     public int CountOccupied()

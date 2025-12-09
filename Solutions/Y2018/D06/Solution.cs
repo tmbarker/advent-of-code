@@ -47,7 +47,7 @@ public sealed class Solution : SolutionBase
         }
 
         return pois
-            .Where(p => aabb.Contains(p, inclusive: false))
+            .Where(p => aabb.ContainsExclusive(p))
             .Max(poi => areaCounts[poi]);
     }
 
