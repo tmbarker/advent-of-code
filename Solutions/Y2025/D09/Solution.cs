@@ -18,7 +18,7 @@ public sealed class Solution : SolutionBase
 
     private static long Part1(Vec2D[] vertices)
     {
-        var max = long.MinValue;
+        var max = 0L;
         
         for (var i = 1; i < vertices.Length; i++)
         for (var j = 0; j < i;               j++)
@@ -34,23 +34,21 @@ public sealed class Solution : SolutionBase
     private static long Part2(Vec2D[] vertices)
     {
         var max = 0L;
-        var polygon = new RectilinearPolygon(vertices);
+        var polygon = new RectilinearPolygon2D(vertices);
         
         for (var i = 1; i < vertices.Length; i++)
         for (var j = 0; j < i;               j++)
         {
             var vi = vertices[i];
             var vj = vertices[j];
-            var aabb = new Aabb2D(
-                xMin: Math.Min(vi.X, vj.X), xMax: Math.Max(vi.X, vj.X),
-                yMin: Math.Min(vi.Y, vj.Y), yMax: Math.Max(vi.Y, vj.Y));
-                
-            if (polygon.Contains(aabb))
+            var aabb = new Aabb2D(vi, vj);
+
+            if (aabb.Area > max && polygon.Contains(aabb))
             {
-                max = Math.Max(max, aabb.Area);
+                max = aabb.Area;
             }
         }
-        
+
         return max;
     }
 }
