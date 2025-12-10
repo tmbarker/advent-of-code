@@ -15,5 +15,6 @@ public enum Topics
     BitwiseOperations =   1 << 8,
     FormalLanguage =      1 << 9,
     Hashing =             1 << 10,
-    Simulation =          1 << 11
+    Simulation =          1 << 11,
+    LinearProgramming =   1 << 12,
 }

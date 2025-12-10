@@ -8,11 +8,12 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\..\puzzle-utils\Utilities\Utilities.csproj"/>
+        <ProjectReference Include="..\..\puzzle-utils\Utilities\Utilities.csproj" />
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="JetBrains.Annotations" Version="2023.3.0"/>
+        <PackageReference Include="JetBrains.Annotations" Version="2023.3.0" />
+        <PackageReference Include="Microsoft.Z3" Version="4.12.2" />
     </ItemGroup>
 
 </Project>
