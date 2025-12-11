@@ -18,6 +18,7 @@ This solution depends on a separate `puzzle-utils` library. To use this `advent-
 Puzzle | My Solution | Date | Topic(s) | Difficulty
 :--- | :---: | :---: | :--- | :---
 [Playground](https://adventofcode.com/2025/day/8) | [Solution](https://github.com/tmbarker/advent-of-code/blob/main/Solutions/Y2025/D08/Solution.cs) | 2025-08 | Vectors | :yellow_circle: Medium
+[Reactor](https://adventofcode.com/2025/day/11) | [Solution](https://github.com/tmbarker/advent-of-code/blob/main/Solutions/Y2025/D11/Solution.cs) | 2025-11 | Graphs | :yellow_circle: Medium
 
 ### 2024
 Puzzle | My Solution | Date | Topic(s) | Difficulty
